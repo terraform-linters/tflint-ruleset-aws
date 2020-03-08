@@ -1,6 +1,14 @@
-# TFLint Ruleset Template
+# WORKING IN PROGRESS AND MAINTAINER WANTED!
 
-This is a template repository for building a custom ruleset. You can create a plugin repository from "Use this template".
+This project was started to make TFLint pluggable. Everything is working in progress and not available as a plugin.
+
+AWS provider rules are currently integrated into the TFLint core. It will be cut out to this repository in the future, but it doesn't mean that limit the proposal of rules about AWS provider into the core repository.
+
+The migration process will take a long time. Please open an issue to the core repository for the latest proposal.
+
+# TFLint Ruleset for terraform-provider-aws
+
+TFLint ruleset plugin for Terraform AWS Provider
 
 ## Requirements
 
@@ -9,10 +17,10 @@ This is a template repository for building a custom ruleset. You can create a pl
 
 ## Installation
 
-Download the plugin and place it in `~/.tflint.d/plugins/tflint-ruleset-template` (or `./.tflint.d/plugins/tflint-ruleset-template`). When using the plugin, configure as follows in `.tflint.hcl`:
+Download the plugin and place it in `~/.tflint.d/plugins/tflint-ruleset-aws` (or `./.tflint.d/plugins/tflint-ruleset-aws`). When using the plugin, configure as follows in `.tflint.hcl`:
 
 ```hcl
-plugin "template" {
+plugin "aws" {
     enabled = true
 }
 ```
