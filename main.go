@@ -5,6 +5,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/aws"
 	"github.com/terraform-linters/tflint-ruleset-aws/rules"
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/api"
 )
 
 func main() {
@@ -18,6 +19,7 @@ func main() {
 					rules.NewAwsCustomRunnerRule(),
 				},
 			},
+			APIRules: api.Rules,
 		},
 	})
 }
