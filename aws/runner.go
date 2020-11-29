@@ -19,8 +19,12 @@ type Runner struct {
 func NewRunner(runner tflint.Runner, config *Config) (*Runner, error) {
 	var client *Client
 	if config.DeepCheck {
-		var err error
-		client, err = NewClient(config.toCredentials())
+		credentials, err := GetCredentialsFromProvider(runner)
+		if err != nil {
+			return nil, err
+		}
+
+		client, err = NewClient(config.toCredentials().Merge(credentials))
 		if err != nil {
 			return nil, err
 		}
