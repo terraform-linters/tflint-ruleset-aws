@@ -107,3 +107,35 @@ func formatBaseConfigError(err error) error {
 	}
 	return err
 }
+
+// Merge returns a merged credentials
+func (c Credentials) Merge(other Credentials) Credentials {
+	if other.AccessKey != "" {
+		c.AccessKey = other.AccessKey
+	}
+	if other.SecretKey != "" {
+		c.SecretKey = other.SecretKey
+	}
+	if other.Profile != "" {
+		c.Profile = other.Profile
+	}
+	if other.CredsFile != "" {
+		c.CredsFile = other.CredsFile
+	}
+	if other.Region != "" {
+		c.Region = other.Region
+	}
+	if other.AssumeRoleARN != "" {
+		c.AssumeRoleARN = other.AssumeRoleARN
+	}
+	if other.AssumeRoleSessionName != "" {
+		c.AssumeRoleSessionName = other.AssumeRoleSessionName
+	}
+	if other.AssumeRoleExternalID != "" {
+		c.AssumeRoleExternalID = other.AssumeRoleExternalID
+	}
+	if other.AssumeRolePolicy != "" {
+		c.AssumeRolePolicy = other.AssumeRolePolicy
+	}
+	return c
+}
