@@ -1,9 +1,7 @@
 package aws
 
 import (
-	"errors"
 	"log"
-	"strings"
 
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/aws/aws-sdk-go/service/ec2/ec2iface"
@@ -67,7 +65,7 @@ func NewClient(creds Credentials) (*Client, error) {
 
 	s, err := awsbase.GetSession(config)
 	if err != nil {
-		return nil, formatBaseConfigError(err)
+		return nil, err
 	}
 
 	return &Client{
@@ -88,24 +86,18 @@ func getBaseConfig(creds Credentials) (*awsbase.Config, error) {
 	}
 
 	return &awsbase.Config{
-		AccessKey:             creds.AccessKey,
-		AssumeRoleARN:         creds.AssumeRoleARN,
-		AssumeRoleExternalID:  creds.AssumeRoleExternalID,
-		AssumeRolePolicy:      creds.AssumeRolePolicy,
-		AssumeRoleSessionName: creds.AssumeRoleSessionName,
-		SecretKey:             creds.SecretKey,
-		Profile:               creds.Profile,
-		CredsFilename:         expandedCredsFile,
-		Region:                creds.Region,
+		AccessKey:              creds.AccessKey,
+		AssumeRoleARN:          creds.AssumeRoleARN,
+		AssumeRoleExternalID:   creds.AssumeRoleExternalID,
+		AssumeRolePolicy:       creds.AssumeRolePolicy,
+		AssumeRoleSessionName:  creds.AssumeRoleSessionName,
+		SecretKey:              creds.SecretKey,
+		Profile:                creds.Profile,
+		CredsFilename:          expandedCredsFile,
+		Region:                 creds.Region,
+		CallerName:             "tflint-ruleset-aws",
+		CallerDocumentationURL: "https://github.com/terraform-linters/tflint-ruleset-aws/blob/master/docs/deep_checking.md",
 	}, nil
-}
-
-// @see https://github.com/hashicorp/aws-sdk-go-base/blob/v0.3.0/session.go#L87
-func formatBaseConfigError(err error) error {
-	if strings.Contains(err.Error(), "No valid credential sources found for AWS Provider") {
-		return errors.New("No valid credential sources found")
-	}
-	return err
 }
 
 // Merge returns a merged credentials
