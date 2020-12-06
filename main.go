@@ -14,10 +14,7 @@ func main() {
 			BuiltinRuleSet: tflint.BuiltinRuleSet{
 				Name:    "aws",
 				Version: "0.1.0",
-				Rules: []tflint.Rule{
-					rules.NewAwsInstanceExampleTypeRule(),
-					rules.NewAwsCustomRunnerRule(),
-				},
+				Rules:   rules.Rules,
 			},
 			APIRules: api.Rules,
 		},

@@ -59,8 +59,3 @@ func (r *Runner) EachStringSliceExprs(expr hcl.Expression, proc func(val string,
 		return nil
 	})
 }
-
-// CustomCall is ...
-func (r *Runner) CustomCall() string {
-	return fmt.Sprintf("config=%#v", r.PluginConfig)
-}
