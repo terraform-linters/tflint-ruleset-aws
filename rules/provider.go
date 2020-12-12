@@ -8,4 +8,5 @@ import (
 // Rules is a list of all rules
 var Rules = append([]tflint.Rule{
 	NewAwsInstanceExampleTypeRule(),
+	NewAwsResourceMissingTagsRule(),
 }, models.Rules...)
