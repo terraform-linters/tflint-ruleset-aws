@@ -73,7 +73,7 @@ func (r *AwsAPIGatewayGatewayResponseInvalidResponseTypeRule) Check(runner tflin
 
 	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
 		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val)
+		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
 		return runner.EnsureNoError(err, func() error {
 			found := false

@@ -72,7 +72,7 @@ func (r *AwsElastiCacheClusterInvalidParameterGroupRule) Check(rr tflint.Runner)
 		}
 
 		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val)
+		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
 		return runner.EnsureNoError(err, func() error {
 			if !r.data[val] {
