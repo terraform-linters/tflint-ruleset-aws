@@ -1,7 +1,6 @@
 package aws
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/hashicorp/hcl/v2"
@@ -42,7 +41,7 @@ func NewRunner(runner tflint.Runner, config *Config) (*Runner, error) {
 // If not, the given expression is used as it is
 func (r *Runner) EachStringSliceExprs(expr hcl.Expression, proc func(val string, expr hcl.Expression)) error {
 	var vals []string
-	err := r.EvaluateExpr(expr, &vals)
+	err := r.EvaluateExpr(expr, &vals, nil)
 
 	exprs, diags := hcl.ExprList(expr)
 	if diags.HasErrors() {

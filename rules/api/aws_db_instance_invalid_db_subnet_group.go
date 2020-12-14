@@ -72,7 +72,7 @@ func (r *AwsDBInstanceInvalidDBSubnetGroupRule) Check(rr tflint.Runner) error {
 		}
 
 		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val)
+		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
 		return runner.EnsureNoError(err, func() error {
 			if !r.data[val] {

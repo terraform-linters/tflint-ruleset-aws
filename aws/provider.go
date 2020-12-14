@@ -168,7 +168,7 @@ func (d *ProviderData) Get(key string) (string, bool, error) {
 	}
 
 	var val string
-	err := d.runner.EvaluateExprOnRootCtx(attribute.Expr, &val)
+	err := d.runner.EvaluateExprOnRootCtx(attribute.Expr, &val, nil)
 
 	err = d.runner.EnsureNoError(err, func() error { return nil })
 	if err != nil {
