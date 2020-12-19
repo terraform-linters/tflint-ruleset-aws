@@ -7,6 +7,20 @@ import (
 
 // Rules is a list of all rules
 var Rules = append([]tflint.Rule{
-	NewAwsInstanceExampleTypeRule(),
+	NewAwsDBInstanceDefaultParameterGroupRule(),
+	NewAwsDBInstanceInvalidTypeRule(),
+	NewAwsDBInstancePreviousTypeRule(),
+	NewAwsDynamoDBTableInvalidStreamViewTypeRule(),
+	NewAwsElastiCacheClusterDefaultParameterGroupRule(),
+	NewAwsElastiCacheClusterInvalidTypeRule(),
+	NewAwsElastiCacheClusterPreviousTypeRule(),
+	NewAwsInstancePreviousTypeRule(),
+	NewAwsMqBrokerInvalidEngineTypeRule(),
+	NewAwsMqConfigurationInvalidEngineTypeRule(),
 	NewAwsResourceMissingTagsRule(),
+	NewAwsS3BucketInvalidACLRule(),
+	NewAwsS3BucketInvalidRegionRule(),
+	NewAwsS3BucketNameRule(),
+	NewAwsSpotFleetRequestInvalidExcessCapacityTerminationPolicyRule(),
+	NewAwsInstanceExampleTypeRule(),
 }, models.Rules...)
