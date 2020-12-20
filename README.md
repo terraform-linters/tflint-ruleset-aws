@@ -1,19 +1,13 @@
-# WORKING IN PROGRESS AND MAINTAINER WANTED!
-
-This project was started to make TFLint pluggable. Everything is working in progress and not available as a plugin.
-
-AWS provider rules are currently integrated into the TFLint core. It will be cut out to this repository in the future, but it doesn't mean that limit the proposal of rules about AWS provider into the core repository.
-
-The migration process will take a long time. Please open an issue to the core repository for the latest proposal.
-
 # TFLint Ruleset for terraform-provider-aws
 
 TFLint ruleset plugin for Terraform AWS Provider
 
+This ruleset focus on possible errors and best practices about AWS resources. Many rules are enabled by default and warn against code that might fail when running `terraform apply`, or clearly unrecommened.
+
 ## Requirements
 
-- TFLint v0.14+
-- Go v1.13
+- TFLint v0.23+
+- Go v1.15
 
 ## Installation
 
@@ -25,11 +19,11 @@ plugin "aws" {
 }
 ```
 
+For more configuration about the plugin, see [Plugin Configuration](docs/configuration.md).
+
 ## Rules
 
-|Name|Description|Severity|Enabled|Link|
-| --- | --- | --- | --- | --- |
-|aws_instance_example_type|Show instance type|ERROR|✔||
+700+ rules are available. See [Rules](docs/rules/README.md).
 
 ## Building the plugin
 
