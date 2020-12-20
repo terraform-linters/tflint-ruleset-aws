@@ -24,5 +24,4 @@ var Rules = append([]tflint.Rule{
 	NewAwsS3BucketInvalidRegionRule(),
 	NewAwsS3BucketNameRule(),
 	NewAwsSpotFleetRequestInvalidExcessCapacityTerminationPolicyRule(),
-	NewAwsInstanceExampleTypeRule(),
 }, models.Rules...)
