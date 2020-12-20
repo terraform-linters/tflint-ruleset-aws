@@ -1,4 +1,7 @@
 # TFLint Ruleset for terraform-provider-aws
+[![Build Status](https://github.com/terraform-linters/tflint-ruleset-aws/workflows/build/badge.svg?branch=master)](https://github.com/terraform-linters/tflint-ruleset-aws/actions)
+[![GitHub release](https://img.shields.io/github/release/terraform-linters/tflint-ruleset-aws.svg)](https://github.com/terraform-linters/tflint-ruleset-aws/releases/latest)
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-blue.svg)](LICENSE)
 
 TFLint ruleset plugin for Terraform AWS Provider
 

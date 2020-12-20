@@ -1,0 +1,18 @@
+name: generated-code
+
+on: pull_request
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+      with:
+        submodules: true
+    - name: Set up Go
+      uses: actions/setup-go@v2.1.3
+      with:
+        go-version: 1.15
+    - name: go generate and diff checks
+      run: go generate ./... && git diff --exit-code
