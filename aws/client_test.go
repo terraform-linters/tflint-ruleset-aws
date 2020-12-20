@@ -28,9 +28,11 @@ func Test_getBaseConfig(t *testing.T) {
 				Region:    "us-east-1",
 			},
 			Expected: &awsbase.Config{
-				AccessKey: "AWS_ACCESS_KEY",
-				SecretKey: "AWS_SECRET_KEY",
-				Region:    "us-east-1",
+				AccessKey:              "AWS_ACCESS_KEY",
+				SecretKey:              "AWS_SECRET_KEY",
+				Region:                 "us-east-1",
+				CallerDocumentationURL: "https://github.com/terraform-linters/tflint-ruleset-aws/blob/master/docs/deep_checking.md",
+				CallerName:             "tflint-ruleset-aws",
 			},
 		},
 		{
@@ -41,9 +43,11 @@ func Test_getBaseConfig(t *testing.T) {
 				Region:    "us-east-1",
 			},
 			Expected: &awsbase.Config{
-				Profile:       "default",
-				CredsFilename: filepath.Join(home, ".aws", "creds"),
-				Region:        "us-east-1",
+				Profile:                "default",
+				CredsFilename:          filepath.Join(home, ".aws", "creds"),
+				Region:                 "us-east-1",
+				CallerDocumentationURL: "https://github.com/terraform-linters/tflint-ruleset-aws/blob/master/docs/deep_checking.md",
+				CallerName:             "tflint-ruleset-aws",
 			},
 		},
 	}
