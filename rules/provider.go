@@ -18,6 +18,8 @@ var Rules = append([]tflint.Rule{
 	NewAwsMqBrokerInvalidEngineTypeRule(),
 	NewAwsMqConfigurationInvalidEngineTypeRule(),
 	NewAwsResourceMissingTagsRule(),
+	NewAwsRouteNotSpecifiedTargetRule(),
+	NewAwsRouteSpecifiedMultipleTargetsRule(),
 	NewAwsS3BucketInvalidACLRule(),
 	NewAwsS3BucketInvalidRegionRule(),
 	NewAwsS3BucketNameRule(),
