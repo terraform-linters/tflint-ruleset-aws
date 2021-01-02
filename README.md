@@ -24,6 +24,27 @@ plugin "aws" {
 
 For more configuration about the plugin, see [Plugin Configuration](docs/configuration.md).
 
+**NOTE:** This plugin is bundled with the TFLint binary for backward compatibility, so you can use it without installing it separately. And it is automatically enabled when your Terraform configuration requires AWS provider.
+
+## Getting Started
+
+Terraform is a great tool for Infrastructure as Code. However, many of these tools don't validate provider-specific issues. For example, see the following configuration file:
+
+```hcl
+resource "aws_instance" "foo" {
+  ami           = "ami-0ff8a91507f77f867"
+  instance_type = "t1.2xlarge" # invalid type!
+}
+```
+
+Since `t1.2xlarge` is an invalid instance type, an error will occur when you run `terraform apply`. But `terraform validate` and `terraform plan` cannot find this possible error in advance. That's because it's an AWS provider-specific issue and it's valid as the Terraform Language.
+
+The goal of this ruleset is to find such errors:
+
+![demo](docs/assets/demo.gif)
+
+By running TFLint with this ruleset in advance, you can fix the problem before the error occurs in production CI/CD pipelines.
+
 ## Rules
 
 700+ rules are available. See [Rules](docs/rules/README.md).
