@@ -13,7 +13,7 @@ require (
 	github.com/onsi/ginkgo v1.14.2 // indirect
 	github.com/onsi/gomega v1.10.4 // indirect
 	github.com/serenize/snaker v0.0.0-20201027110005-a7ad2135616e
-	github.com/terraform-linters/tflint-plugin-sdk v0.6.1-0.20210102141352-e72064bf511b
+	github.com/terraform-linters/tflint-plugin-sdk v0.7.0
 	github.com/terraform-providers/terraform-provider-aws v1.60.1-0.20201218215723-9c9a116a857f
 	github.com/zclconf/go-cty v1.7.1
 )
