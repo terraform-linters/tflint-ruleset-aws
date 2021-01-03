@@ -35,6 +35,7 @@ func NewAwsRoute53RecordInvalidTypeRule() *AwsRoute53RecordInvalidTypeRule {
 			"SPF",
 			"AAAA",
 			"CAA",
+			"DS",
 		},
 	}
 }

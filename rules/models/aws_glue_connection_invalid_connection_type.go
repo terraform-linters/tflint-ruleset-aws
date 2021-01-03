@@ -28,6 +28,8 @@ func NewAwsGlueConnectionInvalidConnectionTypeRule() *AwsGlueConnectionInvalidCo
 			"MONGODB",
 			"KAFKA",
 			"NETWORK",
+			"MARKETPLACE",
+			"CUSTOM",
 		},
 	}
 }
