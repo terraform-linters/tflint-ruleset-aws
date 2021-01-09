@@ -7,7 +7,7 @@ Ensures all S3 bucket names match the specified naming rules.
 ```hcl
 rule "aws_s3_bucket_name" {
   enabled = true
-  regex = "[a-z\-]+"
+  regex = "^[a-z\\-]+$"
   prefix = "my-org"
 }
 ```
