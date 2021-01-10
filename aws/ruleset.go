@@ -14,6 +14,18 @@ type RuleSet struct {
 	config   *Config
 }
 
+// RuleNames is a list of rule names provided by the plugin.
+func (r *RuleSet) RuleNames() []string {
+	names := []string{}
+	for _, rule := range r.Rules {
+		names = append(names, rule.Name())
+	}
+	for _, rule := range r.APIRules {
+		names = append(names, rule.Name())
+	}
+	return names
+}
+
 // ApplyConfig reflects the plugin configuration to the ruleset.
 func (r *RuleSet) ApplyConfig(config *tflint.Config) error {
 	r.ApplyCommonConfig(config)
