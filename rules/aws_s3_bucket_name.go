@@ -19,6 +19,8 @@ type AwsS3BucketNameRule struct {
 type awsS3BucketNameConfig struct {
 	Regex  string `hcl:"regex,optional"`
 	Prefix string `hcl:"prefix,optional"`
+
+	Remain hcl.Body `hcl:",remain"`
 }
 
 // NewAwsS3BucketNameRule returns a new rule with default attributes
