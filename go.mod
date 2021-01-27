@@ -8,7 +8,7 @@ require (
 	github.com/google/go-cmp v0.5.4
 	github.com/hashicorp/aws-sdk-go-base v0.7.0
 	github.com/hashicorp/hcl/v2 v2.8.2
-	github.com/hashicorp/terraform-plugin-sdk/v2 v2.4.0
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.4.2
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/onsi/ginkgo v1.14.2 // indirect
 	github.com/onsi/gomega v1.10.4 // indirect
