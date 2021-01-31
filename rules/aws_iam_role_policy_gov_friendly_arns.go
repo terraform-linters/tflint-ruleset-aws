@@ -7,6 +7,7 @@ import (
 
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
+	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
 
 // AwsIAMRolePolicyGovFriendlyArnsRule checks for non-GovCloud arns
@@ -44,7 +45,7 @@ func (r *AwsIAMRolePolicyGovFriendlyArnsRule) Severity() string {
 
 // Link returns the rule reference link
 func (r *AwsIAMRolePolicyGovFriendlyArnsRule) Link() string {
-	return ""
+	return project.ReferenceLink(r.Name())
 }
 
 // Check checks the pattern is valid

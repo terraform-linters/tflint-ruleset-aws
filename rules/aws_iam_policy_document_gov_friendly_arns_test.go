@@ -79,6 +79,10 @@ resource "aws_iam_policy_document" "example" {
 	resources = [
 	  "*",
 	]
+	principals {
+	  type        = "Service"
+	  identifiers = ["firehose.amazonaws.com"]
+	}
   }
 }`,
 			Config: `

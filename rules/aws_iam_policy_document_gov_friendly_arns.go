@@ -7,6 +7,7 @@ import (
 
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
+	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
 
 const statementBlockName = "statement"
@@ -46,26 +47,30 @@ func (r *AwsIAMPolicyDocumentGovFriendlyArnsRule) Severity() string {
 
 // Link returns the rule reference link
 func (r *AwsIAMPolicyDocumentGovFriendlyArnsRule) Link() string {
-	return ""
+	return project.ReferenceLink(r.Name())
 }
 
 // Check checks the pattern is valid
 func (r *AwsIAMPolicyDocumentGovFriendlyArnsRule) Check(runner tflint.Runner) error {
 	log.Printf("[TRACE] Check `%s` rule", r.Name())
 	return runner.WalkResourceBlocks(r.resourceType, statementBlockName, func(statementBlock *hcl.Block) error {
-		attributes, diags := statementBlock.Body.JustAttributes()
+		content, _, diags := statementBlock.Body.PartialContent(&hcl.BodySchema{
+			Attributes: []hcl.AttributeSchema{
+				{Name: r.attributeName},
+			},
+		})
 		if diags.HasErrors() {
 			return diags
 		}
 		var val []string
-		err := runner.EvaluateExpr(attributes[r.attributeName].Expr, &val, nil)
+		err := runner.EvaluateExpr(content.Attributes[r.attributeName].Expr, &val, nil)
 		return runner.EnsureNoError(err, func() error {
 			for _, arn := range val {
 				if r.pattern.MatchString(arn) {
 					runner.EmitIssueOnExpr(
 						r,
 						fmt.Sprintf(`ARN detected in IAM policy document that could potentially fail in AWS GovCloud due to resource pattern: %s`, r.pattern),
-						attributes[r.attributeName].Expr,
+						content.Attributes[r.attributeName].Expr,
 					)
 				}
 			}

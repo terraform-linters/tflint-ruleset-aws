@@ -13,7 +13,7 @@ rule "aws_iam_policy_document_gov_friendly" {
 ## Examples
 
 ```hcl
-resource "aws_iam_policy_document" "example" {
+data "aws_iam_policy_document" "example" {
   statement {
     sid = "1"
     actions = [
