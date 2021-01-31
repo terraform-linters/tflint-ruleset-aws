@@ -1,5 +1,7 @@
 ## 0.2.0 (2021-01-31)
 
+The minimum supported version of TFLint has changed in this version. TFLint v0.24.0+ is required for this plugin to work.
+
 ### Breaking Changes
 
 - [#58](https://github.com/terraform-linters/tflint-ruleset-aws/pull/58): Bump tflint-plugin-sdk to v0.8.0
