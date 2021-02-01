@@ -2,7 +2,7 @@
 
 ### BugFixes
 
-- [#59](https://github.com/terraform-linters/tflint-ruleset-aws/pull/59): Bump tflint-plugin-sdk to v0.8.1
+- [#59](https://github.com/terraform-linters/tflint-ruleset-aws/pull/59): Check EnabledRules instead of Rules
 
 ## 0.2.0 (2021-01-31)
 
