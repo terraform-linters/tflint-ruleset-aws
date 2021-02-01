@@ -30,12 +30,28 @@ func (r *RuleSet) RuleNames() []string {
 func (r *RuleSet) ApplyConfig(config *tflint.Config) error {
 	r.ApplyCommonConfig(config)
 
+	// Apply "plugin" block config
 	cfg := Config{}
 	diags := gohcl.DecodeBody(config.Body, nil, &cfg)
 	if diags.HasErrors() {
 		return diags
 	}
 	r.config = &cfg
+
+	// Apply config for API rules
+	for _, rule := range r.APIRules {
+		enabled := rule.Enabled()
+		if cfg := config.Rules[rule.Name()]; cfg != nil {
+			enabled = cfg.Enabled
+		} else if config.DisabledByDefault {
+			enabled = false
+		}
+
+		if cfg.DeepCheck && enabled {
+			r.EnabledRules = append(r.EnabledRules, rule)
+		}
+	}
+
 	return nil
 }
 
@@ -46,16 +62,7 @@ func (r *RuleSet) Check(rr tflint.Runner) error {
 		return err
 	}
 
-	for _, rule := range r.Rules {
-		if err := rule.Check(runner); err != nil {
-			return fmt.Errorf("Failed to check `%s` rule: %s", rule.Name(), err)
-		}
-	}
-	if !r.config.DeepCheck {
-		return nil
-	}
-
-	for _, rule := range r.APIRules {
+	for _, rule := range r.EnabledRules {
 		if err := rule.Check(runner); err != nil {
 			return fmt.Errorf("Failed to check `%s` rule: %s", rule.Name(), err)
 		}
