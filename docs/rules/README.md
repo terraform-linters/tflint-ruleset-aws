@@ -22,6 +22,9 @@ These rules warn of possible errors that can occur at `terraform apply`. Rules m
 |aws_elb_invalid_instance|✔|
 |aws_elb_invalid_security_group|✔|
 |aws_elb_invalid_subnet|✔|
+|[aws_iam_policy_document_gov_friendly](aws_iam_policy_document_gov_friendly.md)||
+|[aws_iam_policy_gov_friendly](aws_iam_policy_gov_friendly.md)||
+|[aws_iam_role_policy_gov_friendly](aws_iam_role_policy_gov_friendly.md)||
 |aws_instance_invalid_ami|✔|
 |aws_instance_invalid_iam_profile|✔|
 |aws_instance_invalid_key_name|✔|
