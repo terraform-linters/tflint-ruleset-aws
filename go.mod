@@ -3,7 +3,7 @@ module github.com/terraform-linters/tflint-ruleset-aws
 go 1.15
 
 require (
-	github.com/aws/aws-sdk-go v1.37.1
+	github.com/aws/aws-sdk-go v1.37.6
 	github.com/golang/mock v1.4.4
 	github.com/google/go-cmp v0.5.4
 	github.com/hashicorp/aws-sdk-go-base v0.7.0
