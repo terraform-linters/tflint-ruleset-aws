@@ -42,7 +42,7 @@ func NewAwsDBInstanceInvalidEngineRule() *AwsDBInstanceInvalidEngineRule {
 
 // Name returns the rule name
 func (r *AwsDBInstanceInvalidEngineRule) Name() string {
-	return "aws_db_instance_invalid_type"
+	return "aws_db_instance_invalid_engine"
 }
 
 // Enabled returns whether the rule is enabled by default
