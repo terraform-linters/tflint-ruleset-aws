@@ -11,6 +11,7 @@ These rules warn of possible errors that can occur at `terraform apply`. Rules m
 |aws_alb_invalid_security_group|✔|
 |aws_alb_invalid_subnet|✔|
 |aws_db_instance_invalid_db_subnet_group|✔|
+|[aws_db_instance_invalid_engine](aws_db_instance_invalid_engine.md)||
 |aws_db_instance_invalid_option_group|✔|
 |aws_db_instance_invalid_parameter_group|✔|
 |aws_db_instance_invalid_type||
