@@ -45,5 +45,5 @@ func GenerateFile(fileName string, tmplName string, meta interface{}) {
 // The difference from GenerateFile function is to output logs
 func GenerateFileWithLogs(fileName string, tmplName string, meta interface{}) {
 	GenerateFile(fileName, tmplName, meta)
-	fmt.Printf("Create: %s\n", fileName)
+	fmt.Printf("Created: %s\n", fileName)
 }
