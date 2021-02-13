@@ -14,7 +14,7 @@ These rules warn of possible errors that can occur at `terraform apply`. Rules m
 |[aws_db_instance_invalid_engine](aws_db_instance_invalid_engine.md)||
 |aws_db_instance_invalid_option_group|✔|
 |aws_db_instance_invalid_parameter_group|✔|
-|aws_db_instance_invalid_type||
+|[aws_db_instance_invalid_type](aws_db_instance_invalid_type.md)||
 |aws_db_instance_invalid_vpc_security_group|✔|
 |aws_elasticache_cluster_invalid_parameter_group|✔|
 |aws_elasticache_cluster_invalid_security_group|✔|
