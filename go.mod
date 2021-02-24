@@ -5,7 +5,7 @@ go 1.15
 require (
 	github.com/aws/aws-sdk-go v1.37.15
 	github.com/dave/dst v0.26.2
-	github.com/golang/mock v1.4.4
+	github.com/golang/mock v1.5.0
 	github.com/google/go-cmp v0.5.4
 	github.com/hashicorp/aws-sdk-go-base v0.7.0
 	github.com/hashicorp/hcl/v2 v2.8.2
