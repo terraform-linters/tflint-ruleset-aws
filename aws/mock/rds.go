@@ -5457,6 +5457,56 @@ func (mr *MockRDSAPIMockRecorder) FailoverDBClusterWithContext(arg0, arg1 interf
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FailoverDBClusterWithContext", reflect.TypeOf((*MockRDSAPI)(nil).FailoverDBClusterWithContext), varargs...)
 }
 
+// FailoverGlobalCluster mocks base method
+func (m *MockRDSAPI) FailoverGlobalCluster(arg0 *rds.FailoverGlobalClusterInput) (*rds.FailoverGlobalClusterOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "FailoverGlobalCluster", arg0)
+	ret0, _ := ret[0].(*rds.FailoverGlobalClusterOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// FailoverGlobalCluster indicates an expected call of FailoverGlobalCluster
+func (mr *MockRDSAPIMockRecorder) FailoverGlobalCluster(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FailoverGlobalCluster", reflect.TypeOf((*MockRDSAPI)(nil).FailoverGlobalCluster), arg0)
+}
+
+// FailoverGlobalClusterRequest mocks base method
+func (m *MockRDSAPI) FailoverGlobalClusterRequest(arg0 *rds.FailoverGlobalClusterInput) (*request.Request, *rds.FailoverGlobalClusterOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "FailoverGlobalClusterRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.FailoverGlobalClusterOutput)
+	return ret0, ret1
+}
+
+// FailoverGlobalClusterRequest indicates an expected call of FailoverGlobalClusterRequest
+func (mr *MockRDSAPIMockRecorder) FailoverGlobalClusterRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FailoverGlobalClusterRequest", reflect.TypeOf((*MockRDSAPI)(nil).FailoverGlobalClusterRequest), arg0)
+}
+
+// FailoverGlobalClusterWithContext mocks base method
+func (m *MockRDSAPI) FailoverGlobalClusterWithContext(arg0 context.Context, arg1 *rds.FailoverGlobalClusterInput, arg2 ...request.Option) (*rds.FailoverGlobalClusterOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "FailoverGlobalClusterWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.FailoverGlobalClusterOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// FailoverGlobalClusterWithContext indicates an expected call of FailoverGlobalClusterWithContext
+func (mr *MockRDSAPIMockRecorder) FailoverGlobalClusterWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FailoverGlobalClusterWithContext", reflect.TypeOf((*MockRDSAPI)(nil).FailoverGlobalClusterWithContext), varargs...)
+}
+
 // ImportInstallationMedia mocks base method
 func (m *MockRDSAPI) ImportInstallationMedia(arg0 *rds.ImportInstallationMediaInput) (*rds.ImportInstallationMediaOutput, error) {
 	m.ctrl.T.Helper()

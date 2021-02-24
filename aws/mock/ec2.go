@@ -8150,6 +8150,89 @@ func (mr *MockEC2APIMockRecorder) DescribeAddresses(arg0 interface{}) *gomock.Ca
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeAddresses", reflect.TypeOf((*MockEC2API)(nil).DescribeAddresses), arg0)
 }
 
+// DescribeAddressesAttribute mocks base method
+func (m *MockEC2API) DescribeAddressesAttribute(arg0 *ec2.DescribeAddressesAttributeInput) (*ec2.DescribeAddressesAttributeOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeAddressesAttribute", arg0)
+	ret0, _ := ret[0].(*ec2.DescribeAddressesAttributeOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeAddressesAttribute indicates an expected call of DescribeAddressesAttribute
+func (mr *MockEC2APIMockRecorder) DescribeAddressesAttribute(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeAddressesAttribute", reflect.TypeOf((*MockEC2API)(nil).DescribeAddressesAttribute), arg0)
+}
+
+// DescribeAddressesAttributePages mocks base method
+func (m *MockEC2API) DescribeAddressesAttributePages(arg0 *ec2.DescribeAddressesAttributeInput, arg1 func(*ec2.DescribeAddressesAttributeOutput, bool) bool) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeAddressesAttributePages", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeAddressesAttributePages indicates an expected call of DescribeAddressesAttributePages
+func (mr *MockEC2APIMockRecorder) DescribeAddressesAttributePages(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeAddressesAttributePages", reflect.TypeOf((*MockEC2API)(nil).DescribeAddressesAttributePages), arg0, arg1)
+}
+
+// DescribeAddressesAttributePagesWithContext mocks base method
+func (m *MockEC2API) DescribeAddressesAttributePagesWithContext(arg0 context.Context, arg1 *ec2.DescribeAddressesAttributeInput, arg2 func(*ec2.DescribeAddressesAttributeOutput, bool) bool, arg3 ...request.Option) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1, arg2}
+	for _, a := range arg3 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeAddressesAttributePagesWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeAddressesAttributePagesWithContext indicates an expected call of DescribeAddressesAttributePagesWithContext
+func (mr *MockEC2APIMockRecorder) DescribeAddressesAttributePagesWithContext(arg0, arg1, arg2 interface{}, arg3 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1, arg2}, arg3...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeAddressesAttributePagesWithContext", reflect.TypeOf((*MockEC2API)(nil).DescribeAddressesAttributePagesWithContext), varargs...)
+}
+
+// DescribeAddressesAttributeRequest mocks base method
+func (m *MockEC2API) DescribeAddressesAttributeRequest(arg0 *ec2.DescribeAddressesAttributeInput) (*request.Request, *ec2.DescribeAddressesAttributeOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeAddressesAttributeRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.DescribeAddressesAttributeOutput)
+	return ret0, ret1
+}
+
+// DescribeAddressesAttributeRequest indicates an expected call of DescribeAddressesAttributeRequest
+func (mr *MockEC2APIMockRecorder) DescribeAddressesAttributeRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeAddressesAttributeRequest", reflect.TypeOf((*MockEC2API)(nil).DescribeAddressesAttributeRequest), arg0)
+}
+
+// DescribeAddressesAttributeWithContext mocks base method
+func (m *MockEC2API) DescribeAddressesAttributeWithContext(arg0 context.Context, arg1 *ec2.DescribeAddressesAttributeInput, arg2 ...request.Option) (*ec2.DescribeAddressesAttributeOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeAddressesAttributeWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.DescribeAddressesAttributeOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeAddressesAttributeWithContext indicates an expected call of DescribeAddressesAttributeWithContext
+func (mr *MockEC2APIMockRecorder) DescribeAddressesAttributeWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeAddressesAttributeWithContext", reflect.TypeOf((*MockEC2API)(nil).DescribeAddressesAttributeWithContext), varargs...)
+}
+
 // DescribeAddressesRequest mocks base method
 func (m *MockEC2API) DescribeAddressesRequest(arg0 *ec2.DescribeAddressesInput) (*request.Request, *ec2.DescribeAddressesOutput) {
 	m.ctrl.T.Helper()
@@ -20004,6 +20087,56 @@ func (mr *MockEC2APIMockRecorder) ImportVolumeWithContext(arg0, arg1 interface{}
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ImportVolumeWithContext", reflect.TypeOf((*MockEC2API)(nil).ImportVolumeWithContext), varargs...)
 }
 
+// ModifyAddressAttribute mocks base method
+func (m *MockEC2API) ModifyAddressAttribute(arg0 *ec2.ModifyAddressAttributeInput) (*ec2.ModifyAddressAttributeOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ModifyAddressAttribute", arg0)
+	ret0, _ := ret[0].(*ec2.ModifyAddressAttributeOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ModifyAddressAttribute indicates an expected call of ModifyAddressAttribute
+func (mr *MockEC2APIMockRecorder) ModifyAddressAttribute(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyAddressAttribute", reflect.TypeOf((*MockEC2API)(nil).ModifyAddressAttribute), arg0)
+}
+
+// ModifyAddressAttributeRequest mocks base method
+func (m *MockEC2API) ModifyAddressAttributeRequest(arg0 *ec2.ModifyAddressAttributeInput) (*request.Request, *ec2.ModifyAddressAttributeOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ModifyAddressAttributeRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.ModifyAddressAttributeOutput)
+	return ret0, ret1
+}
+
+// ModifyAddressAttributeRequest indicates an expected call of ModifyAddressAttributeRequest
+func (mr *MockEC2APIMockRecorder) ModifyAddressAttributeRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyAddressAttributeRequest", reflect.TypeOf((*MockEC2API)(nil).ModifyAddressAttributeRequest), arg0)
+}
+
+// ModifyAddressAttributeWithContext mocks base method
+func (m *MockEC2API) ModifyAddressAttributeWithContext(arg0 context.Context, arg1 *ec2.ModifyAddressAttributeInput, arg2 ...request.Option) (*ec2.ModifyAddressAttributeOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ModifyAddressAttributeWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.ModifyAddressAttributeOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ModifyAddressAttributeWithContext indicates an expected call of ModifyAddressAttributeWithContext
+func (mr *MockEC2APIMockRecorder) ModifyAddressAttributeWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyAddressAttributeWithContext", reflect.TypeOf((*MockEC2API)(nil).ModifyAddressAttributeWithContext), varargs...)
+}
+
 // ModifyAvailabilityZoneGroup mocks base method
 func (m *MockEC2API) ModifyAvailabilityZoneGroup(arg0 *ec2.ModifyAvailabilityZoneGroupInput) (*ec2.ModifyAvailabilityZoneGroupOutput, error) {
 	m.ctrl.T.Helper()
@@ -23502,6 +23635,56 @@ func (mr *MockEC2APIMockRecorder) RequestSpotInstancesWithContext(arg0, arg1 int
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RequestSpotInstancesWithContext", reflect.TypeOf((*MockEC2API)(nil).RequestSpotInstancesWithContext), varargs...)
+}
+
+// ResetAddressAttribute mocks base method
+func (m *MockEC2API) ResetAddressAttribute(arg0 *ec2.ResetAddressAttributeInput) (*ec2.ResetAddressAttributeOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ResetAddressAttribute", arg0)
+	ret0, _ := ret[0].(*ec2.ResetAddressAttributeOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ResetAddressAttribute indicates an expected call of ResetAddressAttribute
+func (mr *MockEC2APIMockRecorder) ResetAddressAttribute(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ResetAddressAttribute", reflect.TypeOf((*MockEC2API)(nil).ResetAddressAttribute), arg0)
+}
+
+// ResetAddressAttributeRequest mocks base method
+func (m *MockEC2API) ResetAddressAttributeRequest(arg0 *ec2.ResetAddressAttributeInput) (*request.Request, *ec2.ResetAddressAttributeOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ResetAddressAttributeRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.ResetAddressAttributeOutput)
+	return ret0, ret1
+}
+
+// ResetAddressAttributeRequest indicates an expected call of ResetAddressAttributeRequest
+func (mr *MockEC2APIMockRecorder) ResetAddressAttributeRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ResetAddressAttributeRequest", reflect.TypeOf((*MockEC2API)(nil).ResetAddressAttributeRequest), arg0)
+}
+
+// ResetAddressAttributeWithContext mocks base method
+func (m *MockEC2API) ResetAddressAttributeWithContext(arg0 context.Context, arg1 *ec2.ResetAddressAttributeInput, arg2 ...request.Option) (*ec2.ResetAddressAttributeOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ResetAddressAttributeWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.ResetAddressAttributeOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ResetAddressAttributeWithContext indicates an expected call of ResetAddressAttributeWithContext
+func (mr *MockEC2APIMockRecorder) ResetAddressAttributeWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ResetAddressAttributeWithContext", reflect.TypeOf((*MockEC2API)(nil).ResetAddressAttributeWithContext), varargs...)
 }
 
 // ResetEbsDefaultKmsKeyId mocks base method
