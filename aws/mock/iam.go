@@ -4698,6 +4698,56 @@ func (mr *MockIAMAPIMockRecorder) ListGroupsWithContext(arg0, arg1 interface{}, 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListGroupsWithContext", reflect.TypeOf((*MockIAMAPI)(nil).ListGroupsWithContext), varargs...)
 }
 
+// ListInstanceProfileTags mocks base method
+func (m *MockIAMAPI) ListInstanceProfileTags(arg0 *iam.ListInstanceProfileTagsInput) (*iam.ListInstanceProfileTagsOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListInstanceProfileTags", arg0)
+	ret0, _ := ret[0].(*iam.ListInstanceProfileTagsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListInstanceProfileTags indicates an expected call of ListInstanceProfileTags
+func (mr *MockIAMAPIMockRecorder) ListInstanceProfileTags(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListInstanceProfileTags", reflect.TypeOf((*MockIAMAPI)(nil).ListInstanceProfileTags), arg0)
+}
+
+// ListInstanceProfileTagsRequest mocks base method
+func (m *MockIAMAPI) ListInstanceProfileTagsRequest(arg0 *iam.ListInstanceProfileTagsInput) (*request.Request, *iam.ListInstanceProfileTagsOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListInstanceProfileTagsRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.ListInstanceProfileTagsOutput)
+	return ret0, ret1
+}
+
+// ListInstanceProfileTagsRequest indicates an expected call of ListInstanceProfileTagsRequest
+func (mr *MockIAMAPIMockRecorder) ListInstanceProfileTagsRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListInstanceProfileTagsRequest", reflect.TypeOf((*MockIAMAPI)(nil).ListInstanceProfileTagsRequest), arg0)
+}
+
+// ListInstanceProfileTagsWithContext mocks base method
+func (m *MockIAMAPI) ListInstanceProfileTagsWithContext(arg0 context.Context, arg1 *iam.ListInstanceProfileTagsInput, arg2 ...request.Option) (*iam.ListInstanceProfileTagsOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ListInstanceProfileTagsWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.ListInstanceProfileTagsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListInstanceProfileTagsWithContext indicates an expected call of ListInstanceProfileTagsWithContext
+func (mr *MockIAMAPIMockRecorder) ListInstanceProfileTagsWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListInstanceProfileTagsWithContext", reflect.TypeOf((*MockIAMAPI)(nil).ListInstanceProfileTagsWithContext), varargs...)
+}
+
 // ListInstanceProfiles mocks base method
 func (m *MockIAMAPI) ListInstanceProfiles(arg0 *iam.ListInstanceProfilesInput) (*iam.ListInstanceProfilesOutput, error) {
 	m.ctrl.T.Helper()
@@ -4864,6 +4914,56 @@ func (mr *MockIAMAPIMockRecorder) ListInstanceProfilesWithContext(arg0, arg1 int
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListInstanceProfilesWithContext", reflect.TypeOf((*MockIAMAPI)(nil).ListInstanceProfilesWithContext), varargs...)
 }
 
+// ListMFADeviceTags mocks base method
+func (m *MockIAMAPI) ListMFADeviceTags(arg0 *iam.ListMFADeviceTagsInput) (*iam.ListMFADeviceTagsOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListMFADeviceTags", arg0)
+	ret0, _ := ret[0].(*iam.ListMFADeviceTagsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListMFADeviceTags indicates an expected call of ListMFADeviceTags
+func (mr *MockIAMAPIMockRecorder) ListMFADeviceTags(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListMFADeviceTags", reflect.TypeOf((*MockIAMAPI)(nil).ListMFADeviceTags), arg0)
+}
+
+// ListMFADeviceTagsRequest mocks base method
+func (m *MockIAMAPI) ListMFADeviceTagsRequest(arg0 *iam.ListMFADeviceTagsInput) (*request.Request, *iam.ListMFADeviceTagsOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListMFADeviceTagsRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.ListMFADeviceTagsOutput)
+	return ret0, ret1
+}
+
+// ListMFADeviceTagsRequest indicates an expected call of ListMFADeviceTagsRequest
+func (mr *MockIAMAPIMockRecorder) ListMFADeviceTagsRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListMFADeviceTagsRequest", reflect.TypeOf((*MockIAMAPI)(nil).ListMFADeviceTagsRequest), arg0)
+}
+
+// ListMFADeviceTagsWithContext mocks base method
+func (m *MockIAMAPI) ListMFADeviceTagsWithContext(arg0 context.Context, arg1 *iam.ListMFADeviceTagsInput, arg2 ...request.Option) (*iam.ListMFADeviceTagsOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ListMFADeviceTagsWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.ListMFADeviceTagsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListMFADeviceTagsWithContext indicates an expected call of ListMFADeviceTagsWithContext
+func (mr *MockIAMAPIMockRecorder) ListMFADeviceTagsWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListMFADeviceTagsWithContext", reflect.TypeOf((*MockIAMAPI)(nil).ListMFADeviceTagsWithContext), varargs...)
+}
+
 // ListMFADevices mocks base method
 func (m *MockIAMAPI) ListMFADevices(arg0 *iam.ListMFADevicesInput) (*iam.ListMFADevicesOutput, error) {
 	m.ctrl.T.Helper()
@@ -4945,6 +5045,56 @@ func (mr *MockIAMAPIMockRecorder) ListMFADevicesWithContext(arg0, arg1 interface
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListMFADevicesWithContext", reflect.TypeOf((*MockIAMAPI)(nil).ListMFADevicesWithContext), varargs...)
+}
+
+// ListOpenIDConnectProviderTags mocks base method
+func (m *MockIAMAPI) ListOpenIDConnectProviderTags(arg0 *iam.ListOpenIDConnectProviderTagsInput) (*iam.ListOpenIDConnectProviderTagsOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListOpenIDConnectProviderTags", arg0)
+	ret0, _ := ret[0].(*iam.ListOpenIDConnectProviderTagsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListOpenIDConnectProviderTags indicates an expected call of ListOpenIDConnectProviderTags
+func (mr *MockIAMAPIMockRecorder) ListOpenIDConnectProviderTags(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListOpenIDConnectProviderTags", reflect.TypeOf((*MockIAMAPI)(nil).ListOpenIDConnectProviderTags), arg0)
+}
+
+// ListOpenIDConnectProviderTagsRequest mocks base method
+func (m *MockIAMAPI) ListOpenIDConnectProviderTagsRequest(arg0 *iam.ListOpenIDConnectProviderTagsInput) (*request.Request, *iam.ListOpenIDConnectProviderTagsOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListOpenIDConnectProviderTagsRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.ListOpenIDConnectProviderTagsOutput)
+	return ret0, ret1
+}
+
+// ListOpenIDConnectProviderTagsRequest indicates an expected call of ListOpenIDConnectProviderTagsRequest
+func (mr *MockIAMAPIMockRecorder) ListOpenIDConnectProviderTagsRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListOpenIDConnectProviderTagsRequest", reflect.TypeOf((*MockIAMAPI)(nil).ListOpenIDConnectProviderTagsRequest), arg0)
+}
+
+// ListOpenIDConnectProviderTagsWithContext mocks base method
+func (m *MockIAMAPI) ListOpenIDConnectProviderTagsWithContext(arg0 context.Context, arg1 *iam.ListOpenIDConnectProviderTagsInput, arg2 ...request.Option) (*iam.ListOpenIDConnectProviderTagsOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ListOpenIDConnectProviderTagsWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.ListOpenIDConnectProviderTagsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListOpenIDConnectProviderTagsWithContext indicates an expected call of ListOpenIDConnectProviderTagsWithContext
+func (mr *MockIAMAPIMockRecorder) ListOpenIDConnectProviderTagsWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListOpenIDConnectProviderTagsWithContext", reflect.TypeOf((*MockIAMAPI)(nil).ListOpenIDConnectProviderTagsWithContext), varargs...)
 }
 
 // ListOpenIDConnectProviders mocks base method
@@ -5128,6 +5278,56 @@ func (mr *MockIAMAPIMockRecorder) ListPoliciesWithContext(arg0, arg1 interface{}
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListPoliciesWithContext", reflect.TypeOf((*MockIAMAPI)(nil).ListPoliciesWithContext), varargs...)
+}
+
+// ListPolicyTags mocks base method
+func (m *MockIAMAPI) ListPolicyTags(arg0 *iam.ListPolicyTagsInput) (*iam.ListPolicyTagsOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListPolicyTags", arg0)
+	ret0, _ := ret[0].(*iam.ListPolicyTagsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListPolicyTags indicates an expected call of ListPolicyTags
+func (mr *MockIAMAPIMockRecorder) ListPolicyTags(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListPolicyTags", reflect.TypeOf((*MockIAMAPI)(nil).ListPolicyTags), arg0)
+}
+
+// ListPolicyTagsRequest mocks base method
+func (m *MockIAMAPI) ListPolicyTagsRequest(arg0 *iam.ListPolicyTagsInput) (*request.Request, *iam.ListPolicyTagsOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListPolicyTagsRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.ListPolicyTagsOutput)
+	return ret0, ret1
+}
+
+// ListPolicyTagsRequest indicates an expected call of ListPolicyTagsRequest
+func (mr *MockIAMAPIMockRecorder) ListPolicyTagsRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListPolicyTagsRequest", reflect.TypeOf((*MockIAMAPI)(nil).ListPolicyTagsRequest), arg0)
+}
+
+// ListPolicyTagsWithContext mocks base method
+func (m *MockIAMAPI) ListPolicyTagsWithContext(arg0 context.Context, arg1 *iam.ListPolicyTagsInput, arg2 ...request.Option) (*iam.ListPolicyTagsOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ListPolicyTagsWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.ListPolicyTagsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListPolicyTagsWithContext indicates an expected call of ListPolicyTagsWithContext
+func (mr *MockIAMAPIMockRecorder) ListPolicyTagsWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListPolicyTagsWithContext", reflect.TypeOf((*MockIAMAPI)(nil).ListPolicyTagsWithContext), varargs...)
 }
 
 // ListPolicyVersions mocks base method
@@ -5429,6 +5629,56 @@ func (mr *MockIAMAPIMockRecorder) ListRolesWithContext(arg0, arg1 interface{}, a
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListRolesWithContext", reflect.TypeOf((*MockIAMAPI)(nil).ListRolesWithContext), varargs...)
 }
 
+// ListSAMLProviderTags mocks base method
+func (m *MockIAMAPI) ListSAMLProviderTags(arg0 *iam.ListSAMLProviderTagsInput) (*iam.ListSAMLProviderTagsOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListSAMLProviderTags", arg0)
+	ret0, _ := ret[0].(*iam.ListSAMLProviderTagsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListSAMLProviderTags indicates an expected call of ListSAMLProviderTags
+func (mr *MockIAMAPIMockRecorder) ListSAMLProviderTags(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListSAMLProviderTags", reflect.TypeOf((*MockIAMAPI)(nil).ListSAMLProviderTags), arg0)
+}
+
+// ListSAMLProviderTagsRequest mocks base method
+func (m *MockIAMAPI) ListSAMLProviderTagsRequest(arg0 *iam.ListSAMLProviderTagsInput) (*request.Request, *iam.ListSAMLProviderTagsOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListSAMLProviderTagsRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.ListSAMLProviderTagsOutput)
+	return ret0, ret1
+}
+
+// ListSAMLProviderTagsRequest indicates an expected call of ListSAMLProviderTagsRequest
+func (mr *MockIAMAPIMockRecorder) ListSAMLProviderTagsRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListSAMLProviderTagsRequest", reflect.TypeOf((*MockIAMAPI)(nil).ListSAMLProviderTagsRequest), arg0)
+}
+
+// ListSAMLProviderTagsWithContext mocks base method
+func (m *MockIAMAPI) ListSAMLProviderTagsWithContext(arg0 context.Context, arg1 *iam.ListSAMLProviderTagsInput, arg2 ...request.Option) (*iam.ListSAMLProviderTagsOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ListSAMLProviderTagsWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.ListSAMLProviderTagsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListSAMLProviderTagsWithContext indicates an expected call of ListSAMLProviderTagsWithContext
+func (mr *MockIAMAPIMockRecorder) ListSAMLProviderTagsWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListSAMLProviderTagsWithContext", reflect.TypeOf((*MockIAMAPI)(nil).ListSAMLProviderTagsWithContext), varargs...)
+}
+
 // ListSAMLProviders mocks base method
 func (m *MockIAMAPI) ListSAMLProviders(arg0 *iam.ListSAMLProvidersInput) (*iam.ListSAMLProvidersOutput, error) {
 	m.ctrl.T.Helper()
@@ -5560,6 +5810,56 @@ func (mr *MockIAMAPIMockRecorder) ListSSHPublicKeysWithContext(arg0, arg1 interf
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListSSHPublicKeysWithContext", reflect.TypeOf((*MockIAMAPI)(nil).ListSSHPublicKeysWithContext), varargs...)
+}
+
+// ListServerCertificateTags mocks base method
+func (m *MockIAMAPI) ListServerCertificateTags(arg0 *iam.ListServerCertificateTagsInput) (*iam.ListServerCertificateTagsOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListServerCertificateTags", arg0)
+	ret0, _ := ret[0].(*iam.ListServerCertificateTagsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListServerCertificateTags indicates an expected call of ListServerCertificateTags
+func (mr *MockIAMAPIMockRecorder) ListServerCertificateTags(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListServerCertificateTags", reflect.TypeOf((*MockIAMAPI)(nil).ListServerCertificateTags), arg0)
+}
+
+// ListServerCertificateTagsRequest mocks base method
+func (m *MockIAMAPI) ListServerCertificateTagsRequest(arg0 *iam.ListServerCertificateTagsInput) (*request.Request, *iam.ListServerCertificateTagsOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListServerCertificateTagsRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.ListServerCertificateTagsOutput)
+	return ret0, ret1
+}
+
+// ListServerCertificateTagsRequest indicates an expected call of ListServerCertificateTagsRequest
+func (mr *MockIAMAPIMockRecorder) ListServerCertificateTagsRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListServerCertificateTagsRequest", reflect.TypeOf((*MockIAMAPI)(nil).ListServerCertificateTagsRequest), arg0)
+}
+
+// ListServerCertificateTagsWithContext mocks base method
+func (m *MockIAMAPI) ListServerCertificateTagsWithContext(arg0 context.Context, arg1 *iam.ListServerCertificateTagsInput, arg2 ...request.Option) (*iam.ListServerCertificateTagsOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ListServerCertificateTagsWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.ListServerCertificateTagsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListServerCertificateTagsWithContext indicates an expected call of ListServerCertificateTagsWithContext
+func (mr *MockIAMAPIMockRecorder) ListServerCertificateTagsWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListServerCertificateTagsWithContext", reflect.TypeOf((*MockIAMAPI)(nil).ListServerCertificateTagsWithContext), varargs...)
 }
 
 // ListServerCertificates mocks base method
@@ -6843,6 +7143,206 @@ func (mr *MockIAMAPIMockRecorder) SimulatePrincipalPolicyWithContext(arg0, arg1 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SimulatePrincipalPolicyWithContext", reflect.TypeOf((*MockIAMAPI)(nil).SimulatePrincipalPolicyWithContext), varargs...)
 }
 
+// TagInstanceProfile mocks base method
+func (m *MockIAMAPI) TagInstanceProfile(arg0 *iam.TagInstanceProfileInput) (*iam.TagInstanceProfileOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "TagInstanceProfile", arg0)
+	ret0, _ := ret[0].(*iam.TagInstanceProfileOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TagInstanceProfile indicates an expected call of TagInstanceProfile
+func (mr *MockIAMAPIMockRecorder) TagInstanceProfile(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagInstanceProfile", reflect.TypeOf((*MockIAMAPI)(nil).TagInstanceProfile), arg0)
+}
+
+// TagInstanceProfileRequest mocks base method
+func (m *MockIAMAPI) TagInstanceProfileRequest(arg0 *iam.TagInstanceProfileInput) (*request.Request, *iam.TagInstanceProfileOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "TagInstanceProfileRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.TagInstanceProfileOutput)
+	return ret0, ret1
+}
+
+// TagInstanceProfileRequest indicates an expected call of TagInstanceProfileRequest
+func (mr *MockIAMAPIMockRecorder) TagInstanceProfileRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagInstanceProfileRequest", reflect.TypeOf((*MockIAMAPI)(nil).TagInstanceProfileRequest), arg0)
+}
+
+// TagInstanceProfileWithContext mocks base method
+func (m *MockIAMAPI) TagInstanceProfileWithContext(arg0 context.Context, arg1 *iam.TagInstanceProfileInput, arg2 ...request.Option) (*iam.TagInstanceProfileOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "TagInstanceProfileWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.TagInstanceProfileOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TagInstanceProfileWithContext indicates an expected call of TagInstanceProfileWithContext
+func (mr *MockIAMAPIMockRecorder) TagInstanceProfileWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagInstanceProfileWithContext", reflect.TypeOf((*MockIAMAPI)(nil).TagInstanceProfileWithContext), varargs...)
+}
+
+// TagMFADevice mocks base method
+func (m *MockIAMAPI) TagMFADevice(arg0 *iam.TagMFADeviceInput) (*iam.TagMFADeviceOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "TagMFADevice", arg0)
+	ret0, _ := ret[0].(*iam.TagMFADeviceOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TagMFADevice indicates an expected call of TagMFADevice
+func (mr *MockIAMAPIMockRecorder) TagMFADevice(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagMFADevice", reflect.TypeOf((*MockIAMAPI)(nil).TagMFADevice), arg0)
+}
+
+// TagMFADeviceRequest mocks base method
+func (m *MockIAMAPI) TagMFADeviceRequest(arg0 *iam.TagMFADeviceInput) (*request.Request, *iam.TagMFADeviceOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "TagMFADeviceRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.TagMFADeviceOutput)
+	return ret0, ret1
+}
+
+// TagMFADeviceRequest indicates an expected call of TagMFADeviceRequest
+func (mr *MockIAMAPIMockRecorder) TagMFADeviceRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagMFADeviceRequest", reflect.TypeOf((*MockIAMAPI)(nil).TagMFADeviceRequest), arg0)
+}
+
+// TagMFADeviceWithContext mocks base method
+func (m *MockIAMAPI) TagMFADeviceWithContext(arg0 context.Context, arg1 *iam.TagMFADeviceInput, arg2 ...request.Option) (*iam.TagMFADeviceOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "TagMFADeviceWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.TagMFADeviceOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TagMFADeviceWithContext indicates an expected call of TagMFADeviceWithContext
+func (mr *MockIAMAPIMockRecorder) TagMFADeviceWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagMFADeviceWithContext", reflect.TypeOf((*MockIAMAPI)(nil).TagMFADeviceWithContext), varargs...)
+}
+
+// TagOpenIDConnectProvider mocks base method
+func (m *MockIAMAPI) TagOpenIDConnectProvider(arg0 *iam.TagOpenIDConnectProviderInput) (*iam.TagOpenIDConnectProviderOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "TagOpenIDConnectProvider", arg0)
+	ret0, _ := ret[0].(*iam.TagOpenIDConnectProviderOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TagOpenIDConnectProvider indicates an expected call of TagOpenIDConnectProvider
+func (mr *MockIAMAPIMockRecorder) TagOpenIDConnectProvider(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagOpenIDConnectProvider", reflect.TypeOf((*MockIAMAPI)(nil).TagOpenIDConnectProvider), arg0)
+}
+
+// TagOpenIDConnectProviderRequest mocks base method
+func (m *MockIAMAPI) TagOpenIDConnectProviderRequest(arg0 *iam.TagOpenIDConnectProviderInput) (*request.Request, *iam.TagOpenIDConnectProviderOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "TagOpenIDConnectProviderRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.TagOpenIDConnectProviderOutput)
+	return ret0, ret1
+}
+
+// TagOpenIDConnectProviderRequest indicates an expected call of TagOpenIDConnectProviderRequest
+func (mr *MockIAMAPIMockRecorder) TagOpenIDConnectProviderRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagOpenIDConnectProviderRequest", reflect.TypeOf((*MockIAMAPI)(nil).TagOpenIDConnectProviderRequest), arg0)
+}
+
+// TagOpenIDConnectProviderWithContext mocks base method
+func (m *MockIAMAPI) TagOpenIDConnectProviderWithContext(arg0 context.Context, arg1 *iam.TagOpenIDConnectProviderInput, arg2 ...request.Option) (*iam.TagOpenIDConnectProviderOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "TagOpenIDConnectProviderWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.TagOpenIDConnectProviderOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TagOpenIDConnectProviderWithContext indicates an expected call of TagOpenIDConnectProviderWithContext
+func (mr *MockIAMAPIMockRecorder) TagOpenIDConnectProviderWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagOpenIDConnectProviderWithContext", reflect.TypeOf((*MockIAMAPI)(nil).TagOpenIDConnectProviderWithContext), varargs...)
+}
+
+// TagPolicy mocks base method
+func (m *MockIAMAPI) TagPolicy(arg0 *iam.TagPolicyInput) (*iam.TagPolicyOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "TagPolicy", arg0)
+	ret0, _ := ret[0].(*iam.TagPolicyOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TagPolicy indicates an expected call of TagPolicy
+func (mr *MockIAMAPIMockRecorder) TagPolicy(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagPolicy", reflect.TypeOf((*MockIAMAPI)(nil).TagPolicy), arg0)
+}
+
+// TagPolicyRequest mocks base method
+func (m *MockIAMAPI) TagPolicyRequest(arg0 *iam.TagPolicyInput) (*request.Request, *iam.TagPolicyOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "TagPolicyRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.TagPolicyOutput)
+	return ret0, ret1
+}
+
+// TagPolicyRequest indicates an expected call of TagPolicyRequest
+func (mr *MockIAMAPIMockRecorder) TagPolicyRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagPolicyRequest", reflect.TypeOf((*MockIAMAPI)(nil).TagPolicyRequest), arg0)
+}
+
+// TagPolicyWithContext mocks base method
+func (m *MockIAMAPI) TagPolicyWithContext(arg0 context.Context, arg1 *iam.TagPolicyInput, arg2 ...request.Option) (*iam.TagPolicyOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "TagPolicyWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.TagPolicyOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TagPolicyWithContext indicates an expected call of TagPolicyWithContext
+func (mr *MockIAMAPIMockRecorder) TagPolicyWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagPolicyWithContext", reflect.TypeOf((*MockIAMAPI)(nil).TagPolicyWithContext), varargs...)
+}
+
 // TagRole mocks base method
 func (m *MockIAMAPI) TagRole(arg0 *iam.TagRoleInput) (*iam.TagRoleOutput, error) {
 	m.ctrl.T.Helper()
@@ -6891,6 +7391,106 @@ func (mr *MockIAMAPIMockRecorder) TagRoleWithContext(arg0, arg1 interface{}, arg
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagRoleWithContext", reflect.TypeOf((*MockIAMAPI)(nil).TagRoleWithContext), varargs...)
+}
+
+// TagSAMLProvider mocks base method
+func (m *MockIAMAPI) TagSAMLProvider(arg0 *iam.TagSAMLProviderInput) (*iam.TagSAMLProviderOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "TagSAMLProvider", arg0)
+	ret0, _ := ret[0].(*iam.TagSAMLProviderOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TagSAMLProvider indicates an expected call of TagSAMLProvider
+func (mr *MockIAMAPIMockRecorder) TagSAMLProvider(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagSAMLProvider", reflect.TypeOf((*MockIAMAPI)(nil).TagSAMLProvider), arg0)
+}
+
+// TagSAMLProviderRequest mocks base method
+func (m *MockIAMAPI) TagSAMLProviderRequest(arg0 *iam.TagSAMLProviderInput) (*request.Request, *iam.TagSAMLProviderOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "TagSAMLProviderRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.TagSAMLProviderOutput)
+	return ret0, ret1
+}
+
+// TagSAMLProviderRequest indicates an expected call of TagSAMLProviderRequest
+func (mr *MockIAMAPIMockRecorder) TagSAMLProviderRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagSAMLProviderRequest", reflect.TypeOf((*MockIAMAPI)(nil).TagSAMLProviderRequest), arg0)
+}
+
+// TagSAMLProviderWithContext mocks base method
+func (m *MockIAMAPI) TagSAMLProviderWithContext(arg0 context.Context, arg1 *iam.TagSAMLProviderInput, arg2 ...request.Option) (*iam.TagSAMLProviderOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "TagSAMLProviderWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.TagSAMLProviderOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TagSAMLProviderWithContext indicates an expected call of TagSAMLProviderWithContext
+func (mr *MockIAMAPIMockRecorder) TagSAMLProviderWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagSAMLProviderWithContext", reflect.TypeOf((*MockIAMAPI)(nil).TagSAMLProviderWithContext), varargs...)
+}
+
+// TagServerCertificate mocks base method
+func (m *MockIAMAPI) TagServerCertificate(arg0 *iam.TagServerCertificateInput) (*iam.TagServerCertificateOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "TagServerCertificate", arg0)
+	ret0, _ := ret[0].(*iam.TagServerCertificateOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TagServerCertificate indicates an expected call of TagServerCertificate
+func (mr *MockIAMAPIMockRecorder) TagServerCertificate(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagServerCertificate", reflect.TypeOf((*MockIAMAPI)(nil).TagServerCertificate), arg0)
+}
+
+// TagServerCertificateRequest mocks base method
+func (m *MockIAMAPI) TagServerCertificateRequest(arg0 *iam.TagServerCertificateInput) (*request.Request, *iam.TagServerCertificateOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "TagServerCertificateRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.TagServerCertificateOutput)
+	return ret0, ret1
+}
+
+// TagServerCertificateRequest indicates an expected call of TagServerCertificateRequest
+func (mr *MockIAMAPIMockRecorder) TagServerCertificateRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagServerCertificateRequest", reflect.TypeOf((*MockIAMAPI)(nil).TagServerCertificateRequest), arg0)
+}
+
+// TagServerCertificateWithContext mocks base method
+func (m *MockIAMAPI) TagServerCertificateWithContext(arg0 context.Context, arg1 *iam.TagServerCertificateInput, arg2 ...request.Option) (*iam.TagServerCertificateOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "TagServerCertificateWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.TagServerCertificateOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TagServerCertificateWithContext indicates an expected call of TagServerCertificateWithContext
+func (mr *MockIAMAPIMockRecorder) TagServerCertificateWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagServerCertificateWithContext", reflect.TypeOf((*MockIAMAPI)(nil).TagServerCertificateWithContext), varargs...)
 }
 
 // TagUser mocks base method
@@ -6943,6 +7543,206 @@ func (mr *MockIAMAPIMockRecorder) TagUserWithContext(arg0, arg1 interface{}, arg
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagUserWithContext", reflect.TypeOf((*MockIAMAPI)(nil).TagUserWithContext), varargs...)
 }
 
+// UntagInstanceProfile mocks base method
+func (m *MockIAMAPI) UntagInstanceProfile(arg0 *iam.UntagInstanceProfileInput) (*iam.UntagInstanceProfileOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UntagInstanceProfile", arg0)
+	ret0, _ := ret[0].(*iam.UntagInstanceProfileOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UntagInstanceProfile indicates an expected call of UntagInstanceProfile
+func (mr *MockIAMAPIMockRecorder) UntagInstanceProfile(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagInstanceProfile", reflect.TypeOf((*MockIAMAPI)(nil).UntagInstanceProfile), arg0)
+}
+
+// UntagInstanceProfileRequest mocks base method
+func (m *MockIAMAPI) UntagInstanceProfileRequest(arg0 *iam.UntagInstanceProfileInput) (*request.Request, *iam.UntagInstanceProfileOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UntagInstanceProfileRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.UntagInstanceProfileOutput)
+	return ret0, ret1
+}
+
+// UntagInstanceProfileRequest indicates an expected call of UntagInstanceProfileRequest
+func (mr *MockIAMAPIMockRecorder) UntagInstanceProfileRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagInstanceProfileRequest", reflect.TypeOf((*MockIAMAPI)(nil).UntagInstanceProfileRequest), arg0)
+}
+
+// UntagInstanceProfileWithContext mocks base method
+func (m *MockIAMAPI) UntagInstanceProfileWithContext(arg0 context.Context, arg1 *iam.UntagInstanceProfileInput, arg2 ...request.Option) (*iam.UntagInstanceProfileOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "UntagInstanceProfileWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.UntagInstanceProfileOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UntagInstanceProfileWithContext indicates an expected call of UntagInstanceProfileWithContext
+func (mr *MockIAMAPIMockRecorder) UntagInstanceProfileWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagInstanceProfileWithContext", reflect.TypeOf((*MockIAMAPI)(nil).UntagInstanceProfileWithContext), varargs...)
+}
+
+// UntagMFADevice mocks base method
+func (m *MockIAMAPI) UntagMFADevice(arg0 *iam.UntagMFADeviceInput) (*iam.UntagMFADeviceOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UntagMFADevice", arg0)
+	ret0, _ := ret[0].(*iam.UntagMFADeviceOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UntagMFADevice indicates an expected call of UntagMFADevice
+func (mr *MockIAMAPIMockRecorder) UntagMFADevice(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagMFADevice", reflect.TypeOf((*MockIAMAPI)(nil).UntagMFADevice), arg0)
+}
+
+// UntagMFADeviceRequest mocks base method
+func (m *MockIAMAPI) UntagMFADeviceRequest(arg0 *iam.UntagMFADeviceInput) (*request.Request, *iam.UntagMFADeviceOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UntagMFADeviceRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.UntagMFADeviceOutput)
+	return ret0, ret1
+}
+
+// UntagMFADeviceRequest indicates an expected call of UntagMFADeviceRequest
+func (mr *MockIAMAPIMockRecorder) UntagMFADeviceRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagMFADeviceRequest", reflect.TypeOf((*MockIAMAPI)(nil).UntagMFADeviceRequest), arg0)
+}
+
+// UntagMFADeviceWithContext mocks base method
+func (m *MockIAMAPI) UntagMFADeviceWithContext(arg0 context.Context, arg1 *iam.UntagMFADeviceInput, arg2 ...request.Option) (*iam.UntagMFADeviceOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "UntagMFADeviceWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.UntagMFADeviceOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UntagMFADeviceWithContext indicates an expected call of UntagMFADeviceWithContext
+func (mr *MockIAMAPIMockRecorder) UntagMFADeviceWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagMFADeviceWithContext", reflect.TypeOf((*MockIAMAPI)(nil).UntagMFADeviceWithContext), varargs...)
+}
+
+// UntagOpenIDConnectProvider mocks base method
+func (m *MockIAMAPI) UntagOpenIDConnectProvider(arg0 *iam.UntagOpenIDConnectProviderInput) (*iam.UntagOpenIDConnectProviderOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UntagOpenIDConnectProvider", arg0)
+	ret0, _ := ret[0].(*iam.UntagOpenIDConnectProviderOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UntagOpenIDConnectProvider indicates an expected call of UntagOpenIDConnectProvider
+func (mr *MockIAMAPIMockRecorder) UntagOpenIDConnectProvider(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagOpenIDConnectProvider", reflect.TypeOf((*MockIAMAPI)(nil).UntagOpenIDConnectProvider), arg0)
+}
+
+// UntagOpenIDConnectProviderRequest mocks base method
+func (m *MockIAMAPI) UntagOpenIDConnectProviderRequest(arg0 *iam.UntagOpenIDConnectProviderInput) (*request.Request, *iam.UntagOpenIDConnectProviderOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UntagOpenIDConnectProviderRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.UntagOpenIDConnectProviderOutput)
+	return ret0, ret1
+}
+
+// UntagOpenIDConnectProviderRequest indicates an expected call of UntagOpenIDConnectProviderRequest
+func (mr *MockIAMAPIMockRecorder) UntagOpenIDConnectProviderRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagOpenIDConnectProviderRequest", reflect.TypeOf((*MockIAMAPI)(nil).UntagOpenIDConnectProviderRequest), arg0)
+}
+
+// UntagOpenIDConnectProviderWithContext mocks base method
+func (m *MockIAMAPI) UntagOpenIDConnectProviderWithContext(arg0 context.Context, arg1 *iam.UntagOpenIDConnectProviderInput, arg2 ...request.Option) (*iam.UntagOpenIDConnectProviderOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "UntagOpenIDConnectProviderWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.UntagOpenIDConnectProviderOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UntagOpenIDConnectProviderWithContext indicates an expected call of UntagOpenIDConnectProviderWithContext
+func (mr *MockIAMAPIMockRecorder) UntagOpenIDConnectProviderWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagOpenIDConnectProviderWithContext", reflect.TypeOf((*MockIAMAPI)(nil).UntagOpenIDConnectProviderWithContext), varargs...)
+}
+
+// UntagPolicy mocks base method
+func (m *MockIAMAPI) UntagPolicy(arg0 *iam.UntagPolicyInput) (*iam.UntagPolicyOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UntagPolicy", arg0)
+	ret0, _ := ret[0].(*iam.UntagPolicyOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UntagPolicy indicates an expected call of UntagPolicy
+func (mr *MockIAMAPIMockRecorder) UntagPolicy(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagPolicy", reflect.TypeOf((*MockIAMAPI)(nil).UntagPolicy), arg0)
+}
+
+// UntagPolicyRequest mocks base method
+func (m *MockIAMAPI) UntagPolicyRequest(arg0 *iam.UntagPolicyInput) (*request.Request, *iam.UntagPolicyOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UntagPolicyRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.UntagPolicyOutput)
+	return ret0, ret1
+}
+
+// UntagPolicyRequest indicates an expected call of UntagPolicyRequest
+func (mr *MockIAMAPIMockRecorder) UntagPolicyRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagPolicyRequest", reflect.TypeOf((*MockIAMAPI)(nil).UntagPolicyRequest), arg0)
+}
+
+// UntagPolicyWithContext mocks base method
+func (m *MockIAMAPI) UntagPolicyWithContext(arg0 context.Context, arg1 *iam.UntagPolicyInput, arg2 ...request.Option) (*iam.UntagPolicyOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "UntagPolicyWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.UntagPolicyOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UntagPolicyWithContext indicates an expected call of UntagPolicyWithContext
+func (mr *MockIAMAPIMockRecorder) UntagPolicyWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagPolicyWithContext", reflect.TypeOf((*MockIAMAPI)(nil).UntagPolicyWithContext), varargs...)
+}
+
 // UntagRole mocks base method
 func (m *MockIAMAPI) UntagRole(arg0 *iam.UntagRoleInput) (*iam.UntagRoleOutput, error) {
 	m.ctrl.T.Helper()
@@ -6991,6 +7791,106 @@ func (mr *MockIAMAPIMockRecorder) UntagRoleWithContext(arg0, arg1 interface{}, a
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagRoleWithContext", reflect.TypeOf((*MockIAMAPI)(nil).UntagRoleWithContext), varargs...)
+}
+
+// UntagSAMLProvider mocks base method
+func (m *MockIAMAPI) UntagSAMLProvider(arg0 *iam.UntagSAMLProviderInput) (*iam.UntagSAMLProviderOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UntagSAMLProvider", arg0)
+	ret0, _ := ret[0].(*iam.UntagSAMLProviderOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UntagSAMLProvider indicates an expected call of UntagSAMLProvider
+func (mr *MockIAMAPIMockRecorder) UntagSAMLProvider(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagSAMLProvider", reflect.TypeOf((*MockIAMAPI)(nil).UntagSAMLProvider), arg0)
+}
+
+// UntagSAMLProviderRequest mocks base method
+func (m *MockIAMAPI) UntagSAMLProviderRequest(arg0 *iam.UntagSAMLProviderInput) (*request.Request, *iam.UntagSAMLProviderOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UntagSAMLProviderRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.UntagSAMLProviderOutput)
+	return ret0, ret1
+}
+
+// UntagSAMLProviderRequest indicates an expected call of UntagSAMLProviderRequest
+func (mr *MockIAMAPIMockRecorder) UntagSAMLProviderRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagSAMLProviderRequest", reflect.TypeOf((*MockIAMAPI)(nil).UntagSAMLProviderRequest), arg0)
+}
+
+// UntagSAMLProviderWithContext mocks base method
+func (m *MockIAMAPI) UntagSAMLProviderWithContext(arg0 context.Context, arg1 *iam.UntagSAMLProviderInput, arg2 ...request.Option) (*iam.UntagSAMLProviderOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "UntagSAMLProviderWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.UntagSAMLProviderOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UntagSAMLProviderWithContext indicates an expected call of UntagSAMLProviderWithContext
+func (mr *MockIAMAPIMockRecorder) UntagSAMLProviderWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagSAMLProviderWithContext", reflect.TypeOf((*MockIAMAPI)(nil).UntagSAMLProviderWithContext), varargs...)
+}
+
+// UntagServerCertificate mocks base method
+func (m *MockIAMAPI) UntagServerCertificate(arg0 *iam.UntagServerCertificateInput) (*iam.UntagServerCertificateOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UntagServerCertificate", arg0)
+	ret0, _ := ret[0].(*iam.UntagServerCertificateOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UntagServerCertificate indicates an expected call of UntagServerCertificate
+func (mr *MockIAMAPIMockRecorder) UntagServerCertificate(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagServerCertificate", reflect.TypeOf((*MockIAMAPI)(nil).UntagServerCertificate), arg0)
+}
+
+// UntagServerCertificateRequest mocks base method
+func (m *MockIAMAPI) UntagServerCertificateRequest(arg0 *iam.UntagServerCertificateInput) (*request.Request, *iam.UntagServerCertificateOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UntagServerCertificateRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*iam.UntagServerCertificateOutput)
+	return ret0, ret1
+}
+
+// UntagServerCertificateRequest indicates an expected call of UntagServerCertificateRequest
+func (mr *MockIAMAPIMockRecorder) UntagServerCertificateRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagServerCertificateRequest", reflect.TypeOf((*MockIAMAPI)(nil).UntagServerCertificateRequest), arg0)
+}
+
+// UntagServerCertificateWithContext mocks base method
+func (m *MockIAMAPI) UntagServerCertificateWithContext(arg0 context.Context, arg1 *iam.UntagServerCertificateInput, arg2 ...request.Option) (*iam.UntagServerCertificateOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "UntagServerCertificateWithContext", varargs...)
+	ret0, _ := ret[0].(*iam.UntagServerCertificateOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UntagServerCertificateWithContext indicates an expected call of UntagServerCertificateWithContext
+func (mr *MockIAMAPIMockRecorder) UntagServerCertificateWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UntagServerCertificateWithContext", reflect.TypeOf((*MockIAMAPI)(nil).UntagServerCertificateWithContext), varargs...)
 }
 
 // UntagUser mocks base method
