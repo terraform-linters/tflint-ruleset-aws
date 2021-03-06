@@ -1,6 +1,6 @@
 module github.com/terraform-linters/tflint-ruleset-aws
 
-go 1.15
+go 1.16
 
 require (
 	github.com/aws/aws-sdk-go v1.37.15
