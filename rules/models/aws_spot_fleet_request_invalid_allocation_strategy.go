@@ -26,6 +26,7 @@ func NewAwsSpotFleetRequestInvalidAllocationStrategyRule() *AwsSpotFleetRequestI
 			"lowestPrice",
 			"diversified",
 			"capacityOptimized",
+			"capacityOptimizedPrioritized",
 		},
 	}
 }
