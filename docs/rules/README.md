@@ -46,7 +46,7 @@ These rules warn of possible errors that can occur at `terraform apply`. Rules m
 
 #### SDK-based Validations
 
-700+ rules based on the aws-sdk validations are also available. See [full list](../../rules/awsrules/models/).
+700+ rules based on the aws-sdk validations are also available. See [full list](../../rules/models/).
 
 ### Best Practices
 
