@@ -96,6 +96,7 @@ func main() {
 
 	sort.Strings(generatedRules)
 	generateProviderFile(generatedRules)
+	generateDocFile(generatedRules)
 }
 
 func fetchSchema(resource, attribute string, model map[string]interface{}, provider *schema.Provider) *schema.Schema {
