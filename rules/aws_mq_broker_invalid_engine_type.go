@@ -19,6 +19,7 @@ func NewAwsMqBrokerInvalidEngineTypeRule() *AwsMqBrokerInvalidEngineTypeRule {
 		attributeName: "engine_type",
 		enum: []string{
 			"ActiveMQ",
+			"RabbitMQ"
 		},
 	}
 }
