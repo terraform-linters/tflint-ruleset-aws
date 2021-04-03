@@ -1,4 +1,4 @@
-# aws_route_specified_muletiple_targets
+# aws_route_specified_multiple_targets
 
 Disallow routes that have multiple targets.
 
