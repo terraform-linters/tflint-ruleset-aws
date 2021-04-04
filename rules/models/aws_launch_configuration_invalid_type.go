@@ -412,6 +412,15 @@ func NewAwsLaunchConfigurationInvalidTypeRule() *AwsLaunchConfigurationInvalidTy
 			"m6gd.12xlarge",
 			"m6gd.16xlarge",
 			"mac1.metal",
+			"x2gd.medium",
+			"x2gd.large",
+			"x2gd.xlarge",
+			"x2gd.2xlarge",
+			"x2gd.4xlarge",
+			"x2gd.8xlarge",
+			"x2gd.12xlarge",
+			"x2gd.16xlarge",
+			"x2gd.metal",
 		},
 	}
 }
