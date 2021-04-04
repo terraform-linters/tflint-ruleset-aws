@@ -1036,6 +1036,56 @@ func (mr *MockECSAPIMockRecorder) DiscoverPollEndpointWithContext(arg0, arg1 int
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DiscoverPollEndpointWithContext", reflect.TypeOf((*MockECSAPI)(nil).DiscoverPollEndpointWithContext), varargs...)
 }
 
+// ExecuteCommand mocks base method.
+func (m *MockECSAPI) ExecuteCommand(arg0 *ecs.ExecuteCommandInput) (*ecs.ExecuteCommandOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ExecuteCommand", arg0)
+	ret0, _ := ret[0].(*ecs.ExecuteCommandOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ExecuteCommand indicates an expected call of ExecuteCommand.
+func (mr *MockECSAPIMockRecorder) ExecuteCommand(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ExecuteCommand", reflect.TypeOf((*MockECSAPI)(nil).ExecuteCommand), arg0)
+}
+
+// ExecuteCommandRequest mocks base method.
+func (m *MockECSAPI) ExecuteCommandRequest(arg0 *ecs.ExecuteCommandInput) (*request.Request, *ecs.ExecuteCommandOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ExecuteCommandRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ecs.ExecuteCommandOutput)
+	return ret0, ret1
+}
+
+// ExecuteCommandRequest indicates an expected call of ExecuteCommandRequest.
+func (mr *MockECSAPIMockRecorder) ExecuteCommandRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ExecuteCommandRequest", reflect.TypeOf((*MockECSAPI)(nil).ExecuteCommandRequest), arg0)
+}
+
+// ExecuteCommandWithContext mocks base method.
+func (m *MockECSAPI) ExecuteCommandWithContext(arg0 context.Context, arg1 *ecs.ExecuteCommandInput, arg2 ...request.Option) (*ecs.ExecuteCommandOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ExecuteCommandWithContext", varargs...)
+	ret0, _ := ret[0].(*ecs.ExecuteCommandOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ExecuteCommandWithContext indicates an expected call of ExecuteCommandWithContext.
+func (mr *MockECSAPIMockRecorder) ExecuteCommandWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ExecuteCommandWithContext", reflect.TypeOf((*MockECSAPI)(nil).ExecuteCommandWithContext), varargs...)
+}
+
 // ListAccountSettings mocks base method.
 func (m *MockECSAPI) ListAccountSettings(arg0 *ecs.ListAccountSettingsInput) (*ecs.ListAccountSettingsOutput, error) {
 	m.ctrl.T.Helper()
@@ -2500,6 +2550,36 @@ func (mr *MockECSAPIMockRecorder) UpdateCapacityProviderWithContext(arg0, arg1 i
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateCapacityProviderWithContext", reflect.TypeOf((*MockECSAPI)(nil).UpdateCapacityProviderWithContext), varargs...)
 }
 
+// UpdateCluster mocks base method.
+func (m *MockECSAPI) UpdateCluster(arg0 *ecs.UpdateClusterInput) (*ecs.UpdateClusterOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateCluster", arg0)
+	ret0, _ := ret[0].(*ecs.UpdateClusterOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateCluster indicates an expected call of UpdateCluster.
+func (mr *MockECSAPIMockRecorder) UpdateCluster(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateCluster", reflect.TypeOf((*MockECSAPI)(nil).UpdateCluster), arg0)
+}
+
+// UpdateClusterRequest mocks base method.
+func (m *MockECSAPI) UpdateClusterRequest(arg0 *ecs.UpdateClusterInput) (*request.Request, *ecs.UpdateClusterOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateClusterRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ecs.UpdateClusterOutput)
+	return ret0, ret1
+}
+
+// UpdateClusterRequest indicates an expected call of UpdateClusterRequest.
+func (mr *MockECSAPIMockRecorder) UpdateClusterRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateClusterRequest", reflect.TypeOf((*MockECSAPI)(nil).UpdateClusterRequest), arg0)
+}
+
 // UpdateClusterSettings mocks base method.
 func (m *MockECSAPI) UpdateClusterSettings(arg0 *ecs.UpdateClusterSettingsInput) (*ecs.UpdateClusterSettingsOutput, error) {
 	m.ctrl.T.Helper()
@@ -2548,6 +2628,26 @@ func (mr *MockECSAPIMockRecorder) UpdateClusterSettingsWithContext(arg0, arg1 in
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateClusterSettingsWithContext", reflect.TypeOf((*MockECSAPI)(nil).UpdateClusterSettingsWithContext), varargs...)
+}
+
+// UpdateClusterWithContext mocks base method.
+func (m *MockECSAPI) UpdateClusterWithContext(arg0 context.Context, arg1 *ecs.UpdateClusterInput, arg2 ...request.Option) (*ecs.UpdateClusterOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "UpdateClusterWithContext", varargs...)
+	ret0, _ := ret[0].(*ecs.UpdateClusterOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateClusterWithContext indicates an expected call of UpdateClusterWithContext.
+func (mr *MockECSAPIMockRecorder) UpdateClusterWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateClusterWithContext", reflect.TypeOf((*MockECSAPI)(nil).UpdateClusterWithContext), varargs...)
 }
 
 // UpdateContainerAgent mocks base method.
