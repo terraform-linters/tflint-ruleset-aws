@@ -3,7 +3,9 @@
 package models
 
 import (
+	"fmt"
 	"log"
+	"regexp"
 
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -15,6 +17,7 @@ type AwsCloud9EnvironmentEc2InvalidSubnetIDRule struct {
 	attributeName string
 	max           int
 	min           int
+	pattern       *regexp.Regexp
 }
 
 // NewAwsCloud9EnvironmentEc2InvalidSubnetIDRule returns new rule with default attributes
@@ -22,8 +25,9 @@ func NewAwsCloud9EnvironmentEc2InvalidSubnetIDRule() *AwsCloud9EnvironmentEc2Inv
 	return &AwsCloud9EnvironmentEc2InvalidSubnetIDRule{
 		resourceType:  "aws_cloud9_environment_ec2",
 		attributeName: "subnet_id",
-		max:           30,
-		min:           5,
+		max:           24,
+		min:           15,
+		pattern:       regexp.MustCompile(`^(subnet-[0-9a-f]{8}|subnet-[0-9a-f]{17})$`),
 	}
 }
 
@@ -59,14 +63,21 @@ func (r *AwsCloud9EnvironmentEc2InvalidSubnetIDRule) Check(runner tflint.Runner)
 			if len(val) > r.max {
 				runner.EmitIssueOnExpr(
 					r,
-					"subnet_id must be 30 characters or less",
+					"subnet_id must be 24 characters or less",
 					attribute.Expr,
 				)
 			}
 			if len(val) < r.min {
 				runner.EmitIssueOnExpr(
 					r,
-					"subnet_id must be 5 characters or higher",
+					"subnet_id must be 15 characters or higher",
+					attribute.Expr,
+				)
+			}
+			if !r.pattern.MatchString(val) {
+				runner.EmitIssueOnExpr(
+					r,
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(subnet-[0-9a-f]{8}|subnet-[0-9a-f]{17})$`),
 					attribute.Expr,
 				)
 			}
