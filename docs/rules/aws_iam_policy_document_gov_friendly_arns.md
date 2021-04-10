@@ -1,11 +1,11 @@
-# aws_iam_policy_document_gov_friendly
+# aws_iam_policy_document_gov_friendly_arns
 
 Ensure `iam_policy_document` data sources do not contain `arn:aws:` ARN's.
 
 ## Configuration
 
 ```hcl
-rule "aws_iam_policy_document_gov_friendly" {
+rule "aws_iam_policy_document_gov_friendly_arns" {
   enabled = true
 }
 ```

@@ -1,11 +1,11 @@
-# aws_iam_role_policy_gov_friendly
+# aws_iam_role_policy_gov_friendly_arns
 
 Ensure `iam_role_policy` resources do not contain `arn:aws:` ARN's.
 
 ## Configuration
 
 ```hcl
-rule "aws_iam_role_policy_gov_friendly" {
+rule "aws_iam_role_policy_gov_friendly_arns" {
   enabled = true
 }
 ```
