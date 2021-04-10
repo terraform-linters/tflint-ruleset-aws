@@ -10,6 +10,7 @@ These rules warn of possible errors that can occur at `terraform apply`. Rules m
 | --- | --- | --- | --- |
 |aws_alb_invalid_security_group|Disallow using invalid security groups|✔|✔|
 |aws_alb_invalid_subnet|Disallow using invalid subnets|✔|✔|
+|aws_api_gateway_model_invalid_name|Disallow using invalid name||✔|
 |aws_db_instance_invalid_db_subnet_group|Disallow using invalid subnet group name|✔|✔|
 |[aws_db_instance_invalid_engine](aws_db_instance_invalid_engine.md)|Disallow using invalid engine name||✔|
 |aws_db_instance_invalid_option_group|Disallow using invalid option group|✔|✔|
