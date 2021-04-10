@@ -14,7 +14,7 @@ This ruleset focus on possible errors and best practices about AWS resources. Ma
 
 ## Installation
 
-Download the plugin and place it in `~/.tflint.d/plugins/tflint-ruleset-aws` (or `./.tflint.d/plugins/tflint-ruleset-aws`). When using the plugin, configure as follows in `.tflint.hcl`:
+Download the plugin and place it in `~/.tflint.d/plugins/tflint-ruleset-aws` (or `./.tflint.d/plugins/tflint-ruleset-aws`). You can also set another plugin location with the `TFLINT_PLUGIN_DIR` environment variable. When using the plugin, configure as follows in `.tflint.hcl`:
 
 ```hcl
 plugin "aws" {
