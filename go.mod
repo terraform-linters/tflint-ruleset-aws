@@ -7,7 +7,7 @@ require (
 	github.com/dave/dst v0.26.2
 	github.com/golang/mock v1.5.0
 	github.com/google/go-cmp v0.5.5
-	github.com/hashicorp/aws-sdk-go-base v0.7.0
+	github.com/hashicorp/aws-sdk-go-base v0.7.1
 	github.com/hashicorp/hcl/v2 v2.9.1
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.5.0
 	github.com/mitchellh/go-homedir v1.1.0
