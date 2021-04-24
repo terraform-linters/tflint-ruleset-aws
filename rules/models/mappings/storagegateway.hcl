@@ -49,14 +49,14 @@ mapping "aws_storagegateway_smb_file_share" {
   authentication          = Authentication
   default_storage_class   = StorageClass
   guess_mime_type_enabled = Boolean
-  invalid_user_list       = FileShareUserList
+  // invalid_user_list       = FileShareUserList
   kms_encrypted           = Boolean
   kms_key_arn             = KMSKey
   // smb_file_share_defaults = NFSFileShareDefaults
   object_acl              = ObjectACL
   read_only               = Boolean
   requester_pays          = Boolean
-  valid_user_list         = FileShareUserList
+  // valid_user_list         = FileShareUserList
 }
 
 mapping "aws_storagegateway_upload_buffer" {
