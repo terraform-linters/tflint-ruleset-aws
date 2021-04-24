@@ -57,9 +57,8 @@ github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5/go.mod h1:wHh0iHkY
 github.com/aws/aws-sdk-go v1.15.78/go.mod h1:E3/ieXAlvM0XWO57iftYVDLLvQ824smPP3ATZkfNZeM=
 github.com/aws/aws-sdk-go v1.25.3/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpiN924inxo=
 github.com/aws/aws-sdk-go v1.31.9/go.mod h1:5zCpMtNQVjRREroY7sYe8lOMRSxkhG6MZveU8YkpAk0=
-github.com/aws/aws-sdk-go v1.38.6/go.mod h1:hcU610XS61/+aQV88ixoOzUoG7v3b31pl2zKMmprdro=
-github.com/aws/aws-sdk-go v1.38.12 h1:khtODkUna3iF53Cg3dCF4e6oWgrAEbZDU4x1aq+G0WY=
-github.com/aws/aws-sdk-go v1.38.12/go.mod h1:hcU610XS61/+aQV88ixoOzUoG7v3b31pl2zKMmprdro=
+github.com/aws/aws-sdk-go v1.38.19 h1:eg7LfiWRNYjbeS+w2+lHwZOKIgnh0NdYr6LkakZ112Y=
+github.com/aws/aws-sdk-go v1.38.19/go.mod h1:hcU610XS61/+aQV88ixoOzUoG7v3b31pl2zKMmprdro=
 github.com/beevik/etree v1.1.0 h1:T0xke/WvNtMoCqgzPhkX2r4rjY3GDZFi+FjpRZY2Jbs=
 github.com/beevik/etree v1.1.0/go.mod h1:r8Aw8JqVegEf0w2fDnATrX9VpkMcyFeM0FhwO62wh+A=
 github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d h1:xDfNPAt8lFiC1UJrqV3uuy861HCTo708pDMbjHHdCas=
@@ -167,8 +166,8 @@ github.com/google/renameio v0.1.0/go.mod h1:KWCgfxg9yswjAJkECMjeO8J8rahYeXnNhOm4
 github.com/googleapis/gax-go/v2 v2.0.4/go.mod h1:0Wqv26UfaUD9n4G6kQubkQ+KchISgw+vpHVxEJEs9eg=
 github.com/googleapis/gax-go/v2 v2.0.5 h1:sjZBwGj9Jlw33ImPtvFviGYvseOtDM7hkSKB7+Tv3SM=
 github.com/googleapis/gax-go/v2 v2.0.5/go.mod h1:DWXyrwAJ9X0FpwwEdw+IPEYBICEFu5mhpdKc/us6bOk=
-github.com/hashicorp/aws-sdk-go-base v0.7.0 h1:Umcq11kcoARameDgxPiYBbyltTZqO7GgBVSdq4pzX/w=
-github.com/hashicorp/aws-sdk-go-base v0.7.0/go.mod h1:2fRjWDv3jJBeN6mVWFHV6hFTNeFBx2gpDLQaZNxUVAY=
+github.com/hashicorp/aws-sdk-go-base v0.7.1 h1:7s/aR3hFn74tYPVihzDyZe7y/+BorN70rr9ZvpV3j3o=
+github.com/hashicorp/aws-sdk-go-base v0.7.1/go.mod h1:2fRjWDv3jJBeN6mVWFHV6hFTNeFBx2gpDLQaZNxUVAY=
 github.com/hashicorp/errwrap v1.0.0 h1:hLrqtEDnRye3+sgx6z4qVLNuviH3MR5aQ0ykNJa/UYA=
 github.com/hashicorp/errwrap v1.0.0/go.mod h1:YH+1FKiLXxHSkmPseP+kNlulaMuP3n2brvKWEqk/Jc4=
 github.com/hashicorp/go-checkpoint v0.5.0 h1:MFYpPZCnQqQTE18jFwSII6eUQrD/oxMFp3mlgcqk5mU=
@@ -331,8 +330,8 @@ github.com/stretchr/testify v1.6.1 h1:hDPOHmpOpP40lSULcqw7IrRb/u7w6RpDC9399XyoNd
 github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/terraform-linters/tflint-plugin-sdk v0.8.2 h1:A46VFbdBH8K1JwFjC4X5hbW35oL6gIoRxjlzzz27q7I=
 github.com/terraform-linters/tflint-plugin-sdk v0.8.2/go.mod h1:UsVDOw0Urg0POULWugZ6XFzWJ6i0NaTFYtlYrQe4Auw=
-github.com/terraform-providers/terraform-provider-aws v1.60.1-0.20210401223222-6eda2394d8c0 h1:s/T5KnH1uRtK/nBFW3ZPISUPp0TecnZhzbNQ8frrRqA=
-github.com/terraform-providers/terraform-provider-aws v1.60.1-0.20210401223222-6eda2394d8c0/go.mod h1:zHbWVcgJdvGPS7TgOYxr1p2Fgrtok7rVw9EOhSgtC9M=
+github.com/terraform-providers/terraform-provider-aws v1.60.1-0.20210416160120-9a609f330537 h1:m2JnN7NfPAplhEJCLyJyAO0DYqQ6kTV7LhMa1RHaacM=
+github.com/terraform-providers/terraform-provider-aws v1.60.1-0.20210416160120-9a609f330537/go.mod h1:vhDBdj6c+svsuvFHJePdiN+XTqp+oZZ0+Ldqc6OPHHQ=
 github.com/ulikunitz/xz v0.5.5/go.mod h1:2bypXElzHzzJZwzH67Y6wb67pO62Rzfn7BSiF4ABRW8=
 github.com/ulikunitz/xz v0.5.8 h1:ERv8V6GKqVi23rgu5cj9pVfVzJbOqAY2Ntl88O6c2nQ=
 github.com/ulikunitz/xz v0.5.8/go.mod h1:nbz6k7qbPmH4IRqmfOplQw/tblSgqTqBwxkY0oWt/14=
