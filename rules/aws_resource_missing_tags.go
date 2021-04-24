@@ -94,7 +94,8 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 			if attribute, ok := body.Attributes[tagsAttributeName]; ok {
 				log.Printf("[DEBUG] Walk `%s` attribute", resource.Type+"."+resource.Name+"."+tagsAttributeName)
 				resourceTags := make(map[string]string)
-				err := runner.EvaluateExpr(attribute.Expr, &resourceTags, nil)
+				wantType := cty.Map(cty.String)
+				err := runner.EvaluateExpr(attribute.Expr, &resourceTags, &wantType)
 				err = runner.EnsureNoError(err, func() error {
 					r.emitIssueOnExpr(runner, resourceTags, config, attribute.Expr)
 					return nil
