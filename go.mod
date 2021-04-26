@@ -16,5 +16,5 @@ require (
 	github.com/serenize/snaker v0.0.0-20201027110005-a7ad2135616e
 	github.com/terraform-linters/tflint-plugin-sdk v0.8.2
 	github.com/terraform-providers/terraform-provider-aws v1.60.1-0.20210416160120-9a609f330537
-	github.com/zclconf/go-cty v1.8.1
+	github.com/zclconf/go-cty v1.8.2
 )
