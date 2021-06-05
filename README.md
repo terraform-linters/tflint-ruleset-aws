@@ -14,11 +14,13 @@ This ruleset focus on possible errors and best practices about AWS resources. Ma
 
 ## Installation
 
-Download the plugin and place it in `~/.tflint.d/plugins/tflint-ruleset-aws` (or `./.tflint.d/plugins/tflint-ruleset-aws`). You can also set another plugin location with the `TFLINT_PLUGIN_DIR` environment variable. When using the plugin, configure as follows in `.tflint.hcl`:
+You can install the plugin by adding a config to `.tflint.hcl` and running `tflint --init`:
 
 ```hcl
 plugin "aws" {
     enabled = true
+    version = "0.4.1"
+    source  = "github.com/terraform-linters/tflint-ruleset-aws"
 }
 ```
 
@@ -61,6 +63,14 @@ You can easily install the built plugin with the following:
 
 ```
 $ make install
+```
+
+Note that if you install the plugin with `make install`, you must omit the `version` and `source` attributes in` .tflint.hcl`:
+
+```hcl
+plugin "aws" {
+    enabled = true
+}
 ```
 
 ## Add a new rule

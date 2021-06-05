@@ -6,7 +6,7 @@ Here's an example:
 
 ```hcl
 plugin "aws" {
-    enabled = true
+    // Plugin common attributes
 
     deep_check = false
     access_key = "AWS_ACCESS_KEY_ID"
@@ -16,12 +16,6 @@ plugin "aws" {
     shared_credentials_file = "~/.aws/credentials"
 }
 ```
-
-## `enabled`
-
-Default: false
-
-Enable this plugin. This is the common option in all plugins.
 
 ## `deep_check`
 
