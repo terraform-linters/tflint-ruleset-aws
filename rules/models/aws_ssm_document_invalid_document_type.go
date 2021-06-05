@@ -33,6 +33,8 @@ func NewAwsSsmDocumentInvalidDocumentTypeRule() *AwsSsmDocumentInvalidDocumentTy
 			"DeploymentStrategy",
 			"ChangeCalendar",
 			"Automation.ChangeTemplate",
+			"ProblemAnalysis",
+			"ProblemAnalysisTemplate",
 		},
 	}
 }

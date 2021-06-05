@@ -25,6 +25,7 @@ func NewAwsEcsServiceInvalidLaunchTypeRule() *AwsEcsServiceInvalidLaunchTypeRule
 		enum: []string{
 			"EC2",
 			"FARGATE",
+			"EXTERNAL",
 		},
 	}
 }

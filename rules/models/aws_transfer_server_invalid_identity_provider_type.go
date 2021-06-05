@@ -25,6 +25,7 @@ func NewAwsTransferServerInvalidIdentityProviderTypeRule() *AwsTransferServerInv
 		enum: []string{
 			"SERVICE_MANAGED",
 			"API_GATEWAY",
+			"AWS_DIRECTORY_SERVICE",
 		},
 	}
 }
