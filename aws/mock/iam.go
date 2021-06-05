@@ -6177,6 +6177,39 @@ func (mr *MockIAMAPIMockRecorder) ListUserTags(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListUserTags", reflect.TypeOf((*MockIAMAPI)(nil).ListUserTags), arg0)
 }
 
+// ListUserTagsPages mocks base method.
+func (m *MockIAMAPI) ListUserTagsPages(arg0 *iam.ListUserTagsInput, arg1 func(*iam.ListUserTagsOutput, bool) bool) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListUserTagsPages", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// ListUserTagsPages indicates an expected call of ListUserTagsPages.
+func (mr *MockIAMAPIMockRecorder) ListUserTagsPages(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListUserTagsPages", reflect.TypeOf((*MockIAMAPI)(nil).ListUserTagsPages), arg0, arg1)
+}
+
+// ListUserTagsPagesWithContext mocks base method.
+func (m *MockIAMAPI) ListUserTagsPagesWithContext(arg0 context.Context, arg1 *iam.ListUserTagsInput, arg2 func(*iam.ListUserTagsOutput, bool) bool, arg3 ...request.Option) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1, arg2}
+	for _, a := range arg3 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ListUserTagsPagesWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// ListUserTagsPagesWithContext indicates an expected call of ListUserTagsPagesWithContext.
+func (mr *MockIAMAPIMockRecorder) ListUserTagsPagesWithContext(arg0, arg1, arg2 interface{}, arg3 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1, arg2}, arg3...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListUserTagsPagesWithContext", reflect.TypeOf((*MockIAMAPI)(nil).ListUserTagsPagesWithContext), varargs...)
+}
+
 // ListUserTagsRequest mocks base method.
 func (m *MockIAMAPI) ListUserTagsRequest(arg0 *iam.ListUserTagsInput) (*request.Request, *iam.ListUserTagsOutput) {
 	m.ctrl.T.Helper()
