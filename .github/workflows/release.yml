@@ -34,5 +34,5 @@ jobs:
       uses: goreleaser/goreleaser-action@v2
       with:
         version: v0.143.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
