@@ -33,6 +33,6 @@ jobs:
     - name: Run GoReleaser
       uses: goreleaser/goreleaser-action@v2
       with:
-        version: v0.143.0
+        version: v0.169.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
