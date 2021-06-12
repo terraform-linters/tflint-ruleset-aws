@@ -1,3 +1,10 @@
+## 0.4.2 (2021-06-12)
+
+### Chores
+
+- [#125](https://github.com/terraform-linters/tflint-ruleset-aws/pull/125): Update GoReleaser config to build arm64 for M1
+- [#126](https://github.com/terraform-linters/tflint-ruleset-aws/pull/126): Bump GoReleaser version
+
 ## 0.4.1 (2021-06-05)
 
 ### Enhancements
