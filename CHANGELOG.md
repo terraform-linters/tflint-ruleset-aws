@@ -1,3 +1,9 @@
+## 0.4.3 (2021-06-12)
+
+### Chores
+
+- [#127](https://github.com/terraform-linters/tflint-ruleset-aws/pull/127): Fix GoReleaser action inputs
+
 ## 0.4.2 (2021-06-12)
 
 ### Chores
