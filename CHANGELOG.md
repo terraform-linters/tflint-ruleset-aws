@@ -1,3 +1,22 @@
+## 0.5.0 (2021-07-03)
+
+The minimum supported version of TFLint has changed in this version. TFLint v0.30.0+ is required for this plugin to work.
+
+### Breaking Changes
+
+- [#137](https://github.com/terraform-linters/tflint-ruleset-aws/pull/137): Bump tflint-plugin-sdk to v0.9.0
+
+### Enhancements
+
+- [#136](https://github.com/terraform-linters/tflint-ruleset-aws/pull/136): Bump aws-sdk-go submodule and Terraform provider
+
+### Chores
+
+- [#129](https://github.com/terraform-linters/tflint-ruleset-aws/pull/129): Bump github.com/golang/mock from 1.5.0 to 1.6.0
+- [#132](https://github.com/terraform-linters/tflint-ruleset-aws/pull/132): Bump github.com/hashicorp/terraform-plugin-sdk/v2 from 2.6.1 to 2.7.0
+- [#134](https://github.com/terraform-linters/tflint-ruleset-aws/pull/134): Bump github.com/zclconf/go-cty from 1.8.3 to 1.8.4
+- [#135](https://github.com/terraform-linters/tflint-ruleset-aws/pull/135): Bump github.com/aws/aws-sdk-go from 1.38.55 to 1.39.0
+
 ## 0.4.3 (2021-06-12)
 
 ### Chores
