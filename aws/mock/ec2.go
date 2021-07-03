@@ -1086,6 +1086,56 @@ func (mr *MockEC2APIMockRecorder) AssociateTransitGatewayRouteTableWithContext(a
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssociateTransitGatewayRouteTableWithContext", reflect.TypeOf((*MockEC2API)(nil).AssociateTransitGatewayRouteTableWithContext), varargs...)
 }
 
+// AssociateTrunkInterface mocks base method.
+func (m *MockEC2API) AssociateTrunkInterface(arg0 *ec2.AssociateTrunkInterfaceInput) (*ec2.AssociateTrunkInterfaceOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AssociateTrunkInterface", arg0)
+	ret0, _ := ret[0].(*ec2.AssociateTrunkInterfaceOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AssociateTrunkInterface indicates an expected call of AssociateTrunkInterface.
+func (mr *MockEC2APIMockRecorder) AssociateTrunkInterface(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssociateTrunkInterface", reflect.TypeOf((*MockEC2API)(nil).AssociateTrunkInterface), arg0)
+}
+
+// AssociateTrunkInterfaceRequest mocks base method.
+func (m *MockEC2API) AssociateTrunkInterfaceRequest(arg0 *ec2.AssociateTrunkInterfaceInput) (*request.Request, *ec2.AssociateTrunkInterfaceOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AssociateTrunkInterfaceRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.AssociateTrunkInterfaceOutput)
+	return ret0, ret1
+}
+
+// AssociateTrunkInterfaceRequest indicates an expected call of AssociateTrunkInterfaceRequest.
+func (mr *MockEC2APIMockRecorder) AssociateTrunkInterfaceRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssociateTrunkInterfaceRequest", reflect.TypeOf((*MockEC2API)(nil).AssociateTrunkInterfaceRequest), arg0)
+}
+
+// AssociateTrunkInterfaceWithContext mocks base method.
+func (m *MockEC2API) AssociateTrunkInterfaceWithContext(arg0 context.Context, arg1 *ec2.AssociateTrunkInterfaceInput, arg2 ...request.Option) (*ec2.AssociateTrunkInterfaceOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "AssociateTrunkInterfaceWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.AssociateTrunkInterfaceOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AssociateTrunkInterfaceWithContext indicates an expected call of AssociateTrunkInterfaceWithContext.
+func (mr *MockEC2APIMockRecorder) AssociateTrunkInterfaceWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssociateTrunkInterfaceWithContext", reflect.TypeOf((*MockEC2API)(nil).AssociateTrunkInterfaceWithContext), varargs...)
+}
+
 // AssociateVpcCidrBlock mocks base method.
 func (m *MockEC2API) AssociateVpcCidrBlock(arg0 *ec2.AssociateVpcCidrBlockInput) (*ec2.AssociateVpcCidrBlockOutput, error) {
 	m.ctrl.T.Helper()
@@ -15994,6 +16044,56 @@ func (mr *MockEC2APIMockRecorder) DescribeTransitGatewaysWithContext(arg0, arg1 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeTransitGatewaysWithContext", reflect.TypeOf((*MockEC2API)(nil).DescribeTransitGatewaysWithContext), varargs...)
 }
 
+// DescribeTrunkInterfaceAssociations mocks base method.
+func (m *MockEC2API) DescribeTrunkInterfaceAssociations(arg0 *ec2.DescribeTrunkInterfaceAssociationsInput) (*ec2.DescribeTrunkInterfaceAssociationsOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeTrunkInterfaceAssociations", arg0)
+	ret0, _ := ret[0].(*ec2.DescribeTrunkInterfaceAssociationsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeTrunkInterfaceAssociations indicates an expected call of DescribeTrunkInterfaceAssociations.
+func (mr *MockEC2APIMockRecorder) DescribeTrunkInterfaceAssociations(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeTrunkInterfaceAssociations", reflect.TypeOf((*MockEC2API)(nil).DescribeTrunkInterfaceAssociations), arg0)
+}
+
+// DescribeTrunkInterfaceAssociationsRequest mocks base method.
+func (m *MockEC2API) DescribeTrunkInterfaceAssociationsRequest(arg0 *ec2.DescribeTrunkInterfaceAssociationsInput) (*request.Request, *ec2.DescribeTrunkInterfaceAssociationsOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeTrunkInterfaceAssociationsRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.DescribeTrunkInterfaceAssociationsOutput)
+	return ret0, ret1
+}
+
+// DescribeTrunkInterfaceAssociationsRequest indicates an expected call of DescribeTrunkInterfaceAssociationsRequest.
+func (mr *MockEC2APIMockRecorder) DescribeTrunkInterfaceAssociationsRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeTrunkInterfaceAssociationsRequest", reflect.TypeOf((*MockEC2API)(nil).DescribeTrunkInterfaceAssociationsRequest), arg0)
+}
+
+// DescribeTrunkInterfaceAssociationsWithContext mocks base method.
+func (m *MockEC2API) DescribeTrunkInterfaceAssociationsWithContext(arg0 context.Context, arg1 *ec2.DescribeTrunkInterfaceAssociationsInput, arg2 ...request.Option) (*ec2.DescribeTrunkInterfaceAssociationsOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeTrunkInterfaceAssociationsWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.DescribeTrunkInterfaceAssociationsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeTrunkInterfaceAssociationsWithContext indicates an expected call of DescribeTrunkInterfaceAssociationsWithContext.
+func (mr *MockEC2APIMockRecorder) DescribeTrunkInterfaceAssociationsWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeTrunkInterfaceAssociationsWithContext", reflect.TypeOf((*MockEC2API)(nil).DescribeTrunkInterfaceAssociationsWithContext), varargs...)
+}
+
 // DescribeVolumeAttribute mocks base method.
 func (m *MockEC2API) DescribeVolumeAttribute(arg0 *ec2.DescribeVolumeAttributeInput) (*ec2.DescribeVolumeAttributeOutput, error) {
 	m.ctrl.T.Helper()
@@ -17557,6 +17657,56 @@ func (mr *MockEC2APIMockRecorder) DisableFastSnapshotRestoresWithContext(arg0, a
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisableFastSnapshotRestoresWithContext", reflect.TypeOf((*MockEC2API)(nil).DisableFastSnapshotRestoresWithContext), varargs...)
 }
 
+// DisableImageDeprecation mocks base method.
+func (m *MockEC2API) DisableImageDeprecation(arg0 *ec2.DisableImageDeprecationInput) (*ec2.DisableImageDeprecationOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DisableImageDeprecation", arg0)
+	ret0, _ := ret[0].(*ec2.DisableImageDeprecationOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DisableImageDeprecation indicates an expected call of DisableImageDeprecation.
+func (mr *MockEC2APIMockRecorder) DisableImageDeprecation(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisableImageDeprecation", reflect.TypeOf((*MockEC2API)(nil).DisableImageDeprecation), arg0)
+}
+
+// DisableImageDeprecationRequest mocks base method.
+func (m *MockEC2API) DisableImageDeprecationRequest(arg0 *ec2.DisableImageDeprecationInput) (*request.Request, *ec2.DisableImageDeprecationOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DisableImageDeprecationRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.DisableImageDeprecationOutput)
+	return ret0, ret1
+}
+
+// DisableImageDeprecationRequest indicates an expected call of DisableImageDeprecationRequest.
+func (mr *MockEC2APIMockRecorder) DisableImageDeprecationRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisableImageDeprecationRequest", reflect.TypeOf((*MockEC2API)(nil).DisableImageDeprecationRequest), arg0)
+}
+
+// DisableImageDeprecationWithContext mocks base method.
+func (m *MockEC2API) DisableImageDeprecationWithContext(arg0 context.Context, arg1 *ec2.DisableImageDeprecationInput, arg2 ...request.Option) (*ec2.DisableImageDeprecationOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DisableImageDeprecationWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.DisableImageDeprecationOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DisableImageDeprecationWithContext indicates an expected call of DisableImageDeprecationWithContext.
+func (mr *MockEC2APIMockRecorder) DisableImageDeprecationWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisableImageDeprecationWithContext", reflect.TypeOf((*MockEC2API)(nil).DisableImageDeprecationWithContext), varargs...)
+}
+
 // DisableSerialConsoleAccess mocks base method.
 func (m *MockEC2API) DisableSerialConsoleAccess(arg0 *ec2.DisableSerialConsoleAccessInput) (*ec2.DisableSerialConsoleAccessOutput, error) {
 	m.ctrl.T.Helper()
@@ -18207,6 +18357,56 @@ func (mr *MockEC2APIMockRecorder) DisassociateTransitGatewayRouteTableWithContex
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisassociateTransitGatewayRouteTableWithContext", reflect.TypeOf((*MockEC2API)(nil).DisassociateTransitGatewayRouteTableWithContext), varargs...)
 }
 
+// DisassociateTrunkInterface mocks base method.
+func (m *MockEC2API) DisassociateTrunkInterface(arg0 *ec2.DisassociateTrunkInterfaceInput) (*ec2.DisassociateTrunkInterfaceOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DisassociateTrunkInterface", arg0)
+	ret0, _ := ret[0].(*ec2.DisassociateTrunkInterfaceOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DisassociateTrunkInterface indicates an expected call of DisassociateTrunkInterface.
+func (mr *MockEC2APIMockRecorder) DisassociateTrunkInterface(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisassociateTrunkInterface", reflect.TypeOf((*MockEC2API)(nil).DisassociateTrunkInterface), arg0)
+}
+
+// DisassociateTrunkInterfaceRequest mocks base method.
+func (m *MockEC2API) DisassociateTrunkInterfaceRequest(arg0 *ec2.DisassociateTrunkInterfaceInput) (*request.Request, *ec2.DisassociateTrunkInterfaceOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DisassociateTrunkInterfaceRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.DisassociateTrunkInterfaceOutput)
+	return ret0, ret1
+}
+
+// DisassociateTrunkInterfaceRequest indicates an expected call of DisassociateTrunkInterfaceRequest.
+func (mr *MockEC2APIMockRecorder) DisassociateTrunkInterfaceRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisassociateTrunkInterfaceRequest", reflect.TypeOf((*MockEC2API)(nil).DisassociateTrunkInterfaceRequest), arg0)
+}
+
+// DisassociateTrunkInterfaceWithContext mocks base method.
+func (m *MockEC2API) DisassociateTrunkInterfaceWithContext(arg0 context.Context, arg1 *ec2.DisassociateTrunkInterfaceInput, arg2 ...request.Option) (*ec2.DisassociateTrunkInterfaceOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DisassociateTrunkInterfaceWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.DisassociateTrunkInterfaceOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DisassociateTrunkInterfaceWithContext indicates an expected call of DisassociateTrunkInterfaceWithContext.
+func (mr *MockEC2APIMockRecorder) DisassociateTrunkInterfaceWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisassociateTrunkInterfaceWithContext", reflect.TypeOf((*MockEC2API)(nil).DisassociateTrunkInterfaceWithContext), varargs...)
+}
+
 // DisassociateVpcCidrBlock mocks base method.
 func (m *MockEC2API) DisassociateVpcCidrBlock(arg0 *ec2.DisassociateVpcCidrBlockInput) (*ec2.DisassociateVpcCidrBlockOutput, error) {
 	m.ctrl.T.Helper()
@@ -18355,6 +18555,56 @@ func (mr *MockEC2APIMockRecorder) EnableFastSnapshotRestoresWithContext(arg0, ar
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EnableFastSnapshotRestoresWithContext", reflect.TypeOf((*MockEC2API)(nil).EnableFastSnapshotRestoresWithContext), varargs...)
+}
+
+// EnableImageDeprecation mocks base method.
+func (m *MockEC2API) EnableImageDeprecation(arg0 *ec2.EnableImageDeprecationInput) (*ec2.EnableImageDeprecationOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "EnableImageDeprecation", arg0)
+	ret0, _ := ret[0].(*ec2.EnableImageDeprecationOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// EnableImageDeprecation indicates an expected call of EnableImageDeprecation.
+func (mr *MockEC2APIMockRecorder) EnableImageDeprecation(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EnableImageDeprecation", reflect.TypeOf((*MockEC2API)(nil).EnableImageDeprecation), arg0)
+}
+
+// EnableImageDeprecationRequest mocks base method.
+func (m *MockEC2API) EnableImageDeprecationRequest(arg0 *ec2.EnableImageDeprecationInput) (*request.Request, *ec2.EnableImageDeprecationOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "EnableImageDeprecationRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.EnableImageDeprecationOutput)
+	return ret0, ret1
+}
+
+// EnableImageDeprecationRequest indicates an expected call of EnableImageDeprecationRequest.
+func (mr *MockEC2APIMockRecorder) EnableImageDeprecationRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EnableImageDeprecationRequest", reflect.TypeOf((*MockEC2API)(nil).EnableImageDeprecationRequest), arg0)
+}
+
+// EnableImageDeprecationWithContext mocks base method.
+func (m *MockEC2API) EnableImageDeprecationWithContext(arg0 context.Context, arg1 *ec2.EnableImageDeprecationInput, arg2 ...request.Option) (*ec2.EnableImageDeprecationOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "EnableImageDeprecationWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.EnableImageDeprecationOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// EnableImageDeprecationWithContext indicates an expected call of EnableImageDeprecationWithContext.
+func (mr *MockEC2APIMockRecorder) EnableImageDeprecationWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EnableImageDeprecationWithContext", reflect.TypeOf((*MockEC2API)(nil).EnableImageDeprecationWithContext), varargs...)
 }
 
 // EnableSerialConsoleAccess mocks base method.
