@@ -20,7 +20,8 @@ These rules warn of possible errors that can occur at `terraform apply`. Rules m
 |aws_elasticache_cluster_invalid_parameter_group|Disallow using invalid parameter group|✔|✔|
 |aws_elasticache_cluster_invalid_security_group|Disallow using invalid security groups|✔|✔|
 |aws_elasticache_cluster_invalid_subnet_group|Disallow using invalid subnet group|✔|✔|
-|aws_elasticache_cluster_invalid_type|Disallow using invalid node type||✔|
+|[aws_elasticache_cluster_invalid_type](aws_elasticache_cluster_invalid_type)|Disallow using invalid node type||✔|
+|[aws_elasticache_replication_group_invalid_type](aws_elasticache_replication_group_invalid_type)|Disallow using invalid node type||✔|
 |aws_elb_invalid_instance|Disallow using invalid instances|✔|✔|
 |aws_elb_invalid_security_group|Disallow using invalid security groups|✔|✔|
 |aws_elb_invalid_subnet|Disallow using invalid subnets|✔|✔|
@@ -51,6 +52,8 @@ These rules enforce best practices and naming conventions:
 |[aws_db_instance_default_parameter_group](aws_db_instance_default_parameter_group.md)|Disallow using default DB parameter group|✔|
 |[aws_elasticache_cluster_previous_type](aws_elasticache_cluster_previous_type.md)|Disallow using previous node types|✔|
 |[aws_elasticache_cluster_default_parameter_group](aws_elasticache_cluster_default_parameter_group.md)|Disallow using default parameter group|✔|
+|[aws_elasticache_replication_group_previous_type](aws_elasticache_replication_group_previous_type.md)|Disallow using previous node types|✔|
+|[aws_elasticache_replication_group_default_parameter_group](aws_elasticache_replication_group_default_parameter_group.md)|Disallow using default parameter group|✔|
 |[aws_instance_previous_type](aws_instance_previous_type.md)|Disallow using previous generation instance types|✔|
 |[aws_iam_policy_document_gov_friendly_arns](aws_iam_policy_document_gov_friendly_arns.md)|Ensure `iam_policy_document` data sources do not contain `arn:aws:` ARN's||
 |[aws_iam_policy_gov_friendly_arns](aws_iam_policy_gov_friendly_arns.md)|Ensure `iam_policy` resources do not contain `arn:aws:` ARN's||

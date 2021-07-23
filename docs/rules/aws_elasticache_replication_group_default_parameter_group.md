@@ -1,11 +1,11 @@
-# aws_elasticache_cluster_default_parameter_group
+# aws_elasticache_replication_group_default_parameter_group
 
 Disallow using default parameter group.
 
 ## Example
 
 ```hcl
-resource "aws_elasticache_cluster" "redis" {
+resource "aws_elasticache_replication_group" "redis" {
   cluster_id           = "app"
   engine               = "redis"
   engine_version       = "3.2.4"
@@ -22,12 +22,9 @@ resource "aws_elasticache_cluster" "redis" {
 ```
 $ tflint
 1 issue(s) found:
-
-Notice: "default.redis3.2" is default parameter group. You cannot edit it. (aws_elasticache_cluster_default_parameter_group)
-
+Notice: "default.redis3.2" is default parameter group. You cannot edit it. (aws_elasticache_replication_group_default_parameter_group)
   on template.tf line 9:
    9:   parameter_group_name = "default.redis3.2" // default parameter group!
-
 ```
 
 ## Why
