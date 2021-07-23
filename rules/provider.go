@@ -30,4 +30,5 @@ var Rules = append([]tflint.Rule{
 	NewAwsSpotFleetRequestInvalidExcessCapacityTerminationPolicyRule(),
 	NewAwsAPIGatewayModelInvalidNameRule(),
 	NewAwsElastiCacheReplicationGroupDefaultParameterGroupRule(),
+	NewAwsElastiCacheReplicationGroupInvalidTypeRule(),
 }, models.Rules...)

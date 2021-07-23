@@ -21,6 +21,7 @@ These rules warn of possible errors that can occur at `terraform apply`. Rules m
 |aws_elasticache_cluster_invalid_security_group|Disallow using invalid security groups|✔|✔|
 |aws_elasticache_cluster_invalid_subnet_group|Disallow using invalid subnet group|✔|✔|
 |aws_elasticache_cluster_invalid_type|Disallow using invalid node type||✔|
+|[aws_elasticache_replication_group_invalid_type](aws_elasticache_replication_group_invalid_type)|Disallow using invalid node type||✔|
 |aws_elb_invalid_instance|Disallow using invalid instances|✔|✔|
 |aws_elb_invalid_security_group|Disallow using invalid security groups|✔|✔|
 |aws_elb_invalid_subnet|Disallow using invalid subnets|✔|✔|
