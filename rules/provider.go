@@ -31,4 +31,5 @@ var Rules = append([]tflint.Rule{
 	NewAwsAPIGatewayModelInvalidNameRule(),
 	NewAwsElastiCacheReplicationGroupDefaultParameterGroupRule(),
 	NewAwsElastiCacheReplicationGroupInvalidTypeRule(),
+	NewAwsElastiCacheReplicationGroupPreviousTypeRule(),
 }, models.Rules...)

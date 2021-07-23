@@ -52,6 +52,7 @@ These rules enforce best practices and naming conventions:
 |[aws_db_instance_default_parameter_group](aws_db_instance_default_parameter_group.md)|Disallow using default DB parameter group|✔|
 |[aws_elasticache_cluster_previous_type](aws_elasticache_cluster_previous_type.md)|Disallow using previous node types|✔|
 |[aws_elasticache_cluster_default_parameter_group](aws_elasticache_cluster_default_parameter_group.md)|Disallow using default parameter group|✔|
+|[aws_elasticache_replication_group_previous_type](aws_elasticache_replication_group_previous_type.md)|Disallow using previous node types|✔|
 |[aws_elasticache_replication_group_default_parameter_group](aws_elasticache_replication_group_default_parameter_group.md)|Disallow using default parameter group|✔|
 |[aws_instance_previous_type](aws_instance_previous_type.md)|Disallow using previous generation instance types|✔|
 |[aws_iam_policy_document_gov_friendly_arns](aws_iam_policy_document_gov_friendly_arns.md)|Ensure `iam_policy_document` data sources do not contain `arn:aws:` ARN's||
