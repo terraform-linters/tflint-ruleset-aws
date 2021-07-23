@@ -43,7 +43,7 @@ func (r *AwsElastiCacheReplicationGroupDefaultParameterGroupRule) Link() string 
 	return project.ReferenceLink(r.Name())
 }
 
-var defaultElastiCacheParameterGroupRegexp = regexp.MustCompile("^default")
+var defaultElastiCacheReplicationParameterGroupRegexp = regexp.MustCompile("^default")
 
 // Check checks the parameter group name starts with `default`
 func (r *AwsElastiCacheReplicationGroupDefaultParameterGroupRule) Check(runner tflint.Runner) error {

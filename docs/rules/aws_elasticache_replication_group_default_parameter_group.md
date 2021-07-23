@@ -22,12 +22,9 @@ resource "aws_elasticache_replication_group" "redis" {
 ```
 $ tflint
 1 issue(s) found:
-
 Notice: "default.redis3.2" is default parameter group. You cannot edit it. (aws_elasticache_replication_group_default_parameter_group)
-
   on template.tf line 9:
    9:   parameter_group_name = "default.redis3.2" // default parameter group!
-
 ```
 
 ## Why
