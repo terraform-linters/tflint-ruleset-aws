@@ -12,8 +12,7 @@ import (
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/gohcl"
 	"github.com/hashicorp/hcl/v2/hclparse"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/terraform-providers/terraform-provider-aws/aws"
+	utils "github.com/terraform-linters/tflint-ruleset-aws/rules/generator-utils"
 )
 
 type mappingFile struct {
@@ -56,7 +55,7 @@ func main() {
 		mappingFiles = append(mappingFiles, mf)
 	}
 
-	awsProvider := aws.Provider()
+	awsProvider := utils.LoadProviderSchema("../../tools/provider-schema/schema.json")
 
 	generatedRules := []string{}
 	for _, mappingFile := range mappingFiles {
@@ -99,20 +98,26 @@ func main() {
 	generateDocFile(generatedRules)
 }
 
-func fetchSchema(resource, attribute string, model map[string]interface{}, provider *schema.Provider) *schema.Schema {
-	resourceSchema, ok := provider.ResourcesMap[resource]
+func fetchSchema(resource, attribute string, model map[string]interface{}, provider utils.ProviderSchema) utils.AttributeSchema {
+	resourceSchema, ok := provider.ResourceSchemas[resource]
 	if !ok {
 		panic(fmt.Sprintf("resource `%s` not found in the Terraform schema", resource))
 	}
-	attrSchema, ok := resourceSchema.Schema[attribute]
+	attrSchema, ok := resourceSchema.Block.Attributes[attribute]
 	if !ok {
-		panic(fmt.Sprintf("`%s.%s` not found in the Terraform schema", resource, attribute))
+		if _, ok := resourceSchema.Block.BlockTypes[attribute]; !ok {
+			panic(fmt.Sprintf("`%s.%s` not found in the Terraform schema", resource, attribute))
+		}
 	}
 
 	switch model["type"].(string) {
 	case "string":
-		if attrSchema.Type != schema.TypeString {
-			panic(fmt.Sprintf("`%s.%s` is expected as string, but not", resource, attribute))
+		ty, ok := attrSchema.Type.(string)
+		if !ok {
+			panic(fmt.Sprintf("`%s.%s` is expected as string, but not (%s)", resource, attribute, attrSchema.Type))
+		}
+		if ty != "string" && ty != "number" {
+			panic(fmt.Sprintf("`%s.%s` is expected as string, but not (%s)", resource, attribute, attrSchema.Type))
 		}
 	default:
 		// noop
