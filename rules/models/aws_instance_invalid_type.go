@@ -258,6 +258,8 @@ func NewAwsInstanceInvalidTypeRule() *AwsInstanceInvalidTypeRule {
 			"g3.8xlarge",
 			"g3.16xlarge",
 			"g3s.xlarge",
+			"g4ad.xlarge",
+			"g4ad.2xlarge",
 			"g4ad.4xlarge",
 			"g4ad.8xlarge",
 			"g4ad.16xlarge",

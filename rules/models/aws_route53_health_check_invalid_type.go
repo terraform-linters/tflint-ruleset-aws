@@ -30,6 +30,7 @@ func NewAwsRoute53HealthCheckInvalidTypeRule() *AwsRoute53HealthCheckInvalidType
 			"TCP",
 			"CALCULATED",
 			"CLOUDWATCH_METRIC",
+			"RECOVERY_CONTROL",
 		},
 	}
 }

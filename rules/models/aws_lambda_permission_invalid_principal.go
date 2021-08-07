@@ -23,7 +23,7 @@ func NewAwsLambdaPermissionInvalidPrincipalRule() *AwsLambdaPermissionInvalidPri
 	return &AwsLambdaPermissionInvalidPrincipalRule{
 		resourceType:  "aws_lambda_permission",
 		attributeName: "principal",
-		pattern:       regexp.MustCompile(`^.*$`),
+		pattern:       regexp.MustCompile(`^[^\s]+$`),
 	}
 }
 
@@ -59,7 +59,7 @@ func (r *AwsLambdaPermissionInvalidPrincipalRule) Check(runner tflint.Runner) er
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssueOnExpr(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^.*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[^\s]+$`),
 					attribute.Expr,
 				)
 			}

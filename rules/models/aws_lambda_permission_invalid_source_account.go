@@ -15,6 +15,7 @@ import (
 type AwsLambdaPermissionInvalidSourceAccountRule struct {
 	resourceType  string
 	attributeName string
+	max           int
 	pattern       *regexp.Regexp
 }
 
@@ -23,6 +24,7 @@ func NewAwsLambdaPermissionInvalidSourceAccountRule() *AwsLambdaPermissionInvali
 	return &AwsLambdaPermissionInvalidSourceAccountRule{
 		resourceType:  "aws_lambda_permission",
 		attributeName: "source_account",
+		max:           12,
 		pattern:       regexp.MustCompile(`^\d{12}$`),
 	}
 }
@@ -56,6 +58,13 @@ func (r *AwsLambdaPermissionInvalidSourceAccountRule) Check(runner tflint.Runner
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
 		return runner.EnsureNoError(err, func() error {
+			if len(val) > r.max {
+				runner.EmitIssueOnExpr(
+					r,
+					"source_account must be 12 characters or less",
+					attribute.Expr,
+				)
+			}
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssueOnExpr(
 					r,
