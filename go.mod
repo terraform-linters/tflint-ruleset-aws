@@ -25,7 +25,7 @@ require (
 	github.com/serenize/snaker v0.0.0-20201027110005-a7ad2135616e
 	github.com/sergi/go-diff v1.2.0 // indirect
 	github.com/stretchr/testify v1.7.0 // indirect
-	github.com/terraform-linters/tflint-plugin-sdk v0.9.0
+	github.com/terraform-linters/tflint-plugin-sdk v0.9.1
 	github.com/zclconf/go-cty v1.9.0
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/genproto v0.0.0-20200711021454-869866162049 // indirect
