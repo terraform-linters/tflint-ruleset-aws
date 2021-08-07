@@ -9,9 +9,7 @@ import (
 
 	"github.com/hashicorp/hcl/v2/gohcl"
 	"github.com/hashicorp/hcl/v2/hclparse"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	utils "github.com/terraform-linters/tflint-ruleset-aws/rules/generator-utils"
-	"github.com/terraform-providers/terraform-provider-aws/aws"
 )
 
 type definition struct {
@@ -40,7 +38,7 @@ type providerMeta struct {
 	RuleNameCCList []string
 }
 
-var awsProvider = aws.Provider()
+var awsProvider = utils.LoadProviderSchema("../../tools/provider-schema/schema.json")
 
 func main() {
 	files, err := filepath.Glob("./definitions/*.hcl")
@@ -92,19 +90,25 @@ func main() {
 }
 
 func dataType(resource, attribute string) string {
-	resourceSchema, ok := awsProvider.ResourcesMap[resource]
+	resourceSchema, ok := awsProvider.ResourceSchemas[resource]
 	if !ok {
 		panic(fmt.Sprintf("resource `%s` not found in the Terraform schema", resource))
 	}
-	attrSchema, ok := resourceSchema.Schema[attribute]
+	attrSchema, ok := resourceSchema.Block.Attributes[attribute]
 	if !ok {
 		panic(fmt.Sprintf("`%s.%s` not found in the Terraform schema", resource, attribute))
 	}
 
-	switch attrSchema.Type {
-	case schema.TypeString:
+	switch ty := attrSchema.Type.(type) {
+	case string:
+		if ty != "string" {
+			panic(fmt.Errorf("Unexpected data type: %#v", attrSchema.Type))
+		}
 		return "string"
-	case schema.TypeSet:
+	case []interface{}:
+		if len(ty) != 2 || !(ty[0] == "set" && ty[1] == "string") {
+			panic(fmt.Errorf("Unexpected data type: %#v", attrSchema.Type))
+		}
 		return "list"
 	default:
 		panic(fmt.Errorf("Unexpected data type: %#v", attrSchema.Type))

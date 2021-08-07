@@ -10,7 +10,7 @@ import (
 	"sort"
 	"text/template"
 
-	"github.com/terraform-providers/terraform-provider-aws/aws"
+	utils "github.com/terraform-linters/tflint-ruleset-aws/rules/generator-utils"
 )
 
 const filename = "resources.go"
@@ -20,11 +20,11 @@ type TemplateData struct {
 }
 
 func main() {
-	provider := aws.Provider()
+	provider := utils.LoadProviderSchema("../../tools/provider-schema/schema.json")
 	resources := make([]string, 0)
 
-	for name, resource := range provider.ResourcesMap {
-		if _, ok := resource.Schema["tags"]; ok {
+	for name, resource := range provider.ResourceSchemas {
+		if _, ok := resource.Block.Attributes["tags"]; ok {
 			resources = append(resources, name)
 		}
 	}
