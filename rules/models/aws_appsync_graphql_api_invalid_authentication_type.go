@@ -27,6 +27,7 @@ func NewAwsAppsyncGraphqlAPIInvalidAuthenticationTypeRule() *AwsAppsyncGraphqlAP
 			"AWS_IAM",
 			"AMAZON_COGNITO_USER_POOLS",
 			"OPENID_CONNECT",
+			"AWS_LAMBDA",
 		},
 	}
 }

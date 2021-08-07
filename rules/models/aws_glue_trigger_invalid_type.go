@@ -26,6 +26,7 @@ func NewAwsGlueTriggerInvalidTypeRule() *AwsGlueTriggerInvalidTypeRule {
 			"SCHEDULED",
 			"CONDITIONAL",
 			"ON_DEMAND",
+			"EVENT",
 		},
 	}
 }
