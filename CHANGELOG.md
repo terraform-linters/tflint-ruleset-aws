@@ -1,3 +1,18 @@
+## 0.6.0 (2021-08-08)
+
+### Enhancements
+
+- [#143](https://github.com/terraform-linters/tflint-ruleset-aws/pull/143): Add rules for aws_elasticache_replication_group resource
+- [#151](https://github.com/terraform-linters/tflint-ruleset-aws/pull/151): Bump aws-sdk-go submodule and Terraform provider schema
+
+### Chores
+
+- [#138](https://github.com/terraform-linters/tflint-ruleset-aws/pull/138): Bump github.com/zclconf/go-cty from 1.8.4 to 1.9.0
+- [#142](https://github.com/terraform-linters/tflint-ruleset-aws/pull/142): Bump github.com/terraform-linters/tflint-plugin-sdk from 0.9.0 to 0.9.1
+- [#144](https://github.com/terraform-linters/tflint-ruleset-aws/pull/144): Remove hashicorp/terraform-provider-aws build dependency
+- [#145](https://github.com/terraform-linters/tflint-ruleset-aws/pull/145): Bump github.com/hashicorp/hcl/v2 from 2.10.0 to 2.10.1
+- [#150](https://github.com/terraform-linters/tflint-ruleset-aws/pull/150): Bump github.com/aws/aws-sdk-go from 1.39.0 to 1.40.17
+
 ## 0.5.0 (2021-07-03)
 
 The minimum supported version of TFLint has changed in this version. TFLint v0.30.0+ is required for this plugin to work.
