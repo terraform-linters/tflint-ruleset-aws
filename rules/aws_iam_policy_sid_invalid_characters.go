@@ -6,7 +6,14 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 	"regexp"
+	"fmt"
 )
+type AwsIAMPolicySidInvalidCharactersStatementStruct struct {
+	Sid string `json:"Sid"`
+}
+type AwsIAMPolicySidInvalidCharactersPolicyStruct struct {
+	Statement []AwsIAMPolicySidInvalidCharactersStatementStruct `json:"Statement"`
+}
 
 // AwsIAMPolicySidInvalidCharactersRule checks for invalid characters in SID
 type AwsIAMPolicySidInvalidCharactersRule struct {
@@ -49,26 +56,24 @@ func (r *AwsIAMPolicySidInvalidCharactersRule) Check(runner tflint.Runner) error
 	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-		var unMarshaledPolicy interface{}
-		err = json.Unmarshal([]byte(val), &unMarshaledPolicy)
-		if err != nil {
-			return err
+		unMarshaledPolicy := AwsIAMPolicySidInvalidCharactersPolicyStruct{}
+		if jsonErr := json.Unmarshal([]byte(val), &unMarshaledPolicy); jsonErr != nil {
+			return jsonErr;
 		}
-		policy := unMarshaledPolicy.(map[string]interface{})
-		statements := policy["Statement"].([]interface{})
+		statements := unMarshaledPolicy.Statement
 
 		return runner.EnsureNoError(err, func() error {
-			for _, e := range statements {
-				statement := e.(map[string]interface{})
-				if r.validCharacters.MatchString(statement["Sid"].(string)) == false {
+			for _, statement := range statements {
+				if r.validCharacters.MatchString(statement.Sid) == false {
 					runner.EmitIssueOnExpr(
 						r,
-						"The policy's sid contains invalid characters.",
+						fmt.Sprintf("The policy's sid (\"%s\") does not match \"%s\".", statement.Sid, r.validCharacters.String()),
 						attribute.Expr,
 					)
 				}
 			}
 			return nil
 		})
+		return nil
 	})
 }

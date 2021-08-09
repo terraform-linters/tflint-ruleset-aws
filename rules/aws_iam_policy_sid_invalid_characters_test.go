@@ -39,7 +39,7 @@ EOF
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsIAMPolicySidInvalidCharactersRule(),
-					Message: "The policy's sid contains invalid characters.",
+					Message: `The policy's sid ("This contains invalid-characters.") does not match "^[a-zA-Z0-9]+$".`,
 					Range: hcl.Range{
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 5, Column: 11},
@@ -82,7 +82,7 @@ EOF
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsIAMPolicySidInvalidCharactersRule(),
-					Message: "The policy's sid contains invalid characters.",
+					Message: `The policy's sid ("This contains invalid-characters.") does not match "^[a-zA-Z0-9]+$".`,
 					Range: hcl.Range{
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 5, Column: 11},
