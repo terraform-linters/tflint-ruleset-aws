@@ -30,7 +30,7 @@ EOF
 $ tflint
 1 issue(s) found:
 
-Error: The policy's sid contains invalid characters. (aws_iam_policy_sid_invalid_characters)
+Error: The policy's sid ("This contains invalid-characters.") does not match "^[a-zA-Z0-9]+$". (aws_iam_policy_sid_invalid_characters)
 
   on template.tf line 3:
    3:   policy = <<-EOF
