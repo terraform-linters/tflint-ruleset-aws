@@ -1,6 +1,6 @@
-# aws_iam_policy_invalid_length
+# aws_iam_policy_too_long_policy
 
-This makes sure that a IAM policy is not longer than the 2048 AWS character limit.
+This makes sure that a IAM policy is not longer than the 6144 AWS character limit.
 
 ## Example
 
@@ -11,7 +11,7 @@ resource "aws_iam_policy" "policy" {
 	description = "My test policy"
 	policy = <<EOF
 	{
-		STRING LONGER THAN 2048
+		STRING LONGER THAN 6144
 	}
 EOF
 }
@@ -20,7 +20,7 @@ EOF
 ```
 $ tflint
 1 issue(s) found:
-Error: The policy length is %d characters and is limited to 2048 characters. (aws_iam_policy_invalid_length)
+Error: The policy length is %d characters and is limited to 6144 characters. (aws_iam_policy_too_long_policy)
   on template.tf line 6:
    6:   policy = "{POLICY}" // Policy is too long,!
 

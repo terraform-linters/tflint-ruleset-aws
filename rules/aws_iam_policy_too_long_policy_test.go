@@ -1,9 +1,9 @@
 package rules
 
 import (
+	"math/rand"
 	"testing"
 	"time"
-	"math/rand"
 
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
@@ -12,14 +12,14 @@ import (
 var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 func randSeq(n int) string {
-    b := make([]rune, n)
-    for i := range b {
-        b[i] = letters[rand.Intn(len(letters))]
-    }
-    return string(b)
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+	return string(b)
 }
 
-func Test_AwsIAMPolicyInvalidLength(t *testing.T) {
+func Test_AwsIAMPolicyTooLongPolicy(t *testing.T) {
 	rand.Seed(time.Now().UnixNano())
 	cases := []struct {
 		Name     string
@@ -39,7 +39,7 @@ resource "aws_iam_policy" "policy" {
 		"Statement": [
 		{
 			"Action": [
-				` + randSeq(1894) + `
+				` + randSeq(6034) + `
 			],
 			"Effect": "Allow",
 			"Resource": "arn:aws:s3:::<bucketname>/*""
@@ -51,8 +51,8 @@ EOF
 `,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsIAMPolicyInvalidLengthRule(),
-					Message: "The policy length is 2050 characters and is limited to 2048 characters.",
+					Rule:    NewAwsIAMPolicyTooLongPolicyRule(),
+					Message: "The policy length is 6145 characters and is limited to 6144 characters.",
 					Range: hcl.Range{
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 6, Column: 11},
@@ -63,7 +63,7 @@ EOF
 		},
 	}
 
-	rule := NewAwsIAMPolicyInvalidLengthRule()
+	rule := NewAwsIAMPolicyTooLongPolicyRule()
 
 	for _, tc := range cases {
 		runner := helper.TestRunner(t, map[string]string{"resource.tf": tc.Content})
