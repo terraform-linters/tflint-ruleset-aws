@@ -33,4 +33,5 @@ var Rules = append([]tflint.Rule{
 	NewAwsElastiCacheReplicationGroupInvalidTypeRule(),
 	NewAwsElastiCacheReplicationGroupPreviousTypeRule(),
 	NewAwsIAMPolicySidInvalidCharactersRule(),
+	NewAwsIAMPolicyTooLongPolicyRule(),
 }, models.Rules...)
