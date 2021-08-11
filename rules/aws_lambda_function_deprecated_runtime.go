@@ -8,18 +8,25 @@ import (
 	"time"
 )
 
-// AwsLambdaFunctionEolRule checks to see if the lambda runtime has reached End Of Life
-type AwsLambdaFunctionEolRule struct {
+// AwsLambdaFunctionDeprecatedRuntimeRule checks to see if the lambda runtime has reached End Of Support
+type AwsLambdaFunctionDeprecatedRuntimeRule struct {
 	resourceType  string
 	attributeName string
+	eosRuntimes   map[string]time.Time
 	eolRuntimes   map[string]time.Time
 }
 
-// NewAwsLambdaFunctionEolRule returns new rule with default attributes
-func NewAwsLambdaFunctionEolRule() *AwsLambdaFunctionEolRule {
-	return &AwsLambdaFunctionEolRule{
+// NewAwsLambdaFunctionDeprecatedRuntimeRule returns new rule with default attributes
+func NewAwsLambdaFunctionDeprecatedRuntimeRule() *AwsLambdaFunctionDeprecatedRuntimeRule {
+	return &AwsLambdaFunctionDeprecatedRuntimeRule{
 		resourceType:  "aws_lambda_function",
 		attributeName: "runtime",
+		eosRuntimes: map[string]time.Time{
+			"nodejs10.x":    time.Date(2021, time.July, 30, 0, 0, 0, 0, time.UTC),
+			"ruby2.5":       time.Date(2021, time.July, 30, 0, 0, 0, 0, time.UTC),
+			"python2.7":     time.Date(2021, time.July, 15, 0, 0, 0, 0, time.UTC),
+			"dotnetcore2.1": time.Date(2021, time.September, 20, 0, 0, 0, 0, time.UTC),
+		},
 		eolRuntimes: map[string]time.Time{
 			"dotnetcore1.0":  time.Date(2019, time.July, 30, 0, 0, 0, 0, time.UTC),
 			"dotnetcore2.0":  time.Date(2019, time.May, 30, 0, 0, 0, 0, time.UTC),
@@ -37,27 +44,27 @@ func NewAwsLambdaFunctionEolRule() *AwsLambdaFunctionEolRule {
 }
 
 // Name returns the rule name
-func (r *AwsLambdaFunctionEolRule) Name() string {
-	return "aws_lambda_function_eol"
+func (r *AwsLambdaFunctionDeprecatedRuntimeRule) Name() string {
+	return "aws_lambda_function_deprecated_runtime"
 }
 
 // Enabled returns whether the rule is enabled by default
-func (r *AwsLambdaFunctionEolRule) Enabled() bool {
+func (r *AwsLambdaFunctionDeprecatedRuntimeRule) Enabled() bool {
 	return true
 }
 
 // Severity returns the rule severity
-func (r *AwsLambdaFunctionEolRule) Severity() string {
-	return tflint.ERROR
+func (r *AwsLambdaFunctionDeprecatedRuntimeRule) Severity() string {
+	return tflint.WARNING
 }
 
 // Link returns the rule reference link
-func (r *AwsLambdaFunctionEolRule) Link() string {
+func (r *AwsLambdaFunctionDeprecatedRuntimeRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-// Check checks if the chosen runtime has reached EOL. Date check allows future values to be created as well.
-func (r *AwsLambdaFunctionEolRule) Check(runner tflint.Runner) error {
+// Check checks if the chosen runtime has reached EOS. Date check allows future values to be created as well.
+func (r *AwsLambdaFunctionDeprecatedRuntimeRule) Check(runner tflint.Runner) error {
 
 	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
 		var val string
@@ -69,6 +76,12 @@ func (r *AwsLambdaFunctionEolRule) Check(runner tflint.Runner) error {
 				runner.EmitIssueOnExpr(
 					r,
 					fmt.Sprintf("The \"%s\" runtime has reached the end of life", val),
+					attribute.Expr,
+				)
+			} else if _, ok := r.eosRuntimes[val]; ok && now.After(r.eosRuntimes[val]) {
+				runner.EmitIssueOnExpr(
+					r,
+					fmt.Sprintf("The \"%s\" runtime has reached the end of support", val),
 					attribute.Expr,
 				)
 			}

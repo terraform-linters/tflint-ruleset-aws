@@ -1,6 +1,6 @@
-# aws_lambda_function_end_of_support
+# aws_lambda_function_deprecated_runtime
 
-Checks to see if a lambda function has been set with a runtime that has reached End of Life.
+Checks to see if a lambda function has been set with a runtime that is deprecated. This can show up as either "end of support" or "end of life" depending on the phase of deprecation it is currently in.
 
 ## Example
 
@@ -17,7 +17,7 @@ resource "aws_lambda_function" "function" {
 $ tflint
 1 issue(s) found:
 
-Error: The "python2.7" runtime has reached the end of support. (aws_lambda_function_end_of_support)
+Error: The "python2.7" runtime has reached the end of support. (aws_lambda_function_deprecated_runtime)
 
   on template.tf line 4:
    4:   runtime  = "python2.7" // end of support reached!
