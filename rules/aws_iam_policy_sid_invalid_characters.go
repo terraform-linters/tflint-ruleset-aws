@@ -2,12 +2,13 @@ package rules
 
 import (
 	"encoding/json"
+	"fmt"
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 	"regexp"
-	"fmt"
 )
+
 type AwsIAMPolicySidInvalidCharactersStatementStruct struct {
 	Sid string `json:"Sid"`
 }
@@ -58,7 +59,7 @@ func (r *AwsIAMPolicySidInvalidCharactersRule) Check(runner tflint.Runner) error
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 		unMarshaledPolicy := AwsIAMPolicySidInvalidCharactersPolicyStruct{}
 		if jsonErr := json.Unmarshal([]byte(val), &unMarshaledPolicy); jsonErr != nil {
-			return jsonErr;
+			return jsonErr
 		}
 		statements := unMarshaledPolicy.Statement
 
