@@ -38,7 +38,7 @@ mapping "aws_cognito_user_pool_client" {
 }
 
 mapping "aws_cognito_user_pool_domain" {
-  domain          = DomainType
+  domain          = any // DomainType is not appropriate for a fully-customized domain. See also https://github.com/terraform-linters/tflint-ruleset-aws/issues/156
   user_pool_id    = UserPoolIdType
   certificate_arn = ArnType
 }
@@ -111,9 +111,4 @@ test "aws_cognito_user_pool_client" "default_redirect_uri" {
 test "aws_cognito_user_pool_client" "name" {
   ok = "client"
   ng = "client/example"
-}
-
-test "aws_cognito_user_pool_domain" "domain" {
-  ok = "auth"
-  ng = "auth example"
 }
