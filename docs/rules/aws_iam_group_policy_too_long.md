@@ -1,17 +1,16 @@
-# aws_iam_policy_too_long_policy
+# aws_iam_group_policy_too_long
 
-This makes sure that an IAM policy is not longer than the 6144 AWS character limit.
-
+This makes sure that an IAM group policy is not longer than the 5120 AWS character limit.
 ## Example
 
 ```hcl
-resource "aws_iam_policy" "policy" {
+resource "aws_iam_group_policy" "policy" {
 	name        = "test_policy"
-	path        = "/"
+	group       = "test_group"
 	description = "My test policy"
 	policy = <<EOF
 	{
-		STRING LONGER THAN 6144
+		STRING LONGER THAN 5120
 	}
 EOF
 }
@@ -20,7 +19,7 @@ EOF
 ```
 $ tflint
 1 issue(s) found:
-Error: The policy length is %d characters and is limited to 6144 characters. (aws_iam_policy_too_long_policy)
+Error: The policy length is %d characters and is limited to 5120 characters. (aws_iam_policy_too_long_policy)
   on template.tf line 6:
    6:   policy = "{POLICY}" // Policy is too long,!
 

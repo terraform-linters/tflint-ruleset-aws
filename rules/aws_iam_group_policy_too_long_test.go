@@ -9,7 +9,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func AwsIAMPolicyTooLongPolicyRandSeq(n int) string {
+func AwsIAMGroupPolicyTooLongRandSeq(n int) string {
 	var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 	b := make([]rune, n)
 	for i := range b {
@@ -18,7 +18,7 @@ func AwsIAMPolicyTooLongPolicyRandSeq(n int) string {
 	return string(b)
 }
 
-func Test_AwsIAMPolicyTooLongPolicy(t *testing.T) {
+func Test_AwsIAMGroupPolicyTooLong(t *testing.T) {
 	rand.Seed(time.Now().UnixNano())
 	cases := []struct {
 		Name     string
@@ -28,17 +28,16 @@ func Test_AwsIAMPolicyTooLongPolicy(t *testing.T) {
 		{
 			Name: "policy is too long",
 			Content: `
-resource "aws_iam_policy" "policy" {
+resource "aws_iam_group_policy" "policy" {
 	name        = "test_policy"
-	path        = "/"
-	description = "My test policy"
+	group = "test_group"
 	policy = <<EOF
 	{
 		"Version": "2012-10-17",
 		"Statement": [
 		{
 			"Action": [
-				` + AwsIAMPolicyTooLongPolicyRandSeq(6034) + `
+				` + AwsIAMGroupPolicyTooLongRandSeq(5120) + `
 			],
 			"Effect": "Allow",
 			"Resource": "arn:aws:s3:::<bucketname>/*""
@@ -50,19 +49,19 @@ EOF
 `,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsIAMPolicyTooLongPolicyRule(),
-					Message: "The policy length is 6145 characters and is limited to 6144 characters.",
+					Rule:    NewAwsIAMGroupPolicyTooLongRule(),
+					Message: "The policy length is 5231 characters and is limited to 5120 characters.",
 					Range: hcl.Range{
 						Filename: "resource.tf",
-						Start:    hcl.Pos{Line: 6, Column: 11},
-						End:      hcl.Pos{Line: 19, Column: 4},
+						Start:    hcl.Pos{Line: 5, Column: 11},
+						End:      hcl.Pos{Line: 18, Column: 4},
 					},
 				},
 			},
 		},
 	}
 
-	rule := NewAwsIAMPolicyTooLongPolicyRule()
+	rule := NewAwsIAMGroupPolicyTooLongRule()
 
 	for _, tc := range cases {
 		runner := helper.TestRunner(t, map[string]string{"resource.tf": tc.Content})
