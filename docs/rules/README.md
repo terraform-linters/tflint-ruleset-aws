@@ -231,7 +231,6 @@ These rules enforce best practices and naming conventions:
 |aws_cognito_user_pool_client_invalid_name|✔|
 |aws_cognito_user_pool_client_invalid_user_pool_id|✔|
 |aws_cognito_user_pool_domain_invalid_certificate_arn|✔|
-|aws_cognito_user_pool_domain_invalid_domain|✔|
 |aws_cognito_user_pool_domain_invalid_user_pool_id|✔|
 |aws_cognito_user_pool_invalid_email_verification_message|✔|
 |aws_cognito_user_pool_invalid_email_verification_subject|✔|

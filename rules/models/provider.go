@@ -170,7 +170,6 @@ var Rules = []tflint.Rule{
 	NewAwsCognitoUserPoolClientInvalidNameRule(),
 	NewAwsCognitoUserPoolClientInvalidUserPoolIDRule(),
 	NewAwsCognitoUserPoolDomainInvalidCertificateArnRule(),
-	NewAwsCognitoUserPoolDomainInvalidDomainRule(),
 	NewAwsCognitoUserPoolDomainInvalidUserPoolIDRule(),
 	NewAwsCognitoUserPoolInvalidEmailVerificationMessageRule(),
 	NewAwsCognitoUserPoolInvalidEmailVerificationSubjectRule(),
