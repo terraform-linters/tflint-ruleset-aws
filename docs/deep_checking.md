@@ -109,3 +109,37 @@ This plugin fetches credentials in the same way as Terraform. See [this document
 ### Assume role
 
 This plugin can assume a role in the same way as Terraform. See [this documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#assume-role).
+
+## Required permissions
+
+The following policy document provides the minimal set permissions necessary for the deep checking:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeKeyPairs",
+        "ec2:DescribeEgressOnlyInternetGateways",
+        "ec2:DescribeInternetGateways",
+        "ec2:DescribeNatGateways",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:DescribeRouteTables",
+        "ec2:DescribeVpcPeeringConnections",
+        "rds:DescribeDBSubnetGroups",
+        "rds:DescribeOptionGroups",
+        "rds:DescribeDBParameterGroups",
+        "elasticache:DescribeCacheParameterGroups",
+        "elasticache:DescribeCacheSubnetGroups",
+        "iam:ListInstanceProfiles"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+```
