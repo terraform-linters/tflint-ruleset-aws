@@ -30,12 +30,4 @@ It results in an error.
 
 ## How To Fix
 
-Check if two or more of the following attributes are specified:
-
-- gateway_id
-- egress_only_gateway_id
-- nat_gateway_id
-- instance_id
-- vpc_peering_connection_id
-- network_interface_id
-- transit_gateway_id
+Remove the other targets so that there is only one target. See https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route#argument-reference
