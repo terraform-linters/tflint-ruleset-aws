@@ -1,3 +1,32 @@
+## 0.7.0 (2021-08-28)
+
+### Breaking Changes
+
+- [#158](https://github.com/terraform-linters/tflint-ruleset-aws/pull/158): rules: Remove `aws_cognito_user_pool_domain_invalid_domain` rule ([@wata727](https://github.com/wata727))
+
+### Enhancements
+
+- [#152](https://github.com/terraform-linters/tflint-ruleset-aws/pull/152): rules: Add deep checking rules for the `aws_elasticache_replication_group` resource ([@Rihoj](https://github.com/Rihoj))
+  - `aws_elasticache_replication_group_invalid_parameter_group`
+  - `aws_elasticache_replication_group_invalid_security_group`
+  - `aws_elasticache_replication_group_invalid_subnet_group`
+- [#153](https://github.com/terraform-linters/tflint-ruleset-aws/pull/153): rules: Add `aws_iam_policy_too_long_policy` rule ([@Rihoj](https://github.com/Rihoj))
+- [#154](https://github.com/terraform-linters/tflint-ruleset-aws/pull/154): rules: Add `aws_lambda_function_deprecated_runtime` rule ([@Rihoj](https://github.com/Rihoj))
+- [#155](https://github.com/terraform-linters/tflint-ruleset-aws/pull/155): rules: Add `aws_iam_policy_sid_invalid_characters` rule ([@Rihoj](https://github.com/Rihoj))
+- [#166](https://github.com/terraform-linters/tflint-ruleset-aws/pull/166): rules: Update valid DB instance types ([@wata727](https://github.com/wata727))
+- [#167](https://github.com/terraform-linters/tflint-ruleset-aws/pull/167): rules: Add support for Oracle multitenant container database engines ([@wata727](https://github.com/wata727))
+- [#168](https://github.com/terraform-linters/tflint-ruleset-aws/pull/168): rules: Add `RabbitMQ` to `aws_mq_configuration_invalid_engine_type` rule ([@wata727](https://github.com/wata727))
+- [#169](https://github.com/terraform-linters/tflint-ruleset-aws/pull/169): rules: Add route target types for `aws_route` rules ([@wata727](https://github.com/wata727))
+- [#170](https://github.com/terraform-linters/tflint-ruleset-aws/pull/170): rules: Update valid regions for the `aws_s3_bucket_invalid_region` rule ([@wata727](https://github.com/wata727))
+- [#171](https://github.com/terraform-linters/tflint-ruleset-aws/pull/171): rules: Bump aws-sdk-go submodule and Terraform provider schema
+
+### Chores
+
+- [#157](https://github.com/terraform-linters/tflint-ruleset-aws/pull/157): docs: Add required IAM policy document for deep checking ([@wata727](https://github.com/wata727))
+- [#161](https://github.com/terraform-linters/tflint-ruleset-aws/pull/161): docs: Fix typo in `aws_elasticache_cluster_default_parameter_group.md` ([@w0rmr1d3r](https://github.com/w0rmr1d3r))
+- [#163](https://github.com/terraform-linters/tflint-ruleset-aws/pull/163): Bump github.com/zclconf/go-cty from 1.9.0 to 1.9.1
+- [#172](https://github.com/terraform-linters/tflint-ruleset-aws/pull/172): Bump github.com/aws/aws-sdk-go from 1.40.17 to 1.40.32
+
 ## 0.6.0 (2021-08-08)
 
 ### Enhancements
