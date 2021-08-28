@@ -27,6 +27,7 @@ func NewAwsS3BucketInvalidRegionRule() *AwsS3BucketInvalidRegionRule {
 			"eu-west-2",
 			"eu-west-3",
 			"eu-north-1",
+			"eu-south-1",
 			"us-west-1",
 			"us-west-2",
 			"ap-east-1",
@@ -42,6 +43,9 @@ func NewAwsS3BucketInvalidRegionRule() *AwsS3BucketInvalidRegionRule {
 			"cn-northwest-1",
 			"eu-central-1",
 			"me-south-1",
+			"af-south-1",
+			"us-gov-east-1",
+			"us-gov-west-1",
 		},
 	}
 }
