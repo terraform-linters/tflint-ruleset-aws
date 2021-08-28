@@ -40,6 +40,8 @@ func NewAwsAppautoscalingScheduledActionInvalidScalableDimensionRule() *AwsAppau
 			"cassandra:table:ReadCapacityUnits",
 			"cassandra:table:WriteCapacityUnits",
 			"kafka:broker-storage:VolumeSize",
+			"elasticache:replication-group:NodeGroups",
+			"elasticache:replication-group:Replicas",
 		},
 	}
 }
