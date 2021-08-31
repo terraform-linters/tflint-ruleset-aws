@@ -3,10 +3,11 @@ package rules
 import (
 	"encoding/json"
 	"fmt"
+	"regexp"
+
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
-	"regexp"
 )
 
 type AwsIAMPolicySidInvalidCharactersStatementStruct struct {
@@ -65,7 +66,11 @@ func (r *AwsIAMPolicySidInvalidCharactersRule) Check(runner tflint.Runner) error
 
 		return runner.EnsureNoError(err, func() error {
 			for _, statement := range statements {
-				if r.validCharacters.MatchString(statement.Sid) == false {
+				if statement.Sid == "" {
+					continue
+				}
+
+				if !r.validCharacters.MatchString(statement.Sid) {
 					runner.EmitIssueOnExpr(
 						r,
 						fmt.Sprintf("The policy's sid (\"%s\") does not match \"%s\".", statement.Sid, r.validCharacters.String()),
@@ -75,6 +80,5 @@ func (r *AwsIAMPolicySidInvalidCharactersRule) Check(runner tflint.Runner) error
 			}
 			return nil
 		})
-		return nil
 	})
 }
