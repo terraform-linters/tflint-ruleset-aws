@@ -58,13 +58,14 @@ func (r *AwsIAMPolicySidInvalidCharactersRule) Check(runner tflint.Runner) error
 	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-		unMarshaledPolicy := AwsIAMPolicySidInvalidCharactersPolicyStruct{}
-		if jsonErr := json.Unmarshal([]byte(val), &unMarshaledPolicy); jsonErr != nil {
-			return jsonErr
-		}
-		statements := unMarshaledPolicy.Statement
 
 		return runner.EnsureNoError(err, func() error {
+			unMarshaledPolicy := AwsIAMPolicySidInvalidCharactersPolicyStruct{}
+			if jsonErr := json.Unmarshal([]byte(val), &unMarshaledPolicy); jsonErr != nil {
+				return jsonErr
+			}
+			statements := unMarshaledPolicy.Statement
+
 			for _, statement := range statements {
 				if statement.Sid == "" {
 					continue
