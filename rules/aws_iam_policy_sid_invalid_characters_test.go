@@ -91,6 +91,30 @@ EOF
 				},
 			},
 		},
+		{
+			Name: "No Sid",
+			Content: `
+resource "aws_iam_policy" "policy" {
+	name = "test_policy"
+	role = "test_role"
+	policy = <<-EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "ec2:Describe*"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::<bucketname>/*"
+    }
+  ]
+}
+EOF
+}
+`,
+			Expected: helper.Issues{},
+		},
 	}
 
 	rule := NewAwsIAMPolicySidInvalidCharactersRule()
