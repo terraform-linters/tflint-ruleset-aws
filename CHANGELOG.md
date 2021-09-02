@@ -1,3 +1,14 @@
+## 0.7.1 (2021-09-03)
+
+### BugFixes
+
+- [#176](https://github.com/terraform-linters/tflint-ruleset-aws/pull/176): rules: Fix false positive for IAM policy document without Sid ([@wata727](https://github.com/wata727))
+- [#178](https://github.com/terraform-linters/tflint-ruleset-aws/pull/178): rules: Fix an error when policy is not evaluable
+
+### Chores
+
+- [#175](https://github.com/terraform-linters/tflint-ruleset-aws/pull/175): rules: Fix broken `aws_lambda_function_deprecated_runtime` test ([@wata727](https://github.com/wata727))
+
 ## 0.7.0 (2021-08-28)
 
 ### Breaking Changes
