@@ -10,11 +10,14 @@ import (
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
 
-type AwsIAMPolicySidInvalidCharactersStatementStruct struct {
+type AwsIAMPolicySidInvalidCharactersPolicyStatement struct {
 	Sid string `json:"Sid"`
 }
-type AwsIAMPolicySidInvalidCharactersPolicyStruct struct {
-	Statement []AwsIAMPolicySidInvalidCharactersStatementStruct `json:"Statement"`
+type AwsIAMPolicySidInvalidCharactersPolicy struct {
+	Statement []AwsIAMPolicySidInvalidCharactersPolicyStatement `json:"Statement"`
+}
+type AwsIAMPolicySidInvalidCharactersPolicyWithSingleStatement struct {
+	Statement AwsIAMPolicySidInvalidCharactersPolicyStatement `json:"Statement"`
 }
 
 // AwsIAMPolicySidInvalidCharactersRule checks for invalid characters in SID
@@ -60,11 +63,20 @@ func (r *AwsIAMPolicySidInvalidCharactersRule) Check(runner tflint.Runner) error
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
 		return runner.EnsureNoError(err, func() error {
-			unMarshaledPolicy := AwsIAMPolicySidInvalidCharactersPolicyStruct{}
-			if jsonErr := json.Unmarshal([]byte(val), &unMarshaledPolicy); jsonErr != nil {
-				return jsonErr
+			var statements []AwsIAMPolicySidInvalidCharactersPolicyStatement
+
+			policy := AwsIAMPolicySidInvalidCharactersPolicy{}
+			if err := json.Unmarshal([]byte(val), &policy); err != nil {
+				// If the Statement clause includes only one value, you can omit the brackets, so try unmarshal to the struct accordingly.
+				// https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html
+				policy := AwsIAMPolicySidInvalidCharactersPolicyWithSingleStatement{}
+				if err := json.Unmarshal([]byte(val), &policy); err != nil {
+					return err
+				}
+				statements = []AwsIAMPolicySidInvalidCharactersPolicyStatement{policy.Statement}
+			} else {
+				statements = policy.Statement
 			}
-			statements := unMarshaledPolicy.Statement
 
 			for _, statement := range statements {
 				if statement.Sid == "" {
