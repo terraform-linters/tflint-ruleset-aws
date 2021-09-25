@@ -1,3 +1,13 @@
+## 0.7.2 (2021-09-25)
+
+### BugFixes
+
+- [#183](https://github.com/terraform-linters/tflint-ruleset-aws/pull/183): rules: Allow unbracketed IAM policy statements ([@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#180](https://github.com/terraform-linters/tflint-ruleset-aws/pull/180): build: Go 1.17 ([@wata727](https://github.com/wata727))
+
 ## 0.7.1 (2021-09-03)
 
 ### BugFixes
