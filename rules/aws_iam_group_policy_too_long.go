@@ -49,8 +49,8 @@ func (r *AwsIAMGroupPolicyTooLongRule) Check(runner tflint.Runner) error {
 	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
 		var policy string
 		err := runner.EvaluateExpr(attribute.Expr, &policy, nil)
-		policy = r.whitespaceRegex.ReplaceAllString(policy, "")
 		return runner.EnsureNoError(err, func() error {
+			policy = r.whitespaceRegex.ReplaceAllString(policy, "")
 			if len(policy) > 5120 {
 				runner.EmitIssueOnExpr(
 					r,
