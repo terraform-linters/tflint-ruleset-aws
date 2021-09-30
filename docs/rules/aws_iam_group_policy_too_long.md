@@ -27,7 +27,7 @@ Error: The policy length is %d characters and is limited to 5120 characters. (aw
 
 ## Why
 
-Terraform does not check against this rule, but it will error if an apply is attempted.
+Terraform does not check against this rule, but it will error if an apply is attempted. https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length
 
 ## How To Fix
 

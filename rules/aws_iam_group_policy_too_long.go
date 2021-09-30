@@ -8,11 +8,11 @@ import (
 	"regexp"
 )
 
-// TODO: Write the rule's description here
 // AwsIAMGroupPolicyTooLongRule checks that the policy length is less than 5,120 characters
 type AwsIAMGroupPolicyTooLongRule struct {
 	resourceType  string
 	attributeName string
+	whitespaceRegex *regexp.Regexp
 }
 
 // NewAwsIAMGroupPolicyTooLongRule returns new rule with default attributes
@@ -20,6 +20,7 @@ func NewAwsIAMGroupPolicyTooLongRule() *AwsIAMGroupPolicyTooLongRule {
 	return &AwsIAMGroupPolicyTooLongRule{
 		resourceType:  "aws_iam_group_policy",
 		attributeName: "policy",
+		whitespaceRegex: regexp.MustCompile(`\s+`),
 	}
 }
 
@@ -43,14 +44,12 @@ func (r *AwsIAMGroupPolicyTooLongRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-// TODO: Write the details of the inspection
 // Check checks the length of the policy
 func (r *AwsIAMGroupPolicyTooLongRule) Check(runner tflint.Runner) error {
 	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
 		var policy string
 		err := runner.EvaluateExpr(attribute.Expr, &policy, nil)
-		whitespaceRegex := regexp.MustCompile(`\s+`)
-		policy = whitespaceRegex.ReplaceAllString(policy, "")
+		policy = r.whitespaceRegex.ReplaceAllString(policy, "")
 		return runner.EnsureNoError(err, func() error {
 			if len(policy) > 5120 {
 				runner.EmitIssueOnExpr(
