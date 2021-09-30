@@ -43,6 +43,7 @@ func NewAwsAPIGatewayGatewayResponseInvalidResponseTypeRule() *AwsAPIGatewayGate
 			"REQUEST_TOO_LARGE",
 			"THROTTLED",
 			"QUOTA_EXCEEDED",
+			"WAF_FILTERED",
 		},
 	}
 }

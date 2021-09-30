@@ -39,8 +39,7 @@ func (r *AwsRouteSpecifiedMultipleTargetsRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-// Check checks whether a resource defines `gateway_id`, `egress_only_gateway_id`, `nat_gateway_id`
-// `instance_id`, `vpc_peering_connection_id` or `network_interface_id` at the same time
+// Check checks whether a resource defines multiple targets
 func (r *AwsRouteSpecifiedMultipleTargetsRule) Check(runner tflint.Runner) error {
 	return runner.WalkResources(r.resourceType, func(resource *configs.Resource) error {
 		body, _, diags := resource.Config.PartialContent(&hcl.BodySchema{
@@ -65,6 +64,15 @@ func (r *AwsRouteSpecifiedMultipleTargetsRule) Check(runner tflint.Runner) error
 				},
 				{
 					Name: "transit_gateway_id",
+				},
+				{
+					Name: "vpc_endpoint_id",
+				},
+				{
+					Name: "carrier_gateway_id",
+				},
+				{
+					Name: "local_gateway_id",
 				},
 			},
 		})

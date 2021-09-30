@@ -39,8 +39,7 @@ func (r *AwsRouteNotSpecifiedTargetRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-// Check checks whether `gateway_id`, `egress_only_gateway_id`, `nat_gateway_id`, `instance_id`
-// `vpc_peering_connection_id`, `network_interface_id` or `vpc_endpoint_id`  is defined in a resource
+// Check checks whether a target is defined in a resource
 func (r *AwsRouteNotSpecifiedTargetRule) Check(runner tflint.Runner) error {
 	return runner.WalkResources(r.resourceType, func(resource *configs.Resource) error {
 		body, _, diags := resource.Config.PartialContent(&hcl.BodySchema{
@@ -68,6 +67,12 @@ func (r *AwsRouteNotSpecifiedTargetRule) Check(runner tflint.Runner) error {
 				},
 				{
 					Name: "vpc_endpoint_id",
+				},
+				{
+					Name: "carrier_gateway_id",
+				},
+				{
+					Name: "local_gateway_id",
 				},
 			},
 		})

@@ -2,10 +2,11 @@ package rules
 
 import (
 	"fmt"
+	"time"
+
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
-	"time"
 )
 
 // AwsLambdaFunctionDeprecatedRuntimeRule checks to see if the lambda runtime has reached End Of Support
@@ -14,6 +15,8 @@ type AwsLambdaFunctionDeprecatedRuntimeRule struct {
 	attributeName string
 	eosRuntimes   map[string]time.Time
 	eolRuntimes   map[string]time.Time
+
+	Now time.Time
 }
 
 // NewAwsLambdaFunctionDeprecatedRuntimeRule returns new rule with default attributes
@@ -40,6 +43,7 @@ func NewAwsLambdaFunctionDeprecatedRuntimeRule() *AwsLambdaFunctionDeprecatedRun
 			"python2.7":      time.Date(2021, time.September, 30, 0, 0, 0, 0, time.UTC),
 			"dotnetcore2.1":  time.Date(2021, time.October, 30, 0, 0, 0, 0, time.UTC),
 		},
+		Now: time.Now().UTC(),
 	}
 }
 
@@ -69,16 +73,15 @@ func (r *AwsLambdaFunctionDeprecatedRuntimeRule) Check(runner tflint.Runner) err
 	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-		now := time.Now().UTC()
 
 		return runner.EnsureNoError(err, func() error {
-			if _, ok := r.eolRuntimes[val]; ok && now.After(r.eolRuntimes[val]) {
+			if _, ok := r.eolRuntimes[val]; ok && r.Now.After(r.eolRuntimes[val]) {
 				runner.EmitIssueOnExpr(
 					r,
 					fmt.Sprintf("The \"%s\" runtime has reached the end of life", val),
 					attribute.Expr,
 				)
-			} else if _, ok := r.eosRuntimes[val]; ok && now.After(r.eosRuntimes[val]) {
+			} else if _, ok := r.eosRuntimes[val]; ok && r.Now.After(r.eosRuntimes[val]) {
 				runner.EmitIssueOnExpr(
 					r,
 					fmt.Sprintf("The \"%s\" runtime has reached the end of support", val),

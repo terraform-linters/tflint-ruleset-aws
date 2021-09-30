@@ -3,17 +3,21 @@ package rules
 import (
 	"encoding/json"
 	"fmt"
+	"regexp"
+
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
-	"regexp"
 )
 
-type AwsIAMPolicySidInvalidCharactersStatementStruct struct {
+type AwsIAMPolicySidInvalidCharactersPolicyStatement struct {
 	Sid string `json:"Sid"`
 }
-type AwsIAMPolicySidInvalidCharactersPolicyStruct struct {
-	Statement []AwsIAMPolicySidInvalidCharactersStatementStruct `json:"Statement"`
+type AwsIAMPolicySidInvalidCharactersPolicy struct {
+	Statement []AwsIAMPolicySidInvalidCharactersPolicyStatement `json:"Statement"`
+}
+type AwsIAMPolicySidInvalidCharactersPolicyWithSingleStatement struct {
+	Statement AwsIAMPolicySidInvalidCharactersPolicyStatement `json:"Statement"`
 }
 
 // AwsIAMPolicySidInvalidCharactersRule checks for invalid characters in SID
@@ -57,15 +61,29 @@ func (r *AwsIAMPolicySidInvalidCharactersRule) Check(runner tflint.Runner) error
 	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-		unMarshaledPolicy := AwsIAMPolicySidInvalidCharactersPolicyStruct{}
-		if jsonErr := json.Unmarshal([]byte(val), &unMarshaledPolicy); jsonErr != nil {
-			return jsonErr
-		}
-		statements := unMarshaledPolicy.Statement
 
 		return runner.EnsureNoError(err, func() error {
+			var statements []AwsIAMPolicySidInvalidCharactersPolicyStatement
+
+			policy := AwsIAMPolicySidInvalidCharactersPolicy{}
+			if err := json.Unmarshal([]byte(val), &policy); err != nil {
+				// If the Statement clause includes only one value, you can omit the brackets, so try unmarshal to the struct accordingly.
+				// https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html
+				policy := AwsIAMPolicySidInvalidCharactersPolicyWithSingleStatement{}
+				if err := json.Unmarshal([]byte(val), &policy); err != nil {
+					return err
+				}
+				statements = []AwsIAMPolicySidInvalidCharactersPolicyStatement{policy.Statement}
+			} else {
+				statements = policy.Statement
+			}
+
 			for _, statement := range statements {
-				if r.validCharacters.MatchString(statement.Sid) == false {
+				if statement.Sid == "" {
+					continue
+				}
+
+				if !r.validCharacters.MatchString(statement.Sid) {
 					runner.EmitIssueOnExpr(
 						r,
 						fmt.Sprintf("The policy's sid (\"%s\") does not match \"%s\".", statement.Sid, r.validCharacters.String()),
@@ -75,6 +93,5 @@ func (r *AwsIAMPolicySidInvalidCharactersRule) Check(runner tflint.Runner) error
 			}
 			return nil
 		})
-		return nil
 	})
 }

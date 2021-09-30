@@ -21,17 +21,17 @@ resource "aws_iam_policy" "policy" {
 	role = "test_role"
 	policy = <<-EOF
 {
-	"Version": "2012-10-17",
-	"Statement": [
-	  {
-			"Sid": "This contains invalid-characters.",
-	    "Action": [
-	      "ec2:Describe*"
-			],
-			"Effect": "Allow",
-			"Resource": "arn:aws:s3:::<bucketname>/*"
-	  }
-	]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "This contains invalid-characters.",
+      "Action": [
+        "ec2:Describe*"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::<bucketname>/*"
+    }
+  ]
 }
 EOF
 }
@@ -56,25 +56,25 @@ resource "aws_iam_policy" "policy2" {
 	role = "test_role"
 	policy = <<-EOF
 {
-	"Version": "2012-10-17",
-	"Statement": [
-	  {
-			"Sid": "ThisIsAValidSid",
-	    "Action": [
-	      "ec2:Describe*"
-			],
-			"Effect": "Allow",
-			"Resource": "arn:aws:s3:::<bucketname>/*"
-	  },
-	  {
-			"Sid": "This contains invalid-characters.",
-	    "Action": [
-	      "ec2:Describe*"
-			],
-			"Effect": "Allow",
-			"Resource": "arn:aws:s3:::<bucketname>/*"
-	  }
-	]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ThisIsAValidSid",
+      "Action": [
+        "ec2:Describe*"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::<bucketname>/*"
+    },
+    {
+      "Sid": "This contains invalid-characters.",
+      "Action": [
+        "ec2:Describe*"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::<bucketname>/*"
+    }
+  ]
 }
 EOF
 }
@@ -91,17 +91,66 @@ EOF
 				},
 			},
 		},
+		{
+			Name: "No Sid",
+			Content: `
+resource "aws_iam_policy" "policy" {
+	name = "test_policy"
+	role = "test_role"
+	policy = <<-EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "ec2:Describe*"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::<bucketname>/*"
+    }
+  ]
+}
+EOF
+}
+`,
+			Expected: helper.Issues{},
+		},
+		{
+			Name: "Single Statement",
+			Content: `
+resource "aws_iam_policy" "policy" {
+	name = "test_policy"
+	role = "test_role"
+	policy = <<-EOF
+{
+  "Version": "2012-10-17",
+  "Statement": {
+    "Sid": "ThisIsAValidSid",
+    "Action": [
+      "ec2:Describe*"
+    ],
+    "Effect": "Allow",
+    "Resource": "arn:aws:s3:::<bucketname>/*"
+  }
+}
+EOF
+}
+`,
+			Expected: helper.Issues{},
+		},
 	}
 
 	rule := NewAwsIAMPolicySidInvalidCharactersRule()
 
 	for _, tc := range cases {
-		runner := helper.TestRunner(t, map[string]string{"resource.tf": tc.Content})
+		t.Run(tc.Name, func(t *testing.T) {
+			runner := helper.TestRunner(t, map[string]string{"resource.tf": tc.Content})
 
-		if err := rule.Check(runner); err != nil {
-			t.Fatalf("Unexpected error occurred: %s", err)
-		}
+			if err := rule.Check(runner); err != nil {
+				t.Fatalf("Unexpected error occurred: %s", err)
+			}
 
-		helper.AssertIssues(t, tc.Expected, runner.Issues)
+			helper.AssertIssues(t, tc.Expected, runner.Issues)
+		})
 	}
 }
