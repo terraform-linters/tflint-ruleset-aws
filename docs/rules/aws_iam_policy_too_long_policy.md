@@ -1,6 +1,6 @@
 # aws_iam_policy_too_long_policy
 
-This makes sure that a IAM policy is not longer than the 6144 AWS character limit.
+This makes sure that an IAM policy is not longer than the 6144 AWS character limit.
 
 ## Example
 
