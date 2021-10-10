@@ -1,3 +1,15 @@
+## 0.8.0 (2021-10-11)
+
+### Enhancements
+
+- [#159](https://github.com/terraform-linters/tflint-ruleset-aws/pull/159): rules: Add `aws_iam_group_policy_too_long` rule ([@Rihoj](https://github.com/Rihoj))
+- [#187](https://github.com/terraform-linters/tflint-ruleset-aws/pull/187): rules: Add Aurora Graviton2-based T4g and X2g instances ([@wata727](https://github.com/wata727))
+- [#188](https://github.com/terraform-linters/tflint-ruleset-aws/pull/188): Bump aws-sdk-go submodule and Terraform provider schema ([@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#185](https://github.com/terraform-linters/tflint-ruleset-aws/pull/185): Bump github.com/aws/aws-sdk-go from 1.40.32 to 1.40.54
+
 ## 0.7.2 (2021-09-25)
 
 ### BugFixes
