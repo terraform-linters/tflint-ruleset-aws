@@ -440,6 +440,9 @@ func NewAwsLaunchTemplateInvalidInstanceTypeRule() *AwsLaunchTemplateInvalidInst
 			"x2gd.12xlarge",
 			"x2gd.16xlarge",
 			"x2gd.metal",
+			"vt1.3xlarge",
+			"vt1.6xlarge",
+			"vt1.24xlarge",
 		},
 	}
 }

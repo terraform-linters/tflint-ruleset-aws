@@ -36,6 +36,7 @@ func NewAwsAppautoscalingTargetInvalidServiceNamespaceRule() *AwsAppautoscalingT
 			"cassandra",
 			"kafka",
 			"elasticache",
+			"neptune",
 		},
 	}
 }

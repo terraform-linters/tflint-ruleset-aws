@@ -366,6 +366,7 @@ These rules enforce best practices and naming conventions:
 |aws_elastic_beanstalk_environment_invalid_version_label|✔|
 |aws_elasticache_cluster_invalid_az_mode|✔|
 |aws_elasticsearch_domain_invalid_domain_name|✔|
+|aws_elasticsearch_domain_invalid_elasticsearch_version|✔|
 |aws_elasticsearch_domain_policy_invalid_domain_name|✔|
 |aws_elastictranscoder_pipeline_invalid_aws_kms_key_arn|✔|
 |aws_elastictranscoder_pipeline_invalid_input_bucket|✔|

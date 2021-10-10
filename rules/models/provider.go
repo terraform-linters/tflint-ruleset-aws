@@ -305,6 +305,7 @@ var Rules = []tflint.Rule{
 	NewAwsElasticBeanstalkEnvironmentInvalidVersionLabelRule(),
 	NewAwsElastiCacheClusterInvalidAzModeRule(),
 	NewAwsElasticsearchDomainInvalidDomainNameRule(),
+	NewAwsElasticsearchDomainInvalidElasticsearchVersionRule(),
 	NewAwsElasticsearchDomainPolicyInvalidDomainNameRule(),
 	NewAwsElastictranscoderPipelineInvalidAwsKmsKeyArnRule(),
 	NewAwsElastictranscoderPipelineInvalidInputBucketRule(),

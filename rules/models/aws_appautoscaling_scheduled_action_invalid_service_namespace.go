@@ -36,6 +36,7 @@ func NewAwsAppautoscalingScheduledActionInvalidServiceNamespaceRule() *AwsAppaut
 			"cassandra",
 			"kafka",
 			"elasticache",
+			"neptune",
 		},
 	}
 }
