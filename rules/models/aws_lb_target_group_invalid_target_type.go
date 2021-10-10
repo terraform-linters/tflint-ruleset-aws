@@ -26,6 +26,7 @@ func NewAwsLbTargetGroupInvalidTargetTypeRule() *AwsLbTargetGroupInvalidTargetTy
 			"instance",
 			"ip",
 			"lambda",
+			"alb",
 		},
 	}
 }

@@ -42,6 +42,7 @@ func NewAwsAppautoscalingTargetInvalidScalableDimensionRule() *AwsAppautoscaling
 			"kafka:broker-storage:VolumeSize",
 			"elasticache:replication-group:NodeGroups",
 			"elasticache:replication-group:Replicas",
+			"neptune:cluster:ReadReplicaCount",
 		},
 	}
 }

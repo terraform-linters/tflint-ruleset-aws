@@ -29,6 +29,7 @@ func NewAwsAppsyncDatasourceInvalidTypeRule() *AwsAppsyncDatasourceInvalidTypeRu
 			"NONE",
 			"HTTP",
 			"RELATIONAL_DATABASE",
+			"AMAZON_OPENSEARCH_SERVICE",
 		},
 	}
 }
