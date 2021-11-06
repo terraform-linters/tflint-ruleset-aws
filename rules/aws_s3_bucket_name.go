@@ -70,20 +70,20 @@ func (r *AwsS3BucketNameRule) Check(runner tflint.Runner) error {
 		return runner.EnsureNoError(err, func() error {
 			if config.Prefix != "" {
 				if !strings.HasPrefix(name, config.Prefix) {
-					runner.EmitIssue(
+					runner.EmitIssueOnExpr(
 						r,
 						fmt.Sprintf(`Bucket name "%s" does not have prefix "%s"`, name, config.Prefix),
-						attribute.Expr.Range(),
+						attribute.Expr,
 					)
 				}
 			}
 
 			if config.Regex != "" {
 				if !regex.MatchString(name) {
-					runner.EmitIssue(
+					runner.EmitIssueOnExpr(
 						r,
 						fmt.Sprintf(`Bucket name "%s" does not match regex "%s"`, name, config.Regex),
-						attribute.Expr.Range(),
+						attribute.Expr,
 					)
 				}
 			}
