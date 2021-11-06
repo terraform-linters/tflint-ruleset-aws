@@ -1,3 +1,21 @@
+## 0.9.0 (2021-11-06)
+
+### Breaking Changes
+
+- [#198](https://github.com/terraform-linters/tflint-ruleset-aws/pull/198): build: Remove unsupported build targets ([@wata727](https://github.com/wata727))
+
+### Enhancements
+
+- [#197](https://github.com/terraform-linters/tflint-ruleset-aws/pull/197): Bump aws-sdk-go submodule and Terraform provider schema ([@wata727](https://github.com/wata727))
+
+### BugFixes
+
+- [#195](https://github.com/terraform-linters/tflint-ruleset-aws/pull/195): rules: Use EmitIssueOnExpr when emitting an issue for an expression ([@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#196](https://github.com/terraform-linters/tflint-ruleset-aws/pull/196): Bump github.com/aws/aws-sdk-go from 1.40.54 to 1.41.19
+
 ## 0.8.0 (2021-10-11)
 
 ### Enhancements
