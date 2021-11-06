@@ -71,10 +71,10 @@ func (r *AwsElastiCacheClusterPreviousTypeRule) Check(runner tflint.Runner) erro
 
 		return runner.EnsureNoError(err, func() error {
 			if r.previousNodeTypes[nodeType] {
-				runner.EmitIssue(
+				runner.EmitIssueOnExpr(
 					r,
 					fmt.Sprintf("\"%s\" is previous generation node type.", nodeType),
-					attribute.Expr.Range(),
+					attribute.Expr,
 				)
 			}
 			return nil
