@@ -293,6 +293,7 @@ func NewAwsLaunchConfigurationInvalidTypeRule() *AwsLaunchConfigurationInvalidTy
 			"d3en.6xlarge",
 			"d3en.8xlarge",
 			"d3en.12xlarge",
+			"dl1.24xlarge",
 			"f1.2xlarge",
 			"f1.4xlarge",
 			"f1.16xlarge",
