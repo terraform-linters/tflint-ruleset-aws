@@ -48,6 +48,7 @@ These rules enforce best practices and naming conventions:
 
 |Rule|Description|Enabled by default|
 | --- | --- | --- |
+|[aws_acm_certificate_lifecycle](aws_acm_certificate_lifecycle.md)|Disallow adding `aws_acm_certificate` resource without setting `create_before_destroy = true` in `lifecycle` block |✔|
 |[aws_db_instance_previous_type](aws_db_instance_previous_type.md)|Disallow using previous generation instance types|✔|
 |[aws_db_instance_default_parameter_group](aws_db_instance_default_parameter_group.md)|Disallow using default DB parameter group|✔|
 |[aws_elasticache_cluster_previous_type](aws_elasticache_cluster_previous_type.md)|Disallow using previous node types|✔|
