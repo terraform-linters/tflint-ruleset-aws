@@ -36,4 +36,5 @@ var Rules = append([]tflint.Rule{
 	NewAwsIAMPolicyTooLongPolicyRule(),
 	NewAwsLambdaFunctionDeprecatedRuntimeRule(),
 	NewAwsIAMGroupPolicyTooLongRule(),
+	NewAwsAcmCertificateLifecycleRule(),
 }, models.Rules...)
