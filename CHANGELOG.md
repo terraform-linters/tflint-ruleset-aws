@@ -1,3 +1,16 @@
+## 0.10.0 (2021-12-04)
+
+### Enhancements
+
+- [#202](https://github.com/terraform-linters/tflint-ruleset-aws/pull/202): rules: Add acm certificate lifecycle create before destroy rule ([@AleksaC](https://github.com/AleksaC))
+- [#208](https://github.com/terraform-linters/tflint-ruleset-aws/pull/208): Bump aws-sdk-go submodule and Terraform provider schema ([@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#199](https://github.com/terraform-linters/tflint-ruleset-aws/pull/199): Bump github.com/zclconf/go-cty from 1.9.1 to 1.10.0
+- [#204](https://github.com/terraform-linters/tflint-ruleset-aws/pull/204): Bump github.com/hashicorp/aws-sdk-go-base from 0.7.1 to 1.0.0
+- [#209](https://github.com/terraform-linters/tflint-ruleset-aws/pull/209): Bump github.com/aws/aws-sdk-go from 1.41.19 to 1.42.19
+
 ## 0.9.0 (2021-11-06)
 
 ### Breaking Changes
