@@ -26,6 +26,7 @@ func NewAwsTransferServerInvalidIdentityProviderTypeRule() *AwsTransferServerInv
 			"SERVICE_MANAGED",
 			"API_GATEWAY",
 			"AWS_DIRECTORY_SERVICE",
+			"AWS_LAMBDA",
 		},
 	}
 }

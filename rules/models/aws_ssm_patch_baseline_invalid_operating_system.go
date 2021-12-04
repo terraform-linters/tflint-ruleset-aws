@@ -33,6 +33,7 @@ func NewAwsSsmPatchBaselineInvalidOperatingSystemRule() *AwsSsmPatchBaselineInva
 			"ORACLE_LINUX",
 			"DEBIAN",
 			"MACOS",
+			"RASPBIAN",
 		},
 	}
 }
