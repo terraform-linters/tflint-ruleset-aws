@@ -6941,6 +6941,56 @@ func (mr *MockRDSAPIMockRecorder) PurchaseReservedDBInstancesOfferingWithContext
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "PurchaseReservedDBInstancesOfferingWithContext", reflect.TypeOf((*MockRDSAPI)(nil).PurchaseReservedDBInstancesOfferingWithContext), varargs...)
 }
 
+// RebootDBCluster mocks base method.
+func (m *MockRDSAPI) RebootDBCluster(arg0 *rds.RebootDBClusterInput) (*rds.RebootDBClusterOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RebootDBCluster", arg0)
+	ret0, _ := ret[0].(*rds.RebootDBClusterOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RebootDBCluster indicates an expected call of RebootDBCluster.
+func (mr *MockRDSAPIMockRecorder) RebootDBCluster(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RebootDBCluster", reflect.TypeOf((*MockRDSAPI)(nil).RebootDBCluster), arg0)
+}
+
+// RebootDBClusterRequest mocks base method.
+func (m *MockRDSAPI) RebootDBClusterRequest(arg0 *rds.RebootDBClusterInput) (*request.Request, *rds.RebootDBClusterOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RebootDBClusterRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.RebootDBClusterOutput)
+	return ret0, ret1
+}
+
+// RebootDBClusterRequest indicates an expected call of RebootDBClusterRequest.
+func (mr *MockRDSAPIMockRecorder) RebootDBClusterRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RebootDBClusterRequest", reflect.TypeOf((*MockRDSAPI)(nil).RebootDBClusterRequest), arg0)
+}
+
+// RebootDBClusterWithContext mocks base method.
+func (m *MockRDSAPI) RebootDBClusterWithContext(arg0 context.Context, arg1 *rds.RebootDBClusterInput, arg2 ...request.Option) (*rds.RebootDBClusterOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "RebootDBClusterWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.RebootDBClusterOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RebootDBClusterWithContext indicates an expected call of RebootDBClusterWithContext.
+func (mr *MockRDSAPIMockRecorder) RebootDBClusterWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RebootDBClusterWithContext", reflect.TypeOf((*MockRDSAPI)(nil).RebootDBClusterWithContext), varargs...)
+}
+
 // RebootDBInstance mocks base method.
 func (m *MockRDSAPI) RebootDBInstance(arg0 *rds.RebootDBInstanceInput) (*rds.RebootDBInstanceOutput, error) {
 	m.ctrl.T.Helper()
