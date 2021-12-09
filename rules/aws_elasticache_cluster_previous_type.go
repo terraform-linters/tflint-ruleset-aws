@@ -10,9 +10,8 @@ import (
 
 // AwsElastiCacheClusterPreviousTypeRule checks whether the resource uses previous generation node type
 type AwsElastiCacheClusterPreviousTypeRule struct {
-	resourceType      string
-	attributeName     string
-	previousNodeTypes map[string]bool
+	resourceType  string
+	attributeName string
 }
 
 // NewAwsElastiCacheClusterPreviousTypeRule returns new rule with default attributes
@@ -20,26 +19,6 @@ func NewAwsElastiCacheClusterPreviousTypeRule() *AwsElastiCacheClusterPreviousTy
 	return &AwsElastiCacheClusterPreviousTypeRule{
 		resourceType:  "aws_elasticache_cluster",
 		attributeName: "node_type",
-		previousNodeTypes: map[string]bool{
-			"cache.m1.small":   true,
-			"cache.m1.medium":  true,
-			"cache.m1.large":   true,
-			"cache.m1.xlarge":  true,
-			"cache.m2.xlarge":  true,
-			"cache.m2.2xlarge": true,
-			"cache.m2.4xlarge": true,
-			"cache.m3.medium":  true,
-			"cache.m3.large":   true,
-			"cache.m3.xlarge":  true,
-			"cache.m3.2xlarge": true,
-			"cache.r3.large":   true,
-			"cache.r3.xlarge":  true,
-			"cache.r3.2xlarge": true,
-			"cache.r3.4xlarge": true,
-			"cache.r3.8xlarge": true,
-			"cache.c1.xlarge":  true,
-			"cache.t1.micro":   true,
-		},
 	}
 }
 
@@ -70,7 +49,7 @@ func (r *AwsElastiCacheClusterPreviousTypeRule) Check(runner tflint.Runner) erro
 		err := runner.EvaluateExpr(attribute.Expr, &nodeType, nil)
 
 		return runner.EnsureNoError(err, func() error {
-			if r.previousNodeTypes[nodeType] {
+			if previousElastiCacheNodeTypes[nodeType] {
 				runner.EmitIssueOnExpr(
 					r,
 					fmt.Sprintf("\"%s\" is previous generation node type.", nodeType),
