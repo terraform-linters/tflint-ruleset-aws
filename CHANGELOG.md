@@ -1,3 +1,15 @@
+## 0.10.1 (2021-12-10)
+
+### Enhancements
+
+- [#211](https://github.com/terraform-linters/tflint-ruleset-aws/pull/211): rules: Add missing t4g ElastiCache node types ([@acastro2](https://github.com/acastro2))
+- [#213](https://github.com/terraform-linters/tflint-ruleset-aws/pull/213): rules: Add data tiering node types for ElastiCache ([@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#210](https://github.com/terraform-linters/tflint-ruleset-aws/pull/210): Bump github.com/hashicorp/hcl/v2 from 2.10.1 to 2.11.1
+- [#214](https://github.com/terraform-linters/tflint-ruleset-aws/pull/214): Extract ElastiCache node types to utils ([@wata727](https://github.com/wata727))
+
 ## 0.10.0 (2021-12-04)
 
 ### Enhancements
