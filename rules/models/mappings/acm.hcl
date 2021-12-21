@@ -7,5 +7,10 @@ mapping "aws_acm_certificate" {
   private_key               = PrivateKey
   certificate_body          = CertificateBody
   certificate_chain         = CertificateChain
+  certificate_authority_arn = Arn
   tags                      = TagList
+}
+
+mapping "aws_acm_certificate_validation" {
+  certificate_arn = Arn
 }
