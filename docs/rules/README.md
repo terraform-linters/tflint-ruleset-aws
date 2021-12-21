@@ -71,7 +71,10 @@ These rules enforce best practices and naming conventions:
 |aws_acm_certificate_invalid_certificate_body|✔|
 |aws_acm_certificate_invalid_certificate_chain|✔|
 |aws_acm_certificate_invalid_private_key|✔|
+|aws_acmpca_certificate_authority_certificate_invalid_certificate_authority_arn|✔|
 |aws_acmpca_certificate_authority_invalid_type|✔|
+|aws_acmpca_certificate_invalid_certificate_authority_arn|✔|
+|aws_acmpca_certificate_invalid_signing_algorithm|✔|
 |aws_alb_invalid_ip_address_type|✔|
 |aws_alb_invalid_load_balancer_type|✔|
 |aws_alb_listener_invalid_protocol|✔|
