@@ -68,9 +68,11 @@ These rules enforce best practices and naming conventions:
 
 |Rule|Enabled by default|
 | --- | --- |
+|aws_acm_certificate_invalid_certificate_authority_arn|✔|
 |aws_acm_certificate_invalid_certificate_body|✔|
 |aws_acm_certificate_invalid_certificate_chain|✔|
 |aws_acm_certificate_invalid_private_key|✔|
+|aws_acm_certificate_validation_invalid_certificate_arn|✔|
 |aws_acmpca_certificate_authority_invalid_type|✔|
 |aws_alb_invalid_ip_address_type|✔|
 |aws_alb_invalid_load_balancer_type|✔|
