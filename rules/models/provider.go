@@ -17,6 +17,7 @@ var Rules = []tflint.Rule{
 	NewAwsALBTargetGroupInvalidTargetTypeRule(),
 	NewAwsAMIInvalidArchitectureRule(),
 	NewAwsAPIGatewayAuthorizerInvalidTypeRule(),
+	NewAwsAPIGatewayDomainNameInvalidSecurityPolicyRule(),
 	NewAwsAPIGatewayGatewayResponseInvalidResponseTypeRule(),
 	NewAwsAPIGatewayGatewayResponseInvalidStatusCodeRule(),
 	NewAwsAPIGatewayIntegrationInvalidConnectionTypeRule(),
