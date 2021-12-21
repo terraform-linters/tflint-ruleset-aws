@@ -1,5 +1,14 @@
 import = "aws-sdk-go/models/apis/apigateway/2015-07-09/api-2.json"
 
+mapping "aws_api_gateway_documentation_part" {
+  location = DocumentationPartLocation
+}
+
+mapping "aws_api_gateway_domain_name" {
+  endpoint_configuration = EndpointConfiguration
+  security_policy        = SecurityPolicy
+}
+
 mapping "aws_api_gateway_gateway_response" {
   status_code = StatusCode
 }
@@ -13,8 +22,15 @@ mapping "aws_api_gateway_method_response" {
   status_code = StatusCode
 }
 
+mapping "aws_api_gateway_method_settings" {
+  unauthorized_cache_control_header_strategy = UnauthorizedCacheControlHeaderStrategy
+}
+
 mapping "aws_api_gateway_authorizer" {
-  type = AuthorizerType
+  authorizer_result_ttl_in_seconds = NullableInteger
+  mutual_tls_authentication        = MutualTlsAuthenticationInput
+  provider_arns                    = ListOfARNs
+  type                             = AuthorizerType
 }
 
 mapping "aws_api_gateway_gateway_response" {
@@ -23,9 +39,6 @@ mapping "aws_api_gateway_gateway_response" {
 
 mapping "aws_api_gateway_integration" {
   type = IntegrationType
-}
-
-mapping "aws_api_gateway_integration" {
   connection_type  = ConnectionType
   content_handling = ContentHandlingStrategy
 }
