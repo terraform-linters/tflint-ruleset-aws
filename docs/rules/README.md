@@ -483,8 +483,10 @@ These rules enforce best practices and naming conventions:
 |aws_instance_invalid_instance_initiated_shutdown_behavior|✔|
 |aws_instance_invalid_tenancy|✔|
 |aws_instance_invalid_type|✔|
+|aws_iot_certificate_invalid_csr|✔|
 |aws_iot_policy_attachment_invalid_policy|✔|
 |aws_iot_policy_invalid_name|✔|
+|aws_iot_policy_invalid_policy|✔|
 |aws_iot_role_alias_invalid_alias|✔|
 |aws_iot_role_alias_invalid_role_arn|✔|
 |aws_iot_thing_invalid_name|✔|
