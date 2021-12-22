@@ -89,6 +89,14 @@ These rules enforce best practices and naming conventions:
 |aws_api_gateway_method_response_invalid_status_code|✔|
 |aws_api_gateway_rest_api_invalid_api_key_source|✔|
 |aws_api_gateway_stage_invalid_cache_cluster_size|✔|
+|aws_apigatewayv2_api_invalid_protocol_type|✔|
+|aws_apigatewayv2_authorizer_invalid_authorizer_type|✔|
+|aws_apigatewayv2_integration_invalid_connection_type|✔|
+|aws_apigatewayv2_integration_invalid_content_handling_strategy|✔|
+|aws_apigatewayv2_integration_invalid_integration_type|✔|
+|aws_apigatewayv2_integration_invalid_passthrough_behavior|✔|
+|aws_apigatewayv2_integration_response_invalid_content_handling_strategy|✔|
+|aws_apigatewayv2_route_invalid_authorization_type|✔|
 |aws_appautoscaling_policy_invalid_policy_type|✔|
 |aws_appautoscaling_policy_invalid_scalable_dimension|✔|
 |aws_appautoscaling_policy_invalid_service_namespace|✔|
