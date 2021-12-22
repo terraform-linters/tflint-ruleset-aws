@@ -68,6 +68,8 @@ These rules enforce best practices and naming conventions:
 
 |Rule|Enabled by default|
 | --- | --- |
+|aws_accessanalyzer_analyzer_invalid_analyzer_name|✔|
+|aws_accessanalyzer_analyzer_invalid_type|✔|
 |aws_acm_certificate_invalid_certificate_body|✔|
 |aws_acm_certificate_invalid_certificate_chain|✔|
 |aws_acm_certificate_invalid_private_key|✔|
