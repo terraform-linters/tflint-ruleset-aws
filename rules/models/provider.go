@@ -6,6 +6,12 @@ import "github.com/terraform-linters/tflint-plugin-sdk/tflint"
 
 // Rules is a list of rules generated from aws-sdk-go
 var Rules = []tflint.Rule{
+	NewAwsAccountAlternateContactInvalidAccountIDRule(),
+	NewAwsAccountAlternateContactInvalidAlternateContactTypeRule(),
+	NewAwsAccountAlternateContactInvalidEmailAddressRule(),
+	NewAwsAccountAlternateContactInvalidNameRule(),
+	NewAwsAccountAlternateContactInvalidPhoneNumberRule(),
+	NewAwsAccountAlternateContactInvalidTitleRule(),
 	NewAwsAcmCertificateInvalidCertificateBodyRule(),
 	NewAwsAcmCertificateInvalidCertificateChainRule(),
 	NewAwsAcmCertificateInvalidPrivateKeyRule(),

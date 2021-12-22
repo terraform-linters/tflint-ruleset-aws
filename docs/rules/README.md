@@ -68,6 +68,12 @@ These rules enforce best practices and naming conventions:
 
 |Rule|Enabled by default|
 | --- | --- |
+|aws_account_alternate_contact_invalid_account_id|✔|
+|aws_account_alternate_contact_invalid_alternate_contact_type|✔|
+|aws_account_alternate_contact_invalid_email_address|✔|
+|aws_account_alternate_contact_invalid_name|✔|
+|aws_account_alternate_contact_invalid_phone_number|✔|
+|aws_account_alternate_contact_invalid_title|✔|
 |aws_acm_certificate_invalid_certificate_body|✔|
 |aws_acm_certificate_invalid_certificate_chain|✔|
 |aws_acm_certificate_invalid_private_key|✔|
