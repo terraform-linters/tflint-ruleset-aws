@@ -11,6 +11,7 @@ mapping "aws_api_gateway_domain_name" {
 }
 
 mapping "aws_api_gateway_gateway_response" {
+  response_type = GatewayResponseType
   status_code = StatusCode
 }
 
@@ -27,10 +28,6 @@ mapping "aws_api_gateway_authorizer" {
   authorizer_result_ttl_in_seconds = NullableInteger
   provider_arns                    = ListOfARNs
   type                             = AuthorizerType
-}
-
-mapping "aws_api_gateway_gateway_response" {
-  response_type = GatewayResponseType
 }
 
 mapping "aws_api_gateway_integration" {
