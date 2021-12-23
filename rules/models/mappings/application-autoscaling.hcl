@@ -8,15 +8,12 @@ mapping "aws_appautoscaling_policy" {
 
 mapping "aws_appautoscaling_scheduled_action" {
   scalable_dimension = ScalableDimension
+  service_namespace = ServiceNamespace
 }
 
 mapping "aws_appautoscaling_target" {
   scalable_dimension = ScalableDimension
   service_namespace  = ServiceNamespace
-}
-
-mapping "aws_appautoscaling_scheduled_action" {
-  service_namespace = ServiceNamespace
 }
 
 test "aws_appautoscaling_policy" "policy_type" {

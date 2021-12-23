@@ -30026,6 +30026,39 @@ func (mr *MockEC2APIMockRecorder) WaitUntilInstanceTerminatedWithContext(arg0, a
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WaitUntilInstanceTerminatedWithContext", reflect.TypeOf((*MockEC2API)(nil).WaitUntilInstanceTerminatedWithContext), varargs...)
 }
 
+// WaitUntilInternetGatewayExists mocks base method.
+func (m *MockEC2API) WaitUntilInternetGatewayExists(arg0 *ec2.DescribeInternetGatewaysInput) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "WaitUntilInternetGatewayExists", arg0)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// WaitUntilInternetGatewayExists indicates an expected call of WaitUntilInternetGatewayExists.
+func (mr *MockEC2APIMockRecorder) WaitUntilInternetGatewayExists(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WaitUntilInternetGatewayExists", reflect.TypeOf((*MockEC2API)(nil).WaitUntilInternetGatewayExists), arg0)
+}
+
+// WaitUntilInternetGatewayExistsWithContext mocks base method.
+func (m *MockEC2API) WaitUntilInternetGatewayExistsWithContext(arg0 context.Context, arg1 *ec2.DescribeInternetGatewaysInput, arg2 ...request.WaiterOption) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "WaitUntilInternetGatewayExistsWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// WaitUntilInternetGatewayExistsWithContext indicates an expected call of WaitUntilInternetGatewayExistsWithContext.
+func (mr *MockEC2APIMockRecorder) WaitUntilInternetGatewayExistsWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WaitUntilInternetGatewayExistsWithContext", reflect.TypeOf((*MockEC2API)(nil).WaitUntilInternetGatewayExistsWithContext), varargs...)
+}
+
 // WaitUntilKeyPairExists mocks base method.
 func (m *MockEC2API) WaitUntilKeyPairExists(arg0 *ec2.DescribeKeyPairsInput) error {
 	m.ctrl.T.Helper()
