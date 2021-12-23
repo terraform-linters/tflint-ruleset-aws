@@ -171,6 +171,11 @@ These rules enforce best practices and naming conventions:
 |aws_appmesh_virtual_router_invalid_name|✔|
 |aws_appmesh_virtual_service_invalid_mesh_name|✔|
 |aws_appmesh_virtual_service_invalid_name|✔|
+|aws_apprunner_auto_scaling_configuration_version_invalid_auto_scaling_configuration_name|✔|
+|aws_apprunner_connection_invalid_connection_name|✔|
+|aws_apprunner_connection_invalid_provider_type|✔|
+|aws_apprunner_custom_domain_association_invalid_domain_name|✔|
+|aws_apprunner_service_invalid_service_name|✔|
 |aws_appsync_datasource_invalid_name|✔|
 |aws_appsync_datasource_invalid_type|✔|
 |aws_appsync_function_invalid_data_source|✔|
