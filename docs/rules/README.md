@@ -96,10 +96,17 @@ These rules enforce best practices and naming conventions:
 |aws_appautoscaling_scheduled_action_invalid_service_namespace|✔|
 |aws_appautoscaling_target_invalid_scalable_dimension|✔|
 |aws_appautoscaling_target_invalid_service_namespace|✔|
+|aws_appmesh_gateway_route_invalid_mesh_name|✔|
+|aws_appmesh_gateway_route_invalid_mesh_owner|✔|
+|aws_appmesh_gateway_route_invalid_name|✔|
+|aws_appmesh_gateway_route_invalid_virtual_gateway_name|✔|
 |aws_appmesh_mesh_invalid_name|✔|
 |aws_appmesh_route_invalid_mesh_name|✔|
 |aws_appmesh_route_invalid_name|✔|
 |aws_appmesh_route_invalid_virtual_router_name|✔|
+|aws_appmesh_virtual_gateway_invalid_mesh_name|✔|
+|aws_appmesh_virtual_gateway_invalid_mesh_owner|✔|
+|aws_appmesh_virtual_gateway_invalid_name|✔|
 |aws_appmesh_virtual_node_invalid_mesh_name|✔|
 |aws_appmesh_virtual_node_invalid_name|✔|
 |aws_appmesh_virtual_router_invalid_mesh_name|✔|
