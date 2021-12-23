@@ -82,6 +82,7 @@ These rules enforce best practices and naming conventions:
 |aws_alb_target_group_invalid_target_type|✔|
 |aws_ami_invalid_architecture|✔|
 |aws_api_gateway_authorizer_invalid_type|✔|
+|aws_api_gateway_domain_name_invalid_security_policy|✔|
 |aws_api_gateway_gateway_response_invalid_response_type|✔|
 |aws_api_gateway_gateway_response_invalid_status_code|✔|
 |aws_api_gateway_integration_invalid_connection_type|✔|
