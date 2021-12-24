@@ -17,6 +17,7 @@ These rules warn of possible errors that can occur at `terraform apply`. Rules m
 |aws_db_instance_invalid_parameter_group|Disallow using invalid parameter group|✔|✔|
 |[aws_db_instance_invalid_type](aws_db_instance_invalid_type.md)|Disallow using invalid instance class||✔|
 |aws_db_instance_invalid_vpc_security_group|Disallow using invalid VPC security groups|✔|✔|
+|aws_dynamodb_table_invalid_stream_view_type|||✔|
 |aws_elasticache_cluster_invalid_parameter_group|Disallow using invalid parameter group|✔|✔|
 |aws_elasticache_cluster_invalid_security_group|Disallow using invalid security groups|✔|✔|
 |aws_elasticache_cluster_invalid_subnet_group|Disallow using invalid subnet group|✔|✔|
@@ -25,6 +26,9 @@ These rules warn of possible errors that can occur at `terraform apply`. Rules m
 |aws_elb_invalid_instance|Disallow using invalid instances|✔|✔|
 |aws_elb_invalid_security_group|Disallow using invalid security groups|✔|✔|
 |aws_elb_invalid_subnet|Disallow using invalid subnets|✔|✔|
+|[aws_iam_group_policy_too_long](aws_iam_group_policy_too_long.md)|||✔|
+|[aws_iam_policy_sid_invalid_characters](aws_iam_policy_sid_invalid_characters.md)|||✔|
+|[aws_iam_policy_too_long_policy](aws_iam_policy_too_long_policy.md)|||✔|
 |aws_instance_invalid_ami|Disallow using invalid AMI|✔|✔|
 |aws_instance_invalid_iam_profile|Disallow using invalid IAM profile|✔|✔|
 |aws_instance_invalid_key_name|Disallow using invalid key name|✔|✔|
@@ -32,6 +36,8 @@ These rules warn of possible errors that can occur at `terraform apply`. Rules m
 |aws_instance_invalid_vpc_security_group|Disallow using invalid VPC security groups|✔|✔|
 |aws_launch_configuration_invalid_iam_profile|Disallow using invalid IAM profile|✔|✔|
 |aws_launch_configuration_invalid_image_id|Disallow using invalid image ID|✔|✔|
+|aws_mq_broker_invalid_engine_type|||✔|
+|aws_mq_configuration_invalid_engine_type|||✔|
 |aws_route_invalid_egress_only_gateway|Disallow using invalid egress only gateway|✔|✔|
 |aws_route_invalid_gateway|Disallow using invalid gateway|✔|✔|
 |aws_route_invalid_instance|Disallow using invalid instance|✔|✔|
@@ -41,6 +47,9 @@ These rules warn of possible errors that can occur at `terraform apply`. Rules m
 |aws_route_invalid_vpc_peering_connection|Disallow using invalid VPC peering connection|✔|✔|
 |[aws_route_not_specified_target](aws_route_not_specified_target.md)|Disallow routes that have no targets||✔|
 |[aws_route_specified_multiple_targets](aws_route_specified_multiple_targets.md)|Disallow routes that have multiple targets||✔|
+|aws_s3_bucket_invalid_acl|||✔|
+|aws_s3_bucket_invalid_region|||✔|
+|aws_spot_fleet_request_invalid_excess_capacity_termination_policy|||✔|
 
 ### Best Practices/Naming Conventions
 
@@ -59,6 +68,7 @@ These rules enforce best practices and naming conventions:
 |[aws_iam_policy_document_gov_friendly_arns](aws_iam_policy_document_gov_friendly_arns.md)|Ensure `iam_policy_document` data sources do not contain `arn:aws:` ARN's||
 |[aws_iam_policy_gov_friendly_arns](aws_iam_policy_gov_friendly_arns.md)|Ensure `iam_policy` resources do not contain `arn:aws:` ARN's||
 |[aws_iam_role_policy_gov_friendly_arns](aws_iam_role_policy_gov_friendly_arns.md)|Ensure `iam_role_policy` resources do not contain `arn:aws:` ARN's||
+|[aws_lambda_function_deprecated_runtime](aws_lambda_function_deprecated_runtime.md)||✔|
 |[aws_resource_missing_tags](aws_resource_missing_tags.md)|Require specific tags for all AWS resource types that support them||
 |[aws_s3_bucket_name](aws_s3_bucket_name.md)|Ensures all S3 bucket names match the specified naming rules||
 
@@ -76,9 +86,11 @@ These rules enforce best practices and naming conventions:
 |aws_account_alternate_contact_invalid_name|✔|
 |aws_account_alternate_contact_invalid_phone_number|✔|
 |aws_account_alternate_contact_invalid_title|✔|
+|aws_acm_certificate_invalid_certificate_authority_arn|✔|
 |aws_acm_certificate_invalid_certificate_body|✔|
 |aws_acm_certificate_invalid_certificate_chain|✔|
 |aws_acm_certificate_invalid_private_key|✔|
+|aws_acm_certificate_validation_invalid_certificate_arn|✔|
 |aws_acmpca_certificate_authority_certificate_invalid_certificate_authority_arn|✔|
 |aws_acmpca_certificate_authority_invalid_type|✔|
 |aws_acmpca_certificate_invalid_certificate_authority_arn|✔|
@@ -167,10 +179,17 @@ These rules enforce best practices and naming conventions:
 |aws_appconfig_hosted_configuration_version_invalid_configuration_profile_id|✔|
 |aws_appconfig_hosted_configuration_version_invalid_content_type|✔|
 |aws_appconfig_hosted_configuration_version_invalid_description|✔|
+|aws_appmesh_gateway_route_invalid_mesh_name|✔|
+|aws_appmesh_gateway_route_invalid_mesh_owner|✔|
+|aws_appmesh_gateway_route_invalid_name|✔|
+|aws_appmesh_gateway_route_invalid_virtual_gateway_name|✔|
 |aws_appmesh_mesh_invalid_name|✔|
 |aws_appmesh_route_invalid_mesh_name|✔|
 |aws_appmesh_route_invalid_name|✔|
 |aws_appmesh_route_invalid_virtual_router_name|✔|
+|aws_appmesh_virtual_gateway_invalid_mesh_name|✔|
+|aws_appmesh_virtual_gateway_invalid_mesh_owner|✔|
+|aws_appmesh_virtual_gateway_invalid_name|✔|
 |aws_appmesh_virtual_node_invalid_mesh_name|✔|
 |aws_appmesh_virtual_node_invalid_name|✔|
 |aws_appmesh_virtual_router_invalid_mesh_name|✔|

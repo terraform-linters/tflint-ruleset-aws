@@ -6,12 +6,7 @@ For example, if the IAM profile references something that doesn't exist, terrafo
 
 ```console
 $ tflint
-2 issue(s) found:
-
-Error: instance_type is not a valid value (aws_instance_invalid_type)
-
-  on template.tf line 3:
-   3:   instance_type        = "t1.2xlarge"
+1 issue(s) found:
 
 Error: "invalid_profile" is invalid IAM profile name. (aws_instance_invalid_iam_profile)
 
