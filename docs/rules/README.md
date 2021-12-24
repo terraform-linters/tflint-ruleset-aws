@@ -161,10 +161,17 @@ These rules enforce best practices and naming conventions:
 |aws_appconfig_hosted_configuration_version_invalid_configuration_profile_id|✔|
 |aws_appconfig_hosted_configuration_version_invalid_content_type|✔|
 |aws_appconfig_hosted_configuration_version_invalid_description|✔|
+|aws_appmesh_gateway_route_invalid_mesh_name|✔|
+|aws_appmesh_gateway_route_invalid_mesh_owner|✔|
+|aws_appmesh_gateway_route_invalid_name|✔|
+|aws_appmesh_gateway_route_invalid_virtual_gateway_name|✔|
 |aws_appmesh_mesh_invalid_name|✔|
 |aws_appmesh_route_invalid_mesh_name|✔|
 |aws_appmesh_route_invalid_name|✔|
 |aws_appmesh_route_invalid_virtual_router_name|✔|
+|aws_appmesh_virtual_gateway_invalid_mesh_name|✔|
+|aws_appmesh_virtual_gateway_invalid_mesh_owner|✔|
+|aws_appmesh_virtual_gateway_invalid_name|✔|
 |aws_appmesh_virtual_node_invalid_mesh_name|✔|
 |aws_appmesh_virtual_node_invalid_name|✔|
 |aws_appmesh_virtual_router_invalid_mesh_name|✔|
