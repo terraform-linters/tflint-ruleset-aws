@@ -80,6 +80,12 @@ These rules enforce best practices and naming conventions:
 | --- | --- |
 |aws_accessanalyzer_analyzer_invalid_analyzer_name|✔|
 |aws_accessanalyzer_analyzer_invalid_type|✔|
+|aws_account_alternate_contact_invalid_account_id|✔|
+|aws_account_alternate_contact_invalid_alternate_contact_type|✔|
+|aws_account_alternate_contact_invalid_email_address|✔|
+|aws_account_alternate_contact_invalid_name|✔|
+|aws_account_alternate_contact_invalid_phone_number|✔|
+|aws_account_alternate_contact_invalid_title|✔|
 |aws_acm_certificate_invalid_certificate_authority_arn|✔|
 |aws_acm_certificate_invalid_certificate_body|✔|
 |aws_acm_certificate_invalid_certificate_chain|✔|
