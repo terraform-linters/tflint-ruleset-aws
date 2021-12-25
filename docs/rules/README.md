@@ -253,6 +253,15 @@ These rules enforce best practices and naming conventions:
 |aws_budgets_budget_invalid_budget_type|✔|
 |aws_budgets_budget_invalid_name|✔|
 |aws_budgets_budget_invalid_time_unit|✔|
+|aws_chime_voice_connector_group_invalid_name|✔|
+|aws_chime_voice_connector_invalid_aws_region|✔|
+|aws_chime_voice_connector_invalid_name|✔|
+|aws_chime_voice_connector_logging_invalid_voice_connector_id|✔|
+|aws_chime_voice_connector_origination_invalid_voice_connector_id|✔|
+|aws_chime_voice_connector_streaming_invalid_voice_connector_id|✔|
+|aws_chime_voice_connector_termination_credentials_invalid_voice_connector_id|✔|
+|aws_chime_voice_connector_termination_invalid_default_phone_number|✔|
+|aws_chime_voice_connector_termination_invalid_voice_connector_id|✔|
 |aws_cloud9_environment_ec2_invalid_description|✔|
 |aws_cloud9_environment_ec2_invalid_instance_type|✔|
 |aws_cloud9_environment_ec2_invalid_name|✔|
