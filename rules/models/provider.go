@@ -207,6 +207,8 @@ var Rules = []tflint.Rule{
 	NewAwsCloudformationStackSetInvalidTemplateURLRule(),
 	NewAwsCloudfrontDistributionInvalidHTTPVersionRule(),
 	NewAwsCloudfrontDistributionInvalidPriceClassRule(),
+	NewAwsCloudfrontFunctionInvalidNameRule(),
+	NewAwsCloudfrontFunctionInvalidRuntimeRule(),
 	NewAwsCloudhsmV2ClusterInvalidHsmTypeRule(),
 	NewAwsCloudhsmV2ClusterInvalidSourceBackupIdentifierRule(),
 	NewAwsCloudhsmV2HsmInvalidAvailabilityZoneRule(),

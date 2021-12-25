@@ -279,6 +279,8 @@ These rules enforce best practices and naming conventions:
 |aws_cloudformation_stack_set_invalid_template_url|✔|
 |aws_cloudfront_distribution_invalid_http_version|✔|
 |aws_cloudfront_distribution_invalid_price_class|✔|
+|aws_cloudfront_function_invalid_name|✔|
+|aws_cloudfront_function_invalid_runtime|✔|
 |aws_cloudhsm_v2_cluster_invalid_hsm_type|✔|
 |aws_cloudhsm_v2_cluster_invalid_source_backup_identifier|✔|
 |aws_cloudhsm_v2_hsm_invalid_availability_zone|✔|
