@@ -242,6 +242,9 @@ These rules enforce best practices and naming conventions:
 |aws_athena_workgroup_invalid_state|✔|
 |aws_backup_selection_invalid_name|✔|
 |aws_backup_vault_invalid_name|✔|
+|aws_backup_vault_lock_configuration_invalid_backup_vault_name|✔|
+|aws_backup_vault_notifications_invalid_backup_vault_name|✔|
+|aws_backup_vault_policy_invalid_backup_vault_name|✔|
 |aws_batch_compute_environment_invalid_state|✔|
 |aws_batch_compute_environment_invalid_type|✔|
 |aws_batch_job_definition_invalid_type|✔|
