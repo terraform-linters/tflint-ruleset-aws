@@ -13,8 +13,8 @@ mapping "aws_appstream_fleet" {
   display_name = DisplayName
   domain_join_info = DomainJoinInfo
   fleet_type = FleetType
-  iam_role_arn = Arn
-  image_arn = Arn
+  # iam_role_arn = Arn # https://github.com/golang/go/issues/7252
+  # image_arn = Arn # https://github.com/golang/go/issues/7252
   stream_view = StreamView
   vpc_config = VpcConfig
   tags = Tags
@@ -27,8 +27,8 @@ mapping "aws_appstream_image_builder" {
   description = Description
   display_name = DisplayName
   domain_join_info = DomainJoinInfo
-  iam_role_arn = Arn
-  image_arn = Arn
+  # iam_role_arn = Arn # https://github.com/golang/go/issues/7252
+  # image_arn = Arn # https://github.com/golang/go/issues/7252
   vpc_config = VpcConfig
   tags = Tags
 }
