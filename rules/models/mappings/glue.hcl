@@ -56,6 +56,17 @@ mapping "aws_glue_crawler" {
   security_configuration = CrawlerSecurityConfiguration
 }
 
+mapping "aws_glue_data_catalog_encryption_settings" {
+  catalog_id = CatalogIdString
+}
+
+mapping "aws_glue_dev_endpoint" {
+  public_keys = PublicKeysList
+  role_arn = RoleArn
+  tags = TagsMap
+  worker_type = WorkerType
+}
+
 mapping "aws_glue_job" {
   command                = JobCommand
   connections            = ConnectionsList
@@ -68,6 +79,52 @@ mapping "aws_glue_job" {
   role_arn               = RoleString
   timeout                = Timeout
   security_configuration = any // NameString
+}
+
+mapping "aws_glue_ml_transform" {
+  name = NameString
+  input_record_tables = GlueTables
+  parameters = TransformParameters
+  role_arn = RoleString
+  description = DescriptionString
+  glue_version = GlueVersionString
+  tags = TagsMap
+  timeout = Timeout
+  worker_type = WorkerType
+}
+
+mapping "aws_glue_partition" {
+  database_name = NameString
+  partition_values = ValueStringList
+  catalog_id = CatalogIdString
+  storage_descriptor = StorageDescriptor
+  parameters = ParametersMap
+}
+
+mapping "aws_glue_partition_index" {
+  table_name = NameString
+  database_name = NameString
+  partition_index = PartitionIndex
+  catalog_id = CatalogIdString
+}
+
+mapping "aws_glue_registry" {
+  registry_name = SchemaRegistryNameString
+  description = DescriptionString
+  tags = TagsMap
+}
+
+mapping "aws_glue_resource_policy" {
+  enable_hybrid = EnableHybridValues
+}
+
+mapping "aws_glue_schema" {
+  schema_name = SchemaRegistryNameString
+  data_format = DataFormat
+  compatibility = Compatibility
+  schema_definition = SchemaDefinitionString
+  description = DescriptionString
+  tags = TagsMap
 }
 
 mapping "aws_glue_security_configuration" {
@@ -83,4 +140,20 @@ mapping "aws_glue_trigger" {
   predicate   = Predicate
   schedule    = GenericString
   type        = TriggerType
+}
+
+mapping "aws_glue_user_defined_function" {
+  name = NameString
+  catalog_id = CatalogIdString
+  database_name = NameString
+  class_name = NameString
+  owner_name = NameString
+  owner_type = PrincipalType
+  resource_uris = ResourceUriList
+}
+
+mapping "aws_glue_workflow" {
+  name = NameString
+  default_run_properties = WorkflowRunProperties
+  tags = TagsMap
 }
