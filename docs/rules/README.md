@@ -391,7 +391,17 @@ These rules enforce best practices and naming conventions:
 |aws_config_configuration_aggregator_invalid_name|✔|
 |aws_config_configuration_recorder_invalid_name|✔|
 |aws_config_configuration_recorder_status_invalid_name|✔|
+|aws_config_conformance_pack_invalid_delivery_s3_bucket|✔|
+|aws_config_conformance_pack_invalid_delivery_s3_key_prefix|✔|
+|aws_config_conformance_pack_invalid_name|✔|
+|aws_config_conformance_pack_invalid_template_body|✔|
+|aws_config_conformance_pack_invalid_template_s3_uri|✔|
 |aws_config_delivery_channel_invalid_name|✔|
+|aws_config_organization_conformance_pack_invalid_delivery_s3_bucket|✔|
+|aws_config_organization_conformance_pack_invalid_delivery_s3_key_prefix|✔|
+|aws_config_organization_conformance_pack_invalid_name|✔|
+|aws_config_organization_conformance_pack_invalid_template_body|✔|
+|aws_config_organization_conformance_pack_invalid_template_s3_uri|✔|
 |aws_config_organization_custom_rule_invalid_description|✔|
 |aws_config_organization_custom_rule_invalid_input_parameters|✔|
 |aws_config_organization_custom_rule_invalid_lambda_function_arn|✔|
@@ -408,6 +418,9 @@ These rules enforce best practices and naming conventions:
 |aws_config_organization_managed_rule_invalid_rule_identifier|✔|
 |aws_config_organization_managed_rule_invalid_tag_key_scope|✔|
 |aws_config_organization_managed_rule_invalid_tag_value_scope|✔|
+|aws_config_remediation_configuration_invalid_config_rule_name|✔|
+|aws_config_remediation_configuration_invalid_target_id|✔|
+|aws_config_remediation_configuration_invalid_target_type|✔|
 |aws_cur_report_definition_invalid_compression|✔|
 |aws_cur_report_definition_invalid_format|✔|
 |aws_cur_report_definition_invalid_report_name|✔|
