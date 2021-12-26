@@ -390,6 +390,7 @@ var Rules = []tflint.Rule{
 	NewAwsDxBgpPeerInvalidAddressFamilyRule(),
 	NewAwsDxHostedPrivateVirtualInterfaceInvalidAddressFamilyRule(),
 	NewAwsDxHostedPublicVirtualInterfaceInvalidAddressFamilyRule(),
+	NewAwsDxHostedTransitVirtualInterfaceInvalidAddressFamilyRule(),
 	NewAwsDxPrivateVirtualInterfaceInvalidAddressFamilyRule(),
 	NewAwsDxPublicVirtualInterfaceInvalidAddressFamilyRule(),
 	NewAwsDynamoDBGlobalTableInvalidNameRule(),

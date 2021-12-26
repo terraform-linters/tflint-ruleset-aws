@@ -462,6 +462,7 @@ These rules enforce best practices and naming conventions:
 |aws_dx_bgp_peer_invalid_address_family|✔|
 |aws_dx_hosted_private_virtual_interface_invalid_address_family|✔|
 |aws_dx_hosted_public_virtual_interface_invalid_address_family|✔|
+|aws_dx_hosted_transit_virtual_interface_invalid_address_family|✔|
 |aws_dx_private_virtual_interface_invalid_address_family|✔|
 |aws_dx_public_virtual_interface_invalid_address_family|✔|
 |aws_dynamodb_global_table_invalid_name|✔|
