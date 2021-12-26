@@ -24,6 +24,25 @@ mapping "aws_config_configuration_recorder_status" {
   name = RecorderName
 }
 
+mapping "aws_config_conformance_pack" {
+  name = ConformancePackName
+  delivery_s3_bucket = DeliveryS3Bucket
+  delivery_s3_key_prefix = DeliveryS3KeyPrefix
+  input_parameter = ConformancePackInputParameters
+  template_body = TemplateBody
+  template_s3_uri = TemplateS3Uri
+}
+
+mapping "aws_config_organization_conformance_pack" {
+  name = OrganizationConformancePackName
+  delivery_s3_bucket = DeliveryS3Bucket
+  delivery_s3_key_prefix = DeliveryS3KeyPrefix
+  excluded_accounts = ExcludedAccounts
+  input_parameter = ConformancePackInputParameters
+  template_body = TemplateBody
+  template_s3_uri = TemplateS3Uri
+}
+
 mapping "aws_config_organization_managed_rule" {
   name                        = StringWithCharLimit64
   rule_identifier             = StringWithCharLimit256
@@ -49,6 +68,16 @@ mapping "aws_config_organization_custom_rule" {
   resource_types_scope         = ResourceTypesScope
   tag_key_scope                = StringWithCharLimit128
   tag_value_scope              = StringWithCharLimit256
+}
+
+mapping "aws_config_remediation_configuration" {
+  config_rule_name = ConfigRuleName
+  target_id = StringWithCharLimit256
+  target_type = RemediationTargetType
+  execution_controls = ExecutionControls
+  maximum_automatic_attempts = AutoRemediationAttempts
+  parameter = RemediationParameters
+  retry_attempt_seconds = AutoRemediationAttemptSeconds
 }
 
 mapping "aws_config_delivery_channel" {
