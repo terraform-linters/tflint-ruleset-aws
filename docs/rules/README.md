@@ -727,6 +727,11 @@ These rules enforce best practices and naming conventions:
 |aws_lightsail_static_ip_attachment_invalid_instance_name|✔|
 |aws_lightsail_static_ip_attachment_invalid_static_ip_name|✔|
 |aws_lightsail_static_ip_invalid_name|✔|
+|aws_macie2_account_invalid_finding_publishing_frequency|✔|
+|aws_macie2_account_invalid_status|✔|
+|aws_macie2_classification_job_invalid_job_status|✔|
+|aws_macie2_classification_job_invalid_job_type|✔|
+|aws_macie2_findings_filter_invalid_action|✔|
 |aws_macie_member_account_association_invalid_member_account_id|✔|
 |aws_macie_s3_bucket_association_invalid_bucket_name|✔|
 |aws_macie_s3_bucket_association_invalid_member_account_id|✔|
