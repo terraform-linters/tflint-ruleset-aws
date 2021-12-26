@@ -837,6 +837,17 @@ These rules enforce best practices and naming conventions:
 |aws_s3_bucket_object_invalid_acl|✔|
 |aws_s3_bucket_object_invalid_server_side_encryption|✔|
 |aws_s3_bucket_object_invalid_storage_class|✔|
+|aws_s3control_access_point_policy_invalid_access_point_arn|✔|
+|aws_s3control_bucket_invalid_bucket|✔|
+|aws_s3control_bucket_invalid_outpost_id|✔|
+|aws_s3control_bucket_lifecycle_configuration_invalid_bucket|✔|
+|aws_s3control_bucket_policy_invalid_bucket|✔|
+|aws_s3control_multi_region_access_point_invalid_account_id|✔|
+|aws_s3control_multi_region_access_point_policy_invalid_account_id|✔|
+|aws_s3control_object_lambda_access_point_invalid_account_id|✔|
+|aws_s3control_object_lambda_access_point_invalid_name|✔|
+|aws_s3control_object_lambda_access_point_policy_invalid_account_id|✔|
+|aws_s3control_object_lambda_access_point_policy_invalid_name|✔|
 |aws_sagemaker_app_invalid_app_name|✔|
 |aws_sagemaker_app_invalid_app_type|✔|
 |aws_sagemaker_app_invalid_domain_id|✔|
