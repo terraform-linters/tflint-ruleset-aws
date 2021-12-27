@@ -17,7 +17,7 @@ mapping "aws_imagebuilder_distribution_configuration" {
   name = ResourceName
   distribution = DistributionList
   description = NonEmptyString
-  kms_key_id = NonEmptyString
+  # kms_key_id = NonEmptyString
   tags = TagMap
 }
 
