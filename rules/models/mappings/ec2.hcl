@@ -149,6 +149,42 @@ mapping "aws_ec2_local_gateway_route_table_vpc_association" {
   tags = TagSpecificationList
 }
 
+mapping "aws_ec2_managed_prefix_list" {
+  entry = AddPrefixListEntries
+  tags = TagSpecificationList
+}
+
+mapping "aws_ec2_managed_prefix_list_entry" {
+  prefix_list_id = PrefixListResourceId
+}
+
+mapping "aws_ec2_subnet_cidr_reservation" {
+  reservation_type = SubnetCidrReservationType
+  subnet_id = SubnetId
+}
+
+mapping "aws_ec2_traffic_mirror_filter" {
+  network_services = TrafficMirrorNetworkServiceList
+  tags = TagList
+}
+
+mapping "aws_ec2_traffic_mirror_filter_rule" {
+  destination_port_range = TrafficMirrorPortRange
+  rule_action = TrafficMirrorRuleAction
+  source_port_range = TrafficMirrorPortRange
+  traffic_direction = TrafficDirection
+}
+
+mapping "aws_ec2_traffic_mirror_session" {
+  network_interface_id = NetworkInterfaceId
+  traffic_mirror_filter_id = TrafficMirrorFilterId
+  traffic_mirror_target_id = TrafficMirrorTargetId
+}
+
+mapping "aws_ec2_traffic_mirror_target" {
+  network_interface_id = NetworkInterfaceId
+}
+
 mapping "aws_ec2_transit_gateway" {
   amazon_side_asn                 = Long
   auto_accept_shared_attachments  = AutoAcceptSharedAttachmentsValue
@@ -157,6 +193,21 @@ mapping "aws_ec2_transit_gateway" {
   description                     = String
   dns_support                     = DnsSupportValue
   tags                            = TagSpecificationList
+}
+
+mapping "aws_ec2_transit_gateway_peering_attachment" {
+  peer_transit_gateway_id = TransitAssociationGatewayId
+  transit_gateway_id = TransitGatewayId
+}
+
+mapping "aws_ec2_transit_gateway_peering_attachment_accepter" {
+  transit_gateway_attachment_id = TransitGatewayAttachmentId
+}
+
+mapping "aws_ec2_transit_gateway_prefix_list_reference" {
+  prefix_list_id = PrefixListResourceId
+  transit_gateway_route_table_id = TransitGatewayRouteTableId
+  transit_gateway_attachment_id = TransitGatewayAttachmentId
 }
 
 mapping "aws_ec2_transit_gateway_route" {
