@@ -1132,6 +1132,8 @@ These rules enforce best practices and naming conventions:
 |aws_transfer_user_invalid_user_name|✔|
 |aws_vpc_endpoint_invalid_vpc_endpoint_type|✔|
 |aws_vpc_invalid_instance_tenancy|✔|
+|aws_vpc_ipam_pool_invalid_address_family|✔|
+|aws_vpc_ipam_pool_invalid_aws_service|✔|
 |aws_waf_byte_match_set_invalid_name|✔|
 |aws_waf_geo_match_set_invalid_name|✔|
 |aws_waf_ipset_invalid_name|✔|

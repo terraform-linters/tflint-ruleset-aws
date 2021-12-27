@@ -1060,6 +1060,8 @@ var Rules = []tflint.Rule{
 	NewAwsTransferUserInvalidUserNameRule(),
 	NewAwsVpcEndpointInvalidVpcEndpointTypeRule(),
 	NewAwsVpcInvalidInstanceTenancyRule(),
+	NewAwsVpcIpamPoolInvalidAddressFamilyRule(),
+	NewAwsVpcIpamPoolInvalidAwsServiceRule(),
 	NewAwsWafByteMatchSetInvalidNameRule(),
 	NewAwsWafGeoMatchSetInvalidNameRule(),
 	NewAwsWafIpsetInvalidNameRule(),
