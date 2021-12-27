@@ -250,9 +250,43 @@ mapping "aws_vpc_endpoint_subnet_association" {
   subnet_id       = String
 }
 
+mapping "aws_vpc_ipam" {
+  operating_regions = AddIpamOperatingRegionSet
+}
+
+mapping "aws_vpc_ipam_pool" {
+  address_family = AddressFamily
+  allocation_default_netmask_length = IpamNetmaskLength
+  allocation_max_netmask_length = IpamNetmaskLength
+  allocation_min_netmask_length = IpamNetmaskLength
+  allocation_resource_tags = RequestIpamResourceTagList
+  aws_service = IpamPoolAwsService
+  ipam_scope_id = IpamScopeId
+  source_ipam_pool_id = IpamPoolId
+}
+
+mapping "aws_vpc_ipam_pool_cidr" {
+  cidr_authorization_context = IpamCidrAuthorizationContext
+  ipam_pool_id = IpamPoolId
+}
+
+mapping "aws_vpc_ipam_pool_cidr_allocation" {
+  ipam_pool_id = IpamPoolId
+}
+
+mapping "aws_vpc_ipam_scope" {
+  ipam_id = IpamId
+}
+
 mapping "aws_vpc_ipv4_cidr_block_association" {
   cidr_block = String
   vpc_id     = String
+}
+
+mapping "aws_vpc_ipv6_cidr_block_association" {
+  ipv6_ipam_pool_id = IpamPoolId
+  ipv6_netmask_length = NetmaskLength
+  vpc_id = VpcId
 }
 
 mapping "aws_vpc_peering_connection" {
