@@ -71,6 +71,10 @@ mapping "aws_ebs_encryption_by_default" {
   enabled = Boolean
 }
 
+mapping "aws_ec2_availability_zone_group" {
+  opt_in_status = ModifyAvailabilityZoneOptInStatus
+}
+
 mapping "aws_ec2_capacity_reservation" {
   availability_zone       = String
   ebs_optimized           = Boolean
@@ -83,6 +87,15 @@ mapping "aws_ec2_capacity_reservation" {
   instance_type           = String
   tags                    = TagSpecificationList
   tenancy                 = CapacityReservationTenancy
+}
+
+mapping "aws_ec2_carrier_gateway" {
+  tags = TagSpecificationList
+  vpc_id = VpcId
+}
+
+mapping "aws_ec2_client_vpn_authorization_rule" {
+  client_vpn_endpoint_id = ClientVpnEndpointId
 }
 
 mapping "aws_ec2_client_vpn_endpoint" {
@@ -101,6 +114,11 @@ mapping "aws_ec2_client_vpn_network_association" {
   subnet_id              = String
 }
 
+mapping "aws_ec2_client_vpn_route" {
+  client_vpn_endpoint_id = ClientVpnEndpointId
+  target_vpc_subnet_id = SubnetId
+}
+
 mapping "aws_ec2_fleet" {
   launch_template_config              = FleetLaunchTemplateConfigListRequest
   target_capacity_specification       = TargetCapacitySpecificationRequest
@@ -112,6 +130,23 @@ mapping "aws_ec2_fleet" {
   terminate_instances                 = Boolean
   terminate_instances_with_expiration = Boolean
   type                                = FleetType
+}
+
+mapping "aws_ec2_host" {
+  auto_placement = AutoPlacement
+  host_recovery = HostRecovery
+  tags = TagSpecificationList
+}
+
+mapping "aws_ec2_local_gateway_route" {
+  local_gateway_route_table_id = LocalGatewayRoutetableId
+  local_gateway_virtual_interface_group_id = LocalGatewayVirtualInterfaceGroupId
+}
+
+mapping "aws_ec2_local_gateway_route_table_vpc_association" {
+  local_gateway_route_table_id = LocalGatewayRoutetableId
+  vpc_id = VpcId
+  tags = TagSpecificationList
 }
 
 mapping "aws_ec2_transit_gateway" {
