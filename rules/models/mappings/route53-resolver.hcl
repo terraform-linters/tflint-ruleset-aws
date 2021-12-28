@@ -18,12 +18,12 @@ mapping "aws_route53_resolver_firewall_config" {
 }
 
 mapping "aws_route53_resolver_firewall_domain_list" {
-  name = Name
+  # name = Name
   tags = TagList
 }
 
 mapping "aws_route53_resolver_firewall_rule" {
-  name = Name
+  # name = Name
   action = Action
   block_override_dns_type = BlockOverrideDnsType
   block_override_domain = BlockOverrideDomain
@@ -35,12 +35,12 @@ mapping "aws_route53_resolver_firewall_rule" {
 }
 
 mapping "aws_route53_resolver_firewall_rule_group" {
-  name = Name
+  # name = Name
   tags = TagList
 }
 
 mapping "aws_route53_resolver_firewall_rule_group_association" {
-  name = Name
+  # name = Name
   firewall_rule_group_id = ResourceId
   mutation_protection = MutationProtectionStatus
   priority = Priority
@@ -65,7 +65,7 @@ mapping "aws_route53_resolver_rule_association" {
 
 mapping "aws_route53_resolver_query_log_config" {
   destination_arn = DestinationArn
-  name = ResolverQueryLogConfigName
+  # name = ResolverQueryLogConfigName
   tags = TagList
 }
 
