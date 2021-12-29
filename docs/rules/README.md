@@ -492,6 +492,7 @@ These rules enforce best practices and naming conventions:
 |aws_dynamodb_table_item_invalid_range_key|✔|
 |aws_dynamodb_table_item_invalid_table_name|✔|
 |aws_ebs_volume_invalid_type|✔|
+|aws_ec2_availability_zone_group_invalid_opt_in_status|✔|
 |aws_ec2_capacity_reservation_invalid_end_date_type|✔|
 |aws_ec2_capacity_reservation_invalid_instance_match_criteria|✔|
 |aws_ec2_capacity_reservation_invalid_instance_platform|✔|
@@ -499,6 +500,11 @@ These rules enforce best practices and naming conventions:
 |aws_ec2_client_vpn_endpoint_invalid_transport_protocol|✔|
 |aws_ec2_fleet_invalid_excess_capacity_termination_policy|✔|
 |aws_ec2_fleet_invalid_type|✔|
+|aws_ec2_host_invalid_auto_placement|✔|
+|aws_ec2_host_invalid_host_recovery|✔|
+|aws_ec2_subnet_cidr_reservation_invalid_reservation_type|✔|
+|aws_ec2_traffic_mirror_filter_rule_invalid_rule_action|✔|
+|aws_ec2_traffic_mirror_filter_rule_invalid_traffic_direction|✔|
 |aws_ec2_transit_gateway_invalid_auto_accept_shared_attachments|✔|
 |aws_ec2_transit_gateway_invalid_default_route_table_association|✔|
 |aws_ec2_transit_gateway_invalid_default_route_table_propagation|✔|

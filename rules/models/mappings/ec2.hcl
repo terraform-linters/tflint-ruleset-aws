@@ -71,6 +71,10 @@ mapping "aws_ebs_encryption_by_default" {
   enabled = Boolean
 }
 
+mapping "aws_ec2_availability_zone_group" {
+  opt_in_status = ModifyAvailabilityZoneOptInStatus
+}
+
 mapping "aws_ec2_capacity_reservation" {
   availability_zone       = String
   ebs_optimized           = Boolean
@@ -83,6 +87,15 @@ mapping "aws_ec2_capacity_reservation" {
   instance_type           = String
   tags                    = TagSpecificationList
   tenancy                 = CapacityReservationTenancy
+}
+
+mapping "aws_ec2_carrier_gateway" {
+  tags = TagSpecificationList
+  vpc_id = VpcId
+}
+
+mapping "aws_ec2_client_vpn_authorization_rule" {
+  client_vpn_endpoint_id = ClientVpnEndpointId
 }
 
 mapping "aws_ec2_client_vpn_endpoint" {
@@ -101,6 +114,11 @@ mapping "aws_ec2_client_vpn_network_association" {
   subnet_id              = String
 }
 
+mapping "aws_ec2_client_vpn_route" {
+  client_vpn_endpoint_id = ClientVpnEndpointId
+  target_vpc_subnet_id = SubnetId
+}
+
 mapping "aws_ec2_fleet" {
   launch_template_config              = FleetLaunchTemplateConfigListRequest
   target_capacity_specification       = TargetCapacitySpecificationRequest
@@ -114,6 +132,59 @@ mapping "aws_ec2_fleet" {
   type                                = FleetType
 }
 
+mapping "aws_ec2_host" {
+  auto_placement = AutoPlacement
+  host_recovery = HostRecovery
+  tags = TagSpecificationList
+}
+
+mapping "aws_ec2_local_gateway_route" {
+  local_gateway_route_table_id = LocalGatewayRoutetableId
+  local_gateway_virtual_interface_group_id = LocalGatewayVirtualInterfaceGroupId
+}
+
+mapping "aws_ec2_local_gateway_route_table_vpc_association" {
+  local_gateway_route_table_id = LocalGatewayRoutetableId
+  vpc_id = VpcId
+  tags = TagSpecificationList
+}
+
+mapping "aws_ec2_managed_prefix_list" {
+  entry = AddPrefixListEntries
+  tags = TagSpecificationList
+}
+
+mapping "aws_ec2_managed_prefix_list_entry" {
+  prefix_list_id = PrefixListResourceId
+}
+
+mapping "aws_ec2_subnet_cidr_reservation" {
+  reservation_type = SubnetCidrReservationType
+  subnet_id = SubnetId
+}
+
+mapping "aws_ec2_traffic_mirror_filter" {
+  network_services = TrafficMirrorNetworkServiceList
+  tags = TagList
+}
+
+mapping "aws_ec2_traffic_mirror_filter_rule" {
+  destination_port_range = TrafficMirrorPortRange
+  rule_action = TrafficMirrorRuleAction
+  source_port_range = TrafficMirrorPortRange
+  traffic_direction = TrafficDirection
+}
+
+mapping "aws_ec2_traffic_mirror_session" {
+  network_interface_id = NetworkInterfaceId
+  traffic_mirror_filter_id = TrafficMirrorFilterId
+  traffic_mirror_target_id = TrafficMirrorTargetId
+}
+
+mapping "aws_ec2_traffic_mirror_target" {
+  network_interface_id = NetworkInterfaceId
+}
+
 mapping "aws_ec2_transit_gateway" {
   amazon_side_asn                 = Long
   auto_accept_shared_attachments  = AutoAcceptSharedAttachmentsValue
@@ -122,6 +193,21 @@ mapping "aws_ec2_transit_gateway" {
   description                     = String
   dns_support                     = DnsSupportValue
   tags                            = TagSpecificationList
+}
+
+mapping "aws_ec2_transit_gateway_peering_attachment" {
+  peer_transit_gateway_id = TransitAssociationGatewayId
+  transit_gateway_id = TransitGatewayId
+}
+
+mapping "aws_ec2_transit_gateway_peering_attachment_accepter" {
+  transit_gateway_attachment_id = TransitGatewayAttachmentId
+}
+
+mapping "aws_ec2_transit_gateway_prefix_list_reference" {
+  prefix_list_id = PrefixListResourceId
+  transit_gateway_route_table_id = TransitGatewayRouteTableId
+  transit_gateway_attachment_id = TransitGatewayAttachmentId
 }
 
 mapping "aws_ec2_transit_gateway_route" {
