@@ -1,5 +1,14 @@
 import = "aws-sdk-go/models/apis/ecs/2014-11-13/api-2.json"
 
+mapping "aws_ecs_account_setting_default" {
+  name = SettingName
+}
+
+mapping "aws_ecs_capacity_provider" {
+  auto_scaling_group_provider = AutoScalingGroupProvider
+  tags = Tags
+}
+
 mapping "aws_ecs_cluster" {
   name = String
   tags = Tags
@@ -42,6 +51,16 @@ mapping "aws_ecs_task_definition" {
   memory                   = String
   requires_compatibilities = CompatibilityList
   tags                     = Tags
+}
+
+mapping "aws_ecs_task_set" {
+  capacity_provider_strategy = CapacityProviderStrategy
+  launch_type = LaunchType
+  load_balancer = LoadBalancers
+  network_configuration = NetworkConfiguration
+  scale = Scale
+  service_registries = ServiceRegistries
+  tags = Tags
 }
 
 test "aws_ecs_service" "launch_type" {
