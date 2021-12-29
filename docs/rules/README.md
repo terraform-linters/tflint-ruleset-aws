@@ -513,6 +513,9 @@ These rules enforce best practices and naming conventions:
 |aws_ec2_transit_gateway_vpc_attachment_invalid_ipv6_support|✔|
 |aws_ecr_lifecycle_policy_invalid_policy|✔|
 |aws_ecr_lifecycle_policy_invalid_repository|✔|
+|aws_ecr_pull_through_cache_rule_invalid_ecr_repository_prefix|✔|
+|aws_ecr_registry_policy_invalid_policy|✔|
+|aws_ecr_registry_scanning_configuration_invalid_scan_type|✔|
 |aws_ecr_repository_invalid_name|✔|
 |aws_ecr_repository_policy_invalid_policy|✔|
 |aws_ecr_repository_policy_invalid_repository|✔|
