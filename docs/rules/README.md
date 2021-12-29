@@ -516,12 +516,14 @@ These rules enforce best practices and naming conventions:
 |aws_ecr_repository_invalid_name|✔|
 |aws_ecr_repository_policy_invalid_policy|✔|
 |aws_ecr_repository_policy_invalid_repository|✔|
+|aws_ecs_account_setting_default_invalid_name|✔|
 |aws_ecs_service_invalid_launch_type|✔|
 |aws_ecs_service_invalid_propagate_tags|✔|
 |aws_ecs_service_invalid_scheduling_strategy|✔|
 |aws_ecs_task_definition_invalid_ipc_mode|✔|
 |aws_ecs_task_definition_invalid_network_mode|✔|
 |aws_ecs_task_definition_invalid_pid_mode|✔|
+|aws_ecs_task_set_invalid_launch_type|✔|
 |aws_efs_file_system_invalid_creation_token|✔|
 |aws_efs_file_system_invalid_kms_key_id|✔|
 |aws_efs_file_system_invalid_performance_mode|✔|
