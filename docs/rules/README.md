@@ -455,6 +455,10 @@ These rules enforce best practices and naming conventions:
 |aws_datasync_task_invalid_destination_location_arn|✔|
 |aws_datasync_task_invalid_name|✔|
 |aws_datasync_task_invalid_source_location_arn|✔|
+|aws_db_proxy_endpoint_invalid_db_proxy_endpoint_name|✔|
+|aws_db_proxy_endpoint_invalid_db_proxy_name|✔|
+|aws_db_proxy_endpoint_invalid_target_role|✔|
+|aws_db_proxy_invalid_engine_family|✔|
 |aws_devicefarm_project_invalid_name|✔|
 |aws_directory_service_conditional_forwarder_invalid_directory_id|✔|
 |aws_directory_service_conditional_forwarder_invalid_remote_domain_name|✔|
