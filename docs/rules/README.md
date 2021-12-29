@@ -523,7 +523,12 @@ These rules enforce best practices and naming conventions:
 |aws_efs_mount_target_invalid_file_system_id|✔|
 |aws_efs_mount_target_invalid_ip_address|✔|
 |aws_efs_mount_target_invalid_subnet_id|✔|
+|aws_eks_addon_invalid_cluster_name|✔|
+|aws_eks_addon_invalid_resolve_conflicts|✔|
+|aws_eks_addon_invalid_service_account_role_arn|✔|
 |aws_eks_cluster_invalid_name|✔|
+|aws_eks_node_group_invalid_ami_type|✔|
+|aws_eks_node_group_invalid_capacity_type|✔|
 |aws_elastic_beanstalk_application_invalid_description|✔|
 |aws_elastic_beanstalk_application_invalid_name|✔|
 |aws_elastic_beanstalk_application_version_invalid_application|✔|
