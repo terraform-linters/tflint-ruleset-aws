@@ -26,7 +26,7 @@ mapping "aws_connect_hours_of_operation" {
 mapping "aws_connect_instance" {
   identity_management_type = DirectoryType
   inbound_calls_enabled = InboundCallsEnabled
-  instance_alias = DirectoryAlias
+  # instance_alias = DirectoryAlias
   outbound_calls_enabled = OutboundCallsEnabled
 }
 
