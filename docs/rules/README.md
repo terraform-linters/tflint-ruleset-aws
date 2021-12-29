@@ -435,6 +435,15 @@ These rules enforce best practices and naming conventions:
 |aws_config_remediation_configuration_invalid_config_rule_name|✔|
 |aws_config_remediation_configuration_invalid_target_id|✔|
 |aws_config_remediation_configuration_invalid_target_type|✔|
+|aws_connect_bot_association_invalid_instance_id|✔|
+|aws_connect_contact_flow_invalid_instance_id|✔|
+|aws_connect_contact_flow_invalid_type|✔|
+|aws_connect_hours_of_operation_invalid_description|✔|
+|aws_connect_hours_of_operation_invalid_instance_id|✔|
+|aws_connect_hours_of_operation_invalid_name|✔|
+|aws_connect_instance_invalid_identity_management_type|✔|
+|aws_connect_lambda_function_association_invalid_function_arn|✔|
+|aws_connect_lambda_function_association_invalid_instance_id|✔|
 |aws_cur_report_definition_invalid_compression|✔|
 |aws_cur_report_definition_invalid_format|✔|
 |aws_cur_report_definition_invalid_report_name|✔|
