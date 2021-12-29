@@ -92,6 +92,23 @@ mapping "aws_db_parameter_group" {
   tags        = TagList
 }
 
+mapping "aws_db_proxy" {
+  auth = UserAuthConfigList
+  engine_family = EngineFamily
+  tags = TagList
+}
+
+mapping "aws_db_proxy_default_target_group" {
+  connection_pool_config = ConnectionPoolConfiguration
+}
+
+mapping "aws_db_proxy_endpoint" {
+  db_proxy_endpoint_name = DBProxyEndpointName
+  db_proxy_name = DBProxyName
+  target_role = DBProxyEndpointTargetRole
+  tags = TagList
+}
+
 mapping "aws_db_security_group" {
   name        = String
   description = String
