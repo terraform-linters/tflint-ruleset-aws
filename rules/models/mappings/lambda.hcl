@@ -8,6 +8,12 @@ mapping "aws_lambda_alias" {
   routing_config   = AliasRoutingConfiguration
 }
 
+mapping "aws_lambda_code_signing_config" {
+  allowed_publishers = AllowedPublishers
+  policies = CodeSigningPolicies
+  description = Description
+}
+
 mapping "aws_lambda_event_source_mapping" {
   batch_size                  = BatchSize
   event_source_arn            = Arn
@@ -41,6 +47,14 @@ mapping "aws_lambda_function" {
   tags                           = Tags
 }
 
+mapping "aws_lambda_function_event_invoke_config" {
+  function_name = FunctionName
+  destination_config = DestinationConfig
+  maximum_event_age_in_seconds = MaximumEventAgeInSeconds
+  maximum_retry_attempts = MaximumRetryAttempts
+  qualifier = Qualifier
+}
+
 mapping "aws_lambda_layer_version" {
   layer_name          = LayerName
   filename            = any
@@ -53,6 +67,15 @@ mapping "aws_lambda_layer_version" {
   source_code_hash    = any
 }
 
+mapping "aws_lambda_layer_version_permission" {
+  action = LayerPermissionAllowedAction
+  layer_name = LayerName
+  organization_id = OrganizationId
+  principal = LayerPermissionAllowedPrincipal
+  statement_id = StatementId
+  version_number = LayerVersionNumber
+}
+
 mapping "aws_lambda_permission" {
   action              = Action
   event_source_token  = EventSourceToken
@@ -63,4 +86,10 @@ mapping "aws_lambda_permission" {
   source_arn          = Arn
   statement_id        = StatementId
   statement_id_prefix = any
+}
+
+mapping "aws_lambda_provisioned_concurrency_config" {
+  function_name = FunctionName
+  provisioned_concurrent_executions = PositiveInteger
+  qualifier = Qualifier
 }
