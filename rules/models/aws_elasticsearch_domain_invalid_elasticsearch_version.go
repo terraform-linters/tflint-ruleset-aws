@@ -7,12 +7,14 @@ import (
 	"log"
 	"regexp"
 
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
 // AwsElasticsearchDomainInvalidElasticsearchVersionRule checks the pattern is valid
 type AwsElasticsearchDomainInvalidElasticsearchVersionRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 	pattern       *regexp.Regexp
@@ -38,7 +40,7 @@ func (r *AwsElasticsearchDomainInvalidElasticsearchVersionRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsElasticsearchDomainInvalidElasticsearchVersionRule) Severity() string {
+func (r *AwsElasticsearchDomainInvalidElasticsearchVersionRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -51,19 +53,38 @@ func (r *AwsElasticsearchDomainInvalidElasticsearchVersionRule) Link() string {
 func (r *AwsElasticsearchDomainInvalidElasticsearchVersionRule) Check(runner tflint.Runner) error {
 	log.Printf("[TRACE] Check `%s` rule", r.Name())
 
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{
+			{Name: r.attributeName},
+		},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 			if !r.pattern.MatchString(val) {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[0-9]{1}\.[0-9]{1,2}$|^OpenSearch_[0-9]{1,2}\.[0-9]{1,2}$`),
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

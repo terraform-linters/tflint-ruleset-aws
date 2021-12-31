@@ -5,22 +5,22 @@ import (
 	"regexp"
 	"strings"
 
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
 
 // AwsS3BucketNameRule checks that an S3 bucket name matches naming rules
 type AwsS3BucketNameRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 }
 
 type awsS3BucketNameConfig struct {
-	Regex  string `hcl:"regex,optional"`
-	Prefix string `hcl:"prefix,optional"`
-
-	Remain hcl.Body `hcl:",remain"`
+	Regex  string `hclext:"regex,optional"`
+	Prefix string `hclext:"prefix,optional"`
 }
 
 // NewAwsS3BucketNameRule returns a new rule with default attributes
@@ -42,7 +42,7 @@ func (r *AwsS3BucketNameRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsS3BucketNameRule) Severity() string {
+func (r *AwsS3BucketNameRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
@@ -63,32 +63,48 @@ func (r *AwsS3BucketNameRule) Check(runner tflint.Runner) error {
 		return fmt.Errorf("invalid regex (%s): %w", config.Regex, err)
 	}
 
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{{Name: r.attributeName}},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var name string
 		err := runner.EvaluateExpr(attribute.Expr, &name, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 			if config.Prefix != "" {
 				if !strings.HasPrefix(name, config.Prefix) {
-					runner.EmitIssueOnExpr(
+					runner.EmitIssue(
 						r,
 						fmt.Sprintf(`Bucket name "%s" does not have prefix "%s"`, name, config.Prefix),
-						attribute.Expr,
+						attribute.Expr.Range(),
 					)
 				}
 			}
 
 			if config.Regex != "" {
 				if !regex.MatchString(name) {
-					runner.EmitIssueOnExpr(
+					runner.EmitIssue(
 						r,
 						fmt.Sprintf(`Bucket name "%s" does not match regex "%s"`, name, config.Regex),
-						attribute.Expr,
+						attribute.Expr.Range(),
 					)
 				}
 			}
-
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

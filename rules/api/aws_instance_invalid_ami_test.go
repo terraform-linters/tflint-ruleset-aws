@@ -10,7 +10,6 @@ import (
 	"github.com/golang/mock/gomock"
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
-	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/aws/mock"
 )
 
@@ -88,7 +87,7 @@ func Test_AwsInstanceInvalidAMI_error(t *testing.T) {
 		Content  string
 		Request  *ec2.DescribeImagesInput
 		Response error
-		Error    tflint.Error
+		Error    error
 	}{
 		{
 			Name: "AWS API error",
@@ -104,11 +103,7 @@ resource "aws_instance" "valid" {
 				"could not find region configuration",
 				nil,
 			),
-			Error: tflint.Error{
-				Code:    tflint.ExternalAPIError,
-				Level:   tflint.ErrorLevel,
-				Message: "An error occurred while describing images; MissingRegion: could not find region configuration",
-			},
+			Error: errors.New("An error occurred while describing images; MissingRegion: could not find region configuration"),
 		},
 		{
 			Name: "Unexpected error",
@@ -120,11 +115,7 @@ resource "aws_instance" "valid" {
 				ImageIds: aws.StringSlice([]string{"ami-9ad76sd1"}),
 			},
 			Response: errors.New("Unexpected"),
-			Error: tflint.Error{
-				Code:    tflint.ExternalAPIError,
-				Level:   tflint.ErrorLevel,
-				Message: "An error occurred while describing images; Unexpected",
-			},
+			Error:    errors.New("An error occurred while describing images; Unexpected"),
 		},
 	}
 
@@ -134,14 +125,21 @@ resource "aws_instance" "valid" {
 	rule := NewAwsInstanceInvalidAMIRule()
 
 	for _, tc := range cases {
-		runner := NewTestRunner(t, map[string]string{"instances.tf": tc.Content})
+		t.Run(tc.Name, func(t *testing.T) {
+			runner := NewTestRunner(t, map[string]string{"instances.tf": tc.Content})
 
-		ec2mock := mock.NewMockEC2API(ctrl)
-		ec2mock.EXPECT().DescribeImages(tc.Request).Return(nil, tc.Response)
-		runner.AwsClient.EC2 = ec2mock
+			ec2mock := mock.NewMockEC2API(ctrl)
+			ec2mock.EXPECT().DescribeImages(tc.Request).Return(nil, tc.Response)
+			runner.AwsClient.EC2 = ec2mock
 
-		err := rule.Check(runner)
-		AssertAppError(t, tc.Error, err)
+			err := rule.Check(runner)
+			if err == nil {
+				t.Fatal("an error is expected, but does not happen")
+			}
+			if err.Error() != tc.Error.Error() {
+				t.Fatalf("`%s` is expected, but got `%s`", tc.Error.Error(), err.Error())
+			}
+		})
 	}
 }
 

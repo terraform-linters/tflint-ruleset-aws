@@ -4,13 +4,15 @@ import (
 	"fmt"
 	"time"
 
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
 
 // AwsLambdaFunctionDeprecatedRuntimeRule checks to see if the lambda runtime has reached End Of Support
 type AwsLambdaFunctionDeprecatedRuntimeRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 	eosRuntimes   map[string]time.Time
@@ -58,7 +60,7 @@ func (r *AwsLambdaFunctionDeprecatedRuntimeRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsLambdaFunctionDeprecatedRuntimeRule) Severity() string {
+func (r *AwsLambdaFunctionDeprecatedRuntimeRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
@@ -69,26 +71,42 @@ func (r *AwsLambdaFunctionDeprecatedRuntimeRule) Link() string {
 
 // Check checks if the chosen runtime has reached EOS. Date check allows future values to be created as well.
 func (r *AwsLambdaFunctionDeprecatedRuntimeRule) Check(runner tflint.Runner) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{{Name: r.attributeName}},
+	}, nil)
+	if err != nil {
+		return err
+	}
 
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 			if _, ok := r.eolRuntimes[val]; ok && r.Now.After(r.eolRuntimes[val]) {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					fmt.Sprintf("The \"%s\" runtime has reached the end of life", val),
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			} else if _, ok := r.eosRuntimes[val]; ok && r.Now.After(r.eosRuntimes[val]) {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					fmt.Sprintf("The \"%s\" runtime has reached the end of support", val),
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

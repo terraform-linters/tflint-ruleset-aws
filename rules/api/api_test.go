@@ -10,7 +10,6 @@ import (
 	"github.com/golang/mock/gomock"
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
-	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	awsruleset "github.com/terraform-linters/tflint-ruleset-aws/aws"
 	"github.com/terraform-linters/tflint-ruleset-aws/aws/mock"
 )
@@ -221,7 +220,7 @@ func Test_API_error(t *testing.T) {
 		Name     string
 		Content  string
 		Response error
-		Error    tflint.Error
+		Error    error
 	}{
 		{
 			Name: "API error",
@@ -233,11 +232,7 @@ resource "aws_alb" "balancer" {
     ]
 }`,
 			Response: errors.New("MissingRegion: could not find region configuration"),
-			Error: tflint.Error{
-				Code:    tflint.ExternalAPIError,
-				Level:   tflint.ErrorLevel,
-				Message: "An error occurred while invoking DescribeSecurityGroups; MissingRegion: could not find region configuration",
-			},
+			Error:    errors.New("An error occurred while invoking DescribeSecurityGroups; MissingRegion: could not find region configuration"),
 		},
 	}
 
@@ -247,14 +242,21 @@ resource "aws_alb" "balancer" {
 	rule := NewAwsALBInvalidSecurityGroupRule()
 
 	for _, tc := range cases {
-		runner := NewTestRunner(t, map[string]string{"resource.tf": tc.Content})
+		t.Run(tc.Name, func(t *testing.T) {
+			runner := NewTestRunner(t, map[string]string{"resource.tf": tc.Content})
 
-		ec2mock := mock.NewMockEC2API(ctrl)
-		ec2mock.EXPECT().DescribeSecurityGroups(&ec2.DescribeSecurityGroupsInput{}).Return(nil, tc.Response)
-		runner.AwsClient.EC2 = ec2mock
+			ec2mock := mock.NewMockEC2API(ctrl)
+			ec2mock.EXPECT().DescribeSecurityGroups(&ec2.DescribeSecurityGroupsInput{}).Return(nil, tc.Response)
+			runner.AwsClient.EC2 = ec2mock
 
-		err := rule.Check(runner)
-		AssertAppError(t, tc.Error, err)
+			err := rule.Check(runner)
+			if err == nil {
+				t.Fatal("an error is expected, but does not happen")
+			}
+			if err.Error() != tc.Error.Error() {
+				t.Fatalf("`%s` is expected, but got `%s`", tc.Error.Error(), err.Error())
+			}
+		})
 	}
 }
 
@@ -262,25 +264,5 @@ func NewTestRunner(t *testing.T, files map[string]string) *awsruleset.Runner {
 	return &awsruleset.Runner{
 		Runner:    helper.TestRunner(t, files),
 		AwsClient: &awsruleset.Client{},
-	}
-}
-
-// AssertAppError is an assertion helper for comparing tflint.Error
-func AssertAppError(t *testing.T, expected tflint.Error, got error) {
-	if appErr, ok := got.(*tflint.Error); ok {
-		if appErr == nil {
-			t.Fatalf("expected err is `%s`, but nothing occurred", expected.Error())
-		}
-		if appErr.Code != expected.Code {
-			t.Fatalf("expected error code is `%s`, but get `%s`", expected.Code, appErr.Code)
-		}
-		if appErr.Level != expected.Level {
-			t.Fatalf("expected error level is `%s`, but get `%s`", expected.Level, appErr.Level)
-		}
-		if appErr.Error() != expected.Error() {
-			t.Fatalf("expected error is `%s`, but get `%s`", expected.Error(), appErr.Error())
-		}
-	} else {
-		t.Fatalf("unexpected error occurred: %s", got)
 	}
 }

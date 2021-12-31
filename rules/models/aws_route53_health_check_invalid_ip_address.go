@@ -7,12 +7,14 @@ import (
 	"log"
 	"regexp"
 
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
 // AwsRoute53HealthCheckInvalidIPAddressRule checks the pattern is valid
 type AwsRoute53HealthCheckInvalidIPAddressRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 	max           int
@@ -40,7 +42,7 @@ func (r *AwsRoute53HealthCheckInvalidIPAddressRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsRoute53HealthCheckInvalidIPAddressRule) Severity() string {
+func (r *AwsRoute53HealthCheckInvalidIPAddressRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -53,26 +55,45 @@ func (r *AwsRoute53HealthCheckInvalidIPAddressRule) Link() string {
 func (r *AwsRoute53HealthCheckInvalidIPAddressRule) Check(runner tflint.Runner) error {
 	log.Printf("[TRACE] Check `%s` rule", r.Name())
 
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{
+			{Name: r.attributeName},
+		},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 			if len(val) > r.max {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					"ip_address must be 45 characters or less",
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			if !r.pattern.MatchString(val) {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(^((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))$|^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$)$`),
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

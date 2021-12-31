@@ -7,12 +7,14 @@ import (
 	"log"
 	"regexp"
 
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
 // AwsQuicksightGroupInvalidGroupNameRule checks the pattern is valid
 type AwsQuicksightGroupInvalidGroupNameRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 	min           int
@@ -40,7 +42,7 @@ func (r *AwsQuicksightGroupInvalidGroupNameRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsQuicksightGroupInvalidGroupNameRule) Severity() string {
+func (r *AwsQuicksightGroupInvalidGroupNameRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -53,26 +55,45 @@ func (r *AwsQuicksightGroupInvalidGroupNameRule) Link() string {
 func (r *AwsQuicksightGroupInvalidGroupNameRule) Check(runner tflint.Runner) error {
 	log.Printf("[TRACE] Check `%s` rule", r.Name())
 
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{
+			{Name: r.attributeName},
+		},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 			if len(val) < r.min {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					"group_name must be 1 characters or higher",
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			if !r.pattern.MatchString(val) {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[\x{0020}-\x{00FF}]+$`),
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

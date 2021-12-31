@@ -2,16 +2,17 @@ package rules
 
 import (
 	"fmt"
-	"log"
 	"regexp"
 
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
 
 // AwsIAMRolePolicyGovFriendlyArnsRule checks for non-GovCloud arns
 type AwsIAMRolePolicyGovFriendlyArnsRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 	pattern       *regexp.Regexp
@@ -39,7 +40,7 @@ func (r *AwsIAMRolePolicyGovFriendlyArnsRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsIAMRolePolicyGovFriendlyArnsRule) Severity() string {
+func (r *AwsIAMRolePolicyGovFriendlyArnsRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
@@ -50,20 +51,36 @@ func (r *AwsIAMRolePolicyGovFriendlyArnsRule) Link() string {
 
 // Check checks the pattern is valid
 func (r *AwsIAMRolePolicyGovFriendlyArnsRule) Check(runner tflint.Runner) error {
-	log.Printf("[TRACE] Check `%s` rule", r.Name())
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{{Name: r.attributeName}},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 			if r.pattern.MatchString(val) {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					fmt.Sprintf(`ARN detected in IAM role policy that could potentially fail in AWS GovCloud due to resource pattern: %s`, r.pattern),
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

@@ -1,12 +1,14 @@
 package rules
 
 import (
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
 // AwsMqConfigurationInvalidEngineTypeRule checks the pattern is valid
 type AwsMqConfigurationInvalidEngineTypeRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 	enum          []string
@@ -35,7 +37,7 @@ func (r *AwsMqConfigurationInvalidEngineTypeRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsMqConfigurationInvalidEngineTypeRule) Severity() string {
+func (r *AwsMqConfigurationInvalidEngineTypeRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -46,11 +48,23 @@ func (r *AwsMqConfigurationInvalidEngineTypeRule) Link() string {
 
 // Check checks the pattern is valid
 func (r *AwsMqConfigurationInvalidEngineTypeRule) Check(runner tflint.Runner) error {
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{{Name: r.attributeName}},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 			found := false
 			for _, item := range r.enum {
 				if item == val {
@@ -58,13 +72,18 @@ func (r *AwsMqConfigurationInvalidEngineTypeRule) Check(runner tflint.Runner) er
 				}
 			}
 			if !found {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					`engine_type is not a valid value`,
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

@@ -11,12 +11,14 @@ import (
 	"regexp"
 {{- end }}
 
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
 // {{ .RuleNameCC }}Rule checks the pattern is valid
 type {{ .RuleNameCC }}Rule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 {{- if ne .Max 0 }}
@@ -68,7 +70,7 @@ func (r *{{ .RuleNameCC }}Rule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *{{ .RuleNameCC }}Rule) Severity() string {
+func (r *{{ .RuleNameCC }}Rule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -81,41 +83,55 @@ func (r *{{ .RuleNameCC }}Rule) Link() string {
 func (r *{{ .RuleNameCC }}Rule) Check(runner tflint.Runner) error {
 	log.Printf("[TRACE] Check `%s` rule", r.Name())
 
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{
+			{Name: r.attributeName},
+		},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 {{- if ne .Max 0 }}
 			if len(val) > r.max {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					"{{ .AttributeName }} must be {{ .Max }} characters or less",
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 {{- end }}
 
 {{- if ne .Min 0 }}
 			if len(val) < r.min {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					"{{ .AttributeName }} must be {{ .Min }} characters or higher",
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 {{- end }}
 
 {{- if ne .Pattern "" }}
 			if !r.pattern.MatchString(val) {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 {{- if .Sensitive }}
 					`{{ .AttributeName }} does not match valid pattern {{ .Pattern }}`,
 {{- else }}
 					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `{{ .Pattern }}`),
 {{- end }}
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 {{- end }}
@@ -128,18 +144,23 @@ func (r *{{ .RuleNameCC }}Rule) Check(runner tflint.Runner) error {
 				}
 			}
 			if !found {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 {{- if .Sensitive }}
 					`{{ .AttributeName }} is an invalid value`,
 {{- else }}
 					fmt.Sprintf(`"%s" is an invalid value as {{ .AttributeName }}`, truncateLongMessage(val)),
 {{- end }}
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 {{- end }}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
