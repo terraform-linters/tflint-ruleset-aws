@@ -963,6 +963,14 @@ These rules enforce best practices and naming conventions:
 |aws_route53_zone_invalid_comment|✔|
 |aws_route53_zone_invalid_delegation_set_id|✔|
 |aws_route53_zone_invalid_name|✔|
+|aws_route53recoverycontrolconfig_cluster_invalid_name|✔|
+|aws_route53recoverycontrolconfig_control_panel_invalid_cluster_arn|✔|
+|aws_route53recoverycontrolconfig_control_panel_invalid_name|✔|
+|aws_route53recoverycontrolconfig_routing_control_invalid_cluster_arn|✔|
+|aws_route53recoverycontrolconfig_routing_control_invalid_control_panel_arn|✔|
+|aws_route53recoverycontrolconfig_routing_control_invalid_name|✔|
+|aws_route53recoverycontrolconfig_safety_rule_invalid_control_panel_arn|✔|
+|aws_route53recoverycontrolconfig_safety_rule_invalid_name|✔|
 |aws_route53recoveryreadiness_resource_set_invalid_resource_set_type|✔|
 |aws_s3_bucket_intelligent_tiering_configuration_invalid_status|✔|
 |aws_s3_bucket_invalid_acceleration_status|✔|
