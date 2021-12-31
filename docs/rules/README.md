@@ -1413,6 +1413,10 @@ These rules enforce best practices and naming conventions:
 |aws_worklink_website_certificate_authority_association_invalid_certificate|✔|
 |aws_worklink_website_certificate_authority_association_invalid_display_name|✔|
 |aws_worklink_website_certificate_authority_association_invalid_fleet_arn|✔|
+|aws_workspaces_directory_invalid_directory_id|✔|
+|aws_workspaces_workspace_invalid_bundle_id|✔|
+|aws_workspaces_workspace_invalid_directory_id|✔|
+|aws_workspaces_workspace_invalid_user_name|✔|
 |aws_xray_encryption_config_invalid_key_id|✔|
 |aws_xray_encryption_config_invalid_type|✔|
 |aws_xray_group_invalid_group_name|✔|
