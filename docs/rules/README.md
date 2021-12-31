@@ -638,6 +638,10 @@ These rules enforce best practices and naming conventions:
 |aws_glue_trigger_invalid_type|✔|
 |aws_glue_user_defined_function_invalid_owner_type|✔|
 |aws_guardduty_detector_invalid_finding_publishing_frequency|✔|
+|aws_guardduty_filter_invalid_action|✔|
+|aws_guardduty_filter_invalid_description|✔|
+|aws_guardduty_filter_invalid_detector_id|✔|
+|aws_guardduty_filter_invalid_name|✔|
 |aws_guardduty_invite_accepter_invalid_detector_id|✔|
 |aws_guardduty_ipset_invalid_detector_id|✔|
 |aws_guardduty_ipset_invalid_format|✔|
@@ -645,6 +649,9 @@ These rules enforce best practices and naming conventions:
 |aws_guardduty_ipset_invalid_name|✔|
 |aws_guardduty_member_invalid_detector_id|✔|
 |aws_guardduty_member_invalid_email|✔|
+|aws_guardduty_organization_configuration_invalid_detector_id|✔|
+|aws_guardduty_publishing_destination_invalid_destination_type|✔|
+|aws_guardduty_publishing_destination_invalid_detector_id|✔|
 |aws_guardduty_threatintelset_invalid_detector_id|✔|
 |aws_guardduty_threatintelset_invalid_format|✔|
 |aws_guardduty_threatintelset_invalid_location|✔|
