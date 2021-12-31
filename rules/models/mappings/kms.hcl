@@ -42,3 +42,18 @@ mapping "aws_kms_key" {
   enable_key_rotation     = BooleanType
   tags                    = TagList
 }
+
+mapping "aws_kms_replica_external_key" {
+  deletion_window_in_days = PendingWindowInDaysType
+  description = DescriptionType
+  policy = PolicyType
+  tags = TagList
+  valid_to = DateType
+}
+
+mapping "aws_kms_replica_key" {
+  deletion_window_in_days = PendingWindowInDaysType
+  description = DescriptionType
+  policy = PolicyType
+  tags = TagList
+}
