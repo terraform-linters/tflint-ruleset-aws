@@ -356,6 +356,11 @@ These rules enforce best practices and naming conventions:
 |aws_codebuild_project_invalid_description|✔|
 |aws_codebuild_source_credential_invalid_auth_type|✔|
 |aws_codebuild_source_credential_invalid_server_type|✔|
+|aws_codecommit_approval_rule_template_association_invalid_approval_rule_template_name|✔|
+|aws_codecommit_approval_rule_template_association_invalid_repository_name|✔|
+|aws_codecommit_approval_rule_template_invalid_content|✔|
+|aws_codecommit_approval_rule_template_invalid_description|✔|
+|aws_codecommit_approval_rule_template_invalid_name|✔|
 |aws_codecommit_repository_invalid_default_branch|✔|
 |aws_codecommit_repository_invalid_description|✔|
 |aws_codecommit_repository_invalid_repository_name|✔|
