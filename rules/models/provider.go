@@ -899,6 +899,7 @@ var Rules = []tflint.Rule{
 	NewAwsRoute53recoverycontrolconfigRoutingControlInvalidNameRule(),
 	NewAwsRoute53recoverycontrolconfigSafetyRuleInvalidControlPanelArnRule(),
 	NewAwsRoute53recoverycontrolconfigSafetyRuleInvalidNameRule(),
+	NewAwsRoute53recoveryreadinessResourceSetInvalidResourceSetTypeRule(),
 	NewAwsS3BucketIntelligentTieringConfigurationInvalidStatusRule(),
 	NewAwsS3BucketInvalidAccelerationStatusRule(),
 	NewAwsS3BucketInvalidRequestPayerRule(),
