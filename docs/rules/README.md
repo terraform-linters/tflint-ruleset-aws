@@ -570,6 +570,10 @@ These rules enforce best practices and naming conventions:
 |aws_elastic_beanstalk_environment_invalid_template_name|✔|
 |aws_elastic_beanstalk_environment_invalid_version_label|✔|
 |aws_elasticache_cluster_invalid_az_mode|✔|
+|aws_elasticache_user_group_invalid_engine|✔|
+|aws_elasticache_user_invalid_access_string|✔|
+|aws_elasticache_user_invalid_engine|✔|
+|aws_elasticache_user_invalid_user_id|✔|
 |aws_elasticsearch_domain_invalid_domain_name|✔|
 |aws_elasticsearch_domain_invalid_elasticsearch_version|✔|
 |aws_elasticsearch_domain_policy_invalid_domain_name|✔|
