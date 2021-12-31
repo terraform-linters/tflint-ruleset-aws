@@ -20,7 +20,7 @@ mapping "aws_ssoadmin_permission_set" {
   instance_arn = InstanceArn
   name = PermissionSetName
   relay_state = RelayState
-  session_duration = Duration
+  # session_duration = Duration
   tags = TagList
 }
 
