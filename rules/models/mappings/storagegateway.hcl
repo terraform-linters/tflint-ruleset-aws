@@ -14,6 +14,16 @@ mapping "aws_storagegateway_cached_iscsi_volume" {
   source_volume_arn    = VolumeARN
 }
 
+mapping "aws_storagegateway_file_system_association" {
+  gateway_arn = GatewayARN
+  location_arn = FileSystemLocationARN
+  username = DomainUserName
+  password = DomainUserPassword
+  audit_destination_arn = AuditDestinationARN
+  cache_attributes = CacheAttributes
+  tags = Tags
+}
+
 mapping "aws_storagegateway_gateway" {
   gateway_name                  = GatewayName
   gateway_timezone              = GatewayTimezone
@@ -57,6 +67,24 @@ mapping "aws_storagegateway_smb_file_share" {
   read_only               = Boolean
   requester_pays          = Boolean
   // valid_user_list         = FileShareUserList
+}
+
+mapping "aws_storagegateway_stored_iscsi_volume" {
+  gateway_arn = GatewayARN
+  network_interface_id = NetworkInterfaceId
+  target_name = TargetName
+  disk_id = DiskId
+  snapshot_id = SnapshotId
+  kms_key = KMSKey
+  tags = Tags
+}
+
+mapping "aws_storagegateway_tape_pool" {
+  pool_name = PoolName
+  storage_class = TapeStorageClass
+  retention_lock_type = RetentionLockType
+  retention_lock_time_in_days = RetentionLockTimeInDays
+  tags = Tags
 }
 
 mapping "aws_storagegateway_upload_buffer" {
