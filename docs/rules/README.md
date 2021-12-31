@@ -1079,6 +1079,12 @@ These rules enforce best practices and naming conventions:
 |aws_sagemaker_workteam_invalid_description|✔|
 |aws_sagemaker_workteam_invalid_workforce_name|✔|
 |aws_sagemaker_workteam_invalid_workteam_name|✔|
+|aws_schemas_discoverer_invalid_description|✔|
+|aws_schemas_discoverer_invalid_source_arn|✔|
+|aws_schemas_registry_invalid_description|✔|
+|aws_schemas_schema_invalid_content|✔|
+|aws_schemas_schema_invalid_description|✔|
+|aws_schemas_schema_invalid_type|✔|
 |aws_secretsmanager_secret_invalid_description|✔|
 |aws_secretsmanager_secret_invalid_kms_key_id|✔|
 |aws_secretsmanager_secret_invalid_name|✔|
