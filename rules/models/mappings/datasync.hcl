@@ -13,6 +13,16 @@ mapping "aws_datasync_location_efs" {
   tags                = InputTagList
 }
 
+mapping "aws_datasync_location_fsx_windows_file_system" {
+  fsx_filesystem_arn = FsxFilesystemArn
+  password = SmbPassword
+  user = SmbUser
+  domain = SmbDomain
+  security_group_arns = Ec2SecurityGroupArnList
+  subdirectory = FsxWindowsSubdirectory
+  tags = InputTagList
+}
+
 mapping "aws_datasync_location_nfs" {
   on_prem_config  = OnPremConfig
   server_hostname = ServerHostname
@@ -25,6 +35,17 @@ mapping "aws_datasync_location_s3" {
   s3_config     = S3Config
   subdirectory  = EfsSubdirectory
   tags          = InputTagList
+}
+
+mapping "aws_datasync_location_smb" {
+  agent_arns = AgentArnList
+  domain = SmbDomain
+  mount_options = SmbMountOptions
+  password = SmbPassword
+  server_hostname = ServerHostname
+  subdirectory = SmbSubdirectory
+  tags = InputTagList
+  user = SmbUser
 }
 
 mapping "aws_datasync_task" {
