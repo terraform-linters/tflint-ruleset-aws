@@ -771,9 +771,12 @@ These rules enforce best practices and naming conventions:
 |aws_lambda_alias_invalid_description|✔|
 |aws_lambda_alias_invalid_function_name|✔|
 |aws_lambda_alias_invalid_function_version|✔|
+|aws_lambda_code_signing_config_invalid_description|✔|
 |aws_lambda_event_source_mapping_invalid_event_source_arn|✔|
 |aws_lambda_event_source_mapping_invalid_function_name|✔|
 |aws_lambda_event_source_mapping_invalid_starting_position|✔|
+|aws_lambda_function_event_invoke_config_invalid_function_name|✔|
+|aws_lambda_function_event_invoke_config_invalid_qualifier|✔|
 |aws_lambda_function_invalid_description|✔|
 |aws_lambda_function_invalid_function_name|✔|
 |aws_lambda_function_invalid_handler|✔|
@@ -787,6 +790,11 @@ These rules enforce best practices and naming conventions:
 |aws_lambda_layer_version_invalid_license_info|✔|
 |aws_lambda_layer_version_invalid_s3_key|✔|
 |aws_lambda_layer_version_invalid_s3_object_version|✔|
+|aws_lambda_layer_version_permission_invalid_action|✔|
+|aws_lambda_layer_version_permission_invalid_layer_name|✔|
+|aws_lambda_layer_version_permission_invalid_organization_id|✔|
+|aws_lambda_layer_version_permission_invalid_principal|✔|
+|aws_lambda_layer_version_permission_invalid_statement_id|✔|
 |aws_lambda_permission_invalid_action|✔|
 |aws_lambda_permission_invalid_event_source_token|✔|
 |aws_lambda_permission_invalid_function_name|✔|
@@ -795,6 +803,8 @@ These rules enforce best practices and naming conventions:
 |aws_lambda_permission_invalid_source_account|✔|
 |aws_lambda_permission_invalid_source_arn|✔|
 |aws_lambda_permission_invalid_statement_id|✔|
+|aws_lambda_provisioned_concurrency_config_invalid_function_name|✔|
+|aws_lambda_provisioned_concurrency_config_invalid_qualifier|✔|
 |aws_launch_configuration_invalid_spot_price|✔|
 |aws_launch_configuration_invalid_type|✔|
 |aws_launch_template_invalid_description|✔|
