@@ -1,5 +1,17 @@
 import = "aws-sdk-go/models/apis/elasticfilesystem/2015-02-01/api-2.json"
 
+mapping "aws_efs_access_point" {
+  file_system_id = FileSystemId
+  posix_user = PosixUser
+  root_directory = RootDirectory
+  tags = Tags
+}
+
+mapping "aws_efs_backup_policy" {
+  file_system_id = FileSystemId
+  backup_policy = BackupPolicy
+}
+
 mapping "aws_efs_file_system" {
   creation_token                  = CreationToken
   encrypted                       = Encrypted
@@ -8,6 +20,12 @@ mapping "aws_efs_file_system" {
   provisioned_throughput_in_mibps = ProvisionedThroughputInMibps
   tags                            = Tags
   throughput_mode                 = ThroughputMode
+}
+
+mapping "aws_efs_file_system_policy" {
+  file_system_id = FileSystemId
+  bypass_policy_lockout_safety_check = BypassPolicyLockoutSafetyCheck
+  policy = Policy
 }
 
 mapping "aws_efs_mount_target" {
