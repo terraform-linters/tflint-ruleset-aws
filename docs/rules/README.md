@@ -378,6 +378,12 @@ These rules enforce best practices and naming conventions:
 |aws_codepipeline_webhook_invalid_name|✔|
 |aws_codepipeline_webhook_invalid_target_action|✔|
 |aws_codepipeline_webhook_invalid_target_pipeline|✔|
+|aws_codestarconnections_connection_invalid_host_arn|✔|
+|aws_codestarconnections_connection_invalid_name|✔|
+|aws_codestarconnections_connection_invalid_provider_type|✔|
+|aws_codestarconnections_host_invalid_name|✔|
+|aws_codestarconnections_host_invalid_provider_endpoint|✔|
+|aws_codestarconnections_host_invalid_provider_type|✔|
 |aws_cognito_identity_pool_invalid_developer_provider_name|✔|
 |aws_cognito_identity_pool_invalid_identity_pool_name|✔|
 |aws_cognito_identity_pool_roles_attachment_invalid_identity_pool_id|✔|
