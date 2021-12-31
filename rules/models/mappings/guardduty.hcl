@@ -5,6 +5,16 @@ mapping "aws_guardduty_detector" {
   finding_publishing_frequency = FindingPublishingFrequency
 }
 
+mapping "aws_guardduty_filter" {
+  detector_id = DetectorId
+  name = FilterName
+  description = FilterDescription
+  rank = FilterRank
+  action = FilterAction
+  tags = TagMap
+  finding_criteria = FindingCriteria
+}
+
 mapping "aws_guardduty_invite_accepter" {
   detector_id       = DetectorId
   master_account_id = String
@@ -25,6 +35,16 @@ mapping "aws_guardduty_member" {
   invite                     = Boolean
   invitation_message         = String
   disable_email_notification = Boolean
+}
+
+mapping "aws_guardduty_organization_configuration" {
+  detector_id = DetectorId
+  datasources = OrganizationDataSourceConfigurations
+}
+
+mapping "aws_guardduty_publishing_destination" {
+  detector_id = DetectorId
+  destination_type = DestinationType
 }
 
 mapping "aws_guardduty_threatintelset" {
