@@ -1,5 +1,16 @@
 import = "aws-sdk-go/models/apis/codecommit/2015-04-13/api-2.json"
 
+mapping "aws_codecommit_approval_rule_template" {
+  content = ApprovalRuleTemplateContent
+  name = ApprovalRuleTemplateName
+  description = ApprovalRuleTemplateDescription
+}
+
+mapping "aws_codecommit_approval_rule_template_association" {
+  approval_rule_template_name = ApprovalRuleTemplateName
+  repository_name = RepositoryName
+}
+
 mapping "aws_codecommit_repository" {
   repository_name = RepositoryName
   description     = RepositoryDescription
