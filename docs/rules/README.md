@@ -1178,6 +1178,10 @@ These rules enforce best practices and naming conventions:
 |aws_sfn_state_machine_invalid_role_arn|✔|
 |aws_shield_protection_invalid_name|✔|
 |aws_shield_protection_invalid_resource_arn|✔|
+|aws_signer_signing_job_invalid_profile_name|✔|
+|aws_signer_signing_profile_invalid_name|✔|
+|aws_signer_signing_profile_permission_invalid_profile_name|✔|
+|aws_signer_signing_profile_permission_invalid_profile_version|✔|
 |aws_spot_fleet_request_invalid_allocation_strategy|✔|
 |aws_spot_fleet_request_invalid_fleet_type|✔|
 |aws_spot_fleet_request_invalid_instance_interruption_behaviour|✔|
