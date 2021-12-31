@@ -783,6 +783,7 @@ These rules enforce best practices and naming conventions:
 |aws_kms_key_invalid_description|✔|
 |aws_kms_key_invalid_key_usage|✔|
 |aws_kms_key_invalid_policy|✔|
+|aws_lakeformation_resource_invalid_role_arn|✔|
 |aws_lambda_alias_invalid_description|✔|
 |aws_lambda_alias_invalid_function_name|✔|
 |aws_lambda_alias_invalid_function_version|✔|

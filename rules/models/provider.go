@@ -711,6 +711,7 @@ var Rules = []tflint.Rule{
 	NewAwsKmsKeyInvalidDescriptionRule(),
 	NewAwsKmsKeyInvalidKeyUsageRule(),
 	NewAwsKmsKeyInvalidPolicyRule(),
+	NewAwsLakeformationResourceInvalidRoleArnRule(),
 	NewAwsLambdaAliasInvalidDescriptionRule(),
 	NewAwsLambdaAliasInvalidFunctionNameRule(),
 	NewAwsLambdaAliasInvalidFunctionVersionRule(),
