@@ -1250,6 +1250,11 @@ These rules enforce best practices and naming conventions:
 |aws_storagegateway_cached_iscsi_volume_invalid_snapshot_id|✔|
 |aws_storagegateway_cached_iscsi_volume_invalid_source_volume_arn|✔|
 |aws_storagegateway_cached_iscsi_volume_invalid_target_name|✔|
+|aws_storagegateway_file_system_association_invalid_audit_destination_arn|✔|
+|aws_storagegateway_file_system_association_invalid_gateway_arn|✔|
+|aws_storagegateway_file_system_association_invalid_location_arn|✔|
+|aws_storagegateway_file_system_association_invalid_password|✔|
+|aws_storagegateway_file_system_association_invalid_username|✔|
 |aws_storagegateway_gateway_invalid_activation_key|✔|
 |aws_storagegateway_gateway_invalid_gateway_name|✔|
 |aws_storagegateway_gateway_invalid_gateway_timezone|✔|
@@ -1271,6 +1276,15 @@ These rules enforce best practices and naming conventions:
 |aws_storagegateway_smb_file_share_invalid_location_arn|✔|
 |aws_storagegateway_smb_file_share_invalid_object_acl|✔|
 |aws_storagegateway_smb_file_share_invalid_role_arn|✔|
+|aws_storagegateway_stored_iscsi_volume_invalid_disk_id|✔|
+|aws_storagegateway_stored_iscsi_volume_invalid_gateway_arn|✔|
+|aws_storagegateway_stored_iscsi_volume_invalid_kms_key|✔|
+|aws_storagegateway_stored_iscsi_volume_invalid_network_interface_id|✔|
+|aws_storagegateway_stored_iscsi_volume_invalid_snapshot_id|✔|
+|aws_storagegateway_stored_iscsi_volume_invalid_target_name|✔|
+|aws_storagegateway_tape_pool_invalid_pool_name|✔|
+|aws_storagegateway_tape_pool_invalid_retention_lock_type|✔|
+|aws_storagegateway_tape_pool_invalid_storage_class|✔|
 |aws_storagegateway_upload_buffer_invalid_disk_id|✔|
 |aws_storagegateway_upload_buffer_invalid_gateway_arn|✔|
 |aws_storagegateway_working_storage_invalid_disk_id|✔|
