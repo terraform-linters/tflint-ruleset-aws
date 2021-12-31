@@ -508,6 +508,8 @@ These rules enforce best practices and naming conventions:
 |aws_dx_private_virtual_interface_invalid_address_family|✔|
 |aws_dx_public_virtual_interface_invalid_address_family|✔|
 |aws_dynamodb_global_table_invalid_name|✔|
+|aws_dynamodb_kinesis_streaming_destination_invalid_stream_arn|✔|
+|aws_dynamodb_kinesis_streaming_destination_invalid_table_name|✔|
 |aws_dynamodb_table_invalid_billing_mode|✔|
 |aws_dynamodb_table_invalid_hash_key|✔|
 |aws_dynamodb_table_invalid_name|✔|
@@ -515,6 +517,7 @@ These rules enforce best practices and naming conventions:
 |aws_dynamodb_table_item_invalid_hash_key|✔|
 |aws_dynamodb_table_item_invalid_range_key|✔|
 |aws_dynamodb_table_item_invalid_table_name|✔|
+|aws_dynamodb_tag_invalid_resource_arn|✔|
 |aws_ebs_volume_invalid_type|✔|
 |aws_ec2_availability_zone_group_invalid_opt_in_status|✔|
 |aws_ec2_capacity_reservation_invalid_end_date_type|✔|
