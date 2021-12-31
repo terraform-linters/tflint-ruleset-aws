@@ -1327,6 +1327,10 @@ These rules enforce best practices and naming conventions:
 |aws_swf_domain_invalid_description|✔|
 |aws_swf_domain_invalid_name|✔|
 |aws_swf_domain_invalid_workflow_execution_retention_period_in_days|✔|
+|aws_timestreamwrite_database_invalid_database_name|✔|
+|aws_timestreamwrite_database_invalid_kms_key_id|✔|
+|aws_timestreamwrite_table_invalid_database_name|✔|
+|aws_timestreamwrite_table_invalid_table_name|✔|
 |aws_transfer_server_invalid_endpoint_type|✔|
 |aws_transfer_server_invalid_identity_provider_type|✔|
 |aws_transfer_server_invalid_invocation_role|✔|
