@@ -891,6 +891,7 @@ var Rules = []tflint.Rule{
 	NewAwsRoute53ZoneInvalidCommentRule(),
 	NewAwsRoute53ZoneInvalidDelegationSetIDRule(),
 	NewAwsRoute53ZoneInvalidNameRule(),
+	NewAwsRoute53recoveryreadinessResourceSetInvalidResourceSetTypeRule(),
 	NewAwsS3BucketIntelligentTieringConfigurationInvalidStatusRule(),
 	NewAwsS3BucketInvalidAccelerationStatusRule(),
 	NewAwsS3BucketInvalidRequestPayerRule(),

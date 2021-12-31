@@ -963,6 +963,7 @@ These rules enforce best practices and naming conventions:
 |aws_route53_zone_invalid_comment|✔|
 |aws_route53_zone_invalid_delegation_set_id|✔|
 |aws_route53_zone_invalid_name|✔|
+|aws_route53recoveryreadiness_resource_set_invalid_resource_set_type|✔|
 |aws_s3_bucket_intelligent_tiering_configuration_invalid_status|✔|
 |aws_s3_bucket_invalid_acceleration_status|✔|
 |aws_s3_bucket_invalid_request_payer|✔|
