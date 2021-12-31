@@ -5,6 +5,11 @@ mapping "aws_dynamodb_global_table" {
   replica = ReplicaList
 }
 
+mapping "aws_dynamodb_kinesis_streaming_destination" {
+  stream_arn = StreamArn
+  table_name = TableName
+}
+
 mapping "aws_dynamodb_table" {
   name                   = TableName
   billing_mode           = BillingMode
@@ -27,6 +32,10 @@ mapping "aws_dynamodb_table_item" {
   hash_key   = KeySchemaAttributeName
   range_key  = KeySchemaAttributeName
   item       = AttributeMap
+}
+
+mapping "aws_dynamodb_tag" {
+  resource_arn = ResourceArnString
 }
 
 test "aws_dynamodb_global_table" "name" {
