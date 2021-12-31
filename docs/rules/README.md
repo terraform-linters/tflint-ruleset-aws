@@ -536,10 +536,14 @@ These rules enforce best practices and naming conventions:
 |aws_ecs_task_definition_invalid_network_mode|✔|
 |aws_ecs_task_definition_invalid_pid_mode|✔|
 |aws_ecs_task_set_invalid_launch_type|✔|
+|aws_efs_access_point_invalid_file_system_id|✔|
+|aws_efs_backup_policy_invalid_file_system_id|✔|
 |aws_efs_file_system_invalid_creation_token|✔|
 |aws_efs_file_system_invalid_kms_key_id|✔|
 |aws_efs_file_system_invalid_performance_mode|✔|
 |aws_efs_file_system_invalid_throughput_mode|✔|
+|aws_efs_file_system_policy_invalid_file_system_id|✔|
+|aws_efs_file_system_policy_invalid_policy|✔|
 |aws_efs_mount_target_invalid_file_system_id|✔|
 |aws_efs_mount_target_invalid_ip_address|✔|
 |aws_efs_mount_target_invalid_subnet_id|✔|
