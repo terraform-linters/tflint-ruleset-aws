@@ -72,6 +72,20 @@ mapping "aws_elasticache_subnet_group" {
   subnet_ids  = SubnetIdentifierList
 }
 
+mapping "aws_elasticache_user" {
+  access_string = AccessString
+  engine = EngineType
+  user_id = UserId
+  user_name = UserName
+  passwords = PasswordListInput
+  tags = TagList
+}
+
+mapping "aws_elasticache_user_group" {
+  engine = EngineType
+  user_ids = UserIdListInput
+}
+
 test "aws_elasticache_cluster" "az_mode" {
   ok = "cross-az"
   ng = "multi-az"
