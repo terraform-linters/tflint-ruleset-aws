@@ -552,6 +552,9 @@ These rules enforce best practices and naming conventions:
 |aws_ecr_repository_invalid_name|✔|
 |aws_ecr_repository_policy_invalid_policy|✔|
 |aws_ecr_repository_policy_invalid_repository|✔|
+|aws_ecrpublic_repository_invalid_repository_name|✔|
+|aws_ecrpublic_repository_policy_invalid_policy|✔|
+|aws_ecrpublic_repository_policy_invalid_repository_name|✔|
 |aws_ecs_account_setting_default_invalid_name|✔|
 |aws_ecs_service_invalid_launch_type|✔|
 |aws_ecs_service_invalid_propagate_tags|✔|
