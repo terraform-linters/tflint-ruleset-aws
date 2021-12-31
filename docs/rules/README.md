@@ -798,6 +798,12 @@ These rules enforce best practices and naming conventions:
 |aws_kinesis_stream_invalid_encryption_type|✔|
 |aws_kinesis_stream_invalid_kms_key_id|✔|
 |aws_kinesis_stream_invalid_name|✔|
+|aws_kinesisanalyticsv2_application_invalid_description|✔|
+|aws_kinesisanalyticsv2_application_invalid_name|✔|
+|aws_kinesisanalyticsv2_application_invalid_runtime_environment|✔|
+|aws_kinesisanalyticsv2_application_invalid_service_execution_role|✔|
+|aws_kinesisanalyticsv2_application_snapshot_invalid_application_name|✔|
+|aws_kinesisanalyticsv2_application_snapshot_invalid_snapshot_name|✔|
 |aws_kms_alias_invalid_name|✔|
 |aws_kms_alias_invalid_target_key_id|✔|
 |aws_kms_ciphertext_invalid_key_id|✔|
