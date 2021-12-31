@@ -12,6 +12,17 @@ mapping "aws_secretsmanager_secret" {
   tags                    = TagListType
 }
 
+mapping "aws_secretsmanager_secret_policy" {
+  policy = NonEmptyResourcePolicyType
+  secret_arn = SecretIdType
+}
+
+mapping "aws_secretsmanager_secret_rotation" {
+  secret_id = SecretIdType
+  rotation_lambda_arn = RotationLambdaARNType
+  rotation_rules = RotationRulesType
+}
+
 mapping "aws_secretsmanager_secret_version" {
   secret_id      = SecretIdType
   secret_string  = SecretStringType
