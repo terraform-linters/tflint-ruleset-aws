@@ -889,6 +889,10 @@ These rules enforce best practices and naming conventions:
 |aws_organizations_policy_invalid_name|✔|
 |aws_organizations_policy_invalid_type|✔|
 |aws_placement_group_invalid_strategy|✔|
+|aws_prometheus_alert_manager_definition_invalid_workspace_id|✔|
+|aws_prometheus_rule_group_namespace_invalid_name|✔|
+|aws_prometheus_rule_group_namespace_invalid_workspace_id|✔|
+|aws_prometheus_workspace_invalid_alias|✔|
 |aws_quicksight_group_invalid_aws_account_id|✔|
 |aws_quicksight_group_invalid_description|✔|
 |aws_quicksight_group_invalid_group_name|✔|
