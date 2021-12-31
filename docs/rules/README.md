@@ -1394,6 +1394,9 @@ These rules enforce best practices and naming conventions:
 |aws_worklink_website_certificate_authority_association_invalid_certificate|✔|
 |aws_worklink_website_certificate_authority_association_invalid_display_name|✔|
 |aws_worklink_website_certificate_authority_association_invalid_fleet_arn|✔|
+|aws_xray_encryption_config_invalid_key_id|✔|
+|aws_xray_encryption_config_invalid_type|✔|
+|aws_xray_group_invalid_group_name|✔|
 |aws_xray_sampling_rule_invalid_host|✔|
 |aws_xray_sampling_rule_invalid_http_method|✔|
 |aws_xray_sampling_rule_invalid_resource_arn|✔|
