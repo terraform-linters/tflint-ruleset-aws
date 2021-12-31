@@ -1112,6 +1112,10 @@ These rules enforce best practices and naming conventions:
 |aws_secretsmanager_secret_invalid_name|✔|
 |aws_secretsmanager_secret_invalid_policy|✔|
 |aws_secretsmanager_secret_invalid_rotation_lambda_arn|✔|
+|aws_secretsmanager_secret_policy_invalid_policy|✔|
+|aws_secretsmanager_secret_policy_invalid_secret_arn|✔|
+|aws_secretsmanager_secret_rotation_invalid_rotation_lambda_arn|✔|
+|aws_secretsmanager_secret_rotation_invalid_secret_id|✔|
 |aws_secretsmanager_secret_version_invalid_secret_id|✔|
 |aws_secretsmanager_secret_version_invalid_secret_string|✔|
 |aws_securityhub_action_target_invalid_description|✔|
