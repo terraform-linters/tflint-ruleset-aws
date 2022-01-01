@@ -541,6 +541,8 @@ var Rules = []tflint.Rule{
 	NewAwsElastictranscoderPresetInvalidDescriptionRule(),
 	NewAwsElastictranscoderPresetInvalidNameRule(),
 	NewAwsEmrClusterInvalidScaleDownBehaviorRule(),
+	NewAwsEmrStudioInvalidAuthModeRule(),
+	NewAwsEmrStudioSessionMappingInvalidIdentityTypeRule(),
 	NewAwsFlowLogInvalidLogDestinationTypeRule(),
 	NewAwsFlowLogInvalidTrafficTypeRule(),
 	NewAwsFmsAdminAccountInvalidAccountIDRule(),

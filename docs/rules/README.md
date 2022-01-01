@@ -613,6 +613,8 @@ These rules enforce best practices and naming conventions:
 |aws_elastictranscoder_preset_invalid_description|✔|
 |aws_elastictranscoder_preset_invalid_name|✔|
 |aws_emr_cluster_invalid_scale_down_behavior|✔|
+|aws_emr_studio_invalid_auth_mode|✔|
+|aws_emr_studio_session_mapping_invalid_identity_type|✔|
 |aws_flow_log_invalid_log_destination_type|✔|
 |aws_flow_log_invalid_traffic_type|✔|
 |aws_fms_admin_account_invalid_account_id|✔|
