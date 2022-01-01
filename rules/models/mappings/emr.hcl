@@ -26,6 +26,11 @@ mapping "aws_emr_cluster" {
   tags                              = TagList
 }
 
+mapping "aws_emr_instance_fleet" {
+  instance_type_configs = InstanceTypeConfigList
+  launch_specifications = InstanceFleetProvisioningSpecifications
+}
+
 mapping "aws_emr_instance_group" {
   name               = any // XmlStringMaxLen256
   cluster_id         = ClusterId
@@ -41,4 +46,14 @@ mapping "aws_emr_security_configuration" {
   name          = any // XmlString
   name_prefix   = String
   configuration = String
+}
+
+mapping "aws_emr_studio" {
+  auth_mode = AuthMode
+  subnet_ids = SubnetIdList
+  tags = TagList
+}
+
+mapping "aws_emr_studio_session_mapping" {
+  identity_type = IdentityType
 }
