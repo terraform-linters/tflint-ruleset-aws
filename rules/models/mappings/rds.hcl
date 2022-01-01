@@ -207,6 +207,10 @@ mapping "aws_rds_cluster_parameter_group" {
   tags        = TagList
 }
 
+mapping "aws_rds_cluster_role_association" {
+  db_cluster_identifier = DBClusterIdentifier
+}
+
 mapping "aws_rds_global_cluster" {
   database_name       = String
   deletion_protection = BooleanOptional
