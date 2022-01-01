@@ -1,5 +1,16 @@
 import = "aws-sdk-go/models/apis/transfer/2018-11-05/api-2.json"
 
+mapping "aws_transfer_access" {
+  external_id = ExternalId
+  server_id = ServerId
+  home_directory = HomeDirectory
+  home_directory_mappings = HomeDirectoryMappings
+  home_directory_type = HomeDirectoryType
+  policy = Policy
+  posix_profile = PosixProfile
+  role = Role
+}
+
 mapping "aws_transfer_server" {
   endpoint_details       = EndpointDetails
   endpoint_type          = EndpointType
