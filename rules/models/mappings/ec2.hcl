@@ -52,6 +52,13 @@ mapping "aws_ebs_snapshot_copy" {
   tags               = TagList
 }
 
+mapping "aws_ebs_snapshot_import" {
+  client_data = ClientData
+  disk_container = SnapshotDiskContainer
+  kms_key_id = KmsKeyId
+  tags = TagSpecificationList
+}
+
 mapping "aws_ebs_volume" {
   availability_zone = String
   encrypted         = Boolean
