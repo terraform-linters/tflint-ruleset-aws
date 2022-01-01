@@ -42,6 +42,13 @@ mapping "aws_cognito_user_pool_domain" {
   user_pool_id    = UserPoolIdType
   certificate_arn = ArnType
 }
+  
+mapping "aws_cognito_user_pool_ui_customization" {
+  client_id = ClientIdType
+  css = CSSType
+  image_file = ImageFileType
+  user_pool_id = UserPoolIdType
+}
 
 test "aws_cognito_identity_provider" "user_pool_id" {
   ok = "foo_bar"
