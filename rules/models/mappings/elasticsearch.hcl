@@ -20,3 +20,7 @@ mapping "aws_elasticsearch_domain_policy" {
   domain_name     = DomainName
   access_policies = PolicyDocument
 }
+
+mapping "aws_elasticsearch_domain_saml_options" {
+  domain_name = DomainName
+}

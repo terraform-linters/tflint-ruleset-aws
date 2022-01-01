@@ -354,6 +354,8 @@ These rules enforce best practices and naming conventions:
 |aws_codeartifact_repository_permissions_policy_invalid_policy_revision|✔|
 |aws_codeartifact_repository_permissions_policy_invalid_repository|✔|
 |aws_codebuild_project_invalid_description|✔|
+|aws_codebuild_report_group_invalid_name|✔|
+|aws_codebuild_report_group_invalid_type|✔|
 |aws_codebuild_source_credential_invalid_auth_type|✔|
 |aws_codebuild_source_credential_invalid_server_type|✔|
 |aws_codecommit_approval_rule_template_association_invalid_approval_rule_template_name|✔|
@@ -407,6 +409,8 @@ These rules enforce best practices and naming conventions:
 |aws_cognito_user_pool_invalid_name|✔|
 |aws_cognito_user_pool_invalid_sms_authentication_message|✔|
 |aws_cognito_user_pool_invalid_sms_verification_message|✔|
+|aws_cognito_user_pool_ui_customization_invalid_client_id|✔|
+|aws_cognito_user_pool_ui_customization_invalid_user_pool_id|✔|
 |aws_config_aggregate_authorization_invalid_account_id|✔|
 |aws_config_aggregate_authorization_invalid_region|✔|
 |aws_config_config_rule_invalid_description|✔|
@@ -507,6 +511,7 @@ These rules enforce best practices and naming conventions:
 |aws_dms_endpoint_invalid_endpoint_type|✔|
 |aws_dms_endpoint_invalid_ssl_mode|✔|
 |aws_dms_replication_task_invalid_migration_type|✔|
+|aws_docdb_global_cluster_invalid_global_cluster_identifier|✔|
 |aws_dx_bgp_peer_invalid_address_family|✔|
 |aws_dx_hosted_private_virtual_interface_invalid_address_family|✔|
 |aws_dx_hosted_public_virtual_interface_invalid_address_family|✔|
@@ -604,6 +609,7 @@ These rules enforce best practices and naming conventions:
 |aws_elasticsearch_domain_invalid_domain_name|✔|
 |aws_elasticsearch_domain_invalid_elasticsearch_version|✔|
 |aws_elasticsearch_domain_policy_invalid_domain_name|✔|
+|aws_elasticsearch_domain_saml_options_invalid_domain_name|✔|
 |aws_elastictranscoder_pipeline_invalid_aws_kms_key_arn|✔|
 |aws_elastictranscoder_pipeline_invalid_input_bucket|✔|
 |aws_elastictranscoder_pipeline_invalid_name|✔|
@@ -618,6 +624,8 @@ These rules enforce best practices and naming conventions:
 |aws_flow_log_invalid_log_destination_type|✔|
 |aws_flow_log_invalid_traffic_type|✔|
 |aws_fms_admin_account_invalid_account_id|✔|
+|aws_fms_policy_invalid_name|✔|
+|aws_fms_policy_invalid_resource_type|✔|
 |aws_fsx_backup_invalid_file_system_id|✔|
 |aws_fsx_backup_invalid_volume_id|✔|
 |aws_fsx_lustre_file_system_invalid_weekly_maintenance_start_time|✔|
@@ -875,6 +883,7 @@ These rules enforce best practices and naming conventions:
 |aws_lightsail_instance_invalid_blueprint_id|✔|
 |aws_lightsail_instance_invalid_bundle_id|✔|
 |aws_lightsail_instance_invalid_key_pair_name|✔|
+|aws_lightsail_instance_public_ports_invalid_instance_name|✔|
 |aws_lightsail_key_pair_invalid_name|✔|
 |aws_lightsail_static_ip_attachment_invalid_instance_name|✔|
 |aws_lightsail_static_ip_attachment_invalid_static_ip_name|✔|
@@ -918,6 +927,8 @@ These rules enforce best practices and naming conventions:
 |aws_organizations_account_invalid_name|✔|
 |aws_organizations_account_invalid_parent_id|✔|
 |aws_organizations_account_invalid_role_name|✔|
+|aws_organizations_delegated_administrator_invalid_account_id|✔|
+|aws_organizations_delegated_administrator_invalid_service_principal|✔|
 |aws_organizations_organization_invalid_feature_set|✔|
 |aws_organizations_organizational_unit_invalid_name|✔|
 |aws_organizations_organizational_unit_invalid_parent_id|✔|
@@ -949,6 +960,7 @@ These rules enforce best practices and naming conventions:
 |aws_quicksight_user_invalid_session_name|✔|
 |aws_quicksight_user_invalid_user_name|✔|
 |aws_quicksight_user_invalid_user_role|✔|
+|aws_rds_cluster_role_association_invalid_db_cluster_identifier|✔|
 |aws_redshift_cluster_invalid_availability_zone|✔|
 |aws_redshift_cluster_invalid_cluster_identifier|✔|
 |aws_redshift_cluster_invalid_cluster_parameter_group_name|✔|
@@ -1151,6 +1163,8 @@ These rules enforce best practices and naming conventions:
 |aws_securityhub_standards_subscription_invalid_standards_arn|✔|
 |aws_service_discovery_http_namespace_invalid_description|✔|
 |aws_service_discovery_http_namespace_invalid_name|✔|
+|aws_service_discovery_instance_invalid_instance_id|✔|
+|aws_service_discovery_instance_invalid_service_id|✔|
 |aws_service_discovery_private_dns_namespace_invalid_description|✔|
 |aws_service_discovery_private_dns_namespace_invalid_name|✔|
 |aws_service_discovery_private_dns_namespace_invalid_vpc|✔|
@@ -1219,6 +1233,10 @@ These rules enforce best practices and naming conventions:
 |aws_sfn_state_machine_invalid_definition|✔|
 |aws_sfn_state_machine_invalid_name|✔|
 |aws_sfn_state_machine_invalid_role_arn|✔|
+|aws_shield_protection_group_invalid_aggregation|✔|
+|aws_shield_protection_group_invalid_pattern|✔|
+|aws_shield_protection_group_invalid_protection_group_id|✔|
+|aws_shield_protection_group_invalid_resource_type|✔|
 |aws_shield_protection_invalid_name|✔|
 |aws_shield_protection_invalid_resource_arn|✔|
 |aws_signer_signing_job_invalid_profile_name|✔|
@@ -1339,6 +1357,12 @@ These rules enforce best practices and naming conventions:
 |aws_timestreamwrite_database_invalid_kms_key_id|✔|
 |aws_timestreamwrite_table_invalid_database_name|✔|
 |aws_timestreamwrite_table_invalid_table_name|✔|
+|aws_transfer_access_invalid_external_id|✔|
+|aws_transfer_access_invalid_home_directory|✔|
+|aws_transfer_access_invalid_home_directory_type|✔|
+|aws_transfer_access_invalid_policy|✔|
+|aws_transfer_access_invalid_role|✔|
+|aws_transfer_access_invalid_server_id|✔|
 |aws_transfer_server_invalid_endpoint_type|✔|
 |aws_transfer_server_invalid_identity_provider_type|✔|
 |aws_transfer_server_invalid_invocation_role|✔|

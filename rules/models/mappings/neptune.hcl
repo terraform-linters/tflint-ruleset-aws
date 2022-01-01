@@ -50,6 +50,10 @@ mapping "aws_neptune_cluster" {
   vpc_security_group_ids               = VpcSecurityGroupIdList
 }
 
+mapping "aws_neptune_cluster_endpoint" {
+  tags = TagList
+}
+
 mapping "aws_neptune_cluster_instance" {
   apply_immediately            = any
   auto_minor_version_upgrade   = BooleanOptional

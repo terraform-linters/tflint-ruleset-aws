@@ -53,6 +53,12 @@ mapping "aws_redshift_parameter_group" {
   tags        = TagList
 }
 
+mapping "aws_redshift_scheduled_action" {
+  start_time = TStamp
+  end_time = TStamp
+  target_action = ScheduledActionType
+}
+
 mapping "aws_redshift_security_group" {
   name        = String
   description = String

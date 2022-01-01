@@ -5,6 +5,12 @@ mapping "aws_service_discovery_http_namespace" {
   description = ResourceDescription
 }
 
+mapping "aws_service_discovery_instance" {
+  instance_id = InstanceId
+  service_id = ResourceId
+  attributes = Attributes
+}
+
 mapping "aws_service_discovery_private_dns_namespace" {
   name        = NamespaceName
   vpc         = ResourceId
