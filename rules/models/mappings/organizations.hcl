@@ -8,6 +8,11 @@ mapping "aws_organizations_account" {
   role_name                  = RoleName
 }
 
+mapping "aws_organizations_delegated_administrator" {
+  account_id = AccountId
+  service_principal = ServicePrincipal
+}
+
 mapping "aws_organizations_organization" {
   aws_service_access_principals = any
   enabled_policy_types          = PolicyTypes
