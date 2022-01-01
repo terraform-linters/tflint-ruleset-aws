@@ -53,6 +53,10 @@ mapping "aws_docdb_cluster_snapshot" {
   db_cluster_snapshot_identifier = String
 }
 
+mapping "aws_docdb_global_cluster" {
+  global_cluster_identifier = GlobalClusterIdentifier
+}
+
 mapping "aws_docdb_subnet_group" {
   name        = String
   name_prefix = String
