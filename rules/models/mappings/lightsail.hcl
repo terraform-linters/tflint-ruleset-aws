@@ -13,6 +13,11 @@ mapping "aws_lightsail_instance" {
   user_data         = string
 }
 
+mapping "aws_lightsail_instance_public_ports" {
+  instance_name = ResourceName
+  port_info = PortInfo
+}
+
 mapping "aws_lightsail_key_pair" {
   name       = ResourceName
   pgp_key    = any
