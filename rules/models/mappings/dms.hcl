@@ -25,6 +25,12 @@ mapping "aws_dms_endpoint" {
   s3_settings                 = S3Settings
 }
 
+mapping "aws_dms_event_subscription" {
+  event_categories = EventCategoriesList
+  source_ids = SourceIdsList
+  tags = TagList
+}
+
 mapping "aws_dms_replication_instance" {
   allocated_storage            = IntegerOptional
   apply_immediately            = Boolean
