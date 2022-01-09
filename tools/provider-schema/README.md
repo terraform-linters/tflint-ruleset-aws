@@ -6,9 +6,8 @@ This `schema.json` file is used to get information against the terraform-provide
 
 ## Update schema file
 
-```console
-$ tfenv install
-# Edit provider.tf to update provider version
-$ terraform init -upgrade
-$ terraform providers schema -json > schema.json
+```sh
+tfenv install
+terraform init -upgrade
+terraform providers schema -json > schema.json
 ```
