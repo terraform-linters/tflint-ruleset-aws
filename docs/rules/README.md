@@ -653,6 +653,15 @@ These rules enforce best practices and naming conventions:
 |aws_fsx_ontap_volume_invalid_name|✔|
 |aws_fsx_ontap_volume_invalid_security_style|✔|
 |aws_fsx_ontap_volume_invalid_storage_virtual_machine_id|✔|
+|aws_fsx_openzfs_file_system_invalid_backup_id|✔|
+|aws_fsx_openzfs_file_system_invalid_daily_automatic_backup_start_time|✔|
+|aws_fsx_openzfs_file_system_invalid_deployment_type|✔|
+|aws_fsx_openzfs_file_system_invalid_storage_type|✔|
+|aws_fsx_openzfs_file_system_invalid_weekly_maintenance_start_time|✔|
+|aws_fsx_openzfs_snapshot_invalid_name|✔|
+|aws_fsx_openzfs_snapshot_invalid_volume_id|✔|
+|aws_fsx_openzfs_volume_invalid_data_compression_type|✔|
+|aws_fsx_openzfs_volume_invalid_parent_volume_id|✔|
 |aws_fsx_windows_file_system_invalid_active_directory_id|✔|
 |aws_fsx_windows_file_system_invalid_daily_automatic_backup_start_time|✔|
 |aws_fsx_windows_file_system_invalid_weekly_maintenance_start_time|✔|

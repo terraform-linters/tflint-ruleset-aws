@@ -47,6 +47,42 @@ mapping "aws_fsx_ontap_volume" {
   tags = Tags
 }
 
+mapping "aws_fsx_openzfs_file_system" {
+  deployment_type = OpenZFSDeploymentType
+  storage_capacity = StorageCapacity
+  subnet_ids = SubnetIds
+  throughput_capacity = MegabytesPerSecond
+  automatic_backup_retention_days = AutomaticBackupRetentionDays
+  backup_id = BackupId
+  copy_tags_to_backups = Flag
+  copy_tags_to_volumes = Flag
+  daily_automatic_backup_start_time = DailyTime
+  disk_iops_configuration = DiskIopsConfiguration
+  kms_key_id = any // KmsKeyId
+  root_volume_configuration = OpenZFSCreateRootVolumeConfiguration
+  security_group_ids = SecurityGroupIds
+  storage_type = StorageType
+  weekly_maintenance_start_time = WeeklyTime
+}
+
+mapping "aws_fsx_openzfs_snapshot" {
+  name = SnapshotName
+  tags = Tags
+  volume_id = VolumeId
+}
+
+mapping "aws_fsx_openzfs_volume" {
+  parent_volume_id = VolumeId
+  origin_snapshot = CreateOpenZFSOriginSnapshotConfiguration
+  copy_tags_to_snapshots = Flag
+  data_compression_type = OpenZFSDataCompressionType
+  nfs_exports = OpenZFSNfsExports
+  read_only = ReadOnly
+  storage_capacity_quota_gib = IntegerNoMax
+  storage_capacity_reservation_gib = IntegerNoMax
+  user_and_group_quotas = OpenZFSUserAndGroupQuotas
+}
+
 mapping "aws_fsx_windows_file_system" {
   storage_capacity                  = StorageCapacity
   subnet_ids                        = SubnetIds
