@@ -21,6 +21,8 @@ jobs:
           cd tools/provider-schema
           terraform init -upgrade
           terraform providers schema -json > schema.json
+          cd ../..
+          go generate ./...
       - uses: peter-evans/create-pull-request@v3
         with:
           commit-message: |
