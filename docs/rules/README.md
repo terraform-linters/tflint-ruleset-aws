@@ -919,6 +919,9 @@ These rules enforce best practices and naming conventions:
 |aws_macie_s3_bucket_association_invalid_prefix|✔|
 |aws_media_store_container_invalid_name|✔|
 |aws_media_store_container_policy_invalid_container_name|✔|
+|aws_memorydb_cluster_invalid_acl_name|✔|
+|aws_memorydb_user_invalid_access_string|✔|
+|aws_memorydb_user_invalid_user_name|✔|
 |aws_mq_broker_invalid_deployment_mode|✔|
 |aws_msk_cluster_invalid_cluster_name|✔|
 |aws_msk_cluster_invalid_enhanced_monitoring|✔|
