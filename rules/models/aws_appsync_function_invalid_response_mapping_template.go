@@ -3,7 +3,9 @@
 package models
 
 import (
+	"fmt"
 	"log"
+	"regexp"
 
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -15,6 +17,7 @@ type AwsAppsyncFunctionInvalidResponseMappingTemplateRule struct {
 	attributeName string
 	max           int
 	min           int
+	pattern       *regexp.Regexp
 }
 
 // NewAwsAppsyncFunctionInvalidResponseMappingTemplateRule returns new rule with default attributes
@@ -24,6 +27,7 @@ func NewAwsAppsyncFunctionInvalidResponseMappingTemplateRule() *AwsAppsyncFuncti
 		attributeName: "response_mapping_template",
 		max:           65536,
 		min:           1,
+		pattern:       regexp.MustCompile(`^.*$`),
 	}
 }
 
@@ -67,6 +71,13 @@ func (r *AwsAppsyncFunctionInvalidResponseMappingTemplateRule) Check(runner tfli
 				runner.EmitIssueOnExpr(
 					r,
 					"response_mapping_template must be 1 characters or higher",
+					attribute.Expr,
+				)
+			}
+			if !r.pattern.MatchString(val) {
+				runner.EmitIssueOnExpr(
+					r,
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^.*$`),
 					attribute.Expr,
 				)
 			}
