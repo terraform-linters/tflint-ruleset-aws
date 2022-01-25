@@ -17,11 +17,11 @@ jobs:
       - run: |
           go get github.com/aws/aws-sdk-go
           go mod tidy
-          go generate ./...
           cd tools/provider-schema
           terraform init -upgrade
           terraform providers schema -json > schema.json
           cd ../..
+          git submodule update --remote
           go generate ./...
       - uses: peter-evans/create-pull-request@v3
         with:
