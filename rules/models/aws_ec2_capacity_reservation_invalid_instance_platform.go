@@ -34,6 +34,12 @@ func NewAwsEc2CapacityReservationInvalidInstancePlatformRule() *AwsEc2CapacityRe
 			"Linux with SQL Server Standard",
 			"Linux with SQL Server Web",
 			"Linux with SQL Server Enterprise",
+			"RHEL with SQL Server Standard",
+			"RHEL with SQL Server Enterprise",
+			"RHEL with SQL Server Web",
+			"RHEL with HA",
+			"RHEL with HA and SQL Server Standard",
+			"RHEL with HA and SQL Server Enterprise",
 		},
 	}
 }
