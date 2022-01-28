@@ -1,3 +1,21 @@
+## 0.12.0 (2022-01-28)
+
+### Enhancements
+
+- [#291](https://github.com/terraform-linters/tflint-ruleset-aws/pull/291): mapping aws_devicefarm ([@PatMyron](https://github.com/PatMyron))
+- [#292](https://github.com/terraform-linters/tflint-ruleset-aws/pull/292): mapping aws_fsx ([@PatMyron](https://github.com/PatMyron))
+- [#293](https://github.com/terraform-linters/tflint-ruleset-aws/pull/293) [#294](https://github.com/terraform-linters/tflint-ruleset-aws/pull/294) [#300](https://github.com/terraform-linters/tflint-ruleset-aws/pull/300) [#301](https://github.com/terraform-linters/tflint-ruleset-aws/pull/301): Update terraform-provider-aws and aws-sdk submodule
+  - terraform-provider-aws: v3.70.0 -> v3.74.0
+  - aws-sdk: v1.42.25 -> v1.42.43
+- [#295](https://github.com/terraform-linters/tflint-ruleset-aws/pull/295): mapping aws_memorydb ([@PatMyron](https://github.com/PatMyron))
+
+### Chores
+
+- [#286](https://github.com/terraform-linters/tflint-ruleset-aws/pull/286): Updated missing documentation ([@Rihoj](https://github.com/Rihoj))
+- [#290](https://github.com/terraform-linters/tflint-ruleset-aws/pull/290): automating maintenance with Github actions ([@PatMyron](https://github.com/PatMyron))
+- [#298](https://github.com/terraform-linters/tflint-ruleset-aws/pull/298): Bump github.com/google/go-cmp from 0.5.6 to 0.5.7
+- [#302](https://github.com/terraform-linters/tflint-ruleset-aws/pull/302): git submodule update in automated maintenance ([@PatMyron](https://github.com/PatMyron))
+
 ## 0.11.0 (2022-01-04)
 
 Many thanks to @PatMyron, a new maintainer! This release adds 589 SDK-based validation rules, significantly increasing resource coverage.
