@@ -2,6 +2,7 @@ package rules
 
 import (
 	"fmt"
+	"strings"
 
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -49,7 +50,7 @@ func (r *AwsElastiCacheReplicationGroupPreviousTypeRule) Check(runner tflint.Run
 		err := runner.EvaluateExpr(attribute.Expr, &nodeType, nil)
 
 		return runner.EnsureNoError(err, func() error {
-			if previousElastiCacheNodeTypes[nodeType] {
+			if previousElastiCacheNodeTypes[strings.Split(nodeType, ".")[1]] {
 				runner.EmitIssueOnExpr(
 					r,
 					fmt.Sprintf("\"%s\" is previous generation node type.", nodeType),

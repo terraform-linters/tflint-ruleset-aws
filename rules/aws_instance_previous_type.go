@@ -2,6 +2,7 @@ package rules
 
 import (
 	"fmt"
+        "strings"
 
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -21,41 +22,21 @@ func NewAwsInstancePreviousTypeRule() *AwsInstancePreviousTypeRule {
 		resourceType:  "aws_instance",
 		attributeName: "instance_type",
 		previousInstanceTypes: map[string]bool{
-			"t1.micro":    true,
-			"m1.small":    true,
-			"m1.medium":   true,
-			"m1.large":    true,
-			"m1.xlarge":   true,
-			"m3.medium":   true,
-			"m3.large":    true,
-			"m3.xlarge":   true,
-			"m3.2xlarge":  true,
-			"c1.medium":   true,
-			"c1.xlarge":   true,
-			"cc2.8xlarge": true,
-			"cg1.4xlarge": true,
-			"c3.large":    true,
-			"c3.xlarge":   true,
-			"c3.2xlarge":  true,
-			"c3.4xlarge":  true,
-			"c3.8xlarge":  true,
-			"g2.2xlarge":  true,
-			"g2.8xlarge":  true,
-			"m2.xlarge":   true,
-			"m2.2xlarge":  true,
-			"m2.4xlarge":  true,
-			"cr1.8xlarge": true,
-			"r3.large":    true,
-			"r3.xlarge":   true,
-			"r3.2xlarge":  true,
-			"r3.4xlarge":  true,
-			"r3.8xlarge":  true,
-			"i2.xlarge":   true,
-			"i2.2xlarge":  true,
-			"i2.4xlarge":  true,
-			"i2.8xlarge":  true,
-			"hi1.4xlarge": true,
-			"hs1.8xlarge": true,
+			"c1":  true,
+			"c2":  true,
+			"c3":  true,
+			"cc2": true,
+			"cg1": true,
+			"cr1": true,
+			"g2":  true,
+			"hi1": true,
+			"hs1": true,
+			"i2":  true,
+			"m1":  true,
+			"m2":  true,
+			"m3":  true,
+			"r3":  true,
+			"t1":  true,			
 		},
 	}
 }
@@ -87,7 +68,7 @@ func (r *AwsInstancePreviousTypeRule) Check(runner tflint.Runner) error {
 		err := runner.EvaluateExpr(attribute.Expr, &instanceType, nil)
 
 		return runner.EnsureNoError(err, func() error {
-			if r.previousInstanceTypes[instanceType] {
+			if r.previousInstanceTypes[strings.Split(instanceType, ".")[0]] {
 				runner.EmitIssueOnExpr(
 					r,
 					fmt.Sprintf("\"%s\" is previous generation instance type.", instanceType),
