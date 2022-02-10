@@ -76,22 +76,10 @@ var validElastiCacheNodeTypes = map[string]bool{
 
 var previousElastiCacheNodeTypes = map[string]bool{
 	// https://aws.amazon.com/elasticache/previous-generation/?nc1=h_ls
-	"cache.m1.small":   true,
-	"cache.m1.medium":  true,
-	"cache.m1.large":   true,
-	"cache.m1.xlarge":  true,
-	"cache.m2.xlarge":  true,
-	"cache.m2.2xlarge": true,
-	"cache.m2.4xlarge": true,
-	"cache.m3.medium":  true,
-	"cache.m3.large":   true,
-	"cache.m3.xlarge":  true,
-	"cache.m3.2xlarge": true,
-	"cache.r3.large":   true,
-	"cache.r3.xlarge":  true,
-	"cache.r3.2xlarge": true,
-	"cache.r3.4xlarge": true,
-	"cache.r3.8xlarge": true,
-	"cache.c1.xlarge":  true,
-	"cache.t1.micro":   true,
+	"c1": true,
+	"m1": true,
+	"m2": true,
+	"m3": true,
+	"r3": true,
+	"t1": true,
 }
