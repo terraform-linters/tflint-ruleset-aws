@@ -2,6 +2,7 @@ package rules
 
 import (
 	"fmt"
+        "strings"
 
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -21,24 +22,12 @@ func NewAwsDBInstancePreviousTypeRule() *AwsDBInstancePreviousTypeRule {
 		resourceType:  "aws_db_instance",
 		attributeName: "instance_class",
 		previousInstanceTypes: map[string]bool{
-			"db.t1.micro":    true,
-			"db.m1.small":    true,
-			"db.m1.medium":   true,
-			"db.m1.large":    true,
-			"db.m1.xlarge":   true,
-			"db.m2.xlarge":   true,
-			"db.m2.2xlarge":  true,
-			"db.m2.4xlarge":  true,
-			"db.m3.medium":   true,
-			"db.m3.large":    true,
-			"db.m3.xlarge":   true,
-			"db.m3.2xlarge":  true,
-			"db.r3.large":    true,
-			"db.r3.xlarge":   true,
-			"db.r3.2xlarge":  true,
-			"db.r3.4xlarge":  true,
-			"db.r3.8xlarge":  true,
-			"db.cr1.8xlarge": true,
+			"cr1": true,
+			"m1":  true,
+			"m2":  true,
+			"m3":  true,
+			"r3":  true,
+			"t1":  true,
 		},
 	}
 }
@@ -70,7 +59,7 @@ func (r *AwsDBInstancePreviousTypeRule) Check(runner tflint.Runner) error {
 		err := runner.EvaluateExpr(attribute.Expr, &instanceType, nil)
 
 		return runner.EnsureNoError(err, func() error {
-			if r.previousInstanceTypes[instanceType] {
+			if r.previousInstanceTypes[strings.Split(instanceType, ".")[1]] {
 				runner.EmitIssueOnExpr(
 					r,
 					fmt.Sprintf("\"%s\" is previous generation instance type.", instanceType),
