@@ -1269,7 +1269,7 @@ These rules enforce best practices and naming conventions:
 |aws_spot_fleet_request_invalid_allocation_strategy|✔|
 |aws_spot_fleet_request_invalid_fleet_type|✔|
 |aws_spot_fleet_request_invalid_instance_interruption_behaviour|✔|
-|aws_spot_instance_request_invalid_instance_interruption_behaviour|✔|
+|aws_spot_instance_request_invalid_instance_interruption_behavior|✔|
 |aws_ssm_activation_invalid_description|✔|
 |aws_ssm_activation_invalid_iam_role|✔|
 |aws_ssm_activation_invalid_name|✔|
