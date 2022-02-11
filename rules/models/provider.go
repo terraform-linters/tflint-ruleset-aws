@@ -1197,7 +1197,7 @@ var Rules = []tflint.Rule{
 	NewAwsSpotFleetRequestInvalidAllocationStrategyRule(),
 	NewAwsSpotFleetRequestInvalidFleetTypeRule(),
 	NewAwsSpotFleetRequestInvalidInstanceInterruptionBehaviourRule(),
-	NewAwsSpotInstanceRequestInvalidInstanceInterruptionBehaviourRule(),
+	NewAwsSpotInstanceRequestInvalidInstanceInterruptionBehaviorRule(),
 	NewAwsSsmActivationInvalidDescriptionRule(),
 	NewAwsSsmActivationInvalidIAMRoleRule(),
 	NewAwsSsmActivationInvalidNameRule(),
