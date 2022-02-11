@@ -383,7 +383,7 @@ mapping "aws_spot_instance_request" {
   spot_type                       = String
   launch_group                    = String
   block_duration_minutes          = Integer
-  # instance_interruption_behaviour = InstanceInterruptionBehavior
+  instance_interruption_behavior = InstanceInterruptionBehavior
   valid_until                     = DateTime
   valid_from                      = DateTime
   tags                            = TagSpecificationList
