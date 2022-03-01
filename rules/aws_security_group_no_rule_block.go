@@ -34,7 +34,7 @@ func (r *AwsSecurityGroupNoRuleBlock) Enabled() bool {
 
 // Severity returns the rule severity
 func (r *AwsSecurityGroupNoRuleBlock) Severity() string {
-	return tflint.ERROR
+	return tflint.WARNING
 }
 
 // Link returns the rule reference link
