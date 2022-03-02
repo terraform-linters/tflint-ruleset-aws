@@ -8,13 +8,13 @@ import (
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
 
-// AwsSecurityGroupNoRuleBlock checks whether a route definition has a routing target
+// AwsSecurityGroupNoRuleBlock checks for the presence of inline rule blocks
 type AwsSecurityGroupNoRuleBlock struct {
 	resourceType string
 	blockTypes   []string
 }
 
-// NewAwsSecurityGroupNoRuleBlock returns new rule with default attributes
+// NewAwsSecurityGroupNoRuleBlock returns new rule
 func NewAwsSecurityGroupNoRuleBlockRule() *AwsSecurityGroupNoRuleBlock {
 	return &AwsSecurityGroupNoRuleBlock{
 		resourceType: "aws_security_group",
@@ -42,7 +42,7 @@ func (r *AwsSecurityGroupNoRuleBlock) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-// Check checks whether a target is defined in a resource
+// Check for the presence of every `blockType` within the resource
 func (r *AwsSecurityGroupNoRuleBlock) Check(runner tflint.Runner) error {
 	for _, blockType := range r.blockTypes {
 		err := runner.WalkResourceBlocks(r.resourceType, blockType, func(block *hcl.Block) error {
