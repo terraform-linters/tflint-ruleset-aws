@@ -36,7 +36,8 @@ resource "aws_elastic_beanstalk_environment" "tfenvtest" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsElasticBeanstalkEnvironmentNameInvalidFormatRule(),
-					Message: "tf_test_name does not match valid pattern ^[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]$",
+					Message: "tf_test_name does not match constraint: must contain only letters, digits, and " +
+					"the dash character and may not start or end with a dash (^[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]$)",
 					Range: hcl.Range{
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 3, Column: 24},
@@ -57,7 +58,8 @@ resource "aws_elastic_beanstalk_environment" "tfenvtest" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsElasticBeanstalkEnvironmentNameInvalidFormatRule(),
-					Message: "tf-test-name- does not match valid pattern ^[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]$",
+					Message: "tf-test-name- does not match constraint: must contain only letters, digits, and " +
+					"the dash character and may not start or end with a dash (^[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]$)",
 					Range: hcl.Range{
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 3, Column: 24},

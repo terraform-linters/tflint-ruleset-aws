@@ -54,7 +54,8 @@ func (r *AwsElasticBeanstalkEnvironmentNameInvalidFormatRule) Check(runner tflin
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssueOnExpr(
 					r,
-					fmt.Sprintf(`%s does not match valid pattern %s`, val, r.pattern.String()),
+					fmt.Sprintf(`%s does not match constraint: must contain only letters, digits, and the dash ` +
+					`character and may not start or end with a dash (^[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]$)`, val),
 					attribute.Expr,
 				)
 			}
