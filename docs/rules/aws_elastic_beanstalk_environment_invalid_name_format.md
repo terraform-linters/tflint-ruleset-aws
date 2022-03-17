@@ -21,7 +21,7 @@ the dash character and may not start or end with a dash
 (^[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]$) (aws_elastic_beanstalk_environment_invalid_name_format)
 
   on example.tf line 2:
-   2: 	name                = "tf_test_name"
+   2: 	name                = "env_name_underscores"
 
 ```
 
@@ -29,7 +29,7 @@ the dash character and may not start or end with a dash
 
 When attempting to create the resource, Terraform will return the error:
 ```
-Error: InvalidParameterValue: Value tf_test_name at 'EnvironmentName' failed to satisfy 
+Error: InvalidParameterValue: Value env_name_underscores at 'EnvironmentName' failed to satisfy 
 constraint: Member must contain only letters, digits, and the dash character and may not start 
 or end with a dash
 status code: 400
