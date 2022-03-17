@@ -6,6 +6,7 @@ import (
 
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
+	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
 
 // AwsElasticBeanstalkEnvironmentInvalidNameFormatRule checks EB environment name matches a pattern
