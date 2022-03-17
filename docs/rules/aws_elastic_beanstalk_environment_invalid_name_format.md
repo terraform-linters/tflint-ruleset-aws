@@ -6,8 +6,8 @@ Ensure Elastic Beanstalk environment name matches allowed format.
 
 ```hcl
 resource "aws_elastic_beanstalk_environment" "tfenvtest" {
-	name                = "tf_test_name"
-	application         = "tf-test-name"
+	name                = "env_name_underscores"
+	application         = "example-app"
 	solution_stack_name = "64bit Amazon Linux 2015.03 v2.0.3 running Go 1.4"
 }
 ```
@@ -16,9 +16,9 @@ resource "aws_elastic_beanstalk_environment" "tfenvtest" {
 $ tflint
 1 issue(s) found:
 
-Error: tf_test_name does not match constraint: must contain only letters, digits, and the dash
- character and may not start or end with a dash (^[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]$) 
- (aws_elastic_beanstalk_environment_invalid_name_format)
+Error: env_name_underscores does not match constraint: must contain only letters, digits, and 
+the dash character and may not start or end with a dash 
+(^[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]$) (aws_elastic_beanstalk_environment_invalid_name_format)
 
   on example.tf line 2:
    2: 	name                = "tf_test_name"
