@@ -1,6 +1,6 @@
 # aws_elastic_beanstalk_environment_invalid_name_format
 
-Ensure Elastic Beanstalk environment name matches allowed format.
+Disallow invalid Elastic Beanstalk environment name
 
 ## Example
 
