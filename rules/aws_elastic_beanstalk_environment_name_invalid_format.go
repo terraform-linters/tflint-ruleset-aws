@@ -41,7 +41,7 @@ func (r *AwsElasticBeanstalkEnvironmentNameInvalidFormatRule) Severity() string 
 
 // Link returns the rule reference link
 func (r *AwsElasticBeanstalkEnvironmentNameInvalidFormatRule) Link() string {
-	return ""
+	return project.ReferenceLink(r.Name())
 }
 
 // Check checks the environment name matches the pattern provided
