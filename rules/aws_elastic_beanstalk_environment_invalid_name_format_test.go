@@ -7,7 +7,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_AwsElasticBeanstalkEnvironmentNameInvalidFormat(t *testing.T) {
+func Test_AwsElasticBeanstalkEnvironmentInvalidNameFormat(t *testing.T) {
 	cases := []struct {
 		Name     string
 		Content  string
@@ -35,7 +35,7 @@ resource "aws_elastic_beanstalk_environment" "tfenvtest" {
 `,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsElasticBeanstalkEnvironmentNameInvalidFormatRule(),
+					Rule:    NewAwsElasticBeanstalkEnvironmentInvalidNameFormatRule(),
 					Message: "tf_test_name does not match constraint: must contain only letters, digits, and " +
 					"the dash character and may not start or end with a dash (^[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]$)",
 					Range: hcl.Range{
@@ -57,7 +57,7 @@ resource "aws_elastic_beanstalk_environment" "tfenvtest" {
 `,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsElasticBeanstalkEnvironmentNameInvalidFormatRule(),
+					Rule:    NewAwsElasticBeanstalkEnvironmentInvalidNameFormatRule(),
 					Message: "tf-test-name- does not match constraint: must contain only letters, digits, and " +
 					"the dash character and may not start or end with a dash (^[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]$)",
 					Range: hcl.Range{
@@ -70,7 +70,7 @@ resource "aws_elastic_beanstalk_environment" "tfenvtest" {
 		},
 	}
 
-	rule := NewAwsElasticBeanstalkEnvironmentNameInvalidFormatRule()
+	rule := NewAwsElasticBeanstalkEnvironmentInvalidNameFormatRule()
 
 	for _, tc := range cases {
 		runner := helper.TestRunner(t, map[string]string{"resource.tf": tc.Content})

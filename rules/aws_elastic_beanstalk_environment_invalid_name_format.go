@@ -8,16 +8,16 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsElasticBeanstalkEnvironmentNameInvalidFormatRule checks EB environment name matches a pattern
-type AwsElasticBeanstalkEnvironmentNameInvalidFormatRule struct {
+// AwsElasticBeanstalkEnvironmentInvalidNameFormatRule checks EB environment name matches a pattern
+type AwsElasticBeanstalkEnvironmentInvalidNameFormatRule struct {
 	resourceType  string
 	attributeName string
 	pattern       *regexp.Regexp
 }
 
-// NewAwsElasticBeanstalkEnvironmentNameInvalidFormatRule returns new rule with default attributes
-func NewAwsElasticBeanstalkEnvironmentNameInvalidFormatRule() *AwsElasticBeanstalkEnvironmentNameInvalidFormatRule {
-	return &AwsElasticBeanstalkEnvironmentNameInvalidFormatRule{
+// NewAwsElasticBeanstalkEnvironmentInvalidNameFormatRule returns new rule with default attributes
+func NewAwsElasticBeanstalkEnvironmentInvalidNameFormatRule() *AwsElasticBeanstalkEnvironmentInvalidNameFormatRule {
+	return &AwsElasticBeanstalkEnvironmentInvalidNameFormatRule{
 		resourceType:  "aws_elastic_beanstalk_environment",
 		attributeName: "name",
 		pattern:       regexp.MustCompile("^[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]$"),
@@ -25,27 +25,27 @@ func NewAwsElasticBeanstalkEnvironmentNameInvalidFormatRule() *AwsElasticBeansta
 }
 
 // Name returns the rule name
-func (r *AwsElasticBeanstalkEnvironmentNameInvalidFormatRule) Name() string {
-	return "aws_elastic_beanstalk_environment_name_invalid_format"
+func (r *AwsElasticBeanstalkEnvironmentInvalidNameFormatRule) Name() string {
+	return "aws_elastic_beanstalk_environment_invalid_name_format"
 }
 
 // Enabled returns whether the rule is enabled by default
-func (r *AwsElasticBeanstalkEnvironmentNameInvalidFormatRule) Enabled() bool {
+func (r *AwsElasticBeanstalkEnvironmentInvalidNameFormatRule) Enabled() bool {
 	return true
 }
 
 // Severity returns the rule severity
-func (r *AwsElasticBeanstalkEnvironmentNameInvalidFormatRule) Severity() string {
+func (r *AwsElasticBeanstalkEnvironmentInvalidNameFormatRule) Severity() string {
 	return tflint.ERROR
 }
 
 // Link returns the rule reference link
-func (r *AwsElasticBeanstalkEnvironmentNameInvalidFormatRule) Link() string {
+func (r *AwsElasticBeanstalkEnvironmentInvalidNameFormatRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
 // Check checks the environment name matches the pattern provided
-func (r *AwsElasticBeanstalkEnvironmentNameInvalidFormatRule) Check(runner tflint.Runner) error {
+func (r *AwsElasticBeanstalkEnvironmentInvalidNameFormatRule) Check(runner tflint.Runner) error {
 	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)

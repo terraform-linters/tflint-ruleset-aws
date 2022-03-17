@@ -37,5 +37,5 @@ var Rules = append([]tflint.Rule{
 	NewAwsLambdaFunctionDeprecatedRuntimeRule(),
 	NewAwsIAMGroupPolicyTooLongRule(),
 	NewAwsAcmCertificateLifecycleRule(),
-	NewAwsElasticBeanstalkEnvironmentNameInvalidFormatRule(),
+	NewAwsElasticBeanstalkEnvironmentInvalidNameFormatRule(),
 }, models.Rules...)
