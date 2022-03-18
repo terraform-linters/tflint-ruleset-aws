@@ -73,7 +73,6 @@ resource "aws_security_group" "my_sg" {
 	rule := NewAwsSecurityGroupNoRuleBlockRule()
 
 	for _, tc := range cases {
-		tc := tc
 		t.Run(tc.Name, func(t *testing.T) {
 			runner := helper.TestRunner(t, map[string]string{"resource.tf": tc.Content, ".tflint.hcl": tc.Config})
 
