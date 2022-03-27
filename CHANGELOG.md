@@ -1,3 +1,26 @@
+## 0.13.0 (2022-03-27)
+
+The minimum supported version of TFLint has changed in this version. TFLint v0.35.0+ is required for this plugin to work.
+
+### Breaking Changes
+
+- [#274](https://github.com/terraform-linters/tflint-ruleset-aws/pull/274): Bump tflint-plugin-sdk for gRPC-based new plugin system ([@wata727](https://github.com/wata727))
+- [#310](https://github.com/terraform-linters/tflint-ruleset-aws/pull/310): aws_spot_instance_request.instance_interruption_behaviour renamed ([@PatMyron](https://github.com/PatMyron))
+- [#317](https://github.com/terraform-linters/tflint-ruleset-aws/pull/317) [#318](https://github.com/terraform-linters/tflint-ruleset-aws/pull/318): Update aws-sdk-go and AWS provider rules ([@wata727](https://github.com/wata727))
+  - Removed `aws_amplify_domain_association_invalid_domain_name` rule.
+
+### Enhancements
+
+- [#309](https://github.com/terraform-linters/tflint-ruleset-aws/pull/309): refactor previous generation instance type rules ([@PatMyron](https://github.com/PatMyron))
+- [#315](https://github.com/terraform-linters/tflint-ruleset-aws/pull/315): rules: Add new  `aws_elastic_beanstalk_environment_invalid_name_format` rule ([@samhpickering](https://github.com/samhpickering))
+
+### Chores
+
+- [#312](https://github.com/terraform-linters/tflint-ruleset-aws/pull/312): Bump actions/checkout from 2 to 3
+- [#313](https://github.com/terraform-linters/tflint-ruleset-aws/pull/313): Bump github.com/hashicorp/aws-sdk-go-base from 1.0.0 to 1.1.0
+- [#314](https://github.com/terraform-linters/tflint-ruleset-aws/pull/314): go 1.18 ([@PatMyron](https://github.com/PatMyron))
+- [#319](https://github.com/terraform-linters/tflint-ruleset-aws/pull/319): Bump GoReleaser version ([@wata727](https://github.com/wata727))
+
 ## 0.12.0 (2022-01-28)
 
 ### Enhancements

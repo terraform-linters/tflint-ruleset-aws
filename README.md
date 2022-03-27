@@ -9,7 +9,7 @@ This ruleset focus on possible errors and best practices about AWS resources. Ma
 
 ## Requirements
 
-- TFLint v0.30+
+- TFLint v0.35+
 - Go v1.18
 
 ## Installation
@@ -19,14 +19,12 @@ You can install the plugin by adding a config to `.tflint.hcl` and running `tfli
 ```hcl
 plugin "aws" {
     enabled = true
-    version = "0.12.0"
+    version = "0.13.0"
     source  = "github.com/terraform-linters/tflint-ruleset-aws"
 }
 ```
 
 For more configuration about the plugin, see [Plugin Configuration](docs/configuration.md).
-
-**NOTE:** This plugin is bundled with the TFLint binary for backward compatibility, so you can use it without installing it separately. And it is automatically enabled when your Terraform configuration requires AWS provider.
 
 ## Getting Started
 
