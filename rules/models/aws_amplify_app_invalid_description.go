@@ -3,7 +3,9 @@
 package models
 
 import (
+	"fmt"
 	"log"
+	"regexp"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -16,6 +18,7 @@ type AwsAmplifyAppInvalidDescriptionRule struct {
 	resourceType  string
 	attributeName string
 	max           int
+	pattern       *regexp.Regexp
 }
 
 // NewAwsAmplifyAppInvalidDescriptionRule returns new rule with default attributes
@@ -24,6 +27,7 @@ func NewAwsAmplifyAppInvalidDescriptionRule() *AwsAmplifyAppInvalidDescriptionRu
 		resourceType:  "aws_amplify_app",
 		attributeName: "description",
 		max:           1000,
+		pattern:       regexp.MustCompile(`^(?s).*$`),
 	}
 }
 
@@ -74,6 +78,13 @@ func (r *AwsAmplifyAppInvalidDescriptionRule) Check(runner tflint.Runner) error 
 				runner.EmitIssue(
 					r,
 					"description must be 1000 characters or less",
+					attribute.Expr.Range(),
+				)
+			}
+			if !r.pattern.MatchString(val) {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(?s).*$`),
 					attribute.Expr.Range(),
 				)
 			}

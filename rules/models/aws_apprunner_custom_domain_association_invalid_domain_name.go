@@ -3,7 +3,9 @@
 package models
 
 import (
+	"fmt"
 	"log"
+	"regexp"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -17,6 +19,7 @@ type AwsApprunnerCustomDomainAssociationInvalidDomainNameRule struct {
 	attributeName string
 	max           int
 	min           int
+	pattern       *regexp.Regexp
 }
 
 // NewAwsApprunnerCustomDomainAssociationInvalidDomainNameRule returns new rule with default attributes
@@ -26,6 +29,7 @@ func NewAwsApprunnerCustomDomainAssociationInvalidDomainNameRule() *AwsApprunner
 		attributeName: "domain_name",
 		max:           255,
 		min:           1,
+		pattern:       regexp.MustCompile(`^[A-Za-z0-9*.-]{1,255}$`),
 	}
 }
 
@@ -83,6 +87,13 @@ func (r *AwsApprunnerCustomDomainAssociationInvalidDomainNameRule) Check(runner 
 				runner.EmitIssue(
 					r,
 					"domain_name must be 1 characters or higher",
+					attribute.Expr.Range(),
+				)
+			}
+			if !r.pattern.MatchString(val) {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[A-Za-z0-9*.-]{1,255}$`),
 					attribute.Expr.Range(),
 				)
 			}

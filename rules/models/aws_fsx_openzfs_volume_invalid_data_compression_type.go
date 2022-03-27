@@ -27,6 +27,7 @@ func NewAwsFsxOpenzfsVolumeInvalidDataCompressionTypeRule() *AwsFsxOpenzfsVolume
 		enum: []string{
 			"NONE",
 			"ZSTD",
+			"LZ4",
 		},
 	}
 }

@@ -124,8 +124,8 @@ These rules enforce best practices and naming conventions:
 |aws_amplify_branch_invalid_framework|✔|
 |aws_amplify_branch_invalid_pull_request_environment_name|✔|
 |aws_amplify_branch_invalid_stage|✔|
+|aws_amplify_branch_invalid_ttl|✔|
 |aws_amplify_domain_association_invalid_app_id|✔|
-|aws_amplify_domain_association_invalid_domain_name|✔|
 |aws_amplify_webhook_invalid_app_id|✔|
 |aws_amplify_webhook_invalid_branch_name|✔|
 |aws_amplify_webhook_invalid_description|✔|

@@ -27,6 +27,7 @@ func NewAwsGlueSchemaInvalidDataFormatRule() *AwsGlueSchemaInvalidDataFormatRule
 		enum: []string{
 			"AVRO",
 			"JSON",
+			"PROTOBUF",
 		},
 	}
 }

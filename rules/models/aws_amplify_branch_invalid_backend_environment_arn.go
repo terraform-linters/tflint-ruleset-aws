@@ -3,7 +3,9 @@
 package models
 
 import (
+	"fmt"
 	"log"
+	"regexp"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -16,7 +18,7 @@ type AwsAmplifyBranchInvalidBackendEnvironmentArnRule struct {
 	resourceType  string
 	attributeName string
 	max           int
-	min           int
+	pattern       *regexp.Regexp
 }
 
 // NewAwsAmplifyBranchInvalidBackendEnvironmentArnRule returns new rule with default attributes
@@ -25,7 +27,7 @@ func NewAwsAmplifyBranchInvalidBackendEnvironmentArnRule() *AwsAmplifyBranchInva
 		resourceType:  "aws_amplify_branch",
 		attributeName: "backend_environment_arn",
 		max:           1000,
-		min:           1,
+		pattern:       regexp.MustCompile(`^(?s).*$`),
 	}
 }
 
@@ -79,10 +81,10 @@ func (r *AwsAmplifyBranchInvalidBackendEnvironmentArnRule) Check(runner tflint.R
 					attribute.Expr.Range(),
 				)
 			}
-			if len(val) < r.min {
+			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					"backend_environment_arn must be 1 characters or higher",
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(?s).*$`),
 					attribute.Expr.Range(),
 				)
 			}
