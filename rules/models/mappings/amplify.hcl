@@ -50,7 +50,7 @@ mapping "aws_amplify_branch" {
 
 mapping "aws_amplify_domain_association" {
   app_id = AppId
-  domain_name = DomainName
+  domain_name = any //DomainName
 }
 
 mapping "aws_amplify_webhook" {

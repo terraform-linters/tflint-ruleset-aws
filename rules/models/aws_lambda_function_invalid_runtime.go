@@ -44,6 +44,7 @@ func NewAwsLambdaFunctionInvalidRuntimeRule() *AwsLambdaFunctionInvalidRuntimeRu
 			"dotnetcore2.0",
 			"dotnetcore2.1",
 			"dotnetcore3.1",
+			"dotnet6",
 			"nodejs4.3-edge",
 			"go1.x",
 			"ruby2.5",

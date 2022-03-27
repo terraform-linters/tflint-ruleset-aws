@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/agext/levenshtein v1.2.2 // indirect
-	github.com/aws/aws-sdk-go v1.42.43
+	github.com/aws/aws-sdk-go v1.43.26
 	github.com/dave/dst v0.26.2
 	github.com/fatih/color v1.9.0 // indirect
 	github.com/golang/mock v1.6.0
@@ -47,9 +47,9 @@ require (
 	github.com/vmihailenco/msgpack/v4 v4.3.12 // indirect
 	github.com/vmihailenco/tagparser v0.1.1 // indirect
 	golang.org/x/mod v0.4.2 // indirect
-	golang.org/x/net v0.0.0-20211216030914-fe4d6282115f // indirect
-	golang.org/x/sys v0.0.0-20210510120138-977fb7262007 // indirect
-	golang.org/x/text v0.3.6 // indirect
+	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd // indirect
+	golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e // indirect
+	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/tools v0.1.1 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 )

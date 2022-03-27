@@ -23798,6 +23798,89 @@ func (mr *MockEC2APIMockRecorder) ImportVolumeWithContext(arg0, arg1 interface{}
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ImportVolumeWithContext", reflect.TypeOf((*MockEC2API)(nil).ImportVolumeWithContext), varargs...)
 }
 
+// ListImagesInRecycleBin mocks base method.
+func (m *MockEC2API) ListImagesInRecycleBin(arg0 *ec2.ListImagesInRecycleBinInput) (*ec2.ListImagesInRecycleBinOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListImagesInRecycleBin", arg0)
+	ret0, _ := ret[0].(*ec2.ListImagesInRecycleBinOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListImagesInRecycleBin indicates an expected call of ListImagesInRecycleBin.
+func (mr *MockEC2APIMockRecorder) ListImagesInRecycleBin(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListImagesInRecycleBin", reflect.TypeOf((*MockEC2API)(nil).ListImagesInRecycleBin), arg0)
+}
+
+// ListImagesInRecycleBinPages mocks base method.
+func (m *MockEC2API) ListImagesInRecycleBinPages(arg0 *ec2.ListImagesInRecycleBinInput, arg1 func(*ec2.ListImagesInRecycleBinOutput, bool) bool) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListImagesInRecycleBinPages", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// ListImagesInRecycleBinPages indicates an expected call of ListImagesInRecycleBinPages.
+func (mr *MockEC2APIMockRecorder) ListImagesInRecycleBinPages(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListImagesInRecycleBinPages", reflect.TypeOf((*MockEC2API)(nil).ListImagesInRecycleBinPages), arg0, arg1)
+}
+
+// ListImagesInRecycleBinPagesWithContext mocks base method.
+func (m *MockEC2API) ListImagesInRecycleBinPagesWithContext(arg0 context.Context, arg1 *ec2.ListImagesInRecycleBinInput, arg2 func(*ec2.ListImagesInRecycleBinOutput, bool) bool, arg3 ...request.Option) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1, arg2}
+	for _, a := range arg3 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ListImagesInRecycleBinPagesWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// ListImagesInRecycleBinPagesWithContext indicates an expected call of ListImagesInRecycleBinPagesWithContext.
+func (mr *MockEC2APIMockRecorder) ListImagesInRecycleBinPagesWithContext(arg0, arg1, arg2 interface{}, arg3 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1, arg2}, arg3...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListImagesInRecycleBinPagesWithContext", reflect.TypeOf((*MockEC2API)(nil).ListImagesInRecycleBinPagesWithContext), varargs...)
+}
+
+// ListImagesInRecycleBinRequest mocks base method.
+func (m *MockEC2API) ListImagesInRecycleBinRequest(arg0 *ec2.ListImagesInRecycleBinInput) (*request.Request, *ec2.ListImagesInRecycleBinOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListImagesInRecycleBinRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.ListImagesInRecycleBinOutput)
+	return ret0, ret1
+}
+
+// ListImagesInRecycleBinRequest indicates an expected call of ListImagesInRecycleBinRequest.
+func (mr *MockEC2APIMockRecorder) ListImagesInRecycleBinRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListImagesInRecycleBinRequest", reflect.TypeOf((*MockEC2API)(nil).ListImagesInRecycleBinRequest), arg0)
+}
+
+// ListImagesInRecycleBinWithContext mocks base method.
+func (m *MockEC2API) ListImagesInRecycleBinWithContext(arg0 context.Context, arg1 *ec2.ListImagesInRecycleBinInput, arg2 ...request.Option) (*ec2.ListImagesInRecycleBinOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ListImagesInRecycleBinWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.ListImagesInRecycleBinOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListImagesInRecycleBinWithContext indicates an expected call of ListImagesInRecycleBinWithContext.
+func (mr *MockEC2APIMockRecorder) ListImagesInRecycleBinWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListImagesInRecycleBinWithContext", reflect.TypeOf((*MockEC2API)(nil).ListImagesInRecycleBinWithContext), varargs...)
+}
+
 // ListSnapshotsInRecycleBin mocks base method.
 func (m *MockEC2API) ListSnapshotsInRecycleBin(arg0 *ec2.ListSnapshotsInRecycleBinInput) (*ec2.ListSnapshotsInRecycleBinOutput, error) {
 	m.ctrl.T.Helper()
@@ -28529,6 +28612,56 @@ func (mr *MockEC2APIMockRecorder) RestoreAddressToClassicWithContext(arg0, arg1 
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RestoreAddressToClassicWithContext", reflect.TypeOf((*MockEC2API)(nil).RestoreAddressToClassicWithContext), varargs...)
+}
+
+// RestoreImageFromRecycleBin mocks base method.
+func (m *MockEC2API) RestoreImageFromRecycleBin(arg0 *ec2.RestoreImageFromRecycleBinInput) (*ec2.RestoreImageFromRecycleBinOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RestoreImageFromRecycleBin", arg0)
+	ret0, _ := ret[0].(*ec2.RestoreImageFromRecycleBinOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RestoreImageFromRecycleBin indicates an expected call of RestoreImageFromRecycleBin.
+func (mr *MockEC2APIMockRecorder) RestoreImageFromRecycleBin(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RestoreImageFromRecycleBin", reflect.TypeOf((*MockEC2API)(nil).RestoreImageFromRecycleBin), arg0)
+}
+
+// RestoreImageFromRecycleBinRequest mocks base method.
+func (m *MockEC2API) RestoreImageFromRecycleBinRequest(arg0 *ec2.RestoreImageFromRecycleBinInput) (*request.Request, *ec2.RestoreImageFromRecycleBinOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RestoreImageFromRecycleBinRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.RestoreImageFromRecycleBinOutput)
+	return ret0, ret1
+}
+
+// RestoreImageFromRecycleBinRequest indicates an expected call of RestoreImageFromRecycleBinRequest.
+func (mr *MockEC2APIMockRecorder) RestoreImageFromRecycleBinRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RestoreImageFromRecycleBinRequest", reflect.TypeOf((*MockEC2API)(nil).RestoreImageFromRecycleBinRequest), arg0)
+}
+
+// RestoreImageFromRecycleBinWithContext mocks base method.
+func (m *MockEC2API) RestoreImageFromRecycleBinWithContext(arg0 context.Context, arg1 *ec2.RestoreImageFromRecycleBinInput, arg2 ...request.Option) (*ec2.RestoreImageFromRecycleBinOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "RestoreImageFromRecycleBinWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.RestoreImageFromRecycleBinOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// RestoreImageFromRecycleBinWithContext indicates an expected call of RestoreImageFromRecycleBinWithContext.
+func (mr *MockEC2APIMockRecorder) RestoreImageFromRecycleBinWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RestoreImageFromRecycleBinWithContext", reflect.TypeOf((*MockEC2API)(nil).RestoreImageFromRecycleBinWithContext), varargs...)
 }
 
 // RestoreManagedPrefixListVersion mocks base method.

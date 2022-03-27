@@ -3,7 +3,9 @@
 package models
 
 import (
+	"fmt"
 	"log"
+	"regexp"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -17,6 +19,7 @@ type AwsAmplifyBranchInvalidBranchNameRule struct {
 	attributeName string
 	max           int
 	min           int
+	pattern       *regexp.Regexp
 }
 
 // NewAwsAmplifyBranchInvalidBranchNameRule returns new rule with default attributes
@@ -26,6 +29,7 @@ func NewAwsAmplifyBranchInvalidBranchNameRule() *AwsAmplifyBranchInvalidBranchNa
 		attributeName: "branch_name",
 		max:           255,
 		min:           1,
+		pattern:       regexp.MustCompile(`^(?s).+$`),
 	}
 }
 
@@ -83,6 +87,13 @@ func (r *AwsAmplifyBranchInvalidBranchNameRule) Check(runner tflint.Runner) erro
 				runner.EmitIssue(
 					r,
 					"branch_name must be 1 characters or higher",
+					attribute.Expr.Range(),
+				)
+			}
+			if !r.pattern.MatchString(val) {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(?s).+$`),
 					attribute.Expr.Range(),
 				)
 			}

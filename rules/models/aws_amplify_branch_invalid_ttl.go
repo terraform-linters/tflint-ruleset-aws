@@ -3,52 +3,56 @@
 package models
 
 import (
+	"fmt"
 	"log"
+	"regexp"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsAmplifyDomainAssociationInvalidDomainNameRule checks the pattern is valid
-type AwsAmplifyDomainAssociationInvalidDomainNameRule struct {
+// AwsAmplifyBranchInvalidTTLRule checks the pattern is valid
+type AwsAmplifyBranchInvalidTTLRule struct {
 	tflint.DefaultRule
 
 	resourceType  string
 	attributeName string
 	max           int
+	pattern       *regexp.Regexp
 }
 
-// NewAwsAmplifyDomainAssociationInvalidDomainNameRule returns new rule with default attributes
-func NewAwsAmplifyDomainAssociationInvalidDomainNameRule() *AwsAmplifyDomainAssociationInvalidDomainNameRule {
-	return &AwsAmplifyDomainAssociationInvalidDomainNameRule{
-		resourceType:  "aws_amplify_domain_association",
-		attributeName: "domain_name",
-		max:           255,
+// NewAwsAmplifyBranchInvalidTTLRule returns new rule with default attributes
+func NewAwsAmplifyBranchInvalidTTLRule() *AwsAmplifyBranchInvalidTTLRule {
+	return &AwsAmplifyBranchInvalidTTLRule{
+		resourceType:  "aws_amplify_branch",
+		attributeName: "ttl",
+		max:           32,
+		pattern:       regexp.MustCompile(`^\d*$`),
 	}
 }
 
 // Name returns the rule name
-func (r *AwsAmplifyDomainAssociationInvalidDomainNameRule) Name() string {
-	return "aws_amplify_domain_association_invalid_domain_name"
+func (r *AwsAmplifyBranchInvalidTTLRule) Name() string {
+	return "aws_amplify_branch_invalid_ttl"
 }
 
 // Enabled returns whether the rule is enabled by default
-func (r *AwsAmplifyDomainAssociationInvalidDomainNameRule) Enabled() bool {
+func (r *AwsAmplifyBranchInvalidTTLRule) Enabled() bool {
 	return true
 }
 
 // Severity returns the rule severity
-func (r *AwsAmplifyDomainAssociationInvalidDomainNameRule) Severity() tflint.Severity {
+func (r *AwsAmplifyBranchInvalidTTLRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
 // Link returns the rule reference link
-func (r *AwsAmplifyDomainAssociationInvalidDomainNameRule) Link() string {
+func (r *AwsAmplifyBranchInvalidTTLRule) Link() string {
 	return ""
 }
 
 // Check checks the pattern is valid
-func (r *AwsAmplifyDomainAssociationInvalidDomainNameRule) Check(runner tflint.Runner) error {
+func (r *AwsAmplifyBranchInvalidTTLRule) Check(runner tflint.Runner) error {
 	log.Printf("[TRACE] Check `%s` rule", r.Name())
 
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
@@ -73,7 +77,14 @@ func (r *AwsAmplifyDomainAssociationInvalidDomainNameRule) Check(runner tflint.R
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					"domain_name must be 255 characters or less",
+					"ttl must be 32 characters or less",
+					attribute.Expr.Range(),
+				)
+			}
+			if !r.pattern.MatchString(val) {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^\d*$`),
 					attribute.Expr.Range(),
 				)
 			}
