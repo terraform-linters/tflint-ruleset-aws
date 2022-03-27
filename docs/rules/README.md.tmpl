@@ -18,6 +18,7 @@ These rules warn of possible errors that can occur at `terraform apply`. Rules m
 |[aws_db_instance_invalid_type](aws_db_instance_invalid_type.md)|Disallow using invalid instance class||✔|
 |aws_db_instance_invalid_vpc_security_group|Disallow using invalid VPC security groups|✔|✔|
 |aws_dynamodb_table_invalid_stream_view_type|Disallow using invalid stream view types for DynamoDB||✔|
+|[aws_elastic_beanstalk_environment_invalid_name_format](aws_elastic_beanstalk_environment_invalid_name_format.md)|Disallow invalid environment name||✔|
 |aws_elasticache_cluster_invalid_parameter_group|Disallow using invalid parameter group|✔|✔|
 |aws_elasticache_cluster_invalid_security_group|Disallow using invalid security groups|✔|✔|
 |aws_elasticache_cluster_invalid_subnet_group|Disallow using invalid subnet group|✔|✔|
