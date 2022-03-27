@@ -4,13 +4,15 @@ import (
 	"fmt"
 	"regexp"
 
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
 
 // AwsElasticBeanstalkEnvironmentInvalidNameFormatRule checks EB environment name matches a pattern
 type AwsElasticBeanstalkEnvironmentInvalidNameFormatRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 	pattern       *regexp.Regexp
@@ -36,7 +38,7 @@ func (r *AwsElasticBeanstalkEnvironmentInvalidNameFormatRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsElasticBeanstalkEnvironmentInvalidNameFormatRule) Severity() string {
+func (r *AwsElasticBeanstalkEnvironmentInvalidNameFormatRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -47,20 +49,37 @@ func (r *AwsElasticBeanstalkEnvironmentInvalidNameFormatRule) Link() string {
 
 // Check checks the environment name matches the pattern provided
 func (r *AwsElasticBeanstalkEnvironmentInvalidNameFormatRule) Check(runner tflint.Runner) error {
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{{Name: r.attributeName}},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 			if !r.pattern.MatchString(val) {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`%s does not match constraint: must contain only letters, digits, and the dash ` +
-					`character and may not start or end with a dash (^[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]$)`, val),
-					attribute.Expr,
+					fmt.Sprintf(`%s does not match constraint: must contain only letters, digits, and the dash `+
+						`character and may not start or end with a dash (^[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]$)`, val),
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

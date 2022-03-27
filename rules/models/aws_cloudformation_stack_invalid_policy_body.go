@@ -5,12 +5,14 @@ package models
 import (
 	"log"
 
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
 // AwsCloudformationStackInvalidPolicyBodyRule checks the pattern is valid
 type AwsCloudformationStackInvalidPolicyBodyRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 	max           int
@@ -38,7 +40,7 @@ func (r *AwsCloudformationStackInvalidPolicyBodyRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsCloudformationStackInvalidPolicyBodyRule) Severity() string {
+func (r *AwsCloudformationStackInvalidPolicyBodyRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -51,26 +53,45 @@ func (r *AwsCloudformationStackInvalidPolicyBodyRule) Link() string {
 func (r *AwsCloudformationStackInvalidPolicyBodyRule) Check(runner tflint.Runner) error {
 	log.Printf("[TRACE] Check `%s` rule", r.Name())
 
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{
+			{Name: r.attributeName},
+		},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 			if len(val) > r.max {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					"policy_body must be 16384 characters or less",
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			if len(val) < r.min {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					"policy_body must be 1 characters or higher",
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

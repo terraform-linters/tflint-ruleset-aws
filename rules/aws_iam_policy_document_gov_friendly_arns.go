@@ -2,10 +2,9 @@ package rules
 
 import (
 	"fmt"
-	"log"
 	"regexp"
 
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
@@ -14,6 +13,8 @@ const statementBlockName = "statement"
 
 // AwsIAMPolicyDocumentGovFriendlyArnsRule checks for non-GovCloud arns
 type AwsIAMPolicyDocumentGovFriendlyArnsRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 	pattern       *regexp.Regexp
@@ -41,7 +42,7 @@ func (r *AwsIAMPolicyDocumentGovFriendlyArnsRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsIAMPolicyDocumentGovFriendlyArnsRule) Severity() string {
+func (r *AwsIAMPolicyDocumentGovFriendlyArnsRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
@@ -52,29 +53,45 @@ func (r *AwsIAMPolicyDocumentGovFriendlyArnsRule) Link() string {
 
 // Check checks the pattern is valid
 func (r *AwsIAMPolicyDocumentGovFriendlyArnsRule) Check(runner tflint.Runner) error {
-	log.Printf("[TRACE] Check `%s` rule", r.Name())
-	return runner.WalkResourceBlocks(r.resourceType, statementBlockName, func(statementBlock *hcl.Block) error {
-		content, _, diags := statementBlock.Body.PartialContent(&hcl.BodySchema{
-			Attributes: []hcl.AttributeSchema{
-				{Name: r.attributeName},
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Blocks: []hclext.BlockSchema{
+			{
+				Type: statementBlockName,
+				Body: &hclext.BodySchema{Attributes: []hclext.AttributeSchema{{Name: r.attributeName}}},
 			},
-		})
-		if diags.HasErrors() {
-			return diags
-		}
-		var val []string
-		err := runner.EvaluateExpr(content.Attributes[r.attributeName].Expr, &val, nil)
-		return runner.EnsureNoError(err, func() error {
-			for _, arn := range val {
-				if r.pattern.MatchString(arn) {
-					runner.EmitIssueOnExpr(
-						r,
-						fmt.Sprintf(`ARN detected in IAM policy document that could potentially fail in AWS GovCloud due to resource pattern: %s`, r.pattern),
-						content.Attributes[r.attributeName].Expr,
-					)
-				}
+		},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		for _, statement := range resource.Body.Blocks {
+			attribute, exists := statement.Body.Attributes[r.attributeName]
+			if !exists {
+				continue
 			}
-			return nil
-		})
-	})
+
+			var val []string
+			err := runner.EvaluateExpr(attribute.Expr, &val, nil)
+
+			err = runner.EnsureNoError(err, func() error {
+				for _, arn := range val {
+					if r.pattern.MatchString(arn) {
+						runner.EmitIssue(
+							r,
+							fmt.Sprintf(`ARN detected in IAM policy document that could potentially fail in AWS GovCloud due to resource pattern: %s`, r.pattern),
+							attribute.Expr.Range(),
+						)
+					}
+				}
+				return nil
+			})
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
 }

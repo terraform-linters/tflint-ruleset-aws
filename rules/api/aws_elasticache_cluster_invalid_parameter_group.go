@@ -5,14 +5,15 @@ package api
 import (
 	"fmt"
 	"log"
-
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
     "github.com/terraform-linters/tflint-ruleset-aws/aws"
 )
 
 // AwsElastiCacheClusterInvalidParameterGroupRule checks whether attribute value actually exists
 type AwsElastiCacheClusterInvalidParameterGroupRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 	data          map[string]bool
@@ -40,7 +41,7 @@ func (r *AwsElastiCacheClusterInvalidParameterGroupRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsElastiCacheClusterInvalidParameterGroupRule) Severity() string {
+func (r *AwsElastiCacheClusterInvalidParameterGroupRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -49,22 +50,36 @@ func (r *AwsElastiCacheClusterInvalidParameterGroupRule) Link() string {
 	return ""
 }
 
+// Metadata returns the metadata about deep checking
+func (r *AwsElastiCacheClusterInvalidParameterGroupRule) Metadata() interface{} {
+	return map[string]bool{"deep": true}
+}
+
 // Check checks whether the attributes are included in the list retrieved by DescribeCacheParameterGroups
 func (r *AwsElastiCacheClusterInvalidParameterGroupRule) Check(rr tflint.Runner) error {
     runner := rr.(*aws.Runner)
 
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{
+			{Name: r.attributeName},
+		},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		if !r.dataPrepared {
 			log.Print("[DEBUG] invoking DescribeCacheParameterGroups")
 			var err error
 			r.data, err = runner.AwsClient.DescribeCacheParameterGroups()
 			if err != nil {
-				err := &tflint.Error{
-					Code:    tflint.ExternalAPIError,
-					Level:   tflint.ErrorLevel,
-					Message: "An error occurred while invoking DescribeCacheParameterGroups",
-					Cause:   err,
-				}
+				err := fmt.Errorf("An error occurred while invoking DescribeCacheParameterGroups; %w", err)
 				log.Printf("[ERROR] %s", err)
 				return err
 			}
@@ -76,13 +91,15 @@ func (r *AwsElastiCacheClusterInvalidParameterGroupRule) Check(rr tflint.Runner)
 
 		return runner.EnsureNoError(err, func() error {
 			if !r.data[val] {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					fmt.Sprintf(`"%s" is invalid parameter group name.`, val),
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+	}
+
+	return nil
 }

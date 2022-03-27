@@ -7,12 +7,14 @@ import (
 	"log"
 	"regexp"
 
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
 // AwsCloudwatchMetricAlarmInvalidExtendedStatisticRule checks the pattern is valid
 type AwsCloudwatchMetricAlarmInvalidExtendedStatisticRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 	pattern       *regexp.Regexp
@@ -38,7 +40,7 @@ func (r *AwsCloudwatchMetricAlarmInvalidExtendedStatisticRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsCloudwatchMetricAlarmInvalidExtendedStatisticRule) Severity() string {
+func (r *AwsCloudwatchMetricAlarmInvalidExtendedStatisticRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -51,19 +53,38 @@ func (r *AwsCloudwatchMetricAlarmInvalidExtendedStatisticRule) Link() string {
 func (r *AwsCloudwatchMetricAlarmInvalidExtendedStatisticRule) Check(runner tflint.Runner) error {
 	log.Printf("[TRACE] Check `%s` rule", r.Name())
 
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{
+			{Name: r.attributeName},
+		},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 			if !r.pattern.MatchString(val) {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^p(\d{1,2}(\.\d{0,2})?|100)$`),
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

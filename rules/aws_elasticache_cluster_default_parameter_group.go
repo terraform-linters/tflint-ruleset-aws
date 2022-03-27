@@ -4,13 +4,15 @@ import (
 	"fmt"
 	"regexp"
 
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
 
 // AwsElastiCacheClusterDefaultParameterGroupRule checks whether the cluster use default parameter group
 type AwsElastiCacheClusterDefaultParameterGroupRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 }
@@ -34,7 +36,7 @@ func (r *AwsElastiCacheClusterDefaultParameterGroupRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsElastiCacheClusterDefaultParameterGroupRule) Severity() string {
+func (r *AwsElastiCacheClusterDefaultParameterGroupRule) Severity() tflint.Severity {
 	return tflint.NOTICE
 }
 
@@ -47,19 +49,36 @@ var defaultElastiCacheParameterGroupRegexp = regexp.MustCompile("^default")
 
 // Check checks the parameter group name starts with `default`
 func (r *AwsElastiCacheClusterDefaultParameterGroupRule) Check(runner tflint.Runner) error {
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{{Name: r.attributeName}},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var parameterGroup string
 		err := runner.EvaluateExpr(attribute.Expr, &parameterGroup, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 			if defaultElastiCacheParameterGroupRegexp.Match([]byte(parameterGroup)) {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					fmt.Sprintf("\"%s\" is default parameter group. You cannot edit it.", parameterGroup),
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

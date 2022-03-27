@@ -1,17 +1,13 @@
 package aws
 
-import "github.com/hashicorp/hcl/v2"
-
 // Config is the configuration for the ruleset.
 type Config struct {
-	DeepCheck             bool   `hcl:"deep_check,optional"`
-	AccessKey             string `hcl:"access_key,optional"`
-	SecretKey             string `hcl:"secret_key,optional"`
-	Region                string `hcl:"region,optional"`
-	Profile               string `hcl:"profile,optional"`
-	SharedCredentialsFile string `hcl:"shared_credentials_file,optional"`
-
-	Remain hcl.Body `hcl:",remain"`
+	DeepCheck             bool   `hclext:"deep_check,optional"`
+	AccessKey             string `hclext:"access_key,optional"`
+	SecretKey             string `hclext:"secret_key,optional"`
+	Region                string `hclext:"region,optional"`
+	Profile               string `hclext:"profile,optional"`
+	SharedCredentialsFile string `hclext:"shared_credentials_file,optional"`
 }
 
 func (c *Config) toCredentials() Credentials {

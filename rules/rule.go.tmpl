@@ -34,7 +34,7 @@ func (r *{{ .RuleNameCC }}Rule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *{{ .RuleNameCC }}Rule) Severity() string {
+func (r *{{ .RuleNameCC }}Rule) Severity() tflint.Severity {
 	// TODO: Determine the rule's severiry
 	return tflint.ERROR
 }

@@ -1,7 +1,8 @@
 package rules
 
 import (
-	"github.com/terraform-linters/tflint-plugin-sdk/terraform/configs"
+	"github.com/hashicorp/hcl/v2/gohcl"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
@@ -9,6 +10,8 @@ import (
 // AwsAcmCertificateLifecycleRule checks whether `create_before_destroy = true` is set in a lifecycle block of
 // `aws_acm_certificate` resource
 type AwsAcmCertificateLifecycleRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 }
@@ -32,7 +35,7 @@ func (r *AwsAcmCertificateLifecycleRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsAcmCertificateLifecycleRule) Severity() string {
+func (r *AwsAcmCertificateLifecycleRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
@@ -43,12 +46,50 @@ func (r *AwsAcmCertificateLifecycleRule) Link() string {
 
 // Check checks whether the aws_acm_certificate resource contains create_before_destroy = true in lifecycle block
 func (r *AwsAcmCertificateLifecycleRule) Check(runner tflint.Runner) error {
-	return runner.WalkResources("aws_acm_certificate", func(resource *configs.Resource) error {
-		if !resource.Managed.CreateBeforeDestroy {
-			if err := runner.EmitIssue(r, "resource `aws_acm_certificate` needs to contain `create_before_destroy = true` in `lifecycle` block", resource.DeclRange); err != nil {
+	resources, err := runner.GetResourceContent("aws_acm_certificate", &hclext.BodySchema{
+		Blocks: []hclext.BlockSchema{
+			{
+				Type: "lifecycle",
+				Body: &hclext.BodySchema{Attributes: []hclext.AttributeSchema{{Name: "create_before_destroy"}}},
+			},
+		},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		if len(resource.Body.Blocks) == 0 {
+			if err := runner.EmitIssue(r, "resource `aws_acm_certificate` needs to contain `create_before_destroy = true` in `lifecycle` block", resource.DefRange); err != nil {
 				return err
 			}
+			continue
 		}
-		return nil
-	})
+
+		for _, lifecycle := range resource.Body.Blocks {
+			attr, exists := lifecycle.Body.Attributes["create_before_destroy"]
+			if !exists {
+				if err := runner.EmitIssue(r, "resource `aws_acm_certificate` needs to contain `create_before_destroy = true` in `lifecycle` block", resource.DefRange); err != nil {
+					return err
+				}
+				continue
+			}
+
+			var createBeforeDestroy bool
+			// MEMO: lifecycle attributes do not support interpolations
+			//       https://github.com/hashicorp/terraform/issues/3116
+			diags := gohcl.DecodeExpression(attr.Expr, nil, &createBeforeDestroy)
+			if diags.HasErrors() {
+				return diags
+			}
+
+			if !createBeforeDestroy {
+				if err := runner.EmitIssue(r, "resource `aws_acm_certificate` needs to contain `create_before_destroy = true` in `lifecycle` block", resource.DefRange); err != nil {
+					return err
+				}
+			}
+		}
+	}
+
+	return nil
 }
