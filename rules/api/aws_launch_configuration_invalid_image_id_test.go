@@ -10,7 +10,6 @@ import (
 	"github.com/golang/mock/gomock"
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
-	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/aws/mock"
 )
 
@@ -89,7 +88,7 @@ func Test_AwsLaunchConfigurationInvalidImageID_error(t *testing.T) {
 		Content  string
 		Request  *ec2.DescribeImagesInput
 		Response error
-		Error    tflint.Error
+		Error    error
 	}{
 		{
 			Name: "AWS API error",
@@ -105,11 +104,7 @@ resource "aws_launch_configuration" "valid" {
 				"could not find region configuration",
 				nil,
 			),
-			Error: tflint.Error{
-				Code:    tflint.ExternalAPIError,
-				Level:   tflint.ErrorLevel,
-				Message: "An error occurred while describing images; MissingRegion: could not find region configuration",
-			},
+			Error: errors.New("An error occurred while describing images; MissingRegion: could not find region configuration"),
 		},
 		{
 			Name: "Unexpected error",
@@ -121,11 +116,7 @@ resource "aws_launch_configuration" "valid" {
 				ImageIds: aws.StringSlice([]string{"ami-9ad76sd1"}),
 			},
 			Response: errors.New("Unexpected"),
-			Error: tflint.Error{
-				Code:    tflint.ExternalAPIError,
-				Level:   tflint.ErrorLevel,
-				Message: "An error occurred while describing images; Unexpected",
-			},
+			Error:    errors.New("An error occurred while describing images; Unexpected"),
 		},
 	}
 
@@ -142,7 +133,12 @@ resource "aws_launch_configuration" "valid" {
 		runner.AwsClient.EC2 = ec2mock
 
 		err := rule.Check(runner)
-		AssertAppError(t, tc.Error, err)
+		if err == nil {
+			t.Fatal("an error is expected, but does not happen")
+		}
+		if err.Error() != tc.Error.Error() {
+			t.Fatalf("`%s` is expected, but got `%s`", tc.Error.Error(), err.Error())
+		}
 	}
 }
 

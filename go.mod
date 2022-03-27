@@ -24,25 +24,22 @@ require (
 	github.com/onsi/gomega v1.10.4 // indirect
 	github.com/serenize/snaker v0.0.0-20201027110005-a7ad2135616e
 	github.com/sergi/go-diff v1.2.0 // indirect
-	github.com/stretchr/testify v1.7.0 // indirect
-	github.com/terraform-linters/tflint-plugin-sdk v0.9.1
+	github.com/terraform-linters/tflint-plugin-sdk v0.10.0
 	github.com/zclconf/go-cty v1.10.0
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/genproto v0.0.0-20200711021454-869866162049 // indirect
-	google.golang.org/grpc v1.32.0 // indirect
-	google.golang.org/protobuf v1.25.0 // indirect
+	google.golang.org/grpc v1.45.0 // indirect
+	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
 require (
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
-	github.com/golang/protobuf v1.4.2 // indirect
+	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/hashicorp/errwrap v1.0.0 // indirect
-	github.com/hashicorp/go-hclog v0.16.2 // indirect
-	github.com/hashicorp/go-plugin v1.4.2 // indirect
-	github.com/hashicorp/go-version v1.3.0 // indirect
-	github.com/hashicorp/terraform-svchost v0.0.0-20200729002733-f050f53b9734 // indirect
+	github.com/hashicorp/go-hclog v1.2.0 // indirect
+	github.com/hashicorp/go-plugin v1.4.3 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/kr/pretty v0.2.1 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect

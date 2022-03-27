@@ -3,13 +3,15 @@ package rules
 import (
 	"fmt"
 
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
 
 // AwsDBInstanceInvalidTypeRule checks whether "aws_db_instance" has invalid intance type.
 type AwsDBInstanceInvalidTypeRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 	instanceTypes map[string]bool
@@ -192,7 +194,7 @@ func (r *AwsDBInstanceInvalidTypeRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsDBInstanceInvalidTypeRule) Severity() string {
+func (r *AwsDBInstanceInvalidTypeRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -203,19 +205,36 @@ func (r *AwsDBInstanceInvalidTypeRule) Link() string {
 
 // Check checks whether "aws_db_instance" has invalid instance type.
 func (r *AwsDBInstanceInvalidTypeRule) Check(runner tflint.Runner) error {
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{{Name: r.attributeName}},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var instanceType string
 		err := runner.EvaluateExpr(attribute.Expr, &instanceType, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 			if !r.instanceTypes[instanceType] {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					fmt.Sprintf("\"%s\" is invalid instance type.", instanceType),
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

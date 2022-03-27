@@ -2,14 +2,17 @@ package rules
 
 import (
 	"fmt"
-	hcl "github.com/hashicorp/hcl/v2"
+	"regexp"
+
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
-	"regexp"
 )
 
 // AwsIAMPolicyTooLongPolicyRule checks that the policy length is less than 6,144 characters
 type AwsIAMPolicyTooLongPolicyRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 }
@@ -33,7 +36,7 @@ func (r *AwsIAMPolicyTooLongPolicyRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsIAMPolicyTooLongPolicyRule) Severity() string {
+func (r *AwsIAMPolicyTooLongPolicyRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -44,20 +47,38 @@ func (r *AwsIAMPolicyTooLongPolicyRule) Link() string {
 
 // Check checks the length of the policy
 func (r *AwsIAMPolicyTooLongPolicyRule) Check(runner tflint.Runner) error {
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{{Name: r.attributeName}},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var policy string
 		err := runner.EvaluateExpr(attribute.Expr, &policy, nil)
 		whitespaceRegex := regexp.MustCompile(`\s+`)
 		policy = whitespaceRegex.ReplaceAllString(policy, "")
-		return runner.EnsureNoError(err, func() error {
+
+		err = runner.EnsureNoError(err, func() error {
 			if len(policy) > 6144 {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					fmt.Sprintf("The policy length is %d characters and is limited to 6144 characters.", len(policy)),
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

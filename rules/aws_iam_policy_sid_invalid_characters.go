@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"regexp"
 
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
@@ -22,6 +22,8 @@ type AwsIAMPolicySidInvalidCharactersPolicyWithSingleStatement struct {
 
 // AwsIAMPolicySidInvalidCharactersRule checks for invalid characters in SID
 type AwsIAMPolicySidInvalidCharactersRule struct {
+	tflint.DefaultRule
+
 	resourceType    string
 	attributeName   string
 	validCharacters *regexp.Regexp
@@ -47,7 +49,7 @@ func (r *AwsIAMPolicySidInvalidCharactersRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsIAMPolicySidInvalidCharactersRule) Severity() string {
+func (r *AwsIAMPolicySidInvalidCharactersRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -58,11 +60,23 @@ func (r *AwsIAMPolicySidInvalidCharactersRule) Link() string {
 
 // Check checks the unmarshaled policy and loops through statements checking for invalid statement ids
 func (r *AwsIAMPolicySidInvalidCharactersRule) Check(runner tflint.Runner) error {
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{{Name: r.attributeName}},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 			var statements []AwsIAMPolicySidInvalidCharactersPolicyStatement
 
 			policy := AwsIAMPolicySidInvalidCharactersPolicy{}
@@ -84,14 +98,19 @@ func (r *AwsIAMPolicySidInvalidCharactersRule) Check(runner tflint.Runner) error
 				}
 
 				if !r.validCharacters.MatchString(statement.Sid) {
-					runner.EmitIssueOnExpr(
+					runner.EmitIssue(
 						r,
 						fmt.Sprintf("The policy's sid (\"%s\") does not match \"%s\".", statement.Sid, r.validCharacters.String()),
-						attribute.Expr,
+						attribute.Expr.Range(),
 					)
 				}
 			}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

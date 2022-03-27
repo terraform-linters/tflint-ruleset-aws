@@ -7,12 +7,14 @@ import (
 	"log"
 	"regexp"
 
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
 // AwsAppconfigConfigurationProfileInvalidRetrievalRoleArnRule checks the pattern is valid
 type AwsAppconfigConfigurationProfileInvalidRetrievalRoleArnRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 	max           int
@@ -42,7 +44,7 @@ func (r *AwsAppconfigConfigurationProfileInvalidRetrievalRoleArnRule) Enabled() 
 }
 
 // Severity returns the rule severity
-func (r *AwsAppconfigConfigurationProfileInvalidRetrievalRoleArnRule) Severity() string {
+func (r *AwsAppconfigConfigurationProfileInvalidRetrievalRoleArnRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -55,33 +57,52 @@ func (r *AwsAppconfigConfigurationProfileInvalidRetrievalRoleArnRule) Link() str
 func (r *AwsAppconfigConfigurationProfileInvalidRetrievalRoleArnRule) Check(runner tflint.Runner) error {
 	log.Printf("[TRACE] Check `%s` rule", r.Name())
 
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{
+			{Name: r.attributeName},
+		},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 			if len(val) > r.max {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					"retrieval_role_arn must be 2048 characters or less",
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			if len(val) < r.min {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					"retrieval_role_arn must be 20 characters or higher",
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			if !r.pattern.MatchString(val) {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^((arn):(aws|aws-cn|aws-iso|aws-iso-[a-z]{1}|aws-us-gov):(iam)::\d{12}:role[/].*)$`),
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

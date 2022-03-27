@@ -3,13 +3,15 @@ package rules
 import (
 	"fmt"
 
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
 
 // AwsDBInstanceInvalidEngineRule checks whether "aws_db_instance" has invalid engine.
 type AwsDBInstanceInvalidEngineRule struct {
+	tflint.DefaultRule
+
 	resource      string
 	attributeName string
 	engines       map[string]bool
@@ -53,7 +55,7 @@ func (r *AwsDBInstanceInvalidEngineRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsDBInstanceInvalidEngineRule) Severity() string {
+func (r *AwsDBInstanceInvalidEngineRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -64,19 +66,36 @@ func (r *AwsDBInstanceInvalidEngineRule) Link() string {
 
 // Check checks whether "aws_db_instance" has invalid engine.
 func (r *AwsDBInstanceInvalidEngineRule) Check(runner tflint.Runner) error {
-	return runner.WalkResourceAttributes(r.resource, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resource, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{{Name: r.attributeName}},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var engine string
 		err := runner.EvaluateExpr(attribute.Expr, &engine, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 			if !r.engines[engine] {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					fmt.Sprintf("\"%s\" is invalid engine.", engine),
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

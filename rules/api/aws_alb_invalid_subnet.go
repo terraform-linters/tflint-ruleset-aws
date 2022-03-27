@@ -5,14 +5,16 @@ package api
 import (
 	"fmt"
 	"log"
-
 	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
     "github.com/terraform-linters/tflint-ruleset-aws/aws"
 )
 
 // AwsALBInvalidSubnetRule checks whether attribute value actually exists
 type AwsALBInvalidSubnetRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 	data          map[string]bool
@@ -40,7 +42,7 @@ func (r *AwsALBInvalidSubnetRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsALBInvalidSubnetRule) Severity() string {
+func (r *AwsALBInvalidSubnetRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -49,22 +51,36 @@ func (r *AwsALBInvalidSubnetRule) Link() string {
 	return ""
 }
 
+// Metadata returns the metadata about deep checking
+func (r *AwsALBInvalidSubnetRule) Metadata() interface{} {
+	return map[string]bool{"deep": true}
+}
+
 // Check checks whether the attributes are included in the list retrieved by DescribeSubnets
 func (r *AwsALBInvalidSubnetRule) Check(rr tflint.Runner) error {
     runner := rr.(*aws.Runner)
 
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{
+			{Name: r.attributeName},
+		},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		if !r.dataPrepared {
 			log.Print("[DEBUG] invoking DescribeSubnets")
 			var err error
 			r.data, err = runner.AwsClient.DescribeSubnets()
 			if err != nil {
-				err := &tflint.Error{
-					Code:    tflint.ExternalAPIError,
-					Level:   tflint.ErrorLevel,
-					Message: "An error occurred while invoking DescribeSubnets",
-					Cause:   err,
-				}
+				err := fmt.Errorf("An error occurred while invoking DescribeSubnets; %w", err)
 				log.Printf("[ERROR] %s", err)
 				return err
 			}
@@ -73,12 +89,14 @@ func (r *AwsALBInvalidSubnetRule) Check(rr tflint.Runner) error {
 
 		return runner.EachStringSliceExprs(attribute.Expr, func(val string, expr hcl.Expression) {
 			if !r.data[val] {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					fmt.Sprintf(`"%s" is invalid subnet ID.`, val),
-					expr,
+					expr.Range(),
 				)
 			}
 		})
-	})
+	}
+
+	return nil
 }

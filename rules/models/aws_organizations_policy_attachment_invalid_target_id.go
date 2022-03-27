@@ -7,12 +7,14 @@ import (
 	"log"
 	"regexp"
 
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
 // AwsOrganizationsPolicyAttachmentInvalidTargetIDRule checks the pattern is valid
 type AwsOrganizationsPolicyAttachmentInvalidTargetIDRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 	max           int
@@ -40,7 +42,7 @@ func (r *AwsOrganizationsPolicyAttachmentInvalidTargetIDRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsOrganizationsPolicyAttachmentInvalidTargetIDRule) Severity() string {
+func (r *AwsOrganizationsPolicyAttachmentInvalidTargetIDRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -53,26 +55,45 @@ func (r *AwsOrganizationsPolicyAttachmentInvalidTargetIDRule) Link() string {
 func (r *AwsOrganizationsPolicyAttachmentInvalidTargetIDRule) Check(runner tflint.Runner) error {
 	log.Printf("[TRACE] Check `%s` rule", r.Name())
 
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{
+			{Name: r.attributeName},
+		},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 			if len(val) > r.max {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					"target_id must be 100 characters or less",
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			if !r.pattern.MatchString(val) {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(r-[0-9a-z]{4,32})|(\d{12})|(ou-[0-9a-z]{4,32}-[a-z0-9]{8,32})$`),
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

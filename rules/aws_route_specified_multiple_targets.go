@@ -1,14 +1,16 @@
 package rules
 
 import (
-	hcl "github.com/hashicorp/hcl/v2"
-	"github.com/terraform-linters/tflint-plugin-sdk/terraform/configs"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
+	"github.com/zclconf/go-cty/cty"
 )
 
 // AwsRouteSpecifiedMultipleTargetsRule checks whether a route definition has multiple routing targets
 type AwsRouteSpecifiedMultipleTargetsRule struct {
+	tflint.DefaultRule
+
 	resourceType string
 }
 
@@ -30,7 +32,7 @@ func (r *AwsRouteSpecifiedMultipleTargetsRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsRouteSpecifiedMultipleTargetsRule) Severity() string {
+func (r *AwsRouteSpecifiedMultipleTargetsRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -41,65 +43,46 @@ func (r *AwsRouteSpecifiedMultipleTargetsRule) Link() string {
 
 // Check checks whether a resource defines multiple targets
 func (r *AwsRouteSpecifiedMultipleTargetsRule) Check(runner tflint.Runner) error {
-	return runner.WalkResources(r.resourceType, func(resource *configs.Resource) error {
-		body, _, diags := resource.Config.PartialContent(&hcl.BodySchema{
-			Attributes: []hcl.AttributeSchema{
-				{
-					Name: "gateway_id",
-				},
-				{
-					Name: "egress_only_gateway_id",
-				},
-				{
-					Name: "nat_gateway_id",
-				},
-				{
-					Name: "instance_id",
-				},
-				{
-					Name: "vpc_peering_connection_id",
-				},
-				{
-					Name: "network_interface_id",
-				},
-				{
-					Name: "transit_gateway_id",
-				},
-				{
-					Name: "vpc_endpoint_id",
-				},
-				{
-					Name: "carrier_gateway_id",
-				},
-				{
-					Name: "local_gateway_id",
-				},
-			},
-		})
-		if diags.HasErrors() {
-			return diags
-		}
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{
+			{Name: "gateway_id"},
+			{Name: "egress_only_gateway_id"},
+			{Name: "nat_gateway_id"},
+			{Name: "instance_id"},
+			{Name: "vpc_peering_connection_id"},
+			{Name: "network_interface_id"},
+			{Name: "transit_gateway_id"},
+			{Name: "vpc_endpoint_id"},
+			{Name: "carrier_gateway_id"},
+			{Name: "local_gateway_id"},
+		},
+	}, nil)
+	if err != nil {
+		return err
+	}
 
+	for _, resource := range resources.Blocks {
 		var nullAttributes int
-		for _, attribute := range body.Attributes {
-			isNull, err := runner.IsNullExpr(attribute.Expr)
+		for _, attribute := range resource.Body.Attributes {
+			var val cty.Value
+			err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 			if err != nil {
 				return err
 			}
 
-			if isNull {
+			if val.IsNull() {
 				nullAttributes = nullAttributes + 1
 			}
 		}
 
-		if len(body.Attributes)-nullAttributes > 1 {
+		if len(resource.Body.Attributes)-nullAttributes > 1 {
 			runner.EmitIssue(
 				r,
 				"More than one routing target specified. It must be one.",
-				resource.DeclRange,
+				resource.DefRange,
 			)
 		}
+	}
 
-		return nil
-	})
+	return nil
 }

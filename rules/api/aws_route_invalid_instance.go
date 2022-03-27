@@ -5,14 +5,15 @@ package api
 import (
 	"fmt"
 	"log"
-
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
     "github.com/terraform-linters/tflint-ruleset-aws/aws"
 )
 
 // AwsRouteInvalidInstanceRule checks whether attribute value actually exists
 type AwsRouteInvalidInstanceRule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 	data          map[string]bool
@@ -40,7 +41,7 @@ func (r *AwsRouteInvalidInstanceRule) Enabled() bool {
 }
 
 // Severity returns the rule severity
-func (r *AwsRouteInvalidInstanceRule) Severity() string {
+func (r *AwsRouteInvalidInstanceRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
@@ -49,22 +50,36 @@ func (r *AwsRouteInvalidInstanceRule) Link() string {
 	return ""
 }
 
+// Metadata returns the metadata about deep checking
+func (r *AwsRouteInvalidInstanceRule) Metadata() interface{} {
+	return map[string]bool{"deep": true}
+}
+
 // Check checks whether the attributes are included in the list retrieved by DescribeInstances
 func (r *AwsRouteInvalidInstanceRule) Check(rr tflint.Runner) error {
     runner := rr.(*aws.Runner)
 
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{
+			{Name: r.attributeName},
+		},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		if !r.dataPrepared {
 			log.Print("[DEBUG] invoking DescribeInstances")
 			var err error
 			r.data, err = runner.AwsClient.DescribeInstances()
 			if err != nil {
-				err := &tflint.Error{
-					Code:    tflint.ExternalAPIError,
-					Level:   tflint.ErrorLevel,
-					Message: "An error occurred while invoking DescribeInstances",
-					Cause:   err,
-				}
+				err := fmt.Errorf("An error occurred while invoking DescribeInstances; %w", err)
 				log.Printf("[ERROR] %s", err)
 				return err
 			}
@@ -76,13 +91,15 @@ func (r *AwsRouteInvalidInstanceRule) Check(rr tflint.Runner) error {
 
 		return runner.EnsureNoError(err, func() error {
 			if !r.data[val] {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					fmt.Sprintf(`"%s" is invalid instance ID.`, val),
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+	}
+
+	return nil
 }
