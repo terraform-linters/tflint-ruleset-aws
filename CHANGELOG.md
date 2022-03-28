@@ -1,3 +1,9 @@
+## 0.13.1 (2022-03-28)
+
+### BugFixes
+
+- [#320](https://github.com/terraform-linters/tflint-ruleset-aws/pull/320): Call EnsureNoError after evaluating `aws_route` expression so unevaluable expressions are skipped ([@jandersen-plaid](https://github.com/jandersen-plaid))
+
 ## 0.13.0 (2022-03-27)
 
 The minimum supported version of TFLint has changed in this version. TFLint v0.35.0+ is required for this plugin to work.
