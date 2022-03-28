@@ -66,13 +66,16 @@ func (r *AwsRouteSpecifiedMultipleTargetsRule) Check(runner tflint.Runner) error
 		for _, attribute := range resource.Body.Attributes {
 			var val cty.Value
 			err := runner.EvaluateExpr(attribute.Expr, &val, nil)
+			err = runner.EnsureNoError(err, func() error {
+				if val.IsNull() {
+					nullAttributes = nullAttributes + 1
+				}
+				return nil
+			})
 			if err != nil {
 				return err
 			}
 
-			if val.IsNull() {
-				nullAttributes = nullAttributes + 1
-			}
 		}
 
 		if len(resource.Body.Attributes)-nullAttributes > 1 {
