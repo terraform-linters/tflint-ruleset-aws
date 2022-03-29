@@ -1,3 +1,14 @@
+## 0.13.2 (2022-03-29)
+
+### BugFixes
+
+- [#327](https://github.com/terraform-linters/tflint-ruleset-aws/pull/327): Suppress unevaluable/unknown/null errors on provider block eval ([@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#321](https://github.com/terraform-linters/tflint-ruleset-aws/pull/321): Bump peter-evans/create-pull-request from 3 to 4
+- [#322](https://github.com/terraform-linters/tflint-ruleset-aws/pull/322): Bump actions/cache from 2 to 3
+
 ## 0.13.1 (2022-03-28)
 
 ### BugFixes
