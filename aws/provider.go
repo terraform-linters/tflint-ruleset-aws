@@ -60,56 +60,56 @@ func GetCredentialsFromProvider(runner tflint.Runner) (Credentials, error) {
 		opts := &tflint.EvaluateExprOption{ModuleCtx: tflint.RootModuleCtxType}
 
 		if attr, exists := provider.Body.Attributes["access_key"]; exists {
-			if err := runner.EvaluateExpr(attr.Expr, &creds.AccessKey, opts); err != nil {
+			if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.AccessKey, opts), func() error { return nil }); err != nil {
 				return creds, err
 			}
 		}
 
 		if attr, exists := provider.Body.Attributes["secret_key"]; exists {
-			if err := runner.EvaluateExpr(attr.Expr, &creds.SecretKey, opts); err != nil {
+			if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.SecretKey, opts), func() error { return nil }); err != nil {
 				return creds, err
 			}
 		}
 
 		if attr, exists := provider.Body.Attributes["profile"]; exists {
-			if err := runner.EvaluateExpr(attr.Expr, &creds.Profile, opts); err != nil {
+			if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.Profile, opts), func() error { return nil }); err != nil {
 				return creds, err
 			}
 		}
 
 		if attr, exists := provider.Body.Attributes["shared_credentials_file"]; exists {
-			if err := runner.EvaluateExpr(attr.Expr, &creds.CredsFile, opts); err != nil {
+			if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.CredsFile, opts), func() error { return nil }); err != nil {
 				return creds, err
 			}
 		}
 
 		if attr, exists := provider.Body.Attributes["region"]; exists {
-			if err := runner.EvaluateExpr(attr.Expr, &creds.Region, opts); err != nil {
+			if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.Region, opts), func() error { return nil }); err != nil {
 				return creds, err
 			}
 		}
 
 		for _, assumeRole := range provider.Body.Blocks {
 			if attr, exists := assumeRole.Body.Attributes["role_arn"]; exists {
-				if err := runner.EvaluateExpr(attr.Expr, &creds.AssumeRoleARN, opts); err != nil {
+				if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.AssumeRoleARN, opts), func() error { return nil }); err != nil {
 					return creds, err
 				}
 			}
 
 			if attr, exists := assumeRole.Body.Attributes["session_name"]; exists {
-				if err := runner.EvaluateExpr(attr.Expr, &creds.AssumeRoleSessionName, opts); err != nil {
+				if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.AssumeRoleSessionName, opts), func() error { return nil }); err != nil {
 					return creds, err
 				}
 			}
 
 			if attr, exists := assumeRole.Body.Attributes["external_id"]; exists {
-				if err := runner.EvaluateExpr(attr.Expr, &creds.AssumeRoleExternalID, opts); err != nil {
+				if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.AssumeRoleExternalID, opts), func() error { return nil }); err != nil {
 					return creds, err
 				}
 			}
 
 			if attr, exists := assumeRole.Body.Attributes["policy"]; exists {
-				if err := runner.EvaluateExpr(attr.Expr, &creds.AssumeRolePolicy, opts); err != nil {
+				if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.AssumeRolePolicy, opts), func() error { return nil }); err != nil {
 					return creds, err
 				}
 			}
