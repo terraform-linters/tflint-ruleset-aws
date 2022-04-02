@@ -3,11 +3,12 @@ package utils
 import (
 	"fmt"
 	"os"
+	"regexp"
 	"strings"
 	"text/template"
-
-	"github.com/serenize/snaker"
 )
+
+var heading = regexp.MustCompile("(^[A-Za-z])|_([A-Za-z])")
 
 // ToCamel converts a string to CamelCase
 func ToCamel(str string) string {
@@ -18,13 +19,42 @@ func ToCamel(str string) string {
 		"elb":         "ELB",
 		"elasticache": "ElastiCache",
 		"iam":         "IAM",
+		"ip":          "IP",
+		"sql":         "SQL",
+		"vm":          "VM",
+		"os":          "OS",
+		"id":          "ID",
+		"tls":         "TLS",
+		"oauth":       "OAuth",
+		"ttl":         "TTL",
+		"api":         "API",
+		"uri":         "URI",
+		"url":         "URL",
+		"http":        "HTTP",
+		"ui":          "UI",
+		"dns":         "DNS",
+		"ssh":         "SSH",
+		"acl":         "ACL",
+		"xss":         "XSS",
+		"docdb":       "DocDB",
+		"dynamodb":    "DynamoDB",
+		"memorydb":    "MemoryDB",
 	}
-	for pattern, conv := range exceptions {
-		str = strings.Replace(str, "_"+pattern+"_", "_"+conv+"_", -1)
-		str = strings.Replace(str, pattern+"_", conv+"_", -1)
-		str = strings.Replace(str, "_"+pattern, "_"+conv, -1)
+	parts := strings.Split(str, "_")
+	replaced := make([]string, len(parts))
+	for i, s := range parts {
+		conv, ok := exceptions[s]
+		if ok {
+			replaced[i] = conv
+		} else {
+			replaced[i] = s
+		}
 	}
-	return snaker.SnakeToCamel(str)
+	str = strings.Join(replaced, "_")
+
+	return heading.ReplaceAllStringFunc(str, func(s string) string {
+		return strings.ToUpper(strings.Replace(s, "_", "", -1))
+	})
 }
 
 // GenerateFile generates a new file from the passed template and metadata
