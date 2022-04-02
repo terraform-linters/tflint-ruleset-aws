@@ -20,9 +20,6 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mitchellh/go-testing-interface v1.14.1 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.0 // indirect
-	github.com/onsi/ginkgo v1.14.2 // indirect
-	github.com/onsi/gomega v1.10.4 // indirect
-	github.com/serenize/snaker v0.0.0-20201027110005-a7ad2135616e
 	github.com/sergi/go-diff v1.2.0 // indirect
 	github.com/terraform-linters/tflint-plugin-sdk v0.10.0
 	github.com/zclconf/go-cty v1.10.0
