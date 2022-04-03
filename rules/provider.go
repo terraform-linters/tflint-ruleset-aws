@@ -6,49 +6,45 @@ import (
 	"github.com/terraform-linters/tflint-ruleset-aws/rules/models"
 )
 
-var rules = [][]tflint.Rule{
-	[]tflint.Rule{
-		NewAwsDBInstanceDefaultParameterGroupRule(),
-		NewAwsDBInstanceInvalidEngineRule(),
-		NewAwsDBInstanceInvalidTypeRule(),
-		NewAwsDBInstancePreviousTypeRule(),
-		NewAwsDynamoDBTableInvalidStreamViewTypeRule(),
-		NewAwsElastiCacheClusterDefaultParameterGroupRule(),
-		NewAwsElastiCacheClusterInvalidTypeRule(),
-		NewAwsElastiCacheClusterPreviousTypeRule(),
-		NewAwsIAMPolicyDocumentGovFriendlyArnsRule(),
-		NewAwsIAMPolicyGovFriendlyArnsRule(),
-		NewAwsIAMRolePolicyGovFriendlyArnsRule(),
-		NewAwsInstancePreviousTypeRule(),
-		NewAwsMqBrokerInvalidEngineTypeRule(),
-		NewAwsMqConfigurationInvalidEngineTypeRule(),
-		NewAwsResourceMissingTagsRule(),
-		NewAwsRouteNotSpecifiedTargetRule(),
-		NewAwsRouteSpecifiedMultipleTargetsRule(),
-		NewAwsS3BucketInvalidACLRule(),
-		NewAwsS3BucketInvalidRegionRule(),
-		NewAwsS3BucketNameRule(),
-		NewAwsSpotFleetRequestInvalidExcessCapacityTerminationPolicyRule(),
-		NewAwsAPIGatewayModelInvalidNameRule(),
-		NewAwsElastiCacheReplicationGroupDefaultParameterGroupRule(),
-		NewAwsElastiCacheReplicationGroupInvalidTypeRule(),
-		NewAwsElastiCacheReplicationGroupPreviousTypeRule(),
-		NewAwsIAMPolicySidInvalidCharactersRule(),
-		NewAwsIAMPolicyTooLongPolicyRule(),
-		NewAwsLambdaFunctionDeprecatedRuntimeRule(),
-		NewAwsIAMGroupPolicyTooLongRule(),
-		NewAwsAcmCertificateLifecycleRule(),
-		NewAwsElasticBeanstalkEnvironmentInvalidNameFormatRule(),
-	},
-	models.Rules,
-	api.Rules,
+var manualRules = []tflint.Rule{
+	NewAwsDBInstanceDefaultParameterGroupRule(),
+	NewAwsDBInstanceInvalidEngineRule(),
+	NewAwsDBInstanceInvalidTypeRule(),
+	NewAwsDBInstancePreviousTypeRule(),
+	NewAwsDynamoDBTableInvalidStreamViewTypeRule(),
+	NewAwsElastiCacheClusterDefaultParameterGroupRule(),
+	NewAwsElastiCacheClusterInvalidTypeRule(),
+	NewAwsElastiCacheClusterPreviousTypeRule(),
+	NewAwsIAMPolicyDocumentGovFriendlyArnsRule(),
+	NewAwsIAMPolicyGovFriendlyArnsRule(),
+	NewAwsIAMRolePolicyGovFriendlyArnsRule(),
+	NewAwsInstancePreviousTypeRule(),
+	NewAwsMqBrokerInvalidEngineTypeRule(),
+	NewAwsMqConfigurationInvalidEngineTypeRule(),
+	NewAwsResourceMissingTagsRule(),
+	NewAwsRouteNotSpecifiedTargetRule(),
+	NewAwsRouteSpecifiedMultipleTargetsRule(),
+	NewAwsS3BucketInvalidACLRule(),
+	NewAwsS3BucketInvalidRegionRule(),
+	NewAwsS3BucketNameRule(),
+	NewAwsSpotFleetRequestInvalidExcessCapacityTerminationPolicyRule(),
+	NewAwsAPIGatewayModelInvalidNameRule(),
+	NewAwsElastiCacheReplicationGroupDefaultParameterGroupRule(),
+	NewAwsElastiCacheReplicationGroupInvalidTypeRule(),
+	NewAwsElastiCacheReplicationGroupPreviousTypeRule(),
+	NewAwsIAMPolicySidInvalidCharactersRule(),
+	NewAwsIAMPolicyTooLongPolicyRule(),
+	NewAwsLambdaFunctionDeprecatedRuntimeRule(),
+	NewAwsIAMGroupPolicyTooLongRule(),
+	NewAwsAcmCertificateLifecycleRule(),
+	NewAwsElasticBeanstalkEnvironmentInvalidNameFormatRule(),
 }
 
 // Rules is a list of all rules
 var Rules []tflint.Rule
 
 func init() {
-	for _, r := range rules {
-		Rules = append(Rules, r...)
-	}
+	Rules = append(Rules, manualRules...)
+	Rules = append(Rules, models.Rules...)
+	Rules = append(Rules, api.Rules...)
 }

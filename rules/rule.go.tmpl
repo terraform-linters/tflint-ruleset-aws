@@ -1,7 +1,7 @@
 package rules
 
 import (
-	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
@@ -9,6 +9,8 @@ import (
 // TODO: Write the rule's description here
 // {{ .RuleNameCC }}Rule checks ...
 type {{ .RuleNameCC }}Rule struct {
+	tflint.DefaultRule
+
 	resourceType  string
 	attributeName string
 }
@@ -51,19 +53,38 @@ func (r *{{ .RuleNameCC }}Rule) Check(runner tflint.Runner) error {
 	// TODO: Write the implementation here. See this documentation for what tflint.Runner can do.
 	//       https://pkg.go.dev/github.com/terraform-linters/tflint-plugin-sdk/tflint#Runner
 
-	return runner.WalkResourceAttributes(r.resourceType, r.attributeName, func(attribute *hcl.Attribute) error {
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{
+			{Name: r.attributeName},
+		},
+	}, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, resource := range resources.Blocks {
+		attribute, exists := resource.Body.Attributes[r.attributeName]
+		if !exists {
+			continue
+		}
+
 		var val string
 		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
-		return runner.EnsureNoError(err, func() error {
+		err = runner.EnsureNoError(err, func() error {
 			if val == "" {
-				runner.EmitIssueOnExpr(
+				runner.EmitIssue(
 					r,
 					"TODO",
-					attribute.Expr,
+					attribute.Expr.Range(),
 				)
 			}
 			return nil
 		})
-	})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
