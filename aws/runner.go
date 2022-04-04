@@ -3,6 +3,7 @@ package aws
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
@@ -48,6 +49,7 @@ func (r *Runner) AwsClient(attributes hclext.Attributes) (*Client, error) {
 		if err := r.EnsureNoError(r.EvaluateExpr(attr.Expr, &provider, nil), func() error { return nil }); err != nil {
 			return nil, err
 		}
+		provider = strings.TrimPrefix(provider, "aws.")
 	}
 
 	awsClient, ok := r.AwsClients[provider]
