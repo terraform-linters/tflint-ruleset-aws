@@ -5,9 +5,10 @@ package api
 import (
 	"fmt"
 	"log"
+
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
-    "github.com/terraform-linters/tflint-ruleset-aws/aws"
+	"github.com/terraform-linters/tflint-ruleset-aws/aws"
 )
 
 // AwsRouteInvalidInstanceRule checks whether attribute value actually exists
@@ -57,7 +58,7 @@ func (r *AwsRouteInvalidInstanceRule) Metadata() interface{} {
 
 // Check checks whether the attributes are included in the list retrieved by DescribeInstances
 func (r *AwsRouteInvalidInstanceRule) Check(rr tflint.Runner) error {
-    runner := rr.(*aws.Runner)
+	runner := rr.(*aws.Runner)
 
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{
