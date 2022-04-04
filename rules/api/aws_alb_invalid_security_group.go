@@ -5,10 +5,11 @@ package api
 import (
 	"fmt"
 	"log"
+
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
-    "github.com/terraform-linters/tflint-ruleset-aws/aws"
+	"github.com/terraform-linters/tflint-ruleset-aws/aws"
 )
 
 // AwsALBInvalidSecurityGroupRule checks whether attribute value actually exists
@@ -58,11 +59,12 @@ func (r *AwsALBInvalidSecurityGroupRule) Metadata() interface{} {
 
 // Check checks whether the attributes are included in the list retrieved by DescribeSecurityGroups
 func (r *AwsALBInvalidSecurityGroupRule) Check(rr tflint.Runner) error {
-    runner := rr.(*aws.Runner)
+	runner := rr.(*aws.Runner)
 
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{
 			{Name: r.attributeName},
+			{Name: "provider"},
 		},
 	}, nil)
 	if err != nil {
@@ -75,10 +77,15 @@ func (r *AwsALBInvalidSecurityGroupRule) Check(rr tflint.Runner) error {
 			continue
 		}
 
+		awsClient, err := runner.AwsClient(resource.Body.Attributes)
+		if err != nil {
+			return err
+		}
+
 		if !r.dataPrepared {
 			log.Print("[DEBUG] invoking DescribeSecurityGroups")
 			var err error
-			r.data, err = runner.AwsClient.DescribeSecurityGroups()
+			r.data, err = awsClient.DescribeSecurityGroups()
 			if err != nil {
 				err := fmt.Errorf("An error occurred while invoking DescribeSecurityGroups; %w", err)
 				log.Printf("[ERROR] %s", err)

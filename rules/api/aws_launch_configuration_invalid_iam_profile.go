@@ -5,9 +5,10 @@ package api
 import (
 	"fmt"
 	"log"
+
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
-    "github.com/terraform-linters/tflint-ruleset-aws/aws"
+	"github.com/terraform-linters/tflint-ruleset-aws/aws"
 )
 
 // AwsLaunchConfigurationInvalidIAMProfileRule checks whether attribute value actually exists
@@ -57,11 +58,12 @@ func (r *AwsLaunchConfigurationInvalidIAMProfileRule) Metadata() interface{} {
 
 // Check checks whether the attributes are included in the list retrieved by ListInstanceProfiles
 func (r *AwsLaunchConfigurationInvalidIAMProfileRule) Check(rr tflint.Runner) error {
-    runner := rr.(*aws.Runner)
+	runner := rr.(*aws.Runner)
 
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{
 			{Name: r.attributeName},
+			{Name: "provider"},
 		},
 	}, nil)
 	if err != nil {
@@ -75,9 +77,12 @@ func (r *AwsLaunchConfigurationInvalidIAMProfileRule) Check(rr tflint.Runner) er
 		}
 
 		if !r.dataPrepared {
+			awsClient, err := runner.AwsClient(resource.Body.Attributes)
+			if err != nil {
+				return err
+			}
 			log.Print("[DEBUG] invoking ListInstanceProfiles")
-			var err error
-			r.data, err = runner.AwsClient.ListInstanceProfiles()
+			r.data, err = awsClient.ListInstanceProfiles()
 			if err != nil {
 				err := fmt.Errorf("An error occurred while invoking ListInstanceProfiles; %w", err)
 				log.Printf("[ERROR] %s", err)

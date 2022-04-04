@@ -5,9 +5,10 @@ package api
 import (
 	"fmt"
 	"log"
+
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
-    "github.com/terraform-linters/tflint-ruleset-aws/aws"
+	"github.com/terraform-linters/tflint-ruleset-aws/aws"
 )
 
 // AwsInstanceInvalidSubnetRule checks whether attribute value actually exists
@@ -57,11 +58,12 @@ func (r *AwsInstanceInvalidSubnetRule) Metadata() interface{} {
 
 // Check checks whether the attributes are included in the list retrieved by DescribeSubnets
 func (r *AwsInstanceInvalidSubnetRule) Check(rr tflint.Runner) error {
-    runner := rr.(*aws.Runner)
+	runner := rr.(*aws.Runner)
 
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{
 			{Name: r.attributeName},
+			{Name: "provider"},
 		},
 	}, nil)
 	if err != nil {
@@ -74,10 +76,15 @@ func (r *AwsInstanceInvalidSubnetRule) Check(rr tflint.Runner) error {
 			continue
 		}
 
+		awsClient, err := runner.AwsClient(resource.Body.Attributes)
+		if err != nil {
+			return err
+		}
+
 		if !r.dataPrepared {
 			log.Print("[DEBUG] invoking DescribeSubnets")
 			var err error
-			r.data, err = runner.AwsClient.DescribeSubnets()
+			r.data, err = awsClient.DescribeSubnets()
 			if err != nil {
 				err := fmt.Errorf("An error occurred while invoking DescribeSubnets; %w", err)
 				log.Printf("[ERROR] %s", err)
@@ -87,7 +94,7 @@ func (r *AwsInstanceInvalidSubnetRule) Check(rr tflint.Runner) error {
 		}
 
 		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
+		err = runner.EvaluateExpr(attribute.Expr, &val, nil)
 
 		return runner.EnsureNoError(err, func() error {
 			if !r.data[val] {

@@ -66,6 +66,7 @@ func (r *{{ .RuleNameCC }}Rule) Check(rr tflint.Runner) error {
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{
 			{Name: r.attributeName},
+			{Name: "provider"},
 		},
 	}, nil)
 	if err != nil {
@@ -79,9 +80,12 @@ func (r *{{ .RuleNameCC }}Rule) Check(rr tflint.Runner) error {
 		}
 
 		if !r.dataPrepared {
+			awsClient, err := runner.AwsClient(resource.Body.Attributes)
+			if err != nil {
+				return err
+			}
 			log.Print("[DEBUG] invoking {{ .ActionName }}")
-			var err error
-			r.data, err = runner.AwsClient.{{ .ActionName }}()
+			r.data, err = awsClient.{{ .ActionName }}()
 			if err != nil {
 				err := fmt.Errorf("An error occurred while invoking {{ .ActionName }}; %w", err)
 				log.Printf("[ERROR] %s", err)

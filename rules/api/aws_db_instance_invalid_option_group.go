@@ -5,9 +5,10 @@ package api
 import (
 	"fmt"
 	"log"
+
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
-    "github.com/terraform-linters/tflint-ruleset-aws/aws"
+	"github.com/terraform-linters/tflint-ruleset-aws/aws"
 )
 
 // AwsDBInstanceInvalidOptionGroupRule checks whether attribute value actually exists
@@ -57,11 +58,12 @@ func (r *AwsDBInstanceInvalidOptionGroupRule) Metadata() interface{} {
 
 // Check checks whether the attributes are included in the list retrieved by DescribeOptionGroups
 func (r *AwsDBInstanceInvalidOptionGroupRule) Check(rr tflint.Runner) error {
-    runner := rr.(*aws.Runner)
+	runner := rr.(*aws.Runner)
 
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{
 			{Name: r.attributeName},
+			{Name: "provider"},
 		},
 	}, nil)
 	if err != nil {
@@ -75,9 +77,12 @@ func (r *AwsDBInstanceInvalidOptionGroupRule) Check(rr tflint.Runner) error {
 		}
 
 		if !r.dataPrepared {
+			awsClient, err := runner.AwsClient(resource.Body.Attributes)
+			if err != nil {
+				return err
+			}
 			log.Print("[DEBUG] invoking DescribeOptionGroups")
-			var err error
-			r.data, err = runner.AwsClient.DescribeOptionGroups()
+			r.data, err = awsClient.DescribeOptionGroups()
 			if err != nil {
 				err := fmt.Errorf("An error occurred while invoking DescribeOptionGroups; %w", err)
 				log.Printf("[ERROR] %s", err)

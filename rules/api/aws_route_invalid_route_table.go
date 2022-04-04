@@ -5,9 +5,10 @@ package api
 import (
 	"fmt"
 	"log"
+
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
-    "github.com/terraform-linters/tflint-ruleset-aws/aws"
+	"github.com/terraform-linters/tflint-ruleset-aws/aws"
 )
 
 // AwsRouteInvalidRouteTableRule checks whether attribute value actually exists
@@ -57,11 +58,12 @@ func (r *AwsRouteInvalidRouteTableRule) Metadata() interface{} {
 
 // Check checks whether the attributes are included in the list retrieved by DescribeRouteTables
 func (r *AwsRouteInvalidRouteTableRule) Check(rr tflint.Runner) error {
-    runner := rr.(*aws.Runner)
+	runner := rr.(*aws.Runner)
 
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{
 			{Name: r.attributeName},
+			{Name: "provider"},
 		},
 	}, nil)
 	if err != nil {
@@ -75,9 +77,12 @@ func (r *AwsRouteInvalidRouteTableRule) Check(rr tflint.Runner) error {
 		}
 
 		if !r.dataPrepared {
+			awsClient, err := runner.AwsClient(resource.Body.Attributes)
+			if err != nil {
+				return err
+			}
 			log.Print("[DEBUG] invoking DescribeRouteTables")
-			var err error
-			r.data, err = runner.AwsClient.DescribeRouteTables()
+			r.data, err = awsClient.DescribeRouteTables()
 			if err != nil {
 				err := fmt.Errorf("An error occurred while invoking DescribeRouteTables; %w", err)
 				log.Printf("[ERROR] %s", err)
