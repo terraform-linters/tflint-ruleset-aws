@@ -1,9 +1,11 @@
 package aws
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
@@ -11,29 +13,49 @@ import (
 type Runner struct {
 	tflint.Runner
 	PluginConfig *Config
-	AwsClient    *Client
+	AwsClients   map[string]*Client
 }
 
 // NewRunner returns a custom AWS runner.
 func NewRunner(runner tflint.Runner, config *Config) (*Runner, error) {
-	var client *Client
+	clients := map[string]*Client{
+		"aws": nil,
+	}
 	if config.DeepCheck {
 		credentials, err := GetCredentialsFromProvider(runner)
 		if err != nil {
 			return nil, err
 		}
-
-		client, err = NewClient(config.toCredentials().Merge(credentials))
-		if err != nil {
-			return nil, err
+		for k, cred := range credentials {
+			client, err := NewClient(config.toCredentials().Merge(cred))
+			if err != nil {
+				return nil, err
+			}
+			clients[k] = client
 		}
 	}
 
 	return &Runner{
 		Runner:       runner,
 		PluginConfig: config,
-		AwsClient:    client,
+		AwsClients:   clients,
 	}, nil
+}
+
+func (r *Runner) AwsClient(attributes hclext.Attributes) (*Client, error) {
+	provider := "aws"
+	if attr, exists := attributes["provider"]; exists {
+		if err := r.EnsureNoError(r.EvaluateExpr(attr.Expr, &provider, nil), func() error { return nil }); err != nil {
+			return nil, err
+		}
+	}
+
+	awsClient, ok := r.AwsClients[provider]
+	if !ok {
+		return nil, fmt.Errorf("aws provider %s isn't found", provider)
+	}
+
+	return awsClient, nil
 }
 
 // EachStringSliceExprs iterates an evaluated value and the corresponding expression

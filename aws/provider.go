@@ -13,6 +13,7 @@ var AwsProviderBlockSchema = &hclext.BodySchema{
 		{Name: "profile"},
 		{Name: "shared_credentials_file"},
 		{Name: "region"},
+		{Name: "alias"},
 	},
 	Blocks: []hclext.BlockSchema{
 		{
@@ -33,9 +34,7 @@ var AwsProviderAssumeRoleBlockShema = &hclext.BodySchema{
 }
 
 // GetCredentialsFromProvider retrieves credentials from the "provider" block in the Terraform configuration
-func GetCredentialsFromProvider(runner tflint.Runner) (Credentials, error) {
-	creds := Credentials{}
-
+func GetCredentialsFromProvider(runner tflint.Runner) (map[string]Credentials, error) {
 	providers, err := runner.GetModuleContent(
 		&hclext.BodySchema{
 			Blocks: []hclext.BlockSchema{
@@ -49,72 +48,85 @@ func GetCredentialsFromProvider(runner tflint.Runner) (Credentials, error) {
 		&tflint.GetModuleContentOption{ModuleCtx: tflint.RootModuleCtxType},
 	)
 	if err != nil {
-		return creds, err
+		return nil, err
 	}
+
+	m := map[string]Credentials{}
 
 	for _, provider := range providers.Blocks {
 		if provider.Labels[0] != "aws" {
 			continue
 		}
 
+		creds := Credentials{}
+
 		opts := &tflint.EvaluateExprOption{ModuleCtx: tflint.RootModuleCtxType}
 
 		if attr, exists := provider.Body.Attributes["access_key"]; exists {
 			if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.AccessKey, opts), func() error { return nil }); err != nil {
-				return creds, err
+				return nil, err
 			}
 		}
 
 		if attr, exists := provider.Body.Attributes["secret_key"]; exists {
 			if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.SecretKey, opts), func() error { return nil }); err != nil {
-				return creds, err
+				return nil, err
 			}
 		}
 
 		if attr, exists := provider.Body.Attributes["profile"]; exists {
 			if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.Profile, opts), func() error { return nil }); err != nil {
-				return creds, err
+				return nil, err
 			}
 		}
 
 		if attr, exists := provider.Body.Attributes["shared_credentials_file"]; exists {
 			if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.CredsFile, opts), func() error { return nil }); err != nil {
-				return creds, err
+				return nil, err
 			}
 		}
 
 		if attr, exists := provider.Body.Attributes["region"]; exists {
 			if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.Region, opts), func() error { return nil }); err != nil {
-				return creds, err
+				return nil, err
 			}
 		}
 
 		for _, assumeRole := range provider.Body.Blocks {
 			if attr, exists := assumeRole.Body.Attributes["role_arn"]; exists {
 				if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.AssumeRoleARN, opts), func() error { return nil }); err != nil {
-					return creds, err
+					return nil, err
 				}
 			}
 
 			if attr, exists := assumeRole.Body.Attributes["session_name"]; exists {
 				if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.AssumeRoleSessionName, opts), func() error { return nil }); err != nil {
-					return creds, err
+					return nil, err
 				}
 			}
 
 			if attr, exists := assumeRole.Body.Attributes["external_id"]; exists {
 				if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.AssumeRoleExternalID, opts), func() error { return nil }); err != nil {
-					return creds, err
+					return nil, err
 				}
 			}
 
 			if attr, exists := assumeRole.Body.Attributes["policy"]; exists {
 				if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.AssumeRolePolicy, opts), func() error { return nil }); err != nil {
-					return creds, err
+					return nil, err
 				}
 			}
 		}
+		if attr, exists := provider.Body.Attributes["alias"]; exists {
+			var alas string
+			if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &alas, opts), func() error { return nil }); err != nil {
+				return nil, err
+			}
+			m[alas] = creds
+		} else {
+			m["aws"] = creds
+		}
 	}
 
-	return creds, nil
+	return m, nil
 }
