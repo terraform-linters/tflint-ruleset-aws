@@ -82,7 +82,6 @@ func (r *AwsElastiCacheClusterInvalidSecurityGroupRule) Check(rr tflint.Runner) 
 			if err != nil {
 				return err
 			}
-
 			log.Print("[DEBUG] invoking DescribeSecurityGroups")
 			r.data, err = awsClient.DescribeSecurityGroups()
 			if err != nil {

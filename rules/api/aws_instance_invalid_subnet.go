@@ -76,14 +76,12 @@ func (r *AwsInstanceInvalidSubnetRule) Check(rr tflint.Runner) error {
 			continue
 		}
 
-		awsClient, err := runner.AwsClient(resource.Body.Attributes)
-		if err != nil {
-			return err
-		}
-
 		if !r.dataPrepared {
+			awsClient, err := runner.AwsClient(resource.Body.Attributes)
+			if err != nil {
+				return err
+			}
 			log.Print("[DEBUG] invoking DescribeSubnets")
-			var err error
 			r.data, err = awsClient.DescribeSubnets()
 			if err != nil {
 				err := fmt.Errorf("An error occurred while invoking DescribeSubnets; %w", err)
@@ -94,7 +92,7 @@ func (r *AwsInstanceInvalidSubnetRule) Check(rr tflint.Runner) error {
 		}
 
 		var val string
-		err = runner.EvaluateExpr(attribute.Expr, &val, nil)
+		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
 
 		return runner.EnsureNoError(err, func() error {
 			if !r.data[val] {

@@ -77,14 +77,12 @@ func (r *AwsALBInvalidSecurityGroupRule) Check(rr tflint.Runner) error {
 			continue
 		}
 
-		awsClient, err := runner.AwsClient(resource.Body.Attributes)
-		if err != nil {
-			return err
-		}
-
 		if !r.dataPrepared {
+			awsClient, err := runner.AwsClient(resource.Body.Attributes)
+			if err != nil {
+				return err
+			}
 			log.Print("[DEBUG] invoking DescribeSecurityGroups")
-			var err error
 			r.data, err = awsClient.DescribeSecurityGroups()
 			if err != nil {
 				err := fmt.Errorf("An error occurred while invoking DescribeSecurityGroups; %w", err)
