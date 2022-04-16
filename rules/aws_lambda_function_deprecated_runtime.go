@@ -30,6 +30,7 @@ func NewAwsLambdaFunctionDeprecatedRuntimeRule() *AwsLambdaFunctionDeprecatedRun
 			"nodejs10.x":    time.Date(2021, time.July, 30, 0, 0, 0, 0, time.UTC),
 			"ruby2.5":       time.Date(2021, time.July, 30, 0, 0, 0, 0, time.UTC),
 			"python2.7":     time.Date(2021, time.July, 15, 0, 0, 0, 0, time.UTC),
+			"python3.6":     time.Date(2022, time.July, 18, 0, 0, 0, 0, time.UTC),
 			"dotnetcore2.1": time.Date(2021, time.September, 20, 0, 0, 0, 0, time.UTC),
 		},
 		eolRuntimes: map[string]time.Time{
@@ -43,6 +44,7 @@ func NewAwsLambdaFunctionDeprecatedRuntimeRule() *AwsLambdaFunctionDeprecatedRun
 			"nodejs10.x":     time.Date(2021, time.August, 30, 0, 0, 0, 0, time.UTC),
 			"ruby2.5":        time.Date(2021, time.August, 30, 0, 0, 0, 0, time.UTC),
 			"python2.7":      time.Date(2021, time.September, 30, 0, 0, 0, 0, time.UTC),
+			"python3.6":      time.Date(2022, time.August, 17, 0, 0, 0, 0, time.UTC),
 			"dotnetcore2.1":  time.Date(2021, time.October, 30, 0, 0, 0, 0, time.UTC),
 		},
 		Now: time.Now().UTC(),
