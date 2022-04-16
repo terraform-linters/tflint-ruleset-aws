@@ -26,6 +26,7 @@ func NewAwsFsxOntapFileSystemInvalidDeploymentTypeRule() *AwsFsxOntapFileSystemI
 		attributeName: "deployment_type",
 		enum: []string{
 			"MULTI_AZ_1",
+			"SINGLE_AZ_1",
 		},
 	}
 }

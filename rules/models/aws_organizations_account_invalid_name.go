@@ -27,9 +27,9 @@ func NewAwsOrganizationsAccountInvalidNameRule() *AwsOrganizationsAccountInvalid
 	return &AwsOrganizationsAccountInvalidNameRule{
 		resourceType:  "aws_organizations_account",
 		attributeName: "name",
-		max:           50,
+		max:           128,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[\x{0020}-\x{007E}]+$`),
+		pattern:       regexp.MustCompile(`^[\s\S]*$`),
 	}
 }
 
@@ -79,7 +79,7 @@ func (r *AwsOrganizationsAccountInvalidNameRule) Check(runner tflint.Runner) err
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					"name must be 50 characters or less",
+					"name must be 128 characters or less",
 					attribute.Expr.Range(),
 				)
 			}
@@ -93,7 +93,7 @@ func (r *AwsOrganizationsAccountInvalidNameRule) Check(runner tflint.Runner) err
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[\x{0020}-\x{007E}]+$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[\s\S]*$`),
 					attribute.Expr.Range(),
 				)
 			}
