@@ -86,6 +86,14 @@ func NewAwsSagemakerNotebookInstanceInvalidInstanceTypeRule() *AwsSagemakerNoteb
 			"ml.r5.12xlarge",
 			"ml.r5.16xlarge",
 			"ml.r5.24xlarge",
+			"ml.g5.xlarge",
+			"ml.g5.2xlarge",
+			"ml.g5.4xlarge",
+			"ml.g5.8xlarge",
+			"ml.g5.16xlarge",
+			"ml.g5.12xlarge",
+			"ml.g5.24xlarge",
+			"ml.g5.48xlarge",
 		},
 	}
 }
