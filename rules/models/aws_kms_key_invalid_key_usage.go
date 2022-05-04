@@ -27,6 +27,7 @@ func NewAwsKmsKeyInvalidKeyUsageRule() *AwsKmsKeyInvalidKeyUsageRule {
 		enum: []string{
 			"SIGN_VERIFY",
 			"ENCRYPT_DECRYPT",
+			"GENERATE_VERIFY_MAC",
 		},
 	}
 }

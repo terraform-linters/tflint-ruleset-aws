@@ -30541,6 +30541,39 @@ func (mr *MockEC2APIMockRecorder) WaitUntilNatGatewayAvailableWithContext(arg0, 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WaitUntilNatGatewayAvailableWithContext", reflect.TypeOf((*MockEC2API)(nil).WaitUntilNatGatewayAvailableWithContext), varargs...)
 }
 
+// WaitUntilNatGatewayDeleted mocks base method.
+func (m *MockEC2API) WaitUntilNatGatewayDeleted(arg0 *ec2.DescribeNatGatewaysInput) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "WaitUntilNatGatewayDeleted", arg0)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// WaitUntilNatGatewayDeleted indicates an expected call of WaitUntilNatGatewayDeleted.
+func (mr *MockEC2APIMockRecorder) WaitUntilNatGatewayDeleted(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WaitUntilNatGatewayDeleted", reflect.TypeOf((*MockEC2API)(nil).WaitUntilNatGatewayDeleted), arg0)
+}
+
+// WaitUntilNatGatewayDeletedWithContext mocks base method.
+func (m *MockEC2API) WaitUntilNatGatewayDeletedWithContext(arg0 context.Context, arg1 *ec2.DescribeNatGatewaysInput, arg2 ...request.WaiterOption) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "WaitUntilNatGatewayDeletedWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// WaitUntilNatGatewayDeletedWithContext indicates an expected call of WaitUntilNatGatewayDeletedWithContext.
+func (mr *MockEC2APIMockRecorder) WaitUntilNatGatewayDeletedWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WaitUntilNatGatewayDeletedWithContext", reflect.TypeOf((*MockEC2API)(nil).WaitUntilNatGatewayDeletedWithContext), varargs...)
+}
+
 // WaitUntilNetworkInterfaceAvailable mocks base method.
 func (m *MockEC2API) WaitUntilNetworkInterfaceAvailable(arg0 *ec2.DescribeNetworkInterfacesInput) error {
 	m.ctrl.T.Helper()
