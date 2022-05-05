@@ -4,10 +4,10 @@ package models
 
 import (
 	"fmt"
-	"log"
 	"regexp"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
+	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
@@ -55,7 +55,7 @@ func (r *AwsAmplifyWebhookInvalidAppIDRule) Link() string {
 
 // Check checks the pattern is valid
 func (r *AwsAmplifyWebhookInvalidAppIDRule) Check(runner tflint.Runner) error {
-	log.Printf("[TRACE] Check `%s` rule", r.Name())
+	logger.Trace("Check `%s` rule", r.Name())
 
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{

@@ -4,10 +4,10 @@ package api
 
 import (
 	"fmt"
-	"log"
 
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
+	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/aws"
 )
@@ -77,12 +77,12 @@ func (r *AwsALBInvalidSecurityGroupRule) Check(rr tflint.Runner) error {
 		}
 
 		if !r.dataPrepared {
-			log.Print("[DEBUG] invoking DescribeSecurityGroups")
+			logger.Debug("invoking DescribeSecurityGroups")
 			var err error
 			r.data, err = runner.AwsClient.DescribeSecurityGroups()
 			if err != nil {
 				err := fmt.Errorf("An error occurred while invoking DescribeSecurityGroups; %w", err)
-				log.Printf("[ERROR] %s", err)
+				logger.Error("%s", err)
 				return err
 			}
 			r.dataPrepared = true

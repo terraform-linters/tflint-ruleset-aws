@@ -4,9 +4,9 @@ package api
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
+	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/aws"
 )
@@ -76,12 +76,12 @@ func (r *AwsElastiCacheClusterInvalidSubnetGroupRule) Check(rr tflint.Runner) er
 		}
 
 		if !r.dataPrepared {
-			log.Print("[DEBUG] invoking DescribeCacheSubnetGroups")
+			logger.Debug("invoking DescribeCacheSubnetGroups")
 			var err error
 			r.data, err = runner.AwsClient.DescribeCacheSubnetGroups()
 			if err != nil {
 				err := fmt.Errorf("An error occurred while invoking DescribeCacheSubnetGroups; %w", err)
-				log.Printf("[ERROR] %s", err)
+				logger.Error("%s", err)
 				return err
 			}
 			r.dataPrepared = true
