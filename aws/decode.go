@@ -9,6 +9,7 @@ import (
 	"golang.org/x/net/idna"
 )
 
+// original code: https://github.com/hashicorp/terraform/blob/3fbedf25430ead97eb42575d344427db3c32d524/internal/configs/resource.go#L484-L496
 type ProviderConfigRef struct {
 	Name       string
 	NameRange  hcl.Range
@@ -23,6 +24,7 @@ type ProviderConfigRef struct {
 	// providerType addrs.Provider
 }
 
+// original code: https://github.com/hashicorp/terraform/blob/3fbedf25430ead97eb42575d344427db3c32d524/internal/configs/resource.go#L498-L569
 func decodeProviderConfigRef(expr hcl.Expression, argName string) (*ProviderConfigRef, hcl.Diagnostics) {
 	var diags hcl.Diagnostics
 
@@ -96,18 +98,7 @@ func decodeProviderConfigRef(expr hcl.Expression, argName string) (*ProviderConf
 	return ret, diags
 }
 
-// -------------------------------------------------------------------------
-// Functions in this file are compatibility shims intended to ease conversion
-// from the old configuration loader. Any use of these functions that makes
-// a change should generate a deprecation warning explaining to the user how
-// to update their code for new patterns.
-//
-// Shims are particularly important for any patterns that have been widely
-// documented in books, tutorials, etc. Users will still be starting from
-// these examples and we want to help them adopt the latest patterns rather
-// than leave them stranded.
-// -------------------------------------------------------------------------
-
+// original code: https://github.com/hashicorp/terraform/blob/3fbedf25430ead97eb42575d344427db3c32d524/internal/configs/compat_shim.go#L21-L92
 // shimTraversalInString takes any arbitrary expression and checks if it is
 // a quoted string in the native syntax. If it _is_, then it is parsed as a
 // traversal and re-wrapped into a synthetic traversal expression and a
@@ -181,6 +172,7 @@ func shimTraversalInString(expr hcl.Expression, wantKeyword bool) (hcl.Expressio
 	}, diags
 }
 
+// original code: https://github.com/hashicorp/terraform/blob/3fbedf25430ead97eb42575d344427db3c32d524/internal/configs/util.go#L8-L18
 // exprIsNativeQuotedString determines whether the given expression looks like
 // it's a quoted string in the HCL native syntax.
 //
@@ -193,6 +185,7 @@ func exprIsNativeQuotedString(expr hcl.Expression) bool {
 	return ok
 }
 
+// original code: https://github.com/hashicorp/terraform/blob/3fbedf25430ead97eb42575d344427db3c32d524/internal/configs/provider.go#L256-L282
 // checkProviderNameNormalized verifies that the given string is already
 // normalized and returns an error if not.
 func checkProviderNameNormalized(name string, declrange hcl.Range) hcl.Diagnostics {
@@ -221,6 +214,7 @@ func checkProviderNameNormalized(name string, declrange hcl.Range) hcl.Diagnosti
 	return diags
 }
 
+// original code: https://github.com/hashicorp/terraform/blob/3fbedf25430ead97eb42575d344427db3c32d524/internal/addrs/provider.go#L454-L464
 // IsProviderPartNormalized compares a given string to the result of ParseProviderPart(string)
 func IsProviderPartNormalized(str string) (bool, error) {
 	normalized, err := ParseProviderPart(str)
@@ -233,6 +227,7 @@ func IsProviderPartNormalized(str string) (bool, error) {
 	return false, nil
 }
 
+// original code: https://github.com/hashicorp/terraform/blob/3fbedf25430ead97eb42575d344427db3c32d524/internal/addrs/provider.go#L385-L442
 // ParseProviderPart processes an addrs.Provider namespace or type string
 // provided by an end-user, producing a normalized version if possible or
 // an error if the string contains invalid characters.
