@@ -4,9 +4,9 @@ package api
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
+	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/aws"
 )
@@ -76,12 +76,12 @@ func (r *AwsRouteInvalidInstanceRule) Check(rr tflint.Runner) error {
 		}
 
 		if !r.dataPrepared {
-			log.Print("[DEBUG] invoking DescribeInstances")
+			logger.Debug("invoking DescribeInstances")
 			var err error
 			r.data, err = runner.AwsClient.DescribeInstances()
 			if err != nil {
 				err := fmt.Errorf("An error occurred while invoking DescribeInstances; %w", err)
-				log.Printf("[ERROR] %s", err)
+				logger.Error("%s", err)
 				return err
 			}
 			r.dataPrepared = true

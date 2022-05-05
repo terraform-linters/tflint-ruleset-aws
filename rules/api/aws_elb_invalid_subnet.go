@@ -4,10 +4,10 @@ package api
 
 import (
 	"fmt"
-	"log"
 
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
+	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/aws"
 )
@@ -77,12 +77,12 @@ func (r *AwsELBInvalidSubnetRule) Check(rr tflint.Runner) error {
 		}
 
 		if !r.dataPrepared {
-			log.Print("[DEBUG] invoking DescribeSubnets")
+			logger.Debug("invoking DescribeSubnets")
 			var err error
 			r.data, err = runner.AwsClient.DescribeSubnets()
 			if err != nil {
 				err := fmt.Errorf("An error occurred while invoking DescribeSubnets; %w", err)
-				log.Printf("[ERROR] %s", err)
+				logger.Error("%s", err)
 				return err
 			}
 			r.dataPrepared = true

@@ -1,8 +1,6 @@
 package aws
 
 import (
-	"log"
-
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/aws/aws-sdk-go/service/ec2/ec2iface"
 	"github.com/aws/aws-sdk-go/service/ecs"
@@ -19,6 +17,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/rds/rdsiface"
 	awsbase "github.com/hashicorp/aws-sdk-go-base"
 	"github.com/mitchellh/go-homedir"
+	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 )
 
 //go:generate go run github.com/golang/mock/mockgen -destination mock/ec2.go -package mock github.com/aws/aws-sdk-go/service/ec2/ec2iface EC2API
@@ -56,7 +55,7 @@ type Credentials struct {
 
 // NewClient returns a new Client with configured session
 func NewClient(creds Credentials) (*Client, error) {
-	log.Print("[INFO] Initialize AWS Client")
+	logger.Info("Initialize AWS Client")
 
 	config, err := getBaseConfig(creds)
 	if err != nil {

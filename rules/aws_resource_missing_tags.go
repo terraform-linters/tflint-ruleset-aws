@@ -2,12 +2,12 @@ package rules
 
 import (
 	"fmt"
-	"log"
 	"sort"
 	"strings"
 
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
+	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 	"github.com/terraform-linters/tflint-ruleset-aws/rules/tags"
@@ -88,7 +88,7 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 
 		for _, resource := range resources.Blocks {
 			if attribute, ok := resource.Body.Attributes[tagsAttributeName]; ok {
-				log.Printf("[DEBUG] Walk `%s` attribute", resource.Labels[0]+"."+resource.Labels[1]+"."+tagsAttributeName)
+				logger.Debug("Walk `%s` attribute", resource.Labels[0]+"."+resource.Labels[1]+"."+tagsAttributeName)
 				resourceTags := make(map[string]string)
 				wantType := cty.Map(cty.String)
 				err := runner.EvaluateExpr(attribute.Expr, &resourceTags, &tflint.EvaluateExprOption{WantType: &wantType})
@@ -100,7 +100,7 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 					return err
 				}
 			} else {
-				log.Printf("[DEBUG] Walk `%s` resource", resource.Labels[0]+"."+resource.Labels[1])
+				logger.Debug("Walk `%s` resource", resource.Labels[0]+"."+resource.Labels[1])
 				r.emitIssue(runner, map[string]string{}, config, resource.DefRange)
 			}
 		}

@@ -1,9 +1,8 @@
 package aws
 
 import (
-	"log"
-
 	"github.com/hashicorp/hcl/v2"
+	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
@@ -45,7 +44,7 @@ func (r *Runner) EachStringSliceExprs(expr hcl.Expression, proc func(val string,
 
 	exprs, diags := hcl.ExprList(expr)
 	if diags.HasErrors() {
-		log.Printf("[DEBUG] Expr is not static list: %s", diags)
+		logger.Debug("Expr is not static list: %s", diags)
 		for range vals {
 			exprs = append(exprs, expr)
 		}

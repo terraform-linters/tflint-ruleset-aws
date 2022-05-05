@@ -2,12 +2,12 @@ package api
 
 import (
 	"fmt"
-	"log"
 
 	awssdk "github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
+	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/aws"
 )
@@ -77,7 +77,7 @@ func (r *AwsInstanceInvalidAMIRule) Check(rr tflint.Runner) error {
 
 		err = runner.EnsureNoError(err, func() error {
 			if !r.amiIDs[ami] {
-				log.Printf("[DEBUG] Fetch AMI images: %s", ami)
+				logger.Debug("Fetch AMI images: %s", ami)
 				resp, err := runner.AwsClient.EC2.DescribeImages(&ec2.DescribeImagesInput{
 					ImageIds: awssdk.StringSlice([]string{ami}),
 				})
@@ -98,7 +98,7 @@ func (r *AwsInstanceInvalidAMIRule) Check(rr tflint.Runner) error {
 						}
 					}
 					err := fmt.Errorf("An error occurred while describing images; %w", err)
-					log.Printf("[ERROR] %s", err)
+					logger.Error("%s", err)
 					return err
 				}
 
