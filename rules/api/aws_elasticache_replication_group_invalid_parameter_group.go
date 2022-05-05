@@ -63,6 +63,7 @@ func (r *AwsElastiCacheReplicationGroupInvalidParameterGroupRule) Check(rr tflin
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{
 			{Name: r.attributeName},
+			{Name: "provider"},
 		},
 	}, nil)
 	if err != nil {
@@ -76,9 +77,12 @@ func (r *AwsElastiCacheReplicationGroupInvalidParameterGroupRule) Check(rr tflin
 		}
 
 		if !r.dataPrepared {
+			awsClient, err := runner.AwsClient(resource.Body.Attributes)
+			if err != nil {
+				return err
+			}
 			logger.Debug("invoking DescribeCacheParameterGroups")
-			var err error
-			r.data, err = runner.AwsClient.DescribeCacheParameterGroups()
+			r.data, err = awsClient.DescribeCacheParameterGroups()
 			if err != nil {
 				err := fmt.Errorf("An error occurred while invoking DescribeCacheParameterGroups; %w", err)
 				logger.Error("%s", err)

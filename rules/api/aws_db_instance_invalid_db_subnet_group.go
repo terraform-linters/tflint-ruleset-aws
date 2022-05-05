@@ -63,6 +63,7 @@ func (r *AwsDBInstanceInvalidDBSubnetGroupRule) Check(rr tflint.Runner) error {
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{
 			{Name: r.attributeName},
+			{Name: "provider"},
 		},
 	}, nil)
 	if err != nil {
@@ -76,9 +77,12 @@ func (r *AwsDBInstanceInvalidDBSubnetGroupRule) Check(rr tflint.Runner) error {
 		}
 
 		if !r.dataPrepared {
+			awsClient, err := runner.AwsClient(resource.Body.Attributes)
+			if err != nil {
+				return err
+			}
 			logger.Debug("invoking DescribeDBSubnetGroups")
-			var err error
-			r.data, err = runner.AwsClient.DescribeDBSubnetGroups()
+			r.data, err = awsClient.DescribeDBSubnetGroups()
 			if err != nil {
 				err := fmt.Errorf("An error occurred while invoking DescribeDBSubnetGroups; %w", err)
 				logger.Error("%s", err)

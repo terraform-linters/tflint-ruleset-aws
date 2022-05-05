@@ -64,6 +64,7 @@ func (r *AwsDBInstanceInvalidVpcSecurityGroupRule) Check(rr tflint.Runner) error
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{
 			{Name: r.attributeName},
+			{Name: "provider"},
 		},
 	}, nil)
 	if err != nil {
@@ -77,9 +78,12 @@ func (r *AwsDBInstanceInvalidVpcSecurityGroupRule) Check(rr tflint.Runner) error
 		}
 
 		if !r.dataPrepared {
+			awsClient, err := runner.AwsClient(resource.Body.Attributes)
+			if err != nil {
+				return err
+			}
 			logger.Debug("invoking DescribeSecurityGroups")
-			var err error
-			r.data, err = runner.AwsClient.DescribeSecurityGroups()
+			r.data, err = awsClient.DescribeSecurityGroups()
 			if err != nil {
 				err := fmt.Errorf("An error occurred while invoking DescribeSecurityGroups; %w", err)
 				logger.Error("%s", err)
