@@ -1,0 +1,42 @@
+name: e2e
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  e2e:
+    name: ${{ matrix.os }} (${{ matrix.version }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        version: [v0.35.0, latest]
+    env:
+      TFLINT_VERSION: ${{ matrix.version }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.18
+    - name: Install TFLint
+      run: curl -sL https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+    - name: Install plugin (Linux)
+      if: runner.os == 'Linux'
+      run: make install
+    - name: Install plugin (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        mkdir -p ~/.tflint.d/plugins
+        go build -o ~/.tflint.d/plugins/tflint-ruleset-aws.exe
+      shell: bash
+    - name: Run E2E tests
+      run: make e2e
