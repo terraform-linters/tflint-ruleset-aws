@@ -2,7 +2,6 @@ package aws
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
@@ -46,10 +45,16 @@ func NewRunner(runner tflint.Runner, config *Config) (*Runner, error) {
 func (r *Runner) AwsClient(attributes hclext.Attributes) (*Client, error) {
 	provider := "aws"
 	if attr, exists := attributes["provider"]; exists {
-		if err := r.EnsureNoError(r.EvaluateExpr(attr.Expr, &provider, nil), func() error { return nil }); err != nil {
-			return nil, err
+		providerConfigRef, diags := decodeProviderConfigRef(attr.Expr, "provider")
+		if diags.HasErrors() {
+			logger.Error("parse resource provider attribute: %s", diags)
+			return nil, diags
 		}
-		provider = strings.TrimPrefix(provider, "aws.")
+		if providerConfigRef.Alias != "" {
+			provider = providerConfigRef.Alias
+		} else {
+			provider = providerConfigRef.Name
+		}
 	}
 
 	awsClient, ok := r.AwsClients[provider]
