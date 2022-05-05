@@ -1,7 +1,10 @@
 default: build
 
 test:
-	go test ./...
+	go test $$(go list ./... | grep -v integration)
+
+e2e: 
+	cd integration && go test && cd ../
 
 build:
 	go build
