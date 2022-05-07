@@ -60,7 +60,10 @@ func (r *AwsInstanceInvalidAMIRule) Check(rr tflint.Runner) error {
 	runner := rr.(*aws.Runner)
 
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
-		Attributes: []hclext.AttributeSchema{{Name: r.attributeName}},
+		Attributes: []hclext.AttributeSchema{
+			{Name: r.attributeName},
+			{Name: "provider"},
+		},
 	}, nil)
 	if err != nil {
 		return err
