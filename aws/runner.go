@@ -33,6 +33,13 @@ func NewRunner(runner tflint.Runner, config *Config) (*Runner, error) {
 			}
 			clients[k] = client
 		}
+		if _, ok := credentials["aws"]; !ok {
+			client, err := NewClient(config.toCredentials())
+			if err != nil {
+				return nil, err
+			}
+			clients["aws"] = client
+		}
 	}
 
 	return &Runner{
