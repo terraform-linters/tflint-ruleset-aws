@@ -129,7 +129,7 @@ resource "aws_alb" "balancer" {
 		ec2mock.EXPECT().DescribeSecurityGroups(&ec2.DescribeSecurityGroupsInput{}).Return(&ec2.DescribeSecurityGroupsOutput{
 			SecurityGroups: tc.Response,
 		}, nil)
-		runner.AwsClient.EC2 = ec2mock
+		runner.AwsClients["aws"].EC2 = ec2mock
 
 		rule := NewAwsALBInvalidSecurityGroupRule()
 		if err := rule.Check(runner); err != nil {
@@ -204,7 +204,7 @@ resource "aws_db_instance" "mysql" {
 		rdsmock.EXPECT().DescribeDBSubnetGroups(&rds.DescribeDBSubnetGroupsInput{}).Return(&rds.DescribeDBSubnetGroupsOutput{
 			DBSubnetGroups: tc.Response,
 		}, nil)
-		runner.AwsClient.RDS = rdsmock
+		runner.AwsClients["aws"].RDS = rdsmock
 
 		rule := NewAwsDBInstanceInvalidDBSubnetGroupRule()
 		if err := rule.Check(runner); err != nil {
@@ -247,7 +247,7 @@ resource "aws_alb" "balancer" {
 
 			ec2mock := mock.NewMockEC2API(ctrl)
 			ec2mock.EXPECT().DescribeSecurityGroups(&ec2.DescribeSecurityGroupsInput{}).Return(nil, tc.Response)
-			runner.AwsClient.EC2 = ec2mock
+			runner.AwsClients["aws"].EC2 = ec2mock
 
 			err := rule.Check(runner)
 			if err == nil {
@@ -262,7 +262,9 @@ resource "aws_alb" "balancer" {
 
 func NewTestRunner(t *testing.T, files map[string]string) *awsruleset.Runner {
 	return &awsruleset.Runner{
-		Runner:    helper.TestRunner(t, files),
-		AwsClient: &awsruleset.Client{},
+		Runner: helper.TestRunner(t, files),
+		AwsClients: map[string]*awsruleset.Client{
+			"aws": &awsruleset.Client{},
+		},
 	}
 }

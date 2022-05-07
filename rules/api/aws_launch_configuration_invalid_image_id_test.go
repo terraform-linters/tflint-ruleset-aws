@@ -29,7 +29,7 @@ resource "aws_launch_configuration" "invalid" {
 	}).Return(&ec2.DescribeImagesOutput{
 		Images: []*ec2.Image{},
 	}, nil)
-	runner.AwsClient.EC2 = ec2mock
+	runner.AwsClients["aws"].EC2 = ec2mock
 
 	rule := NewAwsLaunchConfigurationInvalidImageIDRule()
 	if err := rule.Check(runner); err != nil {
@@ -71,7 +71,7 @@ resource "aws_launch_configuration" "valid" {
 			},
 		},
 	}, nil)
-	runner.AwsClient.EC2 = ec2mock
+	runner.AwsClients["aws"].EC2 = ec2mock
 
 	rule := NewAwsLaunchConfigurationInvalidImageIDRule()
 	if err := rule.Check(runner); err != nil {
@@ -130,7 +130,7 @@ resource "aws_launch_configuration" "valid" {
 
 		ec2mock := mock.NewMockEC2API(ctrl)
 		ec2mock.EXPECT().DescribeImages(tc.Request).Return(nil, tc.Response)
-		runner.AwsClient.EC2 = ec2mock
+		runner.AwsClients["aws"].EC2 = ec2mock
 
 		err := rule.Check(runner)
 		if err == nil {
@@ -244,7 +244,7 @@ resource "aws_launch_configuration" "unavailable" {
 
 		ec2mock := mock.NewMockEC2API(ctrl)
 		ec2mock.EXPECT().DescribeImages(tc.Request).Return(nil, tc.Response)
-		runner.AwsClient.EC2 = ec2mock
+		runner.AwsClients["aws"].EC2 = ec2mock
 
 		err := rule.Check(runner)
 		if err != nil && !tc.Error {

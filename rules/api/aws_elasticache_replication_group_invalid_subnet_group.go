@@ -63,6 +63,7 @@ func (r *AwsElastiCacheReplicationGroupInvalidSubnetGroupRule) Check(rr tflint.R
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{
 			{Name: r.attributeName},
+			{Name: "provider"},
 		},
 	}, nil)
 	if err != nil {
@@ -76,9 +77,12 @@ func (r *AwsElastiCacheReplicationGroupInvalidSubnetGroupRule) Check(rr tflint.R
 		}
 
 		if !r.dataPrepared {
+			awsClient, err := runner.AwsClient(resource.Body.Attributes)
+			if err != nil {
+				return err
+			}
 			logger.Debug("invoking DescribeCacheSubnetGroups")
-			var err error
-			r.data, err = runner.AwsClient.DescribeCacheSubnetGroups()
+			r.data, err = awsClient.DescribeCacheSubnetGroups()
 			if err != nil {
 				err := fmt.Errorf("An error occurred while invoking DescribeCacheSubnetGroups; %w", err)
 				logger.Error("%s", err)

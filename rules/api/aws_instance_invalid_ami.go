@@ -60,7 +60,10 @@ func (r *AwsInstanceInvalidAMIRule) Check(rr tflint.Runner) error {
 	runner := rr.(*aws.Runner)
 
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
-		Attributes: []hclext.AttributeSchema{{Name: r.attributeName}},
+		Attributes: []hclext.AttributeSchema{
+			{Name: r.attributeName},
+			{Name: "provider"},
+		},
 	}, nil)
 	if err != nil {
 		return err
@@ -72,13 +75,18 @@ func (r *AwsInstanceInvalidAMIRule) Check(rr tflint.Runner) error {
 			continue
 		}
 
+		awsClient, err := runner.AwsClient(resource.Body.Attributes)
+		if err != nil {
+			return err
+		}
+
 		var ami string
-		err := runner.EvaluateExpr(attribute.Expr, &ami, nil)
+		err = runner.EvaluateExpr(attribute.Expr, &ami, nil)
 
 		err = runner.EnsureNoError(err, func() error {
 			if !r.amiIDs[ami] {
 				logger.Debug("Fetch AMI images: %s", ami)
-				resp, err := runner.AwsClient.EC2.DescribeImages(&ec2.DescribeImagesInput{
+				resp, err := awsClient.EC2.DescribeImages(&ec2.DescribeImagesInput{
 					ImageIds: awssdk.StringSlice([]string{ami}),
 				})
 				if err != nil {
