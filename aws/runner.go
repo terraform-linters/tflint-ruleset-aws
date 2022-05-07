@@ -26,19 +26,15 @@ func NewRunner(runner tflint.Runner, config *Config) (*Runner, error) {
 		if err != nil {
 			return nil, err
 		}
+		if _, ok := credentials["aws"]; !ok {
+			credentials["aws"] = Credentials{}
+		}
 		for k, cred := range credentials {
 			client, err := NewClient(config.toCredentials().Merge(cred))
 			if err != nil {
 				return nil, err
 			}
 			clients[k] = client
-		}
-		if _, ok := credentials["aws"]; !ok {
-			client, err := NewClient(config.toCredentials())
-			if err != nil {
-				return nil, err
-			}
-			clients["aws"] = client
 		}
 	}
 
