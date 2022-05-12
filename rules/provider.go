@@ -38,6 +38,7 @@ var manualRules = []tflint.Rule{
 	NewAwsIAMGroupPolicyTooLongRule(),
 	NewAwsAcmCertificateLifecycleRule(),
 	NewAwsElasticBeanstalkEnvironmentInvalidNameFormatRule(),
+	NewAwsDBProxyInvalidMaxIdleConnectionsRule(),
 }
 
 // Rules is a list of all rules
