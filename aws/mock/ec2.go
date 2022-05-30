@@ -22019,6 +22019,56 @@ func (mr *MockEC2APIMockRecorder) GetInstanceTypesFromInstanceRequirementsWithCo
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInstanceTypesFromInstanceRequirementsWithContext", reflect.TypeOf((*MockEC2API)(nil).GetInstanceTypesFromInstanceRequirementsWithContext), varargs...)
 }
 
+// GetInstanceUefiData mocks base method.
+func (m *MockEC2API) GetInstanceUefiData(arg0 *ec2.GetInstanceUefiDataInput) (*ec2.GetInstanceUefiDataOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetInstanceUefiData", arg0)
+	ret0, _ := ret[0].(*ec2.GetInstanceUefiDataOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetInstanceUefiData indicates an expected call of GetInstanceUefiData.
+func (mr *MockEC2APIMockRecorder) GetInstanceUefiData(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInstanceUefiData", reflect.TypeOf((*MockEC2API)(nil).GetInstanceUefiData), arg0)
+}
+
+// GetInstanceUefiDataRequest mocks base method.
+func (m *MockEC2API) GetInstanceUefiDataRequest(arg0 *ec2.GetInstanceUefiDataInput) (*request.Request, *ec2.GetInstanceUefiDataOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetInstanceUefiDataRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.GetInstanceUefiDataOutput)
+	return ret0, ret1
+}
+
+// GetInstanceUefiDataRequest indicates an expected call of GetInstanceUefiDataRequest.
+func (mr *MockEC2APIMockRecorder) GetInstanceUefiDataRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInstanceUefiDataRequest", reflect.TypeOf((*MockEC2API)(nil).GetInstanceUefiDataRequest), arg0)
+}
+
+// GetInstanceUefiDataWithContext mocks base method.
+func (m *MockEC2API) GetInstanceUefiDataWithContext(arg0 context.Context, arg1 *ec2.GetInstanceUefiDataInput, arg2 ...request.Option) (*ec2.GetInstanceUefiDataOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetInstanceUefiDataWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.GetInstanceUefiDataOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetInstanceUefiDataWithContext indicates an expected call of GetInstanceUefiDataWithContext.
+func (mr *MockEC2APIMockRecorder) GetInstanceUefiDataWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInstanceUefiDataWithContext", reflect.TypeOf((*MockEC2API)(nil).GetInstanceUefiDataWithContext), varargs...)
+}
+
 // GetIpamAddressHistory mocks base method.
 func (m *MockEC2API) GetIpamAddressHistory(arg0 *ec2.GetIpamAddressHistoryInput) (*ec2.GetIpamAddressHistoryOutput, error) {
 	m.ctrl.T.Helper()
