@@ -32,6 +32,7 @@ func NewAwsLambdaFunctionInvalidRuntimeRule() *AwsLambdaFunctionInvalidRuntimeRu
 			"nodejs10.x",
 			"nodejs12.x",
 			"nodejs14.x",
+			"nodejs16.x",
 			"java8",
 			"java8.al2",
 			"java11",
