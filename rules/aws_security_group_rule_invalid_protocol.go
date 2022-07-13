@@ -25,6 +25,7 @@ func NewAwsSecurityGroupRuleInvalidProtocolRule() *AwsSecurityGroupRuleInvalidPr
 		resourceType:  "aws_security_group_rule",
 		attributeName: "protocol",
 		protocols: map[string]struct{}{
+			"all":    {},
 			"tcp":    {},
 			"udp":    {},
 			"icmp":   {},
