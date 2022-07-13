@@ -23,6 +23,7 @@ func NewAwsSecurityGroupInvalidProtocolRule() *AwsSecurityGroupInvalidProtocolRu
 	return &AwsSecurityGroupInvalidProtocolRule{
 		resourceType: "aws_security_group",
 		protocols: map[string]struct{}{
+			"all":    {},
 			"tcp":    {},
 			"udp":    {},
 			"icmp":   {},

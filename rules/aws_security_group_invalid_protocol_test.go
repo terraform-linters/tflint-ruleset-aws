@@ -64,18 +64,18 @@ resource "aws_security_group" "this" {
 			Content: `
 resource "aws_security_group" "this" {
     egress {
-        protocol = "all"
+        protocol = "https"
     }
 }
 `,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsSecurityGroupInvalidProtocolRule(),
-					Message: "\"all\" is an invalid protocol.",
+					Message: "\"https\" is an invalid protocol.",
 					Range: hcl.Range{
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 4, Column: 20},
-						End:      hcl.Pos{Line: 4, Column: 25},
+						End:      hcl.Pos{Line: 4, Column: 27},
 					},
 				},
 			},
