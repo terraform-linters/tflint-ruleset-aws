@@ -27,7 +27,7 @@ func NewAwsDatasyncLocationFsxWindowsFileSystemInvalidDomainRule() *AwsDatasyncL
 		resourceType:  "aws_datasync_location_fsx_windows_file_system",
 		attributeName: "domain",
 		max:           253,
-		pattern:       regexp.MustCompile(`^([A-Za-z0-9]+[A-Za-z0-9-.]*)*[A-Za-z0-9-]*[A-Za-z0-9]$`),
+		pattern:       regexp.MustCompile(`^[A-Za-z0-9]((\.|-+)?[A-Za-z0-9]){0,252}$`),
 	}
 }
 
@@ -84,7 +84,7 @@ func (r *AwsDatasyncLocationFsxWindowsFileSystemInvalidDomainRule) Check(runner 
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^([A-Za-z0-9]+[A-Za-z0-9-.]*)*[A-Za-z0-9-]*[A-Za-z0-9]$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[A-Za-z0-9]((\.|-+)?[A-Za-z0-9]){0,252}$`),
 					attribute.Expr.Range(),
 				)
 			}
