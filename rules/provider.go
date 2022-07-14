@@ -39,6 +39,7 @@ var manualRules = []tflint.Rule{
 	NewAwsAcmCertificateLifecycleRule(),
 	NewAwsElasticBeanstalkEnvironmentInvalidNameFormatRule(),
 	NewAwsSecurityGroupInvalidProtocolRule(),
+	NewAwsSecurityGroupRuleInvalidProtocolRule(),
 }
 
 // Rules is a list of all rules
