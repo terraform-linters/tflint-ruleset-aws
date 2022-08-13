@@ -10,7 +10,7 @@ This ruleset focus on possible errors and best practices about AWS resources. Ma
 ## Requirements
 
 - TFLint v0.35+
-- Go v1.18
+- Go v1.19
 
 ## Installation
 

@@ -1,6 +1,6 @@
 module github.com/terraform-linters/tflint-ruleset-aws
 
-go 1.18
+go 1.19
 
 require (
 	github.com/agext/levenshtein v1.2.2 // indirect
