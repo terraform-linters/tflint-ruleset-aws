@@ -28,10 +28,12 @@ func NewAwsLambdaFunctionDeprecatedRuntimeRule() *AwsLambdaFunctionDeprecatedRun
 		attributeName: "runtime",
 		eosRuntimes: map[string]time.Time{
 			"nodejs10.x":    time.Date(2021, time.July, 30, 0, 0, 0, 0, time.UTC),
+			"nodejs12.x":    time.Date(2022, time.November, 14, 0, 0, 0, 0, time.UTC),
 			"ruby2.5":       time.Date(2021, time.July, 30, 0, 0, 0, 0, time.UTC),
 			"python2.7":     time.Date(2021, time.July, 15, 0, 0, 0, 0, time.UTC),
 			"python3.6":     time.Date(2022, time.July, 18, 0, 0, 0, 0, time.UTC),
 			"dotnetcore2.1": time.Date(2021, time.September, 20, 0, 0, 0, 0, time.UTC),
+			"dotnetcore3.1": time.Date(2023, time.January, 20, 0, 0, 0, 0, time.UTC),
 		},
 		eolRuntimes: map[string]time.Time{
 			"dotnetcore1.0":  time.Date(2019, time.July, 30, 0, 0, 0, 0, time.UTC),
@@ -42,10 +44,12 @@ func NewAwsLambdaFunctionDeprecatedRuntimeRule() *AwsLambdaFunctionDeprecatedRun
 			"nodejs6.10":     time.Date(2019, time.August, 12, 0, 0, 0, 0, time.UTC),
 			"nodejs8.10":     time.Date(2020, time.March, 06, 0, 0, 0, 0, time.UTC),
 			"nodejs10.x":     time.Date(2021, time.August, 30, 0, 0, 0, 0, time.UTC),
+			"nodejs12.x":     time.Date(2022, time.December, 14, 0, 0, 0, 0, time.UTC),
 			"ruby2.5":        time.Date(2021, time.August, 30, 0, 0, 0, 0, time.UTC),
 			"python2.7":      time.Date(2021, time.September, 30, 0, 0, 0, 0, time.UTC),
 			"python3.6":      time.Date(2022, time.August, 17, 0, 0, 0, 0, time.UTC),
 			"dotnetcore2.1":  time.Date(2021, time.October, 30, 0, 0, 0, 0, time.UTC),
+			"dotnetcore3.1":  time.Date(2023, time.February, 20, 0, 0, 0, 0, time.UTC),
 		},
 		Now: time.Now().UTC(),
 	}
