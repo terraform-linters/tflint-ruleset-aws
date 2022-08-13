@@ -29,7 +29,7 @@ func NewAwsSsoadminAccountAssignmentInvalidInstanceArnRule() *AwsSsoadminAccount
 		attributeName: "instance_arn",
 		max:           1224,
 		min:           10,
-		pattern:       regexp.MustCompile(`^arn:aws:sso:::instance/(sso)?ins-[a-zA-Z0-9-.]{16}$`),
+		pattern:       regexp.MustCompile(`^arn:(aws|aws-us-gov|aws-cn|aws-iso|aws-iso-b):sso:::instance/(sso)?ins-[a-zA-Z0-9-.]{16}$`),
 	}
 }
 
@@ -93,7 +93,7 @@ func (r *AwsSsoadminAccountAssignmentInvalidInstanceArnRule) Check(runner tflint
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:aws:sso:::instance/(sso)?ins-[a-zA-Z0-9-.]{16}$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:(aws|aws-us-gov|aws-cn|aws-iso|aws-iso-b):sso:::instance/(sso)?ins-[a-zA-Z0-9-.]{16}$`),
 					attribute.Expr.Range(),
 				)
 			}

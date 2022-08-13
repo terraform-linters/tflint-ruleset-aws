@@ -550,6 +550,7 @@ func NewAwsLaunchTemplateInvalidInstanceTypeRule() *AwsLaunchTemplateInvalidInst
 			"c7g.8xlarge",
 			"c7g.12xlarge",
 			"c7g.16xlarge",
+			"mac2.metal",
 		},
 	}
 }

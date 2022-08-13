@@ -28,6 +28,7 @@ func NewAwsGlueMlTransformInvalidWorkerTypeRule() *AwsGlueMlTransformInvalidWork
 			"Standard",
 			"G.1X",
 			"G.2X",
+			"G.025X",
 		},
 	}
 }

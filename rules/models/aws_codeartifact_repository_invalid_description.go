@@ -27,7 +27,7 @@ func NewAwsCodeartifactRepositoryInvalidDescriptionRule() *AwsCodeartifactReposi
 		resourceType:  "aws_codeartifact_repository",
 		attributeName: "description",
 		max:           1000,
-		pattern:       regexp.MustCompile(`^\P{C}+$`),
+		pattern:       regexp.MustCompile(`^\P{C}*$`),
 	}
 }
 
@@ -84,7 +84,7 @@ func (r *AwsCodeartifactRepositoryInvalidDescriptionRule) Check(runner tflint.Ru
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^\P{C}+$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^\P{C}*$`),
 					attribute.Expr.Range(),
 				)
 			}

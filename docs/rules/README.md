@@ -335,7 +335,6 @@ These rules enforce best practices and naming conventions:
 |aws_cloudwatch_metric_alarm_invalid_alarm_name|✔|
 |aws_cloudwatch_metric_alarm_invalid_comparison_operator|✔|
 |aws_cloudwatch_metric_alarm_invalid_evaluate_low_sample_count_percentiles|✔|
-|aws_cloudwatch_metric_alarm_invalid_extended_statistic|✔|
 |aws_cloudwatch_metric_alarm_invalid_metric_name|✔|
 |aws_cloudwatch_metric_alarm_invalid_namespace|✔|
 |aws_cloudwatch_metric_alarm_invalid_statistic|✔|
