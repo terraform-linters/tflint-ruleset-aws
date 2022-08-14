@@ -3,6 +3,9 @@
 package models
 
 import (
+	"fmt"
+	"regexp"
+
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -16,6 +19,7 @@ type AwsSsoadminManagedPolicyAttachmentInvalidManagedPolicyArnRule struct {
 	attributeName string
 	max           int
 	min           int
+	pattern       *regexp.Regexp
 }
 
 // NewAwsSsoadminManagedPolicyAttachmentInvalidManagedPolicyArnRule returns new rule with default attributes
@@ -25,6 +29,7 @@ func NewAwsSsoadminManagedPolicyAttachmentInvalidManagedPolicyArnRule() *AwsSsoa
 		attributeName: "managed_policy_arn",
 		max:           2048,
 		min:           20,
+		pattern:       regexp.MustCompile(`^arn:(aws|aws-us-gov|aws-cn|aws-iso|aws-iso-b):iam::aws:policy/[\p{L}\p{M}\p{Z}\p{S}\p{N}\p{P}]+$`),
 	}
 }
 
@@ -82,6 +87,13 @@ func (r *AwsSsoadminManagedPolicyAttachmentInvalidManagedPolicyArnRule) Check(ru
 				runner.EmitIssue(
 					r,
 					"managed_policy_arn must be 20 characters or higher",
+					attribute.Expr.Range(),
+				)
+			}
+			if !r.pattern.MatchString(val) {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:(aws|aws-us-gov|aws-cn|aws-iso|aws-iso-b):iam::aws:policy/[\p{L}\p{M}\p{Z}\p{S}\p{N}\p{P}]+$`),
 					attribute.Expr.Range(),
 				)
 			}

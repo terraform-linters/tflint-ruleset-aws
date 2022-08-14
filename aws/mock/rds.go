@@ -5525,6 +5525,56 @@ func (mr *MockRDSAPIMockRecorder) ListTagsForResourceWithContext(arg0, arg1 inte
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListTagsForResourceWithContext", reflect.TypeOf((*MockRDSAPI)(nil).ListTagsForResourceWithContext), varargs...)
 }
 
+// ModifyActivityStream mocks base method.
+func (m *MockRDSAPI) ModifyActivityStream(arg0 *rds.ModifyActivityStreamInput) (*rds.ModifyActivityStreamOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ModifyActivityStream", arg0)
+	ret0, _ := ret[0].(*rds.ModifyActivityStreamOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ModifyActivityStream indicates an expected call of ModifyActivityStream.
+func (mr *MockRDSAPIMockRecorder) ModifyActivityStream(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyActivityStream", reflect.TypeOf((*MockRDSAPI)(nil).ModifyActivityStream), arg0)
+}
+
+// ModifyActivityStreamRequest mocks base method.
+func (m *MockRDSAPI) ModifyActivityStreamRequest(arg0 *rds.ModifyActivityStreamInput) (*request.Request, *rds.ModifyActivityStreamOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ModifyActivityStreamRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.ModifyActivityStreamOutput)
+	return ret0, ret1
+}
+
+// ModifyActivityStreamRequest indicates an expected call of ModifyActivityStreamRequest.
+func (mr *MockRDSAPIMockRecorder) ModifyActivityStreamRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyActivityStreamRequest", reflect.TypeOf((*MockRDSAPI)(nil).ModifyActivityStreamRequest), arg0)
+}
+
+// ModifyActivityStreamWithContext mocks base method.
+func (m *MockRDSAPI) ModifyActivityStreamWithContext(arg0 context.Context, arg1 *rds.ModifyActivityStreamInput, arg2 ...request.Option) (*rds.ModifyActivityStreamOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ModifyActivityStreamWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.ModifyActivityStreamOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ModifyActivityStreamWithContext indicates an expected call of ModifyActivityStreamWithContext.
+func (mr *MockRDSAPIMockRecorder) ModifyActivityStreamWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyActivityStreamWithContext", reflect.TypeOf((*MockRDSAPI)(nil).ModifyActivityStreamWithContext), varargs...)
+}
+
 // ModifyCertificates mocks base method.
 func (m *MockRDSAPI) ModifyCertificates(arg0 *rds.ModifyCertificatesInput) (*rds.ModifyCertificatesOutput, error) {
 	m.ctrl.T.Helper()

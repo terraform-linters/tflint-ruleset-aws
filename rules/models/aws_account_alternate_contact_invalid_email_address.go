@@ -29,7 +29,7 @@ func NewAwsAccountAlternateContactInvalidEmailAddressRule() *AwsAccountAlternate
 		attributeName: "email_address",
 		max:           64,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[\w+=,.-]+@[\w.-]+\.[\w]+$`),
+		pattern:       regexp.MustCompile(`^[\s]*[\w+=.#!&-]+@[\w.-]+\.[\w]+[\s]*$`),
 	}
 }
 
@@ -93,7 +93,7 @@ func (r *AwsAccountAlternateContactInvalidEmailAddressRule) Check(runner tflint.
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[\w+=,.-]+@[\w.-]+\.[\w]+$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[\s]*[\w+=.#!&-]+@[\w.-]+\.[\w]+[\s]*$`),
 					attribute.Expr.Range(),
 				)
 			}

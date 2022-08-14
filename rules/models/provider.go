@@ -260,7 +260,6 @@ var Rules = []tflint.Rule{
 	NewAwsCloudwatchMetricAlarmInvalidAlarmNameRule(),
 	NewAwsCloudwatchMetricAlarmInvalidComparisonOperatorRule(),
 	NewAwsCloudwatchMetricAlarmInvalidEvaluateLowSampleCountPercentilesRule(),
-	NewAwsCloudwatchMetricAlarmInvalidExtendedStatisticRule(),
 	NewAwsCloudwatchMetricAlarmInvalidMetricNameRule(),
 	NewAwsCloudwatchMetricAlarmInvalidNamespaceRule(),
 	NewAwsCloudwatchMetricAlarmInvalidStatisticRule(),

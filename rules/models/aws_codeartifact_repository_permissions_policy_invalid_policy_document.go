@@ -3,6 +3,9 @@
 package models
 
 import (
+	"fmt"
+	"regexp"
+
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -16,6 +19,7 @@ type AwsCodeartifactRepositoryPermissionsPolicyInvalidPolicyDocumentRule struct 
 	attributeName string
 	max           int
 	min           int
+	pattern       *regexp.Regexp
 }
 
 // NewAwsCodeartifactRepositoryPermissionsPolicyInvalidPolicyDocumentRule returns new rule with default attributes
@@ -23,8 +27,9 @@ func NewAwsCodeartifactRepositoryPermissionsPolicyInvalidPolicyDocumentRule() *A
 	return &AwsCodeartifactRepositoryPermissionsPolicyInvalidPolicyDocumentRule{
 		resourceType:  "aws_codeartifact_repository_permissions_policy",
 		attributeName: "policy_document",
-		max:           5120,
+		max:           7168,
 		min:           1,
+		pattern:       regexp.MustCompile(`^[\P{C}\s]+$`),
 	}
 }
 
@@ -74,7 +79,7 @@ func (r *AwsCodeartifactRepositoryPermissionsPolicyInvalidPolicyDocumentRule) Ch
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					"policy_document must be 5120 characters or less",
+					"policy_document must be 7168 characters or less",
 					attribute.Expr.Range(),
 				)
 			}
@@ -82,6 +87,13 @@ func (r *AwsCodeartifactRepositoryPermissionsPolicyInvalidPolicyDocumentRule) Ch
 				runner.EmitIssue(
 					r,
 					"policy_document must be 1 characters or higher",
+					attribute.Expr.Range(),
+				)
+			}
+			if !r.pattern.MatchString(val) {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[\P{C}\s]+$`),
 					attribute.Expr.Range(),
 				)
 			}
