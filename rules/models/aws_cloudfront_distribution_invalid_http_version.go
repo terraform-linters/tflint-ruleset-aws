@@ -27,6 +27,8 @@ func NewAwsCloudfrontDistributionInvalidHTTPVersionRule() *AwsCloudfrontDistribu
 		enum: []string{
 			"http1.1",
 			"http2",
+			"http2and3",
+			"http3",
 		},
 	}
 }
