@@ -23,18 +23,8 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v3
       with:
-        go-version: 1.19
-    - name: Restore Cache
-      uses: actions/cache@v3
-      with:
-        path: |-
-          ~/go/pkg/mod
-          ~/.cache/go-build
-          ~/Library/Caches/go-build
-          %LocalAppData%\go-build
-        key: ${{ matrix.os }}-go-${{ hashFiles('go.sum') }}
-        restore-keys: |
-          ${{ runner.os }}-go-
+        go-version-file: 'go.mod'
+        cache: true
     - name: Run tests
       run: make test
     - name: Run build
