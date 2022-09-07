@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/agext/levenshtein v1.2.2 // indirect
-	github.com/aws/aws-sdk-go v1.44.86
+	github.com/aws/aws-sdk-go v1.44.92
 	github.com/dave/dst v0.27.0
 	github.com/fatih/color v1.9.0 // indirect
 	github.com/golang/mock v1.6.0
