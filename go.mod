@@ -20,7 +20,7 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mitchellh/go-testing-interface v1.14.1 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.0 // indirect
-	github.com/terraform-linters/tflint-plugin-sdk v0.12.0
+	github.com/terraform-linters/tflint-plugin-sdk v0.13.0
 	github.com/zclconf/go-cty v1.11.0
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/genproto v0.0.0-20200711021454-869866162049 // indirect
