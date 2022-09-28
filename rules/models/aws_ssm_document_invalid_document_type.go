@@ -37,6 +37,8 @@ func NewAwsSsmDocumentInvalidDocumentTypeRule() *AwsSsmDocumentInvalidDocumentTy
 			"Automation.ChangeTemplate",
 			"ProblemAnalysis",
 			"ProblemAnalysisTemplate",
+			"CloudFormation",
+			"ConformancePackTemplate",
 		},
 	}
 }

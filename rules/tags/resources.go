@@ -322,6 +322,7 @@ var Resources = []string{
 	"aws_media_store_container",
 	"aws_medialive_input",
 	"aws_medialive_input_security_group",
+	"aws_medialive_multiplex",
 	"aws_memorydb_acl",
 	"aws_memorydb_cluster",
 	"aws_memorydb_parameter_group",
