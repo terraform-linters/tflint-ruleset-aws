@@ -27,6 +27,7 @@ func NewAwsEksAddonInvalidResolveConflictsRule() *AwsEksAddonInvalidResolveConfl
 		enum: []string{
 			"OVERWRITE",
 			"NONE",
+			"PRESERVE",
 		},
 	}
 }

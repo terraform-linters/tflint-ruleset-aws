@@ -27,6 +27,7 @@ func NewAwsDBProxyInvalidEngineFamilyRule() *AwsDBProxyInvalidEngineFamilyRule {
 		enum: []string{
 			"MYSQL",
 			"POSTGRESQL",
+			"SQLSERVER",
 		},
 	}
 }
