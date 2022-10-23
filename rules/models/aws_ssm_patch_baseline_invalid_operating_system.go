@@ -28,6 +28,7 @@ func NewAwsSsmPatchBaselineInvalidOperatingSystemRule() *AwsSsmPatchBaselineInva
 			"WINDOWS",
 			"AMAZON_LINUX",
 			"AMAZON_LINUX_2",
+			"AMAZON_LINUX_2022",
 			"UBUNTU",
 			"REDHAT_ENTERPRISE_LINUX",
 			"SUSE",
