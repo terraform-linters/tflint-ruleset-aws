@@ -593,6 +593,7 @@ func NewAwsLaunchConfigurationInvalidTypeRule() *AwsLaunchConfigurationInvalidTy
 			"r6a.48xlarge",
 			"r6a.metal",
 			"p4de.24xlarge",
+			"u-3tb1.56xlarge",
 		},
 	}
 }
