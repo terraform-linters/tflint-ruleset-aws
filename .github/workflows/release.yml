@@ -7,6 +7,10 @@ on:
     tags:
     - v*.*.*
 
+permissions:
+  contents: write
+  id-token: write
+
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
@@ -20,6 +24,8 @@ jobs:
       with:
         go-version-file: 'go.mod'
         cache: true
+    - name: Install Cosign
+      uses: sigstore/cosign-installer@v2
     - name: Run GoReleaser
       uses: goreleaser/goreleaser-action@v3
       with:
