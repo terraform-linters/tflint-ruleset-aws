@@ -30,7 +30,7 @@ func NewRunner(runner tflint.Runner, config *Config) (*Runner, error) {
 			credentials["aws"] = Credentials{}
 		}
 		for k, cred := range credentials {
-			client, err := NewClient(config.toCredentials().Merge(cred))
+			client, err := NewClient(cred.Merge(config.toCredentials()))
 			if err != nil {
 				return nil, err
 			}
