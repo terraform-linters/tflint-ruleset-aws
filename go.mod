@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/agext/levenshtein v1.2.2 // indirect
-	github.com/aws/aws-sdk-go v1.44.121
+	github.com/aws/aws-sdk-go v1.44.136
 	github.com/dave/dst v0.27.2
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/golang/mock v1.6.0
@@ -30,7 +30,7 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
-require golang.org/x/net v0.0.0-20220722155237-a158d28d115b
+require golang.org/x/net v0.1.0
 
 require (
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
@@ -46,7 +46,7 @@ require (
 	github.com/vmihailenco/msgpack/v4 v4.3.12 // indirect
 	github.com/vmihailenco/tagparser v0.1.1 // indirect
 	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4 // indirect
-	golang.org/x/sys v0.0.0-20220722155257-8c9f86f7a55f // indirect
-	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/sys v0.1.0 // indirect
+	golang.org/x/text v0.4.0 // indirect
 	golang.org/x/tools v0.1.12 // indirect
 )

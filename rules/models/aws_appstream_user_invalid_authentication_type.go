@@ -28,6 +28,7 @@ func NewAwsAppstreamUserInvalidAuthenticationTypeRule() *AwsAppstreamUserInvalid
 			"API",
 			"SAML",
 			"USERPOOL",
+			"AWS_AD",
 		},
 	}
 }

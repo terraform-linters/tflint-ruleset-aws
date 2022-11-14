@@ -28,6 +28,7 @@ func NewAwsAppstreamUserStackAssociationInvalidAuthenticationTypeRule() *AwsApps
 			"API",
 			"SAML",
 			"USERPOOL",
+			"AWS_AD",
 		},
 	}
 }
