@@ -29,7 +29,7 @@ func NewAwsAcmCertificateValidationInvalidCertificateArnRule() *AwsAcmCertificat
 		attributeName: "certificate_arn",
 		max:           2048,
 		min:           20,
-		pattern:       regexp.MustCompile(`^arn:[\w+=/,.@-]+:[\w+=/,.@-]+:[\w+=/,.@-]*:[0-9]+:[\w+=,.@-]+(/[\w+=,.@-]+)*$`),
+		pattern:       regexp.MustCompile(`^arn:[\w+=/,.@-]+:acm:[\w+=/,.@-]*:[0-9]+:[\w+=,.@-]+(/[\w+=,.@-]+)*$`),
 	}
 }
 
@@ -93,7 +93,7 @@ func (r *AwsAcmCertificateValidationInvalidCertificateArnRule) Check(runner tfli
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:[\w+=/,.@-]+:[\w+=/,.@-]+:[\w+=/,.@-]*:[0-9]+:[\w+=,.@-]+(/[\w+=,.@-]+)*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:[\w+=/,.@-]+:acm:[\w+=/,.@-]*:[0-9]+:[\w+=,.@-]+(/[\w+=,.@-]+)*$`),
 					attribute.Expr.Range(),
 				)
 			}

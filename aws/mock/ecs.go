@@ -1086,6 +1086,56 @@ func (mr *MockECSAPIMockRecorder) ExecuteCommandWithContext(arg0, arg1 interface
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ExecuteCommandWithContext", reflect.TypeOf((*MockECSAPI)(nil).ExecuteCommandWithContext), varargs...)
 }
 
+// GetTaskProtection mocks base method.
+func (m *MockECSAPI) GetTaskProtection(arg0 *ecs.GetTaskProtectionInput) (*ecs.GetTaskProtectionOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetTaskProtection", arg0)
+	ret0, _ := ret[0].(*ecs.GetTaskProtectionOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetTaskProtection indicates an expected call of GetTaskProtection.
+func (mr *MockECSAPIMockRecorder) GetTaskProtection(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetTaskProtection", reflect.TypeOf((*MockECSAPI)(nil).GetTaskProtection), arg0)
+}
+
+// GetTaskProtectionRequest mocks base method.
+func (m *MockECSAPI) GetTaskProtectionRequest(arg0 *ecs.GetTaskProtectionInput) (*request.Request, *ecs.GetTaskProtectionOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetTaskProtectionRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ecs.GetTaskProtectionOutput)
+	return ret0, ret1
+}
+
+// GetTaskProtectionRequest indicates an expected call of GetTaskProtectionRequest.
+func (mr *MockECSAPIMockRecorder) GetTaskProtectionRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetTaskProtectionRequest", reflect.TypeOf((*MockECSAPI)(nil).GetTaskProtectionRequest), arg0)
+}
+
+// GetTaskProtectionWithContext mocks base method.
+func (m *MockECSAPI) GetTaskProtectionWithContext(arg0 context.Context, arg1 *ecs.GetTaskProtectionInput, arg2 ...request.Option) (*ecs.GetTaskProtectionOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetTaskProtectionWithContext", varargs...)
+	ret0, _ := ret[0].(*ecs.GetTaskProtectionOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetTaskProtectionWithContext indicates an expected call of GetTaskProtectionWithContext.
+func (mr *MockECSAPIMockRecorder) GetTaskProtectionWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetTaskProtectionWithContext", reflect.TypeOf((*MockECSAPI)(nil).GetTaskProtectionWithContext), varargs...)
+}
+
 // ListAccountSettings mocks base method.
 func (m *MockECSAPI) ListAccountSettings(arg0 *ecs.ListAccountSettingsInput) (*ecs.ListAccountSettingsOutput, error) {
 	m.ctrl.T.Helper()
@@ -2848,6 +2898,56 @@ func (mr *MockECSAPIMockRecorder) UpdateServiceWithContext(arg0, arg1 interface{
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateServiceWithContext", reflect.TypeOf((*MockECSAPI)(nil).UpdateServiceWithContext), varargs...)
+}
+
+// UpdateTaskProtection mocks base method.
+func (m *MockECSAPI) UpdateTaskProtection(arg0 *ecs.UpdateTaskProtectionInput) (*ecs.UpdateTaskProtectionOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateTaskProtection", arg0)
+	ret0, _ := ret[0].(*ecs.UpdateTaskProtectionOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateTaskProtection indicates an expected call of UpdateTaskProtection.
+func (mr *MockECSAPIMockRecorder) UpdateTaskProtection(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateTaskProtection", reflect.TypeOf((*MockECSAPI)(nil).UpdateTaskProtection), arg0)
+}
+
+// UpdateTaskProtectionRequest mocks base method.
+func (m *MockECSAPI) UpdateTaskProtectionRequest(arg0 *ecs.UpdateTaskProtectionInput) (*request.Request, *ecs.UpdateTaskProtectionOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateTaskProtectionRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ecs.UpdateTaskProtectionOutput)
+	return ret0, ret1
+}
+
+// UpdateTaskProtectionRequest indicates an expected call of UpdateTaskProtectionRequest.
+func (mr *MockECSAPIMockRecorder) UpdateTaskProtectionRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateTaskProtectionRequest", reflect.TypeOf((*MockECSAPI)(nil).UpdateTaskProtectionRequest), arg0)
+}
+
+// UpdateTaskProtectionWithContext mocks base method.
+func (m *MockECSAPI) UpdateTaskProtectionWithContext(arg0 context.Context, arg1 *ecs.UpdateTaskProtectionInput, arg2 ...request.Option) (*ecs.UpdateTaskProtectionOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "UpdateTaskProtectionWithContext", varargs...)
+	ret0, _ := ret[0].(*ecs.UpdateTaskProtectionOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateTaskProtectionWithContext indicates an expected call of UpdateTaskProtectionWithContext.
+func (mr *MockECSAPIMockRecorder) UpdateTaskProtectionWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateTaskProtectionWithContext", reflect.TypeOf((*MockECSAPI)(nil).UpdateTaskProtectionWithContext), varargs...)
 }
 
 // UpdateTaskSet mocks base method.

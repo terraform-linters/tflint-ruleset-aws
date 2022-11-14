@@ -594,6 +594,10 @@ func NewAwsLaunchTemplateInvalidInstanceTypeRule() *AwsLaunchTemplateInvalidInst
 			"r6a.metal",
 			"p4de.24xlarge",
 			"u-3tb1.56xlarge",
+			"u-18tb1.112xlarge",
+			"u-24tb1.112xlarge",
+			"trn1.2xlarge",
+			"trn1.32xlarge",
 		},
 	}
 }
