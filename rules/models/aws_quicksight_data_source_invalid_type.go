@@ -50,6 +50,7 @@ func NewAwsQuicksightDataSourceInvalidTypeRule() *AwsQuicksightDataSourceInvalid
 			"TIMESTREAM",
 			"AMAZON_OPENSEARCH",
 			"EXASOL",
+			"DATABRICKS",
 		},
 	}
 }

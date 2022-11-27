@@ -27,6 +27,7 @@ func NewAwsAmplifyAppInvalidPlatformRule() *AwsAmplifyAppInvalidPlatformRule {
 		enum: []string{
 			"WEB",
 			"WEB_DYNAMIC",
+			"WEB_COMPUTE",
 		},
 	}
 }

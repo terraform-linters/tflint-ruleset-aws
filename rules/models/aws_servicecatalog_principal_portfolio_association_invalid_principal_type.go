@@ -26,6 +26,7 @@ func NewAwsServicecatalogPrincipalPortfolioAssociationInvalidPrincipalTypeRule()
 		attributeName: "principal_type",
 		enum: []string{
 			"IAM",
+			"IAM_PATTERN",
 		},
 	}
 }
