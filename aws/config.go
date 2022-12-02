@@ -16,14 +16,14 @@ type Config struct {
 
 func (c *Config) toCredentials() Credentials {
 	return Credentials{
-		AccessKey: 				c.AccessKey,
-		SecretKey: 				c.SecretKey,
-		Region:    				c.Region,
-		Profile:   				c.Profile,
-		CredsFile: 				c.SharedCredentialsFile,
-		AssumeRoleARN: 			c.AssumeRoleARN,
-		AssumeRoleExternalID: 	c.AssumeRoleExternalID,
-		AssumeRolePolicy: 		c.AssumeRolePolicy,
-		AssumeRoleSessionName: 	c.AssumeRoleSessionName,
+		AccessKey:              c.AccessKey,
+		SecretKey:              c.SecretKey,
+		Region:                 c.Region,
+		Profile:                c.Profile,
+		CredsFile:              c.SharedCredentialsFile,
+		AssumeRoleARN:          c.AssumeRoleARN,
+		AssumeRoleExternalID:   c.AssumeRoleExternalID,
+		AssumeRolePolicy:       c.AssumeRolePolicy,
+		AssumeRoleSessionName:  c.AssumeRoleSessionName,
 	}
 }
