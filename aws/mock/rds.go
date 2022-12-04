@@ -686,6 +686,56 @@ func (mr *MockRDSAPIMockRecorder) CopyOptionGroupWithContext(arg0, arg1 interfac
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CopyOptionGroupWithContext", reflect.TypeOf((*MockRDSAPI)(nil).CopyOptionGroupWithContext), varargs...)
 }
 
+// CreateBlueGreenDeployment mocks base method.
+func (m *MockRDSAPI) CreateBlueGreenDeployment(arg0 *rds.CreateBlueGreenDeploymentInput) (*rds.CreateBlueGreenDeploymentOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateBlueGreenDeployment", arg0)
+	ret0, _ := ret[0].(*rds.CreateBlueGreenDeploymentOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateBlueGreenDeployment indicates an expected call of CreateBlueGreenDeployment.
+func (mr *MockRDSAPIMockRecorder) CreateBlueGreenDeployment(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateBlueGreenDeployment", reflect.TypeOf((*MockRDSAPI)(nil).CreateBlueGreenDeployment), arg0)
+}
+
+// CreateBlueGreenDeploymentRequest mocks base method.
+func (m *MockRDSAPI) CreateBlueGreenDeploymentRequest(arg0 *rds.CreateBlueGreenDeploymentInput) (*request.Request, *rds.CreateBlueGreenDeploymentOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateBlueGreenDeploymentRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.CreateBlueGreenDeploymentOutput)
+	return ret0, ret1
+}
+
+// CreateBlueGreenDeploymentRequest indicates an expected call of CreateBlueGreenDeploymentRequest.
+func (mr *MockRDSAPIMockRecorder) CreateBlueGreenDeploymentRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateBlueGreenDeploymentRequest", reflect.TypeOf((*MockRDSAPI)(nil).CreateBlueGreenDeploymentRequest), arg0)
+}
+
+// CreateBlueGreenDeploymentWithContext mocks base method.
+func (m *MockRDSAPI) CreateBlueGreenDeploymentWithContext(arg0 context.Context, arg1 *rds.CreateBlueGreenDeploymentInput, arg2 ...request.Option) (*rds.CreateBlueGreenDeploymentOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "CreateBlueGreenDeploymentWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.CreateBlueGreenDeploymentOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateBlueGreenDeploymentWithContext indicates an expected call of CreateBlueGreenDeploymentWithContext.
+func (mr *MockRDSAPIMockRecorder) CreateBlueGreenDeploymentWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateBlueGreenDeploymentWithContext", reflect.TypeOf((*MockRDSAPI)(nil).CreateBlueGreenDeploymentWithContext), varargs...)
+}
+
 // CreateCustomDBEngineVersion mocks base method.
 func (m *MockRDSAPI) CreateCustomDBEngineVersion(arg0 *rds.CreateCustomDBEngineVersionInput) (*rds.CreateCustomDBEngineVersionOutput, error) {
 	m.ctrl.T.Helper()
@@ -1484,6 +1534,56 @@ func (mr *MockRDSAPIMockRecorder) CreateOptionGroupWithContext(arg0, arg1 interf
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateOptionGroupWithContext", reflect.TypeOf((*MockRDSAPI)(nil).CreateOptionGroupWithContext), varargs...)
+}
+
+// DeleteBlueGreenDeployment mocks base method.
+func (m *MockRDSAPI) DeleteBlueGreenDeployment(arg0 *rds.DeleteBlueGreenDeploymentInput) (*rds.DeleteBlueGreenDeploymentOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteBlueGreenDeployment", arg0)
+	ret0, _ := ret[0].(*rds.DeleteBlueGreenDeploymentOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteBlueGreenDeployment indicates an expected call of DeleteBlueGreenDeployment.
+func (mr *MockRDSAPIMockRecorder) DeleteBlueGreenDeployment(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteBlueGreenDeployment", reflect.TypeOf((*MockRDSAPI)(nil).DeleteBlueGreenDeployment), arg0)
+}
+
+// DeleteBlueGreenDeploymentRequest mocks base method.
+func (m *MockRDSAPI) DeleteBlueGreenDeploymentRequest(arg0 *rds.DeleteBlueGreenDeploymentInput) (*request.Request, *rds.DeleteBlueGreenDeploymentOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteBlueGreenDeploymentRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.DeleteBlueGreenDeploymentOutput)
+	return ret0, ret1
+}
+
+// DeleteBlueGreenDeploymentRequest indicates an expected call of DeleteBlueGreenDeploymentRequest.
+func (mr *MockRDSAPIMockRecorder) DeleteBlueGreenDeploymentRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteBlueGreenDeploymentRequest", reflect.TypeOf((*MockRDSAPI)(nil).DeleteBlueGreenDeploymentRequest), arg0)
+}
+
+// DeleteBlueGreenDeploymentWithContext mocks base method.
+func (m *MockRDSAPI) DeleteBlueGreenDeploymentWithContext(arg0 context.Context, arg1 *rds.DeleteBlueGreenDeploymentInput, arg2 ...request.Option) (*rds.DeleteBlueGreenDeploymentOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DeleteBlueGreenDeploymentWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.DeleteBlueGreenDeploymentOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteBlueGreenDeploymentWithContext indicates an expected call of DeleteBlueGreenDeploymentWithContext.
+func (mr *MockRDSAPIMockRecorder) DeleteBlueGreenDeploymentWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteBlueGreenDeploymentWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DeleteBlueGreenDeploymentWithContext), varargs...)
 }
 
 // DeleteCustomDBEngineVersion mocks base method.
@@ -2384,6 +2484,89 @@ func (mr *MockRDSAPIMockRecorder) DescribeAccountAttributesWithContext(arg0, arg
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeAccountAttributesWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeAccountAttributesWithContext), varargs...)
+}
+
+// DescribeBlueGreenDeployments mocks base method.
+func (m *MockRDSAPI) DescribeBlueGreenDeployments(arg0 *rds.DescribeBlueGreenDeploymentsInput) (*rds.DescribeBlueGreenDeploymentsOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeBlueGreenDeployments", arg0)
+	ret0, _ := ret[0].(*rds.DescribeBlueGreenDeploymentsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeBlueGreenDeployments indicates an expected call of DescribeBlueGreenDeployments.
+func (mr *MockRDSAPIMockRecorder) DescribeBlueGreenDeployments(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeBlueGreenDeployments", reflect.TypeOf((*MockRDSAPI)(nil).DescribeBlueGreenDeployments), arg0)
+}
+
+// DescribeBlueGreenDeploymentsPages mocks base method.
+func (m *MockRDSAPI) DescribeBlueGreenDeploymentsPages(arg0 *rds.DescribeBlueGreenDeploymentsInput, arg1 func(*rds.DescribeBlueGreenDeploymentsOutput, bool) bool) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeBlueGreenDeploymentsPages", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeBlueGreenDeploymentsPages indicates an expected call of DescribeBlueGreenDeploymentsPages.
+func (mr *MockRDSAPIMockRecorder) DescribeBlueGreenDeploymentsPages(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeBlueGreenDeploymentsPages", reflect.TypeOf((*MockRDSAPI)(nil).DescribeBlueGreenDeploymentsPages), arg0, arg1)
+}
+
+// DescribeBlueGreenDeploymentsPagesWithContext mocks base method.
+func (m *MockRDSAPI) DescribeBlueGreenDeploymentsPagesWithContext(arg0 context.Context, arg1 *rds.DescribeBlueGreenDeploymentsInput, arg2 func(*rds.DescribeBlueGreenDeploymentsOutput, bool) bool, arg3 ...request.Option) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1, arg2}
+	for _, a := range arg3 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeBlueGreenDeploymentsPagesWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeBlueGreenDeploymentsPagesWithContext indicates an expected call of DescribeBlueGreenDeploymentsPagesWithContext.
+func (mr *MockRDSAPIMockRecorder) DescribeBlueGreenDeploymentsPagesWithContext(arg0, arg1, arg2 interface{}, arg3 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1, arg2}, arg3...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeBlueGreenDeploymentsPagesWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeBlueGreenDeploymentsPagesWithContext), varargs...)
+}
+
+// DescribeBlueGreenDeploymentsRequest mocks base method.
+func (m *MockRDSAPI) DescribeBlueGreenDeploymentsRequest(arg0 *rds.DescribeBlueGreenDeploymentsInput) (*request.Request, *rds.DescribeBlueGreenDeploymentsOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeBlueGreenDeploymentsRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.DescribeBlueGreenDeploymentsOutput)
+	return ret0, ret1
+}
+
+// DescribeBlueGreenDeploymentsRequest indicates an expected call of DescribeBlueGreenDeploymentsRequest.
+func (mr *MockRDSAPIMockRecorder) DescribeBlueGreenDeploymentsRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeBlueGreenDeploymentsRequest", reflect.TypeOf((*MockRDSAPI)(nil).DescribeBlueGreenDeploymentsRequest), arg0)
+}
+
+// DescribeBlueGreenDeploymentsWithContext mocks base method.
+func (m *MockRDSAPI) DescribeBlueGreenDeploymentsWithContext(arg0 context.Context, arg1 *rds.DescribeBlueGreenDeploymentsInput, arg2 ...request.Option) (*rds.DescribeBlueGreenDeploymentsOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeBlueGreenDeploymentsWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.DescribeBlueGreenDeploymentsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeBlueGreenDeploymentsWithContext indicates an expected call of DescribeBlueGreenDeploymentsWithContext.
+func (mr *MockRDSAPIMockRecorder) DescribeBlueGreenDeploymentsWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeBlueGreenDeploymentsWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeBlueGreenDeploymentsWithContext), varargs...)
 }
 
 // DescribeCertificates mocks base method.
@@ -7923,6 +8106,56 @@ func (mr *MockRDSAPIMockRecorder) StopDBInstanceWithContext(arg0, arg1 interface
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StopDBInstanceWithContext", reflect.TypeOf((*MockRDSAPI)(nil).StopDBInstanceWithContext), varargs...)
+}
+
+// SwitchoverBlueGreenDeployment mocks base method.
+func (m *MockRDSAPI) SwitchoverBlueGreenDeployment(arg0 *rds.SwitchoverBlueGreenDeploymentInput) (*rds.SwitchoverBlueGreenDeploymentOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SwitchoverBlueGreenDeployment", arg0)
+	ret0, _ := ret[0].(*rds.SwitchoverBlueGreenDeploymentOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SwitchoverBlueGreenDeployment indicates an expected call of SwitchoverBlueGreenDeployment.
+func (mr *MockRDSAPIMockRecorder) SwitchoverBlueGreenDeployment(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SwitchoverBlueGreenDeployment", reflect.TypeOf((*MockRDSAPI)(nil).SwitchoverBlueGreenDeployment), arg0)
+}
+
+// SwitchoverBlueGreenDeploymentRequest mocks base method.
+func (m *MockRDSAPI) SwitchoverBlueGreenDeploymentRequest(arg0 *rds.SwitchoverBlueGreenDeploymentInput) (*request.Request, *rds.SwitchoverBlueGreenDeploymentOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SwitchoverBlueGreenDeploymentRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.SwitchoverBlueGreenDeploymentOutput)
+	return ret0, ret1
+}
+
+// SwitchoverBlueGreenDeploymentRequest indicates an expected call of SwitchoverBlueGreenDeploymentRequest.
+func (mr *MockRDSAPIMockRecorder) SwitchoverBlueGreenDeploymentRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SwitchoverBlueGreenDeploymentRequest", reflect.TypeOf((*MockRDSAPI)(nil).SwitchoverBlueGreenDeploymentRequest), arg0)
+}
+
+// SwitchoverBlueGreenDeploymentWithContext mocks base method.
+func (m *MockRDSAPI) SwitchoverBlueGreenDeploymentWithContext(arg0 context.Context, arg1 *rds.SwitchoverBlueGreenDeploymentInput, arg2 ...request.Option) (*rds.SwitchoverBlueGreenDeploymentOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "SwitchoverBlueGreenDeploymentWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.SwitchoverBlueGreenDeploymentOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SwitchoverBlueGreenDeploymentWithContext indicates an expected call of SwitchoverBlueGreenDeploymentWithContext.
+func (mr *MockRDSAPIMockRecorder) SwitchoverBlueGreenDeploymentWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SwitchoverBlueGreenDeploymentWithContext", reflect.TypeOf((*MockRDSAPI)(nil).SwitchoverBlueGreenDeploymentWithContext), varargs...)
 }
 
 // SwitchoverReadReplica mocks base method.

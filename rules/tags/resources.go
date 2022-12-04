@@ -155,6 +155,7 @@ var Resources = []string{
 	"aws_dms_replication_instance",
 	"aws_dms_replication_subnet_group",
 	"aws_dms_replication_task",
+	"aws_dms_s3_endpoint",
 	"aws_docdb_cluster",
 	"aws_docdb_cluster_instance",
 	"aws_docdb_cluster_parameter_group",

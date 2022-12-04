@@ -598,6 +598,7 @@ func NewAwsLaunchConfigurationInvalidTypeRule() *AwsLaunchConfigurationInvalidTy
 			"u-24tb1.112xlarge",
 			"trn1.2xlarge",
 			"trn1.32xlarge",
+			"hpc6id.32xlarge",
 		},
 	}
 }
