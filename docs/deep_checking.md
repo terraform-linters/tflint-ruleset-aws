@@ -37,7 +37,6 @@ Credentials can be set in several ways. Each is referenced in the following orde
 - ECS and CodeBuild task roles
 - EC2 role
 
-
 ### Static credentials
 
 If you have an access key and a secret key, you can pass these keys like the following:
@@ -53,7 +52,7 @@ plugin "aws" {
 }
 ```
 
-Although there is not recommended, if an access key is hard-coded in a provider configuration, they will also be taken into account. However, aliases are not supported. The priority is higher than the environment variable and lower than the above way.
+Although there is not recommended, if an access key is hard-coded in a provider configuration, they will also be taken into account. The priority is higher than the environment variable and lower than the above way.
 
 ```hcl
 provider "aws" {
@@ -104,6 +103,20 @@ This plugin fetches credentials in the same way as Terraform. See [this document
 ### Assume role
 
 This plugin can assume a role in the same way as Terraform. See [this documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#assume-role).
+
+You can also declare the assume role config in the plugin config:
+
+```hcl
+plugin "aws" {
+  enabled = true
+
+  deep_check = true
+
+  assume_role {
+    role_arn = "arn:aws:iam::123456789012:role/ROLE_NAME"
+  }
+}
+```
 
 ## Required permissions
 
