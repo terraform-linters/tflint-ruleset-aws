@@ -1483,6 +1483,89 @@ func (mr *MockECSAPIMockRecorder) ListServices(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListServices", reflect.TypeOf((*MockECSAPI)(nil).ListServices), arg0)
 }
 
+// ListServicesByNamespace mocks base method.
+func (m *MockECSAPI) ListServicesByNamespace(arg0 *ecs.ListServicesByNamespaceInput) (*ecs.ListServicesByNamespaceOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListServicesByNamespace", arg0)
+	ret0, _ := ret[0].(*ecs.ListServicesByNamespaceOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListServicesByNamespace indicates an expected call of ListServicesByNamespace.
+func (mr *MockECSAPIMockRecorder) ListServicesByNamespace(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListServicesByNamespace", reflect.TypeOf((*MockECSAPI)(nil).ListServicesByNamespace), arg0)
+}
+
+// ListServicesByNamespacePages mocks base method.
+func (m *MockECSAPI) ListServicesByNamespacePages(arg0 *ecs.ListServicesByNamespaceInput, arg1 func(*ecs.ListServicesByNamespaceOutput, bool) bool) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListServicesByNamespacePages", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// ListServicesByNamespacePages indicates an expected call of ListServicesByNamespacePages.
+func (mr *MockECSAPIMockRecorder) ListServicesByNamespacePages(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListServicesByNamespacePages", reflect.TypeOf((*MockECSAPI)(nil).ListServicesByNamespacePages), arg0, arg1)
+}
+
+// ListServicesByNamespacePagesWithContext mocks base method.
+func (m *MockECSAPI) ListServicesByNamespacePagesWithContext(arg0 context.Context, arg1 *ecs.ListServicesByNamespaceInput, arg2 func(*ecs.ListServicesByNamespaceOutput, bool) bool, arg3 ...request.Option) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1, arg2}
+	for _, a := range arg3 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ListServicesByNamespacePagesWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// ListServicesByNamespacePagesWithContext indicates an expected call of ListServicesByNamespacePagesWithContext.
+func (mr *MockECSAPIMockRecorder) ListServicesByNamespacePagesWithContext(arg0, arg1, arg2 interface{}, arg3 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1, arg2}, arg3...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListServicesByNamespacePagesWithContext", reflect.TypeOf((*MockECSAPI)(nil).ListServicesByNamespacePagesWithContext), varargs...)
+}
+
+// ListServicesByNamespaceRequest mocks base method.
+func (m *MockECSAPI) ListServicesByNamespaceRequest(arg0 *ecs.ListServicesByNamespaceInput) (*request.Request, *ecs.ListServicesByNamespaceOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListServicesByNamespaceRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ecs.ListServicesByNamespaceOutput)
+	return ret0, ret1
+}
+
+// ListServicesByNamespaceRequest indicates an expected call of ListServicesByNamespaceRequest.
+func (mr *MockECSAPIMockRecorder) ListServicesByNamespaceRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListServicesByNamespaceRequest", reflect.TypeOf((*MockECSAPI)(nil).ListServicesByNamespaceRequest), arg0)
+}
+
+// ListServicesByNamespaceWithContext mocks base method.
+func (m *MockECSAPI) ListServicesByNamespaceWithContext(arg0 context.Context, arg1 *ecs.ListServicesByNamespaceInput, arg2 ...request.Option) (*ecs.ListServicesByNamespaceOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ListServicesByNamespaceWithContext", varargs...)
+	ret0, _ := ret[0].(*ecs.ListServicesByNamespaceOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListServicesByNamespaceWithContext indicates an expected call of ListServicesByNamespaceWithContext.
+func (mr *MockECSAPIMockRecorder) ListServicesByNamespaceWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListServicesByNamespaceWithContext", reflect.TypeOf((*MockECSAPI)(nil).ListServicesByNamespaceWithContext), varargs...)
+}
+
 // ListServicesPages mocks base method.
 func (m *MockECSAPI) ListServicesPages(arg0 *ecs.ListServicesInput, arg1 func(*ecs.ListServicesOutput, bool) bool) error {
 	m.ctrl.T.Helper()

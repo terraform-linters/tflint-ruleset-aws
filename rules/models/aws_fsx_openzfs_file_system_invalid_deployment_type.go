@@ -26,6 +26,7 @@ func NewAwsFsxOpenzfsFileSystemInvalidDeploymentTypeRule() *AwsFsxOpenzfsFileSys
 		attributeName: "deployment_type",
 		enum: []string{
 			"SINGLE_AZ_1",
+			"SINGLE_AZ_2",
 		},
 	}
 }
