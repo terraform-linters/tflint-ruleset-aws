@@ -32,6 +32,24 @@ resource "aws_elasticache_cluster" "redis" {
 			},
 		},
 		{
+			Name: "empty is invalid",
+			Content: `
+resource "aws_elasticache_cluster" "redis" {
+    node_type = ""
+}`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsElastiCacheClusterInvalidTypeRule(),
+					Message: "\"\" is invalid node type.",
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 3, Column: 17},
+						End:      hcl.Pos{Line: 3, Column: 19},
+					},
+				},
+			},
+		},
+		{
 			Name: "cache.t2.micro is valid",
 			Content: `
 resource "aws_elasticache_cluster" "redis" {
