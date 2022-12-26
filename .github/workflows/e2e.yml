@@ -29,6 +29,8 @@ jobs:
         go-version-file: 'go.mod'
     - name: Install TFLint
       run: curl -sL https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Install plugin (Linux)
       if: runner.os == 'Linux'
       run: make install
