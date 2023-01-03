@@ -16,6 +16,7 @@ func main() {
 				Version: project.Version,
 				Rules:   rules.Rules,
 			},
+			PresetRules: rules.PresetRules,
 		},
 	})
 }
