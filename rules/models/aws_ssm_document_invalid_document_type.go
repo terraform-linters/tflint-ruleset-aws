@@ -39,6 +39,7 @@ func NewAwsSsmDocumentInvalidDocumentTypeRule() *AwsSsmDocumentInvalidDocumentTy
 			"ProblemAnalysisTemplate",
 			"CloudFormation",
 			"ConformancePackTemplate",
+			"QuickSetup",
 		},
 	}
 }
