@@ -1,3 +1,16 @@
+## 0.21.2 (2023-02-03)
+
+### Enhancements
+
+- [#431](https://github.com/terraform-linters/tflint-ruleset-aws/pull/431) [#442](https://github.com/terraform-linters/tflint-ruleset-aws/pull/442): Update AWS provider/module and generated content
+
+### Chores
+
+- [#433](https://github.com/terraform-linters/tflint-ruleset-aws/pull/433) [#441](https://github.com/terraform-linters/tflint-ruleset-aws/pull/441): Bump golang.org/x/net from 0.2.0 to 0.5.0
+- [#434](https://github.com/terraform-linters/tflint-ruleset-aws/pull/434): Bump goreleaser/goreleaser-action from 3 to 4
+- [#435](https://github.com/terraform-linters/tflint-ruleset-aws/pull/435): Pass `GITHUB_TOKEN` to e2e test workflow ([@wata727](https://github.com/wata727))
+- [#437](https://github.com/terraform-linters/tflint-ruleset-aws/pull/437): Bump github.com/terraform-linters/tflint-plugin-sdk from 0.14.0 to 0.15.0
+
 ## 0.21.1 (2022-12-12)
 
 ### BugFixes
