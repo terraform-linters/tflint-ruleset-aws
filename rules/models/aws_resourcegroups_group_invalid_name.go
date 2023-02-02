@@ -27,7 +27,7 @@ func NewAwsResourcegroupsGroupInvalidNameRule() *AwsResourcegroupsGroupInvalidNa
 	return &AwsResourcegroupsGroupInvalidNameRule{
 		resourceType:  "aws_resourcegroups_group",
 		attributeName: "name",
-		max:           128,
+		max:           300,
 		min:           1,
 		pattern:       regexp.MustCompile(`^[a-zA-Z0-9_\.-]+$`),
 	}
@@ -79,7 +79,7 @@ func (r *AwsResourcegroupsGroupInvalidNameRule) Check(runner tflint.Runner) erro
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					"name must be 128 characters or less",
+					"name must be 300 characters or less",
 					attribute.Expr.Range(),
 				)
 			}
