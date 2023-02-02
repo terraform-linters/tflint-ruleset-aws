@@ -32,6 +32,7 @@ func NewAwsAppsyncDatasourceInvalidTypeRule() *AwsAppsyncDatasourceInvalidTypeRu
 			"HTTP",
 			"RELATIONAL_DATABASE",
 			"AMAZON_OPENSEARCH_SERVICE",
+			"AMAZON_EVENTBRIDGE",
 		},
 	}
 }
