@@ -234,6 +234,7 @@ var Resources = []string{
 	"aws_emrcontainers_virtual_cluster",
 	"aws_emrserverless_application",
 	"aws_evidently_feature",
+	"aws_evidently_launch",
 	"aws_evidently_project",
 	"aws_evidently_segment",
 	"aws_fis_experiment_template",
