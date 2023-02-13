@@ -34584,6 +34584,39 @@ func (mr *MockEC2APIMockRecorder) WaitUntilSnapshotCompletedWithContext(arg0, ar
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WaitUntilSnapshotCompletedWithContext", reflect.TypeOf((*MockEC2API)(nil).WaitUntilSnapshotCompletedWithContext), varargs...)
 }
 
+// WaitUntilSnapshotImported mocks base method.
+func (m *MockEC2API) WaitUntilSnapshotImported(arg0 *ec2.DescribeImportSnapshotTasksInput) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "WaitUntilSnapshotImported", arg0)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// WaitUntilSnapshotImported indicates an expected call of WaitUntilSnapshotImported.
+func (mr *MockEC2APIMockRecorder) WaitUntilSnapshotImported(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WaitUntilSnapshotImported", reflect.TypeOf((*MockEC2API)(nil).WaitUntilSnapshotImported), arg0)
+}
+
+// WaitUntilSnapshotImportedWithContext mocks base method.
+func (m *MockEC2API) WaitUntilSnapshotImportedWithContext(arg0 context.Context, arg1 *ec2.DescribeImportSnapshotTasksInput, arg2 ...request.WaiterOption) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "WaitUntilSnapshotImportedWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// WaitUntilSnapshotImportedWithContext indicates an expected call of WaitUntilSnapshotImportedWithContext.
+func (mr *MockEC2APIMockRecorder) WaitUntilSnapshotImportedWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WaitUntilSnapshotImportedWithContext", reflect.TypeOf((*MockEC2API)(nil).WaitUntilSnapshotImportedWithContext), varargs...)
+}
+
 // WaitUntilSpotInstanceRequestFulfilled mocks base method.
 func (m *MockEC2API) WaitUntilSpotInstanceRequestFulfilled(arg0 *ec2.DescribeSpotInstanceRequestsInput) error {
 	m.ctrl.T.Helper()
