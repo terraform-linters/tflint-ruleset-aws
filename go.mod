@@ -30,7 +30,7 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
-require golang.org/x/net v0.6.0
+require golang.org/x/net v0.7.0
 
 require (
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
