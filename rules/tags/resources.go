@@ -525,6 +525,8 @@ var Resources = []string{
 	"aws_vpc_endpoint_service",
 	"aws_vpc_ipam",
 	"aws_vpc_ipam_pool",
+	"aws_vpc_ipam_resource_discovery",
+	"aws_vpc_ipam_resource_discovery_association",
 	"aws_vpc_ipam_scope",
 	"aws_vpc_peering_connection",
 	"aws_vpc_peering_connection_accepter",
