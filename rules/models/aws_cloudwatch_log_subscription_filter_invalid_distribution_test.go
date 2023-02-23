@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cloudwatch_log_subscription_filter" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchLogSubscriptionFilterInvalidDistributionRule(),
-					Message: `"LogStream" is an invalid value as distribution`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("LogStream"), "distribution"),
 				},
 			},
 		},

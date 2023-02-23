@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_appautoscaling_policy" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAppautoscalingPolicyInvalidPolicyTypeRule(),
-					Message: `"StopScaling" is an invalid value as policy_type`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("StopScaling"), "policy_type"),
 				},
 			},
 		},

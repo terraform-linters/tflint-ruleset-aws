@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_datasync_task" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncTaskInvalidCloudwatchLogGroupArnRule(),
-					Message: `"arn:aws:s3:::my_corporate_bucket" does not match valid pattern ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):logs:[a-z\-0-9]*:[0-9]{12}:log-group:([^:\*]*)(:\*)?$`,
+					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("arn:aws:s3:::my_corporate_bucket"), `^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):logs:[a-z\-0-9]*:[0-9]{12}:log-group:([^:\*]*)(:\*)?$`),
 				},
 			},
 		},

@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cur_report_definition" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCurReportDefinitionInvalidReportNameRule(),
-					Message: `"example/cur-report-definition" does not match valid pattern ^[0-9A-Za-z!\-_.*\'()]+$`,
+					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("example/cur-report-definition"), `^[0-9A-Za-z!\-_.*\'()]+$`),
 				},
 			},
 		},

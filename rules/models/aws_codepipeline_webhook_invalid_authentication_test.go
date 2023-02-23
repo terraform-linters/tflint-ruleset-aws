@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_codepipeline_webhook" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCodepipelineWebhookInvalidAuthenticationRule(),
-					Message: `"GITLAB_HMAC" is an invalid value as authentication`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("GITLAB_HMAC"), "authentication"),
 				},
 			},
 		},

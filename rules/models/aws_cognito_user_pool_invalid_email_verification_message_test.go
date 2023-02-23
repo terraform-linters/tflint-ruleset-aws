@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cognito_user_pool" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoUserPoolInvalidEmailVerificationMessageRule(),
-					Message: `"Verification code" does not match valid pattern ^[\p{L}\p{M}\p{S}\p{N}\p{P}\s*]*\{####\}[\p{L}\p{M}\p{S}\p{N}\p{P}\s*]*$`,
+					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("Verification code"), `^[\p{L}\p{M}\p{S}\p{N}\p{P}\s*]*\{####\}[\p{L}\p{M}\p{S}\p{N}\p{P}\s*]*$`),
 				},
 			},
 		},

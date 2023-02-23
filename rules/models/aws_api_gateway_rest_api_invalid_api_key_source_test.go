@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_api_gateway_rest_api" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayRestAPIInvalidAPIKeySourceRule(),
-					Message: `"BODY" is an invalid value as api_key_source`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("BODY"), "api_key_source"),
 				},
 			},
 		},

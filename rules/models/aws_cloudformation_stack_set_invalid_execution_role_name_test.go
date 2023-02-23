@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cloudformation_stack_set" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudformationStackSetInvalidExecutionRoleNameRule(),
-					Message: `"AWSCloudFormation/StackSet/ExecutionRole" does not match valid pattern ^[a-zA-Z_0-9+=,.@-]+$`,
+					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("AWSCloudFormation/StackSet/ExecutionRole"), `^[a-zA-Z_0-9+=,.@-]+$`),
 				},
 			},
 		},

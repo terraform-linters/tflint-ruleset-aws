@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_ecr_lifecycle_policy" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEcrLifecyclePolicyInvalidRepositoryRule(),
-					Message: `"example@com" does not match valid pattern ^(?:[a-z0-9]+(?:[._-][a-z0-9]+)*/)*[a-z0-9]+(?:[._-][a-z0-9]+)*$`,
+					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("example@com"), `^(?:[a-z0-9]+(?:[._-][a-z0-9]+)*/)*[a-z0-9]+(?:[._-][a-z0-9]+)*$`),
 				},
 			},
 		},

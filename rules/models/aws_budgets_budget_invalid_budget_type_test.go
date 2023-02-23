@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_budgets_budget" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBudgetsBudgetInvalidBudgetTypeRule(),
-					Message: `"MONEY" is an invalid value as budget_type`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("MONEY"), "budget_type"),
 				},
 			},
 		},

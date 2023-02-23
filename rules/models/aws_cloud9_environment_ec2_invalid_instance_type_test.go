@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cloud9_environment_ec2" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloud9EnvironmentEc2InvalidInstanceTypeRule(),
-					Message: `"t20.micro" does not match valid pattern ^[a-z][1-9][.][a-z0-9]+$`,
+					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("t20.micro"), `^[a-z][1-9][.][a-z0-9]+$`),
 				},
 			},
 		},

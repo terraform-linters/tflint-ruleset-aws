@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_lb_target_group" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsLbTargetGroupInvalidTargetTypeRule(),
-					Message: `"container" is an invalid value as target_type`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("container"), "target_type"),
 				},
 			},
 		},

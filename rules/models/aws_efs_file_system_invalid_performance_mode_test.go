@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_efs_file_system" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEfsFileSystemInvalidPerformanceModeRule(),
-					Message: `"minIO" is an invalid value as performance_mode`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("minIO"), "performance_mode"),
 				},
 			},
 		},

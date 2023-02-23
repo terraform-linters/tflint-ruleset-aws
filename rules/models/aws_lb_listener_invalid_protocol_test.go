@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_lb_listener" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsLbListenerInvalidProtocolRule(),
-					Message: `"INVALID" is an invalid value as protocol`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("INVALID"), "protocol"),
 				},
 			},
 		},

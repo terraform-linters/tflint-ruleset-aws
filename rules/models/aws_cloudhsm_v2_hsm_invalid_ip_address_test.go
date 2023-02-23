@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cloudhsm_v2_hsm" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudhsmV2HsmInvalidIPAddressRule(),
-					Message: `"2001:4860:4860::8888" does not match valid pattern ^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$`,
+					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("2001:4860:4860::8888"), `^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$`),
 				},
 			},
 		},

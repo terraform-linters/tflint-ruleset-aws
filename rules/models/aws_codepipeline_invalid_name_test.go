@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_codepipeline" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCodepipelineInvalidNameRule(),
-					Message: `"test/pipeline" does not match valid pattern ^[A-Za-z0-9.@\-_]+$`,
+					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("test/pipeline"), `^[A-Za-z0-9.@\-_]+$`),
 				},
 			},
 		},

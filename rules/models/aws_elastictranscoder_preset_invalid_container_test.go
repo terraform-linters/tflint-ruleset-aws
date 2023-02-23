@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_elastictranscoder_preset" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsElastictranscoderPresetInvalidContainerRule(),
-					Message: `"mp1" does not match valid pattern ^(^mp4$)|(^ts$)|(^webm$)|(^mp3$)|(^flac$)|(^oga$)|(^ogg$)|(^fmp4$)|(^mpg$)|(^flv$)|(^gif$)|(^mxf$)|(^wav$)|(^mp2$)$`,
+					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("mp1"), `^(^mp4$)|(^ts$)|(^webm$)|(^mp3$)|(^flac$)|(^oga$)|(^ogg$)|(^fmp4$)|(^mpg$)|(^flv$)|(^gif$)|(^mxf$)|(^wav$)|(^mp2$)$`),
 				},
 			},
 		},

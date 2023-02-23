@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cognito_user_pool" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoUserPoolInvalidMfaConfigurationRule(),
-					Message: `"IN" is an invalid value as mfa_configuration`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("IN"), "mfa_configuration"),
 				},
 			},
 		},

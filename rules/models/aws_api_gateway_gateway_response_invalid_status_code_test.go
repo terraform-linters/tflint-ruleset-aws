@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_api_gateway_gateway_response" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayGatewayResponseInvalidStatusCodeRule(),
-					Message: `"004" does not match valid pattern ^[1-5]\d\d$`,
+					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("004"), `^[1-5]\d\d$`),
 				},
 			},
 		},

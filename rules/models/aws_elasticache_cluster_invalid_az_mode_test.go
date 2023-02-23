@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_elasticache_cluster" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsElastiCacheClusterInvalidAzModeRule(),
-					Message: `"multi-az" is an invalid value as az_mode`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("multi-az"), "az_mode"),
 				},
 			},
 		},

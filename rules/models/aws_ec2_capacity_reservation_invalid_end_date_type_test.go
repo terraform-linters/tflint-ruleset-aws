@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_ec2_capacity_reservation" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2CapacityReservationInvalidEndDateTypeRule(),
-					Message: `"unlimit" is an invalid value as end_date_type`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("unlimit"), "end_date_type"),
 				},
 			},
 		},

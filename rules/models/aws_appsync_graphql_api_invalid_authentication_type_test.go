@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_appsync_graphql_api" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAppsyncGraphqlAPIInvalidAuthenticationTypeRule(),
-					Message: `"AWS_KEY" is an invalid value as authentication_type`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("AWS_KEY"), "authentication_type"),
 				},
 			},
 		},

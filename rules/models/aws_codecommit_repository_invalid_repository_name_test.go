@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_codecommit_repository" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCodecommitRepositoryInvalidRepositoryNameRule(),
-					Message: `"mytest@repository" does not match valid pattern ^[\w\.-]+$`,
+					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("mytest@repository"), `^[\w\.-]+$`),
 				},
 			},
 		},

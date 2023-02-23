@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_appautoscaling_policy" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAppautoscalingPolicyInvalidScalableDimensionRule(),
-					Message: `"ecs:service:DesireCount" is an invalid value as scalable_dimension`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("ecs:service:DesireCount"), "scalable_dimension"),
 				},
 			},
 		},

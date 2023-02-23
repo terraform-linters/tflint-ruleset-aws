@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_datasync_location_nfs" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncLocationNfsInvalidServerHostnameRule(),
-					Message: `"nfs^example^com" does not match valid pattern ^(([a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9\-]*[A-Za-z0-9])$`,
+					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("nfs^example^com"), `^(([a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9\-]*[A-Za-z0-9])$`),
 				},
 			},
 		},

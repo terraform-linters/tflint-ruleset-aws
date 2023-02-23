@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_ecs_task_definition" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEcsTaskDefinitionInvalidIpcModeRule(),
-					Message: `"vpc" is an invalid value as ipc_mode`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("vpc"), "ipc_mode"),
 				},
 			},
 		},

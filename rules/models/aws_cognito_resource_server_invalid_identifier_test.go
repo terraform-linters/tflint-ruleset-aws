@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cognito_resource_server" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoResourceServerInvalidIdentifierRule(),
-					Message: `"	" does not match valid pattern ^[\x21\x23-\x5B\x5D-\x7E]+$`,
+					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("	"), `^[\x21\x23-\x5B\x5D-\x7E]+$`),
 				},
 			},
 		},

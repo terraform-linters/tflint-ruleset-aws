@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cloudhsm_v2_hsm" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudhsmV2HsmInvalidClusterIDRule(),
-					Message: `"jxhlf7644ne" does not match valid pattern ^cluster-[2-7a-zA-Z]{11,16}$`,
+					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("jxhlf7644ne"), `^cluster-[2-7a-zA-Z]{11,16}$`),
 				},
 			},
 		},

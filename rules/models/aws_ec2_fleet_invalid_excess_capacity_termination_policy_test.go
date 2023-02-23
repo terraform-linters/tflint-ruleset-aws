@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_ec2_fleet" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2FleetInvalidExcessCapacityTerminationPolicyRule(),
-					Message: `"remain" is an invalid value as excess_capacity_termination_policy`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("remain"), "excess_capacity_termination_policy"),
 				},
 			},
 		},

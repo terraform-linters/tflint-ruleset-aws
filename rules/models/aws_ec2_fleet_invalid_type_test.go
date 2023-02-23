@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_ec2_fleet" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2FleetInvalidTypeRule(),
-					Message: `"remain" is an invalid value as type`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("remain"), "type"),
 				},
 			},
 		},

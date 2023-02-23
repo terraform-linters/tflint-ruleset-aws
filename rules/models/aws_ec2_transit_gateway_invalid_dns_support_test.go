@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_ec2_transit_gateway" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2TransitGatewayInvalidDNSSupportRule(),
-					Message: `"enabled" is an invalid value as dns_support`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("enabled"), "dns_support"),
 				},
 			},
 		},

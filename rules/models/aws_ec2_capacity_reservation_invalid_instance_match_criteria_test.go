@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_ec2_capacity_reservation" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2CapacityReservationInvalidInstanceMatchCriteriaRule(),
-					Message: `"close" is an invalid value as instance_match_criteria`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("close"), "instance_match_criteria"),
 				},
 			},
 		},

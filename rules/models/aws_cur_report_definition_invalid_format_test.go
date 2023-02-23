@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cur_report_definition" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCurReportDefinitionInvalidFormatRule(),
-					Message: `"textORjson" is an invalid value as format`,
+					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("textORjson"), "format"),
 				},
 			},
 		},
