@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudhsmV2HsmInvalidAvailabilityZoneRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudhsm_v2_hsm" "foo" {
-	availability_zone = "us-east-1"
-}`,
+	availability_zone = us-east-1a
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudhsm_v2_hsm" "foo" {
+	availability_zone = us-east-1
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudhsmV2HsmInvalidAvailabilityZoneRule(),
-					Message: `"us-east-1" does not match valid pattern ^[a-z]{2}(-(gov))?-(east|west|north|south|central){1,2}-\d[a-z]$`,
+					Message: `us-east-1 does not match valid pattern ^[a-z]{2}(-(gov))?-(east|west|north|south|central){1,2}-\d[a-z]$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudhsm_v2_hsm" "foo" {
-	availability_zone = "us-east-1a"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

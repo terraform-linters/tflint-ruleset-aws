@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEc2FleetInvalidExcessCapacityTerminationPolicyRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ec2_fleet" "foo" {
-	excess_capacity_termination_policy = "remain"
-}`,
+	excess_capacity_termination_policy = termination
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ec2_fleet" "foo" {
+	excess_capacity_termination_policy = remain
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2FleetInvalidExcessCapacityTerminationPolicyRule(),
-					Message: `"remain" is an invalid value as excess_capacity_termination_policy`,
+					Message: `remain is an invalid value as excess_capacity_termination_policy`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ec2_fleet" "foo" {
-	excess_capacity_termination_policy = "termination"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

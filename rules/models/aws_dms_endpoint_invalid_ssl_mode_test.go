@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDmsEndpointInvalidSslModeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_dms_endpoint" "foo" {
-	ssl_mode = "verify-require"
-}`,
+	ssl_mode = require
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_dms_endpoint" "foo" {
+	ssl_mode = verify-require
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDmsEndpointInvalidSslModeRule(),
-					Message: `"verify-require" is an invalid value as ssl_mode`,
+					Message: `verify-require is an invalid value as ssl_mode`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_dms_endpoint" "foo" {
-	ssl_mode = "require"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

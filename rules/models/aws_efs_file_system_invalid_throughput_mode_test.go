@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEfsFileSystemInvalidThroughputModeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_efs_file_system" "foo" {
-	throughput_mode = "generalPurpose"
-}`,
+	throughput_mode = bursting
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_efs_file_system" "foo" {
+	throughput_mode = generalPurpose
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEfsFileSystemInvalidThroughputModeRule(),
-					Message: `"generalPurpose" is an invalid value as throughput_mode`,
+					Message: `generalPurpose is an invalid value as throughput_mode`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_efs_file_system" "foo" {
-	throughput_mode = "bursting"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

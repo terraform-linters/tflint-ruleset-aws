@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCodepipelineInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_codepipeline" "foo" {
-	name = "test/pipeline"
-}`,
+	name = tf-test-pipeline
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_codepipeline" "foo" {
+	name = test/pipeline
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCodepipelineInvalidNameRule(),
-					Message: `"test/pipeline" does not match valid pattern ^[A-Za-z0-9.@\-_]+$`,
+					Message: `test/pipeline does not match valid pattern ^[A-Za-z0-9.@\-_]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_codepipeline" "foo" {
-	name = "tf-test-pipeline"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

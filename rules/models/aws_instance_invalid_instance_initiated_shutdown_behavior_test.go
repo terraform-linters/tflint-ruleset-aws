@@ -10,30 +10,27 @@ import (
 
 func Test_AwsInstanceInvalidInstanceInitiatedShutdownBehaviorRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_instance" "foo" {
-	instance_initiated_shutdown_behavior = "restart"
-}`,
+	instance_initiated_shutdown_behavior = stop
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_instance" "foo" {
+	instance_initiated_shutdown_behavior = restart
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsInstanceInvalidInstanceInitiatedShutdownBehaviorRule(),
-					Message: `"restart" is an invalid value as instance_initiated_shutdown_behavior`,
+					Message: `restart is an invalid value as instance_initiated_shutdown_behavior`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_instance" "foo" {
-	instance_initiated_shutdown_behavior = "stop"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

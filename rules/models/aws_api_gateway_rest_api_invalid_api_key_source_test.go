@@ -10,30 +10,27 @@ import (
 
 func Test_AwsAPIGatewayRestAPIInvalidAPIKeySourceRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_api_gateway_rest_api" "foo" {
-	api_key_source = "BODY"
-}`,
+	api_key_source = AUTHORIZER
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_api_gateway_rest_api" "foo" {
+	api_key_source = BODY
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayRestAPIInvalidAPIKeySourceRule(),
-					Message: `"BODY" is an invalid value as api_key_source`,
+					Message: `BODY is an invalid value as api_key_source`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_api_gateway_rest_api" "foo" {
-	api_key_source = "AUTHORIZER"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

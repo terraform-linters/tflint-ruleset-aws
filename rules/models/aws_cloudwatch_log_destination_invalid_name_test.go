@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudwatchLogDestinationInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudwatch_log_destination" "foo" {
-	name = "test:destination"
-}`,
+	name = test_destination
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudwatch_log_destination" "foo" {
+	name = test:destination
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchLogDestinationInvalidNameRule(),
-					Message: `"test:destination" does not match valid pattern ^[^:*]*$`,
+					Message: `test:destination does not match valid pattern ^[^:*]*$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudwatch_log_destination" "foo" {
-	name = "test_destination"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

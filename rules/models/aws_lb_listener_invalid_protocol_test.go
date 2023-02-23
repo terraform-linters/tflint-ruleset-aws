@@ -10,30 +10,27 @@ import (
 
 func Test_AwsLbListenerInvalidProtocolRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_lb_listener" "foo" {
-	protocol = "INVALID"
-}`,
+	protocol = HTTPS
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_lb_listener" "foo" {
+	protocol = INVALID
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsLbListenerInvalidProtocolRule(),
-					Message: `"INVALID" is an invalid value as protocol`,
+					Message: `INVALID is an invalid value as protocol`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_lb_listener" "foo" {
-	protocol = "HTTPS"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

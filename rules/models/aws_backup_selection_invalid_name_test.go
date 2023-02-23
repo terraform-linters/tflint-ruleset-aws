@@ -10,30 +10,27 @@ import (
 
 func Test_AwsBackupSelectionInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_backup_selection" "foo" {
-	name = "tf_example_backup_selection_tf_example_backup_selection"
-}`,
+	name = tf_example_backup_selection
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_backup_selection" "foo" {
+	name = tf_example_backup_selection_tf_example_backup_selection
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBackupSelectionInvalidNameRule(),
-					Message: `"tf_example_backup_selection_tf_example_backup_selection" does not match valid pattern ^[a-zA-Z0-9\-\_\.]{1,50}$`,
+					Message: `tf_example_backup_selection_tf_example_backup_selection does not match valid pattern ^[a-zA-Z0-9\-\_\.]{1,50}$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_backup_selection" "foo" {
-	name = "tf_example_backup_selection"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

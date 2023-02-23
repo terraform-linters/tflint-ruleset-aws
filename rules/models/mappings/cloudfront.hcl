@@ -42,11 +42,11 @@ mapping "aws_cloudfront_response_headers_policy" {
 }
 
 test "aws_cloudfront_distribution" "http_version" {
-  ok = "http2"
-  ng = "http1.2"
+  valid   = ["http2"]
+  invalid = ["http1.2"]
 }
 
 test "aws_cloudfront_distribution" "price_class" {
-  ok = "PriceClass_All"
-  ng = "PriceClass_300"
+  valid   = ["PriceClass_All"]
+  invalid = ["PriceClass_300"]
 }

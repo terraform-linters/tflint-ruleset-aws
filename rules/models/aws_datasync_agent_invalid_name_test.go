@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDatasyncAgentInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_datasync_agent" "foo" {
-	name = "example^example"
-}`,
+	name = example
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_datasync_agent" "foo" {
+	name = example^example
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncAgentInvalidNameRule(),
-					Message: `"example^example" does not match valid pattern ^[a-zA-Z0-9\s+=._:@/-]+$`,
+					Message: `example^example does not match valid pattern ^[a-zA-Z0-9\s+=._:@/-]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_datasync_agent" "foo" {
-	name = "example"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

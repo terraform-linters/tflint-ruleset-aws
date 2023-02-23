@@ -10,30 +10,27 @@ import (
 
 func Test_AwsAPIGatewayGatewayResponseInvalidResponseTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_api_gateway_gateway_response" "foo" {
-	response_type = "4XX"
-}`,
+	response_type = UNAUTHORIZED
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_api_gateway_gateway_response" "foo" {
+	response_type = 4XX
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayGatewayResponseInvalidResponseTypeRule(),
-					Message: `"4XX" is an invalid value as response_type`,
+					Message: `4XX is an invalid value as response_type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_api_gateway_gateway_response" "foo" {
-	response_type = "UNAUTHORIZED"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

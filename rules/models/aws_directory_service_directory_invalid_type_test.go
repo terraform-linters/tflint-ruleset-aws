@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDirectoryServiceDirectoryInvalidTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_directory_service_directory" "foo" {
-	type = "ActiveDirectory"
-}`,
+	type = SimpleAD
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_directory_service_directory" "foo" {
+	type = ActiveDirectory
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDirectoryServiceDirectoryInvalidTypeRule(),
-					Message: `"ActiveDirectory" is an invalid value as type`,
+					Message: `ActiveDirectory is an invalid value as type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_directory_service_directory" "foo" {
-	type = "SimpleAD"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

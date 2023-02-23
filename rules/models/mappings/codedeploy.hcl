@@ -17,6 +17,6 @@ mapping "aws_codedeploy_deployment_group" {
 }
 
 test "aws_codedeploy_app" "compute_platform" {
-  ok = "Server"
-  ng = "Fargate"
+  valid   = ["Server"]
+  invalid = ["Fargate"]
 }

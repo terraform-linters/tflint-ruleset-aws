@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEbsVolumeInvalidTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ebs_volume" "foo" {
-	type = "gp1"
-}`,
+	type = gp2
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ebs_volume" "foo" {
+	type = gp1
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEbsVolumeInvalidTypeRule(),
-					Message: `"gp1" is an invalid value as type`,
+					Message: `gp1 is an invalid value as type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ebs_volume" "foo" {
-	type = "gp2"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

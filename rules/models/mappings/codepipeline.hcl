@@ -13,26 +13,26 @@ mapping "aws_codepipeline_webhook" {
 }
 
 test "aws_codepipeline" "name" {
-  ok = "tf-test-pipeline"
-  ng = "test/pipeline"
+  valid   = ["tf-test-pipeline"]
+  invalid = ["test/pipeline"]
 }
 
 test "aws_codepipeline" "role_arn" {
-  ok = "arn:aws:iam::123456789012:role/s3access"
-  ng = "arn:aws:iam::123456789012:instance-profile/s3access-profile"
+  valid   = ["arn:aws:iam::123456789012:role/s3access"]
+  invalid = ["arn:aws:iam::123456789012:instance-profile/s3access-profile"]
 }
 
 test "aws_codepipeline_webhook" "name" {
-  ok = "test-webhook-github-bar"
-  ng = "webhook-github-bar/testing"
+  valid   = ["test-webhook-github-bar"]
+  invalid = ["webhook-github-bar/testing"]
 }
 
 test "aws_codepipeline_webhook" "authentication" {
-  ok = "GITHUB_HMAC"
-  ng = "GITLAB_HMAC"
+  valid   = ["GITHUB_HMAC"]
+  invalid = ["GITLAB_HMAC"]
 }
 
 test "aws_codepipeline_webhook" "target_action" {
-  ok = "Source"
-  ng = "Source/Example"
+  valid   = ["Source"]
+  invalid = ["Source/Example"]
 }

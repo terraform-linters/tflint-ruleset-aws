@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDatasyncTaskInvalidCloudwatchLogGroupArnRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_datasync_task" "foo" {
-	cloudwatch_log_group_arn = "arn:aws:s3:::my_corporate_bucket"
-}`,
+	cloudwatch_log_group_arn = arn:aws:logs:us-east-1:123456789012:log-group:my-log-group
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_datasync_task" "foo" {
+	cloudwatch_log_group_arn = arn:aws:s3:::my_corporate_bucket
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncTaskInvalidCloudwatchLogGroupArnRule(),
-					Message: `"arn:aws:s3:::my_corporate_bucket" does not match valid pattern ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):logs:[a-z\-0-9]*:[0-9]{12}:log-group:([^:\*]*)(:\*)?$`,
+					Message: `arn:aws:s3:::my_corporate_bucket does not match valid pattern ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):logs:[a-z\-0-9]*:[0-9]{12}:log-group:([^:\*]*)(:\*)?$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_datasync_task" "foo" {
-	cloudwatch_log_group_arn = "arn:aws:logs:us-east-1:123456789012:log-group:my-log-group"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

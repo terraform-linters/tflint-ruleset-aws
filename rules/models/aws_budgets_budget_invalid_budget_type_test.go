@@ -10,30 +10,27 @@ import (
 
 func Test_AwsBudgetsBudgetInvalidBudgetTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_budgets_budget" "foo" {
-	budget_type = "MONEY"
-}`,
+	budget_type = USAGE
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_budgets_budget" "foo" {
+	budget_type = MONEY
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBudgetsBudgetInvalidBudgetTypeRule(),
-					Message: `"MONEY" is an invalid value as budget_type`,
+					Message: `MONEY is an invalid value as budget_type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_budgets_budget" "foo" {
-	budget_type = "USAGE"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

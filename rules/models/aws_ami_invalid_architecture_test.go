@@ -10,30 +10,27 @@ import (
 
 func Test_AwsAMIInvalidArchitectureRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ami" "foo" {
-	architecture = "x86"
-}`,
+	architecture = x86_64
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ami" "foo" {
+	architecture = x86
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAMIInvalidArchitectureRule(),
-					Message: `"x86" is an invalid value as architecture`,
+					Message: `x86 is an invalid value as architecture`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ami" "foo" {
-	architecture = "x86_64"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

@@ -10,30 +10,27 @@ import (
 
 func Test_AwsAppautoscalingPolicyInvalidServiceNamespaceRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_appautoscaling_policy" "foo" {
-	service_namespace = "eks"
-}`,
+	service_namespace = ecs
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_appautoscaling_policy" "foo" {
+	service_namespace = eks
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAppautoscalingPolicyInvalidServiceNamespaceRule(),
-					Message: `"eks" is an invalid value as service_namespace`,
+					Message: `eks is an invalid value as service_namespace`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_appautoscaling_policy" "foo" {
-	service_namespace = "ecs"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

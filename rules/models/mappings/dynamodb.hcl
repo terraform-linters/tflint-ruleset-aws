@@ -39,12 +39,12 @@ mapping "aws_dynamodb_tag" {
 }
 
 test "aws_dynamodb_global_table" "name" {
-  ok = "myTable"
-  ng = "myTable@development"
+  valid   = ["myTable"]
+  invalid = ["myTable@development"]
 }
 
 test "aws_dynamodb_table" "billing_mode" {
-  ok = "PROVISIONED"
-  ng = "FLEXIBLE"
+  valid   = ["PROVISIONED"]
+  invalid = ["FLEXIBLE"]
 }
 

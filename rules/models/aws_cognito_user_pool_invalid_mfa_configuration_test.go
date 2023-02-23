@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCognitoUserPoolInvalidMfaConfigurationRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cognito_user_pool" "foo" {
-	mfa_configuration = "IN"
-}`,
+	mfa_configuration = ON
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cognito_user_pool" "foo" {
+	mfa_configuration = IN
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoUserPoolInvalidMfaConfigurationRule(),
-					Message: `"IN" is an invalid value as mfa_configuration`,
+					Message: `IN is an invalid value as mfa_configuration`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cognito_user_pool" "foo" {
-	mfa_configuration = "ON"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

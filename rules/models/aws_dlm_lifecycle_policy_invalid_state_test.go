@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDlmLifecyclePolicyInvalidStateRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_dlm_lifecycle_policy" "foo" {
-	state = "ERROR"
-}`,
+	state = ENABLED
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_dlm_lifecycle_policy" "foo" {
+	state = ERROR
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDlmLifecyclePolicyInvalidStateRule(),
-					Message: `"ERROR" is an invalid value as state`,
+					Message: `ERROR is an invalid value as state`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_dlm_lifecycle_policy" "foo" {
-	state = "ENABLED"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

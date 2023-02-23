@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDatasyncLocationEfsInvalidEfsFileSystemArnRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_datasync_location_efs" "foo" {
-	efs_file_system_arn = "arn:aws:eks:us-east-1:123456789012:cluster/my-cluster"
-}`,
+	efs_file_system_arn = arn:aws:elasticfilesystem:us-east-1:123456789012:file-system/fs-12345678
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_datasync_location_efs" "foo" {
+	efs_file_system_arn = arn:aws:eks:us-east-1:123456789012:cluster/my-cluster
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncLocationEfsInvalidEfsFileSystemArnRule(),
-					Message: `"arn:aws:eks:us-east-1:123456789012:cluster/my-cluster" does not match valid pattern ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):elasticfilesystem:[a-z\-0-9]*:[0-9]{12}:file-system/fs-.*$`,
+					Message: `arn:aws:eks:us-east-1:123456789012:cluster/my-cluster does not match valid pattern ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):elasticfilesystem:[a-z\-0-9]*:[0-9]{12}:file-system/fs-.*$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_datasync_location_efs" "foo" {
-	efs_file_system_arn = "arn:aws:elasticfilesystem:us-east-1:123456789012:file-system/fs-12345678"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

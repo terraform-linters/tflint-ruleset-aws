@@ -10,30 +10,27 @@ import (
 
 func Test_AwsLbTargetGroupInvalidTargetTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_lb_target_group" "foo" {
-	target_type = "container"
-}`,
+	target_type = lambda
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_lb_target_group" "foo" {
+	target_type = container
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsLbTargetGroupInvalidTargetTypeRule(),
-					Message: `"container" is an invalid value as target_type`,
+					Message: `container is an invalid value as target_type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_lb_target_group" "foo" {
-	target_type = "lambda"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

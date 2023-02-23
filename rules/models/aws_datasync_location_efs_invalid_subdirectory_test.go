@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDatasyncLocationEfsInvalidSubdirectoryRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_datasync_location_efs" "foo" {
-	subdirectory = "bar	"
-}`,
+	subdirectory = foo
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_datasync_location_efs" "foo" {
+	subdirectory = bar	
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncLocationEfsInvalidSubdirectoryRule(),
-					Message: `"bar	" does not match valid pattern ^[a-zA-Z0-9_\-\+\./\(\)\p{Zs}]*$`,
+					Message: `bar	 does not match valid pattern ^[a-zA-Z0-9_\-\+\./\(\)\p{Zs}]*$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_datasync_location_efs" "foo" {
-	subdirectory = "foo"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

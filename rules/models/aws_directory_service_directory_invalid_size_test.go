@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDirectoryServiceDirectoryInvalidSizeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_directory_service_directory" "foo" {
-	size = "Micro"
-}`,
+	size = Small
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_directory_service_directory" "foo" {
+	size = Micro
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDirectoryServiceDirectoryInvalidSizeRule(),
-					Message: `"Micro" is an invalid value as size`,
+					Message: `Micro is an invalid value as size`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_directory_service_directory" "foo" {
-	size = "Small"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

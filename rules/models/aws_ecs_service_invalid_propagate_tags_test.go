@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEcsServiceInvalidPropagateTagsRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ecs_service" "foo" {
-	propagate_tags = "CONTAINER"
-}`,
+	propagate_tags = SERVICE
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ecs_service" "foo" {
+	propagate_tags = CONTAINER
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEcsServiceInvalidPropagateTagsRule(),
-					Message: `"CONTAINER" is an invalid value as propagate_tags`,
+					Message: `CONTAINER is an invalid value as propagate_tags`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ecs_service" "foo" {
-	propagate_tags = "SERVICE"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

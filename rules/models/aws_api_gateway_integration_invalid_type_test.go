@@ -10,30 +10,27 @@ import (
 
 func Test_AwsAPIGatewayIntegrationInvalidTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_api_gateway_integration" "foo" {
-	type = "AWS_HTTP"
-}`,
+	type = HTTP
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_api_gateway_integration" "foo" {
+	type = AWS_HTTP
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayIntegrationInvalidTypeRule(),
-					Message: `"AWS_HTTP" is an invalid value as type`,
+					Message: `AWS_HTTP is an invalid value as type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_api_gateway_integration" "foo" {
-	type = "HTTP"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

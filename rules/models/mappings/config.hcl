@@ -85,16 +85,16 @@ mapping "aws_config_delivery_channel" {
 }
 
 test "aws_config_aggregate_authorization" "account_id" {
-  ok = "012345678910"
-  ng = "01234567891"
+  valid   = ["012345678910"]
+  invalid = ["01234567891"]
 }
 
 test "aws_config_configuration_aggregator" "name" {
-  ok = "example"
-  ng = "example.com"
+  valid   = ["example"]
+  invalid = ["example.com"]
 }
 
 test "aws_config_config_rule" "maximum_execution_frequency" {
-  ok = "One_Hour"
-  ng = "Hour"
+  valid   = ["One_Hour"]
+  invalid = ["Hour"]
 }

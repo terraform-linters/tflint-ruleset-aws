@@ -1,3 +1,4 @@
+//go:build generators
 // +build generators
 
 package main
@@ -20,8 +21,9 @@ type ruleMeta struct {
 	Min           int
 	Pattern       string
 	Enum          []string
-	TestOK        string
-	TestNG        string
+
+	Valid   []string
+	Invalid []string
 }
 
 func generateRuleFile(resource, attribute string, model map[string]interface{}, schema utils.AttributeSchema) {
@@ -57,8 +59,8 @@ func generateRuleTestFile(resource, attribute string, model map[string]interface
 		Min:           fetchNumber(model, "min"),
 		Pattern:       replacePattern(fetchString(model, "pattern")),
 		Enum:          fetchStrings(model, "enum"),
-		TestOK:        formatTest(test.OK),
-		TestNG:        formatTest(test.NG),
+		Valid:         test.Valid,
+		Invalid:       test.Invalid,
 	}
 
 	// Testing generated regexp

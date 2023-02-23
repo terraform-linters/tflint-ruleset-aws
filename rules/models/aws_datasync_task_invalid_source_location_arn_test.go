@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDatasyncTaskInvalidSourceLocationArnRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_datasync_task" "foo" {
-	source_location_arn = "arn:aws:datasync:us-east-2:111222333444:task/task-08de6e6697796f026"
-}`,
+	source_location_arn = arn:aws:datasync:us-east-2:111222333444:location/loc-07db7abfc326c50fb
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_datasync_task" "foo" {
+	source_location_arn = arn:aws:datasync:us-east-2:111222333444:task/task-08de6e6697796f026
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncTaskInvalidSourceLocationArnRule(),
-					Message: `"arn:aws:datasync:us-east-2:111222333444:task/task-08de6e6697796f026" does not match valid pattern ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:location/loc-[0-9a-z]{17}$`,
+					Message: `arn:aws:datasync:us-east-2:111222333444:task/task-08de6e6697796f026 does not match valid pattern ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:location/loc-[0-9a-z]{17}$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_datasync_task" "foo" {
-	source_location_arn = "arn:aws:datasync:us-east-2:111222333444:location/loc-07db7abfc326c50fb"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

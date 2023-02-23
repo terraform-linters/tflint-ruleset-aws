@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDmsEndpointInvalidEndpointTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_dms_endpoint" "foo" {
-	endpoint_type = "resource"
-}`,
+	endpoint_type = source
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_dms_endpoint" "foo" {
+	endpoint_type = resource
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDmsEndpointInvalidEndpointTypeRule(),
-					Message: `"resource" is an invalid value as endpoint_type`,
+					Message: `resource is an invalid value as endpoint_type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_dms_endpoint" "foo" {
-	endpoint_type = "source"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

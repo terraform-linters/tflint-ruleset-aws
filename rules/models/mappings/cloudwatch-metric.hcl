@@ -14,26 +14,26 @@ mapping "aws_cloudwatch_metric_alarm" {
 }
 
 test "aws_cloudwatch_metric_alarm" "comparison_operator" {
-  ok = "GreaterThanOrEqualToThreshold"
-  ng = "GreaterThanOrEqual"
+  valid   = ["GreaterThanOrEqualToThreshold"]
+  invalid = ["GreaterThanOrEqual"]
 }
 
 test "aws_cloudwatch_metric_alarm" "namespace" {
-  ok = "AWS/EC2"
-  ng = ":EC2"
+  valid   = ["AWS/EC2"]
+  invalid = [":EC2"]
 }
 
 test "aws_cloudwatch_metric_alarm" "statistic" {
-  ok = "Average"
-  ng = "Median"
+  valid   = ["Average"]
+  invalid = ["Median"]
 }
 
 test "aws_cloudwatch_metric_alarm" "unit" {
-  ok = "Gigabytes"
-  ng = "GB"
+  valid   = ["Gigabytes"]
+  invalid = ["GB"]
 }
 
 test "aws_cloudwatch_metric_alarm" "extended_statistic" {
-  ok = "p100"
-  ng = "p101"
+  valid   = ["p100"]
+  invalid = ["p101"]
 }

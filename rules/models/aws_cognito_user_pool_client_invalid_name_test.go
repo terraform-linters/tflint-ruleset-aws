@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCognitoUserPoolClientInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cognito_user_pool_client" "foo" {
-	name = "client/example"
-}`,
+	name = client
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cognito_user_pool_client" "foo" {
+	name = client/example
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoUserPoolClientInvalidNameRule(),
-					Message: `"client/example" does not match valid pattern ^[\w\s+=,.@-]+$`,
+					Message: `client/example does not match valid pattern ^[\w\s+=,.@-]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cognito_user_pool_client" "foo" {
-	name = "client"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

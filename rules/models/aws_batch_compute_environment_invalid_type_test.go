@@ -10,30 +10,27 @@ import (
 
 func Test_AwsBatchComputeEnvironmentInvalidTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_batch_compute_environment" "foo" {
-	type = "CONTROLLED"
-}`,
+	type = MANAGED
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_batch_compute_environment" "foo" {
+	type = CONTROLLED
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBatchComputeEnvironmentInvalidTypeRule(),
-					Message: `"CONTROLLED" is an invalid value as type`,
+					Message: `CONTROLLED is an invalid value as type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_batch_compute_environment" "foo" {
-	type = "MANAGED"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

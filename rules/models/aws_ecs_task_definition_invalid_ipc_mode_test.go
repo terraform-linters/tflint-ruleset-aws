@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEcsTaskDefinitionInvalidIpcModeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ecs_task_definition" "foo" {
-	ipc_mode = "vpc"
-}`,
+	ipc_mode = host
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ecs_task_definition" "foo" {
+	ipc_mode = vpc
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEcsTaskDefinitionInvalidIpcModeRule(),
-					Message: `"vpc" is an invalid value as ipc_mode`,
+					Message: `vpc is an invalid value as ipc_mode`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ecs_task_definition" "foo" {
-	ipc_mode = "host"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

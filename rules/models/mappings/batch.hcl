@@ -14,21 +14,21 @@ mapping "aws_batch_job_queue" {
 }
 
 test "aws_batch_compute_environment" "state" {
-  ok = "ENABLED"
-  ng = "ON"
+  valid   = ["ENABLED"]
+  invalid = ["ON"]
 }
 
 test "aws_batch_compute_environment" "type" {
-  ok = "MANAGED"
-  ng = "CONTROLLED"
+  valid   = ["MANAGED"]
+  invalid = ["CONTROLLED"]
 }
 
 test "aws_batch_job_definition" "type" {
-  ok = "container"
-  ng = "docker"
+  valid   = ["container"]
+  invalid = ["docker"]
 }
 
 test "aws_batch_job_queue" "state" {
-  ok = "ENABLED"
-  ng = "ON"
+  valid   = ["ENABLED"]
+  invalid = ["ON"]
 }

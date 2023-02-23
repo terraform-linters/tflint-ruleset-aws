@@ -87,6 +87,6 @@ mapping "aws_elasticache_user_group" {
 }
 
 test "aws_elasticache_cluster" "az_mode" {
-  ok = "cross-az"
-  ng = "multi-az"
+  valid   = ["cross-az"]
+  invalid = ["multi-az"]
 }

@@ -10,30 +10,27 @@ import (
 
 func Test_AwsBudgetsBudgetInvalidTimeUnitRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_budgets_budget" "foo" {
-	time_unit = "HOURLY"
-}`,
+	time_unit = MONTHLY
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_budgets_budget" "foo" {
+	time_unit = HOURLY
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBudgetsBudgetInvalidTimeUnitRule(),
-					Message: `"HOURLY" is an invalid value as time_unit`,
+					Message: `HOURLY is an invalid value as time_unit`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_budgets_budget" "foo" {
-	time_unit = "MONTHLY"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

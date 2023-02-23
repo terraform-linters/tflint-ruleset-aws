@@ -10,30 +10,27 @@ import (
 
 func Test_AwsPlacementGroupInvalidStrategyRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_placement_group" "foo" {
-	strategy = "instance"
-}`,
+	strategy = cluster
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_placement_group" "foo" {
+	strategy = instance
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsPlacementGroupInvalidStrategyRule(),
-					Message: `"instance" is an invalid value as strategy`,
+					Message: `instance is an invalid value as strategy`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_placement_group" "foo" {
-	strategy = "cluster"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEc2TransitGatewayVpcAttachmentInvalidIpv6SupportRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ec2_transit_gateway_vpc_attachment" "foo" {
-	ipv6_support = "on"
-}`,
+	ipv6_support = enable
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ec2_transit_gateway_vpc_attachment" "foo" {
+	ipv6_support = on
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2TransitGatewayVpcAttachmentInvalidIpv6SupportRule(),
-					Message: `"on" is an invalid value as ipv6_support`,
+					Message: `on is an invalid value as ipv6_support`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ec2_transit_gateway_vpc_attachment" "foo" {
-	ipv6_support = "enable"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

@@ -10,30 +10,27 @@ import (
 
 func Test_AwsAPIGatewayIntegrationInvalidContentHandlingRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_api_gateway_integration" "foo" {
-	content_handling = "CONVERT_TO_FILE"
-}`,
+	content_handling = CONVERT_TO_BINARY
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_api_gateway_integration" "foo" {
+	content_handling = CONVERT_TO_FILE
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayIntegrationInvalidContentHandlingRule(),
-					Message: `"CONVERT_TO_FILE" is an invalid value as content_handling`,
+					Message: `CONVERT_TO_FILE is an invalid value as content_handling`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_api_gateway_integration" "foo" {
-	content_handling = "CONVERT_TO_BINARY"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

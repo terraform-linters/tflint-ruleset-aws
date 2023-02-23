@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEc2CapacityReservationInvalidTenancyRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ec2_capacity_reservation" "foo" {
-	tenancy = "reserved"
-}`,
+	tenancy = default
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ec2_capacity_reservation" "foo" {
+	tenancy = reserved
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2CapacityReservationInvalidTenancyRule(),
-					Message: `"reserved" is an invalid value as tenancy`,
+					Message: `reserved is an invalid value as tenancy`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ec2_capacity_reservation" "foo" {
-	tenancy = "default"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

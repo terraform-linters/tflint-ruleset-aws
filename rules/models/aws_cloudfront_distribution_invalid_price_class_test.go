@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudfrontDistributionInvalidPriceClassRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudfront_distribution" "foo" {
-	price_class = "PriceClass_300"
-}`,
+	price_class = PriceClass_All
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudfront_distribution" "foo" {
+	price_class = PriceClass_300
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudfrontDistributionInvalidPriceClassRule(),
-					Message: `"PriceClass_300" is an invalid value as price_class`,
+					Message: `PriceClass_300 is an invalid value as price_class`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudfront_distribution" "foo" {
-	price_class = "PriceClass_All"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

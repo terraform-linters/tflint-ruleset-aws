@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCurReportDefinitionInvalidS3RegionRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cur_report_definition" "foo" {
-	s3_region = "us-gov-east-1"
-}`,
+	s3_region = us-east-1
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cur_report_definition" "foo" {
+	s3_region = us-gov-east-1
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCurReportDefinitionInvalidS3RegionRule(),
-					Message: `"us-gov-east-1" is an invalid value as s3_region`,
+					Message: `us-gov-east-1 is an invalid value as s3_region`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cur_report_definition" "foo" {
-	s3_region = "us-east-1"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

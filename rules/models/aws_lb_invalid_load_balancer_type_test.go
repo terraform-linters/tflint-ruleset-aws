@@ -10,30 +10,27 @@ import (
 
 func Test_AwsLbInvalidLoadBalancerTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_lb" "foo" {
-	load_balancer_type = "classic"
-}`,
+	load_balancer_type = application
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_lb" "foo" {
+	load_balancer_type = classic
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsLbInvalidLoadBalancerTypeRule(),
-					Message: `"classic" is an invalid value as load_balancer_type`,
+					Message: `classic is an invalid value as load_balancer_type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_lb" "foo" {
-	load_balancer_type = "application"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

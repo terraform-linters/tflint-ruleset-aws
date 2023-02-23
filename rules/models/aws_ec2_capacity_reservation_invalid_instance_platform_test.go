@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEc2CapacityReservationInvalidInstancePlatformRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ec2_capacity_reservation" "foo" {
-	instance_platform = "Linux/GNU"
-}`,
+	instance_platform = Linux/UNIX
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ec2_capacity_reservation" "foo" {
+	instance_platform = Linux/GNU
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2CapacityReservationInvalidInstancePlatformRule(),
-					Message: `"Linux/GNU" is an invalid value as instance_platform`,
+					Message: `Linux/GNU is an invalid value as instance_platform`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ec2_capacity_reservation" "foo" {
-	instance_platform = "Linux/UNIX"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

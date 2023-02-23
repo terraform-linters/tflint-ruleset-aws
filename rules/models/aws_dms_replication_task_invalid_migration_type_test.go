@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDmsReplicationTaskInvalidMigrationTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_dms_replication_task" "foo" {
-	migration_type = "partial-load"
-}`,
+	migration_type = full-load
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_dms_replication_task" "foo" {
+	migration_type = partial-load
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDmsReplicationTaskInvalidMigrationTypeRule(),
-					Message: `"partial-load" is an invalid value as migration_type`,
+					Message: `partial-load is an invalid value as migration_type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_dms_replication_task" "foo" {
-	migration_type = "full-load"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

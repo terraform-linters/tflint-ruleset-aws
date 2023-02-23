@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEksClusterInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_eks_cluster" "foo" {
-	name = "@example"
-}`,
+	name = example
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_eks_cluster" "foo" {
+	name = @example
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEksClusterInvalidNameRule(),
-					Message: `"@example" does not match valid pattern ^[0-9A-Za-z][A-Za-z0-9\-_]*`,
+					Message: `@example does not match valid pattern ^[0-9A-Za-z][A-Za-z0-9\-_]*`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_eks_cluster" "foo" {
-	name = "example"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

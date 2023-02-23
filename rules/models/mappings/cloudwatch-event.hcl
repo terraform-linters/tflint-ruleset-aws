@@ -57,26 +57,26 @@ mapping "aws_cloudwatch_event_target" {
 }
 
 test "aws_cloudwatch_event_permission" "principal" {
-  ok = "*"
-  ng = "-"
+  valid   = ["*"]
+  invalid = ["-"]
 }
 
 test "aws_cloudwatch_event_permission" "statement_id" {
-  ok = "OrganizationAccess"
-  ng = "Organization Access"
+  valid   = ["OrganizationAccess"]
+  invalid = ["Organization Access"]
 }
 
 test "aws_cloudwatch_event_permission" "action" {
-  ok = "events:PutEvents"
-  ng = "cloudwatchevents:PutEvents"
+  valid   = ["events:PutEvents"]
+  invalid = ["cloudwatchevents:PutEvents"]
 }
 
 test "aws_cloudwatch_event_rule" "name" {
-  ok = "capture-aws-sign-in"
-  ng = "capture aws sign in"
+  valid   = ["capture-aws-sign-in"]
+  invalid = ["capture aws sign in"]
 }
 
 test "aws_cloudwatch_event_target" "target_id" {
-  ok = "run-scheduled-task-every-hour"
-  ng = "run scheduled task every hour"
+  valid   = ["run-scheduled-task-every-hour"]
+  invalid = ["run scheduled task every hour"]
 }

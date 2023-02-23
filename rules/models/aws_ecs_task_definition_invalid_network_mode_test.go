@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEcsTaskDefinitionInvalidNetworkModeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ecs_task_definition" "foo" {
-	network_mode = "vpc"
-}`,
+	network_mode = bridge
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ecs_task_definition" "foo" {
+	network_mode = vpc
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEcsTaskDefinitionInvalidNetworkModeRule(),
-					Message: `"vpc" is an invalid value as network_mode`,
+					Message: `vpc is an invalid value as network_mode`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ecs_task_definition" "foo" {
-	network_mode = "bridge"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

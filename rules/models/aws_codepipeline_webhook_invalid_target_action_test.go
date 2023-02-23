@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCodepipelineWebhookInvalidTargetActionRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_codepipeline_webhook" "foo" {
-	target_action = "Source/Example"
-}`,
+	target_action = Source
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_codepipeline_webhook" "foo" {
+	target_action = Source/Example
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCodepipelineWebhookInvalidTargetActionRule(),
-					Message: `"Source/Example" does not match valid pattern ^[A-Za-z0-9.@\-_]+$`,
+					Message: `Source/Example does not match valid pattern ^[A-Za-z0-9.@\-_]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_codepipeline_webhook" "foo" {
-	target_action = "Source"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

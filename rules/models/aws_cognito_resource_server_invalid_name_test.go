@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCognitoResourceServerInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cognito_resource_server" "foo" {
-	name = "example/server"
-}`,
+	name = example
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cognito_resource_server" "foo" {
+	name = example/server
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoResourceServerInvalidNameRule(),
-					Message: `"example/server" does not match valid pattern ^[\w\s+=,.@-]+$`,
+					Message: `example/server does not match valid pattern ^[\w\s+=,.@-]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cognito_resource_server" "foo" {
-	name = "example"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

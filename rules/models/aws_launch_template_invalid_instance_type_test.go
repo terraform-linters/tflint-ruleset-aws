@@ -10,30 +10,27 @@ import (
 
 func Test_AwsLaunchTemplateInvalidInstanceTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_launch_template" "foo" {
-	instance_type = "t1.2xlarge"
-}`,
+	instance_type = t2.micro
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_launch_template" "foo" {
+	instance_type = t1.2xlarge
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsLaunchTemplateInvalidInstanceTypeRule(),
-					Message: `"t1.2xlarge" is an invalid value as instance_type`,
+					Message: `t1.2xlarge is an invalid value as instance_type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_launch_template" "foo" {
-	instance_type = "t2.micro"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCodepipelineWebhookInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_codepipeline_webhook" "foo" {
-	name = "webhook-github-bar/testing"
-}`,
+	name = test-webhook-github-bar
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_codepipeline_webhook" "foo" {
+	name = webhook-github-bar/testing
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCodepipelineWebhookInvalidNameRule(),
-					Message: `"webhook-github-bar/testing" does not match valid pattern ^[A-Za-z0-9.@\-_]+$`,
+					Message: `webhook-github-bar/testing does not match valid pattern ^[A-Za-z0-9.@\-_]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_codepipeline_webhook" "foo" {
-	name = "test-webhook-github-bar"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

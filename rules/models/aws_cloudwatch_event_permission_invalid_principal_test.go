@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudwatchEventPermissionInvalidPrincipalRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudwatch_event_permission" "foo" {
-	principal = "-"
-}`,
+	principal = *
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudwatch_event_permission" "foo" {
+	principal = -
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchEventPermissionInvalidPrincipalRule(),
-					Message: `"-" does not match valid pattern ^(\d{12}|\*)$`,
+					Message: `- does not match valid pattern ^(\d{12}|\*)$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudwatch_event_permission" "foo" {
-	principal = "*"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

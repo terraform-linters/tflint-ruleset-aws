@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEcrLifecyclePolicyInvalidRepositoryRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ecr_lifecycle_policy" "foo" {
-	repository = "example@com"
-}`,
+	repository = example
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ecr_lifecycle_policy" "foo" {
+	repository = example@com
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEcrLifecyclePolicyInvalidRepositoryRule(),
-					Message: `"example@com" does not match valid pattern ^(?:[a-z0-9]+(?:[._-][a-z0-9]+)*/)*[a-z0-9]+(?:[._-][a-z0-9]+)*$`,
+					Message: `example@com does not match valid pattern ^(?:[a-z0-9]+(?:[._-][a-z0-9]+)*/)*[a-z0-9]+(?:[._-][a-z0-9]+)*$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ecr_lifecycle_policy" "foo" {
-	repository = "example"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

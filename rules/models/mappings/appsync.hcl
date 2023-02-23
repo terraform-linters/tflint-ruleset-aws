@@ -28,16 +28,16 @@ mapping "aws_appsync_function" {
 }
 
 test "aws_appsync_datasource" "name" {
-  ok = "tf_appsync_example"
-  ng = "01_tf_example"
+  valid   = ["tf_appsync_example"]
+  invalid = ["01_tf_example"]
 }
 
 test "aws_appsync_datasource" "type" {
-  ok = "AWS_LAMBDA"
-  ng = "AMAZON_SIMPLEDB"
+  valid   = ["AWS_LAMBDA"]
+  invalid = ["AMAZON_SIMPLEDB"]
 }
 
 test "aws_appsync_graphql_api" "authentication_type" {
-  ok = "API_KEY"
-  ng = "AWS_KEY"
+  valid   = ["API_KEY"]
+  invalid = ["AWS_KEY"]
 }

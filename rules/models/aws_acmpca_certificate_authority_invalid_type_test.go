@@ -10,30 +10,27 @@ import (
 
 func Test_AwsAcmpcaCertificateAuthorityInvalidTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_acmpca_certificate_authority" "foo" {
-	type = "ORDINATE"
-}`,
+	type = SUBORDINATE
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_acmpca_certificate_authority" "foo" {
+	type = ORDINATE
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAcmpcaCertificateAuthorityInvalidTypeRule(),
-					Message: `"ORDINATE" is an invalid value as type`,
+					Message: `ORDINATE is an invalid value as type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_acmpca_certificate_authority" "foo" {
-	type = "SUBORDINATE"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

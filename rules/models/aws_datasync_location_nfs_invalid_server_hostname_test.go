@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDatasyncLocationNfsInvalidServerHostnameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_datasync_location_nfs" "foo" {
-	server_hostname = "nfs^example^com"
-}`,
+	server_hostname = nfs.example.com
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_datasync_location_nfs" "foo" {
+	server_hostname = nfs^example^com
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncLocationNfsInvalidServerHostnameRule(),
-					Message: `"nfs^example^com" does not match valid pattern ^(([a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9\-]*[A-Za-z0-9])$`,
+					Message: `nfs^example^com does not match valid pattern ^(([a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9\-]*[A-Za-z0-9])$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_datasync_location_nfs" "foo" {
-	server_hostname = "nfs.example.com"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

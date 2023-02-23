@@ -10,30 +10,27 @@ import (
 
 func Test_AwsLbInvalidIPAddressTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_lb" "foo" {
-	ip_address_type = "ipv6"
-}`,
+	ip_address_type = ipv4
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_lb" "foo" {
+	ip_address_type = ipv6
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsLbInvalidIPAddressTypeRule(),
-					Message: `"ipv6" is an invalid value as ip_address_type`,
+					Message: `ipv6 is an invalid value as ip_address_type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_lb" "foo" {
-	ip_address_type = "ipv4"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

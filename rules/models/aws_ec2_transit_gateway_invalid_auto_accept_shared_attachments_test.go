@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEc2TransitGatewayInvalidAutoAcceptSharedAttachmentsRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ec2_transit_gateway" "foo" {
-	auto_accept_shared_attachments = "true"
-}`,
+	auto_accept_shared_attachments = enable
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ec2_transit_gateway" "foo" {
+	auto_accept_shared_attachments = true
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2TransitGatewayInvalidAutoAcceptSharedAttachmentsRule(),
-					Message: `"true" is an invalid value as auto_accept_shared_attachments`,
+					Message: `true is an invalid value as auto_accept_shared_attachments`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ec2_transit_gateway" "foo" {
-	auto_accept_shared_attachments = "enable"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

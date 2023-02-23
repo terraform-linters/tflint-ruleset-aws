@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudwatchLogSubscriptionFilterInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudwatch_log_subscription_filter" "foo" {
-	name = "test_lambdafunction_logfilter:test"
-}`,
+	name = test_lambdafunction_logfilter
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudwatch_log_subscription_filter" "foo" {
+	name = test_lambdafunction_logfilter:test
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchLogSubscriptionFilterInvalidNameRule(),
-					Message: `"test_lambdafunction_logfilter:test" does not match valid pattern ^[^:*]*$`,
+					Message: `test_lambdafunction_logfilter:test does not match valid pattern ^[^:*]*$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudwatch_log_subscription_filter" "foo" {
-	name = "test_lambdafunction_logfilter"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

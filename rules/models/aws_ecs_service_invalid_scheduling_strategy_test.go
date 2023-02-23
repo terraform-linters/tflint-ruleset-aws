@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEcsServiceInvalidSchedulingStrategyRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ecs_service" "foo" {
-	scheduling_strategy = "SERVER"
-}`,
+	scheduling_strategy = REPLICA
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ecs_service" "foo" {
+	scheduling_strategy = SERVER
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEcsServiceInvalidSchedulingStrategyRule(),
-					Message: `"SERVER" is an invalid value as scheduling_strategy`,
+					Message: `SERVER is an invalid value as scheduling_strategy`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ecs_service" "foo" {
-	scheduling_strategy = "REPLICA"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

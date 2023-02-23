@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEc2CapacityReservationInvalidEndDateTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ec2_capacity_reservation" "foo" {
-	end_date_type = "unlimit"
-}`,
+	end_date_type = unlimited
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ec2_capacity_reservation" "foo" {
+	end_date_type = unlimit
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2CapacityReservationInvalidEndDateTypeRule(),
-					Message: `"unlimit" is an invalid value as end_date_type`,
+					Message: `unlimit is an invalid value as end_date_type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ec2_capacity_reservation" "foo" {
-	end_date_type = "unlimited"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

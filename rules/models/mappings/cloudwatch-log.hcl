@@ -36,31 +36,31 @@ mapping "aws_cloudwatch_log_subscription_filter" {
 }
 
 test "aws_cloudwatch_log_destination" "name" {
-  ok = "test_destination"
-  ng = "test:destination"
+  valid   = ["test_destination"]
+  invalid = ["test:destination"]
 }
 
 test "aws_cloudwatch_log_group" "name" {
-  ok = "Yada"
-  ng = "Yoda:prod"
+  valid   = ["Yada"]
+  invalid = ["Yoda:prod"]
 }
 
 test "aws_cloudwatch_log_metric_filter" "name" {
-  ok = "MyAppAccessCount"
-  ng = "MyAppAccessCount:prod"
+  valid   = ["MyAppAccessCount"]
+  invalid = ["MyAppAccessCount:prod"]
 }
 
 test "aws_cloudwatch_log_stream" "name" {
-  ok = "Yada"
-  ng = "Yoda:prod"
+  valid   = ["Yada"]
+  invalid = ["Yoda:prod"]
 }
 
 test "aws_cloudwatch_log_subscription_filter" "name" {
-  ok = "test_lambdafunction_logfilter"
-  ng = "test_lambdafunction_logfilter:test"
+  valid   = ["test_lambdafunction_logfilter"]
+  invalid = ["test_lambdafunction_logfilter:test"]
 }
 
 test "aws_cloudwatch_log_subscription_filter" "distribution" {
-  ok = "Random"
-  ng = "LogStream"
+  valid   = ["Random"]
+  invalid = ["LogStream"]
 }

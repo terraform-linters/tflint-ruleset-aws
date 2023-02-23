@@ -11,26 +11,26 @@ mapping "aws_cur_report_definition" {
 }
 
 test "aws_cur_report_definition" "report_name" {
-  ok = "example-cur-report-definition"
-  ng = "example/cur-report-definition"
+  valid   = ["example-cur-report-definition"]
+  invalid = ["example/cur-report-definition"]
 }
 
 test "aws_cur_report_definition" "time_unit" {
-  ok = "HOURLY"
-  ng = "FORNIGHTLY"
+  valid   = ["HOURLY"]
+  invalid = ["FORNIGHTLY"]
 }
 
 test "aws_cur_report_definition" "format" {
-  ok = "textORcsv"
-  ng = "textORjson"
+  valid   = ["textORcsv"]
+  invalid = ["textORjson"]
 }
 
 test "aws_cur_report_definition" "compression" {
-  ok = "ZIP"
-  ng = "TAR"
+  valid   = ["ZIP"]
+  invalid = ["TAR"]
 }
 
 test "aws_cur_report_definition" "s3_region" {
-  ok = "us-east-1"
-  ng = "us-gov-east-1"
+  valid   = ["us-east-1"]
+  invalid = ["us-gov-east-1"]
 }

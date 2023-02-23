@@ -37,6 +37,6 @@ mapping "aws_eks_node_group" {
 }
 
 test "aws_eks_cluster" "name" {
-  ok = "example"
-  ng = "@example"
+  valid   = ["example"]
+  invalid = ["@example"]
 }

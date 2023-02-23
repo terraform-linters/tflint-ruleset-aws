@@ -10,30 +10,27 @@ import (
 
 func Test_AwsAppsyncGraphqlAPIInvalidAuthenticationTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_appsync_graphql_api" "foo" {
-	authentication_type = "AWS_KEY"
-}`,
+	authentication_type = API_KEY
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_appsync_graphql_api" "foo" {
+	authentication_type = AWS_KEY
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAppsyncGraphqlAPIInvalidAuthenticationTypeRule(),
-					Message: `"AWS_KEY" is an invalid value as authentication_type`,
+					Message: `AWS_KEY is an invalid value as authentication_type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_appsync_graphql_api" "foo" {
-	authentication_type = "API_KEY"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

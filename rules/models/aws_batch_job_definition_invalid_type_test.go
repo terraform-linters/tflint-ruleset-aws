@@ -10,30 +10,27 @@ import (
 
 func Test_AwsBatchJobDefinitionInvalidTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_batch_job_definition" "foo" {
-	type = "docker"
-}`,
+	type = container
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_batch_job_definition" "foo" {
+	type = docker
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBatchJobDefinitionInvalidTypeRule(),
-					Message: `"docker" is an invalid value as type`,
+					Message: `docker is an invalid value as type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_batch_job_definition" "foo" {
-	type = "container"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

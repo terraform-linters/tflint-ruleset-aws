@@ -10,30 +10,27 @@ import (
 
 func Test_AwsBackupVaultInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_backup_vault" "foo" {
-	name = "example_backup_vault_example_backup_vault_example_backup_vault"
-}`,
+	name = example_backup_vault
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_backup_vault" "foo" {
+	name = example_backup_vault_example_backup_vault_example_backup_vault
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBackupVaultInvalidNameRule(),
-					Message: `"example_backup_vault_example_backup_vault_example_backup_vault" does not match valid pattern ^[a-zA-Z0-9\-\_]{2,50}$`,
+					Message: `example_backup_vault_example_backup_vault_example_backup_vault does not match valid pattern ^[a-zA-Z0-9\-\_]{2,50}$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_backup_vault" "foo" {
-	name = "example_backup_vault"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

@@ -1,3 +1,4 @@
+//go:build generators
 // +build generators
 
 package main
@@ -27,10 +28,10 @@ type mapping struct {
 }
 
 type test struct {
-	Resource  string `hcl:"resource,label"`
-	Attribute string `hcl:"attribute,label"`
-	OK        string `hcl:"ok"`
-	NG        string `hcl:"ng"`
+	Resource  string   `hcl:"resource,label"`
+	Attribute string   `hcl:"attribute,label"`
+	Valid     []string `hcl:"valid"`
+	Invalid   []string `hcl:"invalid"`
 }
 
 func main() {

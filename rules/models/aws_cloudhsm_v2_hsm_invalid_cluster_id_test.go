@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudhsmV2HsmInvalidClusterIDRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudhsm_v2_hsm" "foo" {
-	cluster_id = "jxhlf7644ne"
-}`,
+	cluster_id = cluster-jxhlf7644ne
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudhsm_v2_hsm" "foo" {
+	cluster_id = jxhlf7644ne
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudhsmV2HsmInvalidClusterIDRule(),
-					Message: `"jxhlf7644ne" does not match valid pattern ^cluster-[2-7a-zA-Z]{11,16}$`,
+					Message: `jxhlf7644ne does not match valid pattern ^cluster-[2-7a-zA-Z]{11,16}$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudhsm_v2_hsm" "foo" {
-	cluster_id = "cluster-jxhlf7644ne"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

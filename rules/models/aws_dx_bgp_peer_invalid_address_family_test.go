@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDxBgpPeerInvalidAddressFamilyRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_dx_bgp_peer" "foo" {
-	address_family = "ipv2"
-}`,
+	address_family = ipv4
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_dx_bgp_peer" "foo" {
+	address_family = ipv2
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDxBgpPeerInvalidAddressFamilyRule(),
-					Message: `"ipv2" is an invalid value as address_family`,
+					Message: `ipv2 is an invalid value as address_family`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_dx_bgp_peer" "foo" {
-	address_family = "ipv4"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

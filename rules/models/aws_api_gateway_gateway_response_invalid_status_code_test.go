@@ -10,30 +10,27 @@ import (
 
 func Test_AwsAPIGatewayGatewayResponseInvalidStatusCodeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_api_gateway_gateway_response" "foo" {
-	status_code = "004"
-}`,
+	status_code = 200
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_api_gateway_gateway_response" "foo" {
+	status_code = 004
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayGatewayResponseInvalidStatusCodeRule(),
-					Message: `"004" does not match valid pattern ^[1-5]\d\d$`,
+					Message: `004 does not match valid pattern ^[1-5]\d\d$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_api_gateway_gateway_response" "foo" {
-	status_code = "200"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

@@ -10,11 +10,11 @@ mapping "aws_cloud9_environment_ec2" {
 }
 
 test "aws_cloud9_environment_ec2" "instance_type" {
-  ok = "t2.micro"
-  ng = "t20.micro"
+  valid   = ["t2.micro"]
+  invalid = ["t20.micro"]
 }
 
 test "aws_cloud9_environment_ec2" "owner_arn" {
-  ok = "arn:aws:iam::123456789012:user/David"
-  ng = "arn:aws:elasticbeanstalk:us-east-1:123456789012:environment/My App/MyEnvironment"
+  valid   = ["arn:aws:iam::123456789012:user/David"]
+  invalid = ["arn:aws:elasticbeanstalk:us-east-1:123456789012:environment/My App/MyEnvironment"]
 }

@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudhsmV2ClusterInvalidHsmTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudhsm_v2_cluster" "foo" {
-	hsm_type = "hsm1.micro"
-}`,
+	hsm_type = hsm1.medium
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudhsm_v2_cluster" "foo" {
+	hsm_type = hsm1.micro
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudhsmV2ClusterInvalidHsmTypeRule(),
-					Message: `"hsm1.micro" does not match valid pattern ^(hsm1\.medium)$`,
+					Message: `hsm1.micro does not match valid pattern ^(hsm1\.medium)$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudhsm_v2_cluster" "foo" {
-	hsm_type = "hsm1.medium"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

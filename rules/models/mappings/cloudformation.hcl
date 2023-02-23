@@ -22,16 +22,16 @@ mapping "aws_cloudformation_stack_set_instance" {
 }
 
 test "aws_cloudformation_stack" "on_failure" {
-  ok = "DO_NOTHING"
-  ng = "DO_ANYTHING"
+  valid   = ["DO_NOTHING"]
+  invalid = ["DO_ANYTHING"]
 }
 
 test "aws_cloudformation_stack_set" "execution_role_name" {
-  ok = "AWSCloudFormationStackSetExecutionRole"
-  ng = "AWSCloudFormation/StackSet/ExecutionRole"
+  valid   = ["AWSCloudFormationStackSetExecutionRole"]
+  invalid = ["AWSCloudFormation/StackSet/ExecutionRole"]
 }
 
 test "aws_cloudformation_stack_set_instance" "account_id" {
-  ok = "123456789012"
-  ng = "1234567890123"
+  valid   = ["123456789012"]
+  invalid = ["1234567890123"]
 }

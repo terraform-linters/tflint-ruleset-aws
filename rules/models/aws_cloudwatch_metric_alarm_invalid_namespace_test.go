@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudwatchMetricAlarmInvalidNamespaceRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudwatch_metric_alarm" "foo" {
-	namespace = ":EC2"
-}`,
+	namespace = AWS/EC2
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudwatch_metric_alarm" "foo" {
+	namespace = :EC2
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchMetricAlarmInvalidNamespaceRule(),
-					Message: `":EC2" does not match valid pattern ^[^:].*$`,
+					Message: `:EC2 does not match valid pattern ^[^:].*$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudwatch_metric_alarm" "foo" {
-	namespace = "AWS/EC2"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

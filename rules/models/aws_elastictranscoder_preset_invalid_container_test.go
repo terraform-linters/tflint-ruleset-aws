@@ -10,30 +10,27 @@ import (
 
 func Test_AwsElastictranscoderPresetInvalidContainerRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_elastictranscoder_preset" "foo" {
-	container = "mp1"
-}`,
+	container = mp4
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_elastictranscoder_preset" "foo" {
+	container = mp1
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsElastictranscoderPresetInvalidContainerRule(),
-					Message: `"mp1" does not match valid pattern ^(^mp4$)|(^ts$)|(^webm$)|(^mp3$)|(^flac$)|(^oga$)|(^ogg$)|(^fmp4$)|(^mpg$)|(^flv$)|(^gif$)|(^mxf$)|(^wav$)|(^mp2$)$`,
+					Message: `mp1 does not match valid pattern ^(^mp4$)|(^ts$)|(^webm$)|(^mp3$)|(^flac$)|(^oga$)|(^ogg$)|(^fmp4$)|(^mpg$)|(^flv$)|(^gif$)|(^mxf$)|(^wav$)|(^mp2$)$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_elastictranscoder_preset" "foo" {
-	container = "mp4"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

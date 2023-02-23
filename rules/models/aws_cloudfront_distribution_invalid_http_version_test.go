@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudfrontDistributionInvalidHTTPVersionRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudfront_distribution" "foo" {
-	http_version = "http1.2"
-}`,
+	http_version = http2
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudfront_distribution" "foo" {
+	http_version = http1.2
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudfrontDistributionInvalidHTTPVersionRule(),
-					Message: `"http1.2" is an invalid value as http_version`,
+					Message: `http1.2 is an invalid value as http_version`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudfront_distribution" "foo" {
-	http_version = "http2"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

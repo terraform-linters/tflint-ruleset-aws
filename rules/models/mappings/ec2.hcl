@@ -398,106 +398,106 @@ mapping "aws_volume_attachment" {
 }
 
 test "aws_ami" "architecture" {
-  ok = "x86_64"
-  ng = "x86"
+  valid   = ["x86_64"]
+  invalid = ["x86"]
 }
 
 test "aws_ebs_volume" "type" {
-  ok = "gp2"
-  ng = "gp1"
+  valid   = ["gp2"]
+  invalid = ["gp1"]
 }
 
 test "aws_ec2_capacity_reservation" "end_date_type" {
-  ok = "unlimited"
-  ng = "unlimit"
+  valid   = ["unlimited"]
+  invalid = ["unlimit"]
 }
 
 test "aws_ec2_capacity_reservation" "instance_match_criteria" {
-  ok = "open"
-  ng = "close"
+  valid   = ["open"]
+  invalid = ["close"]
 }
 
 test "aws_ec2_capacity_reservation" "instance_platform" {
-  ok = "Linux/UNIX"
-  ng = "Linux/GNU"
+  valid   = ["Linux/UNIX"]
+  invalid = ["Linux/GNU"]
 }
 
 test "aws_ec2_capacity_reservation" "tenancy" {
-  ok = "default"
-  ng = "reserved"
+  valid   = ["default"]
+  invalid = ["reserved"]
 }
 
 test "aws_ec2_client_vpn_endpoint" "transport_protocol" {
-  ok = "udp"
-  ng = "http"
+  valid   = ["udp"]
+  invalid = ["http"]
 }
 
 test "aws_ec2_fleet" "excess_capacity_termination_policy" {
-  ok = "termination"
-  ng = "remain"
+  valid   = ["termination"]
+  invalid = ["remain"]
 }
 
 test "aws_ec2_fleet" "type" {
-  ok = "maintain"
-  ng = "remain"
+  valid   = ["maintain"]
+  invalid = ["remain"]
 }
 
 test "aws_ec2_transit_gateway" "auto_accept_shared_attachments" {
-  ok = "enable"
-  ng = "true"
+  valid   = ["enable"]
+  invalid = ["true"]
 }
 
 test "aws_ec2_transit_gateway" "default_route_table_association" {
-  ok = "disable"
-  ng = "false"
+  valid   = ["disable"]
+  invalid = ["false"]
 }
 
 test "aws_ec2_transit_gateway" "default_route_table_propagation" {
-  ok = "disable"
-  ng = "disabled"
+  valid   = ["disable"]
+  invalid = ["disabled"]
 }
 
 test "aws_ec2_transit_gateway" "dns_support" {
-  ok = "enable"
-  ng = "enabled"
+  valid   = ["enable"]
+  invalid = ["enabled"]
 }
 
 test "aws_ec2_transit_gateway_vpc_attachment" "ipv6_support" {
-  ok = "enable"
-  ng = "on"
+  valid   = ["enable"]
+  invalid = ["on"]
 }
 
 test "aws_instance" "instance_initiated_shutdown_behavior" {
-  ok = "stop"
-  ng = "restart"
+  valid   = ["stop"]
+  invalid = ["restart"]
 }
 
 test "aws_instance" "tenancy" {
-  ok = "host"
-  ng = "server"
+  valid   = ["host"]
+  invalid = ["server"]
 }
 
 test "aws_launch_template" "name" {
-  ok = "foo"
-  ng = "foo[bar]"
+  valid   = ["foo"]
+  invalid = ["foo[bar]"]
 }
 
 test "aws_launch_template" "instance_type" {
-  ok = "t2.micro"
-  ng = "t1.2xlarge"
+  valid   = ["t2.micro"]
+  invalid = ["t1.2xlarge"]
 }
 
 test "aws_placement_group" "strategy" {
-  ok = "cluster"
-  ng = "instance"
+  valid   = ["cluster"]
+  invalid = ["instance"]
 }
 
 test "aws_spot_fleet_request" "allocation_strategy" {
-  ok = "lowestPrice"
-  ng = "highestPrice"
+  valid   = ["lowestPrice"]
+  invalid = ["highestPrice"]
 }
 
 test "aws_spot_fleet_request" "instance_interruption_behaviour" {
-  ok = "hibernate"
-  ng = "restart"
+  valid   = ["hibernate"]
+  invalid = ["restart"]
 }

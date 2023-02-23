@@ -23,11 +23,11 @@ mapping "aws_backup_vault_policy" {
 }
 
 test "aws_backup_selection" "name" {
-  ok = "tf_example_backup_selection"
-  ng = "tf_example_backup_selection_tf_example_backup_selection"
+  valid   = ["tf_example_backup_selection"]
+  invalid = ["tf_example_backup_selection_tf_example_backup_selection"]
 }
 
 test "aws_backup_vault" "name" {
-  ok = "example_backup_vault"
-  ng = "example_backup_vault_example_backup_vault_example_backup_vault"
+  valid   = ["example_backup_vault"]
+  invalid = ["example_backup_vault_example_backup_vault_example_backup_vault"]
 }

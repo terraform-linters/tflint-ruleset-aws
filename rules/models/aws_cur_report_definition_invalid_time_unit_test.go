@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCurReportDefinitionInvalidTimeUnitRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cur_report_definition" "foo" {
-	time_unit = "FORNIGHTLY"
-}`,
+	time_unit = HOURLY
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cur_report_definition" "foo" {
+	time_unit = FORNIGHTLY
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCurReportDefinitionInvalidTimeUnitRule(),
-					Message: `"FORNIGHTLY" is an invalid value as time_unit`,
+					Message: `FORNIGHTLY is an invalid value as time_unit`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cur_report_definition" "foo" {
-	time_unit = "HOURLY"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

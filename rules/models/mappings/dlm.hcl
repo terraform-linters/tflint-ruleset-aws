@@ -8,6 +8,6 @@ mapping "aws_dlm_lifecycle_policy" {
 }
 
 test "aws_dlm_lifecycle_policy" "state" {
-  ok = "ENABLED"
-  ng = "ERROR"
+  valid   = ["ENABLED"]
+  invalid = ["ERROR"]
 }

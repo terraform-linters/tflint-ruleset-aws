@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudwatchLogGroupInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudwatch_log_group" "foo" {
-	name = "Yoda:prod"
-}`,
+	name = Yada
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudwatch_log_group" "foo" {
+	name = Yoda:prod
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchLogGroupInvalidNameRule(),
-					Message: `"Yoda:prod" does not match valid pattern ^[\.\-_/#A-Za-z0-9]+$`,
+					Message: `Yoda:prod does not match valid pattern ^[\.\-_/#A-Za-z0-9]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudwatch_log_group" "foo" {
-	name = "Yada"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

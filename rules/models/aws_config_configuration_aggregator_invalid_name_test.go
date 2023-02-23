@@ -10,30 +10,27 @@ import (
 
 func Test_AwsConfigConfigurationAggregatorInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_config_configuration_aggregator" "foo" {
-	name = "example.com"
-}`,
+	name = example
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_config_configuration_aggregator" "foo" {
+	name = example.com
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsConfigConfigurationAggregatorInvalidNameRule(),
-					Message: `"example.com" does not match valid pattern ^[\w\-]+$`,
+					Message: `example.com does not match valid pattern ^[\w\-]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_config_configuration_aggregator" "foo" {
-	name = "example"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

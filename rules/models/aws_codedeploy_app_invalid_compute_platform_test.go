@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCodedeployAppInvalidComputePlatformRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_codedeploy_app" "foo" {
-	compute_platform = "Fargate"
-}`,
+	compute_platform = Server
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_codedeploy_app" "foo" {
+	compute_platform = Fargate
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCodedeployAppInvalidComputePlatformRule(),
-					Message: `"Fargate" is an invalid value as compute_platform`,
+					Message: `Fargate is an invalid value as compute_platform`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_codedeploy_app" "foo" {
-	compute_platform = "Server"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

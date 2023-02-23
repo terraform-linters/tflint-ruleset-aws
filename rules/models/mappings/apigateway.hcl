@@ -45,41 +45,41 @@ mapping "aws_api_gateway_stage" {
 }
 
 test "aws_api_gateway_gateway_response" "status_code" {
-  ok = "200"
-  ng = "004"
+  valid   = ["200"]
+  invalid = ["004"]
 }
 
 test "aws_api_gateway_authorizer" "type" {
-  ok = "TOKEN"
-  ng = "RESPONSE"
+  valid   = ["TOKEN"]
+  invalid = ["RESPONSE"]
 }
 
 test "aws_api_gateway_gateway_response" "response_type" {
-  ok = "UNAUTHORIZED"
-  ng = "4XX"
+  valid   = ["UNAUTHORIZED"]
+  invalid = ["4XX"]
 }
 
 test "aws_api_gateway_integration" "type" {
-  ok = "HTTP"
-  ng = "AWS_HTTP"
+  valid   = ["HTTP"]
+  invalid = ["AWS_HTTP"]
 }
 
 test "aws_api_gateway_integration" "connection_type" {
-  ok = "INTERNET"
-  ng = "INTRANET"
+  valid   = ["INTERNET"]
+  invalid = ["INTRANET"]
 }
 
 test "aws_api_gateway_integration" "content_handling" {
-  ok = "CONVERT_TO_BINARY"
-  ng = "CONVERT_TO_FILE"
+  valid   = ["CONVERT_TO_BINARY"]
+  invalid = ["CONVERT_TO_FILE"]
 }
 
 test "aws_api_gateway_rest_api" "api_key_source" {
-  ok = "AUTHORIZER"
-  ng = "BODY"
+  valid   = ["AUTHORIZER"]
+  invalid = ["BODY"]
 }
 
 test "aws_api_gateway_stage" "cache_cluster_size" {
-  ok = "6.1"
-  ng = "6.2"
+  valid   = ["6.1"]
+  invalid = ["6.2"]
 }

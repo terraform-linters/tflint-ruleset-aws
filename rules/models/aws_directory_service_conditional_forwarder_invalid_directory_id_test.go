@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDirectoryServiceConditionalForwarderInvalidDirectoryIDRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_directory_service_conditional_forwarder" "foo" {
-	directory_id = "1234567890"
-}`,
+	directory_id = d-1234567890
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_directory_service_conditional_forwarder" "foo" {
+	directory_id = 1234567890
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDirectoryServiceConditionalForwarderInvalidDirectoryIDRule(),
-					Message: `"1234567890" does not match valid pattern ^d-[0-9a-f]{10}$`,
+					Message: `1234567890 does not match valid pattern ^d-[0-9a-f]{10}$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_directory_service_conditional_forwarder" "foo" {
-	directory_id = "d-1234567890"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

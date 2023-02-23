@@ -64,31 +64,31 @@ mapping "aws_ecs_task_set" {
 }
 
 test "aws_ecs_service" "launch_type" {
-  ok = "FARGATE"
-  ng = "POD"
+  valid   = ["FARGATE"]
+  invalid = ["POD"]
 }
 
 test "aws_ecs_service" "propagate_tags" {
-  ok = "SERVICE"
-  ng = "CONTAINER"
+  valid   = ["SERVICE"]
+  invalid = ["CONTAINER"]
 }
 
 test "aws_ecs_service" "scheduling_strategy" {
-  ok = "REPLICA"
-  ng = "SERVER"
+  valid   = ["REPLICA"]
+  invalid = ["SERVER"]
 }
 
 test "aws_ecs_task_definition" "ipc_mode" {
-  ok = "host"
-  ng = "vpc"
+  valid   = ["host"]
+  invalid = ["vpc"]
 }
 
 test "aws_ecs_task_definition" "network_mode" {
-  ok = "bridge"
-  ng = "vpc"
+  valid   = ["bridge"]
+  invalid = ["vpc"]
 }
 
 test "aws_ecs_task_definition" "pid_mode" {
-  ok = "task"
-  ng = "awsvpc"
+  valid   = ["task"]
+  invalid = ["awsvpc"]
 }

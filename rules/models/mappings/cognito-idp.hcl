@@ -51,71 +51,71 @@ mapping "aws_cognito_user_pool_ui_customization" {
 }
 
 test "aws_cognito_identity_provider" "user_pool_id" {
-  ok = "foo_bar"
-  ng = "foobar"
+  valid   = ["foo_bar"]
+  invalid = ["foobar"]
 }
 
 test "aws_cognito_identity_provider" "provider_name" {
-  ok = "Google"
-  ng = "\t"
+  valid   = ["Google"]
+  invalid = ["\t"]
 }
 
 test "aws_cognito_identity_provider" "provider_type" {
-  ok = "LoginWithAmazon"
-  ng = "Apple"
+  valid   = ["LoginWithAmazon"]
+  invalid = ["Apple"]
 }
 
 test "aws_cognito_resource_server" "identifier" {
-  ok = "https://example.com"
-  ng = "\t"
+  valid   = ["https://example.com"]
+  invalid = ["\t"]
 }
 
 test "aws_cognito_resource_server" "name" {
-  ok = "example"
-  ng = "example/server"
+  valid   = ["example"]
+  invalid = ["example/server"]
 }
 
 test "aws_cognito_user_group" "name" {
-  ok = "user-group"
-  ng = "user\tgroup"
+  valid   = ["user-group"]
+  invalid = ["user\tgroup"]
 }
 
 test "aws_cognito_user_group" "role_arn" {
-  ok = "arn:aws:iam::123456789012:role/s3access"
-  ng = "aws:iam::123456789012:instance-profile/s3access-profile"
+  valid   = ["arn:aws:iam::123456789012:role/s3access"]
+  invalid = ["aws:iam::123456789012:instance-profile/s3access-profile"]
 }
 
 test "aws_cognito_user_pool" "name" {
-  ok = "mypool"
-  ng = "my/pool"
+  valid   = ["mypool"]
+  invalid = ["my/pool"]
 }
 
 test "aws_cognito_user_pool" "email_verification_message" {
-  ok = "Verification code is {####}"
-  ng = "Verification code"
+  valid   = ["Verification code is {####}"]
+  invalid = ["Verification code"]
 }
 
 test "aws_cognito_user_pool" "mfa_configuration" {
-  ok = "ON"
-  ng = "IN"
+  valid   = ["ON"]
+  invalid = ["IN"]
 }
 
 test "aws_cognito_user_pool" "sms_authentication_message" {
-  ok = "Authentication code is {####}"
-  ng = "Authentication code"
+  valid   = ["Authentication code is {####}"]
+  invalid = ["Authentication code"]
 }
 
 test "aws_cognito_user_pool" "sms_verification_message" {
-  ok = "Verification code is {####}"
-  ng = "Verification code"
+  valid   = ["Verification code is {####}"]
+  invalid = ["Verification code"]
 }
 
 test "aws_cognito_user_pool_client" "default_redirect_uri" {
-  ok = "https://example.com/callback"
-  ng = "https://example com"
+  valid   = ["https://example.com/callback"]
+  invalid = ["https://example com"]
 }
 
 test "aws_cognito_user_pool_client" "name" {
-  ok = "client"
-  ng = "client/example"
+  valid   = ["client"]
+  invalid = ["client/example"]
 }

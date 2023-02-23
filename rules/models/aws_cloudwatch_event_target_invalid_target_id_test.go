@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudwatchEventTargetInvalidTargetIDRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudwatch_event_target" "foo" {
-	target_id = "run scheduled task every hour"
-}`,
+	target_id = run-scheduled-task-every-hour
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudwatch_event_target" "foo" {
+	target_id = run scheduled task every hour
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchEventTargetInvalidTargetIDRule(),
-					Message: `"run scheduled task every hour" does not match valid pattern ^[\.\-_A-Za-z0-9]+$`,
+					Message: `run scheduled task every hour does not match valid pattern ^[\.\-_A-Za-z0-9]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudwatch_event_target" "foo" {
-	target_id = "run-scheduled-task-every-hour"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

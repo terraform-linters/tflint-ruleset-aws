@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudwatchMetricAlarmInvalidStatisticRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudwatch_metric_alarm" "foo" {
-	statistic = "Median"
-}`,
+	statistic = Average
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudwatch_metric_alarm" "foo" {
+	statistic = Median
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchMetricAlarmInvalidStatisticRule(),
-					Message: `"Median" is an invalid value as statistic`,
+					Message: `Median is an invalid value as statistic`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudwatch_metric_alarm" "foo" {
-	statistic = "Average"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

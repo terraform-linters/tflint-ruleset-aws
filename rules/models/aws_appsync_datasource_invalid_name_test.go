@@ -10,30 +10,27 @@ import (
 
 func Test_AwsAppsyncDatasourceInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_appsync_datasource" "foo" {
-	name = "01_tf_example"
-}`,
+	name = tf_appsync_example
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_appsync_datasource" "foo" {
+	name = 01_tf_example
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAppsyncDatasourceInvalidNameRule(),
-					Message: `"01_tf_example" does not match valid pattern ^[_A-Za-z][_0-9A-Za-z]*$`,
+					Message: `01_tf_example does not match valid pattern ^[_A-Za-z][_0-9A-Za-z]*$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_appsync_datasource" "foo" {
-	name = "tf_appsync_example"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

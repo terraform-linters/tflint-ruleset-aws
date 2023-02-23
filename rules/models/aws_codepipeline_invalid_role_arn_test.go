@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCodepipelineInvalidRoleArnRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_codepipeline" "foo" {
-	role_arn = "arn:aws:iam::123456789012:instance-profile/s3access-profile"
-}`,
+	role_arn = arn:aws:iam::123456789012:role/s3access
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_codepipeline" "foo" {
+	role_arn = arn:aws:iam::123456789012:instance-profile/s3access-profile
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCodepipelineInvalidRoleArnRule(),
-					Message: `"arn:aws:iam::123456789012:instance-profile/s3access-profile" does not match valid pattern ^arn:aws(-[\w]+)*:iam::[0-9]{12}:role/.*$`,
+					Message: `arn:aws:iam::123456789012:instance-profile/s3access-profile does not match valid pattern ^arn:aws(-[\w]+)*:iam::[0-9]{12}:role/.*$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_codepipeline" "foo" {
-	role_arn = "arn:aws:iam::123456789012:role/s3access"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

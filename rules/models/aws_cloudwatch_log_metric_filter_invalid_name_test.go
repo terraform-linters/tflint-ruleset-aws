@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudwatchLogMetricFilterInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudwatch_log_metric_filter" "foo" {
-	name = "MyAppAccessCount:prod"
-}`,
+	name = MyAppAccessCount
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudwatch_log_metric_filter" "foo" {
+	name = MyAppAccessCount:prod
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchLogMetricFilterInvalidNameRule(),
-					Message: `"MyAppAccessCount:prod" does not match valid pattern ^[^:*]*$`,
+					Message: `MyAppAccessCount:prod does not match valid pattern ^[^:*]*$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudwatch_log_metric_filter" "foo" {
-	name = "MyAppAccessCount"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

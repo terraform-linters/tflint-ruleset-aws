@@ -10,30 +10,27 @@ import (
 
 func Test_AwsInstanceInvalidTenancyRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_instance" "foo" {
-	tenancy = "server"
-}`,
+	tenancy = host
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_instance" "foo" {
+	tenancy = server
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsInstanceInvalidTenancyRule(),
-					Message: `"server" is an invalid value as tenancy`,
+					Message: `server is an invalid value as tenancy`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_instance" "foo" {
-	tenancy = "host"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

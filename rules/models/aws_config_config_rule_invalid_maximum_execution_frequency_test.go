@@ -10,30 +10,27 @@ import (
 
 func Test_AwsConfigConfigRuleInvalidMaximumExecutionFrequencyRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_config_config_rule" "foo" {
-	maximum_execution_frequency = "Hour"
-}`,
+	maximum_execution_frequency = One_Hour
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_config_config_rule" "foo" {
+	maximum_execution_frequency = Hour
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsConfigConfigRuleInvalidMaximumExecutionFrequencyRule(),
-					Message: `"Hour" is an invalid value as maximum_execution_frequency`,
+					Message: `Hour is an invalid value as maximum_execution_frequency`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_config_config_rule" "foo" {
-	maximum_execution_frequency = "One_Hour"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

@@ -10,35 +10,36 @@ import (
 
 func Test_{{ .RuleNameCC }}Rule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
+			{{- range .Valid }}
 			Content: `
-resource "{{ .ResourceType }}" "foo" {
-	{{ .AttributeName }} = {{ .TestNG }}
-}`,
-			Expected: helper.Issues{
-				{
-					Rule:    New{{ .RuleNameCC }}Rule(),
-{{- if ne .Pattern "" }}
-					Message: `{{ .TestNG }} does not match valid pattern {{ .Pattern }}`,
-{{- end }}
-{{- if ne (len .Enum) 0 }}
-					Message: `{{ .TestNG }} is an invalid value as {{ .AttributeName }}`,
-{{- end }}
-				},
-			},
+resource "{{ $.ResourceType }}" "foo" {
+	{{ $.AttributeName }} = {{ . }}
+	}`,
+			Expected: helper.Issues{},
+			{{- end }}
 		},
 		{
-			Name: "It is valid",
+			{{- range .Invalid }}
 			Content: `
-resource "{{ .ResourceType }}" "foo" {
-	{{ .AttributeName }} = {{ .TestOK }}
-}`,
-			Expected: helper.Issues{},
+resource "{{ $.ResourceType }}" "foo" {
+	{{ $.AttributeName }} = {{ . }}
+	}`,
+			Expected: helper.Issues{
+				{
+					Rule:    New{{ $.RuleNameCC }}Rule(),
+					{{- if ne $.Pattern "" }}
+					Message: `{{ . }} does not match valid pattern {{ $.Pattern }}`,
+					{{- end }}
+					{{- if ne (len $.Enum) 0 }}
+					Message: `{{ . }} is an invalid value as {{ $.AttributeName }}`,
+					{{- end }}
+				},
+			},
+			{{- end }}
 		},
 	}
 

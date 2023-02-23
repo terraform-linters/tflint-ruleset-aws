@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEc2TransitGatewayInvalidDefaultRouteTablePropagationRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ec2_transit_gateway" "foo" {
-	default_route_table_propagation = "disabled"
-}`,
+	default_route_table_propagation = disable
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ec2_transit_gateway" "foo" {
+	default_route_table_propagation = disabled
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2TransitGatewayInvalidDefaultRouteTablePropagationRule(),
-					Message: `"disabled" is an invalid value as default_route_table_propagation`,
+					Message: `disabled is an invalid value as default_route_table_propagation`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ec2_transit_gateway" "foo" {
-	default_route_table_propagation = "disable"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

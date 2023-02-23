@@ -10,30 +10,27 @@ import (
 
 func Test_AwsAppautoscalingPolicyInvalidScalableDimensionRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_appautoscaling_policy" "foo" {
-	scalable_dimension = "ecs:service:DesireCount"
-}`,
+	scalable_dimension = ecs:service:DesiredCount
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_appautoscaling_policy" "foo" {
+	scalable_dimension = ecs:service:DesireCount
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAppautoscalingPolicyInvalidScalableDimensionRule(),
-					Message: `"ecs:service:DesireCount" is an invalid value as scalable_dimension`,
+					Message: `ecs:service:DesireCount is an invalid value as scalable_dimension`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_appautoscaling_policy" "foo" {
-	scalable_dimension = "ecs:service:DesiredCount"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

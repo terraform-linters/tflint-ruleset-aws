@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCognitoUserPoolClientInvalidDefaultRedirectURIRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cognito_user_pool_client" "foo" {
-	default_redirect_uri = "https://example com"
-}`,
+	default_redirect_uri = https://example.com/callback
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cognito_user_pool_client" "foo" {
+	default_redirect_uri = https://example com
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoUserPoolClientInvalidDefaultRedirectURIRule(),
-					Message: `"https://example com" does not match valid pattern ^[\p{L}\p{M}\p{S}\p{N}\p{P}]+$`,
+					Message: `https://example com does not match valid pattern ^[\p{L}\p{M}\p{S}\p{N}\p{P}]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cognito_user_pool_client" "foo" {
-	default_redirect_uri = "https://example.com/callback"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

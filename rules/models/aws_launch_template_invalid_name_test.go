@@ -10,30 +10,27 @@ import (
 
 func Test_AwsLaunchTemplateInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_launch_template" "foo" {
-	name = "foo[bar]"
-}`,
+	name = foo
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_launch_template" "foo" {
+	name = foo[bar]
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsLaunchTemplateInvalidNameRule(),
-					Message: `"foo[bar]" does not match valid pattern ^[a-zA-Z0-9\(\)\.\-/_]+$`,
+					Message: `foo[bar] does not match valid pattern ^[a-zA-Z0-9\(\)\.\-/_]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_launch_template" "foo" {
-	name = "foo"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

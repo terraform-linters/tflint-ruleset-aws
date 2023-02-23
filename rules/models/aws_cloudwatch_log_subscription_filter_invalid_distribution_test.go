@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudwatchLogSubscriptionFilterInvalidDistributionRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudwatch_log_subscription_filter" "foo" {
-	distribution = "LogStream"
-}`,
+	distribution = Random
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudwatch_log_subscription_filter" "foo" {
+	distribution = LogStream
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchLogSubscriptionFilterInvalidDistributionRule(),
-					Message: `"LogStream" is an invalid value as distribution`,
+					Message: `LogStream is an invalid value as distribution`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudwatch_log_subscription_filter" "foo" {
-	distribution = "Random"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

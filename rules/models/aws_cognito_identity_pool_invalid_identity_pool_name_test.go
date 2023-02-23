@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCognitoIdentityPoolInvalidIdentityPoolNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cognito_identity_pool" "foo" {
-	identity_pool_name = "identity:pool"
-}`,
+	identity_pool_name = identity pool
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cognito_identity_pool" "foo" {
+	identity_pool_name = identity:pool
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoIdentityPoolInvalidIdentityPoolNameRule(),
-					Message: `"identity:pool" does not match valid pattern ^[\w\s+=,.@-]+$`,
+					Message: `identity:pool does not match valid pattern ^[\w\s+=,.@-]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cognito_identity_pool" "foo" {
-	identity_pool_name = "identity pool"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

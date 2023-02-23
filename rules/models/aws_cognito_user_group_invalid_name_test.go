@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCognitoUserGroupInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cognito_user_group" "foo" {
-	name = "user	group"
-}`,
+	name = user-group
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cognito_user_group" "foo" {
+	name = user	group
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoUserGroupInvalidNameRule(),
-					Message: `"user	group" does not match valid pattern ^[\p{L}\p{M}\p{S}\p{N}\p{P}]+$`,
+					Message: `user	group does not match valid pattern ^[\p{L}\p{M}\p{S}\p{N}\p{P}]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cognito_user_group" "foo" {
-	name = "user-group"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

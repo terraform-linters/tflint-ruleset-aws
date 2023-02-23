@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEc2ClientVpnEndpointInvalidTransportProtocolRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ec2_client_vpn_endpoint" "foo" {
-	transport_protocol = "http"
-}`,
+	transport_protocol = udp
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ec2_client_vpn_endpoint" "foo" {
+	transport_protocol = http
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2ClientVpnEndpointInvalidTransportProtocolRule(),
-					Message: `"http" is an invalid value as transport_protocol`,
+					Message: `http is an invalid value as transport_protocol`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ec2_client_vpn_endpoint" "foo" {
-	transport_protocol = "udp"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

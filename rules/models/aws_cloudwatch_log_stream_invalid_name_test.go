@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudwatchLogStreamInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudwatch_log_stream" "foo" {
-	name = "Yoda:prod"
-}`,
+	name = Yada
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudwatch_log_stream" "foo" {
+	name = Yoda:prod
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchLogStreamInvalidNameRule(),
-					Message: `"Yoda:prod" does not match valid pattern ^[^:*]*$`,
+					Message: `Yoda:prod does not match valid pattern ^[^:*]*$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudwatch_log_stream" "foo" {
-	name = "Yada"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

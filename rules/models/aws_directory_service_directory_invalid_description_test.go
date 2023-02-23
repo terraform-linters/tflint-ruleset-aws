@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDirectoryServiceDirectoryInvalidDescriptionRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_directory_service_directory" "foo" {
-	description = "@example"
-}`,
+	description = example
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_directory_service_directory" "foo" {
+	description = @example
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDirectoryServiceDirectoryInvalidDescriptionRule(),
-					Message: `"@example" does not match valid pattern ^([a-zA-Z0-9_])[\\a-zA-Z0-9_@#%*+=:?./!\s-]*$`,
+					Message: `@example does not match valid pattern ^([a-zA-Z0-9_])[\\a-zA-Z0-9_@#%*+=:?./!\s-]*$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_directory_service_directory" "foo" {
-	description = "example"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

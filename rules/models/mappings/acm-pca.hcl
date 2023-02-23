@@ -17,6 +17,6 @@ mapping "aws_acmpca_certificate_authority_certificate" {
 }
 
 test "aws_acmpca_certificate_authority" "type" {
-  ok = "SUBORDINATE"
-  ng = "ORDINATE"
+  valid   = ["SUBORDINATE"]
+  invalid = ["ORDINATE"]
 }

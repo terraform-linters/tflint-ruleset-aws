@@ -10,30 +10,27 @@ import (
 
 func Test_AwsAppsyncDatasourceInvalidTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_appsync_datasource" "foo" {
-	type = "AMAZON_SIMPLEDB"
-}`,
+	type = AWS_LAMBDA
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_appsync_datasource" "foo" {
+	type = AMAZON_SIMPLEDB
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAppsyncDatasourceInvalidTypeRule(),
-					Message: `"AMAZON_SIMPLEDB" is an invalid value as type`,
+					Message: `AMAZON_SIMPLEDB is an invalid value as type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_appsync_datasource" "foo" {
-	type = "AWS_LAMBDA"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

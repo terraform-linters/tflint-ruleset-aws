@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCodepipelineWebhookInvalidAuthenticationRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_codepipeline_webhook" "foo" {
-	authentication = "GITLAB_HMAC"
-}`,
+	authentication = GITHUB_HMAC
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_codepipeline_webhook" "foo" {
+	authentication = GITLAB_HMAC
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCodepipelineWebhookInvalidAuthenticationRule(),
-					Message: `"GITLAB_HMAC" is an invalid value as authentication`,
+					Message: `GITLAB_HMAC is an invalid value as authentication`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_codepipeline_webhook" "foo" {
-	authentication = "GITHUB_HMAC"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

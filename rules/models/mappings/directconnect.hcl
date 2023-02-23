@@ -149,6 +149,6 @@ mapping "aws_dx_transit_virtual_interface" {
 }
 
 test "aws_dx_bgp_peer" "address_family" {
-  ok = "ipv4"
-  ng = "ipv2"
+  valid   = ["ipv4"]
+  invalid = ["ipv2"]
 }

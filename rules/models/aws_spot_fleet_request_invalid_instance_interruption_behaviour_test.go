@@ -10,30 +10,27 @@ import (
 
 func Test_AwsSpotFleetRequestInvalidInstanceInterruptionBehaviourRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_spot_fleet_request" "foo" {
-	instance_interruption_behaviour = "restart"
-}`,
+	instance_interruption_behaviour = hibernate
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_spot_fleet_request" "foo" {
+	instance_interruption_behaviour = restart
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsSpotFleetRequestInvalidInstanceInterruptionBehaviourRule(),
-					Message: `"restart" is an invalid value as instance_interruption_behaviour`,
+					Message: `restart is an invalid value as instance_interruption_behaviour`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_spot_fleet_request" "foo" {
-	instance_interruption_behaviour = "hibernate"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

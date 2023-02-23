@@ -10,30 +10,27 @@ import (
 
 func Test_AwsAppautoscalingPolicyInvalidPolicyTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_appautoscaling_policy" "foo" {
-	policy_type = "StopScaling"
-}`,
+	policy_type = StepScaling
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_appautoscaling_policy" "foo" {
+	policy_type = StopScaling
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAppautoscalingPolicyInvalidPolicyTypeRule(),
-					Message: `"StopScaling" is an invalid value as policy_type`,
+					Message: `StopScaling is an invalid value as policy_type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_appautoscaling_policy" "foo" {
-	policy_type = "StepScaling"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

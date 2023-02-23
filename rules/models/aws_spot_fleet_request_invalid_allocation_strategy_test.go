@@ -10,30 +10,27 @@ import (
 
 func Test_AwsSpotFleetRequestInvalidAllocationStrategyRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_spot_fleet_request" "foo" {
-	allocation_strategy = "highestPrice"
-}`,
+	allocation_strategy = lowestPrice
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_spot_fleet_request" "foo" {
+	allocation_strategy = highestPrice
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsSpotFleetRequestInvalidAllocationStrategyRule(),
-					Message: `"highestPrice" is an invalid value as allocation_strategy`,
+					Message: `highestPrice is an invalid value as allocation_strategy`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_spot_fleet_request" "foo" {
-	allocation_strategy = "lowestPrice"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

@@ -17,16 +17,16 @@ mapping "aws_appautoscaling_target" {
 }
 
 test "aws_appautoscaling_policy" "policy_type" {
-  ok = "StepScaling"
-  ng = "StopScaling"
+  valid   = ["StepScaling"]
+  invalid = ["StopScaling"]
 }
 
 test "aws_appautoscaling_policy" "scalable_dimension" {
-  ok = "ecs:service:DesiredCount"
-  ng = "ecs:service:DesireCount"
+  valid   = ["ecs:service:DesiredCount"]
+  invalid = ["ecs:service:DesireCount"]
 }
 
 test "aws_appautoscaling_policy" "service_namespace" {
-  ok = "ecs"
-  ng = "eks"
+  valid   = ["ecs"]
+  invalid = ["eks"]
 }

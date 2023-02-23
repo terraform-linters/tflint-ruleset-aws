@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCognitoUserGroupInvalidRoleArnRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cognito_user_group" "foo" {
-	role_arn = "aws:iam::123456789012:instance-profile/s3access-profile"
-}`,
+	role_arn = arn:aws:iam::123456789012:role/s3access
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cognito_user_group" "foo" {
+	role_arn = aws:iam::123456789012:instance-profile/s3access-profile
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoUserGroupInvalidRoleArnRule(),
-					Message: `"aws:iam::123456789012:instance-profile/s3access-profile" does not match valid pattern ^arn:[\w+=/,.@-]+:[\w+=/,.@-]+:([\w+=/,.@-]*)?:[0-9]+:[\w+=/,.@-]+(:[\w+=/,.@-]+)?(:[\w+=/,.@-]+)?$`,
+					Message: `aws:iam::123456789012:instance-profile/s3access-profile does not match valid pattern ^arn:[\w+=/,.@-]+:[\w+=/,.@-]+:([\w+=/,.@-]*)?:[0-9]+:[\w+=/,.@-]+(:[\w+=/,.@-]+)?(:[\w+=/,.@-]+)?$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cognito_user_group" "foo" {
-	role_arn = "arn:aws:iam::123456789012:role/s3access"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

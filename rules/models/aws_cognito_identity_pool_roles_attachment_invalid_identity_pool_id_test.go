@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCognitoIdentityPoolRolesAttachmentInvalidIdentityPoolIDRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cognito_identity_pool_roles_attachment" "foo" {
-	identity_pool_id = "0123456789"
-}`,
+	identity_pool_id = us-east-1:0123456789
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cognito_identity_pool_roles_attachment" "foo" {
+	identity_pool_id = 0123456789
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoIdentityPoolRolesAttachmentInvalidIdentityPoolIDRule(),
-					Message: `"0123456789" does not match valid pattern ^[\w-]+:[0-9a-f-]+$`,
+					Message: `0123456789 does not match valid pattern ^[\w-]+:[0-9a-f-]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cognito_identity_pool_roles_attachment" "foo" {
-	identity_pool_id = "us-east-1:0123456789"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

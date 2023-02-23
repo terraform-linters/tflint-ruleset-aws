@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudformationStackSetInstanceInvalidAccountIDRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudformation_stack_set_instance" "foo" {
-	account_id = "1234567890123"
-}`,
+	account_id = 123456789012
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudformation_stack_set_instance" "foo" {
+	account_id = 1234567890123
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudformationStackSetInstanceInvalidAccountIDRule(),
-					Message: `"1234567890123" does not match valid pattern ^[0-9]{12}$`,
+					Message: `1234567890123 does not match valid pattern ^[0-9]{12}$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudformation_stack_set_instance" "foo" {
-	account_id = "123456789012"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

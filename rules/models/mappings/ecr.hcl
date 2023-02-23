@@ -34,6 +34,6 @@ mapping "aws_ecr_repository_policy" {
 }
 
 test "aws_ecr_lifecycle_policy" "repository" {
-  ok = "example"
-  ng = "example@com"
+  valid   = ["example"]
+  invalid = ["example@com"]
 }

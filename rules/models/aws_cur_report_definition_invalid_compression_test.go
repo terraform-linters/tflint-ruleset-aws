@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCurReportDefinitionInvalidCompressionRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cur_report_definition" "foo" {
-	compression = "TAR"
-}`,
+	compression = ZIP
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cur_report_definition" "foo" {
+	compression = TAR
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCurReportDefinitionInvalidCompressionRule(),
-					Message: `"TAR" is an invalid value as compression`,
+					Message: `TAR is an invalid value as compression`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cur_report_definition" "foo" {
-	compression = "ZIP"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

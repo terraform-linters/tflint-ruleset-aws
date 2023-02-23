@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDynamoDBTableInvalidBillingModeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_dynamodb_table" "foo" {
-	billing_mode = "FLEXIBLE"
-}`,
+	billing_mode = PROVISIONED
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_dynamodb_table" "foo" {
+	billing_mode = FLEXIBLE
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDynamoDBTableInvalidBillingModeRule(),
-					Message: `"FLEXIBLE" is an invalid value as billing_mode`,
+					Message: `FLEXIBLE is an invalid value as billing_mode`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_dynamodb_table" "foo" {
-	billing_mode = "PROVISIONED"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

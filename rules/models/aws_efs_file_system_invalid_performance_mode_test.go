@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEfsFileSystemInvalidPerformanceModeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_efs_file_system" "foo" {
-	performance_mode = "minIO"
-}`,
+	performance_mode = generalPurpose
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_efs_file_system" "foo" {
+	performance_mode = minIO
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEfsFileSystemInvalidPerformanceModeRule(),
-					Message: `"minIO" is an invalid value as performance_mode`,
+					Message: `minIO is an invalid value as performance_mode`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_efs_file_system" "foo" {
-	performance_mode = "generalPurpose"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

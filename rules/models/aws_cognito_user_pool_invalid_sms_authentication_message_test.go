@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCognitoUserPoolInvalidSmsAuthenticationMessageRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cognito_user_pool" "foo" {
-	sms_authentication_message = "Authentication code"
-}`,
+	sms_authentication_message = Authentication code is {####}
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cognito_user_pool" "foo" {
+	sms_authentication_message = Authentication code
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoUserPoolInvalidSmsAuthenticationMessageRule(),
-					Message: `"Authentication code" does not match valid pattern ^.*\{####\}.*$`,
+					Message: `Authentication code does not match valid pattern ^.*\{####\}.*$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cognito_user_pool" "foo" {
-	sms_authentication_message = "Authentication code is {####}"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

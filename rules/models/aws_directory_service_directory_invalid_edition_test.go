@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDirectoryServiceDirectoryInvalidEditionRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_directory_service_directory" "foo" {
-	edition = "Free"
-}`,
+	edition = Enterprise
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_directory_service_directory" "foo" {
+	edition = Free
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDirectoryServiceDirectoryInvalidEditionRule(),
-					Message: `"Free" is an invalid value as edition`,
+					Message: `Free is an invalid value as edition`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_directory_service_directory" "foo" {
-	edition = "Enterprise"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

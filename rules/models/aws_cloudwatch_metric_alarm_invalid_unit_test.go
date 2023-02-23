@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudwatchMetricAlarmInvalidUnitRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudwatch_metric_alarm" "foo" {
-	unit = "GB"
-}`,
+	unit = Gigabytes
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudwatch_metric_alarm" "foo" {
+	unit = GB
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchMetricAlarmInvalidUnitRule(),
-					Message: `"GB" is an invalid value as unit`,
+					Message: `GB is an invalid value as unit`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudwatch_metric_alarm" "foo" {
-	unit = "Gigabytes"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudhsmV2HsmInvalidSubnetIDRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudhsm_v2_hsm" "foo" {
-	subnet_id = "0e358c43"
-}`,
+	subnet_id = subnet-0e358c43
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudhsm_v2_hsm" "foo" {
+	subnet_id = 0e358c43
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudhsmV2HsmInvalidSubnetIDRule(),
-					Message: `"0e358c43" does not match valid pattern ^subnet-[0-9a-fA-F]{8,17}$`,
+					Message: `0e358c43 does not match valid pattern ^subnet-[0-9a-fA-F]{8,17}$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudhsm_v2_hsm" "foo" {
-	subnet_id = "subnet-0e358c43"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCognitoIdentityProviderInvalidProviderTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cognito_identity_provider" "foo" {
-	provider_type = "Apple"
-}`,
+	provider_type = LoginWithAmazon
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cognito_identity_provider" "foo" {
+	provider_type = Apple
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoIdentityProviderInvalidProviderTypeRule(),
-					Message: `"Apple" is an invalid value as provider_type`,
+					Message: `Apple is an invalid value as provider_type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cognito_identity_provider" "foo" {
-	provider_type = "LoginWithAmazon"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

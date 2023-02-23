@@ -123,21 +123,21 @@ mapping "aws_alb_target_group_attachment" {
 }
 
 test "aws_lb" "ip_address_type" {
-  ok = "ipv4"
-  ng = "ipv6"
+  valid   = ["ipv4"]
+  invalid = ["ipv6"]
 }
 
 test "aws_lb" "load_balancer_type" {
-  ok = "application"
-  ng = "classic"
+  valid   = ["application"]
+  invalid = ["classic"]
 }
 
 test "aws_lb_listener" "protocol" {
-  ok = "HTTPS"
-  ng = "INVALID"
+  valid   = ["HTTPS"]
+  invalid = ["INVALID"]
 }
 
 test "aws_lb_target_group" "target_type" {
-  ok = "lambda"
-  ng = "container"
+  valid   = ["lambda"]
+  invalid = ["container"]
 }

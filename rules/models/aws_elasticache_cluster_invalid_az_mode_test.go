@@ -10,30 +10,27 @@ import (
 
 func Test_AwsElastiCacheClusterInvalidAzModeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_elasticache_cluster" "foo" {
-	az_mode = "multi-az"
-}`,
+	az_mode = cross-az
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_elasticache_cluster" "foo" {
+	az_mode = multi-az
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsElastiCacheClusterInvalidAzModeRule(),
-					Message: `"multi-az" is an invalid value as az_mode`,
+					Message: `multi-az is an invalid value as az_mode`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_elasticache_cluster" "foo" {
-	az_mode = "cross-az"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

@@ -26,6 +26,6 @@ mapping "aws_elastictranscoder_preset" {
 }
 
 test "aws_elastictranscoder_preset" "container" {
-  ok = "mp4"
-  ng = "mp1"
+  valid   = ["mp4"]
+  invalid = ["mp1"]
 }

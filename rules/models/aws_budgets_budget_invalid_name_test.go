@@ -10,30 +10,27 @@ import (
 
 func Test_AwsBudgetsBudgetInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_budgets_budget" "foo" {
-	name = "budget:ec2:monthly"
-}`,
+	name = budget-ec2-monthly
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_budgets_budget" "foo" {
+	name = budget:ec2:monthly
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBudgetsBudgetInvalidNameRule(),
-					Message: `"budget:ec2:monthly" does not match valid pattern ^[^:\\]+$`,
+					Message: `budget:ec2:monthly does not match valid pattern ^[^:\\]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_budgets_budget" "foo" {
-	name = "budget-ec2-monthly"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

@@ -36,11 +36,11 @@ mapping "aws_efs_mount_target" {
 }
 
 test "aws_efs_file_system" "performance_mode" {
-  ok = "generalPurpose"
-  ng = "minIO"
+  valid   = ["generalPurpose"]
+  invalid = ["minIO"]
 }
 
 test "aws_efs_file_system" "throughput_mode" {
-  ok = "bursting"
-  ng = "generalPurpose"
+  valid   = ["bursting"]
+  invalid = ["generalPurpose"]
 }

@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEc2TransitGatewayInvalidDNSSupportRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ec2_transit_gateway" "foo" {
-	dns_support = "enabled"
-}`,
+	dns_support = enable
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ec2_transit_gateway" "foo" {
+	dns_support = enabled
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2TransitGatewayInvalidDNSSupportRule(),
-					Message: `"enabled" is an invalid value as dns_support`,
+					Message: `enabled is an invalid value as dns_support`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ec2_transit_gateway" "foo" {
-	dns_support = "enable"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

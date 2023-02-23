@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudformationStackInvalidOnFailureRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudformation_stack" "foo" {
-	on_failure = "DO_ANYTHING"
-}`,
+	on_failure = DO_NOTHING
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudformation_stack" "foo" {
+	on_failure = DO_ANYTHING
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudformationStackInvalidOnFailureRule(),
-					Message: `"DO_ANYTHING" is an invalid value as on_failure`,
+					Message: `DO_ANYTHING is an invalid value as on_failure`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudformation_stack" "foo" {
-	on_failure = "DO_NOTHING"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

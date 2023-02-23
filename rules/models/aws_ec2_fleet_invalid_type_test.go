@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEc2FleetInvalidTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ec2_fleet" "foo" {
-	type = "remain"
-}`,
+	type = maintain
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ec2_fleet" "foo" {
+	type = remain
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2FleetInvalidTypeRule(),
-					Message: `"remain" is an invalid value as type`,
+					Message: `remain is an invalid value as type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ec2_fleet" "foo" {
-	type = "maintain"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

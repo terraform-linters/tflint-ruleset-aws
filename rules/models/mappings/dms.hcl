@@ -68,16 +68,16 @@ mapping "aws_dms_replication_task" {
 }
 
 test "aws_dms_endpoint" "endpoint_type" {
-  ok = "source"
-  ng = "resource"
+  valid   = ["source"]
+  invalid = ["resource"]
 }
 
 test "aws_dms_endpoint" "ssl_mode" {
-  ok = "require"
-  ng = "verify-require"
+  valid   = ["require"]
+  invalid = ["verify-require"]
 }
 
 test "aws_dms_replication_task" "migration_type" {
-  ok = "full-load"
-  ng = "partial-load"
+  valid   = ["full-load"]
+  invalid = ["partial-load"]
 }

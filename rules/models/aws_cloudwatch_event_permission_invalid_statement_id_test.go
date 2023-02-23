@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudwatchEventPermissionInvalidStatementIDRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudwatch_event_permission" "foo" {
-	statement_id = "Organization Access"
-}`,
+	statement_id = OrganizationAccess
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudwatch_event_permission" "foo" {
+	statement_id = Organization Access
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchEventPermissionInvalidStatementIDRule(),
-					Message: `"Organization Access" does not match valid pattern ^[a-zA-Z0-9-_]+$`,
+					Message: `Organization Access does not match valid pattern ^[a-zA-Z0-9-_]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudwatch_event_permission" "foo" {
-	statement_id = "OrganizationAccess"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

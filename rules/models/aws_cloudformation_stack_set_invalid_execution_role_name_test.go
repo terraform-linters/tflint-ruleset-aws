@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudformationStackSetInvalidExecutionRoleNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudformation_stack_set" "foo" {
-	execution_role_name = "AWSCloudFormation/StackSet/ExecutionRole"
-}`,
+	execution_role_name = AWSCloudFormationStackSetExecutionRole
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudformation_stack_set" "foo" {
+	execution_role_name = AWSCloudFormation/StackSet/ExecutionRole
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudformationStackSetInvalidExecutionRoleNameRule(),
-					Message: `"AWSCloudFormation/StackSet/ExecutionRole" does not match valid pattern ^[a-zA-Z_0-9+=,.@-]+$`,
+					Message: `AWSCloudFormation/StackSet/ExecutionRole does not match valid pattern ^[a-zA-Z_0-9+=,.@-]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudformation_stack_set" "foo" {
-	execution_role_name = "AWSCloudFormationStackSetExecutionRole"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCodecommitRepositoryInvalidRepositoryNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_codecommit_repository" "foo" {
-	repository_name = "mytest@repository"
-}`,
+	repository_name = MyTestRepository
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_codecommit_repository" "foo" {
+	repository_name = mytest@repository
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCodecommitRepositoryInvalidRepositoryNameRule(),
-					Message: `"mytest@repository" does not match valid pattern ^[\w\.-]+$`,
+					Message: `mytest@repository does not match valid pattern ^[\w\.-]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_codecommit_repository" "foo" {
-	repository_name = "MyTestRepository"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloud9EnvironmentEc2InvalidInstanceTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloud9_environment_ec2" "foo" {
-	instance_type = "t20.micro"
-}`,
+	instance_type = t2.micro
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloud9_environment_ec2" "foo" {
+	instance_type = t20.micro
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloud9EnvironmentEc2InvalidInstanceTypeRule(),
-					Message: `"t20.micro" does not match valid pattern ^[a-z][1-9][.][a-z0-9]+$`,
+					Message: `t20.micro does not match valid pattern ^[a-z][1-9][.][a-z0-9]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloud9_environment_ec2" "foo" {
-	instance_type = "t2.micro"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

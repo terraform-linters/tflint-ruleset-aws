@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEc2TransitGatewayInvalidDefaultRouteTableAssociationRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ec2_transit_gateway" "foo" {
-	default_route_table_association = "false"
-}`,
+	default_route_table_association = disable
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ec2_transit_gateway" "foo" {
+	default_route_table_association = false
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2TransitGatewayInvalidDefaultRouteTableAssociationRule(),
-					Message: `"false" is an invalid value as default_route_table_association`,
+					Message: `false is an invalid value as default_route_table_association`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ec2_transit_gateway" "foo" {
-	default_route_table_association = "disable"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

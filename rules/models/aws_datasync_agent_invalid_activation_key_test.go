@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDatasyncAgentInvalidActivationKeyRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_datasync_agent" "foo" {
-	activation_key = "F0EFT7FPPRGG7MC3I9R327DOH"
-}`,
+	activation_key = F0EFT-7FPPR-GG7MC-3I9R3-27DOH
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_datasync_agent" "foo" {
+	activation_key = F0EFT7FPPRGG7MC3I9R327DOH
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncAgentInvalidActivationKeyRule(),
-					Message: `"F0EFT7FPPRGG7MC3I9R327DOH" does not match valid pattern ^[A-Z0-9]{5}(-[A-Z0-9]{5}){4}$`,
+					Message: `F0EFT7FPPRGG7MC3I9R327DOH does not match valid pattern ^[A-Z0-9]{5}(-[A-Z0-9]{5}){4}$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_datasync_agent" "foo" {
-	activation_key = "F0EFT-7FPPR-GG7MC-3I9R3-27DOH"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

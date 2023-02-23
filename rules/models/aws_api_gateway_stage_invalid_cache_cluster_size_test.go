@@ -10,30 +10,27 @@ import (
 
 func Test_AwsAPIGatewayStageInvalidCacheClusterSizeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_api_gateway_stage" "foo" {
-	cache_cluster_size = "6.2"
-}`,
+	cache_cluster_size = 6.1
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_api_gateway_stage" "foo" {
+	cache_cluster_size = 6.2
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayStageInvalidCacheClusterSizeRule(),
-					Message: `"6.2" is an invalid value as cache_cluster_size`,
+					Message: `6.2 is an invalid value as cache_cluster_size`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_api_gateway_stage" "foo" {
-	cache_cluster_size = "6.1"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

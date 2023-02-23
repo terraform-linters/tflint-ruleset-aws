@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudwatchEventPermissionInvalidActionRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudwatch_event_permission" "foo" {
-	action = "cloudwatchevents:PutEvents"
-}`,
+	action = events:PutEvents
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudwatch_event_permission" "foo" {
+	action = cloudwatchevents:PutEvents
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchEventPermissionInvalidActionRule(),
-					Message: `"cloudwatchevents:PutEvents" does not match valid pattern ^events:[a-zA-Z]+$`,
+					Message: `cloudwatchevents:PutEvents does not match valid pattern ^events:[a-zA-Z]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudwatch_event_permission" "foo" {
-	action = "events:PutEvents"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDirectoryServiceDirectoryInvalidShortNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_directory_service_directory" "foo" {
-	short_name = "CORP:EXAMPLE"
-}`,
+	short_name = CORP
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_directory_service_directory" "foo" {
+	short_name = CORP:EXAMPLE
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDirectoryServiceDirectoryInvalidShortNameRule(),
-					Message: `"CORP:EXAMPLE" does not match valid pattern ^[^\\/:*?"<>|.]+[^\\/:*?"<>|]*$`,
+					Message: `CORP:EXAMPLE does not match valid pattern ^[^\\/:*?"<>|.]+[^\\/:*?"<>|]*$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_directory_service_directory" "foo" {
-	short_name = "CORP"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

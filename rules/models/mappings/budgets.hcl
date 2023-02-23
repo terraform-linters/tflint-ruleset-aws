@@ -8,21 +8,21 @@ mapping "aws_budgets_budget" {
 }
 
 test "aws_budgets_budget" "account_id" {
-  ok = "123456789012"
-  ng = "abcdefghijkl"
+  valid   = ["123456789012"]
+  invalid = ["abcdefghijkl"]
 }
 
 test "aws_budgets_budget" "name" {
-  ok = "budget-ec2-monthly"
-  ng = "budget:ec2:monthly"
+  valid   = ["budget-ec2-monthly"]
+  invalid = ["budget:ec2:monthly"]
 }
 
 test "aws_budgets_budget" "budget_type" {
-  ok = "USAGE"
-  ng = "MONEY"
+  valid   = ["USAGE"]
+  invalid = ["MONEY"]
 }
 
 test "aws_budgets_budget" "time_unit" {
-  ok = "MONTHLY"
-  ng = "HOURLY"
+  valid   = ["MONTHLY"]
+  invalid = ["HOURLY"]
 }

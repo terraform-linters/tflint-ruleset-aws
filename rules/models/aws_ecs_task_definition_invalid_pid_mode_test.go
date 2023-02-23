@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEcsTaskDefinitionInvalidPidModeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ecs_task_definition" "foo" {
-	pid_mode = "awsvpc"
-}`,
+	pid_mode = task
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ecs_task_definition" "foo" {
+	pid_mode = awsvpc
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEcsTaskDefinitionInvalidPidModeRule(),
-					Message: `"awsvpc" is an invalid value as pid_mode`,
+					Message: `awsvpc is an invalid value as pid_mode`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ecs_task_definition" "foo" {
-	pid_mode = "task"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

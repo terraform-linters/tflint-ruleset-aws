@@ -10,30 +10,27 @@ import (
 
 func Test_AwsBatchJobQueueInvalidStateRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_batch_job_queue" "foo" {
-	state = "ON"
-}`,
+	state = ENABLED
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_batch_job_queue" "foo" {
+	state = ON
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBatchJobQueueInvalidStateRule(),
-					Message: `"ON" is an invalid value as state`,
+					Message: `ON is an invalid value as state`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_batch_job_queue" "foo" {
-	state = "ENABLED"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

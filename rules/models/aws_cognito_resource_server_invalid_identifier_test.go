@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCognitoResourceServerInvalidIdentifierRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cognito_resource_server" "foo" {
-	identifier = "	"
-}`,
+	identifier = https://example.com
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cognito_resource_server" "foo" {
+	identifier = 	
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoResourceServerInvalidIdentifierRule(),
-					Message: `"	" does not match valid pattern ^[\x21\x23-\x5B\x5D-\x7E]+$`,
+					Message: `	 does not match valid pattern ^[\x21\x23-\x5B\x5D-\x7E]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cognito_resource_server" "foo" {
-	identifier = "https://example.com"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

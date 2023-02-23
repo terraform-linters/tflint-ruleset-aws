@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudhsmV2HsmInvalidIPAddressRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudhsm_v2_hsm" "foo" {
-	ip_address = "2001:4860:4860::8888"
-}`,
+	ip_address = 8.8.8.8
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudhsm_v2_hsm" "foo" {
+	ip_address = 2001:4860:4860::8888
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudhsmV2HsmInvalidIPAddressRule(),
-					Message: `"2001:4860:4860::8888" does not match valid pattern ^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$`,
+					Message: `2001:4860:4860::8888 does not match valid pattern ^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudhsm_v2_hsm" "foo" {
-	ip_address = "8.8.8.8"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

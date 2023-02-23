@@ -26,41 +26,41 @@ mapping "aws_directory_service_log_subscription" {
 }
 
 test "aws_directory_service_directory" "name" {
-  ok = "corp.notexample.com"
-  ng = "@example.com"
+  valid   = ["corp.notexample.com"]
+  invalid = ["@example.com"]
 }
 
 test "aws_directory_service_directory" "size" {
-  ok = "Small"
-  ng = "Micro"
+  valid   = ["Small"]
+  invalid = ["Micro"]
 }
 
 test "aws_directory_service_directory" "short_name" {
-  ok = "CORP"
-  ng = "CORP:EXAMPLE"
+  valid   = ["CORP"]
+  invalid = ["CORP:EXAMPLE"]
 }
 
 test "aws_directory_service_directory" "description" {
-  ok = "example"
-  ng = "@example"
+  valid   = ["example"]
+  invalid = ["@example"]
 }
 
 test "aws_directory_service_directory" "type" {
-  ok = "SimpleAD"
-  ng = "ActiveDirectory"
+  valid   = ["SimpleAD"]
+  invalid = ["ActiveDirectory"]
 }
 
 test "aws_directory_service_directory" "edition" {
-  ok = "Enterprise"
-  ng = "Free"
+  valid   = ["Enterprise"]
+  invalid = ["Free"]
 }
 
 test "aws_directory_service_conditional_forwarder" "directory_id" {
-  ok = "d-1234567890"
-  ng = "1234567890"
+  valid   = ["d-1234567890"]
+  invalid = ["1234567890"]
 }
 
 test "aws_directory_service_conditional_forwarder" "remote_domain_name" {
-  ok = "example.com"
-  ng = "example^com"
+  valid   = ["example.com"]
+  invalid = ["example^com"]
 }

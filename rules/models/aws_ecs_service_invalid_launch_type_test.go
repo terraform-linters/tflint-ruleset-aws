@@ -10,30 +10,27 @@ import (
 
 func Test_AwsEcsServiceInvalidLaunchTypeRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_ecs_service" "foo" {
-	launch_type = "POD"
-}`,
+	launch_type = FARGATE
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_ecs_service" "foo" {
+	launch_type = POD
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEcsServiceInvalidLaunchTypeRule(),
-					Message: `"POD" is an invalid value as launch_type`,
+					Message: `POD is an invalid value as launch_type`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_ecs_service" "foo" {
-	launch_type = "FARGATE"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

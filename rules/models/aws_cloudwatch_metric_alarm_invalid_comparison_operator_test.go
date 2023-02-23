@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudwatchMetricAlarmInvalidComparisonOperatorRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudwatch_metric_alarm" "foo" {
-	comparison_operator = "GreaterThanOrEqual"
-}`,
+	comparison_operator = GreaterThanOrEqualToThreshold
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudwatch_metric_alarm" "foo" {
+	comparison_operator = GreaterThanOrEqual
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchMetricAlarmInvalidComparisonOperatorRule(),
-					Message: `"GreaterThanOrEqual" is an invalid value as comparison_operator`,
+					Message: `GreaterThanOrEqual is an invalid value as comparison_operator`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudwatch_metric_alarm" "foo" {
-	comparison_operator = "GreaterThanOrEqualToThreshold"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

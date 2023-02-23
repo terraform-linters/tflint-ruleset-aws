@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCognitoIdentityProviderInvalidProviderNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cognito_identity_provider" "foo" {
-	provider_name = "	"
-}`,
+	provider_name = Google
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cognito_identity_provider" "foo" {
+	provider_name = 	
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoIdentityProviderInvalidProviderNameRule(),
-					Message: `"	" does not match valid pattern ^[\p{L}\p{M}\p{S}\p{N}\p{P}]+$`,
+					Message: `	 does not match valid pattern ^[\p{L}\p{M}\p{S}\p{N}\p{P}]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cognito_identity_provider" "foo" {
-	provider_name = "Google"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

@@ -22,6 +22,6 @@ mapping "aws_codecommit_trigger" {
 }
 
 test "aws_codecommit_repository" "repository_name" {
-  ok = "MyTestRepository"
-  ng = "mytest@repository"
+  valid   = ["MyTestRepository"]
+  invalid = ["mytest@repository"]
 }

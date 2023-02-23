@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCurReportDefinitionInvalidFormatRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cur_report_definition" "foo" {
-	format = "textORjson"
-}`,
+	format = textORcsv
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cur_report_definition" "foo" {
+	format = textORjson
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCurReportDefinitionInvalidFormatRule(),
-					Message: `"textORjson" is an invalid value as format`,
+					Message: `textORjson is an invalid value as format`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cur_report_definition" "foo" {
-	format = "textORcsv"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

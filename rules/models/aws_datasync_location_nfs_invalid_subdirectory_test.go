@@ -10,30 +10,27 @@ import (
 
 func Test_AwsDatasyncLocationNfsInvalidSubdirectoryRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_datasync_location_nfs" "foo" {
-	subdirectory = "/exported^path"
-}`,
+	subdirectory = /exported/path
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_datasync_location_nfs" "foo" {
+	subdirectory = /exported^path
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncLocationNfsInvalidSubdirectoryRule(),
-					Message: `"/exported^path" does not match valid pattern ^[a-zA-Z0-9_\-\+\./\(\)\p{Zs}]*$`,
+					Message: `/exported^path does not match valid pattern ^[a-zA-Z0-9_\-\+\./\(\)\p{Zs}]*$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_datasync_location_nfs" "foo" {
-	subdirectory = "/exported/path"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 

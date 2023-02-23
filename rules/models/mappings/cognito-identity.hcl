@@ -10,11 +10,11 @@ mapping "aws_cognito_identity_pool_roles_attachment" {
 }
 
 test "aws_cognito_identity_pool" "identity_pool_name" {
-  ok = "identity pool"
-  ng = "identity:pool"
+  valid   = ["identity pool"]
+  invalid = ["identity:pool"]
 }
 
 test "aws_cognito_identity_pool_roles_attachment" "identity_pool_id" {
-  ok = "us-east-1:0123456789"
-  ng = "0123456789"
+  valid   = ["us-east-1:0123456789"]
+  invalid = ["0123456789"]
 }

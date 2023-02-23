@@ -10,30 +10,27 @@ import (
 
 func Test_AwsCloudwatchEventRuleInvalidNameRule(t *testing.T) {
 	cases := []struct {
-		Name     string
 		Content  string
 		Expected helper.Issues
 	}{
 		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_cloudwatch_event_rule" "foo" {
-	name = "capture aws sign in"
-}`,
+	name = capture-aws-sign-in
+	}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Content: `
+resource "aws_cloudwatch_event_rule" "foo" {
+	name = capture aws sign in
+	}`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchEventRuleInvalidNameRule(),
-					Message: `"capture aws sign in" does not match valid pattern ^[\.\-_A-Za-z0-9]+$`,
+					Message: `capture aws sign in does not match valid pattern ^[\.\-_A-Za-z0-9]+$`,
 				},
 			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_cloudwatch_event_rule" "foo" {
-	name = "capture-aws-sign-in"
-}`,
-			Expected: helper.Issues{},
 		},
 	}
 
