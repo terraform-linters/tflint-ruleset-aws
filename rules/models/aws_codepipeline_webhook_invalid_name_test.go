@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_codepipeline_webhook" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCodepipelineWebhookInvalidNameRule(),
-					Message: `"webhook-github-bar/testing" does not match valid pattern ^[A-Za-z0-9.@\-_]+$`,
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("webhook-github-bar/testing"), `^[A-Za-z0-9.@\-_]+$`),
 				},
 			},
 		},

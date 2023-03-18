@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_backup_selection" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBackupSelectionInvalidNameRule(),
-					Message: `"tf_example_backup_selection_tf_example_backup_selection" does not match valid pattern ^[a-zA-Z0-9\-\_\.]{1,50}$`,
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("tf_example_backup_selection_tf_example_backup_selection"), `^[a-zA-Z0-9\-\_\.]{1,50}$`),
 				},
 			},
 		},

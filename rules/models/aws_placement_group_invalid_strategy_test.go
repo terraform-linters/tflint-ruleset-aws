@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_placement_group" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsPlacementGroupInvalidStrategyRule(),
-					Message: `"instance" is an invalid value as strategy`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("instance"), "strategy"),
 				},
 			},
 		},

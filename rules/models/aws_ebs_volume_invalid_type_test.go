@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_ebs_volume" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEbsVolumeInvalidTypeRule(),
-					Message: `"gp1" is an invalid value as type`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("gp1"), "type"),
 				},
 			},
 		},

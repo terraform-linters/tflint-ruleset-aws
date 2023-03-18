@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cloudwatch_log_subscription_filter" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchLogSubscriptionFilterInvalidNameRule(),
-					Message: `"test_lambdafunction_logfilter:test" does not match valid pattern ^[^:*]*$`,
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("test_lambdafunction_logfilter:test"), `^[^:*]*$`),
 				},
 			},
 		},

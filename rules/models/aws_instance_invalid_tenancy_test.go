@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_instance" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsInstanceInvalidTenancyRule(),
-					Message: `"server" is an invalid value as tenancy`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("server"), "tenancy"),
 				},
 			},
 		},

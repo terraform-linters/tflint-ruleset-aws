@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_ec2_transit_gateway" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2TransitGatewayInvalidDefaultRouteTableAssociationRule(),
-					Message: `"false" is an invalid value as default_route_table_association`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("false"), "default_route_table_association"),
 				},
 			},
 		},

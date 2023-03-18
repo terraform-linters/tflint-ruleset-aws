@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cloudhsm_v2_cluster" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudhsmV2ClusterInvalidSourceBackupIdentifierRule(),
-					Message: `"rtq2dwi2gq6" does not match valid pattern ^backup-[2-7a-zA-Z]{11,16}$`,
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("rtq2dwi2gq6"), `^backup-[2-7a-zA-Z]{11,16}$`),
 				},
 			},
 		},

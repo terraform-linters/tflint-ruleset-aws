@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_batch_job_queue" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBatchJobQueueInvalidStateRule(),
-					Message: `"ON" is an invalid value as state`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("ON"), "state"),
 				},
 			},
 		},

@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_ec2_capacity_reservation" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2CapacityReservationInvalidInstancePlatformRule(),
-					Message: `"Linux/GNU" is an invalid value as instance_platform`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("Linux/GNU"), "instance_platform"),
 				},
 			},
 		},

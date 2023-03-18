@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cloudwatch_metric_alarm" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchMetricAlarmInvalidComparisonOperatorRule(),
-					Message: `"GreaterThanOrEqual" is an invalid value as comparison_operator`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("GreaterThanOrEqual"), "comparison_operator"),
 				},
 			},
 		},

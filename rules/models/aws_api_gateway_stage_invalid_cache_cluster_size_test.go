@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_api_gateway_stage" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayStageInvalidCacheClusterSizeRule(),
-					Message: `"6.2" is an invalid value as cache_cluster_size`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("6.2"), "cache_cluster_size"),
 				},
 			},
 		},

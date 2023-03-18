@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cloudformation_stack" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudformationStackInvalidOnFailureRule(),
-					Message: `"DO_ANYTHING" is an invalid value as on_failure`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("DO_ANYTHING"), "on_failure"),
 				},
 			},
 		},

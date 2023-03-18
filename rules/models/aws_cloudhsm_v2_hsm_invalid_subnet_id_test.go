@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cloudhsm_v2_hsm" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudhsmV2HsmInvalidSubnetIDRule(),
-					Message: `"0e358c43" does not match valid pattern ^subnet-[0-9a-fA-F]{8,17}$`,
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("0e358c43"), `^subnet-[0-9a-fA-F]{8,17}$`),
 				},
 			},
 		},

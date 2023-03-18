@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_api_gateway_gateway_response" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayGatewayResponseInvalidResponseTypeRule(),
-					Message: `"4XX" is an invalid value as response_type`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("4XX"), "response_type"),
 				},
 			},
 		},

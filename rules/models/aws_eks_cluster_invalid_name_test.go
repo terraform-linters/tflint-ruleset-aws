@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_eks_cluster" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEksClusterInvalidNameRule(),
-					Message: `"@example" does not match valid pattern ^[0-9A-Za-z][A-Za-z0-9\-_]*`,
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("@example"), `^[0-9A-Za-z][A-Za-z0-9\-_]*`),
 				},
 			},
 		},

@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_directory_service_conditional_forwarder" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDirectoryServiceConditionalForwarderInvalidDirectoryIDRule(),
-					Message: `"1234567890" does not match valid pattern ^d-[0-9a-f]{10}$`,
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("1234567890"), `^d-[0-9a-f]{10}$`),
 				},
 			},
 		},
