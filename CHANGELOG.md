@@ -1,3 +1,7 @@
+## 0.22.1 (2023-03-18)
+
+- [#465](https://github.com/terraform-linters/tflint-ruleset-aws/pull/465): Fix Cosign v2 signing ([@wata727](https://github.com/wata727))
+
 ## 0.22.0 (2023-03-18)
 
 ### Breaking Changes
