@@ -27,6 +27,7 @@ func NewAwsRoute53ResolverFirewallConfigInvalidFirewallFailOpenRule() *AwsRoute5
 		enum: []string{
 			"ENABLED",
 			"DISABLED",
+			"USE_LOCAL_RESOURCE_SETTING",
 		},
 	}
 }
