@@ -24,7 +24,7 @@ resource "aws_backup_selection" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBackupSelectionInvalidNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("tf_example_backup_selection_tf_example_backup_selection"), `^[a-zA-Z0-9\-\_\.]{1,50}$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("tf_example_backup_selection_tf_example_backup_selection"), `^[a-zA-Z0-9\-\_\.]{1,50}$`),
 				},
 			},
 		},

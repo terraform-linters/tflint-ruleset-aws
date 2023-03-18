@@ -24,7 +24,7 @@ resource "aws_config_configuration_aggregator" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsConfigConfigurationAggregatorInvalidNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("example.com"), `^[\w\-]+$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("example.com"), `^[\w\-]+$`),
 				},
 			},
 		},

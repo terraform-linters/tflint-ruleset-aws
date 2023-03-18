@@ -24,7 +24,7 @@ resource "aws_cloudwatch_event_rule" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchEventRuleInvalidNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("capture aws sign in"), `^[\.\-_A-Za-z0-9]+$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("capture aws sign in"), `^[\.\-_A-Za-z0-9]+$`),
 				},
 			},
 		},

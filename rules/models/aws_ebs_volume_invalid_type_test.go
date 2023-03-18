@@ -24,7 +24,7 @@ resource "aws_ebs_volume" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEbsVolumeInvalidTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("gp1"), "type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("gp1"), "type"),
 				},
 			},
 		},

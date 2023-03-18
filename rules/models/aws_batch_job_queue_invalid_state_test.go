@@ -24,7 +24,7 @@ resource "aws_batch_job_queue" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBatchJobQueueInvalidStateRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("ON"), "state"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("ON"), "state"),
 				},
 			},
 		},

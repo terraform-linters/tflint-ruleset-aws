@@ -24,7 +24,7 @@ resource "aws_cloudwatch_log_metric_filter" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchLogMetricFilterInvalidNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("MyAppAccessCount:prod"), `^[^:*]*$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("MyAppAccessCount:prod"), `^[^:*]*$`),
 				},
 			},
 		},

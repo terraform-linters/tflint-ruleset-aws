@@ -24,7 +24,7 @@ resource "aws_ec2_client_vpn_endpoint" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2ClientVpnEndpointInvalidTransportProtocolRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("http"), "transport_protocol"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("http"), "transport_protocol"),
 				},
 			},
 		},

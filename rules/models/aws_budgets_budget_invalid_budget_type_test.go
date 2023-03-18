@@ -24,7 +24,7 @@ resource "aws_budgets_budget" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBudgetsBudgetInvalidBudgetTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("MONEY"), "budget_type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("MONEY"), "budget_type"),
 				},
 			},
 		},

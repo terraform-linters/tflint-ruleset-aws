@@ -24,7 +24,7 @@ resource "aws_ecs_task_definition" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEcsTaskDefinitionInvalidNetworkModeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("vpc"), "network_mode"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("vpc"), "network_mode"),
 				},
 			},
 		},

@@ -24,7 +24,7 @@ resource "aws_cloudwatch_event_permission" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchEventPermissionInvalidPrincipalRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("-"), `^(\d{12}|\*)$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("-"), `^(\d{12}|\*)$`),
 				},
 			},
 		},

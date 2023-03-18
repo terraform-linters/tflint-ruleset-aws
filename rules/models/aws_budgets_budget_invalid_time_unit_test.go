@@ -24,7 +24,7 @@ resource "aws_budgets_budget" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBudgetsBudgetInvalidTimeUnitRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("HOURLY"), "time_unit"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("HOURLY"), "time_unit"),
 				},
 			},
 		},

@@ -24,7 +24,7 @@ resource "aws_ec2_transit_gateway" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2TransitGatewayInvalidAutoAcceptSharedAttachmentsRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("true"), "auto_accept_shared_attachments"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("true"), "auto_accept_shared_attachments"),
 				},
 			},
 		},

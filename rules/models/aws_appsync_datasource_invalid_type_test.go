@@ -24,7 +24,7 @@ resource "aws_appsync_datasource" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAppsyncDatasourceInvalidTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("AMAZON_SIMPLEDB"), "type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("AMAZON_SIMPLEDB"), "type"),
 				},
 			},
 		},

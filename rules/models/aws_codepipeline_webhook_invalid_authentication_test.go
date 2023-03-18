@@ -24,7 +24,7 @@ resource "aws_codepipeline_webhook" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCodepipelineWebhookInvalidAuthenticationRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("GITLAB_HMAC"), "authentication"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("GITLAB_HMAC"), "authentication"),
 				},
 			},
 		},

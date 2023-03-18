@@ -24,7 +24,7 @@ resource "aws_efs_file_system" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEfsFileSystemInvalidThroughputModeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("generalPurpose"), "throughput_mode"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("generalPurpose"), "throughput_mode"),
 				},
 			},
 		},

@@ -24,7 +24,7 @@ resource "aws_cloudwatch_log_subscription_filter" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchLogSubscriptionFilterInvalidNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("test_lambdafunction_logfilter:test"), `^[^:*]*$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("test_lambdafunction_logfilter:test"), `^[^:*]*$`),
 				},
 			},
 		},

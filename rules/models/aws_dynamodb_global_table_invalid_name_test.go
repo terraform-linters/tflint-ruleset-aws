@@ -24,7 +24,7 @@ resource "aws_dynamodb_global_table" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDynamoDBGlobalTableInvalidNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("myTable@development"), `^[a-zA-Z0-9_.-]+$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("myTable@development"), `^[a-zA-Z0-9_.-]+$`),
 				},
 			},
 		},

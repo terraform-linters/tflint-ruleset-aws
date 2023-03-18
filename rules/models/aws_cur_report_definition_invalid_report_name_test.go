@@ -24,7 +24,7 @@ resource "aws_cur_report_definition" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCurReportDefinitionInvalidReportNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("example/cur-report-definition"), `^[0-9A-Za-z!\-_.*\'()]+$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("example/cur-report-definition"), `^[0-9A-Za-z!\-_.*\'()]+$`),
 				},
 			},
 		},

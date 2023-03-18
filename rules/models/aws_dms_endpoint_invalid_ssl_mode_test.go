@@ -24,7 +24,7 @@ resource "aws_dms_endpoint" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDmsEndpointInvalidSslModeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("verify-require"), "ssl_mode"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("verify-require"), "ssl_mode"),
 				},
 			},
 		},

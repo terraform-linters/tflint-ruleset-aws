@@ -24,7 +24,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2TransitGatewayVpcAttachmentInvalidIpv6SupportRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("on"), "ipv6_support"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("on"), "ipv6_support"),
 				},
 			},
 		},

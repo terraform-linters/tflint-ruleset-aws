@@ -24,7 +24,7 @@ resource "aws_directory_service_conditional_forwarder" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDirectoryServiceConditionalForwarderInvalidRemoteDomainNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("example^com"), `^([a-zA-Z0-9]+[\\.-])+([a-zA-Z0-9])+[.]?$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("example^com"), `^([a-zA-Z0-9]+[\\.-])+([a-zA-Z0-9])+[.]?$`),
 				},
 			},
 		},

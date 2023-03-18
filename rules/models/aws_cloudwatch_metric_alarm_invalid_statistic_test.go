@@ -24,7 +24,7 @@ resource "aws_cloudwatch_metric_alarm" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchMetricAlarmInvalidStatisticRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("Median"), "statistic"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("Median"), "statistic"),
 				},
 			},
 		},

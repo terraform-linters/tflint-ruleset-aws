@@ -24,7 +24,7 @@ resource "aws_instance" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsInstanceInvalidTenancyRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("server"), "tenancy"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("server"), "tenancy"),
 				},
 			},
 		},

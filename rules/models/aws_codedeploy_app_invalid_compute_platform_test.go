@@ -24,7 +24,7 @@ resource "aws_codedeploy_app" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCodedeployAppInvalidComputePlatformRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("Fargate"), "compute_platform"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("Fargate"), "compute_platform"),
 				},
 			},
 		},

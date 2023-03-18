@@ -24,7 +24,7 @@ resource "aws_datasync_location_s3" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncLocationS3InvalidS3BucketArnRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("arn:aws:eks:us-east-1:123456789012:cluster/my-cluster"), `^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):(s3|s3-outposts):[a-z\-0-9]*:[0-9]*:.*$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("arn:aws:eks:us-east-1:123456789012:cluster/my-cluster"), `^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):(s3|s3-outposts):[a-z\-0-9]*:[0-9]*:.*$`),
 				},
 			},
 		},

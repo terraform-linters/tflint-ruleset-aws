@@ -24,7 +24,7 @@ resource "aws_appautoscaling_policy" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAppautoscalingPolicyInvalidServiceNamespaceRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("eks"), "service_namespace"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("eks"), "service_namespace"),
 				},
 			},
 		},

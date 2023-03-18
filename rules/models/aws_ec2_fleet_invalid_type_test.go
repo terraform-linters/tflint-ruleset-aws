@@ -24,7 +24,7 @@ resource "aws_ec2_fleet" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2FleetInvalidTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("remain"), "type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("remain"), "type"),
 				},
 			},
 		},

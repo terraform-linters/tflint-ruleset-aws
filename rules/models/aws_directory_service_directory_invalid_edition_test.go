@@ -24,7 +24,7 @@ resource "aws_directory_service_directory" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDirectoryServiceDirectoryInvalidEditionRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("Free"), "edition"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("Free"), "edition"),
 				},
 			},
 		},

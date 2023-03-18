@@ -24,7 +24,7 @@ resource "aws_ec2_capacity_reservation" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2CapacityReservationInvalidInstanceMatchCriteriaRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("close"), "instance_match_criteria"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("close"), "instance_match_criteria"),
 				},
 			},
 		},

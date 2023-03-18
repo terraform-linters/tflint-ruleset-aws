@@ -24,7 +24,7 @@ resource "aws_api_gateway_gateway_response" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayGatewayResponseInvalidStatusCodeRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("004"), `^[1-5]\d\d$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("004"), `^[1-5]\d\d$`),
 				},
 			},
 		},

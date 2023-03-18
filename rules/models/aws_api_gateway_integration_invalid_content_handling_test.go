@@ -24,7 +24,7 @@ resource "aws_api_gateway_integration" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayIntegrationInvalidContentHandlingRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("CONVERT_TO_FILE"), "content_handling"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("CONVERT_TO_FILE"), "content_handling"),
 				},
 			},
 		},

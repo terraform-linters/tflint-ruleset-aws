@@ -24,7 +24,7 @@ resource "aws_appautoscaling_policy" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAppautoscalingPolicyInvalidPolicyTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("StopScaling"), "policy_type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("StopScaling"), "policy_type"),
 				},
 			},
 		},

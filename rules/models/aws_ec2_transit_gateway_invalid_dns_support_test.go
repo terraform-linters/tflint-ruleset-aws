@@ -24,7 +24,7 @@ resource "aws_ec2_transit_gateway" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2TransitGatewayInvalidDNSSupportRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("enabled"), "dns_support"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("enabled"), "dns_support"),
 				},
 			},
 		},

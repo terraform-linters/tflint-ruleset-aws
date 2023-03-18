@@ -24,7 +24,7 @@ resource "aws_datasync_agent" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncAgentInvalidNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("example^example"), `^[a-zA-Z0-9\s+=._:@/-]+$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("example^example"), `^[a-zA-Z0-9\s+=._:@/-]+$`),
 				},
 			},
 		},

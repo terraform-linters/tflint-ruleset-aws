@@ -24,7 +24,7 @@ resource "aws_codepipeline" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCodepipelineInvalidNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("test/pipeline"), `^[A-Za-z0-9.@\-_]+$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("test/pipeline"), `^[A-Za-z0-9.@\-_]+$`),
 				},
 			},
 		},

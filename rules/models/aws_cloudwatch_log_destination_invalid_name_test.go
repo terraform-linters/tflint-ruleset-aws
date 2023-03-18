@@ -24,7 +24,7 @@ resource "aws_cloudwatch_log_destination" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchLogDestinationInvalidNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("test:destination"), `^[^:*]*$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("test:destination"), `^[^:*]*$`),
 				},
 			},
 		},

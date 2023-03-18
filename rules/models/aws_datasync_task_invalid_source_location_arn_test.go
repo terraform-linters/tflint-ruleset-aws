@@ -24,7 +24,7 @@ resource "aws_datasync_task" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncTaskInvalidSourceLocationArnRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("arn:aws:datasync:us-east-2:111222333444:task/task-08de6e6697796f026"), `^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:location/loc-[0-9a-z]{17}$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("arn:aws:datasync:us-east-2:111222333444:task/task-08de6e6697796f026"), `^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:location/loc-[0-9a-z]{17}$`),
 				},
 			},
 		},

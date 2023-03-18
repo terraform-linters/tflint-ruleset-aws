@@ -24,7 +24,7 @@ resource "aws_cloudwatch_event_target" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchEventTargetInvalidTargetIDRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("run scheduled task every hour"), `^[\.\-_A-Za-z0-9]+$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("run scheduled task every hour"), `^[\.\-_A-Za-z0-9]+$`),
 				},
 			},
 		},

@@ -24,7 +24,7 @@ resource "aws_ecs_service" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEcsServiceInvalidLaunchTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("POD"), "launch_type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("POD"), "launch_type"),
 				},
 			},
 		},

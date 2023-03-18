@@ -24,7 +24,7 @@ resource "aws_appsync_datasource" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAppsyncDatasourceInvalidNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("01_tf_example"), `^[_A-Za-z][_0-9A-Za-z]*$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("01_tf_example"), `^[_A-Za-z][_0-9A-Za-z]*$`),
 				},
 			},
 		},

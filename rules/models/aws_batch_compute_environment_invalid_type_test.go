@@ -24,7 +24,7 @@ resource "aws_batch_compute_environment" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBatchComputeEnvironmentInvalidTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("CONTROLLED"), "type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("CONTROLLED"), "type"),
 				},
 			},
 		},

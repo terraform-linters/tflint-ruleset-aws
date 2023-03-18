@@ -24,7 +24,7 @@ resource "aws_directory_service_conditional_forwarder" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDirectoryServiceConditionalForwarderInvalidDirectoryIDRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("1234567890"), `^d-[0-9a-f]{10}$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("1234567890"), `^d-[0-9a-f]{10}$`),
 				},
 			},
 		},

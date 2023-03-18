@@ -24,7 +24,7 @@ resource "aws_ecs_service" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEcsServiceInvalidPropagateTagsRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("CONTAINER"), "propagate_tags"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("CONTAINER"), "propagate_tags"),
 				},
 			},
 		},

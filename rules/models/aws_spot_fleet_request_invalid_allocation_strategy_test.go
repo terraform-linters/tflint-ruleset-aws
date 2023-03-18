@@ -24,7 +24,7 @@ resource "aws_spot_fleet_request" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsSpotFleetRequestInvalidAllocationStrategyRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("highestPrice"), "allocation_strategy"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("highestPrice"), "allocation_strategy"),
 				},
 			},
 		},

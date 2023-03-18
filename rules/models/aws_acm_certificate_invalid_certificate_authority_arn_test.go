@@ -24,7 +24,7 @@ resource "aws_acm_certificate" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAcmCertificateInvalidCertificateAuthorityArnRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("arn:aws:unknown-service:us-east-1:0000000000:certificate-authority/xxxxxx-xxx-xxx-xxxx-xxxxxxxxx"), `^arn:[\w+=/,.@-]+:acm-pca:[\w+=/,.@-]*:[0-9]+:[\w+=,.@-]+(/[\w+=,.@-]+)*$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("arn:aws:unknown-service:us-east-1:0000000000:certificate-authority/xxxxxx-xxx-xxx-xxxx-xxxxxxxxx"), `^arn:[\w+=/,.@-]+:acm-pca:[\w+=/,.@-]*:[0-9]+:[\w+=,.@-]+(/[\w+=,.@-]+)*$`),
 				},
 			},
 		},

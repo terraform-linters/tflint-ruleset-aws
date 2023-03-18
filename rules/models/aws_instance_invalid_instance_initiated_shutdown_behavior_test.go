@@ -24,7 +24,7 @@ resource "aws_instance" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsInstanceInvalidInstanceInitiatedShutdownBehaviorRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("restart"), "instance_initiated_shutdown_behavior"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("restart"), "instance_initiated_shutdown_behavior"),
 				},
 			},
 		},

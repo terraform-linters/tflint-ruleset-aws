@@ -24,7 +24,7 @@ resource "aws_cur_report_definition" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCurReportDefinitionInvalidCompressionRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("TAR"), "compression"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("TAR"), "compression"),
 				},
 			},
 		},

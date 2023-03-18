@@ -24,7 +24,7 @@ resource "aws_dlm_lifecycle_policy" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDlmLifecyclePolicyInvalidStateRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("ERROR"), "state"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("ERROR"), "state"),
 				},
 			},
 		},

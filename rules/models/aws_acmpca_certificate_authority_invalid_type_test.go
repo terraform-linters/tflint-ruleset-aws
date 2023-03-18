@@ -24,7 +24,7 @@ resource "aws_acmpca_certificate_authority" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAcmpcaCertificateAuthorityInvalidTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("ORDINATE"), "type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("ORDINATE"), "type"),
 				},
 			},
 		},

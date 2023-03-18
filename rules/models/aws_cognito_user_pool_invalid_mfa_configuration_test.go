@@ -24,7 +24,7 @@ resource "aws_cognito_user_pool" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoUserPoolInvalidMfaConfigurationRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("IN"), "mfa_configuration"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("IN"), "mfa_configuration"),
 				},
 			},
 		},

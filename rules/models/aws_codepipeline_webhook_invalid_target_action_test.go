@@ -24,7 +24,7 @@ resource "aws_codepipeline_webhook" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCodepipelineWebhookInvalidTargetActionRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("Source/Example"), `^[A-Za-z0-9.@\-_]+$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("Source/Example"), `^[A-Za-z0-9.@\-_]+$`),
 				},
 			},
 		},

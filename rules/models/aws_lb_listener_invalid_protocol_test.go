@@ -24,7 +24,7 @@ resource "aws_lb_listener" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsLbListenerInvalidProtocolRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("INVALID"), "protocol"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("INVALID"), "protocol"),
 				},
 			},
 		},

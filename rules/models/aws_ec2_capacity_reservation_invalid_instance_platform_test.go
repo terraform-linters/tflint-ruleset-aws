@@ -24,7 +24,7 @@ resource "aws_ec2_capacity_reservation" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2CapacityReservationInvalidInstancePlatformRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("Linux/GNU"), "instance_platform"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("Linux/GNU"), "instance_platform"),
 				},
 			},
 		},

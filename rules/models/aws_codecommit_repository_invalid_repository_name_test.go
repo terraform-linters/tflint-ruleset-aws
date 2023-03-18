@@ -24,7 +24,7 @@ resource "aws_codecommit_repository" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCodecommitRepositoryInvalidRepositoryNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("mytest@repository"), `^[\w\.-]+$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("mytest@repository"), `^[\w\.-]+$`),
 				},
 			},
 		},

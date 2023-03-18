@@ -24,7 +24,7 @@ resource "aws_cloudhsm_v2_hsm" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudhsmV2HsmInvalidIPAddressRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("2001:4860:4860::8888"), `^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("2001:4860:4860::8888"), `^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$`),
 				},
 			},
 		},

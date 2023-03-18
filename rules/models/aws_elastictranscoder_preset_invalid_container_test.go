@@ -24,7 +24,7 @@ resource "aws_elastictranscoder_preset" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsElastictranscoderPresetInvalidContainerRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("mp1"), `^(^mp4$)|(^ts$)|(^webm$)|(^mp3$)|(^flac$)|(^oga$)|(^ogg$)|(^fmp4$)|(^mpg$)|(^flv$)|(^gif$)|(^mxf$)|(^wav$)|(^mp2$)$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("mp1"), `^(^mp4$)|(^ts$)|(^webm$)|(^mp3$)|(^flac$)|(^oga$)|(^ogg$)|(^fmp4$)|(^mpg$)|(^flv$)|(^gif$)|(^mxf$)|(^wav$)|(^mp2$)$`),
 				},
 			},
 		},

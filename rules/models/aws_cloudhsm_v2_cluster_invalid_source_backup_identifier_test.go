@@ -24,7 +24,7 @@ resource "aws_cloudhsm_v2_cluster" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudhsmV2ClusterInvalidSourceBackupIdentifierRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("rtq2dwi2gq6"), `^backup-[2-7a-zA-Z]{11,16}$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("rtq2dwi2gq6"), `^backup-[2-7a-zA-Z]{11,16}$`),
 				},
 			},
 		},

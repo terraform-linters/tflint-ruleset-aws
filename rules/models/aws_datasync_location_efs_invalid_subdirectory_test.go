@@ -24,7 +24,7 @@ resource "aws_datasync_location_efs" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncLocationEfsInvalidSubdirectoryRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("bar	"), `^[a-zA-Z0-9_\-\+\./\(\)\p{Zs}]*$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("bar	"), `^[a-zA-Z0-9_\-\+\./\(\)\p{Zs}]*$`),
 				},
 			},
 		},

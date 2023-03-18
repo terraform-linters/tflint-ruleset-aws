@@ -24,7 +24,7 @@ resource "aws_cognito_identity_provider" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoIdentityProviderInvalidProviderTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("Apple"), "provider_type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("Apple"), "provider_type"),
 				},
 			},
 		},

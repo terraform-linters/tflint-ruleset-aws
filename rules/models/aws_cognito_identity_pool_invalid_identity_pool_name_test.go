@@ -24,7 +24,7 @@ resource "aws_cognito_identity_pool" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoIdentityPoolInvalidIdentityPoolNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("identity:pool"), `^[\w\s+=,.@-]+$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("identity:pool"), `^[\w\s+=,.@-]+$`),
 				},
 			},
 		},

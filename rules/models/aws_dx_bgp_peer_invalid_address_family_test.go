@@ -24,7 +24,7 @@ resource "aws_dx_bgp_peer" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDxBgpPeerInvalidAddressFamilyRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("ipv2"), "address_family"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("ipv2"), "address_family"),
 				},
 			},
 		},

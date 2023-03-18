@@ -25,10 +25,10 @@ resource "{{ .ResourceType }}" "foo" {
 				{
 					Rule:    New{{ .RuleNameCC }}Rule(),
 {{- if ne .Pattern "" }}
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage({{ .TestNG }}), `{{ .Pattern }}`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage({{ .TestNG }}), `{{ .Pattern }}`),
 {{- end }}
 {{- if ne (len .Enum) 0 }}
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage({{ .TestNG }}), "{{ .AttributeName }}"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage({{ .TestNG }}), "{{ .AttributeName }}"),
 {{- end }}
 				},
 			},

@@ -24,7 +24,7 @@ resource "aws_cloudhsm_v2_hsm" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudhsmV2HsmInvalidAvailabilityZoneRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("us-east-1"), `^[a-z]{2}(-(gov))?-(east|west|north|south|central){1,2}-\d[a-z]$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("us-east-1"), `^[a-z]{2}(-(gov))?-(east|west|north|south|central){1,2}-\d[a-z]$`),
 				},
 			},
 		},

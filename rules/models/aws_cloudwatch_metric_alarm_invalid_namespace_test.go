@@ -24,7 +24,7 @@ resource "aws_cloudwatch_metric_alarm" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchMetricAlarmInvalidNamespaceRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage(":EC2"), `^[^:].*$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(":EC2"), `^[^:].*$`),
 				},
 			},
 		},

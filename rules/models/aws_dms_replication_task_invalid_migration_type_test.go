@@ -24,7 +24,7 @@ resource "aws_dms_replication_task" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDmsReplicationTaskInvalidMigrationTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("partial-load"), "migration_type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("partial-load"), "migration_type"),
 				},
 			},
 		},

@@ -24,7 +24,7 @@ resource "aws_ami" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAMIInvalidArchitectureRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("x86"), "architecture"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("x86"), "architecture"),
 				},
 			},
 		},

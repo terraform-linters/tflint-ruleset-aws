@@ -24,7 +24,7 @@ resource "aws_cloudformation_stack_set_instance" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudformationStackSetInstanceInvalidAccountIDRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("1234567890123"), `^[0-9]{12}$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("1234567890123"), `^[0-9]{12}$`),
 				},
 			},
 		},

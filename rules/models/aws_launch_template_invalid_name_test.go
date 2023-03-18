@@ -24,7 +24,7 @@ resource "aws_launch_template" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsLaunchTemplateInvalidNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("foo[bar]"), `^[a-zA-Z0-9\(\)\.\-/_]+$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("foo[bar]"), `^[a-zA-Z0-9\(\)\.\-/_]+$`),
 				},
 			},
 		},

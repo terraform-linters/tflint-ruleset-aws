@@ -24,7 +24,7 @@ resource "aws_cognito_user_group" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoUserGroupInvalidRoleArnRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("aws:iam::123456789012:instance-profile/s3access-profile"), `^arn:[\w+=/,.@-]+:[\w+=/,.@-]+:([\w+=/,.@-]*)?:[0-9]+:[\w+=/,.@-]+(:[\w+=/,.@-]+)?(:[\w+=/,.@-]+)?$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("aws:iam::123456789012:instance-profile/s3access-profile"), `^arn:[\w+=/,.@-]+:[\w+=/,.@-]+:([\w+=/,.@-]*)?:[0-9]+:[\w+=/,.@-]+(:[\w+=/,.@-]+)?(:[\w+=/,.@-]+)?$`),
 				},
 			},
 		},

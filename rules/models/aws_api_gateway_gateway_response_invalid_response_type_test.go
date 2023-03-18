@@ -24,7 +24,7 @@ resource "aws_api_gateway_gateway_response" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayGatewayResponseInvalidResponseTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("4XX"), "response_type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("4XX"), "response_type"),
 				},
 			},
 		},

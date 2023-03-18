@@ -24,7 +24,7 @@ resource "aws_api_gateway_authorizer" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayAuthorizerInvalidTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("RESPONSE"), "type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("RESPONSE"), "type"),
 				},
 			},
 		},

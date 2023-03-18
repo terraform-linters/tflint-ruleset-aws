@@ -24,7 +24,7 @@ resource "aws_cur_report_definition" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCurReportDefinitionInvalidS3RegionRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("us-gov-east-1"), "s3_region"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("us-gov-east-1"), "s3_region"),
 				},
 			},
 		},

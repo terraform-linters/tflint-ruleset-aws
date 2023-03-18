@@ -24,7 +24,7 @@ resource "aws_directory_service_directory" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDirectoryServiceDirectoryInvalidSizeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("Micro"), "size"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("Micro"), "size"),
 				},
 			},
 		},

@@ -24,7 +24,7 @@ resource "aws_directory_service_directory" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDirectoryServiceDirectoryInvalidShortNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("CORP:EXAMPLE"), `^[^\\/:*?"<>|.]+[^\\/:*?"<>|]*$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("CORP:EXAMPLE"), `^[^\\/:*?"<>|.]+[^\\/:*?"<>|]*$`),
 				},
 			},
 		},

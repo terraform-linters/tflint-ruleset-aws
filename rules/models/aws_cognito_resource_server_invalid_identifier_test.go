@@ -24,7 +24,7 @@ resource "aws_cognito_resource_server" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoResourceServerInvalidIdentifierRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("	"), `^[\x21\x23-\x5B\x5D-\x7E]+$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("	"), `^[\x21\x23-\x5B\x5D-\x7E]+$`),
 				},
 			},
 		},

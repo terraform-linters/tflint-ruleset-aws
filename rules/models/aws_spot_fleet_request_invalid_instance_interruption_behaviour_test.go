@@ -24,7 +24,7 @@ resource "aws_spot_fleet_request" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsSpotFleetRequestInvalidInstanceInterruptionBehaviourRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("restart"), "instance_interruption_behaviour"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("restart"), "instance_interruption_behaviour"),
 				},
 			},
 		},

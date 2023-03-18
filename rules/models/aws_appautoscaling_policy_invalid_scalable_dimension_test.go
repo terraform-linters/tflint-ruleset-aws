@@ -24,7 +24,7 @@ resource "aws_appautoscaling_policy" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAppautoscalingPolicyInvalidScalableDimensionRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("ecs:service:DesireCount"), "scalable_dimension"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("ecs:service:DesireCount"), "scalable_dimension"),
 				},
 			},
 		},

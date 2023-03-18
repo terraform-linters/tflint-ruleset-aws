@@ -24,7 +24,7 @@ resource "aws_config_config_rule" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsConfigConfigRuleInvalidMaximumExecutionFrequencyRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("Hour"), "maximum_execution_frequency"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("Hour"), "maximum_execution_frequency"),
 				},
 			},
 		},

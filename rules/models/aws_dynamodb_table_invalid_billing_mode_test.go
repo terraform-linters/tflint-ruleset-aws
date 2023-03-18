@@ -24,7 +24,7 @@ resource "aws_dynamodb_table" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDynamoDBTableInvalidBillingModeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("FLEXIBLE"), "billing_mode"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("FLEXIBLE"), "billing_mode"),
 				},
 			},
 		},

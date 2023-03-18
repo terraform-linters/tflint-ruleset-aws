@@ -24,7 +24,7 @@ resource "aws_cloudformation_stack_set" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudformationStackSetInvalidExecutionRoleNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("AWSCloudFormation/StackSet/ExecutionRole"), `^[a-zA-Z_0-9+=,.@-]+$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("AWSCloudFormation/StackSet/ExecutionRole"), `^[a-zA-Z_0-9+=,.@-]+$`),
 				},
 			},
 		},

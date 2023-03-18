@@ -24,7 +24,7 @@ resource "aws_cloudfront_distribution" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudfrontDistributionInvalidPriceClassRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("PriceClass_300"), "price_class"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("PriceClass_300"), "price_class"),
 				},
 			},
 		},

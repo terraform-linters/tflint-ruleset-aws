@@ -24,7 +24,7 @@ resource "aws_datasync_location_nfs" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncLocationNfsInvalidServerHostnameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("nfs^example^com"), `^(([a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9\-]*[A-Za-z0-9])$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("nfs^example^com"), `^(([a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9\-]*[A-Za-z0-9])$`),
 				},
 			},
 		},

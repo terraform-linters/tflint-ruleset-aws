@@ -24,7 +24,7 @@ resource "aws_lb_target_group" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsLbTargetGroupInvalidTargetTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("container"), "target_type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("container"), "target_type"),
 				},
 			},
 		},

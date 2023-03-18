@@ -24,7 +24,7 @@ resource "aws_datasync_location_efs" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncLocationEfsInvalidEfsFileSystemArnRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("arn:aws:eks:us-east-1:123456789012:cluster/my-cluster"), `^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):elasticfilesystem:[a-z\-0-9]*:[0-9]{12}:file-system/fs-.*$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("arn:aws:eks:us-east-1:123456789012:cluster/my-cluster"), `^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):elasticfilesystem:[a-z\-0-9]*:[0-9]{12}:file-system/fs-.*$`),
 				},
 			},
 		},

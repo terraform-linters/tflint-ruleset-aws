@@ -24,7 +24,7 @@ resource "aws_cloudwatch_log_subscription_filter" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchLogSubscriptionFilterInvalidDistributionRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("LogStream"), "distribution"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("LogStream"), "distribution"),
 				},
 			},
 		},

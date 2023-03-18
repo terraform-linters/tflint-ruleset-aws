@@ -24,7 +24,7 @@ resource "aws_ec2_capacity_reservation" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2CapacityReservationInvalidEndDateTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("unlimit"), "end_date_type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("unlimit"), "end_date_type"),
 				},
 			},
 		},

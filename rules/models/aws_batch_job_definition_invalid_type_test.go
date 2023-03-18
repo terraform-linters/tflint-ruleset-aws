@@ -24,7 +24,7 @@ resource "aws_batch_job_definition" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBatchJobDefinitionInvalidTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("docker"), "type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("docker"), "type"),
 				},
 			},
 		},

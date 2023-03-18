@@ -24,7 +24,7 @@ resource "aws_config_aggregate_authorization" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsConfigAggregateAuthorizationInvalidAccountIDRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("01234567891"), `^\d{12}$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("01234567891"), `^\d{12}$`),
 				},
 			},
 		},

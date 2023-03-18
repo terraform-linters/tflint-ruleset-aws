@@ -24,7 +24,7 @@ resource "aws_ecs_service" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEcsServiceInvalidSchedulingStrategyRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("SERVER"), "scheduling_strategy"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("SERVER"), "scheduling_strategy"),
 				},
 			},
 		},

@@ -24,7 +24,7 @@ resource "aws_cognito_user_group" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoUserGroupInvalidNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("user	group"), `^[\p{L}\p{M}\p{S}\p{N}\p{P}]+$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("user	group"), `^[\p{L}\p{M}\p{S}\p{N}\p{P}]+$`),
 				},
 			},
 		},

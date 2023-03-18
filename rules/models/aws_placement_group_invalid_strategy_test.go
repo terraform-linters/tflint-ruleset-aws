@@ -24,7 +24,7 @@ resource "aws_placement_group" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsPlacementGroupInvalidStrategyRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("instance"), "strategy"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("instance"), "strategy"),
 				},
 			},
 		},

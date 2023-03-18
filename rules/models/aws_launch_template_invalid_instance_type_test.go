@@ -24,7 +24,7 @@ resource "aws_launch_template" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsLaunchTemplateInvalidInstanceTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("t1.2xlarge"), "instance_type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("t1.2xlarge"), "instance_type"),
 				},
 			},
 		},

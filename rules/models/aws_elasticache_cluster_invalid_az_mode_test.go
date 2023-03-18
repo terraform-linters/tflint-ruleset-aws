@@ -24,7 +24,7 @@ resource "aws_elasticache_cluster" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsElastiCacheClusterInvalidAzModeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("multi-az"), "az_mode"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("multi-az"), "az_mode"),
 				},
 			},
 		},

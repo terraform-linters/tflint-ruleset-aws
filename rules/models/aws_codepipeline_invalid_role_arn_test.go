@@ -24,7 +24,7 @@ resource "aws_codepipeline" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCodepipelineInvalidRoleArnRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("arn:aws:iam::123456789012:instance-profile/s3access-profile"), `^arn:aws(-[\w]+)*:iam::[0-9]{12}:role/.*$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("arn:aws:iam::123456789012:instance-profile/s3access-profile"), `^arn:aws(-[\w]+)*:iam::[0-9]{12}:role/.*$`),
 				},
 			},
 		},

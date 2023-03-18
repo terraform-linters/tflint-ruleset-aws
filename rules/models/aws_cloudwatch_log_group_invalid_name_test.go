@@ -24,7 +24,7 @@ resource "aws_cloudwatch_log_group" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchLogGroupInvalidNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("Yoda:prod"), `^[\.\-_/#A-Za-z0-9]+$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("Yoda:prod"), `^[\.\-_/#A-Za-z0-9]+$`),
 				},
 			},
 		},

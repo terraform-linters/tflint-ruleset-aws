@@ -24,7 +24,7 @@ resource "aws_budgets_budget" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBudgetsBudgetInvalidAccountIDRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("abcdefghijkl"), `^\d{12}$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("abcdefghijkl"), `^\d{12}$`),
 				},
 			},
 		},

@@ -24,7 +24,7 @@ resource "aws_cloudwatch_log_stream" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchLogStreamInvalidNameRule(),
-					Message: fmt.Sprintf(`%q does not match valid pattern %s`, truncateLongMessage("Yoda:prod"), `^[^:*]*$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("Yoda:prod"), `^[^:*]*$`),
 				},
 			},
 		},

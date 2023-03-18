@@ -24,7 +24,7 @@ resource "aws_cloudfront_distribution" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudfrontDistributionInvalidHTTPVersionRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("http1.2"), "http_version"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("http1.2"), "http_version"),
 				},
 			},
 		},

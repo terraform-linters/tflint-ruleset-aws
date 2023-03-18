@@ -24,7 +24,7 @@ resource "aws_appsync_graphql_api" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAppsyncGraphqlAPIInvalidAuthenticationTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("AWS_KEY"), "authentication_type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("AWS_KEY"), "authentication_type"),
 				},
 			},
 		},

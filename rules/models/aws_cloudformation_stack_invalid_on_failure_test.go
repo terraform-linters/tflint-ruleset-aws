@@ -24,7 +24,7 @@ resource "aws_cloudformation_stack" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudformationStackInvalidOnFailureRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("DO_ANYTHING"), "on_failure"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("DO_ANYTHING"), "on_failure"),
 				},
 			},
 		},

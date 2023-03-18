@@ -24,7 +24,7 @@ resource "aws_cloudwatch_metric_alarm" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchMetricAlarmInvalidComparisonOperatorRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("GreaterThanOrEqual"), "comparison_operator"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("GreaterThanOrEqual"), "comparison_operator"),
 				},
 			},
 		},

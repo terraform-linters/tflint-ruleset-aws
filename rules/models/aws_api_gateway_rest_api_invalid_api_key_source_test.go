@@ -24,7 +24,7 @@ resource "aws_api_gateway_rest_api" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayRestAPIInvalidAPIKeySourceRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("BODY"), "api_key_source"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("BODY"), "api_key_source"),
 				},
 			},
 		},

@@ -24,7 +24,7 @@ resource "aws_ec2_transit_gateway" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2TransitGatewayInvalidDefaultRouteTablePropagationRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("disabled"), "default_route_table_propagation"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("disabled"), "default_route_table_propagation"),
 				},
 			},
 		},

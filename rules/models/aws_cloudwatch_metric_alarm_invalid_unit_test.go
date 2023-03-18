@@ -24,7 +24,7 @@ resource "aws_cloudwatch_metric_alarm" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchMetricAlarmInvalidUnitRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("GB"), "unit"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("GB"), "unit"),
 				},
 			},
 		},

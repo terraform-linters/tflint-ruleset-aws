@@ -24,7 +24,7 @@ resource "aws_ec2_fleet" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEc2FleetInvalidExcessCapacityTerminationPolicyRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("remain"), "excess_capacity_termination_policy"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("remain"), "excess_capacity_termination_policy"),
 				},
 			},
 		},

@@ -24,7 +24,7 @@ resource "aws_api_gateway_integration" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayIntegrationInvalidConnectionTypeRule(),
-					Message: fmt.Sprintf(`%q is an invalid value as %s`, truncateLongMessage("INTRANET"), "connection_type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("INTRANET"), "connection_type"),
 				},
 			},
 		},
