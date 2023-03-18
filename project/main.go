@@ -3,7 +3,7 @@ package project
 import "fmt"
 
 // Version is ruleset version
-const Version string = "0.21.2"
+const Version string = "0.22.0"
 
 // ReferenceLink returns the rule reference link
 func ReferenceLink(name string) string {

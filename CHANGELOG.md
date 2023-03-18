@@ -1,3 +1,27 @@
+## 0.22.0 (2023-03-18)
+
+### Breaking Changes
+
+- [#462](https://github.com/terraform-linters/tflint-ruleset-aws/pull/462): appsync: Remove invalid regexp rules ([@wata727](https://github.com/wata727))
+
+### Enhancements
+
+- [#444](https://github.com/terraform-linters/tflint-ruleset-aws/pull/444) [#451](https://github.com/terraform-linters/tflint-ruleset-aws/pull/451) [#454](https://github.com/terraform-linters/tflint-ruleset-aws/pull/454): Update AWS provider/module and generated content
+
+### BugFixes
+
+- [#455](https://github.com/terraform-linters/tflint-ruleset-aws/pull/455): aws_acm_certificate: fix false positive for private CA ([@bendrucker](https://github.com/bendrucker) [@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#445](https://github.com/terraform-linters/tflint-ruleset-aws/pull/445) [#452](https://github.com/terraform-linters/tflint-ruleset-aws/pull/452) [#460](https://github.com/terraform-linters/tflint-ruleset-aws/pull/460): Bump github.com/hashicorp/hcl/v2 from 2.15.0 to 2.16.2
+- [#447](https://github.com/terraform-linters/tflint-ruleset-aws/pull/447) [#449](https://github.com/terraform-linters/tflint-ruleset-aws/pull/449) [#459](https://github.com/terraform-linters/tflint-ruleset-aws/pull/459): Bump golang.org/x/net from 0.5.0 to 0.8.0
+- [#450](https://github.com/terraform-linters/tflint-ruleset-aws/pull/450): Fix submodule checkout issue ([@wata727](https://github.com/wata727))
+- [#457](https://github.com/terraform-linters/tflint-ruleset-aws/pull/457): Bump github.com/zclconf/go-cty from 1.12.1 to 1.13.0
+- [#458](https://github.com/terraform-linters/tflint-ruleset-aws/pull/458): Bump sigstore/cosign-installer from 2 to 3
+- [#463](https://github.com/terraform-linters/tflint-ruleset-aws/pull/463): Fix generated_code_checks workflow step ([@wata727](https://github.com/wata727))
+- [#464](https://github.com/terraform-linters/tflint-ruleset-aws/pull/464): go 1.20 ([@wata727](https://github.com/wata727))
+
 ## 0.21.2 (2023-02-03)
 
 ### Enhancements
