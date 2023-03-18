@@ -486,6 +486,56 @@ func (mr *MockECSAPIMockRecorder) DeleteServiceWithContext(arg0, arg1 interface{
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteServiceWithContext", reflect.TypeOf((*MockECSAPI)(nil).DeleteServiceWithContext), varargs...)
 }
 
+// DeleteTaskDefinitions mocks base method.
+func (m *MockECSAPI) DeleteTaskDefinitions(arg0 *ecs.DeleteTaskDefinitionsInput) (*ecs.DeleteTaskDefinitionsOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteTaskDefinitions", arg0)
+	ret0, _ := ret[0].(*ecs.DeleteTaskDefinitionsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteTaskDefinitions indicates an expected call of DeleteTaskDefinitions.
+func (mr *MockECSAPIMockRecorder) DeleteTaskDefinitions(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteTaskDefinitions", reflect.TypeOf((*MockECSAPI)(nil).DeleteTaskDefinitions), arg0)
+}
+
+// DeleteTaskDefinitionsRequest mocks base method.
+func (m *MockECSAPI) DeleteTaskDefinitionsRequest(arg0 *ecs.DeleteTaskDefinitionsInput) (*request.Request, *ecs.DeleteTaskDefinitionsOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteTaskDefinitionsRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ecs.DeleteTaskDefinitionsOutput)
+	return ret0, ret1
+}
+
+// DeleteTaskDefinitionsRequest indicates an expected call of DeleteTaskDefinitionsRequest.
+func (mr *MockECSAPIMockRecorder) DeleteTaskDefinitionsRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteTaskDefinitionsRequest", reflect.TypeOf((*MockECSAPI)(nil).DeleteTaskDefinitionsRequest), arg0)
+}
+
+// DeleteTaskDefinitionsWithContext mocks base method.
+func (m *MockECSAPI) DeleteTaskDefinitionsWithContext(arg0 context.Context, arg1 *ecs.DeleteTaskDefinitionsInput, arg2 ...request.Option) (*ecs.DeleteTaskDefinitionsOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DeleteTaskDefinitionsWithContext", varargs...)
+	ret0, _ := ret[0].(*ecs.DeleteTaskDefinitionsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteTaskDefinitionsWithContext indicates an expected call of DeleteTaskDefinitionsWithContext.
+func (mr *MockECSAPIMockRecorder) DeleteTaskDefinitionsWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteTaskDefinitionsWithContext", reflect.TypeOf((*MockECSAPI)(nil).DeleteTaskDefinitionsWithContext), varargs...)
+}
+
 // DeleteTaskSet mocks base method.
 func (m *MockECSAPI) DeleteTaskSet(arg0 *ecs.DeleteTaskSetInput) (*ecs.DeleteTaskSetOutput, error) {
 	m.ctrl.T.Helper()

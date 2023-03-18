@@ -15,6 +15,7 @@ type AwsSecretsmanagerSecretVersionInvalidSecretStringRule struct {
 	resourceType  string
 	attributeName string
 	max           int
+	min           int
 }
 
 // NewAwsSecretsmanagerSecretVersionInvalidSecretStringRule returns new rule with default attributes
@@ -23,6 +24,7 @@ func NewAwsSecretsmanagerSecretVersionInvalidSecretStringRule() *AwsSecretsmanag
 		resourceType:  "aws_secretsmanager_secret_version",
 		attributeName: "secret_string",
 		max:           65536,
+		min:           1,
 	}
 }
 
@@ -73,6 +75,13 @@ func (r *AwsSecretsmanagerSecretVersionInvalidSecretStringRule) Check(runner tfl
 				runner.EmitIssue(
 					r,
 					"secret_string must be 65536 characters or less",
+					attribute.Expr.Range(),
+				)
+			}
+			if len(val) < r.min {
+				runner.EmitIssue(
+					r,
+					"secret_string must be 1 characters or higher",
 					attribute.Expr.Range(),
 				)
 			}
