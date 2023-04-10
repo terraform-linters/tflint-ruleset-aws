@@ -22,7 +22,7 @@ jobs:
           cd ../..
           git submodule update --remote
           go generate ./...
-      - uses: peter-evans/create-pull-request@v4
+      - uses: peter-evans/create-pull-request@v5
         with:
           commit-message: |
             Update AWS provider/module and generated content
