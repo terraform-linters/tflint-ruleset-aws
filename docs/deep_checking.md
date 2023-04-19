@@ -1,8 +1,8 @@
 # Deep Checking
 
-Deep Checking uses your provider's credentials to perform a more strict inspection.
+_Deep checking_ uses your provider's credentials to apply additional checks that require read access to a target AWS account. TFLint will read AWS configuration from a `provider "aws" {}` block or the same environment variables used by the AWS provider.
 
-For example, if the IAM profile references something that doesn't exist, terraform apply will fail, which can't be found by general validation. Deep Checking solves this problem.
+For example, the `aws_instance_invalid_iam_profile` rule checks whether a specified IAM profile exists in the target AWS account. This helps detect issues that would result in a failed `terraform plan`.
 
 ```console
 $ tflint
@@ -15,7 +15,7 @@ Error: "invalid_profile" is invalid IAM profile name. (aws_instance_invalid_iam_
 
 ```
 
-You can enable Deep Checking by changing the plugin configuration.
+You can enable deep checking by enabling `deep_check` in the plugin block:
 
 ```hcl
 plugin "aws" {
@@ -39,7 +39,7 @@ Credentials can be set in several ways. Each is referenced in the following orde
 
 ### Static credentials
 
-If you have an access key and a secret key, you can pass these keys like the following:
+Access and secret keys can be passed as literals in the plugin or provider configuration:
 
 ```hcl
 plugin "aws" {
@@ -52,8 +52,6 @@ plugin "aws" {
 }
 ```
 
-Although there is not recommended, if an access key is hard-coded in a provider configuration, they will also be taken into account. The priority is higher than the environment variable and lower than the above way.
-
 ```hcl
 provider "aws" {
   region     = "us-west-2"
@@ -62,9 +60,11 @@ provider "aws" {
 }
 ```
 
-### Shared credentials
+However, committing credentials is not recommended.
 
-If you have [shared credentials](https://aws.amazon.com/jp/blogs/security/a-new-and-standardized-way-to-manage-credentials-in-the-aws-sdks/), you can pass a profile name and credentials file path. If omitted, these will be `default` and `~/.aws/credentials`.
+### Shared Credentials
+
+If you have [shared credentials](https://docs.aws.amazon.com/sdkref/latest/guide/file-format.html), you can pass a profile name and credentials file path. If omitted, these will be `default` and `~/.aws/credentials`.
 
 ```hcl
 plugin "aws" {
@@ -77,8 +77,6 @@ plugin "aws" {
 }
 ```
 
-If these configurations are defined in the provider block, they will also be taken into account. But the priority is lower than the above way.
-
 ```hcl
 provider "aws" {
   region                  = "us-west-2"
@@ -87,24 +85,20 @@ provider "aws" {
 }
 ```
 
-### Environment variables
+### Environment Variables
 
-This plugin looks up `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` environment variables. This is useful when you don't want to explicitly pass credentials.
+This plugin reads the `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `AWS_REGION` environment variables.
 
 ```
-$ export AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY
-$ export AWS_SECRET_ACCESS_KEY=AWS_SECRET_KEY
+export AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY
+export AWS_SECRET_ACCESS_KEY=AWS_SECRET_KEY
 ```
 
-### Role-based authentication
+### Assume Role
 
-This plugin fetches credentials in the same way as Terraform. See [this documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#codebuild-ecs-and-eks-roles) for the role-based authentication.
+This plugin can assume a role using the provider configuration declared in the target module. See [the provider documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#assume-role) for examples.
 
-### Assume role
-
-This plugin can assume a role in the same way as Terraform. See [this documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#assume-role).
-
-You can also declare the assume role config in the plugin config:
+You can also specify a role in the plugin configuration:
 
 ```hcl
 plugin "aws" {
@@ -118,9 +112,9 @@ plugin "aws" {
 }
 ```
 
-## Required permissions
+## Required Permissions
 
-The following policy document provides the minimal set permissions necessary for the deep checking:
+The following policy document provides the minimal set permissions necessary for deep checking:
 
 ```json
 {
