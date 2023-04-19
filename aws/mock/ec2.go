@@ -26876,6 +26876,56 @@ func (mr *MockEC2APIMockRecorder) GetVpnConnectionDeviceTypesWithContext(arg0, a
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVpnConnectionDeviceTypesWithContext", reflect.TypeOf((*MockEC2API)(nil).GetVpnConnectionDeviceTypesWithContext), varargs...)
 }
 
+// GetVpnTunnelReplacementStatus mocks base method.
+func (m *MockEC2API) GetVpnTunnelReplacementStatus(arg0 *ec2.GetVpnTunnelReplacementStatusInput) (*ec2.GetVpnTunnelReplacementStatusOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetVpnTunnelReplacementStatus", arg0)
+	ret0, _ := ret[0].(*ec2.GetVpnTunnelReplacementStatusOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetVpnTunnelReplacementStatus indicates an expected call of GetVpnTunnelReplacementStatus.
+func (mr *MockEC2APIMockRecorder) GetVpnTunnelReplacementStatus(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVpnTunnelReplacementStatus", reflect.TypeOf((*MockEC2API)(nil).GetVpnTunnelReplacementStatus), arg0)
+}
+
+// GetVpnTunnelReplacementStatusRequest mocks base method.
+func (m *MockEC2API) GetVpnTunnelReplacementStatusRequest(arg0 *ec2.GetVpnTunnelReplacementStatusInput) (*request.Request, *ec2.GetVpnTunnelReplacementStatusOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetVpnTunnelReplacementStatusRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.GetVpnTunnelReplacementStatusOutput)
+	return ret0, ret1
+}
+
+// GetVpnTunnelReplacementStatusRequest indicates an expected call of GetVpnTunnelReplacementStatusRequest.
+func (mr *MockEC2APIMockRecorder) GetVpnTunnelReplacementStatusRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVpnTunnelReplacementStatusRequest", reflect.TypeOf((*MockEC2API)(nil).GetVpnTunnelReplacementStatusRequest), arg0)
+}
+
+// GetVpnTunnelReplacementStatusWithContext mocks base method.
+func (m *MockEC2API) GetVpnTunnelReplacementStatusWithContext(arg0 context.Context, arg1 *ec2.GetVpnTunnelReplacementStatusInput, arg2 ...request.Option) (*ec2.GetVpnTunnelReplacementStatusOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetVpnTunnelReplacementStatusWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.GetVpnTunnelReplacementStatusOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetVpnTunnelReplacementStatusWithContext indicates an expected call of GetVpnTunnelReplacementStatusWithContext.
+func (mr *MockEC2APIMockRecorder) GetVpnTunnelReplacementStatusWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVpnTunnelReplacementStatusWithContext", reflect.TypeOf((*MockEC2API)(nil).GetVpnTunnelReplacementStatusWithContext), varargs...)
+}
+
 // ImportClientVpnClientCertificateRevocationList mocks base method.
 func (m *MockEC2API) ImportClientVpnClientCertificateRevocationList(arg0 *ec2.ImportClientVpnClientCertificateRevocationListInput) (*ec2.ImportClientVpnClientCertificateRevocationListOutput, error) {
 	m.ctrl.T.Helper()
@@ -31940,6 +31990,56 @@ func (mr *MockEC2APIMockRecorder) ReplaceTransitGatewayRouteWithContext(arg0, ar
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReplaceTransitGatewayRouteWithContext", reflect.TypeOf((*MockEC2API)(nil).ReplaceTransitGatewayRouteWithContext), varargs...)
+}
+
+// ReplaceVpnTunnel mocks base method.
+func (m *MockEC2API) ReplaceVpnTunnel(arg0 *ec2.ReplaceVpnTunnelInput) (*ec2.ReplaceVpnTunnelOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ReplaceVpnTunnel", arg0)
+	ret0, _ := ret[0].(*ec2.ReplaceVpnTunnelOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ReplaceVpnTunnel indicates an expected call of ReplaceVpnTunnel.
+func (mr *MockEC2APIMockRecorder) ReplaceVpnTunnel(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReplaceVpnTunnel", reflect.TypeOf((*MockEC2API)(nil).ReplaceVpnTunnel), arg0)
+}
+
+// ReplaceVpnTunnelRequest mocks base method.
+func (m *MockEC2API) ReplaceVpnTunnelRequest(arg0 *ec2.ReplaceVpnTunnelInput) (*request.Request, *ec2.ReplaceVpnTunnelOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ReplaceVpnTunnelRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.ReplaceVpnTunnelOutput)
+	return ret0, ret1
+}
+
+// ReplaceVpnTunnelRequest indicates an expected call of ReplaceVpnTunnelRequest.
+func (mr *MockEC2APIMockRecorder) ReplaceVpnTunnelRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReplaceVpnTunnelRequest", reflect.TypeOf((*MockEC2API)(nil).ReplaceVpnTunnelRequest), arg0)
+}
+
+// ReplaceVpnTunnelWithContext mocks base method.
+func (m *MockEC2API) ReplaceVpnTunnelWithContext(arg0 context.Context, arg1 *ec2.ReplaceVpnTunnelInput, arg2 ...request.Option) (*ec2.ReplaceVpnTunnelOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ReplaceVpnTunnelWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.ReplaceVpnTunnelOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ReplaceVpnTunnelWithContext indicates an expected call of ReplaceVpnTunnelWithContext.
+func (mr *MockEC2APIMockRecorder) ReplaceVpnTunnelWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReplaceVpnTunnelWithContext", reflect.TypeOf((*MockEC2API)(nil).ReplaceVpnTunnelWithContext), varargs...)
 }
 
 // ReportInstanceStatus mocks base method.

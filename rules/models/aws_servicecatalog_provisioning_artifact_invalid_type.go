@@ -28,6 +28,7 @@ func NewAwsServicecatalogProvisioningArtifactInvalidTypeRule() *AwsServicecatalo
 			"CLOUD_FORMATION_TEMPLATE",
 			"MARKETPLACE_AMI",
 			"MARKETPLACE_CAR",
+			"TERRAFORM_OPEN_SOURCE",
 		},
 	}
 }

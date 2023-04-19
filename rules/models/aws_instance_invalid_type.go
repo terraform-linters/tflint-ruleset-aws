@@ -663,6 +663,11 @@ func NewAwsInstanceInvalidTypeRule() *AwsInstanceInvalidTypeRule {
 			"r7g.12xlarge",
 			"r7g.16xlarge",
 			"r7g.metal",
+			"c6in.metal",
+			"m6in.metal",
+			"m6idn.metal",
+			"r6in.metal",
+			"r6idn.metal",
 		},
 	}
 }
