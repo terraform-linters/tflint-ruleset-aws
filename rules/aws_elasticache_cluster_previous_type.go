@@ -60,10 +60,7 @@ func (r *AwsElastiCacheClusterPreviousTypeRule) Check(runner tflint.Runner) erro
 			continue
 		}
 
-		var nodeType string
-		err := runner.EvaluateExpr(attribute.Expr, &nodeType, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func(nodeType string) error {
 			parts := strings.Split(nodeType, ".")
 			if len(parts) != 3 {
 				return nil
@@ -77,7 +74,7 @@ func (r *AwsElastiCacheClusterPreviousTypeRule) Check(runner tflint.Runner) erro
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

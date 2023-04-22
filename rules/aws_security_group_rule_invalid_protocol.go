@@ -71,10 +71,7 @@ func (r *AwsSecurityGroupRuleInvalidProtocolRule) Check(runner tflint.Runner) er
 			continue
 		}
 
-		var protocol string
-		err := runner.EvaluateExpr(attribute.Expr, &protocol, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func(protocol string) error {
 			if _, err := strconv.Atoi(protocol); err == nil {
 				return nil
 			}
@@ -86,7 +83,7 @@ func (r *AwsSecurityGroupRuleInvalidProtocolRule) Check(runner tflint.Runner) er
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

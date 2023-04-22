@@ -71,10 +71,7 @@ func (r *AwsAPIGatewayAuthorizerInvalidTypeRule) Check(runner tflint.Runner) err
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
 			found := false
 			for _, item := range r.enum {
 				if item == val {
@@ -89,7 +86,7 @@ func (r *AwsAPIGatewayAuthorizerInvalidTypeRule) Check(runner tflint.Runner) err
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

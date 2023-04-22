@@ -72,10 +72,7 @@ func (r *AwsFsxWindowsFileSystemInvalidActiveDirectoryIDRule) Check(runner tflin
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
@@ -98,7 +95,7 @@ func (r *AwsFsxWindowsFileSystemInvalidActiveDirectoryIDRule) Check(runner tflin
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

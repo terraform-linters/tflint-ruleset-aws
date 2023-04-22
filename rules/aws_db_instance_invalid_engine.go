@@ -79,10 +79,7 @@ func (r *AwsDBInstanceInvalidEngineRule) Check(runner tflint.Runner) error {
 			continue
 		}
 
-		var engine string
-		err := runner.EvaluateExpr(attribute.Expr, &engine, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func(engine string) error {
 			if !r.engines[engine] {
 				runner.EmitIssue(
 					r,
@@ -91,7 +88,7 @@ func (r *AwsDBInstanceInvalidEngineRule) Check(runner tflint.Runner) error {
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

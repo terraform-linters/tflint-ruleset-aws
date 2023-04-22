@@ -73,7 +73,13 @@ func (r *Runner) AwsClient(attributes hclext.Attributes) (*Client, error) {
 // If not, the given expression is used as it is
 func (r *Runner) EachStringSliceExprs(expr hcl.Expression, proc func(val string, expr hcl.Expression)) error {
 	var vals []string
-	err := r.EvaluateExpr(expr, &vals, nil)
+	err := r.EvaluateExpr(expr, func(v []string) error {
+		vals = v
+		return nil
+	}, nil)
+	if err != nil {
+		return err
+	}
 
 	exprs, diags := hcl.ExprList(expr)
 	if diags.HasErrors() {
@@ -83,10 +89,8 @@ func (r *Runner) EachStringSliceExprs(expr hcl.Expression, proc func(val string,
 		}
 	}
 
-	return r.EnsureNoError(err, func() error {
-		for idx, val := range vals {
-			proc(val, exprs[idx])
-		}
-		return nil
-	})
+	for idx, val := range vals {
+		proc(val, exprs[idx])
+	}
+	return nil
 }
