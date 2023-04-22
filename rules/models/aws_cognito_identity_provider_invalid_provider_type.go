@@ -74,10 +74,7 @@ func (r *AwsCognitoIdentityProviderInvalidProviderTypeRule) Check(runner tflint.
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
 			found := false
 			for _, item := range r.enum {
 				if item == val {
@@ -92,7 +89,7 @@ func (r *AwsCognitoIdentityProviderInvalidProviderTypeRule) Check(runner tflint.
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

@@ -80,10 +80,7 @@ func (r *AwsInstanceInvalidAMIRule) Check(rr tflint.Runner) error {
 			return err
 		}
 
-		var ami string
-		err = runner.EvaluateExpr(attribute.Expr, &ami, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err = runner.EvaluateExpr(attribute.Expr, func(ami string) error {
 			if !r.amiIDs[ami] {
 				logger.Debug("Fetch AMI images: %s", ami)
 				resp, err := awsClient.EC2.DescribeImages(&ec2.DescribeImagesInput{
@@ -123,7 +120,7 @@ func (r *AwsInstanceInvalidAMIRule) Check(rr tflint.Runner) error {
 				}
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

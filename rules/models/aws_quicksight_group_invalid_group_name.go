@@ -70,10 +70,7 @@ func (r *AwsQuicksightGroupInvalidGroupNameRule) Check(runner tflint.Runner) err
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
 			if len(val) < r.min {
 				runner.EmitIssue(
 					r,
@@ -89,7 +86,7 @@ func (r *AwsQuicksightGroupInvalidGroupNameRule) Check(runner tflint.Runner) err
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

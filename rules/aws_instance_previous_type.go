@@ -78,10 +78,7 @@ func (r *AwsInstancePreviousTypeRule) Check(runner tflint.Runner) error {
 			continue
 		}
 
-		var instanceType string
-		err := runner.EvaluateExpr(attribute.Expr, &instanceType, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func(instanceType string) error {
 			if r.previousInstanceTypes[strings.Split(instanceType, ".")[0]] {
 				runner.EmitIssue(
 					r,
@@ -90,7 +87,7 @@ func (r *AwsInstancePreviousTypeRule) Check(runner tflint.Runner) error {
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

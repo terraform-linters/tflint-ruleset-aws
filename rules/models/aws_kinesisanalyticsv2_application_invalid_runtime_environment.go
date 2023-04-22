@@ -76,10 +76,7 @@ func (r *AwsKinesisanalyticsv2ApplicationInvalidRuntimeEnvironmentRule) Check(ru
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
 			found := false
 			for _, item := range r.enum {
 				if item == val {
@@ -94,7 +91,7 @@ func (r *AwsKinesisanalyticsv2ApplicationInvalidRuntimeEnvironmentRule) Check(ru
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

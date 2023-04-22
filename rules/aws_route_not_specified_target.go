@@ -64,14 +64,12 @@ func (r *AwsRouteNotSpecifiedTargetRule) Check(runner tflint.Runner) error {
 	for _, resource := range resources.Blocks {
 		var nullAttributes int
 		for _, attribute := range resource.Body.Attributes {
-			var val cty.Value
-			err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-			err = runner.EnsureNoError(err, func() error {
+			err := runner.EvaluateExpr(attribute.Expr, func(val cty.Value) error {
 				if val.IsNull() {
 					nullAttributes = nullAttributes + 1
 				}
 				return nil
-			})
+			}, nil)
 			if err != nil {
 				return err
 			}
