@@ -1,3 +1,19 @@
+## 0.23.0 (2023-04-22)
+
+### Enhancements
+
+- [#471](https://github.com/terraform-linters/tflint-ruleset-aws/pull/471) [#480](https://github.com/terraform-linters/tflint-ruleset-aws/pull/480): Update AWS provider/module and generated content
+
+### Chores
+
+- [#436](https://github.com/terraform-linters/tflint-ruleset-aws/pull/436): Use NewRunner hook ([@wata727](https://github.com/wata727))
+- [#468](https://github.com/terraform-linters/tflint-ruleset-aws/pull/468): Bump actions/setup-go from 3 to 4
+- [#469](https://github.com/terraform-linters/tflint-ruleset-aws/pull/469): Bump github.com/zclconf/go-cty from 1.13.0 to 1.13.1
+- [#473](https://github.com/terraform-linters/tflint-ruleset-aws/pull/473): Bump peter-evans/create-pull-request from 4 to 5
+- [#475](https://github.com/terraform-linters/tflint-ruleset-aws/pull/475): Bump github.com/terraform-linters/tflint-plugin-sdk from 0.15.0 to 0.16.1
+- [#477](https://github.com/terraform-linters/tflint-ruleset-aws/pull/477): docs: copy edits for deep check ([@bendrucker](https://github.com/bendrucker))
+- [#481](https://github.com/terraform-linters/tflint-ruleset-aws/pull/481): Follow up of the EnsureNoError deprecation ([@wata727](https://github.com/wata727))
+
 ## 0.22.1 (2023-03-18)
 
 - [#465](https://github.com/terraform-linters/tflint-ruleset-aws/pull/465): Fix Cosign v2 signing ([@wata727](https://github.com/wata727))
