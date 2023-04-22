@@ -28,6 +28,7 @@ func NewAwsGameliftBuildInvalidOperatingSystemRule() *AwsGameliftBuildInvalidOpe
 			"WINDOWS_2012",
 			"AMAZON_LINUX",
 			"AMAZON_LINUX_2",
+			"WINDOWS_2016",
 		},
 	}
 }

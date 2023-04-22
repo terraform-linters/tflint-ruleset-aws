@@ -31,6 +31,7 @@ func NewAwsEcsAccountSettingDefaultInvalidNameRule() *AwsEcsAccountSettingDefaul
 			"awsvpcTrunking",
 			"containerInsights",
 			"fargateFIPSMode",
+			"tagResourceAuthorization",
 		},
 	}
 }
