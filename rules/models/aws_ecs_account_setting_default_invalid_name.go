@@ -30,6 +30,7 @@ func NewAwsEcsAccountSettingDefaultInvalidNameRule() *AwsEcsAccountSettingDefaul
 			"containerInstanceLongArnFormat",
 			"awsvpcTrunking",
 			"containerInsights",
+			"fargateFIPSMode",
 		},
 	}
 }

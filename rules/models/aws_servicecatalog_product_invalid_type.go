@@ -29,6 +29,7 @@ func NewAwsServicecatalogProductInvalidTypeRule() *AwsServicecatalogProductInval
 		enum: []string{
 			"CLOUD_FORMATION_TEMPLATE",
 			"MARKETPLACE",
+			"TERRAFORM_OPEN_SOURCE",
 		},
 	}
 }

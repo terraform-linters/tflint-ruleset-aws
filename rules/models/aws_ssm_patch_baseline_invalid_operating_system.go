@@ -38,6 +38,8 @@ func NewAwsSsmPatchBaselineInvalidOperatingSystemRule() *AwsSsmPatchBaselineInva
 			"MACOS",
 			"RASPBIAN",
 			"ROCKY_LINUX",
+			"ALMA_LINUX",
+			"AMAZON_LINUX_2023",
 		},
 	}
 }
