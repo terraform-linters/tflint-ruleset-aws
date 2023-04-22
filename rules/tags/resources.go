@@ -549,6 +549,8 @@ var Resources = []string{
 	"aws_vpc_peering_connection_accepter",
 	"aws_vpc_security_group_egress_rule",
 	"aws_vpc_security_group_ingress_rule",
+	"aws_vpclattice_listener",
+	"aws_vpclattice_listener_rule",
 	"aws_vpclattice_service",
 	"aws_vpclattice_service_network",
 	"aws_vpclattice_service_network_service_association",

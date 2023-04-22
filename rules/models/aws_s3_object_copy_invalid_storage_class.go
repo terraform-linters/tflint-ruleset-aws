@@ -34,6 +34,7 @@ func NewAwsS3ObjectCopyInvalidStorageClassRule() *AwsS3ObjectCopyInvalidStorageC
 			"DEEP_ARCHIVE",
 			"OUTPOSTS",
 			"GLACIER_IR",
+			"SNOW",
 		},
 	}
 }
