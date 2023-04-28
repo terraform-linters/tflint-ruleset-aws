@@ -55,6 +55,7 @@ func (r *AwsRouteNotSpecifiedTargetRule) Check(runner tflint.Runner) error {
 			{Name: "vpc_endpoint_id"},
 			{Name: "carrier_gateway_id"},
 			{Name: "local_gateway_id"},
+			{Name: "core_network_arn"},
 		},
 	}, nil)
 	if err != nil {
@@ -78,7 +79,7 @@ func (r *AwsRouteNotSpecifiedTargetRule) Check(runner tflint.Runner) error {
 		if len(resource.Body.Attributes)-nullAttributes == 0 {
 			runner.EmitIssue(
 				r,
-				"The routing target is not specified, each aws_route must contain either egress_only_gateway_id, gateway_id, instance_id, nat_gateway_id, network_interface_id, transit_gateway_id, vpc_peering_connection_id or vpc_endpoint_id.",
+				"The routing target is not specified, each aws_route must contain either egress_only_gateway_id, gateway_id, instance_id, nat_gateway_id, network_interface_id, transit_gateway_id, vpc_peering_connection_id, core_network_arn or vpc_endpoint_id.",
 				resource.DefRange,
 			)
 		}
