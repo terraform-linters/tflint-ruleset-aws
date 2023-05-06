@@ -12,6 +12,7 @@ import (
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 	"github.com/terraform-linters/tflint-ruleset-aws/rules/tags"
 	"github.com/zclconf/go-cty/cty"
+	"golang.org/x/exp/maps"
 )
 
 // AwsResourceMissingTagsRule checks whether resources are tagged correctly
@@ -25,8 +26,9 @@ type awsResourceTagsRuleConfig struct {
 }
 
 const (
-	tagsAttributeName = "tags"
-	tagBlockName      = "tag"
+	tagsAttributeName     = "tags"
+	tagBlockName          = "tag"
+	providerAttributeName = "provider"
 )
 
 // NewAwsResourceMissingTagsRule returns new rules for all resources that support tags
@@ -54,10 +56,82 @@ func (r *AwsResourceMissingTagsRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
+func (r *AwsResourceMissingTagsRule) getProviderLevelTags(runner tflint.Runner) (map[string]map[string]string, error) {
+	providerSchema := &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{
+			{
+				Name:     "alias",
+				Required: false,
+			},
+		},
+		Blocks: []hclext.BlockSchema{
+			{
+				Type: "default_tags",
+				Body: &hclext.BodySchema{Attributes: []hclext.AttributeSchema{{Name: tagsAttributeName}}},
+			},
+		},
+	}
+
+	providerBody, err := runner.GetProviderContent("aws", providerSchema, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	// Get provider default tags
+	allProviderTags := make(map[string]map[string]string)
+	var providerAlias string
+	for _, provider := range providerBody.Blocks.OfType(providerAttributeName) {
+		providerTags := make(map[string]string)
+		for _, block := range provider.Body.Blocks {
+			attr, ok := block.Body.Attributes[tagsAttributeName]
+			if !ok {
+				continue
+			}
+
+			wantType := cty.Map(cty.String)
+			err := runner.EvaluateExpr(
+				attr.Expr,
+				&providerTags,
+				&tflint.EvaluateExprOption{WantType: &wantType},
+			)
+
+			if err != nil {
+				return nil, err
+			}
+
+			// Get the alias attribute, default if not present
+			providerAttr, ok := provider.Body.Attributes["alias"]
+			if !ok {
+				providerAlias = "default"
+				allProviderTags[providerAlias] = providerTags
+			} else {
+				err := runner.EvaluateExpr(
+					providerAttr.Expr,
+					&providerAlias,
+					&tflint.EvaluateExprOption{WantType: &cty.String},
+				)
+				providerAlias = fmt.Sprintf("aws.%s", providerAlias)
+				// Assign default provider
+				allProviderTags[providerAlias] = providerTags
+				if err != nil {
+					return nil, err
+				}
+			}
+		}
+	}
+	return allProviderTags, nil
+}
+
 // Check checks resources for missing tags
 func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 	config := awsResourceTagsRuleConfig{}
 	if err := runner.DecodeRuleConfig(r.Name(), &config); err != nil {
+		return err
+	}
+
+	providerTagsMap, err := r.getProviderLevelTags(runner)
+
+	if err != nil {
 		return err
 	}
 
@@ -70,6 +144,9 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 		// Special handling for tags on aws_autoscaling_group resources
 		if resourceType == "aws_autoscaling_group" {
 			err := r.checkAwsAutoScalingGroups(runner, config)
+			err = runner.EnsureNoError(err, func() error {
+				return nil
+			})
 			if err != nil {
 				return err
 			}
@@ -77,29 +154,69 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 		}
 
 		resources, err := runner.GetResourceContent(resourceType, &hclext.BodySchema{
-			Attributes: []hclext.AttributeSchema{{Name: tagsAttributeName}},
+			Attributes: []hclext.AttributeSchema{
+				{Name: tagsAttributeName},
+				{Name: providerAttributeName},
+			},
 		}, nil)
 		if err != nil {
 			return err
 		}
 
+		if resources.IsEmpty() {
+			continue
+		}
+
 		for _, resource := range resources.Blocks {
-			if attribute, ok := resource.Body.Attributes[tagsAttributeName]; ok {
-				logger.Debug("Walk `%s` attribute", resource.Labels[0]+"."+resource.Labels[1]+"."+tagsAttributeName)
+			providerName := "default"
+			if val, ok := resource.Body.Attributes[providerAttributeName]; ok {
+				err := runner.EvaluateExpr(
+					val.Expr,
+					&providerName,
+					nil,
+				)
+
+				if err != nil {
+					return err
+				}
+			}
+			resourceTags := make(map[string]string)
+
+			// The provider tags are to be overriden
+			// https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags
+			maps.Copy(resourceTags, providerTagsMap[providerName])
+
+			// If the resource has a tags attribute
+			if attribute, okResource := resource.Body.Attributes[tagsAttributeName]; okResource {
+				logger.Debug(
+					"Walk `%s` attribute",
+					resource.Labels[0]+"."+resource.Labels[1]+"."+tagsAttributeName,
+				)
 				wantType := cty.Map(cty.String)
-				err := runner.EvaluateExpr(attribute.Expr, func(resourceTags map[string]string) error {
+				// Since the evlauateExpr, overrides k/v pairs, we need to re-copy the tags
+				resourceTagsAux := make(map[string]string)
+				err := runner.EvaluateExpr(
+					attribute.Expr,
+					&resourceTagsAux,
+					&tflint.EvaluateExprOption{WantType: &wantType},
+				)
+
+				maps.Copy(resourceTags, resourceTagsAux)
+				err = runner.EnsureNoError(err, func() error {
 					r.emitIssue(runner, resourceTags, config, attribute.Expr.Range())
 					return nil
-				}, &tflint.EvaluateExprOption{WantType: &wantType})
+				})
+
 				if err != nil {
 					return err
 				}
 			} else {
 				logger.Debug("Walk `%s` resource", resource.Labels[0]+"."+resource.Labels[1])
-				r.emitIssue(runner, map[string]string{}, config, resource.DefRange)
+				r.emitIssue(runner, resourceTags, config, resource.DefRange)
 			}
 		}
 	}
+
 	return nil
 }
 
