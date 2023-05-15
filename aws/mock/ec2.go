@@ -25727,6 +25727,39 @@ func (mr *MockEC2APIMockRecorder) GetNetworkInsightsAccessScopeAnalysisFindings(
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetNetworkInsightsAccessScopeAnalysisFindings", reflect.TypeOf((*MockEC2API)(nil).GetNetworkInsightsAccessScopeAnalysisFindings), arg0)
 }
 
+// GetNetworkInsightsAccessScopeAnalysisFindingsPages mocks base method.
+func (m *MockEC2API) GetNetworkInsightsAccessScopeAnalysisFindingsPages(arg0 *ec2.GetNetworkInsightsAccessScopeAnalysisFindingsInput, arg1 func(*ec2.GetNetworkInsightsAccessScopeAnalysisFindingsOutput, bool) bool) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetNetworkInsightsAccessScopeAnalysisFindingsPages", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// GetNetworkInsightsAccessScopeAnalysisFindingsPages indicates an expected call of GetNetworkInsightsAccessScopeAnalysisFindingsPages.
+func (mr *MockEC2APIMockRecorder) GetNetworkInsightsAccessScopeAnalysisFindingsPages(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetNetworkInsightsAccessScopeAnalysisFindingsPages", reflect.TypeOf((*MockEC2API)(nil).GetNetworkInsightsAccessScopeAnalysisFindingsPages), arg0, arg1)
+}
+
+// GetNetworkInsightsAccessScopeAnalysisFindingsPagesWithContext mocks base method.
+func (m *MockEC2API) GetNetworkInsightsAccessScopeAnalysisFindingsPagesWithContext(arg0 context.Context, arg1 *ec2.GetNetworkInsightsAccessScopeAnalysisFindingsInput, arg2 func(*ec2.GetNetworkInsightsAccessScopeAnalysisFindingsOutput, bool) bool, arg3 ...request.Option) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1, arg2}
+	for _, a := range arg3 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetNetworkInsightsAccessScopeAnalysisFindingsPagesWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// GetNetworkInsightsAccessScopeAnalysisFindingsPagesWithContext indicates an expected call of GetNetworkInsightsAccessScopeAnalysisFindingsPagesWithContext.
+func (mr *MockEC2APIMockRecorder) GetNetworkInsightsAccessScopeAnalysisFindingsPagesWithContext(arg0, arg1, arg2 interface{}, arg3 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1, arg2}, arg3...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetNetworkInsightsAccessScopeAnalysisFindingsPagesWithContext", reflect.TypeOf((*MockEC2API)(nil).GetNetworkInsightsAccessScopeAnalysisFindingsPagesWithContext), varargs...)
+}
+
 // GetNetworkInsightsAccessScopeAnalysisFindingsRequest mocks base method.
 func (m *MockEC2API) GetNetworkInsightsAccessScopeAnalysisFindingsRequest(arg0 *ec2.GetNetworkInsightsAccessScopeAnalysisFindingsInput) (*request.Request, *ec2.GetNetworkInsightsAccessScopeAnalysisFindingsOutput) {
 	m.ctrl.T.Helper()
