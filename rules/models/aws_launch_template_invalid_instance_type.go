@@ -673,6 +673,12 @@ func NewAwsLaunchTemplateInvalidInstanceTypeRule() *AwsLaunchTemplateInvalidInst
 			"inf2.24xlarge",
 			"inf2.48xlarge",
 			"trn1n.32xlarge",
+			"i4g.large",
+			"i4g.xlarge",
+			"i4g.2xlarge",
+			"i4g.4xlarge",
+			"i4g.8xlarge",
+			"i4g.16xlarge",
 		},
 	}
 }
