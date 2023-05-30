@@ -21,7 +21,7 @@ require (
 	github.com/mitchellh/go-testing-interface v1.14.1 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.0 // indirect
 	github.com/terraform-linters/tflint-plugin-sdk v0.16.1
-	github.com/zclconf/go-cty v1.13.1
+	github.com/zclconf/go-cty v1.13.2
 	google.golang.org/genproto v0.0.0-20230110181048-76db0878b65f // indirect
 	google.golang.org/grpc v1.54.0 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
