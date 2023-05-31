@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cognito_identity_pool_roles_attachment" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoIdentityPoolRolesAttachmentInvalidIdentityPoolIDRule(),
-					Message: `"0123456789" does not match valid pattern ^[\w-]+:[0-9a-f-]+$`,
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("0123456789"), `^[\w-]+:[0-9a-f-]+$`),
 				},
 			},
 		},

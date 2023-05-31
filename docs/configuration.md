@@ -14,6 +14,13 @@ plugin "aws" {
     region     = "us-east-1"
     profile    = "AWS_PROFILE"
     shared_credentials_file = "~/.aws/credentials"
+
+    assume_role {
+        role_arn     = "arn:aws:iam::123456789012:role/ROLE_NAME"
+        external_id  = "EXTERNAL_ID"
+        policy       = "..."
+        session_name = "SESSION_NAME"
+    }
 }
 ```
 
@@ -52,3 +59,9 @@ AWS shared credentials profile name used in the deep checking.
 Default: Profile declared in the `provider` block or `~/.aws/credentials` when the deep checking is enabled.
 
 AWS shared credentials file path used in the deep checking.
+
+## `assume_role`
+
+Default: Assume role config declared in the `provider` block.
+
+AWS assume role config used in the deep checking.

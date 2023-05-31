@@ -60,11 +60,13 @@ func (r *AwsElastiCacheClusterPreviousTypeRule) Check(runner tflint.Runner) erro
 			continue
 		}
 
-		var nodeType string
-		err := runner.EvaluateExpr(attribute.Expr, &nodeType, nil)
+		err := runner.EvaluateExpr(attribute.Expr, func(nodeType string) error {
+			parts := strings.Split(nodeType, ".")
+			if len(parts) != 3 {
+				return nil
+			}
 
-		err = runner.EnsureNoError(err, func() error {
-			if previousElastiCacheNodeTypes[strings.Split(nodeType, ".")[1]] {
+			if previousElastiCacheNodeTypes[parts[1]] {
 				runner.EmitIssue(
 					r,
 					fmt.Sprintf("\"%s\" is previous generation node type.", nodeType),
@@ -72,7 +74,7 @@ func (r *AwsElastiCacheClusterPreviousTypeRule) Check(runner tflint.Runner) erro
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

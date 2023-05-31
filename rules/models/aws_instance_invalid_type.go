@@ -593,6 +593,92 @@ func NewAwsInstanceInvalidTypeRule() *AwsInstanceInvalidTypeRule {
 			"r6a.48xlarge",
 			"r6a.metal",
 			"p4de.24xlarge",
+			"u-3tb1.56xlarge",
+			"u-18tb1.112xlarge",
+			"u-24tb1.112xlarge",
+			"trn1.2xlarge",
+			"trn1.32xlarge",
+			"hpc6id.32xlarge",
+			"c6in.large",
+			"c6in.xlarge",
+			"c6in.2xlarge",
+			"c6in.4xlarge",
+			"c6in.8xlarge",
+			"c6in.12xlarge",
+			"c6in.16xlarge",
+			"c6in.24xlarge",
+			"c6in.32xlarge",
+			"m6in.large",
+			"m6in.xlarge",
+			"m6in.2xlarge",
+			"m6in.4xlarge",
+			"m6in.8xlarge",
+			"m6in.12xlarge",
+			"m6in.16xlarge",
+			"m6in.24xlarge",
+			"m6in.32xlarge",
+			"m6idn.large",
+			"m6idn.xlarge",
+			"m6idn.2xlarge",
+			"m6idn.4xlarge",
+			"m6idn.8xlarge",
+			"m6idn.12xlarge",
+			"m6idn.16xlarge",
+			"m6idn.24xlarge",
+			"m6idn.32xlarge",
+			"r6in.large",
+			"r6in.xlarge",
+			"r6in.2xlarge",
+			"r6in.4xlarge",
+			"r6in.8xlarge",
+			"r6in.12xlarge",
+			"r6in.16xlarge",
+			"r6in.24xlarge",
+			"r6in.32xlarge",
+			"r6idn.large",
+			"r6idn.xlarge",
+			"r6idn.2xlarge",
+			"r6idn.4xlarge",
+			"r6idn.8xlarge",
+			"r6idn.12xlarge",
+			"r6idn.16xlarge",
+			"r6idn.24xlarge",
+			"r6idn.32xlarge",
+			"c7g.metal",
+			"m7g.medium",
+			"m7g.large",
+			"m7g.xlarge",
+			"m7g.2xlarge",
+			"m7g.4xlarge",
+			"m7g.8xlarge",
+			"m7g.12xlarge",
+			"m7g.16xlarge",
+			"m7g.metal",
+			"r7g.medium",
+			"r7g.large",
+			"r7g.xlarge",
+			"r7g.2xlarge",
+			"r7g.4xlarge",
+			"r7g.8xlarge",
+			"r7g.12xlarge",
+			"r7g.16xlarge",
+			"r7g.metal",
+			"c6in.metal",
+			"m6in.metal",
+			"m6idn.metal",
+			"r6in.metal",
+			"r6idn.metal",
+			"inf2.xlarge",
+			"inf2.8xlarge",
+			"inf2.24xlarge",
+			"inf2.48xlarge",
+			"trn1n.32xlarge",
+			"i4g.large",
+			"i4g.xlarge",
+			"i4g.2xlarge",
+			"i4g.4xlarge",
+			"i4g.8xlarge",
+			"i4g.16xlarge",
 		},
 	}
 }
@@ -636,10 +722,7 @@ func (r *AwsInstanceInvalidTypeRule) Check(runner tflint.Runner) error {
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
 			found := false
 			for _, item := range r.enum {
 				if item == val {
@@ -654,7 +737,7 @@ func (r *AwsInstanceInvalidTypeRule) Check(runner tflint.Runner) error {
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

@@ -32,6 +32,7 @@ func NewAwsKinesisanalyticsv2ApplicationInvalidRuntimeEnvironmentRule() *AwsKine
 			"FLINK-1_11",
 			"FLINK-1_13",
 			"ZEPPELIN-FLINK-2_0",
+			"FLINK-1_15",
 		},
 	}
 }
@@ -75,10 +76,7 @@ func (r *AwsKinesisanalyticsv2ApplicationInvalidRuntimeEnvironmentRule) Check(ru
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
 			found := false
 			for _, item := range r.enum {
 				if item == val {
@@ -93,7 +91,7 @@ func (r *AwsKinesisanalyticsv2ApplicationInvalidRuntimeEnvironmentRule) Check(ru
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

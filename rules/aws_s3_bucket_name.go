@@ -76,10 +76,7 @@ func (r *AwsS3BucketNameRule) Check(runner tflint.Runner) error {
 			continue
 		}
 
-		var name string
-		err := runner.EvaluateExpr(attribute.Expr, &name, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func(name string) error {
 			if config.Prefix != "" {
 				if !strings.HasPrefix(name, config.Prefix) {
 					runner.EmitIssue(
@@ -100,7 +97,7 @@ func (r *AwsS3BucketNameRule) Check(runner tflint.Runner) error {
 				}
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

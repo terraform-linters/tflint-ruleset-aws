@@ -70,9 +70,6 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 		// Special handling for tags on aws_autoscaling_group resources
 		if resourceType == "aws_autoscaling_group" {
 			err := r.checkAwsAutoScalingGroups(runner, config)
-			err = runner.EnsureNoError(err, func() error {
-				return nil
-			})
 			if err != nil {
 				return err
 			}
@@ -89,13 +86,11 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 		for _, resource := range resources.Blocks {
 			if attribute, ok := resource.Body.Attributes[tagsAttributeName]; ok {
 				logger.Debug("Walk `%s` attribute", resource.Labels[0]+"."+resource.Labels[1]+"."+tagsAttributeName)
-				resourceTags := make(map[string]string)
 				wantType := cty.Map(cty.String)
-				err := runner.EvaluateExpr(attribute.Expr, &resourceTags, &tflint.EvaluateExprOption{WantType: &wantType})
-				err = runner.EnsureNoError(err, func() error {
+				err := runner.EvaluateExpr(attribute.Expr, func(resourceTags map[string]string) error {
 					r.emitIssue(runner, resourceTags, config, attribute.Expr.Range())
 					return nil
-				})
+				}, &tflint.EvaluateExprOption{WantType: &wantType})
 				if err != nil {
 					return err
 				}
@@ -138,28 +133,20 @@ func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroups(runner tflint.Run
 			return err
 		}
 
-		var location hcl.Range
-		tags := make(map[string]string)
 		switch {
 		case len(asgTagBlockTags) > 0 && len(asgTagsAttributeTags) > 0:
-			issue := fmt.Sprintf("Only tag block or tags attribute may be present, but found both")
-			runner.EmitIssue(r, issue, resource.DefRange)
-			return nil
+			runner.EmitIssue(r, "Only tag block or tags attribute may be present, but found both", resource.DefRange)
 		case len(asgTagBlockTags) == 0 && len(asgTagsAttributeTags) == 0:
 			r.emitIssue(runner, map[string]string{}, config, resource.DefRange)
-			return nil
 		case len(asgTagBlockTags) > 0 && len(asgTagsAttributeTags) == 0:
-			tags = asgTagBlockTags
-			location = tagBlockLocation
-		case len(asgTagBlockTags) == 0 && len(asgTagsAttributeTags) > 0:
-			tags = asgTagsAttributeTags
-			location = tagsAttributeLocation
-		}
-
-		return runner.EnsureNoError(err, func() error {
+			tags := asgTagBlockTags
+			location := tagBlockLocation
 			r.emitIssue(runner, tags, config, location)
-			return nil
-		})
+		case len(asgTagBlockTags) == 0 && len(asgTagsAttributeTags) > 0:
+			tags := asgTagsAttributeTags
+			location := tagsAttributeLocation
+			r.emitIssue(runner, tags, config, location)
+		}
 	}
 
 	return nil
@@ -196,12 +183,13 @@ func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTag(runner tflint.
 				return tags, hcl.Range{}, fmt.Errorf(`Did not find expected field "key" in aws_autoscaling_group "%s" starting at line %d`, resource.Labels[0], resource.DefRange.Start.Line)
 			}
 
-			var key string
-			err := runner.EvaluateExpr(attribute.Expr, &key, nil)
+			err := runner.EvaluateExpr(attribute.Expr, func(key string) error {
+				tags[key] = ""
+				return nil
+			}, nil)
 			if err != nil {
 				return tags, hcl.Range{}, err
 			}
-			tags[key] = ""
 		}
 	}
 
@@ -233,13 +221,14 @@ func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTags(runner tflint
 				"value":               cty.String,
 				"propagate_at_launch": cty.Bool,
 			}))
-			var asgTags []awsAutoscalingGroupTag
-			err := runner.EvaluateExpr(attribute.Expr, &asgTags, &tflint.EvaluateExprOption{WantType: &wantType})
+			err := runner.EvaluateExpr(attribute.Expr, func(asgTags []awsAutoscalingGroupTag) error {
+				for _, tag := range asgTags {
+					tags[tag.Key] = tag.Value
+				}
+				return nil
+			}, &tflint.EvaluateExprOption{WantType: &wantType})
 			if err != nil {
 				return tags, attribute.Expr.Range(), err
-			}
-			for _, tag := range asgTags {
-				tags[tag.Key] = tag.Value
 			}
 			return tags, attribute.Expr.Range(), nil
 		}

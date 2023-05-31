@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cur_report_definition" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCurReportDefinitionInvalidTimeUnitRule(),
-					Message: `"FORNIGHTLY" is an invalid value as time_unit`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("FORNIGHTLY"), "time_unit"),
 				},
 			},
 		},

@@ -62,11 +62,8 @@ func (r *AwsElastiCacheReplicationGroupDefaultParameterGroupRule) Check(runner t
 			continue
 		}
 
-		var parameterGroup string
-		err := runner.EvaluateExpr(attribute.Expr, &parameterGroup, nil)
-
-		err = runner.EnsureNoError(err, func() error {
-			if defaultElastiCacheParameterGroupRegexp.Match([]byte(parameterGroup)) {
+		err := runner.EvaluateExpr(attribute.Expr, func(parameterGroup string) error {
+			if defaultElastiCacheReplicationParameterGroupRegexp.Match([]byte(parameterGroup)) {
 				runner.EmitIssue(
 					r,
 					fmt.Sprintf("\"%s\" is default parameter group. You cannot edit it.", parameterGroup),
@@ -74,7 +71,7 @@ func (r *AwsElastiCacheReplicationGroupDefaultParameterGroupRule) Check(runner t
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

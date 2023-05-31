@@ -486,6 +486,56 @@ func (mr *MockECSAPIMockRecorder) DeleteServiceWithContext(arg0, arg1 interface{
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteServiceWithContext", reflect.TypeOf((*MockECSAPI)(nil).DeleteServiceWithContext), varargs...)
 }
 
+// DeleteTaskDefinitions mocks base method.
+func (m *MockECSAPI) DeleteTaskDefinitions(arg0 *ecs.DeleteTaskDefinitionsInput) (*ecs.DeleteTaskDefinitionsOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteTaskDefinitions", arg0)
+	ret0, _ := ret[0].(*ecs.DeleteTaskDefinitionsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteTaskDefinitions indicates an expected call of DeleteTaskDefinitions.
+func (mr *MockECSAPIMockRecorder) DeleteTaskDefinitions(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteTaskDefinitions", reflect.TypeOf((*MockECSAPI)(nil).DeleteTaskDefinitions), arg0)
+}
+
+// DeleteTaskDefinitionsRequest mocks base method.
+func (m *MockECSAPI) DeleteTaskDefinitionsRequest(arg0 *ecs.DeleteTaskDefinitionsInput) (*request.Request, *ecs.DeleteTaskDefinitionsOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteTaskDefinitionsRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ecs.DeleteTaskDefinitionsOutput)
+	return ret0, ret1
+}
+
+// DeleteTaskDefinitionsRequest indicates an expected call of DeleteTaskDefinitionsRequest.
+func (mr *MockECSAPIMockRecorder) DeleteTaskDefinitionsRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteTaskDefinitionsRequest", reflect.TypeOf((*MockECSAPI)(nil).DeleteTaskDefinitionsRequest), arg0)
+}
+
+// DeleteTaskDefinitionsWithContext mocks base method.
+func (m *MockECSAPI) DeleteTaskDefinitionsWithContext(arg0 context.Context, arg1 *ecs.DeleteTaskDefinitionsInput, arg2 ...request.Option) (*ecs.DeleteTaskDefinitionsOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DeleteTaskDefinitionsWithContext", varargs...)
+	ret0, _ := ret[0].(*ecs.DeleteTaskDefinitionsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteTaskDefinitionsWithContext indicates an expected call of DeleteTaskDefinitionsWithContext.
+func (mr *MockECSAPIMockRecorder) DeleteTaskDefinitionsWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteTaskDefinitionsWithContext", reflect.TypeOf((*MockECSAPI)(nil).DeleteTaskDefinitionsWithContext), varargs...)
+}
+
 // DeleteTaskSet mocks base method.
 func (m *MockECSAPI) DeleteTaskSet(arg0 *ecs.DeleteTaskSetInput) (*ecs.DeleteTaskSetOutput, error) {
 	m.ctrl.T.Helper()
@@ -1086,6 +1136,56 @@ func (mr *MockECSAPIMockRecorder) ExecuteCommandWithContext(arg0, arg1 interface
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ExecuteCommandWithContext", reflect.TypeOf((*MockECSAPI)(nil).ExecuteCommandWithContext), varargs...)
 }
 
+// GetTaskProtection mocks base method.
+func (m *MockECSAPI) GetTaskProtection(arg0 *ecs.GetTaskProtectionInput) (*ecs.GetTaskProtectionOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetTaskProtection", arg0)
+	ret0, _ := ret[0].(*ecs.GetTaskProtectionOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetTaskProtection indicates an expected call of GetTaskProtection.
+func (mr *MockECSAPIMockRecorder) GetTaskProtection(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetTaskProtection", reflect.TypeOf((*MockECSAPI)(nil).GetTaskProtection), arg0)
+}
+
+// GetTaskProtectionRequest mocks base method.
+func (m *MockECSAPI) GetTaskProtectionRequest(arg0 *ecs.GetTaskProtectionInput) (*request.Request, *ecs.GetTaskProtectionOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetTaskProtectionRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ecs.GetTaskProtectionOutput)
+	return ret0, ret1
+}
+
+// GetTaskProtectionRequest indicates an expected call of GetTaskProtectionRequest.
+func (mr *MockECSAPIMockRecorder) GetTaskProtectionRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetTaskProtectionRequest", reflect.TypeOf((*MockECSAPI)(nil).GetTaskProtectionRequest), arg0)
+}
+
+// GetTaskProtectionWithContext mocks base method.
+func (m *MockECSAPI) GetTaskProtectionWithContext(arg0 context.Context, arg1 *ecs.GetTaskProtectionInput, arg2 ...request.Option) (*ecs.GetTaskProtectionOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetTaskProtectionWithContext", varargs...)
+	ret0, _ := ret[0].(*ecs.GetTaskProtectionOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetTaskProtectionWithContext indicates an expected call of GetTaskProtectionWithContext.
+func (mr *MockECSAPIMockRecorder) GetTaskProtectionWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetTaskProtectionWithContext", reflect.TypeOf((*MockECSAPI)(nil).GetTaskProtectionWithContext), varargs...)
+}
+
 // ListAccountSettings mocks base method.
 func (m *MockECSAPI) ListAccountSettings(arg0 *ecs.ListAccountSettingsInput) (*ecs.ListAccountSettingsOutput, error) {
 	m.ctrl.T.Helper()
@@ -1431,6 +1531,89 @@ func (m *MockECSAPI) ListServices(arg0 *ecs.ListServicesInput) (*ecs.ListService
 func (mr *MockECSAPIMockRecorder) ListServices(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListServices", reflect.TypeOf((*MockECSAPI)(nil).ListServices), arg0)
+}
+
+// ListServicesByNamespace mocks base method.
+func (m *MockECSAPI) ListServicesByNamespace(arg0 *ecs.ListServicesByNamespaceInput) (*ecs.ListServicesByNamespaceOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListServicesByNamespace", arg0)
+	ret0, _ := ret[0].(*ecs.ListServicesByNamespaceOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListServicesByNamespace indicates an expected call of ListServicesByNamespace.
+func (mr *MockECSAPIMockRecorder) ListServicesByNamespace(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListServicesByNamespace", reflect.TypeOf((*MockECSAPI)(nil).ListServicesByNamespace), arg0)
+}
+
+// ListServicesByNamespacePages mocks base method.
+func (m *MockECSAPI) ListServicesByNamespacePages(arg0 *ecs.ListServicesByNamespaceInput, arg1 func(*ecs.ListServicesByNamespaceOutput, bool) bool) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListServicesByNamespacePages", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// ListServicesByNamespacePages indicates an expected call of ListServicesByNamespacePages.
+func (mr *MockECSAPIMockRecorder) ListServicesByNamespacePages(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListServicesByNamespacePages", reflect.TypeOf((*MockECSAPI)(nil).ListServicesByNamespacePages), arg0, arg1)
+}
+
+// ListServicesByNamespacePagesWithContext mocks base method.
+func (m *MockECSAPI) ListServicesByNamespacePagesWithContext(arg0 context.Context, arg1 *ecs.ListServicesByNamespaceInput, arg2 func(*ecs.ListServicesByNamespaceOutput, bool) bool, arg3 ...request.Option) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1, arg2}
+	for _, a := range arg3 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ListServicesByNamespacePagesWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// ListServicesByNamespacePagesWithContext indicates an expected call of ListServicesByNamespacePagesWithContext.
+func (mr *MockECSAPIMockRecorder) ListServicesByNamespacePagesWithContext(arg0, arg1, arg2 interface{}, arg3 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1, arg2}, arg3...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListServicesByNamespacePagesWithContext", reflect.TypeOf((*MockECSAPI)(nil).ListServicesByNamespacePagesWithContext), varargs...)
+}
+
+// ListServicesByNamespaceRequest mocks base method.
+func (m *MockECSAPI) ListServicesByNamespaceRequest(arg0 *ecs.ListServicesByNamespaceInput) (*request.Request, *ecs.ListServicesByNamespaceOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListServicesByNamespaceRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ecs.ListServicesByNamespaceOutput)
+	return ret0, ret1
+}
+
+// ListServicesByNamespaceRequest indicates an expected call of ListServicesByNamespaceRequest.
+func (mr *MockECSAPIMockRecorder) ListServicesByNamespaceRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListServicesByNamespaceRequest", reflect.TypeOf((*MockECSAPI)(nil).ListServicesByNamespaceRequest), arg0)
+}
+
+// ListServicesByNamespaceWithContext mocks base method.
+func (m *MockECSAPI) ListServicesByNamespaceWithContext(arg0 context.Context, arg1 *ecs.ListServicesByNamespaceInput, arg2 ...request.Option) (*ecs.ListServicesByNamespaceOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ListServicesByNamespaceWithContext", varargs...)
+	ret0, _ := ret[0].(*ecs.ListServicesByNamespaceOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListServicesByNamespaceWithContext indicates an expected call of ListServicesByNamespaceWithContext.
+func (mr *MockECSAPIMockRecorder) ListServicesByNamespaceWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListServicesByNamespaceWithContext", reflect.TypeOf((*MockECSAPI)(nil).ListServicesByNamespaceWithContext), varargs...)
 }
 
 // ListServicesPages mocks base method.
@@ -2848,6 +3031,56 @@ func (mr *MockECSAPIMockRecorder) UpdateServiceWithContext(arg0, arg1 interface{
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateServiceWithContext", reflect.TypeOf((*MockECSAPI)(nil).UpdateServiceWithContext), varargs...)
+}
+
+// UpdateTaskProtection mocks base method.
+func (m *MockECSAPI) UpdateTaskProtection(arg0 *ecs.UpdateTaskProtectionInput) (*ecs.UpdateTaskProtectionOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateTaskProtection", arg0)
+	ret0, _ := ret[0].(*ecs.UpdateTaskProtectionOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateTaskProtection indicates an expected call of UpdateTaskProtection.
+func (mr *MockECSAPIMockRecorder) UpdateTaskProtection(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateTaskProtection", reflect.TypeOf((*MockECSAPI)(nil).UpdateTaskProtection), arg0)
+}
+
+// UpdateTaskProtectionRequest mocks base method.
+func (m *MockECSAPI) UpdateTaskProtectionRequest(arg0 *ecs.UpdateTaskProtectionInput) (*request.Request, *ecs.UpdateTaskProtectionOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateTaskProtectionRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ecs.UpdateTaskProtectionOutput)
+	return ret0, ret1
+}
+
+// UpdateTaskProtectionRequest indicates an expected call of UpdateTaskProtectionRequest.
+func (mr *MockECSAPIMockRecorder) UpdateTaskProtectionRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateTaskProtectionRequest", reflect.TypeOf((*MockECSAPI)(nil).UpdateTaskProtectionRequest), arg0)
+}
+
+// UpdateTaskProtectionWithContext mocks base method.
+func (m *MockECSAPI) UpdateTaskProtectionWithContext(arg0 context.Context, arg1 *ecs.UpdateTaskProtectionInput, arg2 ...request.Option) (*ecs.UpdateTaskProtectionOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "UpdateTaskProtectionWithContext", varargs...)
+	ret0, _ := ret[0].(*ecs.UpdateTaskProtectionOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateTaskProtectionWithContext indicates an expected call of UpdateTaskProtectionWithContext.
+func (mr *MockECSAPIMockRecorder) UpdateTaskProtectionWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateTaskProtectionWithContext", reflect.TypeOf((*MockECSAPI)(nil).UpdateTaskProtectionWithContext), varargs...)
 }
 
 // UpdateTaskSet mocks base method.

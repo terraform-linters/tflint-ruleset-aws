@@ -28,6 +28,7 @@ func NewAwsSsmPatchBaselineInvalidOperatingSystemRule() *AwsSsmPatchBaselineInva
 			"WINDOWS",
 			"AMAZON_LINUX",
 			"AMAZON_LINUX_2",
+			"AMAZON_LINUX_2022",
 			"UBUNTU",
 			"REDHAT_ENTERPRISE_LINUX",
 			"SUSE",
@@ -37,6 +38,8 @@ func NewAwsSsmPatchBaselineInvalidOperatingSystemRule() *AwsSsmPatchBaselineInva
 			"MACOS",
 			"RASPBIAN",
 			"ROCKY_LINUX",
+			"ALMA_LINUX",
+			"AMAZON_LINUX_2023",
 		},
 	}
 }
@@ -80,10 +83,7 @@ func (r *AwsSsmPatchBaselineInvalidOperatingSystemRule) Check(runner tflint.Runn
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
 			found := false
 			for _, item := range r.enum {
 				if item == val {
@@ -98,7 +98,7 @@ func (r *AwsSsmPatchBaselineInvalidOperatingSystemRule) Check(runner tflint.Runn
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

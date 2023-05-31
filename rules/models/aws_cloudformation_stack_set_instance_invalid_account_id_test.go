@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cloudformation_stack_set_instance" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudformationStackSetInstanceInvalidAccountIDRule(),
-					Message: `"1234567890123" does not match valid pattern ^[0-9]{12}$`,
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("1234567890123"), `^[0-9]{12}$`),
 				},
 			},
 		},

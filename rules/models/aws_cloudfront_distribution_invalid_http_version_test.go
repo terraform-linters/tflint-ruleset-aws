@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cloudfront_distribution" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudfrontDistributionInvalidHTTPVersionRule(),
-					Message: `"http1.2" is an invalid value as http_version`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("http1.2"), "http_version"),
 				},
 			},
 		},

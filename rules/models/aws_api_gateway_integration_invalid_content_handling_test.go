@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_api_gateway_integration" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayIntegrationInvalidContentHandlingRule(),
-					Message: `"CONVERT_TO_FILE" is an invalid value as content_handling`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("CONVERT_TO_FILE"), "content_handling"),
 				},
 			},
 		},

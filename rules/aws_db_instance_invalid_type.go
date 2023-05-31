@@ -236,10 +236,7 @@ func (r *AwsDBInstanceInvalidTypeRule) Check(runner tflint.Runner) error {
 			continue
 		}
 
-		var instanceType string
-		err := runner.EvaluateExpr(attribute.Expr, &instanceType, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func(instanceType string) error {
 			if !r.instanceTypes[instanceType] {
 				runner.EmitIssue(
 					r,
@@ -248,7 +245,7 @@ func (r *AwsDBInstanceInvalidTypeRule) Check(runner tflint.Runner) error {
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

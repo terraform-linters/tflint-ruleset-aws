@@ -62,10 +62,7 @@ func (r *AwsElastiCacheClusterDefaultParameterGroupRule) Check(runner tflint.Run
 			continue
 		}
 
-		var parameterGroup string
-		err := runner.EvaluateExpr(attribute.Expr, &parameterGroup, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func(parameterGroup string) error {
 			if defaultElastiCacheParameterGroupRegexp.Match([]byte(parameterGroup)) {
 				runner.EmitIssue(
 					r,
@@ -74,7 +71,7 @@ func (r *AwsElastiCacheClusterDefaultParameterGroupRule) Check(runner tflint.Run
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

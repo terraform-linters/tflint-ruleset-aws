@@ -27,6 +27,7 @@ func NewAwsRoute53ResolverFirewallConfigInvalidFirewallFailOpenRule() *AwsRoute5
 		enum: []string{
 			"ENABLED",
 			"DISABLED",
+			"USE_LOCAL_RESOURCE_SETTING",
 		},
 	}
 }
@@ -70,10 +71,7 @@ func (r *AwsRoute53ResolverFirewallConfigInvalidFirewallFailOpenRule) Check(runn
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
 			found := false
 			for _, item := range r.enum {
 				if item == val {
@@ -88,7 +86,7 @@ func (r *AwsRoute53ResolverFirewallConfigInvalidFirewallFailOpenRule) Check(runn
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

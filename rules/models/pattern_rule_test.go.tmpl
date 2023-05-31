@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -24,10 +25,10 @@ resource "{{ .ResourceType }}" "foo" {
 				{
 					Rule:    New{{ .RuleNameCC }}Rule(),
 {{- if ne .Pattern "" }}
-					Message: `{{ .TestNG }} does not match valid pattern {{ .Pattern }}`,
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage({{ .TestNG }}), `{{ .Pattern }}`),
 {{- end }}
 {{- if ne (len .Enum) 0 }}
-					Message: `{{ .TestNG }} is an invalid value as {{ .AttributeName }}`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage({{ .TestNG }}), "{{ .AttributeName }}"),
 {{- end }}
 				},
 			},

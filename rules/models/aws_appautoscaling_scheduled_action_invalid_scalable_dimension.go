@@ -45,6 +45,7 @@ func NewAwsAppautoscalingScheduledActionInvalidScalableDimensionRule() *AwsAppau
 			"elasticache:replication-group:NodeGroups",
 			"elasticache:replication-group:Replicas",
 			"neptune:cluster:ReadReplicaCount",
+			"sagemaker:variant:DesiredProvisionedConcurrency",
 		},
 	}
 }
@@ -88,10 +89,7 @@ func (r *AwsAppautoscalingScheduledActionInvalidScalableDimensionRule) Check(run
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
 			found := false
 			for _, item := range r.enum {
 				if item == val {
@@ -106,7 +104,7 @@ func (r *AwsAppautoscalingScheduledActionInvalidScalableDimensionRule) Check(run
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

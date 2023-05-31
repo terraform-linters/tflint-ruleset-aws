@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cloudfront_distribution" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudfrontDistributionInvalidPriceClassRule(),
-					Message: `"PriceClass_300" is an invalid value as price_class`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("PriceClass_300"), "price_class"),
 				},
 			},
 		},

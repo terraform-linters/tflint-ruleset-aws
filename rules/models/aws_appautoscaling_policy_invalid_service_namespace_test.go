@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_appautoscaling_policy" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAppautoscalingPolicyInvalidServiceNamespaceRule(),
-					Message: `"eks" is an invalid value as service_namespace`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("eks"), "service_namespace"),
 				},
 			},
 		},

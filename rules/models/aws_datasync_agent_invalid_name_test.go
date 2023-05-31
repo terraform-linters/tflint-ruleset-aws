@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_datasync_agent" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncAgentInvalidNameRule(),
-					Message: `"example^example" does not match valid pattern ^[a-zA-Z0-9\s+=._:@/-]+$`,
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("example^example"), `^[a-zA-Z0-9\s+=._:@/-]+$`),
 				},
 			},
 		},

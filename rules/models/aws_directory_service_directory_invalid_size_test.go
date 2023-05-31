@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_directory_service_directory" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDirectoryServiceDirectoryInvalidSizeRule(),
-					Message: `"Micro" is an invalid value as size`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("Micro"), "size"),
 				},
 			},
 		},

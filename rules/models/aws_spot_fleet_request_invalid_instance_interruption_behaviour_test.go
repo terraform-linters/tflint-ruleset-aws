@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_spot_fleet_request" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsSpotFleetRequestInvalidInstanceInterruptionBehaviourRule(),
-					Message: `"restart" is an invalid value as instance_interruption_behaviour`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("restart"), "instance_interruption_behaviour"),
 				},
 			},
 		},

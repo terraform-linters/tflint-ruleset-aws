@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_acmpca_certificate_authority" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAcmpcaCertificateAuthorityInvalidTypeRule(),
-					Message: `"ORDINATE" is an invalid value as type`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("ORDINATE"), "type"),
 				},
 			},
 		},

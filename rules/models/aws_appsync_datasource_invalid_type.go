@@ -32,6 +32,7 @@ func NewAwsAppsyncDatasourceInvalidTypeRule() *AwsAppsyncDatasourceInvalidTypeRu
 			"HTTP",
 			"RELATIONAL_DATABASE",
 			"AMAZON_OPENSEARCH_SERVICE",
+			"AMAZON_EVENTBRIDGE",
 		},
 	}
 }
@@ -75,10 +76,7 @@ func (r *AwsAppsyncDatasourceInvalidTypeRule) Check(runner tflint.Runner) error 
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
 			found := false
 			for _, item := range r.enum {
 				if item == val {
@@ -93,7 +91,7 @@ func (r *AwsAppsyncDatasourceInvalidTypeRule) Check(runner tflint.Runner) error 
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

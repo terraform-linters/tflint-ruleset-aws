@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cloudwatch_event_permission" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudwatchEventPermissionInvalidActionRule(),
-					Message: `"cloudwatchevents:PutEvents" does not match valid pattern ^events:[a-zA-Z]+$`,
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("cloudwatchevents:PutEvents"), `^events:[a-zA-Z]+$`),
 				},
 			},
 		},

@@ -1,3 +1,130 @@
+## 0.23.1 (2023-05-22)
+
+### Enhancements
+
+- [#484](https://github.com/terraform-linters/tflint-ruleset-aws/pull/484): `aws_route_not_specified_target`: Add core_network_arn as target ([@ttretau](https://github.com/ttretau))
+- [#485](https://github.com/terraform-linters/tflint-ruleset-aws/pull/485) [#487](https://github.com/terraform-linters/tflint-ruleset-aws/pull/487) [#490](https://github.com/terraform-linters/tflint-ruleset-aws/pull/490) [#495](https://github.com/terraform-linters/tflint-ruleset-aws/pull/495): Update AWS provider/module and generated content
+
+### Chores
+
+- [#493](https://github.com/terraform-linters/tflint-ruleset-aws/pull/493): Bump golang.org/x/net from 0.9.0 to 0.10.0
+
+## 0.23.0 (2023-04-22)
+
+### Enhancements
+
+- [#471](https://github.com/terraform-linters/tflint-ruleset-aws/pull/471) [#480](https://github.com/terraform-linters/tflint-ruleset-aws/pull/480): Update AWS provider/module and generated content
+
+### Chores
+
+- [#436](https://github.com/terraform-linters/tflint-ruleset-aws/pull/436): Use NewRunner hook ([@wata727](https://github.com/wata727))
+- [#468](https://github.com/terraform-linters/tflint-ruleset-aws/pull/468): Bump actions/setup-go from 3 to 4
+- [#469](https://github.com/terraform-linters/tflint-ruleset-aws/pull/469): Bump github.com/zclconf/go-cty from 1.13.0 to 1.13.1
+- [#473](https://github.com/terraform-linters/tflint-ruleset-aws/pull/473): Bump peter-evans/create-pull-request from 4 to 5
+- [#475](https://github.com/terraform-linters/tflint-ruleset-aws/pull/475): Bump github.com/terraform-linters/tflint-plugin-sdk from 0.15.0 to 0.16.1
+- [#477](https://github.com/terraform-linters/tflint-ruleset-aws/pull/477): docs: copy edits for deep check ([@bendrucker](https://github.com/bendrucker))
+- [#481](https://github.com/terraform-linters/tflint-ruleset-aws/pull/481): Follow up of the EnsureNoError deprecation ([@wata727](https://github.com/wata727))
+
+## 0.22.1 (2023-03-18)
+
+- [#465](https://github.com/terraform-linters/tflint-ruleset-aws/pull/465): Fix Cosign v2 signing ([@wata727](https://github.com/wata727))
+
+## 0.22.0 (2023-03-18)
+
+### Breaking Changes
+
+- [#462](https://github.com/terraform-linters/tflint-ruleset-aws/pull/462): appsync: Remove invalid regexp rules ([@wata727](https://github.com/wata727))
+
+### Enhancements
+
+- [#444](https://github.com/terraform-linters/tflint-ruleset-aws/pull/444) [#451](https://github.com/terraform-linters/tflint-ruleset-aws/pull/451) [#454](https://github.com/terraform-linters/tflint-ruleset-aws/pull/454): Update AWS provider/module and generated content
+
+### BugFixes
+
+- [#455](https://github.com/terraform-linters/tflint-ruleset-aws/pull/455): aws_acm_certificate: fix false positive for private CA ([@bendrucker](https://github.com/bendrucker) [@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#445](https://github.com/terraform-linters/tflint-ruleset-aws/pull/445) [#452](https://github.com/terraform-linters/tflint-ruleset-aws/pull/452) [#460](https://github.com/terraform-linters/tflint-ruleset-aws/pull/460): Bump github.com/hashicorp/hcl/v2 from 2.15.0 to 2.16.2
+- [#447](https://github.com/terraform-linters/tflint-ruleset-aws/pull/447) [#449](https://github.com/terraform-linters/tflint-ruleset-aws/pull/449) [#459](https://github.com/terraform-linters/tflint-ruleset-aws/pull/459): Bump golang.org/x/net from 0.5.0 to 0.8.0
+- [#450](https://github.com/terraform-linters/tflint-ruleset-aws/pull/450): Fix submodule checkout issue ([@wata727](https://github.com/wata727))
+- [#457](https://github.com/terraform-linters/tflint-ruleset-aws/pull/457): Bump github.com/zclconf/go-cty from 1.12.1 to 1.13.0
+- [#458](https://github.com/terraform-linters/tflint-ruleset-aws/pull/458): Bump sigstore/cosign-installer from 2 to 3
+- [#463](https://github.com/terraform-linters/tflint-ruleset-aws/pull/463): Fix generated_code_checks workflow step ([@wata727](https://github.com/wata727))
+- [#464](https://github.com/terraform-linters/tflint-ruleset-aws/pull/464): go 1.20 ([@wata727](https://github.com/wata727))
+
+## 0.21.2 (2023-02-03)
+
+### Enhancements
+
+- [#431](https://github.com/terraform-linters/tflint-ruleset-aws/pull/431) [#442](https://github.com/terraform-linters/tflint-ruleset-aws/pull/442): Update AWS provider/module and generated content
+
+### Chores
+
+- [#433](https://github.com/terraform-linters/tflint-ruleset-aws/pull/433) [#441](https://github.com/terraform-linters/tflint-ruleset-aws/pull/441): Bump golang.org/x/net from 0.2.0 to 0.5.0
+- [#434](https://github.com/terraform-linters/tflint-ruleset-aws/pull/434): Bump goreleaser/goreleaser-action from 3 to 4
+- [#435](https://github.com/terraform-linters/tflint-ruleset-aws/pull/435): Pass `GITHUB_TOKEN` to e2e test workflow ([@wata727](https://github.com/wata727))
+- [#437](https://github.com/terraform-linters/tflint-ruleset-aws/pull/437): Bump github.com/terraform-linters/tflint-plugin-sdk from 0.14.0 to 0.15.0
+
+## 0.21.1 (2022-12-12)
+
+### BugFixes
+
+- [#430](https://github.com/terraform-linters/tflint-ruleset-aws/pull/430): `elasticache_cluster_previous_type`: fix panic on empty string ([@bendrucker](https://github.com/bendrucker))
+
+### Chores
+
+- [#407](https://github.com/terraform-linters/tflint-ruleset-aws/pull/407): autogenerated maintenance
+
+## 0.21.0 (2022-12-05)
+
+### Enhancements
+
+- [#403](https://github.com/terraform-linters/tflint-ruleset-aws/pull/403): autogenerated maintenance
+- [#405](https://github.com/terraform-linters/tflint-ruleset-aws/pull/405) [#406](https://github.com/terraform-linters/tflint-ruleset-aws/pull/406): Add assume role configuration to plugin config ([@kaito3desuyo](https://github.com/kaito3desuyo))
+
+## 0.20.0 (2022-11-27)
+
+### Enhancements
+
+- [#400](https://github.com/terraform-linters/tflint-ruleset-aws/pull/400): autogenerated maintenance
+
+### Chores
+
+- [#399](https://github.com/terraform-linters/tflint-ruleset-aws/pull/399): Bump up GoReleaser version in release.yml ([@wata727](https://github.com/wata727))
+- [#401](https://github.com/terraform-linters/tflint-ruleset-aws/pull/401): Bump golang.org/x/net from 0.1.0 to 0.2.0
+
+## 0.19.0 (2022-11-14)
+
+### Enhancements
+
+- [#390](https://github.com/terraform-linters/tflint-ruleset-aws/pull/390): autogenerated maintenance
+
+### BugFixes
+
+- [#397](https://github.com/terraform-linters/tflint-ruleset-aws/pull/397): Prefer credentials in "plugin" blocks over "provider" blocks ([@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#394](https://github.com/terraform-linters/tflint-ruleset-aws/pull/394): Add signatures for keyless signing ([@wata727](https://github.com/wata727))
+- [#395](https://github.com/terraform-linters/tflint-ruleset-aws/pull/395): Bump github.com/hashicorp/hcl/v2 from 2.14.1 to 2.15.0
+- [#398](https://github.com/terraform-linters/tflint-ruleset-aws/pull/398): Bump up GoReleaser version ([@wata727](https://github.com/wata727))
+
+## 0.18.0 (2022-10-24)
+
+### Breaking Changes
+
+- [#367](https://github.com/terraform-linters/tflint-ruleset-aws/pull/367): remove hardcoded S3 region rule ([@PatMyron](https://github.com/PatMyron))
+
+### Enhancements
+
+- [#382](https://github.com/terraform-linters/tflint-ruleset-aws/pull/382): autogenerated maintenance
+- [#388](https://github.com/terraform-linters/tflint-ruleset-aws/pull/388): Bump tflint-plugin-sdk to v0.14.0 ([@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#387](https://github.com/terraform-linters/tflint-ruleset-aws/pull/387): Bump github.com/dave/dst from 0.27.0 to 0.27.2
+
 ## 0.17.1 (2022-09-29)
 
 ### Enhancements

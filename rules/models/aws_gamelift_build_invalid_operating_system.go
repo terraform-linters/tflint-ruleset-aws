@@ -28,6 +28,7 @@ func NewAwsGameliftBuildInvalidOperatingSystemRule() *AwsGameliftBuildInvalidOpe
 			"WINDOWS_2012",
 			"AMAZON_LINUX",
 			"AMAZON_LINUX_2",
+			"WINDOWS_2016",
 		},
 	}
 }
@@ -71,10 +72,7 @@ func (r *AwsGameliftBuildInvalidOperatingSystemRule) Check(runner tflint.Runner)
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
 			found := false
 			for _, item := range r.enum {
 				if item == val {
@@ -89,7 +87,7 @@ func (r *AwsGameliftBuildInvalidOperatingSystemRule) Check(runner tflint.Runner)
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

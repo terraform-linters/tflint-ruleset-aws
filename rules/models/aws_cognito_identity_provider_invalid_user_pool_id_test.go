@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cognito_identity_provider" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoIdentityProviderInvalidUserPoolIDRule(),
-					Message: `"foobar" does not match valid pattern ^[\w-]+_[0-9a-zA-Z]+$`,
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("foobar"), `^[\w-]+_[0-9a-zA-Z]+$`),
 				},
 			},
 		},

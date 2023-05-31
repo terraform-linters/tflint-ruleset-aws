@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_api_gateway_authorizer" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsAPIGatewayAuthorizerInvalidTypeRule(),
-					Message: `"RESPONSE" is an invalid value as type`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("RESPONSE"), "type"),
 				},
 			},
 		},

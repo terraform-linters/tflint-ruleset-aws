@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_lb" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsLbInvalidLoadBalancerTypeRule(),
-					Message: `"classic" is an invalid value as load_balancer_type`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("classic"), "load_balancer_type"),
 				},
 			},
 		},

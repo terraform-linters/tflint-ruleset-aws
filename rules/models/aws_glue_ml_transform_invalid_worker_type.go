@@ -29,6 +29,8 @@ func NewAwsGlueMlTransformInvalidWorkerTypeRule() *AwsGlueMlTransformInvalidWork
 			"G.1X",
 			"G.2X",
 			"G.025X",
+			"G.4X",
+			"G.8X",
 		},
 	}
 }
@@ -72,10 +74,7 @@ func (r *AwsGlueMlTransformInvalidWorkerTypeRule) Check(runner tflint.Runner) er
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
 			found := false
 			for _, item := range r.enum {
 				if item == val {
@@ -90,7 +89,7 @@ func (r *AwsGlueMlTransformInvalidWorkerTypeRule) Check(runner tflint.Runner) er
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

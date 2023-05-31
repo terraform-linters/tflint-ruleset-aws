@@ -13,16 +13,16 @@ mapping "aws_appsync_resolver" {
   type              = ResourceName
   field             = ResourceName
   data_source       = ResourceName
-  request_template  = MappingTemplate
-  response_template = MappingTemplate
+  request_template  = any //MappingTemplate
+  response_template = any //MappingTemplate
 }
 
 mapping "aws_appsync_function" {
   api_id                    = String
   data_source               = ResourceName
   name                      = ResourceName
-  request_mapping_template  = MappingTemplate
-  response_mapping_template = MappingTemplate
+  request_mapping_template  = any //MappingTemplate
+  response_mapping_template = any //MappingTemplate
   description               = String
   function_version          = String
 }

@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_spot_fleet_request" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsSpotFleetRequestInvalidAllocationStrategyRule(),
-					Message: `"highestPrice" is an invalid value as allocation_strategy`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("highestPrice"), "allocation_strategy"),
 				},
 			},
 		},

@@ -228,13 +228,9 @@ These rules enforce best practices and naming conventions:
 |aws_appsync_datasource_invalid_type|✔|
 |aws_appsync_function_invalid_data_source|✔|
 |aws_appsync_function_invalid_name|✔|
-|aws_appsync_function_invalid_request_mapping_template|✔|
-|aws_appsync_function_invalid_response_mapping_template|✔|
 |aws_appsync_graphql_api_invalid_authentication_type|✔|
 |aws_appsync_resolver_invalid_data_source|✔|
 |aws_appsync_resolver_invalid_field|✔|
-|aws_appsync_resolver_invalid_request_template|✔|
-|aws_appsync_resolver_invalid_response_template|✔|
 |aws_appsync_resolver_invalid_type|✔|
 |aws_athena_database_invalid_name|✔|
 |aws_athena_named_query_invalid_database|✔|

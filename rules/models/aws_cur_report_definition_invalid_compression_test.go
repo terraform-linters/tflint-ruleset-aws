@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cur_report_definition" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCurReportDefinitionInvalidCompressionRule(),
-					Message: `"TAR" is an invalid value as compression`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("TAR"), "compression"),
 				},
 			},
 		},

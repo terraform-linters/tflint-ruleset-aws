@@ -29,7 +29,7 @@ func NewAwsSagemakerFeatureGroupInvalidFeatureGroupNameRule() *AwsSagemakerFeatu
 		attributeName: "feature_group_name",
 		max:           64,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,63}`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z0-9]([_-]*[a-zA-Z0-9]){0,63}`),
 	}
 }
 
@@ -72,10 +72,7 @@ func (r *AwsSagemakerFeatureGroupInvalidFeatureGroupNameRule) Check(runner tflin
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
@@ -93,12 +90,12 @@ func (r *AwsSagemakerFeatureGroupInvalidFeatureGroupNameRule) Check(runner tflin
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,63}`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9]([_-]*[a-zA-Z0-9]){0,63}`),
 					attribute.Expr.Range(),
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

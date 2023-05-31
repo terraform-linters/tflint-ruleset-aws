@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_ecs_service" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsEcsServiceInvalidPropagateTagsRule(),
-					Message: `"CONTAINER" is an invalid value as propagate_tags`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("CONTAINER"), "propagate_tags"),
 				},
 			},
 		},

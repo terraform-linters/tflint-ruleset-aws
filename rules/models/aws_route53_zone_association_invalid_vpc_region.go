@@ -37,6 +37,7 @@ func NewAwsRoute53ZoneAssociationInvalidVpcRegionRule() *AwsRoute53ZoneAssociati
 			"eu-west-2",
 			"eu-west-3",
 			"eu-central-1",
+			"eu-central-2",
 			"ap-east-1",
 			"me-south-1",
 			"us-gov-west-1",
@@ -49,6 +50,7 @@ func NewAwsRoute53ZoneAssociationInvalidVpcRegionRule() *AwsRoute53ZoneAssociati
 			"ap-southeast-2",
 			"ap-southeast-3",
 			"ap-south-1",
+			"ap-south-2",
 			"ap-northeast-1",
 			"ap-northeast-2",
 			"ap-northeast-3",
@@ -58,6 +60,8 @@ func NewAwsRoute53ZoneAssociationInvalidVpcRegionRule() *AwsRoute53ZoneAssociati
 			"cn-north-1",
 			"af-south-1",
 			"eu-south-1",
+			"eu-south-2",
+			"ap-southeast-4",
 		},
 	}
 }
@@ -101,10 +105,7 @@ func (r *AwsRoute53ZoneAssociationInvalidVpcRegionRule) Check(runner tflint.Runn
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
@@ -133,7 +134,7 @@ func (r *AwsRoute53ZoneAssociationInvalidVpcRegionRule) Check(runner tflint.Runn
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

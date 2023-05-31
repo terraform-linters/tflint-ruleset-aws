@@ -39,6 +39,14 @@ resource "aws_elasticache_cluster" "redis" {
 }`,
 			Expected: helper.Issues{},
 		},
+		{
+			Name: "empty type",
+			Content: `
+				resource "aws_elasticache_cluster" "redis" {
+					node_type = ""
+				}`,
+			Expected: helper.Issues{},
+		},
 	}
 
 	rule := NewAwsElastiCacheClusterPreviousTypeRule()

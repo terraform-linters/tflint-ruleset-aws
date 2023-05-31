@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_batch_job_definition" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsBatchJobDefinitionInvalidTypeRule(),
-					Message: `"docker" is an invalid value as type`,
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("docker"), "type"),
 				},
 			},
 		},

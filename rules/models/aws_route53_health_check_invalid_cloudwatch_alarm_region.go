@@ -35,6 +35,7 @@ func NewAwsRoute53HealthCheckInvalidCloudwatchAlarmRegionRule() *AwsRoute53Healt
 			"us-west-2",
 			"ca-central-1",
 			"eu-central-1",
+			"eu-central-2",
 			"eu-west-1",
 			"eu-west-2",
 			"eu-west-3",
@@ -42,6 +43,7 @@ func NewAwsRoute53HealthCheckInvalidCloudwatchAlarmRegionRule() *AwsRoute53Healt
 			"me-south-1",
 			"me-central-1",
 			"ap-south-1",
+			"ap-south-2",
 			"ap-southeast-1",
 			"ap-southeast-2",
 			"ap-southeast-3",
@@ -54,11 +56,13 @@ func NewAwsRoute53HealthCheckInvalidCloudwatchAlarmRegionRule() *AwsRoute53Healt
 			"cn-north-1",
 			"af-south-1",
 			"eu-south-1",
+			"eu-south-2",
 			"us-gov-west-1",
 			"us-gov-east-1",
 			"us-iso-east-1",
 			"us-iso-west-1",
 			"us-isob-east-1",
+			"ap-southeast-4",
 		},
 	}
 }
@@ -102,10 +106,7 @@ func (r *AwsRoute53HealthCheckInvalidCloudwatchAlarmRegionRule) Check(runner tfl
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
@@ -134,7 +135,7 @@ func (r *AwsRoute53HealthCheckInvalidCloudwatchAlarmRegionRule) Check(runner tfl
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

@@ -62,10 +62,7 @@ func (r *AwsDBInstanceDefaultParameterGroupRule) Check(runner tflint.Runner) err
 			continue
 		}
 
-		var name string
-		err := runner.EvaluateExpr(attribute.Expr, &name, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func(name string) error {
 			if defaultDBParameterGroupRegexp.Match([]byte(name)) {
 				runner.EmitIssue(
 					r,
@@ -74,7 +71,7 @@ func (r *AwsDBInstanceDefaultParameterGroupRule) Check(runner tflint.Runner) err
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

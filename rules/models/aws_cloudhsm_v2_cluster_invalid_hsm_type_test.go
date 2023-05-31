@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_cloudhsm_v2_cluster" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloudhsmV2ClusterInvalidHsmTypeRule(),
-					Message: `"hsm1.micro" does not match valid pattern ^(hsm1\.medium)$`,
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("hsm1.micro"), `^(hsm1\.medium)$`),
 				},
 			},
 		},

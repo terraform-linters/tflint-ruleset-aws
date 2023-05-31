@@ -22,6 +22,18 @@ changelog:
   skip: true
 checksum:
   name_template: 'checksums.txt'
+signs:
+  - cmd: cosign
+    signature: '${artifact}.keyless.sig'
+    certificate: '${artifact}.pem'
+    output: true
+    artifacts: checksum
+    args:
+      - sign-blob
+      - '--output-certificate=${certificate}'
+      - '--output-signature=${signature}'
+      - '${artifact}'
+      - --yes
 release:
   github:
     owner: terraform-linters

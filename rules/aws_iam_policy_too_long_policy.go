@@ -60,12 +60,10 @@ func (r *AwsIAMPolicyTooLongPolicyRule) Check(runner tflint.Runner) error {
 			continue
 		}
 
-		var policy string
-		err := runner.EvaluateExpr(attribute.Expr, &policy, nil)
-		whitespaceRegex := regexp.MustCompile(`\s+`)
-		policy = whitespaceRegex.ReplaceAllString(policy, "")
+		err := runner.EvaluateExpr(attribute.Expr, func(policy string) error {
+			whitespaceRegex := regexp.MustCompile(`\s+`)
+			policy = whitespaceRegex.ReplaceAllString(policy, "")
 
-		err = runner.EnsureNoError(err, func() error {
 			if len(policy) > 6144 {
 				runner.EmitIssue(
 					r,
@@ -74,7 +72,7 @@ func (r *AwsIAMPolicyTooLongPolicyRule) Check(runner tflint.Runner) error {
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

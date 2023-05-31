@@ -59,10 +59,7 @@ func (r *AwsElastiCacheReplicationGroupInvalidTypeRule) Check(runner tflint.Runn
 			continue
 		}
 
-		var nodeType string
-		err := runner.EvaluateExpr(attribute.Expr, &nodeType, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func(nodeType string) error {
 			if !validElastiCacheNodeTypes[nodeType] {
 				runner.EmitIssue(
 					r,
@@ -71,7 +68,7 @@ func (r *AwsElastiCacheReplicationGroupInvalidTypeRule) Check(runner tflint.Runn
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

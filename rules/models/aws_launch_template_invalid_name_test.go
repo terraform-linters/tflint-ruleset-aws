@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_launch_template" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsLaunchTemplateInvalidNameRule(),
-					Message: `"foo[bar]" does not match valid pattern ^[a-zA-Z0-9\(\)\.\-/_]+$`,
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("foo[bar]"), `^[a-zA-Z0-9\(\)\.\-/_]+$`),
 				},
 			},
 		},

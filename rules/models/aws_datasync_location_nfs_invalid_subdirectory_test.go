@@ -4,6 +4,7 @@ package models
 
 import (
 	"testing"
+	"fmt"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
@@ -23,7 +24,7 @@ resource "aws_datasync_location_nfs" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncLocationNfsInvalidSubdirectoryRule(),
-					Message: `"/exported^path" does not match valid pattern ^[a-zA-Z0-9_\-\+\./\(\)\p{Zs}]*$`,
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("/exported^path"), `^[a-zA-Z0-9_\-\+\./\(\)\p{Zs}]*$`),
 				},
 			},
 		},

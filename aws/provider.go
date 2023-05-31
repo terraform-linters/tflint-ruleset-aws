@@ -63,66 +63,94 @@ func GetCredentialsFromProvider(runner tflint.Runner) (map[string]Credentials, e
 		opts := &tflint.EvaluateExprOption{ModuleCtx: tflint.RootModuleCtxType}
 
 		if attr, exists := provider.Body.Attributes["access_key"]; exists {
-			if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.AccessKey, opts), func() error { return nil }); err != nil {
+			if err := runner.EvaluateExpr(attr.Expr, func(accessKey string) error {
+				creds.AccessKey = accessKey
+				return nil
+			}, opts); err != nil {
 				return nil, err
 			}
 		}
 
 		if attr, exists := provider.Body.Attributes["secret_key"]; exists {
-			if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.SecretKey, opts), func() error { return nil }); err != nil {
+			if err := runner.EvaluateExpr(attr.Expr, func(secretKey string) error {
+				creds.SecretKey = secretKey
+				return nil
+			}, opts); err != nil {
 				return nil, err
 			}
 		}
 
 		if attr, exists := provider.Body.Attributes["profile"]; exists {
-			if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.Profile, opts), func() error { return nil }); err != nil {
+			if err := runner.EvaluateExpr(attr.Expr, func(profile string) error {
+				creds.Profile = profile
+				return nil
+			}, opts); err != nil {
 				return nil, err
 			}
 		}
 
 		if attr, exists := provider.Body.Attributes["shared_credentials_file"]; exists {
-			if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.CredsFile, opts), func() error { return nil }); err != nil {
+			if err := runner.EvaluateExpr(attr.Expr, func(credsFile string) error {
+				creds.CredsFile = credsFile
+				return nil
+			}, opts); err != nil {
 				return nil, err
 			}
 		}
 
 		if attr, exists := provider.Body.Attributes["region"]; exists {
-			if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.Region, opts), func() error { return nil }); err != nil {
+			if err := runner.EvaluateExpr(attr.Expr, func(region string) error {
+				creds.Region = region
+				return nil
+			}, opts); err != nil {
 				return nil, err
 			}
 		}
 
 		for _, assumeRole := range provider.Body.Blocks {
 			if attr, exists := assumeRole.Body.Attributes["role_arn"]; exists {
-				if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.AssumeRoleARN, opts), func() error { return nil }); err != nil {
+				if err := runner.EvaluateExpr(attr.Expr, func(roleARN string) error {
+					creds.AssumeRoleARN = roleARN
+					return nil
+				}, opts); err != nil {
 					return nil, err
 				}
 			}
 
 			if attr, exists := assumeRole.Body.Attributes["session_name"]; exists {
-				if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.AssumeRoleSessionName, opts), func() error { return nil }); err != nil {
+				if err := runner.EvaluateExpr(attr.Expr, func(sessionName string) error {
+					creds.AssumeRoleSessionName = sessionName
+					return nil
+				}, opts); err != nil {
 					return nil, err
 				}
 			}
 
 			if attr, exists := assumeRole.Body.Attributes["external_id"]; exists {
-				if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.AssumeRoleExternalID, opts), func() error { return nil }); err != nil {
+				if err := runner.EvaluateExpr(attr.Expr, func(id string) error {
+					creds.AssumeRoleExternalID = id
+					return nil
+				}, opts); err != nil {
 					return nil, err
 				}
 			}
 
 			if attr, exists := assumeRole.Body.Attributes["policy"]; exists {
-				if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &creds.AssumeRolePolicy, opts), func() error { return nil }); err != nil {
+				if err := runner.EvaluateExpr(attr.Expr, func(policy string) error {
+					creds.AssumeRolePolicy = policy
+					return nil
+				}, opts); err != nil {
 					return nil, err
 				}
 			}
 		}
 		if attr, exists := provider.Body.Attributes["alias"]; exists {
-			var alas string
-			if err := runner.EnsureNoError(runner.EvaluateExpr(attr.Expr, &alas, opts), func() error { return nil }); err != nil {
+			if err := runner.EvaluateExpr(attr.Expr, func(alias string) error {
+				m[alias] = creds
+				return nil
+			}, opts); err != nil {
 				return nil, err
 			}
-			m[alas] = creds
 		} else {
 			m["aws"] = creds
 		}

@@ -27,9 +27,9 @@ func NewAwsAccountAlternateContactInvalidEmailAddressRule() *AwsAccountAlternate
 	return &AwsAccountAlternateContactInvalidEmailAddressRule{
 		resourceType:  "aws_account_alternate_contact",
 		attributeName: "email_address",
-		max:           64,
+		max:           254,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[\s]*[\w+=.#!&-]+@[\w.-]+\.[\w]+[\s]*$`),
+		pattern:       regexp.MustCompile(`^[\s]*[\w+=.#|!&-]+@[\w.-]+\.[\w]+[\s]*$`),
 	}
 }
 
@@ -72,14 +72,11 @@ func (r *AwsAccountAlternateContactInvalidEmailAddressRule) Check(runner tflint.
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					"email_address must be 64 characters or less",
+					"email_address must be 254 characters or less",
 					attribute.Expr.Range(),
 				)
 			}
@@ -93,12 +90,12 @@ func (r *AwsAccountAlternateContactInvalidEmailAddressRule) Check(runner tflint.
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[\s]*[\w+=.#!&-]+@[\w.-]+\.[\w]+[\s]*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[\s]*[\w+=.#|!&-]+@[\w.-]+\.[\w]+[\s]*$`),
 					attribute.Expr.Range(),
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}

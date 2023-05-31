@@ -17,6 +17,7 @@ type AwsDirectoryServiceConditionalForwarderInvalidRemoteDomainNameRule struct {
 
 	resourceType  string
 	attributeName string
+	max           int
 	pattern       *regexp.Regexp
 }
 
@@ -25,6 +26,7 @@ func NewAwsDirectoryServiceConditionalForwarderInvalidRemoteDomainNameRule() *Aw
 	return &AwsDirectoryServiceConditionalForwarderInvalidRemoteDomainNameRule{
 		resourceType:  "aws_directory_service_conditional_forwarder",
 		attributeName: "remote_domain_name",
+		max:           1024,
 		pattern:       regexp.MustCompile(`^([a-zA-Z0-9]+[\\.-])+([a-zA-Z0-9])+[.]?$`),
 	}
 }
@@ -68,10 +70,14 @@ func (r *AwsDirectoryServiceConditionalForwarderInvalidRemoteDomainNameRule) Che
 			continue
 		}
 
-		var val string
-		err := runner.EvaluateExpr(attribute.Expr, &val, nil)
-
-		err = runner.EnsureNoError(err, func() error {
+		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+			if len(val) > r.max {
+				runner.EmitIssue(
+					r,
+					"remote_domain_name must be 1024 characters or less",
+					attribute.Expr.Range(),
+				)
+			}
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
@@ -80,7 +86,7 @@ func (r *AwsDirectoryServiceConditionalForwarderInvalidRemoteDomainNameRule) Che
 				)
 			}
 			return nil
-		})
+		}, nil)
 		if err != nil {
 			return err
 		}
