@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/hashicorp/hcl/v2/gohcl"
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -165,11 +166,10 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 		for _, resource := range resources.Blocks {
 			providerName := "default"
 			if val, ok := resource.Body.Attributes[providerAttributeName]; ok {
-				err := runner.EvaluateExpr(
-					val.Expr,
-					&providerName,
-					nil,
-				)
+        if diagnostics := gohcl.DecodeExpression(val.Expr, nil, &providerName); diagnostics.HasErrors() {
+          logger.Error("Error decoding provider: %w", diagnostics)
+			    return diagnostics
+        }
 
 				if err != nil {
 					return err
@@ -187,14 +187,13 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 					"Walk `%s` attribute",
 					resource.Labels[0]+"."+resource.Labels[1]+"."+tagsAttributeName,
 				)
-				wantType := cty.Map(cty.String)
 				// Since the evlauateExpr, overrides k/v pairs, we need to re-copy the tags
 				resourceTagsAux := make(map[string]string)
-				err := runner.EvaluateExpr(
-					attribute.Expr,
-					&resourceTagsAux,
-					&tflint.EvaluateExprOption{WantType: &wantType},
-				)
+
+        if diagnostics := gohcl.DecodeExpression(attribute.Expr, nil, &resourceTagsAux); diagnostics.HasErrors() {
+          logger.Error("Error decoding provider: %w", diagnostics)
+			    return diagnostics
+        }
 
 				maps.Copy(resourceTags, resourceTagsAux)
 				err = runner.EnsureNoError(err, func() error {
