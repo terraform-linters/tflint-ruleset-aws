@@ -29,6 +29,8 @@ func NewAwsGlueDevEndpointInvalidWorkerTypeRule() *AwsGlueDevEndpointInvalidWork
 			"G.1X",
 			"G.2X",
 			"G.025X",
+			"G.4X",
+			"G.8X",
 		},
 	}
 }

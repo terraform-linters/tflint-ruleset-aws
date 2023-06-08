@@ -1,3 +1,14 @@
+## 0.23.1 (2023-05-22)
+
+### Enhancements
+
+- [#484](https://github.com/terraform-linters/tflint-ruleset-aws/pull/484): `aws_route_not_specified_target`: Add core_network_arn as target ([@ttretau](https://github.com/ttretau))
+- [#485](https://github.com/terraform-linters/tflint-ruleset-aws/pull/485) [#487](https://github.com/terraform-linters/tflint-ruleset-aws/pull/487) [#490](https://github.com/terraform-linters/tflint-ruleset-aws/pull/490) [#495](https://github.com/terraform-linters/tflint-ruleset-aws/pull/495): Update AWS provider/module and generated content
+
+### Chores
+
+- [#493](https://github.com/terraform-linters/tflint-ruleset-aws/pull/493): Bump golang.org/x/net from 0.9.0 to 0.10.0
+
 ## 0.23.0 (2023-04-22)
 
 ### Enhancements
