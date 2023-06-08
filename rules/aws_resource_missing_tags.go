@@ -88,18 +88,16 @@ func (r *AwsResourceMissingTagsRule) getProviderLevelTags(runner tflint.Runner) 
 				continue
 			}
 
-			wantType := cty.Map(cty.String)
-			err := runner.EvaluateExpr(
-				attr.Expr,
-				&providerTags,
-				&tflint.EvaluateExprOption{WantType: &wantType},
-			)
+			err := runner.EvaluateExpr(attr.Expr, func(tags map[string]string) error {
+        providerTags = tags
+				return nil
+			}, nil)
 
 			if err != nil {
 				return nil, err
 			}
 
-			// Get the alias attribute, default if not present
+			// Get the alias attribute, in terraform when there is a single aws provider its called "default"
 			providerAttr, ok := provider.Body.Attributes["alias"]
 			if !ok {
 				providerAlias = "default"
@@ -144,9 +142,6 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 		// Special handling for tags on aws_autoscaling_group resources
 		if resourceType == "aws_autoscaling_group" {
 			err := r.checkAwsAutoScalingGroups(runner, config)
-			err = runner.EnsureNoError(err, func() error {
-				return nil
-			})
 			if err != nil {
 				return err
 			}
