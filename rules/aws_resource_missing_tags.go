@@ -104,10 +104,10 @@ func (r *AwsResourceMissingTagsRule) getProviderLevelTags(runner tflint.Runner) 
 				providerAlias = "default"
 				allProviderTags[providerAlias] = providerTags
 			} else {
-        err := runner.EvaluateExpr(providerAttr.Expr, func(alias string) error {
-          providerAlias = alias
-          return nil
-        }, nil)
+				err := runner.EvaluateExpr(providerAttr.Expr, func(alias string) error {
+					providerAlias = alias
+					return nil
+				}, nil)
 				// Assign default provider
 				allProviderTags[providerAlias] = providerTags
 				if err != nil {
@@ -209,10 +209,7 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 				}, nil)
 
 				maps.Copy(resourceTags, resourceTagsAux)
-				err = runner.EnsureNoError(err, func() error {
-					r.emitIssue(runner, resourceTags, config, attribute.Expr.Range())
-					return nil
-				})
+				r.emitIssue(runner, resourceTags, config, attribute.Expr.Range())
 
 				if err != nil {
 					return err
@@ -238,10 +235,7 @@ type awsAutoscalingGroupTag struct {
 
 // checkAwsAutoScalingGroups handles the special case for tags on AutoScaling Groups
 // See: https://github.com/terraform-providers/terraform-provider-aws/blob/master/aws/autoscaling_tags.go
-func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroups(
-	runner tflint.Runner,
-	config awsResourceTagsRuleConfig,
-) error {
+func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroups(runner tflint.Runner, config awsResourceTagsRuleConfig) error {
 	resourceType := "aws_autoscaling_group"
 
 	resources, err := runner.GetResourceContent(resourceType, &hclext.BodySchema{}, nil)
@@ -250,31 +244,19 @@ func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroups(
 	}
 
 	for _, resource := range resources.Blocks {
-		asgTagBlockTags, tagBlockLocation, err := r.checkAwsAutoScalingGroupsTag(
-			runner,
-			config,
-			resource,
-		)
+		asgTagBlockTags, tagBlockLocation, err := r.checkAwsAutoScalingGroupsTag(runner, config, resource)
 		if err != nil {
 			return err
 		}
 
-		asgTagsAttributeTags, tagsAttributeLocation, err := r.checkAwsAutoScalingGroupsTags(
-			runner,
-			config,
-			resource,
-		)
+		asgTagsAttributeTags, tagsAttributeLocation, err := r.checkAwsAutoScalingGroupsTags(runner, config, resource)
 		if err != nil {
 			return err
 		}
 
 		switch {
 		case len(asgTagBlockTags) > 0 && len(asgTagsAttributeTags) > 0:
-			runner.EmitIssue(
-				r,
-				"Only tag block or tags attribute may be present, but found both",
-				resource.DefRange,
-			)
+			runner.EmitIssue(r, "Only tag block or tags attribute may be present, but found both", resource.DefRange)
 		case len(asgTagBlockTags) == 0 && len(asgTagsAttributeTags) == 0:
 			r.emitIssue(runner, map[string]string{}, config, resource.DefRange)
 		case len(asgTagBlockTags) > 0 && len(asgTagsAttributeTags) == 0:
@@ -292,11 +274,7 @@ func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroups(
 }
 
 // checkAwsAutoScalingGroupsTag checks tag{} blocks on aws_autoscaling_group resources
-func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTag(
-	runner tflint.Runner,
-	config awsResourceTagsRuleConfig,
-	resourceBlock *hclext.Block,
-) (map[string]string, hcl.Range, error) {
+func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTag(runner tflint.Runner, config awsResourceTagsRuleConfig, resourceBlock *hclext.Block) (map[string]string, hcl.Range, error) {
 	tags := make(map[string]string)
 
 	resources, err := runner.GetResourceContent("aws_autoscaling_group", &hclext.BodySchema{
@@ -323,11 +301,7 @@ func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTag(
 		for _, tag := range resource.Body.Blocks {
 			attribute, exists := tag.Body.Attributes["key"]
 			if !exists {
-				return tags, hcl.Range{}, fmt.Errorf(
-					`Did not find expected field "key" in aws_autoscaling_group "%s" starting at line %d`,
-					resource.Labels[0],
-					resource.DefRange.Start.Line,
-				)
+				return tags, hcl.Range{}, fmt.Errorf(`Did not find expected field "key" in aws_autoscaling_group "%s" starting at line %d`, resource.Labels[0], resource.DefRange.Start.Line)
 			}
 
 			err := runner.EvaluateExpr(attribute.Expr, func(key string) error {
@@ -344,11 +318,7 @@ func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTag(
 }
 
 // checkAwsAutoScalingGroupsTag checks the tags attribute on aws_autoscaling_group resources
-func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTags(
-	runner tflint.Runner,
-	config awsResourceTagsRuleConfig,
-	resourceBlock *hclext.Block,
-) (map[string]string, hcl.Range, error) {
+func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTags(runner tflint.Runner, config awsResourceTagsRuleConfig, resourceBlock *hclext.Block) (map[string]string, hcl.Range, error) {
 	tags := make(map[string]string)
 
 	resources, err := runner.GetResourceContent("aws_autoscaling_group", &hclext.BodySchema{
@@ -372,16 +342,12 @@ func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTags(
 				"value":               cty.String,
 				"propagate_at_launch": cty.Bool,
 			}))
-			err := runner.EvaluateExpr(
-				attribute.Expr,
-				func(asgTags []awsAutoscalingGroupTag) error {
-					for _, tag := range asgTags {
-						tags[tag.Key] = tag.Value
-					}
-					return nil
-				},
-				&tflint.EvaluateExprOption{WantType: &wantType},
-			)
+			err := runner.EvaluateExpr(attribute.Expr, func(asgTags []awsAutoscalingGroupTag) error {
+				for _, tag := range asgTags {
+					tags[tag.Key] = tag.Value
+				}
+				return nil
+			}, &tflint.EvaluateExprOption{WantType: &wantType})
 			if err != nil {
 				return tags, attribute.Expr.Range(), err
 			}
@@ -392,12 +358,7 @@ func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTags(
 	return tags, resourceBlock.DefRange, nil
 }
 
-func (r *AwsResourceMissingTagsRule) emitIssue(
-	runner tflint.Runner,
-	tags map[string]string,
-	config awsResourceTagsRuleConfig,
-	location hcl.Range,
-) {
+func (r *AwsResourceMissingTagsRule) emitIssue(runner tflint.Runner, tags map[string]string, config awsResourceTagsRuleConfig, location hcl.Range) {
 	var missing []string
 	for _, tag := range config.Tags {
 		if _, ok := tags[tag]; !ok {
