@@ -1,9 +1,11 @@
 package rules
 
 import (
+	"errors"
 	"testing"
 
 	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/stretchr/testify/assert"
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
@@ -13,6 +15,7 @@ func Test_AwsResourceMissingTags(t *testing.T) {
 		Content  string
 		Config   string
 		Expected helper.Issues
+		RaiseErr error
 	}{
 		{
 			Name: "Wanted tags: Bar,Foo, found: bar,foo",
@@ -401,16 +404,8 @@ rule "aws_resource_missing_tags" {
   tags = ["Foo"]
 }`,
 			Expected: helper.Issues{
-				{
-					Rule:    NewAwsResourceMissingTagsRule(),
-					Message: "The aws provider with alias \"west\" doesn't exist.",
-					Range: hcl.Range{
-						Filename: "module.tf",
-						Start:    hcl.Pos{Line: 11, Column: 17},
-						End:      hcl.Pos{Line: 11, Column: 22},
-					},
-				},
 			},
+			RaiseErr: errors.New("The aws provider with alias \"west\" doesn't exist."),
 		},
 	}
 
@@ -419,9 +414,13 @@ rule "aws_resource_missing_tags" {
 	for _, tc := range cases {
 		runner := helper.TestRunner(t, map[string]string{"module.tf": tc.Content, ".tflint.hcl": tc.Config})
 
-		if err := rule.Check(runner); err != nil {
-			t.Fatalf("Unexpected error occurred: %s", err)
-		}
+		err := rule.Check(runner)
+
+		if tc.RaiseErr == nil && err != nil {
+			t.Fatalf("Unexpected error occurred in test \"%s\": %s", tc.Name, err)
+		} 
+
+		assert.Equal(t, tc.RaiseErr, err)
 
 		helper.AssertIssues(t, tc.Expected, runner.Issues)
 	}

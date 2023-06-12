@@ -1,6 +1,7 @@
 package rules
 
 import (
+	"errors"
 	"fmt"
 	"sort"
 	"strings"
@@ -174,17 +175,12 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 						providerAlias,
 					)
 					logger.Error("Error querying provider tags: %s", errString)
-					runner.EmitIssue(r, errString, *provider.AliasRange)
-					return nil
+					return errors.New(errString)
 				}
 
 				if diagnostics.HasErrors() {
 					logger.Error("error decoding provider: %w", diagnostics)
 					return diagnostics
-				}
-
-				if err != nil {
-					return err
 				}
 			}
 
