@@ -165,7 +165,7 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 			providerAlias := "default"
 			// Override the provider alias if defined
 			if val, ok := resource.Body.Attributes[providerAttributeName]; ok {
-				provider, diagnostics := aws.DecodeProviderConfigRef(val.Expr, providerAlias)
+				provider, diagnostics := aws.DecodeProviderConfigRef(val.Expr, "provider")
 				providerAlias = provider.Alias
 
 				if _, hasProvider := providerTagsMap[providerAlias]; !hasProvider {
