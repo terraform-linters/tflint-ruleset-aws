@@ -48,7 +48,7 @@ func NewRunner(runner tflint.Runner, config *Config) (*Runner, error) {
 func (r *Runner) AwsClient(attributes hclext.Attributes) (*Client, error) {
 	provider := "aws"
 	if attr, exists := attributes["provider"]; exists {
-		providerConfigRef, diags := decodeProviderConfigRef(attr.Expr, "provider")
+		providerConfigRef, diags := DecodeProviderConfigRef(attr.Expr, "provider")
 		if diags.HasErrors() {
 			logger.Error("parse resource provider attribute: %s", diags)
 			return nil, diags

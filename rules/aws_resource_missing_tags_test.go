@@ -1,9 +1,11 @@
 package rules
 
 import (
+	"errors"
 	"testing"
 
 	hcl "github.com/hashicorp/hcl/v2"
+	"github.com/stretchr/testify/assert"
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
@@ -13,6 +15,7 @@ func Test_AwsResourceMissingTags(t *testing.T) {
 		Content  string
 		Config   string
 		Expected helper.Issues
+		RaiseErr error
 	}{
 		{
 			Name: "Wanted tags: Bar,Foo, found: bar,foo",
@@ -259,6 +262,151 @@ rule "aws_resource_missing_tags" {
 				},
 			},
 		},
+		{
+			Name: "Default tags multiple providers",
+			Content: `
+provider "aws" {
+  default_tags {
+    tags = {
+      "Fooz": "Barz"
+      "Bazz": "Quxz"
+    }
+  }
+}
+
+provider "aws" {
+  alias = "foo"
+  default_tags {
+    tags = {
+      "Bazz": "Quxz"
+      "Fooz": "Barz"
+    }
+  }
+}
+
+resource "aws_instance" "ec2_instance" {
+  instance_type = "t2.micro"
+}
+
+resource "aws_instance" "ec2_instance_alias" {
+  provider = aws.foo
+  instance_type = "t2.micro"
+}`,
+			Config: `
+rule "aws_resource_missing_tags" {
+  enabled = true
+  tags = ["Bazz", "Fooz"]
+}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Name: "Default Tags Are to Be overriden by resource specific tags",
+			Content: `
+provider "aws" {
+  default_tags {
+    tags = {
+      "Foo": "Bar"
+    }
+  }
+}
+
+resource "aws_instance" "ec2_instance" {
+  instance_type = "t2.micro"
+  tags = {
+    "Foo": "Bazz"
+  }
+}`,
+			Config: `
+rule "aws_resource_missing_tags" {
+  enabled = true
+  tags = ["Foo"]
+}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Name: "Resource specific tags are not needed if default tags are placed",
+			Content: `
+provider "aws" {
+  default_tags {
+    tags = {
+      "Foo": "Bar"
+    }
+  }
+}
+
+resource "aws_instance" "ec2_instance" {
+  instance_type = "t2.micro"
+}`,
+			Config: `
+rule "aws_resource_missing_tags" {
+  enabled = true
+  tags = ["Foo"]
+}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Name: "Resource tags in combination with provider level tags",
+			Content: `
+provider "aws" {
+  default_tags {
+    tags = {
+      "Foo": "Bar"
+    }
+  }
+}
+
+resource "aws_instance" "ec2_instance_fail" {
+  instance_type = "t2.micro"
+}
+
+
+resource "aws_instance" "ec2_instance" {
+  instance_type = "t2.micro"
+  tags = {
+    "Bazz": "Quazz"
+  }
+}`,
+			Config: `
+rule "aws_resource_missing_tags" {
+  enabled = true
+  tags = ["Foo", "Bazz"]
+}`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsResourceMissingTagsRule(),
+					Message: "The resource is missing the following tags: \"Bazz\".",
+					Range: hcl.Range{
+						Filename: "module.tf",
+						Start:    hcl.Pos{Line: 10, Column: 1},
+						End:      hcl.Pos{Line: 10, Column: 44},
+					},
+				},
+			},
+		},
+		{
+			Name: "Provider reference no existent",
+			Content: `provider "aws" {
+  alias = "zoom"
+  default_tags {
+    tags = {
+      "Foo": "Bar"
+    }
+  }
+}
+
+resource "aws_instance" "ec2_instance" {
+  provider = aws.west
+  instance_type = "t2.micro"
+}`,
+			Config: `
+rule "aws_resource_missing_tags" {
+  enabled = true
+  tags = ["Foo"]
+}`,
+			Expected: helper.Issues{
+			},
+			RaiseErr: errors.New("The aws provider with alias \"west\" doesn't exist."),
+		},
 	}
 
 	rule := NewAwsResourceMissingTagsRule()
@@ -266,9 +414,13 @@ rule "aws_resource_missing_tags" {
 	for _, tc := range cases {
 		runner := helper.TestRunner(t, map[string]string{"module.tf": tc.Content, ".tflint.hcl": tc.Config})
 
-		if err := rule.Check(runner); err != nil {
-			t.Fatalf("Unexpected error occurred: %s", err)
-		}
+		err := rule.Check(runner)
+
+		if tc.RaiseErr == nil && err != nil {
+			t.Fatalf("Unexpected error occurred in test \"%s\": %s", tc.Name, err)
+		} 
+
+		assert.Equal(t, tc.RaiseErr, err)
 
 		helper.AssertIssues(t, tc.Expected, runner.Issues)
 	}
