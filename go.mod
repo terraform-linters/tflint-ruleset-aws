@@ -29,7 +29,7 @@ require (
 )
 
 require (
-	github.com/stretchr/testify v1.7.2
+	github.com/stretchr/testify v1.8.4
 	golang.org/x/exp v0.0.0-20230425010034-47ecfdc1ba53
 	golang.org/x/net v0.10.0
 )
