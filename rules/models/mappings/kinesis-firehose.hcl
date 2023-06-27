@@ -5,7 +5,6 @@ mapping "aws_kinesis_firehose_delivery_stream" {
   tags                         = TagDeliveryStreamInputTagList
   kinesis_source_configuration = KinesisStreamSourceConfiguration
   destination                  = any
-  s3_configuration             = S3DestinationConfiguration
   extended_s3_configuration    = ExtendedS3DestinationConfiguration
   redshift_configuration       = RedshiftDestinationConfiguration
   elasticsearch_configuration  = ElasticsearchDestinationConfiguration
