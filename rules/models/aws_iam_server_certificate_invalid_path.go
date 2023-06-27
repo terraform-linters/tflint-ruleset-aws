@@ -29,7 +29,7 @@ func NewAwsIAMServerCertificateInvalidPathRule() *AwsIAMServerCertificateInvalid
 		attributeName: "path",
 		max:           512,
 		min:           1,
-		pattern:       regexp.MustCompile(`^(\x{002F})|(\x{002F}[\x{0021}-\x{007F}]+\x{002F})$`),
+		pattern:       regexp.MustCompile(`^(\x{002F})|(\x{002F}[\x{0021}-\x{007E}]+\x{002F})$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsIAMServerCertificateInvalidPathRule) Check(runner tflint.Runner) err
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(\x{002F})|(\x{002F}[\x{0021}-\x{007F}]+\x{002F})$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(\x{002F})|(\x{002F}[\x{0021}-\x{007E}]+\x{002F})$`),
 					attribute.Expr.Range(),
 				)
 			}
