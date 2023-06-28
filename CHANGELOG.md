@@ -1,3 +1,31 @@
+## 0.24.0 (2023-06-29)
+
+### Breaking Changes
+
+- [#501](https://github.com/terraform-linters/tflint-ruleset-aws/pull/501): Bump github.com/terraform-linters/tflint-plugin-sdk from 0.16.1 to 0.17.0
+  - TFLint v0.40/v0.41 is no longer supported
+- [#504](https://github.com/terraform-linters/tflint-ruleset-aws/pull/504): Update AWS provider/module and generated content  ([@wata727](https://github.com/wata727))
+  - The following rules have been removed.
+    - `aws_macie_member_account_association_invalid_member_account_id`
+    - `aws_macie_s3_bucket_association_invalid_bucket_name`
+    - `aws_macie_s3_bucket_association_invalid_member_account_id`
+    - `aws_macie_s3_bucket_association_invalid_prefix`
+    - `aws_redshift_security_group_invalid_description`
+    - `aws_redshift_security_group_invalid_name`
+    - `aws_secretsmanager_secret_invalid_rotation_lambda_arn`
+  - The `aws_resource_missing_tags` rule no longer checks `aws_db_security_group`.
+
+### Enhancements
+
+- [#489](https://github.com/terraform-linters/tflint-ruleset-aws/pull/489): feat: Added default tags functionality ([@JorgeReus](https://github.com/JorgeReus))
+
+### Chores
+
+- [#497](https://github.com/terraform-linters/tflint-ruleset-aws/pull/497): Bump github.com/zclconf/go-cty from 1.13.1 to 1.13.2
+- [#498](https://github.com/terraform-linters/tflint-ruleset-aws/pull/498): Bump github.com/hashicorp/hcl/v2 from 2.16.2 to 2.17.0
+- [#500](https://github.com/terraform-linters/tflint-ruleset-aws/pull/500): Bump golang.org/x/net from 0.10.0 to 0.11.0
+- [#502](https://github.com/terraform-linters/tflint-ruleset-aws/pull/502): Bump github.com/stretchr/testify from 1.7.2 to 1.8.4
+
 ## 0.23.1 (2023-05-22)
 
 ### Enhancements
