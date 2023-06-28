@@ -139,15 +139,6 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 			continue
 		}
 
-		// Special handling for tags on aws_autoscaling_group resources
-		if resourceType == "aws_autoscaling_group" {
-			err := r.checkAwsAutoScalingGroups(runner, config)
-			if err != nil {
-				return err
-			}
-			continue
-		}
-
 		resources, err := runner.GetResourceContent(resourceType, &hclext.BodySchema{
 			Attributes: []hclext.AttributeSchema{
 				{Name: tagsAttributeName},
@@ -217,6 +208,11 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 		}
 	}
 
+	// Special handling for tags on aws_autoscaling_group resources
+	if err := r.checkAwsAutoScalingGroups(runner, config); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -233,6 +229,11 @@ type awsAutoscalingGroupTag struct {
 // See: https://github.com/terraform-providers/terraform-provider-aws/blob/master/aws/autoscaling_tags.go
 func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroups(runner tflint.Runner, config awsResourceTagsRuleConfig) error {
 	resourceType := "aws_autoscaling_group"
+
+	// Skip autoscaling group check if its type is excluded in configuration
+	if stringInSlice(resourceType, config.Exclude) {
+		return nil
+	}
 
 	resources, err := runner.GetResourceContent(resourceType, &hclext.BodySchema{}, nil)
 	if err != nil {

@@ -27,7 +27,7 @@ func NewAwsIAMServiceLinkedRoleInvalidDescriptionRule() *AwsIAMServiceLinkedRole
 		resourceType:  "aws_iam_service_linked_role",
 		attributeName: "description",
 		max:           1000,
-		pattern:       regexp.MustCompile(`^[\p{L}\p{M}\p{Z}\p{S}\p{N}\p{P}]*$`),
+		pattern:       regexp.MustCompile(`^[\x{0009}\x{000A}\x{000D}\x{0020}-\x{007E}\x{00A1}-\x{00FF}]*$`),
 	}
 }
 
@@ -81,7 +81,7 @@ func (r *AwsIAMServiceLinkedRoleInvalidDescriptionRule) Check(runner tflint.Runn
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[\p{L}\p{M}\p{Z}\p{S}\p{N}\p{P}]*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[\x{0009}\x{000A}\x{000D}\x{0020}-\x{007E}\x{00A1}-\x{00FF}]*$`),
 					attribute.Expr.Range(),
 				)
 			}

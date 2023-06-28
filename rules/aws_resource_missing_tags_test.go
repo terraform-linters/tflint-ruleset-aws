@@ -403,8 +403,7 @@ rule "aws_resource_missing_tags" {
   enabled = true
   tags = ["Foo"]
 }`,
-			Expected: helper.Issues{
-			},
+			Expected: helper.Issues{},
 			RaiseErr: errors.New("The aws provider with alias \"west\" doesn't exist."),
 		},
 	}
@@ -412,16 +411,18 @@ rule "aws_resource_missing_tags" {
 	rule := NewAwsResourceMissingTagsRule()
 
 	for _, tc := range cases {
-		runner := helper.TestRunner(t, map[string]string{"module.tf": tc.Content, ".tflint.hcl": tc.Config})
+		t.Run(tc.Name, func(t *testing.T) {
+			runner := helper.TestRunner(t, map[string]string{"module.tf": tc.Content, ".tflint.hcl": tc.Config})
 
-		err := rule.Check(runner)
+			err := rule.Check(runner)
 
-		if tc.RaiseErr == nil && err != nil {
-			t.Fatalf("Unexpected error occurred in test \"%s\": %s", tc.Name, err)
-		} 
+			if tc.RaiseErr == nil && err != nil {
+				t.Fatalf("Unexpected error occurred in test \"%s\": %s", tc.Name, err)
+			}
 
-		assert.Equal(t, tc.RaiseErr, err)
+			assert.Equal(t, tc.RaiseErr, err)
 
-		helper.AssertIssues(t, tc.Expected, runner.Issues)
+			helper.AssertIssues(t, tc.Expected, runner.Issues)
+		})
 	}
 }

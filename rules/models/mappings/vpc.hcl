@@ -37,7 +37,6 @@ mapping "aws_default_subnet" {
 mapping "aws_default_vpc" {
   enable_dns_support   = any
   enable_dns_hostnames = any
-  enable_classiclink   = any
   tags                 = TagList
 }
 
@@ -188,8 +187,6 @@ mapping "aws_vpc" {
   instance_tenancy                 = Tenancy
   enable_dns_support               = any
   enable_dns_hostnames             = any
-  enable_classiclink               = any
-  enable_classiclink_dns_support   = any
   assign_generated_ipv6_cidr_block = any
   tags                             = TagList
 }

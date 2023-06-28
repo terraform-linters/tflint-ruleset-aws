@@ -11,7 +11,6 @@ mapping "aws_elasticache_cluster" {
   parameter_group_name         = String
   port                         = IntegerOptional
   subnet_group_name            = String
-  security_group_names         = CacheSecurityGroupNameList
   security_group_ids           = SecurityGroupIdsList
   apply_immediately            = Boolean
   snapshot_arns                = SnapshotArnsList
@@ -33,37 +32,28 @@ mapping "aws_elasticache_parameter_group" {
 }
 
 mapping "aws_elasticache_replication_group" {
-  replication_group_id          = String
-  replication_group_description = String
-  number_cache_clusters         = IntegerOptional
-  node_type                     = String
-  automatic_failover_enabled    = BooleanOptional
-  auto_minor_version_upgrade    = BooleanOptional
-  availability_zones            = AvailabilityZonesList
-  engine                        = String
-  at_rest_encryption_enabled    = BooleanOptional
-  transit_encryption_enabled    = BooleanOptional
-  auth_token                    = String
-  engine_version                = String
-  parameter_group_name          = String
-  port                          = IntegerOptional
-  subnet_group_name             = String
-  security_group_names          = CacheSecurityGroupNameList
-  security_group_ids            = SecurityGroupIdsList
-  snapshot_arns                 = SnapshotArnsList
-  snapshot_name                 = String
-  maintenance_window            = String
-  notification_topic_arn        = String
-  snapshot_window               = String
-  snapshot_retention_limit      = IntegerOptional
-  apply_immediately             = Boolean
-  tags                          = TagList
-}
-
-mapping "aws_elasticache_security_group" {
-  name                 = String
-  description          = String
-  security_group_names = CacheSecurityGroupNameList
+  replication_group_id       = String
+  node_type                  = String
+  automatic_failover_enabled = BooleanOptional
+  auto_minor_version_upgrade = BooleanOptional
+  engine                     = String
+  at_rest_encryption_enabled = BooleanOptional
+  transit_encryption_enabled = BooleanOptional
+  auth_token                 = String
+  engine_version             = String
+  parameter_group_name       = String
+  port                       = IntegerOptional
+  subnet_group_name          = String
+  security_group_names       = CacheSecurityGroupNameList
+  security_group_ids         = SecurityGroupIdsList
+  snapshot_arns              = SnapshotArnsList
+  snapshot_name              = String
+  maintenance_window         = String
+  notification_topic_arn     = String
+  snapshot_window            = String
+  snapshot_retention_limit   = IntegerOptional
+  apply_immediately          = Boolean
+  tags                       = TagList
 }
 
 mapping "aws_elasticache_subnet_group" {
