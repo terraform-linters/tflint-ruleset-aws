@@ -406,6 +406,29 @@ rule "aws_resource_missing_tags" {
 			Expected: helper.Issues{},
 			RaiseErr: errors.New("The aws provider with alias \"west\" doesn't exist."),
 		},
+		{
+			Name: "Provider reference existent without tags definition",
+			Content: `provider "aws" {
+  alias = "west"
+  region = "us-west-2"
+}
+
+resource "aws_ssm_parameter" "param" {
+  provider = aws.west
+  name = "test"
+  type = "String"
+  value = "test"
+  tags = {
+    Foo = "Bar"
+  }
+}`,
+			Config: `
+rule "aws_resource_missing_tags" {
+  enabled = true
+  tags = ["Foo"]
+}`,
+			Expected: helper.Issues{},
+		},
 	}
 
 	rule := NewAwsResourceMissingTagsRule()
