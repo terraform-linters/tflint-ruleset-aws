@@ -1,3 +1,7 @@
+## 0.24.1 (2023-07-01)
+
+- [#508](https://github.com/terraform-linters/tflint-ruleset-aws/pull/508): fix: Fixed the error 'Provider doesn't exist' and the provider exist ([@JorgeReus](https://github.com/JorgeReus))
+
 ## 0.24.0 (2023-06-29)
 
 ### Breaking Changes
