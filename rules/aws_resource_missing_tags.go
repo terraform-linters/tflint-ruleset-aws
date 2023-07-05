@@ -28,6 +28,7 @@ type awsResourceTagsRuleConfig struct {
 }
 
 const (
+	defaultTagsBlockName  = "default_tags"
 	tagsAttributeName     = "tags"
 	tagBlockName          = "tag"
 	providerAttributeName = "provider"
@@ -68,7 +69,7 @@ func (r *AwsResourceMissingTagsRule) getProviderLevelTags(runner tflint.Runner) 
 		},
 		Blocks: []hclext.BlockSchema{
 			{
-				Type: "default_tags",
+				Type: defaultTagsBlockName,
 				Body: &hclext.BodySchema{Attributes: []hclext.AttributeSchema{{Name: tagsAttributeName}}},
 			},
 		},
@@ -89,8 +90,9 @@ func (r *AwsResourceMissingTagsRule) getProviderLevelTags(runner tflint.Runner) 
 			providerAlias = "default"
 		} else {
 			err := runner.EvaluateExpr(providerAttr.Expr, func(alias string) error {
+				logger.Debug("Walk `%s` provider", providerAlias)
 				providerAlias = alias
-        // Init the provider reference even if it doesn't have tags
+				// Init the provider reference even if it doesn't have tags
 				allProviderTags[alias] = nil
 				return nil
 			}, nil)
@@ -106,7 +108,22 @@ func (r *AwsResourceMissingTagsRule) getProviderLevelTags(runner tflint.Runner) 
 				continue
 			}
 
-			err := runner.EvaluateExpr(attr.Expr, func(tags map[string]string) error {
+			err := runner.EvaluateExpr(attr.Expr, func(val cty.Value) error {
+				// Skip unknown values
+				if !val.IsKnown() || val.IsNull() {
+					logger.Warn("The missing aws tags rule can only evaluate provided variables, skipping %s.", provider.Labels[0]+"."+providerAlias+"."+defaultTagsBlockName+"."+tagsAttributeName)
+					return nil
+				}
+
+				valMap := val.AsValueMap()
+				var tags map[string]string = make(map[string]string, len(valMap))
+				for k, v := range valMap {
+					tags[k] = ""
+					if !v.IsNull() && v.Type().FriendlyName() == "string" {
+						tags[k] = v.AsString()
+					}
+				}
+				logger.Debug("Walk `%s` provider with tags `%v`", providerAlias, tags)
 				providerTags = tags
 				return nil
 			}, nil)
@@ -188,16 +205,26 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 					"Walk `%s` attribute",
 					resource.Labels[0]+"."+resource.Labels[1]+"."+tagsAttributeName,
 				)
-				// Since the evlaluateExpr, overrides k/v pairs, we need to re-copy the tags
-				resourceTagsAux := make(map[string]string)
 
-				err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
-					resourceTagsAux = val
+				err := runner.EvaluateExpr(attribute.Expr, func(val cty.Value) error {
+					// Skip unknown values
+					if !val.IsKnown() || val.IsNull() {
+						logger.Warn("The missing aws tags rule can only evaluate provided variables, skipping %s.", resource.Labels[0]+"."+resource.Labels[1]+"."+tagsAttributeName)
+						return nil
+					}
+					valMap := val.AsValueMap()
+					// Since the evlaluateExpr, overrides k/v pairs, we need to re-copy the tags
+					var evaluatedTags map[string]string = make(map[string]string, len(valMap))
+					for k, v := range valMap {
+						evaluatedTags[k] = ""
+						if !v.IsNull() && v.Type().FriendlyName() == "string" {
+							evaluatedTags[k] = v.AsString()
+						}
+					}
+					maps.Copy(resourceTags, evaluatedTags)
+					r.emitIssue(runner, resourceTags, config, attribute.Expr.Range())
 					return nil
 				}, nil)
-
-				maps.Copy(resourceTags, resourceTagsAux)
-				r.emitIssue(runner, resourceTags, config, attribute.Expr.Range())
 
 				if err != nil {
 					return err

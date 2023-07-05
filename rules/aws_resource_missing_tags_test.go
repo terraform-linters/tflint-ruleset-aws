@@ -429,6 +429,91 @@ rule "aws_resource_missing_tags" {
 }`,
 			Expected: helper.Issues{},
 		},
+		{
+			Name: "Unkown value maps should be silently ignored",
+			Content: `variable "aws_region" {
+  default = "us-east-1"
+  type = string
+}
+
+provider "aws" {
+  region = "us-east-1"
+  alias = "foo"
+  default_tags {
+    tags = {
+      Owner = "Owner"
+    }
+  }
+}
+
+resource "aws_s3_bucket" "a" {
+  provider = aws.foo
+  name = "a"
+}
+
+resource "aws_s3_bucket" "b" {
+  name = "b"
+  tags = var.default_tags
+}
+
+variable "default_tags" {
+  type = map(string)
+}
+
+provider "aws" {
+  region = "us-east-1"
+  alias = "bar"
+  default_tags {
+    tags = var.default_tags
+  }
+}`,
+			Config: `
+rule "aws_resource_missing_tags" {
+  enabled = true
+  tags = ["Owner"]
+}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Name: "Not wholly known tags as value maps should work as long as each key is statically defined",
+			Content: `variable "owner" {
+  type = string
+}
+
+variable "project" {
+  type = string
+}
+
+provider "aws" {
+  region = "us-east-1"
+  alias = "foo"
+  default_tags {
+    tags = {
+      Owner = var.owner
+      Project = var.project
+    }
+  }
+}
+
+resource "aws_s3_bucket" "a" {
+  provider = aws.foo
+  name = "a"
+}
+
+resource "aws_s3_bucket" "b" {
+  name = "b"
+  tags = {
+    Owner = var.owner
+    Project = var.project
+  }
+}`,
+			Config: `
+rule "aws_resource_missing_tags" {
+  enabled = true
+  tags = ["Owner", "Project"]
+}`,
+			Expected: helper.Issues{},
+		},
 	}
 
 	rule := NewAwsResourceMissingTagsRule()
