@@ -679,6 +679,17 @@ func NewAwsInstanceInvalidTypeRule() *AwsInstanceInvalidTypeRule {
 			"i4g.4xlarge",
 			"i4g.8xlarge",
 			"i4g.16xlarge",
+			"hpc7g.4xlarge",
+			"hpc7g.8xlarge",
+			"hpc7g.16xlarge",
+			"c7gn.medium",
+			"c7gn.large",
+			"c7gn.xlarge",
+			"c7gn.2xlarge",
+			"c7gn.4xlarge",
+			"c7gn.8xlarge",
+			"c7gn.12xlarge",
+			"c7gn.16xlarge",
 		},
 	}
 }
