@@ -1,3 +1,17 @@
+## 0.24.2 (2023-07-19)
+
+### Enhancements
+
+- [#505](https://github.com/terraform-linters/tflint-ruleset-aws/pull/505) [#513](https://github.com/terraform-linters/tflint-ruleset-aws/pull/513): Update AWS provider/module and generated content
+
+### BugFixes
+
+- [#511](https://github.com/terraform-linters/tflint-ruleset-aws/pull/511): fix: Fixed regression in tags with dynamic values ([@JorgeReus](https://github.com/JorgeReus))
+
+### Chores
+
+- [#512](https://github.com/terraform-linters/tflint-ruleset-aws/pull/512): Bump golang.org/x/net from 0.11.0 to 0.12.0
+
 ## 0.24.1 (2023-07-01)
 
 - [#508](https://github.com/terraform-linters/tflint-ruleset-aws/pull/508): fix: Fixed the error 'Provider doesn't exist' and the provider exist ([@JorgeReus](https://github.com/JorgeReus))
