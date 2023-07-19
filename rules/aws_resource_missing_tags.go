@@ -385,26 +385,23 @@ func stringInSlice(a string, list []string) bool {
 	return false
 }
 
-// getTagsKeysForValue returns a list of known tags from a cty.Value.
+// getKeysForValue returns a list of keys from a cty.Value, which is assumed to be a map (or unknown).
 // It returns a boolean indicating whether the keys were known.
-// If _any_ key is unknown, the entire value is considered unknown,
-// since we can't know if a required tag might be matched by the unknown key.
-// Values can be unknown.
+// If _any_ key is unknown, the entire value is considered unknown, since we can't know if a required tag might be matched by the unknown key.
+// Values are entirely ignored and can be unknown.
 func getKeysForValue(value cty.Value) (keys []string, known bool) {
 	if !value.IsKnown() || value.IsNull() {
 		return nil, false
 	}
 
-	for it := value.ElementIterator(); it.Next(); {
-		k, _ := it.Element()
-
+	return keys, !value.ForEachElement(func(key, _ cty.Value) bool {
 		// If any key is unknown, return early as any missing tag could be this unknown key.
-		if !k.IsKnown() {
-			return nil, false
+		if !key.IsKnown() {
+			return true
 		}
 
-		keys = append(keys, k.AsString())
-	}
+		keys = append(keys, key.AsString())
 
-	return keys, true
+		return false
+	})
 }
