@@ -1,3 +1,8 @@
+## 0.24.3 (2023-07-22)
+
+- [#517](https://github.com/terraform-linters/tflint-ruleset-aws/pull/517): resource_missing_tags: rewrite to only consider keys ([@bendrucker](https://github.com/bendrucker))
+- [#519](https://github.com/terraform-linters/tflint-ruleset-aws/pull/519): resource_missing_tags: Ignore non-existent provider aliases ([@wata727](https://github.com/wata727))
+
 ## 0.24.2 (2023-07-19)
 
 ### Enhancements
