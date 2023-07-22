@@ -1,7 +1,6 @@
 package rules
 
 import (
-	"errors"
 	"testing"
 
 	hcl "github.com/hashicorp/hcl/v2"
@@ -384,29 +383,6 @@ rule "aws_resource_missing_tags" {
 			},
 		},
 		{
-			Name: "Provider reference no existent",
-			Content: `provider "aws" {
-  alias = "zoom"
-  default_tags {
-    tags = {
-      "Foo": "Bar"
-    }
-  }
-}
-
-resource "aws_instance" "ec2_instance" {
-  provider = aws.west
-  instance_type = "t2.micro"
-}`,
-			Config: `
-rule "aws_resource_missing_tags" {
-  enabled = true
-  tags = ["Foo"]
-}`,
-			Expected: helper.Issues{},
-			RaiseErr: errors.New("The aws provider with alias \"west\" doesn't exist."),
-		},
-		{
 			Name: "Provider reference existent without tags definition",
 			Content: `provider "aws" {
   alias = "west"
@@ -513,6 +489,41 @@ rule "aws_resource_missing_tags" {
   tags = ["Owner", "Project"]
 }`,
 			Expected: helper.Issues{},
+		},
+		{
+			// In child modules, the provider declarations are passed implicitly or explicitly from the root module.
+			// In this case, it is not possible to refer to the provider's default_tags.
+			// Here, the strategy is to ignore default_tags rather than skip inspection of the tags.
+			Name: "provider aliases within child modules",
+			Content: `
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      configuration_aliases = [ aws.foo ]
+    }
+  }
+}
+
+resource "aws_instance" "ec2_instance" {
+  provider = aws.foo
+}`,
+			Config: `
+rule "aws_resource_missing_tags" {
+  enabled = true
+  tags = ["Foo", "Bar"]
+}`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsResourceMissingTagsRule(),
+					Message: "The resource is missing the following tags: \"Bar\", \"Foo\".",
+					Range: hcl.Range{
+						Filename: "module.tf",
+						Start:    hcl.Pos{Line: 11, Column: 1},
+						End:      hcl.Pos{Line: 11, Column: 39},
+					},
+				},
+			},
 		},
 	}
 

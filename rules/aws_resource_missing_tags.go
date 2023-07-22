@@ -1,7 +1,6 @@
 package rules
 
 import (
-	"errors"
 	"fmt"
 	"sort"
 	"strings"
@@ -169,21 +168,11 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 			// Override the provider alias if defined
 			if val, ok := resource.Body.Attributes[providerAttributeName]; ok {
 				provider, diagnostics := aws.DecodeProviderConfigRef(val.Expr, "provider")
-				providerAlias = provider.Alias
-
-				if _, hasProvider := providerTagsMap[providerAlias]; !hasProvider {
-					errString := fmt.Sprintf(
-						"The aws provider with alias \"%s\" doesn't exist.",
-						providerAlias,
-					)
-					logger.Error("Error querying provider tags: %s", errString)
-					return errors.New(errString)
-				}
-
 				if diagnostics.HasErrors() {
 					logger.Error("error decoding provider: %w", diagnostics)
 					return diagnostics
 				}
+				providerAlias = provider.Alias
 			}
 
 			// If the resource has a tags attribute
