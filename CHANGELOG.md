@@ -1,3 +1,17 @@
+## 0.25.0 (2023-07-29)
+
+### Enhancements
+
+- [#514](https://github.com/terraform-linters/tflint-ruleset-aws/pull/514): Update AWS provider/module and generated content
+
+### BugFixes
+
+- [#526](https://github.com/terraform-linters/tflint-ruleset-aws/pull/526): Bump tflint-plugin-sdk to v0.18.0 ([@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#523](https://github.com/terraform-linters/tflint-ruleset-aws/pull/523): release: Add raw binary entries to checksums.txt ([@wata727](https://github.com/wata727))
+
 ## 0.24.3 (2023-07-22)
 
 - [#517](https://github.com/terraform-linters/tflint-ruleset-aws/pull/517): resource_missing_tags: rewrite to only consider keys ([@bendrucker](https://github.com/bendrucker))
