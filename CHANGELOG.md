@@ -1,3 +1,18 @@
+## 0.26.0 (2023-08-14)
+
+### Breaking Changes
+
+- [#531](https://github.com/terraform-linters/tflint-ruleset-aws/pull/531): Update AWS provider/module and generated content
+  - Removed `aws_budgets_budget_invalid_name` rule
+
+### BugFixes
+
+- [#530](https://github.com/terraform-linters/tflint-ruleset-aws/pull/530): resource_missing_tags: Fix panic for unknown and null values ([@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#529](https://github.com/terraform-linters/tflint-ruleset-aws/pull/529): Bump golang.org/x/net from 0.12.0 to 0.14.0
+
 ## 0.25.0 (2023-07-29)
 
 ### Enhancements
