@@ -406,7 +406,7 @@ rule "aws_resource_missing_tags" {
 			Expected: helper.Issues{},
 		},
 		{
-			Name: "Unkown value maps should be silently ignored",
+			Name: "Unknown value maps should be silently ignored",
 			Content: `variable "aws_region" {
   default = "us-east-1"
   type = string
