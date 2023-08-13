@@ -250,7 +250,6 @@ These rules enforce best practices and naming conventions:
 |aws_batch_job_queue_invalid_state|✔|
 |aws_budgets_budget_invalid_account_id|✔|
 |aws_budgets_budget_invalid_budget_type|✔|
-|aws_budgets_budget_invalid_name|✔|
 |aws_budgets_budget_invalid_time_unit|✔|
 |aws_chime_voice_connector_group_invalid_name|✔|
 |aws_chime_voice_connector_invalid_aws_region|✔|
@@ -408,6 +407,7 @@ These rules enforce best practices and naming conventions:
 |aws_cognito_user_pool_invalid_sms_authentication_message|✔|
 |aws_cognito_user_pool_invalid_sms_verification_message|✔|
 |aws_cognito_user_pool_ui_customization_invalid_client_id|✔|
+|aws_cognito_user_pool_ui_customization_invalid_css|✔|
 |aws_cognito_user_pool_ui_customization_invalid_user_pool_id|✔|
 |aws_config_aggregate_authorization_invalid_account_id|✔|
 |aws_config_aggregate_authorization_invalid_region|✔|

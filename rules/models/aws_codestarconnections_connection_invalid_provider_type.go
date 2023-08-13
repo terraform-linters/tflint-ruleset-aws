@@ -28,6 +28,7 @@ func NewAwsCodestarconnectionsConnectionInvalidProviderTypeRule() *AwsCodestarco
 			"Bitbucket",
 			"GitHub",
 			"GitHubEnterpriseServer",
+			"GitLab",
 		},
 	}
 }

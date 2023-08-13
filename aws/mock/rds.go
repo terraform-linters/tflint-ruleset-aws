@@ -1651,6 +1651,56 @@ func (mr *MockRDSAPIMockRecorder) DeleteDBCluster(arg0 interface{}) *gomock.Call
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteDBCluster", reflect.TypeOf((*MockRDSAPI)(nil).DeleteDBCluster), arg0)
 }
 
+// DeleteDBClusterAutomatedBackup mocks base method.
+func (m *MockRDSAPI) DeleteDBClusterAutomatedBackup(arg0 *rds.DeleteDBClusterAutomatedBackupInput) (*rds.DeleteDBClusterAutomatedBackupOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteDBClusterAutomatedBackup", arg0)
+	ret0, _ := ret[0].(*rds.DeleteDBClusterAutomatedBackupOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteDBClusterAutomatedBackup indicates an expected call of DeleteDBClusterAutomatedBackup.
+func (mr *MockRDSAPIMockRecorder) DeleteDBClusterAutomatedBackup(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteDBClusterAutomatedBackup", reflect.TypeOf((*MockRDSAPI)(nil).DeleteDBClusterAutomatedBackup), arg0)
+}
+
+// DeleteDBClusterAutomatedBackupRequest mocks base method.
+func (m *MockRDSAPI) DeleteDBClusterAutomatedBackupRequest(arg0 *rds.DeleteDBClusterAutomatedBackupInput) (*request.Request, *rds.DeleteDBClusterAutomatedBackupOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteDBClusterAutomatedBackupRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.DeleteDBClusterAutomatedBackupOutput)
+	return ret0, ret1
+}
+
+// DeleteDBClusterAutomatedBackupRequest indicates an expected call of DeleteDBClusterAutomatedBackupRequest.
+func (mr *MockRDSAPIMockRecorder) DeleteDBClusterAutomatedBackupRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteDBClusterAutomatedBackupRequest", reflect.TypeOf((*MockRDSAPI)(nil).DeleteDBClusterAutomatedBackupRequest), arg0)
+}
+
+// DeleteDBClusterAutomatedBackupWithContext mocks base method.
+func (m *MockRDSAPI) DeleteDBClusterAutomatedBackupWithContext(arg0 context.Context, arg1 *rds.DeleteDBClusterAutomatedBackupInput, arg2 ...request.Option) (*rds.DeleteDBClusterAutomatedBackupOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DeleteDBClusterAutomatedBackupWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.DeleteDBClusterAutomatedBackupOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteDBClusterAutomatedBackupWithContext indicates an expected call of DeleteDBClusterAutomatedBackupWithContext.
+func (mr *MockRDSAPIMockRecorder) DeleteDBClusterAutomatedBackupWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteDBClusterAutomatedBackupWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DeleteDBClusterAutomatedBackupWithContext), varargs...)
+}
+
 // DeleteDBClusterEndpoint mocks base method.
 func (m *MockRDSAPI) DeleteDBClusterEndpoint(arg0 *rds.DeleteDBClusterEndpointInput) (*rds.DeleteDBClusterEndpointOutput, error) {
 	m.ctrl.T.Helper()
@@ -2650,6 +2700,56 @@ func (mr *MockRDSAPIMockRecorder) DescribeCertificatesWithContext(arg0, arg1 int
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeCertificatesWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeCertificatesWithContext), varargs...)
+}
+
+// DescribeDBClusterAutomatedBackups mocks base method.
+func (m *MockRDSAPI) DescribeDBClusterAutomatedBackups(arg0 *rds.DescribeDBClusterAutomatedBackupsInput) (*rds.DescribeDBClusterAutomatedBackupsOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeDBClusterAutomatedBackups", arg0)
+	ret0, _ := ret[0].(*rds.DescribeDBClusterAutomatedBackupsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeDBClusterAutomatedBackups indicates an expected call of DescribeDBClusterAutomatedBackups.
+func (mr *MockRDSAPIMockRecorder) DescribeDBClusterAutomatedBackups(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBClusterAutomatedBackups", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBClusterAutomatedBackups), arg0)
+}
+
+// DescribeDBClusterAutomatedBackupsRequest mocks base method.
+func (m *MockRDSAPI) DescribeDBClusterAutomatedBackupsRequest(arg0 *rds.DescribeDBClusterAutomatedBackupsInput) (*request.Request, *rds.DescribeDBClusterAutomatedBackupsOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeDBClusterAutomatedBackupsRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.DescribeDBClusterAutomatedBackupsOutput)
+	return ret0, ret1
+}
+
+// DescribeDBClusterAutomatedBackupsRequest indicates an expected call of DescribeDBClusterAutomatedBackupsRequest.
+func (mr *MockRDSAPIMockRecorder) DescribeDBClusterAutomatedBackupsRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBClusterAutomatedBackupsRequest", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBClusterAutomatedBackupsRequest), arg0)
+}
+
+// DescribeDBClusterAutomatedBackupsWithContext mocks base method.
+func (m *MockRDSAPI) DescribeDBClusterAutomatedBackupsWithContext(arg0 context.Context, arg1 *rds.DescribeDBClusterAutomatedBackupsInput, arg2 ...request.Option) (*rds.DescribeDBClusterAutomatedBackupsOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeDBClusterAutomatedBackupsWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.DescribeDBClusterAutomatedBackupsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeDBClusterAutomatedBackupsWithContext indicates an expected call of DescribeDBClusterAutomatedBackupsWithContext.
+func (mr *MockRDSAPIMockRecorder) DescribeDBClusterAutomatedBackupsWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBClusterAutomatedBackupsWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBClusterAutomatedBackupsWithContext), varargs...)
 }
 
 // DescribeDBClusterBacktracks mocks base method.

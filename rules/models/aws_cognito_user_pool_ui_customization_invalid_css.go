@@ -3,57 +3,51 @@
 package models
 
 import (
-	"fmt"
-
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsQuicksightUserInvalidIdentityTypeRule checks the pattern is valid
-type AwsQuicksightUserInvalidIdentityTypeRule struct {
+// AwsCognitoUserPoolUICustomizationInvalidCssRule checks the pattern is valid
+type AwsCognitoUserPoolUICustomizationInvalidCssRule struct {
 	tflint.DefaultRule
 
 	resourceType  string
 	attributeName string
-	enum          []string
+	max           int
 }
 
-// NewAwsQuicksightUserInvalidIdentityTypeRule returns new rule with default attributes
-func NewAwsQuicksightUserInvalidIdentityTypeRule() *AwsQuicksightUserInvalidIdentityTypeRule {
-	return &AwsQuicksightUserInvalidIdentityTypeRule{
-		resourceType:  "aws_quicksight_user",
-		attributeName: "identity_type",
-		enum: []string{
-			"IAM",
-			"QUICKSIGHT",
-			"IAM_IDENTITY_CENTER",
-		},
+// NewAwsCognitoUserPoolUICustomizationInvalidCssRule returns new rule with default attributes
+func NewAwsCognitoUserPoolUICustomizationInvalidCssRule() *AwsCognitoUserPoolUICustomizationInvalidCssRule {
+	return &AwsCognitoUserPoolUICustomizationInvalidCssRule{
+		resourceType:  "aws_cognito_user_pool_ui_customization",
+		attributeName: "css",
+		max:           131072,
 	}
 }
 
 // Name returns the rule name
-func (r *AwsQuicksightUserInvalidIdentityTypeRule) Name() string {
-	return "aws_quicksight_user_invalid_identity_type"
+func (r *AwsCognitoUserPoolUICustomizationInvalidCssRule) Name() string {
+	return "aws_cognito_user_pool_ui_customization_invalid_css"
 }
 
 // Enabled returns whether the rule is enabled by default
-func (r *AwsQuicksightUserInvalidIdentityTypeRule) Enabled() bool {
+func (r *AwsCognitoUserPoolUICustomizationInvalidCssRule) Enabled() bool {
 	return true
 }
 
 // Severity returns the rule severity
-func (r *AwsQuicksightUserInvalidIdentityTypeRule) Severity() tflint.Severity {
+func (r *AwsCognitoUserPoolUICustomizationInvalidCssRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
 // Link returns the rule reference link
-func (r *AwsQuicksightUserInvalidIdentityTypeRule) Link() string {
+func (r *AwsCognitoUserPoolUICustomizationInvalidCssRule) Link() string {
 	return ""
 }
 
 // Check checks the pattern is valid
-func (r *AwsQuicksightUserInvalidIdentityTypeRule) Check(runner tflint.Runner) error {
+func (r *AwsCognitoUserPoolUICustomizationInvalidCssRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
@@ -72,16 +66,10 @@ func (r *AwsQuicksightUserInvalidIdentityTypeRule) Check(runner tflint.Runner) e
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
-			found := false
-			for _, item := range r.enum {
-				if item == val {
-					found = true
-				}
-			}
-			if !found {
+			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" is an invalid value as identity_type`, truncateLongMessage(val)),
+					"css must be 131072 characters or less",
 					attribute.Expr.Range(),
 				)
 			}
