@@ -379,8 +379,11 @@ func stringInSlice(a string, list []string) bool {
 // If _any_ key is unknown, the entire value is considered unknown, since we can't know if a required tag might be matched by the unknown key.
 // Values are entirely ignored and can be unknown.
 func getKeysForValue(value cty.Value) (keys []string, known bool) {
-	if !value.CanIterateElements() {
+	if !value.CanIterateElements() || !value.IsKnown() {
 		return nil, false
+	}
+	if value.IsNull() {
+		return keys, true
 	}
 
 	return keys, !value.ForEachElement(func(key, _ cty.Value) bool {
