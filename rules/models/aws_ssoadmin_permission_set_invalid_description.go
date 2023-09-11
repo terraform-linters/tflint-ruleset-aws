@@ -29,7 +29,7 @@ func NewAwsSsoadminPermissionSetInvalidDescriptionRule() *AwsSsoadminPermissionS
 		attributeName: "description",
 		max:           700,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[\x{0009}\x{000A}\x{000D}\x{0020}-\x{007E}\x{00A0}-\x{00FF}]*$`),
+		pattern:       regexp.MustCompile(`^[\x{0009}\x{000A}\x{000D}\x{0020}-\x{007E}\x{00A1}-\x{00FF}]*$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsSsoadminPermissionSetInvalidDescriptionRule) Check(runner tflint.Run
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[\x{0009}\x{000A}\x{000D}\x{0020}-\x{007E}\x{00A0}-\x{00FF}]*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[\x{0009}\x{000A}\x{000D}\x{0020}-\x{007E}\x{00A1}-\x{00FF}]*$`),
 					attribute.Expr.Range(),
 				)
 			}

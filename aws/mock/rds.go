@@ -2717,6 +2717,39 @@ func (mr *MockRDSAPIMockRecorder) DescribeDBClusterAutomatedBackups(arg0 interfa
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBClusterAutomatedBackups", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBClusterAutomatedBackups), arg0)
 }
 
+// DescribeDBClusterAutomatedBackupsPages mocks base method.
+func (m *MockRDSAPI) DescribeDBClusterAutomatedBackupsPages(arg0 *rds.DescribeDBClusterAutomatedBackupsInput, arg1 func(*rds.DescribeDBClusterAutomatedBackupsOutput, bool) bool) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeDBClusterAutomatedBackupsPages", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeDBClusterAutomatedBackupsPages indicates an expected call of DescribeDBClusterAutomatedBackupsPages.
+func (mr *MockRDSAPIMockRecorder) DescribeDBClusterAutomatedBackupsPages(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBClusterAutomatedBackupsPages", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBClusterAutomatedBackupsPages), arg0, arg1)
+}
+
+// DescribeDBClusterAutomatedBackupsPagesWithContext mocks base method.
+func (m *MockRDSAPI) DescribeDBClusterAutomatedBackupsPagesWithContext(arg0 context.Context, arg1 *rds.DescribeDBClusterAutomatedBackupsInput, arg2 func(*rds.DescribeDBClusterAutomatedBackupsOutput, bool) bool, arg3 ...request.Option) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1, arg2}
+	for _, a := range arg3 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeDBClusterAutomatedBackupsPagesWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeDBClusterAutomatedBackupsPagesWithContext indicates an expected call of DescribeDBClusterAutomatedBackupsPagesWithContext.
+func (mr *MockRDSAPIMockRecorder) DescribeDBClusterAutomatedBackupsPagesWithContext(arg0, arg1, arg2 interface{}, arg3 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1, arg2}, arg3...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBClusterAutomatedBackupsPagesWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBClusterAutomatedBackupsPagesWithContext), varargs...)
+}
+
 // DescribeDBClusterAutomatedBackupsRequest mocks base method.
 func (m *MockRDSAPI) DescribeDBClusterAutomatedBackupsRequest(arg0 *rds.DescribeDBClusterAutomatedBackupsInput) (*request.Request, *rds.DescribeDBClusterAutomatedBackupsOutput) {
 	m.ctrl.T.Helper()
@@ -8256,6 +8289,56 @@ func (mr *MockRDSAPIMockRecorder) SwitchoverBlueGreenDeploymentWithContext(arg0,
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SwitchoverBlueGreenDeploymentWithContext", reflect.TypeOf((*MockRDSAPI)(nil).SwitchoverBlueGreenDeploymentWithContext), varargs...)
+}
+
+// SwitchoverGlobalCluster mocks base method.
+func (m *MockRDSAPI) SwitchoverGlobalCluster(arg0 *rds.SwitchoverGlobalClusterInput) (*rds.SwitchoverGlobalClusterOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SwitchoverGlobalCluster", arg0)
+	ret0, _ := ret[0].(*rds.SwitchoverGlobalClusterOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SwitchoverGlobalCluster indicates an expected call of SwitchoverGlobalCluster.
+func (mr *MockRDSAPIMockRecorder) SwitchoverGlobalCluster(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SwitchoverGlobalCluster", reflect.TypeOf((*MockRDSAPI)(nil).SwitchoverGlobalCluster), arg0)
+}
+
+// SwitchoverGlobalClusterRequest mocks base method.
+func (m *MockRDSAPI) SwitchoverGlobalClusterRequest(arg0 *rds.SwitchoverGlobalClusterInput) (*request.Request, *rds.SwitchoverGlobalClusterOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SwitchoverGlobalClusterRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.SwitchoverGlobalClusterOutput)
+	return ret0, ret1
+}
+
+// SwitchoverGlobalClusterRequest indicates an expected call of SwitchoverGlobalClusterRequest.
+func (mr *MockRDSAPIMockRecorder) SwitchoverGlobalClusterRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SwitchoverGlobalClusterRequest", reflect.TypeOf((*MockRDSAPI)(nil).SwitchoverGlobalClusterRequest), arg0)
+}
+
+// SwitchoverGlobalClusterWithContext mocks base method.
+func (m *MockRDSAPI) SwitchoverGlobalClusterWithContext(arg0 context.Context, arg1 *rds.SwitchoverGlobalClusterInput, arg2 ...request.Option) (*rds.SwitchoverGlobalClusterOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "SwitchoverGlobalClusterWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.SwitchoverGlobalClusterOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SwitchoverGlobalClusterWithContext indicates an expected call of SwitchoverGlobalClusterWithContext.
+func (mr *MockRDSAPIMockRecorder) SwitchoverGlobalClusterWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SwitchoverGlobalClusterWithContext", reflect.TypeOf((*MockRDSAPI)(nil).SwitchoverGlobalClusterWithContext), varargs...)
 }
 
 // SwitchoverReadReplica mocks base method.

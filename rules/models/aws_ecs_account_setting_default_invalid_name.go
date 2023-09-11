@@ -32,6 +32,7 @@ func NewAwsEcsAccountSettingDefaultInvalidNameRule() *AwsEcsAccountSettingDefaul
 			"containerInsights",
 			"fargateFIPSMode",
 			"tagResourceAuthorization",
+			"fargateTaskRetirementWaitPeriod",
 		},
 	}
 }

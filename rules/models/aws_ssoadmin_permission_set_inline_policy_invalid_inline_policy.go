@@ -27,7 +27,7 @@ func NewAwsSsoadminPermissionSetInlinePolicyInvalidInlinePolicyRule() *AwsSsoadm
 	return &AwsSsoadminPermissionSetInlinePolicyInvalidInlinePolicyRule{
 		resourceType:  "aws_ssoadmin_permission_set_inline_policy",
 		attributeName: "inline_policy",
-		max:           10240,
+		max:           32768,
 		min:           1,
 		pattern:       regexp.MustCompile(`^[\x{0009}\x{000A}\x{000D}\x{0020}-\x{00FF}]+$`),
 	}
@@ -76,7 +76,7 @@ func (r *AwsSsoadminPermissionSetInlinePolicyInvalidInlinePolicyRule) Check(runn
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					"inline_policy must be 10240 characters or less",
+					"inline_policy must be 32768 characters or less",
 					attribute.Expr.Range(),
 				)
 			}
