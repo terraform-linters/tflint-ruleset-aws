@@ -24,7 +24,7 @@ resource "aws_cognito_identity_provider" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCognitoIdentityProviderInvalidProviderNameRule(),
-					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("	"), `^[\p{L}\p{M}\p{S}\p{N}\p{P}]+$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("	"), `^[\p{L}\p{M}\p{S}\p{N}\p{P}\p{Z}]+$`),
 				},
 			},
 		},

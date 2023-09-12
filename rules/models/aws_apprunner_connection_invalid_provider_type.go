@@ -26,6 +26,7 @@ func NewAwsApprunnerConnectionInvalidProviderTypeRule() *AwsApprunnerConnectionI
 		attributeName: "provider_type",
 		enum: []string{
 			"GITHUB",
+			"BITBUCKET",
 		},
 	}
 }

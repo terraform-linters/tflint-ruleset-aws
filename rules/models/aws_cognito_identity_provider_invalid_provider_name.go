@@ -29,7 +29,7 @@ func NewAwsCognitoIdentityProviderInvalidProviderNameRule() *AwsCognitoIdentityP
 		attributeName: "provider_name",
 		max:           32,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[\p{L}\p{M}\p{S}\p{N}\p{P}]+$`),
+		pattern:       regexp.MustCompile(`^[\p{L}\p{M}\p{S}\p{N}\p{P}\p{Z}]+$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsCognitoIdentityProviderInvalidProviderNameRule) Check(runner tflint.
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[\p{L}\p{M}\p{S}\p{N}\p{P}]+$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[\p{L}\p{M}\p{S}\p{N}\p{P}\p{Z}]+$`),
 					attribute.Expr.Range(),
 				)
 			}
