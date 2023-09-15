@@ -40,6 +40,22 @@ resource "aws_elasticache_cluster" "redis" {
 			Expected: helper.Issues{},
 		},
 		{
+			Name: "supports cache.m7g family type",
+			Content: `
+resource "aws_elasticache_cluster" "redis" {
+    node_type = "cache.r7g.large"
+}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Name: "supports cache.r7g family type",
+			Content: `
+resource "aws_elasticache_cluster" "redis" {
+    node_type = "cache.r7g.large"
+}`,
+			Expected: helper.Issues{},
+		},
+		{
 			Name: "empty type",
 			Content: `
 				resource "aws_elasticache_cluster" "redis" {
