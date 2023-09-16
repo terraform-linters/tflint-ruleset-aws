@@ -568,6 +568,8 @@ var Resources = []string{
 	"aws_transfer_server",
 	"aws_transfer_user",
 	"aws_transfer_workflow",
+	"aws_verifiedaccess_instance",
+	"aws_verifiedaccess_trust_provider",
 	"aws_vpc",
 	"aws_vpc_dhcp_options",
 	"aws_vpc_endpoint",
