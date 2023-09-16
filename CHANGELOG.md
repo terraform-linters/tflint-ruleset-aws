@@ -1,3 +1,21 @@
+## 0.27.0 (2023-09-17)
+
+### Enhancements
+
+- [#534](https://github.com/terraform-linters/tflint-ruleset-aws/pull/534) [#544](https://github.com/terraform-linters/tflint-ruleset-aws/pull/544): Update AWS provider/module and generated content
+- [#545](https://github.com/terraform-linters/tflint-ruleset-aws/pull/545): Add support for cache instance families m7g and r7g ([@dvxam](https://github.com/dvxam))
+- [#546](https://github.com/terraform-linters/tflint-ruleset-aws/pull/546): Add missing DB instance classes ([@wata727](https://github.com/wata727))
+- [#547](https://github.com/terraform-linters/tflint-ruleset-aws/pull/547): Update Lambda runtime deprecations ([@wata727](https://github.com/wata727))
+- [#548](https://github.com/terraform-linters/tflint-ruleset-aws/pull/548): Update DB engine list ([@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#535](https://github.com/terraform-linters/tflint-ruleset-aws/pull/535) [#536](https://github.com/terraform-linters/tflint-ruleset-aws/pull/536): Bump github.com/zclconf/go-cty from 1.13.2 to 1.14.0
+- [#537](https://github.com/terraform-linters/tflint-ruleset-aws/pull/537): Bump github.com/hashicorp/hcl/v2 from 2.17.0 to 2.18.0
+- [#540](https://github.com/terraform-linters/tflint-ruleset-aws/pull/540): deps: Go 1.21 ([@wata727](https://github.com/wata727))
+- [#541](https://github.com/terraform-linters/tflint-ruleset-aws/pull/541): Bump actions/checkout from 3 to 4
+- [#542](https://github.com/terraform-linters/tflint-ruleset-aws/pull/542): Bump golang.org/x/net from 0.14.0 to 0.15.0
+
 ## 0.26.0 (2023-08-14)
 
 ### Breaking Changes
