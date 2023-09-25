@@ -117,6 +117,25 @@ rule "aws_s3_bucket_name" {
 				},
 			},
 		},
+		{
+			Name: "length",
+			Content: `
+resource "aws_s3_bucket" "too_long" {
+  bucket = "a-really-ultra-hiper-super-long-foo-bar-baz-bucket-name.domain.test"
+}
+`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsS3BucketNameRule(),
+					Message: `Bucket name "a-really-ultra-hiper-super-long-foo-bar-baz-bucket-name.domain.test" must be between 3 and 63 characters`,
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 3, Column: 12},
+						End:      hcl.Pos{Line: 3, Column: 81},
+					},
+				},
+			},
+		},
 	}
 
 	rule := NewAwsS3BucketNameRule()
