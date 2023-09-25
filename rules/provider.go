@@ -39,6 +39,7 @@ var manualRules = []tflint.Rule{
 	NewAwsElasticBeanstalkEnvironmentInvalidNameFormatRule(),
 	NewAwsSecurityGroupInvalidProtocolRule(),
 	NewAwsSecurityGroupRuleInvalidProtocolRule(),
+	NewAwsS3BucketNameLengthRule(),
 }
 
 // Rules is a list of all rules
