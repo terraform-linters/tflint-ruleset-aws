@@ -38,12 +38,12 @@ func (r *AwsS3BucketNameRule) Name() string {
 
 // Enabled returns whether the rule is enabled by default
 func (r *AwsS3BucketNameRule) Enabled() bool {
-	return false
+	return true
 }
 
 // Severity returns the rule severity
 func (r *AwsS3BucketNameRule) Severity() tflint.Severity {
-	return tflint.WARNING
+	return tflint.ERROR
 }
 
 // Link returns the rule reference link
@@ -51,7 +51,7 @@ func (r *AwsS3BucketNameRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
-// Check if the name of the s3 bucket matches the regex defined in the rule
+// Check if the name of the s3 bucket is valid
 func (r *AwsS3BucketNameRule) Check(runner tflint.Runner) error {
 	config := awsS3BucketNameConfig{}
 	if err := runner.DecodeRuleConfig(r.Name(), &config); err != nil {
@@ -69,6 +69,9 @@ func (r *AwsS3BucketNameRule) Check(runner tflint.Runner) error {
 	if err != nil {
 		return err
 	}
+
+	bucketNameMinLength := 3
+	bucketNameMaxLength := 63
 
 	for _, resource := range resources.Blocks {
 		attribute, exists := resource.Body.Attributes[r.attributeName]
@@ -95,6 +98,14 @@ func (r *AwsS3BucketNameRule) Check(runner tflint.Runner) error {
 						attribute.Expr.Range(),
 					)
 				}
+			}
+
+			if len(name) < bucketNameMinLength || len(name) > bucketNameMaxLength {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf("Bucket name %q must be between %d and %d characters", name, bucketNameMinLength, bucketNameMaxLength),
+					attribute.Expr.Range(),
+				)
 			}
 			return nil
 		}, nil)
