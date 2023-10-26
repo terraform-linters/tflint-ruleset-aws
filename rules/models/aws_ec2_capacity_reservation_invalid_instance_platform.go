@@ -42,6 +42,7 @@ func NewAwsEc2CapacityReservationInvalidInstancePlatformRule() *AwsEc2CapacityRe
 			"RHEL with HA",
 			"RHEL with HA and SQL Server Standard",
 			"RHEL with HA and SQL Server Enterprise",
+			"Ubuntu Pro",
 		},
 	}
 }

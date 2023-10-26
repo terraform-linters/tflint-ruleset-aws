@@ -31,6 +31,7 @@ func NewAwsServicecatalogProductInvalidTypeRule() *AwsServicecatalogProductInval
 			"MARKETPLACE",
 			"TERRAFORM_OPEN_SOURCE",
 			"TERRAFORM_CLOUD",
+			"EXTERNAL",
 		},
 	}
 }
