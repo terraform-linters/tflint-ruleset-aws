@@ -29,7 +29,7 @@ func NewAwsStoragegatewaySmbFileShareInvalidRoleArnRule() *AwsStoragegatewaySmbF
 		attributeName: "role_arn",
 		max:           2048,
 		min:           20,
-		pattern:       regexp.MustCompile(`^arn:(aws|aws-cn|aws-us-gov):iam::([0-9]+):role/(\S+)$`),
+		pattern:       regexp.MustCompile(`^arn:(aws(|-cn|-us-gov|-iso[A-Za-z0-9_-]*)):iam::([0-9]+):role/(\S+)$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsStoragegatewaySmbFileShareInvalidRoleArnRule) Check(runner tflint.Ru
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:(aws|aws-cn|aws-us-gov):iam::([0-9]+):role/(\S+)$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:(aws(|-cn|-us-gov|-iso[A-Za-z0-9_-]*)):iam::([0-9]+):role/(\S+)$`),
 					attribute.Expr.Range(),
 				)
 			}
