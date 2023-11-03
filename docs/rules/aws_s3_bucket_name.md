@@ -1,6 +1,6 @@
 # aws_s3_bucket_name
 
-Ensures all S3 bucket names match the specified naming rules.
+Ensures all S3 bucket names match the naming rules.
 
 ## Configuration
 
