@@ -1486,6 +1486,56 @@ func (mr *MockRDSAPIMockRecorder) CreateGlobalClusterWithContext(arg0, arg1 inte
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateGlobalClusterWithContext", reflect.TypeOf((*MockRDSAPI)(nil).CreateGlobalClusterWithContext), varargs...)
 }
 
+// CreateIntegration mocks base method.
+func (m *MockRDSAPI) CreateIntegration(arg0 *rds.CreateIntegrationInput) (*rds.CreateIntegrationOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateIntegration", arg0)
+	ret0, _ := ret[0].(*rds.CreateIntegrationOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateIntegration indicates an expected call of CreateIntegration.
+func (mr *MockRDSAPIMockRecorder) CreateIntegration(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateIntegration", reflect.TypeOf((*MockRDSAPI)(nil).CreateIntegration), arg0)
+}
+
+// CreateIntegrationRequest mocks base method.
+func (m *MockRDSAPI) CreateIntegrationRequest(arg0 *rds.CreateIntegrationInput) (*request.Request, *rds.CreateIntegrationOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateIntegrationRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.CreateIntegrationOutput)
+	return ret0, ret1
+}
+
+// CreateIntegrationRequest indicates an expected call of CreateIntegrationRequest.
+func (mr *MockRDSAPIMockRecorder) CreateIntegrationRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateIntegrationRequest", reflect.TypeOf((*MockRDSAPI)(nil).CreateIntegrationRequest), arg0)
+}
+
+// CreateIntegrationWithContext mocks base method.
+func (m *MockRDSAPI) CreateIntegrationWithContext(arg0 context.Context, arg1 *rds.CreateIntegrationInput, arg2 ...request.Option) (*rds.CreateIntegrationOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "CreateIntegrationWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.CreateIntegrationOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateIntegrationWithContext indicates an expected call of CreateIntegrationWithContext.
+func (mr *MockRDSAPIMockRecorder) CreateIntegrationWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateIntegrationWithContext", reflect.TypeOf((*MockRDSAPI)(nil).CreateIntegrationWithContext), varargs...)
+}
+
 // CreateOptionGroup mocks base method.
 func (m *MockRDSAPI) CreateOptionGroup(arg0 *rds.CreateOptionGroupInput) (*rds.CreateOptionGroupOutput, error) {
 	m.ctrl.T.Helper()
@@ -2384,6 +2434,56 @@ func (mr *MockRDSAPIMockRecorder) DeleteGlobalClusterWithContext(arg0, arg1 inte
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteGlobalClusterWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DeleteGlobalClusterWithContext), varargs...)
+}
+
+// DeleteIntegration mocks base method.
+func (m *MockRDSAPI) DeleteIntegration(arg0 *rds.DeleteIntegrationInput) (*rds.DeleteIntegrationOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteIntegration", arg0)
+	ret0, _ := ret[0].(*rds.DeleteIntegrationOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteIntegration indicates an expected call of DeleteIntegration.
+func (mr *MockRDSAPIMockRecorder) DeleteIntegration(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteIntegration", reflect.TypeOf((*MockRDSAPI)(nil).DeleteIntegration), arg0)
+}
+
+// DeleteIntegrationRequest mocks base method.
+func (m *MockRDSAPI) DeleteIntegrationRequest(arg0 *rds.DeleteIntegrationInput) (*request.Request, *rds.DeleteIntegrationOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteIntegrationRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.DeleteIntegrationOutput)
+	return ret0, ret1
+}
+
+// DeleteIntegrationRequest indicates an expected call of DeleteIntegrationRequest.
+func (mr *MockRDSAPIMockRecorder) DeleteIntegrationRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteIntegrationRequest", reflect.TypeOf((*MockRDSAPI)(nil).DeleteIntegrationRequest), arg0)
+}
+
+// DeleteIntegrationWithContext mocks base method.
+func (m *MockRDSAPI) DeleteIntegrationWithContext(arg0 context.Context, arg1 *rds.DeleteIntegrationInput, arg2 ...request.Option) (*rds.DeleteIntegrationOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DeleteIntegrationWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.DeleteIntegrationOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteIntegrationWithContext indicates an expected call of DeleteIntegrationWithContext.
+func (mr *MockRDSAPIMockRecorder) DeleteIntegrationWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteIntegrationWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DeleteIntegrationWithContext), varargs...)
 }
 
 // DeleteOptionGroup mocks base method.
@@ -4975,6 +5075,89 @@ func (mr *MockRDSAPIMockRecorder) DescribeGlobalClustersWithContext(arg0, arg1 i
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeGlobalClustersWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeGlobalClustersWithContext), varargs...)
+}
+
+// DescribeIntegrations mocks base method.
+func (m *MockRDSAPI) DescribeIntegrations(arg0 *rds.DescribeIntegrationsInput) (*rds.DescribeIntegrationsOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeIntegrations", arg0)
+	ret0, _ := ret[0].(*rds.DescribeIntegrationsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeIntegrations indicates an expected call of DescribeIntegrations.
+func (mr *MockRDSAPIMockRecorder) DescribeIntegrations(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeIntegrations", reflect.TypeOf((*MockRDSAPI)(nil).DescribeIntegrations), arg0)
+}
+
+// DescribeIntegrationsPages mocks base method.
+func (m *MockRDSAPI) DescribeIntegrationsPages(arg0 *rds.DescribeIntegrationsInput, arg1 func(*rds.DescribeIntegrationsOutput, bool) bool) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeIntegrationsPages", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeIntegrationsPages indicates an expected call of DescribeIntegrationsPages.
+func (mr *MockRDSAPIMockRecorder) DescribeIntegrationsPages(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeIntegrationsPages", reflect.TypeOf((*MockRDSAPI)(nil).DescribeIntegrationsPages), arg0, arg1)
+}
+
+// DescribeIntegrationsPagesWithContext mocks base method.
+func (m *MockRDSAPI) DescribeIntegrationsPagesWithContext(arg0 context.Context, arg1 *rds.DescribeIntegrationsInput, arg2 func(*rds.DescribeIntegrationsOutput, bool) bool, arg3 ...request.Option) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1, arg2}
+	for _, a := range arg3 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeIntegrationsPagesWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeIntegrationsPagesWithContext indicates an expected call of DescribeIntegrationsPagesWithContext.
+func (mr *MockRDSAPIMockRecorder) DescribeIntegrationsPagesWithContext(arg0, arg1, arg2 interface{}, arg3 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1, arg2}, arg3...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeIntegrationsPagesWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeIntegrationsPagesWithContext), varargs...)
+}
+
+// DescribeIntegrationsRequest mocks base method.
+func (m *MockRDSAPI) DescribeIntegrationsRequest(arg0 *rds.DescribeIntegrationsInput) (*request.Request, *rds.DescribeIntegrationsOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeIntegrationsRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.DescribeIntegrationsOutput)
+	return ret0, ret1
+}
+
+// DescribeIntegrationsRequest indicates an expected call of DescribeIntegrationsRequest.
+func (mr *MockRDSAPIMockRecorder) DescribeIntegrationsRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeIntegrationsRequest", reflect.TypeOf((*MockRDSAPI)(nil).DescribeIntegrationsRequest), arg0)
+}
+
+// DescribeIntegrationsWithContext mocks base method.
+func (m *MockRDSAPI) DescribeIntegrationsWithContext(arg0 context.Context, arg1 *rds.DescribeIntegrationsInput, arg2 ...request.Option) (*rds.DescribeIntegrationsOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeIntegrationsWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.DescribeIntegrationsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeIntegrationsWithContext indicates an expected call of DescribeIntegrationsWithContext.
+func (mr *MockRDSAPIMockRecorder) DescribeIntegrationsWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeIntegrationsWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeIntegrationsWithContext), varargs...)
 }
 
 // DescribeOptionGroupOptions mocks base method.
