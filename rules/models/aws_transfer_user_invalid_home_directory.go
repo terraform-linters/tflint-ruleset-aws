@@ -27,7 +27,7 @@ func NewAwsTransferUserInvalidHomeDirectoryRule() *AwsTransferUserInvalidHomeDir
 		resourceType:  "aws_transfer_user",
 		attributeName: "home_directory",
 		max:           1024,
-		pattern:       regexp.MustCompile(`^$|/.*`),
+		pattern:       regexp.MustCompile(`^$|/.*$`),
 	}
 }
 
@@ -81,7 +81,7 @@ func (r *AwsTransferUserInvalidHomeDirectoryRule) Check(runner tflint.Runner) er
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^$|/.*`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^$|/.*$`),
 					attribute.Expr.Range(),
 				)
 			}
