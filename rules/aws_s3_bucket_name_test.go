@@ -127,7 +127,7 @@ resource "aws_s3_bucket" "too_long" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsS3BucketNameRule(),
-					Message: `Bucket name "a-really-ultra-hiper-super-long-foo-bar-baz-bucket-name.domain.test" must be between 3 and 63 characters`,
+					Message: `Bucket names must be between 3 (min) and 63 (max) characters long. (name: "a-really-ultra-hiper-super-long-foo-bar-baz-bucket-name.domain.test", regex: "^(.{0,2})?(.{64,})?$")`,
 					Range: hcl.Range{
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 3, Column: 12},
