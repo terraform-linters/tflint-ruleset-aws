@@ -81,7 +81,7 @@ func (r *AwsS3BucketNameRule) Check(runner tflint.Runner) error {
 	}{
 		{
 			Regexp: *regexp.MustCompile(fmt.Sprintf(
-				"^(.{0,%d})?(.{%d,})?$",
+				"^.{0,%d}$|.{%d,}$",
 				bucketNameMinLength-1,
 				bucketNameMaxLength+1,
 			)),
@@ -96,12 +96,8 @@ func (r *AwsS3BucketNameRule) Check(runner tflint.Runner) error {
 			Description: "Bucket names can consist only of lowercase letters, numbers, dots (.), and hyphens (-).",
 		},
 		{
-			Regexp:      *regexp.MustCompile("^[^a-z0-9]"),
-			Description: "Bucket names must begin with a lowercase letter or number.",
-		},
-		{
-			Regexp:      *regexp.MustCompile("[^a-z0-9]$"),
-			Description: "Bucket names must end with a lowercase letter or number.",
+			Regexp:      *regexp.MustCompile("^[^a-z0-9]|[^a-z0-9]$"),
+			Description: "Bucket names must begin and end with a lowercase letter or number.",
 		},
 		{
 			Regexp:      *regexp.MustCompile("\\.\\."),
@@ -112,7 +108,7 @@ func (r *AwsS3BucketNameRule) Check(runner tflint.Runner) error {
 			Description: "Bucket names must not start with the prefix 'xn--'.",
 		},
 		{
-			Regexp:      *regexp.MustCompile("^(sthree-dwa|sthree-configurator21)"),
+			Regexp:      *regexp.MustCompile("^(sthree-|sthree-configurator)"),
 			Description: "Bucket names must not start with the prefix 'sthree-' and the prefix 'sthree-configurator'.",
 		},
 		{
