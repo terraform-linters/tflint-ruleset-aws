@@ -44,7 +44,7 @@ func NewAwsLambdaFunctionInvalidRuntimeRule() *AwsLambdaFunctionInvalidRuntimeRu
 			"ruby3.2",
 			"provided",
 			"provided.al2",
-			"provided.al2023"
+			"provided.al2023",
 		},
 	}
 }
