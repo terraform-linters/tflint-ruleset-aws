@@ -313,6 +313,8 @@ var Resources = []string{
 	"aws_instance",
 	"aws_internet_gateway",
 	"aws_internetmonitor_monitor",
+	"aws_iot_billing_group",
+	"aws_iot_ca_certificate",
 	"aws_iot_domain_configuration",
 	"aws_iot_provisioning_template",
 	"aws_iot_thing_group",

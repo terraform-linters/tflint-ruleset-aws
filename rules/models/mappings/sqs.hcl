@@ -3,17 +3,17 @@ import = "aws-sdk-go/models/apis/sqs/2012-11-05/api-2.json"
 mapping "aws_sqs_queue" {
   name                              = String
   name_prefix                       = any
-  visibility_timeout_seconds        = Integer
-  message_retention_seconds         = Integer
-  max_message_size                  = Integer
-  delay_seconds                     = Integer
-  receive_wait_time_seconds         = Integer
+  visibility_timeout_seconds        = NullableInteger
+  message_retention_seconds         = NullableInteger
+  max_message_size                  = NullableInteger
+  delay_seconds                     = NullableInteger
+  receive_wait_time_seconds         = NullableInteger
   policy                            = String
   redrive_policy                    = String
   fifo_queue                        = Boolean
   content_based_deduplication       = Boolean
   kms_master_key_id                 = String
-  kms_data_key_reuse_period_seconds = Integer
+  kms_data_key_reuse_period_seconds = NullableInteger
   tags                              = TagMap
 }
 

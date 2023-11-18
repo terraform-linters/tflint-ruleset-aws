@@ -29,7 +29,7 @@ func NewAwsTransferUserInvalidRoleRule() *AwsTransferUserInvalidRoleRule {
 		attributeName: "role",
 		max:           2048,
 		min:           20,
-		pattern:       regexp.MustCompile(`^arn:.*role/.*$`),
+		pattern:       regexp.MustCompile(`^arn:.*role/\S+$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsTransferUserInvalidRoleRule) Check(runner tflint.Runner) error {
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:.*role/.*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:.*role/\S+$`),
 					attribute.Expr.Range(),
 				)
 			}
