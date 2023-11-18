@@ -73,6 +73,7 @@ func main() {
 
 		for _, mapping := range mappingFile.Mappings {
 			for attribute, value := range mapping.Attrs {
+				fmt.Printf("Checking `%s.%s`\n", mapping.Resource, attribute)
 				shapeName := value.Expr.Variables()[0].RootName()
 				if shapeName == "any" {
 					continue

@@ -1586,6 +1586,56 @@ func (mr *MockRDSAPIMockRecorder) CreateOptionGroupWithContext(arg0, arg1 interf
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateOptionGroupWithContext", reflect.TypeOf((*MockRDSAPI)(nil).CreateOptionGroupWithContext), varargs...)
 }
 
+// CreateTenantDatabase mocks base method.
+func (m *MockRDSAPI) CreateTenantDatabase(arg0 *rds.CreateTenantDatabaseInput) (*rds.CreateTenantDatabaseOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateTenantDatabase", arg0)
+	ret0, _ := ret[0].(*rds.CreateTenantDatabaseOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateTenantDatabase indicates an expected call of CreateTenantDatabase.
+func (mr *MockRDSAPIMockRecorder) CreateTenantDatabase(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateTenantDatabase", reflect.TypeOf((*MockRDSAPI)(nil).CreateTenantDatabase), arg0)
+}
+
+// CreateTenantDatabaseRequest mocks base method.
+func (m *MockRDSAPI) CreateTenantDatabaseRequest(arg0 *rds.CreateTenantDatabaseInput) (*request.Request, *rds.CreateTenantDatabaseOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateTenantDatabaseRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.CreateTenantDatabaseOutput)
+	return ret0, ret1
+}
+
+// CreateTenantDatabaseRequest indicates an expected call of CreateTenantDatabaseRequest.
+func (mr *MockRDSAPIMockRecorder) CreateTenantDatabaseRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateTenantDatabaseRequest", reflect.TypeOf((*MockRDSAPI)(nil).CreateTenantDatabaseRequest), arg0)
+}
+
+// CreateTenantDatabaseWithContext mocks base method.
+func (m *MockRDSAPI) CreateTenantDatabaseWithContext(arg0 context.Context, arg1 *rds.CreateTenantDatabaseInput, arg2 ...request.Option) (*rds.CreateTenantDatabaseOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "CreateTenantDatabaseWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.CreateTenantDatabaseOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateTenantDatabaseWithContext indicates an expected call of CreateTenantDatabaseWithContext.
+func (mr *MockRDSAPIMockRecorder) CreateTenantDatabaseWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateTenantDatabaseWithContext", reflect.TypeOf((*MockRDSAPI)(nil).CreateTenantDatabaseWithContext), varargs...)
+}
+
 // DeleteBlueGreenDeployment mocks base method.
 func (m *MockRDSAPI) DeleteBlueGreenDeployment(arg0 *rds.DeleteBlueGreenDeploymentInput) (*rds.DeleteBlueGreenDeploymentOutput, error) {
 	m.ctrl.T.Helper()
@@ -2534,6 +2584,56 @@ func (mr *MockRDSAPIMockRecorder) DeleteOptionGroupWithContext(arg0, arg1 interf
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteOptionGroupWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DeleteOptionGroupWithContext), varargs...)
+}
+
+// DeleteTenantDatabase mocks base method.
+func (m *MockRDSAPI) DeleteTenantDatabase(arg0 *rds.DeleteTenantDatabaseInput) (*rds.DeleteTenantDatabaseOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteTenantDatabase", arg0)
+	ret0, _ := ret[0].(*rds.DeleteTenantDatabaseOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteTenantDatabase indicates an expected call of DeleteTenantDatabase.
+func (mr *MockRDSAPIMockRecorder) DeleteTenantDatabase(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteTenantDatabase", reflect.TypeOf((*MockRDSAPI)(nil).DeleteTenantDatabase), arg0)
+}
+
+// DeleteTenantDatabaseRequest mocks base method.
+func (m *MockRDSAPI) DeleteTenantDatabaseRequest(arg0 *rds.DeleteTenantDatabaseInput) (*request.Request, *rds.DeleteTenantDatabaseOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteTenantDatabaseRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.DeleteTenantDatabaseOutput)
+	return ret0, ret1
+}
+
+// DeleteTenantDatabaseRequest indicates an expected call of DeleteTenantDatabaseRequest.
+func (mr *MockRDSAPIMockRecorder) DeleteTenantDatabaseRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteTenantDatabaseRequest", reflect.TypeOf((*MockRDSAPI)(nil).DeleteTenantDatabaseRequest), arg0)
+}
+
+// DeleteTenantDatabaseWithContext mocks base method.
+func (m *MockRDSAPI) DeleteTenantDatabaseWithContext(arg0 context.Context, arg1 *rds.DeleteTenantDatabaseInput, arg2 ...request.Option) (*rds.DeleteTenantDatabaseOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DeleteTenantDatabaseWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.DeleteTenantDatabaseOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteTenantDatabaseWithContext indicates an expected call of DeleteTenantDatabaseWithContext.
+func (mr *MockRDSAPIMockRecorder) DeleteTenantDatabaseWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteTenantDatabaseWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DeleteTenantDatabaseWithContext), varargs...)
 }
 
 // DeregisterDBProxyTargets mocks base method.
@@ -4396,6 +4496,89 @@ func (mr *MockRDSAPIMockRecorder) DescribeDBSnapshotAttributesWithContext(arg0, 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBSnapshotAttributesWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBSnapshotAttributesWithContext), varargs...)
 }
 
+// DescribeDBSnapshotTenantDatabases mocks base method.
+func (m *MockRDSAPI) DescribeDBSnapshotTenantDatabases(arg0 *rds.DescribeDBSnapshotTenantDatabasesInput) (*rds.DescribeDBSnapshotTenantDatabasesOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeDBSnapshotTenantDatabases", arg0)
+	ret0, _ := ret[0].(*rds.DescribeDBSnapshotTenantDatabasesOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeDBSnapshotTenantDatabases indicates an expected call of DescribeDBSnapshotTenantDatabases.
+func (mr *MockRDSAPIMockRecorder) DescribeDBSnapshotTenantDatabases(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBSnapshotTenantDatabases", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBSnapshotTenantDatabases), arg0)
+}
+
+// DescribeDBSnapshotTenantDatabasesPages mocks base method.
+func (m *MockRDSAPI) DescribeDBSnapshotTenantDatabasesPages(arg0 *rds.DescribeDBSnapshotTenantDatabasesInput, arg1 func(*rds.DescribeDBSnapshotTenantDatabasesOutput, bool) bool) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeDBSnapshotTenantDatabasesPages", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeDBSnapshotTenantDatabasesPages indicates an expected call of DescribeDBSnapshotTenantDatabasesPages.
+func (mr *MockRDSAPIMockRecorder) DescribeDBSnapshotTenantDatabasesPages(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBSnapshotTenantDatabasesPages", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBSnapshotTenantDatabasesPages), arg0, arg1)
+}
+
+// DescribeDBSnapshotTenantDatabasesPagesWithContext mocks base method.
+func (m *MockRDSAPI) DescribeDBSnapshotTenantDatabasesPagesWithContext(arg0 context.Context, arg1 *rds.DescribeDBSnapshotTenantDatabasesInput, arg2 func(*rds.DescribeDBSnapshotTenantDatabasesOutput, bool) bool, arg3 ...request.Option) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1, arg2}
+	for _, a := range arg3 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeDBSnapshotTenantDatabasesPagesWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeDBSnapshotTenantDatabasesPagesWithContext indicates an expected call of DescribeDBSnapshotTenantDatabasesPagesWithContext.
+func (mr *MockRDSAPIMockRecorder) DescribeDBSnapshotTenantDatabasesPagesWithContext(arg0, arg1, arg2 interface{}, arg3 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1, arg2}, arg3...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBSnapshotTenantDatabasesPagesWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBSnapshotTenantDatabasesPagesWithContext), varargs...)
+}
+
+// DescribeDBSnapshotTenantDatabasesRequest mocks base method.
+func (m *MockRDSAPI) DescribeDBSnapshotTenantDatabasesRequest(arg0 *rds.DescribeDBSnapshotTenantDatabasesInput) (*request.Request, *rds.DescribeDBSnapshotTenantDatabasesOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeDBSnapshotTenantDatabasesRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.DescribeDBSnapshotTenantDatabasesOutput)
+	return ret0, ret1
+}
+
+// DescribeDBSnapshotTenantDatabasesRequest indicates an expected call of DescribeDBSnapshotTenantDatabasesRequest.
+func (mr *MockRDSAPIMockRecorder) DescribeDBSnapshotTenantDatabasesRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBSnapshotTenantDatabasesRequest", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBSnapshotTenantDatabasesRequest), arg0)
+}
+
+// DescribeDBSnapshotTenantDatabasesWithContext mocks base method.
+func (m *MockRDSAPI) DescribeDBSnapshotTenantDatabasesWithContext(arg0 context.Context, arg1 *rds.DescribeDBSnapshotTenantDatabasesInput, arg2 ...request.Option) (*rds.DescribeDBSnapshotTenantDatabasesOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeDBSnapshotTenantDatabasesWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.DescribeDBSnapshotTenantDatabasesOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeDBSnapshotTenantDatabasesWithContext indicates an expected call of DescribeDBSnapshotTenantDatabasesWithContext.
+func (mr *MockRDSAPIMockRecorder) DescribeDBSnapshotTenantDatabasesWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBSnapshotTenantDatabasesWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBSnapshotTenantDatabasesWithContext), varargs...)
+}
+
 // DescribeDBSnapshots mocks base method.
 func (m *MockRDSAPI) DescribeDBSnapshots(arg0 *rds.DescribeDBSnapshotsInput) (*rds.DescribeDBSnapshotsOutput, error) {
 	m.ctrl.T.Helper()
@@ -5741,6 +5924,89 @@ func (mr *MockRDSAPIMockRecorder) DescribeSourceRegionsWithContext(arg0, arg1 in
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeSourceRegionsWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeSourceRegionsWithContext), varargs...)
 }
 
+// DescribeTenantDatabases mocks base method.
+func (m *MockRDSAPI) DescribeTenantDatabases(arg0 *rds.DescribeTenantDatabasesInput) (*rds.DescribeTenantDatabasesOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeTenantDatabases", arg0)
+	ret0, _ := ret[0].(*rds.DescribeTenantDatabasesOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeTenantDatabases indicates an expected call of DescribeTenantDatabases.
+func (mr *MockRDSAPIMockRecorder) DescribeTenantDatabases(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeTenantDatabases", reflect.TypeOf((*MockRDSAPI)(nil).DescribeTenantDatabases), arg0)
+}
+
+// DescribeTenantDatabasesPages mocks base method.
+func (m *MockRDSAPI) DescribeTenantDatabasesPages(arg0 *rds.DescribeTenantDatabasesInput, arg1 func(*rds.DescribeTenantDatabasesOutput, bool) bool) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeTenantDatabasesPages", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeTenantDatabasesPages indicates an expected call of DescribeTenantDatabasesPages.
+func (mr *MockRDSAPIMockRecorder) DescribeTenantDatabasesPages(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeTenantDatabasesPages", reflect.TypeOf((*MockRDSAPI)(nil).DescribeTenantDatabasesPages), arg0, arg1)
+}
+
+// DescribeTenantDatabasesPagesWithContext mocks base method.
+func (m *MockRDSAPI) DescribeTenantDatabasesPagesWithContext(arg0 context.Context, arg1 *rds.DescribeTenantDatabasesInput, arg2 func(*rds.DescribeTenantDatabasesOutput, bool) bool, arg3 ...request.Option) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1, arg2}
+	for _, a := range arg3 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeTenantDatabasesPagesWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeTenantDatabasesPagesWithContext indicates an expected call of DescribeTenantDatabasesPagesWithContext.
+func (mr *MockRDSAPIMockRecorder) DescribeTenantDatabasesPagesWithContext(arg0, arg1, arg2 interface{}, arg3 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1, arg2}, arg3...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeTenantDatabasesPagesWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeTenantDatabasesPagesWithContext), varargs...)
+}
+
+// DescribeTenantDatabasesRequest mocks base method.
+func (m *MockRDSAPI) DescribeTenantDatabasesRequest(arg0 *rds.DescribeTenantDatabasesInput) (*request.Request, *rds.DescribeTenantDatabasesOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeTenantDatabasesRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.DescribeTenantDatabasesOutput)
+	return ret0, ret1
+}
+
+// DescribeTenantDatabasesRequest indicates an expected call of DescribeTenantDatabasesRequest.
+func (mr *MockRDSAPIMockRecorder) DescribeTenantDatabasesRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeTenantDatabasesRequest", reflect.TypeOf((*MockRDSAPI)(nil).DescribeTenantDatabasesRequest), arg0)
+}
+
+// DescribeTenantDatabasesWithContext mocks base method.
+func (m *MockRDSAPI) DescribeTenantDatabasesWithContext(arg0 context.Context, arg1 *rds.DescribeTenantDatabasesInput, arg2 ...request.Option) (*rds.DescribeTenantDatabasesOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeTenantDatabasesWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.DescribeTenantDatabasesOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeTenantDatabasesWithContext indicates an expected call of DescribeTenantDatabasesWithContext.
+func (mr *MockRDSAPIMockRecorder) DescribeTenantDatabasesWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeTenantDatabasesWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeTenantDatabasesWithContext), varargs...)
+}
+
 // DescribeValidDBInstanceModifications mocks base method.
 func (m *MockRDSAPI) DescribeValidDBInstanceModifications(arg0 *rds.DescribeValidDBInstanceModificationsInput) (*rds.DescribeValidDBInstanceModificationsOutput, error) {
 	m.ctrl.T.Helper()
@@ -6972,6 +7238,56 @@ func (mr *MockRDSAPIMockRecorder) ModifyOptionGroupWithContext(arg0, arg1 interf
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyOptionGroupWithContext", reflect.TypeOf((*MockRDSAPI)(nil).ModifyOptionGroupWithContext), varargs...)
+}
+
+// ModifyTenantDatabase mocks base method.
+func (m *MockRDSAPI) ModifyTenantDatabase(arg0 *rds.ModifyTenantDatabaseInput) (*rds.ModifyTenantDatabaseOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ModifyTenantDatabase", arg0)
+	ret0, _ := ret[0].(*rds.ModifyTenantDatabaseOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ModifyTenantDatabase indicates an expected call of ModifyTenantDatabase.
+func (mr *MockRDSAPIMockRecorder) ModifyTenantDatabase(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyTenantDatabase", reflect.TypeOf((*MockRDSAPI)(nil).ModifyTenantDatabase), arg0)
+}
+
+// ModifyTenantDatabaseRequest mocks base method.
+func (m *MockRDSAPI) ModifyTenantDatabaseRequest(arg0 *rds.ModifyTenantDatabaseInput) (*request.Request, *rds.ModifyTenantDatabaseOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ModifyTenantDatabaseRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.ModifyTenantDatabaseOutput)
+	return ret0, ret1
+}
+
+// ModifyTenantDatabaseRequest indicates an expected call of ModifyTenantDatabaseRequest.
+func (mr *MockRDSAPIMockRecorder) ModifyTenantDatabaseRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyTenantDatabaseRequest", reflect.TypeOf((*MockRDSAPI)(nil).ModifyTenantDatabaseRequest), arg0)
+}
+
+// ModifyTenantDatabaseWithContext mocks base method.
+func (m *MockRDSAPI) ModifyTenantDatabaseWithContext(arg0 context.Context, arg1 *rds.ModifyTenantDatabaseInput, arg2 ...request.Option) (*rds.ModifyTenantDatabaseOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ModifyTenantDatabaseWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.ModifyTenantDatabaseOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ModifyTenantDatabaseWithContext indicates an expected call of ModifyTenantDatabaseWithContext.
+func (mr *MockRDSAPIMockRecorder) ModifyTenantDatabaseWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyTenantDatabaseWithContext", reflect.TypeOf((*MockRDSAPI)(nil).ModifyTenantDatabaseWithContext), varargs...)
 }
 
 // PromoteReadReplica mocks base method.
@@ -8836,4 +9152,70 @@ func (mr *MockRDSAPIMockRecorder) WaitUntilDBSnapshotDeletedWithContext(arg0, ar
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WaitUntilDBSnapshotDeletedWithContext", reflect.TypeOf((*MockRDSAPI)(nil).WaitUntilDBSnapshotDeletedWithContext), varargs...)
+}
+
+// WaitUntilTenantDatabaseAvailable mocks base method.
+func (m *MockRDSAPI) WaitUntilTenantDatabaseAvailable(arg0 *rds.DescribeTenantDatabasesInput) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "WaitUntilTenantDatabaseAvailable", arg0)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// WaitUntilTenantDatabaseAvailable indicates an expected call of WaitUntilTenantDatabaseAvailable.
+func (mr *MockRDSAPIMockRecorder) WaitUntilTenantDatabaseAvailable(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WaitUntilTenantDatabaseAvailable", reflect.TypeOf((*MockRDSAPI)(nil).WaitUntilTenantDatabaseAvailable), arg0)
+}
+
+// WaitUntilTenantDatabaseAvailableWithContext mocks base method.
+func (m *MockRDSAPI) WaitUntilTenantDatabaseAvailableWithContext(arg0 context.Context, arg1 *rds.DescribeTenantDatabasesInput, arg2 ...request.WaiterOption) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "WaitUntilTenantDatabaseAvailableWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// WaitUntilTenantDatabaseAvailableWithContext indicates an expected call of WaitUntilTenantDatabaseAvailableWithContext.
+func (mr *MockRDSAPIMockRecorder) WaitUntilTenantDatabaseAvailableWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WaitUntilTenantDatabaseAvailableWithContext", reflect.TypeOf((*MockRDSAPI)(nil).WaitUntilTenantDatabaseAvailableWithContext), varargs...)
+}
+
+// WaitUntilTenantDatabaseDeleted mocks base method.
+func (m *MockRDSAPI) WaitUntilTenantDatabaseDeleted(arg0 *rds.DescribeTenantDatabasesInput) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "WaitUntilTenantDatabaseDeleted", arg0)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// WaitUntilTenantDatabaseDeleted indicates an expected call of WaitUntilTenantDatabaseDeleted.
+func (mr *MockRDSAPIMockRecorder) WaitUntilTenantDatabaseDeleted(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WaitUntilTenantDatabaseDeleted", reflect.TypeOf((*MockRDSAPI)(nil).WaitUntilTenantDatabaseDeleted), arg0)
+}
+
+// WaitUntilTenantDatabaseDeletedWithContext mocks base method.
+func (m *MockRDSAPI) WaitUntilTenantDatabaseDeletedWithContext(arg0 context.Context, arg1 *rds.DescribeTenantDatabasesInput, arg2 ...request.WaiterOption) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "WaitUntilTenantDatabaseDeletedWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// WaitUntilTenantDatabaseDeletedWithContext indicates an expected call of WaitUntilTenantDatabaseDeletedWithContext.
+func (mr *MockRDSAPIMockRecorder) WaitUntilTenantDatabaseDeletedWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WaitUntilTenantDatabaseDeletedWithContext", reflect.TypeOf((*MockRDSAPI)(nil).WaitUntilTenantDatabaseDeletedWithContext), varargs...)
 }

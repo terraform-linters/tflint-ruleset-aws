@@ -796,6 +796,7 @@ func NewAwsLaunchConfigurationInvalidTypeRule() *AwsLaunchConfigurationInvalidTy
 			"r7i.16xlarge",
 			"r7i.24xlarge",
 			"r7i.48xlarge",
+			"dl2q.24xlarge",
 		},
 	}
 }
