@@ -1,3 +1,26 @@
+## 0.28.0 (2023-11-18)
+
+### Breaking Changes
+
+- [#576](https://github.com/terraform-linters/tflint-ruleset-aws/pull/576): Fix aws_acm_certificate.private_key mapping and remove the rule ([@wata727](https://github.com/wata727))
+  - Removed `aws_acm_certificate_invalid_private_key` rule
+
+### Enhancements
+
+- [#554](https://github.com/terraform-linters/tflint-ruleset-aws/pull/554): s3_bucket_name: add length validation ([@davimmt](https://github.com/davimmt))
+- [#566](https://github.com/terraform-linters/tflint-ruleset-aws/pull/566) [#567](https://github.com/terraform-linters/tflint-ruleset-aws/pull/567) [#568](https://github.com/terraform-linters/tflint-ruleset-aws/pull/568) [#575](https://github.com/terraform-linters/tflint-ruleset-aws/pull/575): Update AWS provider/module and generated content
+- [#571](https://github.com/terraform-linters/tflint-ruleset-aws/pull/571): s3_bucket_name: add all documented naming rules ([@davimmt](https://github.com/davimmt))
+
+### Chores
+
+- [#550](https://github.com/terraform-linters/tflint-ruleset-aws/pull/550): Bump goreleaser/goreleaser-action from 4 to 5
+- [#555](https://github.com/terraform-linters/tflint-ruleset-aws/pull/555) [#558](https://github.com/terraform-linters/tflint-ruleset-aws/pull/558) [#572](https://github.com/terraform-linters/tflint-ruleset-aws/pull/572): Bump golang.org/x/net from 0.15.0 to 0.18.0
+- [#556](https://github.com/terraform-linters/tflint-ruleset-aws/pull/556): Bump github.com/zclconf/go-cty from 1.14.0 to 1.14.1
+- [#559](https://github.com/terraform-linters/tflint-ruleset-aws/pull/559): Bump github.com/dave/dst from 0.27.2 to 0.27.3
+- [#560](https://github.com/terraform-linters/tflint-ruleset-aws/pull/560): Bump github.com/google/go-cmp from 0.5.9 to 0.6.0
+- [#561](https://github.com/terraform-linters/tflint-ruleset-aws/pull/561): Bump github.com/hashicorp/hcl/v2 from 2.18.0 to 2.19.1
+- [#565](https://github.com/terraform-linters/tflint-ruleset-aws/pull/565): Bump google.golang.org/grpc from 1.57.0 to 1.57.1
+
 ## 0.27.0 (2023-09-17)
 
 ### Enhancements
