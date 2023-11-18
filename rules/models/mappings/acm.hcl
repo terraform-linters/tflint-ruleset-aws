@@ -4,7 +4,7 @@ mapping "aws_acm_certificate" {
   // domain_name            = DomainNameString
   subject_alternative_names = DomainList
   // validation_method      = ValidationMethod
-  private_key               = PrivateKey
+  private_key               = PrivateKeyBlob
   certificate_body          = CertificateBody
   certificate_chain         = CertificateChain
   certificate_authority_arn = PcaArn

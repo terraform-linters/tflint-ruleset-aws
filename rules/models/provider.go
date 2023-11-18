@@ -17,7 +17,6 @@ var Rules = []tflint.Rule{
 	NewAwsAcmCertificateInvalidCertificateAuthorityArnRule(),
 	NewAwsAcmCertificateInvalidCertificateBodyRule(),
 	NewAwsAcmCertificateInvalidCertificateChainRule(),
-	NewAwsAcmCertificateInvalidPrivateKeyRule(),
 	NewAwsAcmCertificateValidationInvalidCertificateArnRule(),
 	NewAwsAcmpcaCertificateAuthorityCertificateInvalidCertificateAuthorityArnRule(),
 	NewAwsAcmpcaCertificateAuthorityInvalidTypeRule(),
