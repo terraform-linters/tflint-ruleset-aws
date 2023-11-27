@@ -27,6 +27,8 @@ func NewAwsAccessanalyzerAnalyzerInvalidTypeRule() *AwsAccessanalyzerAnalyzerInv
 		enum: []string{
 			"ACCOUNT",
 			"ORGANIZATION",
+			"ACCOUNT_UNUSED_ACCESS",
+			"ORGANIZATION_UNUSED_ACCESS",
 		},
 	}
 }
