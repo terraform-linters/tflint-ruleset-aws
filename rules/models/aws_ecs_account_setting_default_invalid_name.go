@@ -33,6 +33,7 @@ func NewAwsEcsAccountSettingDefaultInvalidNameRule() *AwsEcsAccountSettingDefaul
 			"fargateFIPSMode",
 			"tagResourceAuthorization",
 			"fargateTaskRetirementWaitPeriod",
+			"guardDutyActivate",
 		},
 	}
 }
