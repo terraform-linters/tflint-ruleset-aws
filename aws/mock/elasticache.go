@@ -286,6 +286,56 @@ func (mr *MockElastiCacheAPIMockRecorder) CompleteMigrationWithContext(arg0, arg
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CompleteMigrationWithContext", reflect.TypeOf((*MockElastiCacheAPI)(nil).CompleteMigrationWithContext), varargs...)
 }
 
+// CopyServerlessCacheSnapshot mocks base method.
+func (m *MockElastiCacheAPI) CopyServerlessCacheSnapshot(arg0 *elasticache.CopyServerlessCacheSnapshotInput) (*elasticache.CopyServerlessCacheSnapshotOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CopyServerlessCacheSnapshot", arg0)
+	ret0, _ := ret[0].(*elasticache.CopyServerlessCacheSnapshotOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CopyServerlessCacheSnapshot indicates an expected call of CopyServerlessCacheSnapshot.
+func (mr *MockElastiCacheAPIMockRecorder) CopyServerlessCacheSnapshot(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CopyServerlessCacheSnapshot", reflect.TypeOf((*MockElastiCacheAPI)(nil).CopyServerlessCacheSnapshot), arg0)
+}
+
+// CopyServerlessCacheSnapshotRequest mocks base method.
+func (m *MockElastiCacheAPI) CopyServerlessCacheSnapshotRequest(arg0 *elasticache.CopyServerlessCacheSnapshotInput) (*request.Request, *elasticache.CopyServerlessCacheSnapshotOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CopyServerlessCacheSnapshotRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*elasticache.CopyServerlessCacheSnapshotOutput)
+	return ret0, ret1
+}
+
+// CopyServerlessCacheSnapshotRequest indicates an expected call of CopyServerlessCacheSnapshotRequest.
+func (mr *MockElastiCacheAPIMockRecorder) CopyServerlessCacheSnapshotRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CopyServerlessCacheSnapshotRequest", reflect.TypeOf((*MockElastiCacheAPI)(nil).CopyServerlessCacheSnapshotRequest), arg0)
+}
+
+// CopyServerlessCacheSnapshotWithContext mocks base method.
+func (m *MockElastiCacheAPI) CopyServerlessCacheSnapshotWithContext(arg0 context.Context, arg1 *elasticache.CopyServerlessCacheSnapshotInput, arg2 ...request.Option) (*elasticache.CopyServerlessCacheSnapshotOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "CopyServerlessCacheSnapshotWithContext", varargs...)
+	ret0, _ := ret[0].(*elasticache.CopyServerlessCacheSnapshotOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CopyServerlessCacheSnapshotWithContext indicates an expected call of CopyServerlessCacheSnapshotWithContext.
+func (mr *MockElastiCacheAPIMockRecorder) CopyServerlessCacheSnapshotWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CopyServerlessCacheSnapshotWithContext", reflect.TypeOf((*MockElastiCacheAPI)(nil).CopyServerlessCacheSnapshotWithContext), varargs...)
+}
+
 // CopySnapshot mocks base method.
 func (m *MockElastiCacheAPI) CopySnapshot(arg0 *elasticache.CopySnapshotInput) (*elasticache.CopySnapshotOutput, error) {
 	m.ctrl.T.Helper()
@@ -634,6 +684,106 @@ func (mr *MockElastiCacheAPIMockRecorder) CreateReplicationGroupWithContext(arg0
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateReplicationGroupWithContext", reflect.TypeOf((*MockElastiCacheAPI)(nil).CreateReplicationGroupWithContext), varargs...)
+}
+
+// CreateServerlessCache mocks base method.
+func (m *MockElastiCacheAPI) CreateServerlessCache(arg0 *elasticache.CreateServerlessCacheInput) (*elasticache.CreateServerlessCacheOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateServerlessCache", arg0)
+	ret0, _ := ret[0].(*elasticache.CreateServerlessCacheOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateServerlessCache indicates an expected call of CreateServerlessCache.
+func (mr *MockElastiCacheAPIMockRecorder) CreateServerlessCache(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateServerlessCache", reflect.TypeOf((*MockElastiCacheAPI)(nil).CreateServerlessCache), arg0)
+}
+
+// CreateServerlessCacheRequest mocks base method.
+func (m *MockElastiCacheAPI) CreateServerlessCacheRequest(arg0 *elasticache.CreateServerlessCacheInput) (*request.Request, *elasticache.CreateServerlessCacheOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateServerlessCacheRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*elasticache.CreateServerlessCacheOutput)
+	return ret0, ret1
+}
+
+// CreateServerlessCacheRequest indicates an expected call of CreateServerlessCacheRequest.
+func (mr *MockElastiCacheAPIMockRecorder) CreateServerlessCacheRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateServerlessCacheRequest", reflect.TypeOf((*MockElastiCacheAPI)(nil).CreateServerlessCacheRequest), arg0)
+}
+
+// CreateServerlessCacheSnapshot mocks base method.
+func (m *MockElastiCacheAPI) CreateServerlessCacheSnapshot(arg0 *elasticache.CreateServerlessCacheSnapshotInput) (*elasticache.CreateServerlessCacheSnapshotOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateServerlessCacheSnapshot", arg0)
+	ret0, _ := ret[0].(*elasticache.CreateServerlessCacheSnapshotOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateServerlessCacheSnapshot indicates an expected call of CreateServerlessCacheSnapshot.
+func (mr *MockElastiCacheAPIMockRecorder) CreateServerlessCacheSnapshot(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateServerlessCacheSnapshot", reflect.TypeOf((*MockElastiCacheAPI)(nil).CreateServerlessCacheSnapshot), arg0)
+}
+
+// CreateServerlessCacheSnapshotRequest mocks base method.
+func (m *MockElastiCacheAPI) CreateServerlessCacheSnapshotRequest(arg0 *elasticache.CreateServerlessCacheSnapshotInput) (*request.Request, *elasticache.CreateServerlessCacheSnapshotOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateServerlessCacheSnapshotRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*elasticache.CreateServerlessCacheSnapshotOutput)
+	return ret0, ret1
+}
+
+// CreateServerlessCacheSnapshotRequest indicates an expected call of CreateServerlessCacheSnapshotRequest.
+func (mr *MockElastiCacheAPIMockRecorder) CreateServerlessCacheSnapshotRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateServerlessCacheSnapshotRequest", reflect.TypeOf((*MockElastiCacheAPI)(nil).CreateServerlessCacheSnapshotRequest), arg0)
+}
+
+// CreateServerlessCacheSnapshotWithContext mocks base method.
+func (m *MockElastiCacheAPI) CreateServerlessCacheSnapshotWithContext(arg0 context.Context, arg1 *elasticache.CreateServerlessCacheSnapshotInput, arg2 ...request.Option) (*elasticache.CreateServerlessCacheSnapshotOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "CreateServerlessCacheSnapshotWithContext", varargs...)
+	ret0, _ := ret[0].(*elasticache.CreateServerlessCacheSnapshotOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateServerlessCacheSnapshotWithContext indicates an expected call of CreateServerlessCacheSnapshotWithContext.
+func (mr *MockElastiCacheAPIMockRecorder) CreateServerlessCacheSnapshotWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateServerlessCacheSnapshotWithContext", reflect.TypeOf((*MockElastiCacheAPI)(nil).CreateServerlessCacheSnapshotWithContext), varargs...)
+}
+
+// CreateServerlessCacheWithContext mocks base method.
+func (m *MockElastiCacheAPI) CreateServerlessCacheWithContext(arg0 context.Context, arg1 *elasticache.CreateServerlessCacheInput, arg2 ...request.Option) (*elasticache.CreateServerlessCacheOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "CreateServerlessCacheWithContext", varargs...)
+	ret0, _ := ret[0].(*elasticache.CreateServerlessCacheOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateServerlessCacheWithContext indicates an expected call of CreateServerlessCacheWithContext.
+func (mr *MockElastiCacheAPIMockRecorder) CreateServerlessCacheWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateServerlessCacheWithContext", reflect.TypeOf((*MockElastiCacheAPI)(nil).CreateServerlessCacheWithContext), varargs...)
 }
 
 // CreateSnapshot mocks base method.
@@ -1184,6 +1334,106 @@ func (mr *MockElastiCacheAPIMockRecorder) DeleteReplicationGroupWithContext(arg0
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteReplicationGroupWithContext", reflect.TypeOf((*MockElastiCacheAPI)(nil).DeleteReplicationGroupWithContext), varargs...)
+}
+
+// DeleteServerlessCache mocks base method.
+func (m *MockElastiCacheAPI) DeleteServerlessCache(arg0 *elasticache.DeleteServerlessCacheInput) (*elasticache.DeleteServerlessCacheOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteServerlessCache", arg0)
+	ret0, _ := ret[0].(*elasticache.DeleteServerlessCacheOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteServerlessCache indicates an expected call of DeleteServerlessCache.
+func (mr *MockElastiCacheAPIMockRecorder) DeleteServerlessCache(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteServerlessCache", reflect.TypeOf((*MockElastiCacheAPI)(nil).DeleteServerlessCache), arg0)
+}
+
+// DeleteServerlessCacheRequest mocks base method.
+func (m *MockElastiCacheAPI) DeleteServerlessCacheRequest(arg0 *elasticache.DeleteServerlessCacheInput) (*request.Request, *elasticache.DeleteServerlessCacheOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteServerlessCacheRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*elasticache.DeleteServerlessCacheOutput)
+	return ret0, ret1
+}
+
+// DeleteServerlessCacheRequest indicates an expected call of DeleteServerlessCacheRequest.
+func (mr *MockElastiCacheAPIMockRecorder) DeleteServerlessCacheRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteServerlessCacheRequest", reflect.TypeOf((*MockElastiCacheAPI)(nil).DeleteServerlessCacheRequest), arg0)
+}
+
+// DeleteServerlessCacheSnapshot mocks base method.
+func (m *MockElastiCacheAPI) DeleteServerlessCacheSnapshot(arg0 *elasticache.DeleteServerlessCacheSnapshotInput) (*elasticache.DeleteServerlessCacheSnapshotOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteServerlessCacheSnapshot", arg0)
+	ret0, _ := ret[0].(*elasticache.DeleteServerlessCacheSnapshotOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteServerlessCacheSnapshot indicates an expected call of DeleteServerlessCacheSnapshot.
+func (mr *MockElastiCacheAPIMockRecorder) DeleteServerlessCacheSnapshot(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteServerlessCacheSnapshot", reflect.TypeOf((*MockElastiCacheAPI)(nil).DeleteServerlessCacheSnapshot), arg0)
+}
+
+// DeleteServerlessCacheSnapshotRequest mocks base method.
+func (m *MockElastiCacheAPI) DeleteServerlessCacheSnapshotRequest(arg0 *elasticache.DeleteServerlessCacheSnapshotInput) (*request.Request, *elasticache.DeleteServerlessCacheSnapshotOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteServerlessCacheSnapshotRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*elasticache.DeleteServerlessCacheSnapshotOutput)
+	return ret0, ret1
+}
+
+// DeleteServerlessCacheSnapshotRequest indicates an expected call of DeleteServerlessCacheSnapshotRequest.
+func (mr *MockElastiCacheAPIMockRecorder) DeleteServerlessCacheSnapshotRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteServerlessCacheSnapshotRequest", reflect.TypeOf((*MockElastiCacheAPI)(nil).DeleteServerlessCacheSnapshotRequest), arg0)
+}
+
+// DeleteServerlessCacheSnapshotWithContext mocks base method.
+func (m *MockElastiCacheAPI) DeleteServerlessCacheSnapshotWithContext(arg0 context.Context, arg1 *elasticache.DeleteServerlessCacheSnapshotInput, arg2 ...request.Option) (*elasticache.DeleteServerlessCacheSnapshotOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DeleteServerlessCacheSnapshotWithContext", varargs...)
+	ret0, _ := ret[0].(*elasticache.DeleteServerlessCacheSnapshotOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteServerlessCacheSnapshotWithContext indicates an expected call of DeleteServerlessCacheSnapshotWithContext.
+func (mr *MockElastiCacheAPIMockRecorder) DeleteServerlessCacheSnapshotWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteServerlessCacheSnapshotWithContext", reflect.TypeOf((*MockElastiCacheAPI)(nil).DeleteServerlessCacheSnapshotWithContext), varargs...)
+}
+
+// DeleteServerlessCacheWithContext mocks base method.
+func (m *MockElastiCacheAPI) DeleteServerlessCacheWithContext(arg0 context.Context, arg1 *elasticache.DeleteServerlessCacheInput, arg2 ...request.Option) (*elasticache.DeleteServerlessCacheOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DeleteServerlessCacheWithContext", varargs...)
+	ret0, _ := ret[0].(*elasticache.DeleteServerlessCacheOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteServerlessCacheWithContext indicates an expected call of DeleteServerlessCacheWithContext.
+func (mr *MockElastiCacheAPIMockRecorder) DeleteServerlessCacheWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteServerlessCacheWithContext", reflect.TypeOf((*MockElastiCacheAPI)(nil).DeleteServerlessCacheWithContext), varargs...)
 }
 
 // DeleteSnapshot mocks base method.
@@ -2332,6 +2582,172 @@ func (mr *MockElastiCacheAPIMockRecorder) DescribeReservedCacheNodesWithContext(
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeReservedCacheNodesWithContext", reflect.TypeOf((*MockElastiCacheAPI)(nil).DescribeReservedCacheNodesWithContext), varargs...)
 }
 
+// DescribeServerlessCacheSnapshots mocks base method.
+func (m *MockElastiCacheAPI) DescribeServerlessCacheSnapshots(arg0 *elasticache.DescribeServerlessCacheSnapshotsInput) (*elasticache.DescribeServerlessCacheSnapshotsOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeServerlessCacheSnapshots", arg0)
+	ret0, _ := ret[0].(*elasticache.DescribeServerlessCacheSnapshotsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeServerlessCacheSnapshots indicates an expected call of DescribeServerlessCacheSnapshots.
+func (mr *MockElastiCacheAPIMockRecorder) DescribeServerlessCacheSnapshots(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeServerlessCacheSnapshots", reflect.TypeOf((*MockElastiCacheAPI)(nil).DescribeServerlessCacheSnapshots), arg0)
+}
+
+// DescribeServerlessCacheSnapshotsPages mocks base method.
+func (m *MockElastiCacheAPI) DescribeServerlessCacheSnapshotsPages(arg0 *elasticache.DescribeServerlessCacheSnapshotsInput, arg1 func(*elasticache.DescribeServerlessCacheSnapshotsOutput, bool) bool) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeServerlessCacheSnapshotsPages", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeServerlessCacheSnapshotsPages indicates an expected call of DescribeServerlessCacheSnapshotsPages.
+func (mr *MockElastiCacheAPIMockRecorder) DescribeServerlessCacheSnapshotsPages(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeServerlessCacheSnapshotsPages", reflect.TypeOf((*MockElastiCacheAPI)(nil).DescribeServerlessCacheSnapshotsPages), arg0, arg1)
+}
+
+// DescribeServerlessCacheSnapshotsPagesWithContext mocks base method.
+func (m *MockElastiCacheAPI) DescribeServerlessCacheSnapshotsPagesWithContext(arg0 context.Context, arg1 *elasticache.DescribeServerlessCacheSnapshotsInput, arg2 func(*elasticache.DescribeServerlessCacheSnapshotsOutput, bool) bool, arg3 ...request.Option) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1, arg2}
+	for _, a := range arg3 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeServerlessCacheSnapshotsPagesWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeServerlessCacheSnapshotsPagesWithContext indicates an expected call of DescribeServerlessCacheSnapshotsPagesWithContext.
+func (mr *MockElastiCacheAPIMockRecorder) DescribeServerlessCacheSnapshotsPagesWithContext(arg0, arg1, arg2 interface{}, arg3 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1, arg2}, arg3...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeServerlessCacheSnapshotsPagesWithContext", reflect.TypeOf((*MockElastiCacheAPI)(nil).DescribeServerlessCacheSnapshotsPagesWithContext), varargs...)
+}
+
+// DescribeServerlessCacheSnapshotsRequest mocks base method.
+func (m *MockElastiCacheAPI) DescribeServerlessCacheSnapshotsRequest(arg0 *elasticache.DescribeServerlessCacheSnapshotsInput) (*request.Request, *elasticache.DescribeServerlessCacheSnapshotsOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeServerlessCacheSnapshotsRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*elasticache.DescribeServerlessCacheSnapshotsOutput)
+	return ret0, ret1
+}
+
+// DescribeServerlessCacheSnapshotsRequest indicates an expected call of DescribeServerlessCacheSnapshotsRequest.
+func (mr *MockElastiCacheAPIMockRecorder) DescribeServerlessCacheSnapshotsRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeServerlessCacheSnapshotsRequest", reflect.TypeOf((*MockElastiCacheAPI)(nil).DescribeServerlessCacheSnapshotsRequest), arg0)
+}
+
+// DescribeServerlessCacheSnapshotsWithContext mocks base method.
+func (m *MockElastiCacheAPI) DescribeServerlessCacheSnapshotsWithContext(arg0 context.Context, arg1 *elasticache.DescribeServerlessCacheSnapshotsInput, arg2 ...request.Option) (*elasticache.DescribeServerlessCacheSnapshotsOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeServerlessCacheSnapshotsWithContext", varargs...)
+	ret0, _ := ret[0].(*elasticache.DescribeServerlessCacheSnapshotsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeServerlessCacheSnapshotsWithContext indicates an expected call of DescribeServerlessCacheSnapshotsWithContext.
+func (mr *MockElastiCacheAPIMockRecorder) DescribeServerlessCacheSnapshotsWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeServerlessCacheSnapshotsWithContext", reflect.TypeOf((*MockElastiCacheAPI)(nil).DescribeServerlessCacheSnapshotsWithContext), varargs...)
+}
+
+// DescribeServerlessCaches mocks base method.
+func (m *MockElastiCacheAPI) DescribeServerlessCaches(arg0 *elasticache.DescribeServerlessCachesInput) (*elasticache.DescribeServerlessCachesOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeServerlessCaches", arg0)
+	ret0, _ := ret[0].(*elasticache.DescribeServerlessCachesOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeServerlessCaches indicates an expected call of DescribeServerlessCaches.
+func (mr *MockElastiCacheAPIMockRecorder) DescribeServerlessCaches(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeServerlessCaches", reflect.TypeOf((*MockElastiCacheAPI)(nil).DescribeServerlessCaches), arg0)
+}
+
+// DescribeServerlessCachesPages mocks base method.
+func (m *MockElastiCacheAPI) DescribeServerlessCachesPages(arg0 *elasticache.DescribeServerlessCachesInput, arg1 func(*elasticache.DescribeServerlessCachesOutput, bool) bool) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeServerlessCachesPages", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeServerlessCachesPages indicates an expected call of DescribeServerlessCachesPages.
+func (mr *MockElastiCacheAPIMockRecorder) DescribeServerlessCachesPages(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeServerlessCachesPages", reflect.TypeOf((*MockElastiCacheAPI)(nil).DescribeServerlessCachesPages), arg0, arg1)
+}
+
+// DescribeServerlessCachesPagesWithContext mocks base method.
+func (m *MockElastiCacheAPI) DescribeServerlessCachesPagesWithContext(arg0 context.Context, arg1 *elasticache.DescribeServerlessCachesInput, arg2 func(*elasticache.DescribeServerlessCachesOutput, bool) bool, arg3 ...request.Option) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1, arg2}
+	for _, a := range arg3 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeServerlessCachesPagesWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeServerlessCachesPagesWithContext indicates an expected call of DescribeServerlessCachesPagesWithContext.
+func (mr *MockElastiCacheAPIMockRecorder) DescribeServerlessCachesPagesWithContext(arg0, arg1, arg2 interface{}, arg3 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1, arg2}, arg3...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeServerlessCachesPagesWithContext", reflect.TypeOf((*MockElastiCacheAPI)(nil).DescribeServerlessCachesPagesWithContext), varargs...)
+}
+
+// DescribeServerlessCachesRequest mocks base method.
+func (m *MockElastiCacheAPI) DescribeServerlessCachesRequest(arg0 *elasticache.DescribeServerlessCachesInput) (*request.Request, *elasticache.DescribeServerlessCachesOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeServerlessCachesRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*elasticache.DescribeServerlessCachesOutput)
+	return ret0, ret1
+}
+
+// DescribeServerlessCachesRequest indicates an expected call of DescribeServerlessCachesRequest.
+func (mr *MockElastiCacheAPIMockRecorder) DescribeServerlessCachesRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeServerlessCachesRequest", reflect.TypeOf((*MockElastiCacheAPI)(nil).DescribeServerlessCachesRequest), arg0)
+}
+
+// DescribeServerlessCachesWithContext mocks base method.
+func (m *MockElastiCacheAPI) DescribeServerlessCachesWithContext(arg0 context.Context, arg1 *elasticache.DescribeServerlessCachesInput, arg2 ...request.Option) (*elasticache.DescribeServerlessCachesOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeServerlessCachesWithContext", varargs...)
+	ret0, _ := ret[0].(*elasticache.DescribeServerlessCachesOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeServerlessCachesWithContext indicates an expected call of DescribeServerlessCachesWithContext.
+func (mr *MockElastiCacheAPIMockRecorder) DescribeServerlessCachesWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeServerlessCachesWithContext", reflect.TypeOf((*MockElastiCacheAPI)(nil).DescribeServerlessCachesWithContext), varargs...)
+}
+
 // DescribeServiceUpdates mocks base method.
 func (m *MockElastiCacheAPI) DescribeServiceUpdates(arg0 *elasticache.DescribeServiceUpdatesInput) (*elasticache.DescribeServiceUpdatesOutput, error) {
 	m.ctrl.T.Helper()
@@ -2795,6 +3211,56 @@ func (mr *MockElastiCacheAPIMockRecorder) DisassociateGlobalReplicationGroupWith
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisassociateGlobalReplicationGroupWithContext", reflect.TypeOf((*MockElastiCacheAPI)(nil).DisassociateGlobalReplicationGroupWithContext), varargs...)
+}
+
+// ExportServerlessCacheSnapshot mocks base method.
+func (m *MockElastiCacheAPI) ExportServerlessCacheSnapshot(arg0 *elasticache.ExportServerlessCacheSnapshotInput) (*elasticache.ExportServerlessCacheSnapshotOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ExportServerlessCacheSnapshot", arg0)
+	ret0, _ := ret[0].(*elasticache.ExportServerlessCacheSnapshotOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ExportServerlessCacheSnapshot indicates an expected call of ExportServerlessCacheSnapshot.
+func (mr *MockElastiCacheAPIMockRecorder) ExportServerlessCacheSnapshot(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ExportServerlessCacheSnapshot", reflect.TypeOf((*MockElastiCacheAPI)(nil).ExportServerlessCacheSnapshot), arg0)
+}
+
+// ExportServerlessCacheSnapshotRequest mocks base method.
+func (m *MockElastiCacheAPI) ExportServerlessCacheSnapshotRequest(arg0 *elasticache.ExportServerlessCacheSnapshotInput) (*request.Request, *elasticache.ExportServerlessCacheSnapshotOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ExportServerlessCacheSnapshotRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*elasticache.ExportServerlessCacheSnapshotOutput)
+	return ret0, ret1
+}
+
+// ExportServerlessCacheSnapshotRequest indicates an expected call of ExportServerlessCacheSnapshotRequest.
+func (mr *MockElastiCacheAPIMockRecorder) ExportServerlessCacheSnapshotRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ExportServerlessCacheSnapshotRequest", reflect.TypeOf((*MockElastiCacheAPI)(nil).ExportServerlessCacheSnapshotRequest), arg0)
+}
+
+// ExportServerlessCacheSnapshotWithContext mocks base method.
+func (m *MockElastiCacheAPI) ExportServerlessCacheSnapshotWithContext(arg0 context.Context, arg1 *elasticache.ExportServerlessCacheSnapshotInput, arg2 ...request.Option) (*elasticache.ExportServerlessCacheSnapshotOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ExportServerlessCacheSnapshotWithContext", varargs...)
+	ret0, _ := ret[0].(*elasticache.ExportServerlessCacheSnapshotOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ExportServerlessCacheSnapshotWithContext indicates an expected call of ExportServerlessCacheSnapshotWithContext.
+func (mr *MockElastiCacheAPIMockRecorder) ExportServerlessCacheSnapshotWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ExportServerlessCacheSnapshotWithContext", reflect.TypeOf((*MockElastiCacheAPI)(nil).ExportServerlessCacheSnapshotWithContext), varargs...)
 }
 
 // FailoverGlobalReplicationGroup mocks base method.
@@ -3345,6 +3811,56 @@ func (mr *MockElastiCacheAPIMockRecorder) ModifyReplicationGroupWithContext(arg0
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyReplicationGroupWithContext", reflect.TypeOf((*MockElastiCacheAPI)(nil).ModifyReplicationGroupWithContext), varargs...)
+}
+
+// ModifyServerlessCache mocks base method.
+func (m *MockElastiCacheAPI) ModifyServerlessCache(arg0 *elasticache.ModifyServerlessCacheInput) (*elasticache.ModifyServerlessCacheOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ModifyServerlessCache", arg0)
+	ret0, _ := ret[0].(*elasticache.ModifyServerlessCacheOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ModifyServerlessCache indicates an expected call of ModifyServerlessCache.
+func (mr *MockElastiCacheAPIMockRecorder) ModifyServerlessCache(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyServerlessCache", reflect.TypeOf((*MockElastiCacheAPI)(nil).ModifyServerlessCache), arg0)
+}
+
+// ModifyServerlessCacheRequest mocks base method.
+func (m *MockElastiCacheAPI) ModifyServerlessCacheRequest(arg0 *elasticache.ModifyServerlessCacheInput) (*request.Request, *elasticache.ModifyServerlessCacheOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ModifyServerlessCacheRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*elasticache.ModifyServerlessCacheOutput)
+	return ret0, ret1
+}
+
+// ModifyServerlessCacheRequest indicates an expected call of ModifyServerlessCacheRequest.
+func (mr *MockElastiCacheAPIMockRecorder) ModifyServerlessCacheRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyServerlessCacheRequest", reflect.TypeOf((*MockElastiCacheAPI)(nil).ModifyServerlessCacheRequest), arg0)
+}
+
+// ModifyServerlessCacheWithContext mocks base method.
+func (m *MockElastiCacheAPI) ModifyServerlessCacheWithContext(arg0 context.Context, arg1 *elasticache.ModifyServerlessCacheInput, arg2 ...request.Option) (*elasticache.ModifyServerlessCacheOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ModifyServerlessCacheWithContext", varargs...)
+	ret0, _ := ret[0].(*elasticache.ModifyServerlessCacheOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ModifyServerlessCacheWithContext indicates an expected call of ModifyServerlessCacheWithContext.
+func (mr *MockElastiCacheAPIMockRecorder) ModifyServerlessCacheWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyServerlessCacheWithContext", reflect.TypeOf((*MockElastiCacheAPI)(nil).ModifyServerlessCacheWithContext), varargs...)
 }
 
 // ModifyUser mocks base method.

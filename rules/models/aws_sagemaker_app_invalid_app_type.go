@@ -30,6 +30,8 @@ func NewAwsSagemakerAppInvalidAppTypeRule() *AwsSagemakerAppInvalidAppTypeRule {
 			"TensorBoard",
 			"RStudioServerPro",
 			"RSessionGateway",
+			"JupyterLab",
+			"CodeEditor",
 		},
 	}
 }
