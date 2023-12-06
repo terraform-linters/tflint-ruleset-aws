@@ -35,6 +35,7 @@ func NewAwsS3ObjectCopyInvalidStorageClassRule() *AwsS3ObjectCopyInvalidStorageC
 			"OUTPOSTS",
 			"GLACIER_IR",
 			"SNOW",
+			"EXPRESS_ONEZONE",
 		},
 	}
 }

@@ -35,6 +35,7 @@ func NewAwsS3BucketObjectInvalidStorageClassRule() *AwsS3BucketObjectInvalidStor
 			"OUTPOSTS",
 			"GLACIER_IR",
 			"SNOW",
+			"EXPRESS_ONEZONE",
 		},
 	}
 }
