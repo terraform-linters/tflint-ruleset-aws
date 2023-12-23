@@ -1,4 +1,4 @@
-// +build generators
+//go:build generators
 
 package main
 

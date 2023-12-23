@@ -1,4 +1,4 @@
-// +build generators
+//go:build generators
 
 package main
 
@@ -12,6 +12,7 @@ import (
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/gohcl"
 	"github.com/hashicorp/hcl/v2/hclparse"
+	tfjson "github.com/hashicorp/terraform-json"
 	utils "github.com/terraform-linters/tflint-ruleset-aws/rules/generator-utils"
 )
 
@@ -99,26 +100,23 @@ func main() {
 	generateDocFile(generatedRules)
 }
 
-func fetchSchema(resource, attribute string, model map[string]interface{}, provider utils.ProviderSchema) utils.AttributeSchema {
+func fetchSchema(resource, attribute string, model map[string]interface{}, provider *tfjson.ProviderSchema) *tfjson.SchemaAttribute {
 	resourceSchema, ok := provider.ResourceSchemas[resource]
 	if !ok {
 		panic(fmt.Sprintf("resource `%s` not found in the Terraform schema", resource))
 	}
 	attrSchema, ok := resourceSchema.Block.Attributes[attribute]
 	if !ok {
-		if _, ok := resourceSchema.Block.BlockTypes[attribute]; !ok {
+		if _, ok := resourceSchema.Block.NestedBlocks[attribute]; !ok {
 			panic(fmt.Sprintf("`%s.%s` not found in the Terraform schema", resource, attribute))
 		}
 	}
 
 	switch model["type"].(string) {
 	case "string":
-		ty, ok := attrSchema.Type.(string)
-		if !ok {
-			panic(fmt.Sprintf("`%s.%s` is expected as string, but not (%s)", resource, attribute, attrSchema.Type))
-		}
+		ty := attrSchema.AttributeType.FriendlyName()
 		if ty != "string" && ty != "number" {
-			panic(fmt.Sprintf("`%s.%s` is expected as string, but not (%s)", resource, attribute, attrSchema.Type))
+			panic(fmt.Sprintf("`%s.%s` is expected as string, but not (%s)", resource, attribute, ty))
 		}
 	default:
 		// noop

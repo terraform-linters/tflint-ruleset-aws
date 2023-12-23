@@ -3,43 +3,19 @@ package utils
 import (
 	"encoding/json"
 	"io/ioutil"
+
+	tfjson "github.com/hashicorp/terraform-json"
 )
 
-type Schema struct {
-	ProviderSchemas ProviderSchemas `json:"provider_schemas"`
-}
-
-type ProviderSchemas struct {
-	AWS ProviderSchema `json:"registry.terraform.io/hashicorp/aws"`
-}
-
-type ProviderSchema struct {
-	ResourceSchemas map[string]ResourceSchema `json:"resource_schemas"`
-}
-
-type ResourceSchema struct {
-	Block BlockSchema `json:"block"`
-}
-
-type BlockSchema struct {
-	Attributes map[string]AttributeSchema `json:"attributes"`
-	BlockTypes map[string]ResourceSchema  `json:"block_types"`
-}
-
-type AttributeSchema struct {
-	Type      interface{} `json:"type"`
-	Sensitive bool        `json:"sensitive"`
-}
-
-func LoadProviderSchema(path string) ProviderSchema {
+func LoadProviderSchema(path string) *tfjson.ProviderSchema {
 	src, err := ioutil.ReadFile(path)
 	if err != nil {
 		panic(err)
 	}
 
-	var schema Schema
+	var schema tfjson.ProviderSchemas
 	if err := json.Unmarshal(src, &schema); err != nil {
 		panic(err)
 	}
-	return schema.ProviderSchemas.AWS
+	return schema.Schemas["registry.terraform.io/hashicorp/aws"]
 }
