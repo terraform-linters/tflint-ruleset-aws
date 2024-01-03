@@ -98,7 +98,7 @@ func NewAwsDBInstanceInvalidTypeRule() *AwsDBInstanceInvalidTypeRule {
 			"db.m6id.xlarge":            true,
 			"db.m6id.large":             true,
 			"db.m6idn.large":            true,
-		    "db.m6idn.xlarge":           true,
+			"db.m6idn.xlarge":           true,
 			"db.m6idn.2xlarge":          true,
 			"db.m6idn.4xlarge":          true,
 			"db.m6idn.8xlarge":          true,
