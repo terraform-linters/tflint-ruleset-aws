@@ -77,6 +77,8 @@ var validElastiCacheNodeTypes = map[string]bool{
 	"cache.r7g.8xlarge":   true,
 	"cache.r7g.12xlarge":  true,
 	"cache.r7g.16xlarge":  true,
+	"cache.c7gn.large":    true,
+	"cache.c7gn.xlarge":   true,
 	"cache.m1.small":      true,
 	"cache.m1.medium":     true,
 	"cache.m1.large":      true,
