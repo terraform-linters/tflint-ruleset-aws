@@ -29,6 +29,7 @@ func NewAwsCodestarconnectionsConnectionInvalidProviderTypeRule() *AwsCodestarco
 			"GitHub",
 			"GitHubEnterpriseServer",
 			"GitLab",
+			"GitLabSelfManaged",
 		},
 	}
 }

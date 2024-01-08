@@ -3,6 +3,9 @@
 package models
 
 import (
+	"fmt"
+	"regexp"
+
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -15,6 +18,7 @@ type AwsSagemakerAppInvalidDomainIDRule struct {
 	resourceType  string
 	attributeName string
 	max           int
+	pattern       *regexp.Regexp
 }
 
 // NewAwsSagemakerAppInvalidDomainIDRule returns new rule with default attributes
@@ -23,6 +27,7 @@ func NewAwsSagemakerAppInvalidDomainIDRule() *AwsSagemakerAppInvalidDomainIDRule
 		resourceType:  "aws_sagemaker_app",
 		attributeName: "domain_id",
 		max:           63,
+		pattern:       regexp.MustCompile(`^d-(-*[a-z0-9]){1,61}`),
 	}
 }
 
@@ -70,6 +75,13 @@ func (r *AwsSagemakerAppInvalidDomainIDRule) Check(runner tflint.Runner) error {
 				runner.EmitIssue(
 					r,
 					"domain_id must be 63 characters or less",
+					attribute.Expr.Range(),
+				)
+			}
+			if !r.pattern.MatchString(val) {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^d-(-*[a-z0-9]){1,61}`),
 					attribute.Expr.Range(),
 				)
 			}
