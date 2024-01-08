@@ -1,3 +1,19 @@
+## 0.29.0 (2024-01-08)
+
+### Enhancements
+
+- [#580](https://github.com/terraform-linters/tflint-ruleset-aws/pull/580) [#581](https://github.com/terraform-linters/tflint-ruleset-aws/pull/581) [#582](https://github.com/terraform-linters/tflint-ruleset-aws/pull/582) [#583](https://github.com/terraform-linters/tflint-ruleset-aws/pull/583) [#585](https://github.com/terraform-linters/tflint-ruleset-aws/pull/585) [#586](https://github.com/terraform-linters/tflint-ruleset-aws/pull/586) [#587](https://github.com/terraform-linters/tflint-ruleset-aws/pull/587): Update AWS provider/module and generated content
+- [#591](https://github.com/terraform-linters/tflint-ruleset-aws/pull/591): rds: add db.m6idn instance family ([@GeorgeSimpsonAtFanatics](https://github.com/GeorgeSimpsonAtFanatics))
+- [#592](https://github.com/terraform-linters/tflint-ruleset-aws/pull/592): rds: Add m6in, r6idn, r6in instance classes ([@wata727](https://github.com/wata727))
+- [#593](https://github.com/terraform-linters/tflint-ruleset-aws/pull/593): cache: Add cache.c7gn node types ([@wata727](https://github.com/wata727))
+- [#594](https://github.com/terraform-linters/tflint-ruleset-aws/pull/594): Update Lambda deprecated runtimes ([@wata727](https://github.com/wata727))
+
+### Chore
+
+- [#584](https://github.com/terraform-linters/tflint-ruleset-aws/pull/584): Bump golang.org/x/net from 0.18.0 to 0.19.0
+- [#588](https://github.com/terraform-linters/tflint-ruleset-aws/pull/588): Bump actions/setup-go from 4 to 5
+- [#589](https://github.com/terraform-linters/tflint-ruleset-aws/pull/589): generator: use terraform-json types for provider schemas ([@HadrienPatte](https://github.com/HadrienPatte))
+
 ## 0.28.0 (2023-11-18)
 
 ### Breaking Changes
