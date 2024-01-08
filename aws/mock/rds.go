@@ -4363,6 +4363,89 @@ func (mr *MockRDSAPIMockRecorder) DescribeDBProxyTargetsWithContext(arg0, arg1 i
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBProxyTargetsWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBProxyTargetsWithContext), varargs...)
 }
 
+// DescribeDBRecommendations mocks base method.
+func (m *MockRDSAPI) DescribeDBRecommendations(arg0 *rds.DescribeDBRecommendationsInput) (*rds.DescribeDBRecommendationsOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeDBRecommendations", arg0)
+	ret0, _ := ret[0].(*rds.DescribeDBRecommendationsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeDBRecommendations indicates an expected call of DescribeDBRecommendations.
+func (mr *MockRDSAPIMockRecorder) DescribeDBRecommendations(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBRecommendations", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBRecommendations), arg0)
+}
+
+// DescribeDBRecommendationsPages mocks base method.
+func (m *MockRDSAPI) DescribeDBRecommendationsPages(arg0 *rds.DescribeDBRecommendationsInput, arg1 func(*rds.DescribeDBRecommendationsOutput, bool) bool) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeDBRecommendationsPages", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeDBRecommendationsPages indicates an expected call of DescribeDBRecommendationsPages.
+func (mr *MockRDSAPIMockRecorder) DescribeDBRecommendationsPages(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBRecommendationsPages", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBRecommendationsPages), arg0, arg1)
+}
+
+// DescribeDBRecommendationsPagesWithContext mocks base method.
+func (m *MockRDSAPI) DescribeDBRecommendationsPagesWithContext(arg0 context.Context, arg1 *rds.DescribeDBRecommendationsInput, arg2 func(*rds.DescribeDBRecommendationsOutput, bool) bool, arg3 ...request.Option) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1, arg2}
+	for _, a := range arg3 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeDBRecommendationsPagesWithContext", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DescribeDBRecommendationsPagesWithContext indicates an expected call of DescribeDBRecommendationsPagesWithContext.
+func (mr *MockRDSAPIMockRecorder) DescribeDBRecommendationsPagesWithContext(arg0, arg1, arg2 interface{}, arg3 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1, arg2}, arg3...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBRecommendationsPagesWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBRecommendationsPagesWithContext), varargs...)
+}
+
+// DescribeDBRecommendationsRequest mocks base method.
+func (m *MockRDSAPI) DescribeDBRecommendationsRequest(arg0 *rds.DescribeDBRecommendationsInput) (*request.Request, *rds.DescribeDBRecommendationsOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeDBRecommendationsRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.DescribeDBRecommendationsOutput)
+	return ret0, ret1
+}
+
+// DescribeDBRecommendationsRequest indicates an expected call of DescribeDBRecommendationsRequest.
+func (mr *MockRDSAPIMockRecorder) DescribeDBRecommendationsRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBRecommendationsRequest", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBRecommendationsRequest), arg0)
+}
+
+// DescribeDBRecommendationsWithContext mocks base method.
+func (m *MockRDSAPI) DescribeDBRecommendationsWithContext(arg0 context.Context, arg1 *rds.DescribeDBRecommendationsInput, arg2 ...request.Option) (*rds.DescribeDBRecommendationsOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeDBRecommendationsWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.DescribeDBRecommendationsOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeDBRecommendationsWithContext indicates an expected call of DescribeDBRecommendationsWithContext.
+func (mr *MockRDSAPIMockRecorder) DescribeDBRecommendationsWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeDBRecommendationsWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeDBRecommendationsWithContext), varargs...)
+}
+
 // DescribeDBSecurityGroups mocks base method.
 func (m *MockRDSAPI) DescribeDBSecurityGroups(arg0 *rds.DescribeDBSecurityGroupsInput) (*rds.DescribeDBSecurityGroupsOutput, error) {
 	m.ctrl.T.Helper()
@@ -6057,6 +6140,56 @@ func (mr *MockRDSAPIMockRecorder) DescribeValidDBInstanceModificationsWithContex
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeValidDBInstanceModificationsWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DescribeValidDBInstanceModificationsWithContext), varargs...)
 }
 
+// DisableHttpEndpoint mocks base method.
+func (m *MockRDSAPI) DisableHttpEndpoint(arg0 *rds.DisableHttpEndpointInput) (*rds.DisableHttpEndpointOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DisableHttpEndpoint", arg0)
+	ret0, _ := ret[0].(*rds.DisableHttpEndpointOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DisableHttpEndpoint indicates an expected call of DisableHttpEndpoint.
+func (mr *MockRDSAPIMockRecorder) DisableHttpEndpoint(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisableHttpEndpoint", reflect.TypeOf((*MockRDSAPI)(nil).DisableHttpEndpoint), arg0)
+}
+
+// DisableHttpEndpointRequest mocks base method.
+func (m *MockRDSAPI) DisableHttpEndpointRequest(arg0 *rds.DisableHttpEndpointInput) (*request.Request, *rds.DisableHttpEndpointOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DisableHttpEndpointRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.DisableHttpEndpointOutput)
+	return ret0, ret1
+}
+
+// DisableHttpEndpointRequest indicates an expected call of DisableHttpEndpointRequest.
+func (mr *MockRDSAPIMockRecorder) DisableHttpEndpointRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisableHttpEndpointRequest", reflect.TypeOf((*MockRDSAPI)(nil).DisableHttpEndpointRequest), arg0)
+}
+
+// DisableHttpEndpointWithContext mocks base method.
+func (m *MockRDSAPI) DisableHttpEndpointWithContext(arg0 context.Context, arg1 *rds.DisableHttpEndpointInput, arg2 ...request.Option) (*rds.DisableHttpEndpointOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DisableHttpEndpointWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.DisableHttpEndpointOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DisableHttpEndpointWithContext indicates an expected call of DisableHttpEndpointWithContext.
+func (mr *MockRDSAPIMockRecorder) DisableHttpEndpointWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisableHttpEndpointWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DisableHttpEndpointWithContext), varargs...)
+}
+
 // DownloadDBLogFilePortion mocks base method.
 func (m *MockRDSAPI) DownloadDBLogFilePortion(arg0 *rds.DownloadDBLogFilePortionInput) (*rds.DownloadDBLogFilePortionOutput, error) {
 	m.ctrl.T.Helper()
@@ -6138,6 +6271,56 @@ func (mr *MockRDSAPIMockRecorder) DownloadDBLogFilePortionWithContext(arg0, arg1
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DownloadDBLogFilePortionWithContext", reflect.TypeOf((*MockRDSAPI)(nil).DownloadDBLogFilePortionWithContext), varargs...)
+}
+
+// EnableHttpEndpoint mocks base method.
+func (m *MockRDSAPI) EnableHttpEndpoint(arg0 *rds.EnableHttpEndpointInput) (*rds.EnableHttpEndpointOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "EnableHttpEndpoint", arg0)
+	ret0, _ := ret[0].(*rds.EnableHttpEndpointOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// EnableHttpEndpoint indicates an expected call of EnableHttpEndpoint.
+func (mr *MockRDSAPIMockRecorder) EnableHttpEndpoint(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EnableHttpEndpoint", reflect.TypeOf((*MockRDSAPI)(nil).EnableHttpEndpoint), arg0)
+}
+
+// EnableHttpEndpointRequest mocks base method.
+func (m *MockRDSAPI) EnableHttpEndpointRequest(arg0 *rds.EnableHttpEndpointInput) (*request.Request, *rds.EnableHttpEndpointOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "EnableHttpEndpointRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.EnableHttpEndpointOutput)
+	return ret0, ret1
+}
+
+// EnableHttpEndpointRequest indicates an expected call of EnableHttpEndpointRequest.
+func (mr *MockRDSAPIMockRecorder) EnableHttpEndpointRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EnableHttpEndpointRequest", reflect.TypeOf((*MockRDSAPI)(nil).EnableHttpEndpointRequest), arg0)
+}
+
+// EnableHttpEndpointWithContext mocks base method.
+func (m *MockRDSAPI) EnableHttpEndpointWithContext(arg0 context.Context, arg1 *rds.EnableHttpEndpointInput, arg2 ...request.Option) (*rds.EnableHttpEndpointOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "EnableHttpEndpointWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.EnableHttpEndpointOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// EnableHttpEndpointWithContext indicates an expected call of EnableHttpEndpointWithContext.
+func (mr *MockRDSAPIMockRecorder) EnableHttpEndpointWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EnableHttpEndpointWithContext", reflect.TypeOf((*MockRDSAPI)(nil).EnableHttpEndpointWithContext), varargs...)
 }
 
 // FailoverDBCluster mocks base method.
@@ -6938,6 +7121,56 @@ func (mr *MockRDSAPIMockRecorder) ModifyDBProxyWithContext(arg0, arg1 interface{
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyDBProxyWithContext", reflect.TypeOf((*MockRDSAPI)(nil).ModifyDBProxyWithContext), varargs...)
+}
+
+// ModifyDBRecommendation mocks base method.
+func (m *MockRDSAPI) ModifyDBRecommendation(arg0 *rds.ModifyDBRecommendationInput) (*rds.ModifyDBRecommendationOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ModifyDBRecommendation", arg0)
+	ret0, _ := ret[0].(*rds.ModifyDBRecommendationOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ModifyDBRecommendation indicates an expected call of ModifyDBRecommendation.
+func (mr *MockRDSAPIMockRecorder) ModifyDBRecommendation(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyDBRecommendation", reflect.TypeOf((*MockRDSAPI)(nil).ModifyDBRecommendation), arg0)
+}
+
+// ModifyDBRecommendationRequest mocks base method.
+func (m *MockRDSAPI) ModifyDBRecommendationRequest(arg0 *rds.ModifyDBRecommendationInput) (*request.Request, *rds.ModifyDBRecommendationOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ModifyDBRecommendationRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.ModifyDBRecommendationOutput)
+	return ret0, ret1
+}
+
+// ModifyDBRecommendationRequest indicates an expected call of ModifyDBRecommendationRequest.
+func (mr *MockRDSAPIMockRecorder) ModifyDBRecommendationRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyDBRecommendationRequest", reflect.TypeOf((*MockRDSAPI)(nil).ModifyDBRecommendationRequest), arg0)
+}
+
+// ModifyDBRecommendationWithContext mocks base method.
+func (m *MockRDSAPI) ModifyDBRecommendationWithContext(arg0 context.Context, arg1 *rds.ModifyDBRecommendationInput, arg2 ...request.Option) (*rds.ModifyDBRecommendationOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ModifyDBRecommendationWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.ModifyDBRecommendationOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ModifyDBRecommendationWithContext indicates an expected call of ModifyDBRecommendationWithContext.
+func (mr *MockRDSAPIMockRecorder) ModifyDBRecommendationWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyDBRecommendationWithContext", reflect.TypeOf((*MockRDSAPI)(nil).ModifyDBRecommendationWithContext), varargs...)
 }
 
 // ModifyDBSnapshot mocks base method.
