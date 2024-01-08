@@ -1,6 +1,6 @@
 # aws_lambda_function_deprecated_runtime
 
-Checks to see if a lambda function has been set with a runtime that is deprecated. This can show up as either "end of support" or "end of life" depending on the phase of deprecation it is currently in.
+Checks to see if a lambda function has been set with a runtime that is deprecated.
 
 ## Example
 
@@ -30,4 +30,4 @@ AWS no longer supports these runtimes.
 
 ## How To Fix
 
-Update to a newer runtime. Supported runtimes can be found [here](https://docs.aws.amazon.com/lambda/latest/dg/runtime-support-policy.html)
+Update to a newer runtime. Supported runtimes can be found [here](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html)
