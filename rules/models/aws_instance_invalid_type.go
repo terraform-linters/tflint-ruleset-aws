@@ -806,6 +806,8 @@ func NewAwsInstanceInvalidTypeRule() *AwsInstanceInvalidTypeRule {
 			"m7i.metal-48xl",
 			"r7i.metal-24xl",
 			"r7i.metal-48xl",
+			"r7iz.metal-16xl",
+			"r7iz.metal-32xl",
 		},
 	}
 }

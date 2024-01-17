@@ -27,8 +27,6 @@ func NewAwsSagemakerStudioLifecycleConfigInvalidStudioLifecycleConfigAppTypeRule
 		enum: []string{
 			"JupyterServer",
 			"KernelGateway",
-			"VSCode",
-			"Savitur",
 			"CodeEditor",
 			"JupyterLab",
 		},
