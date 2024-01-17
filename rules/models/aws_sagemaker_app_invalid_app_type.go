@@ -29,17 +29,11 @@ func NewAwsSagemakerAppInvalidAppTypeRule() *AwsSagemakerAppInvalidAppTypeRule {
 			"KernelGateway",
 			"DetailedProfiler",
 			"TensorBoard",
-			"VSCode",
-			"Savitur",
 			"CodeEditor",
 			"JupyterLab",
 			"RStudioServerPro",
-			"RSession",
 			"RSessionGateway",
 			"Canvas",
-			"DatasetManager",
-			"SageMakerLite",
-			"Local",
 		},
 	}
 }
