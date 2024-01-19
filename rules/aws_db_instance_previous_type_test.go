@@ -39,6 +39,14 @@ resource "aws_db_instance" "mysql" {
 }`,
 			Expected: helper.Issues{},
 		},
+		{
+			Name: "test is not previous type",
+			Content: `
+resource "aws_db_instance" "mysql" {
+    instance_class = "test"
+}`,
+			Expected: helper.Issues{},
+		},
 	}
 
 	rule := NewAwsDBInstancePreviousTypeRule()

@@ -39,6 +39,14 @@ resource "aws_elasticache_replication_group" "redis" {
 }`,
 			Expected: helper.Issues{},
 		},
+		{
+			Name: "test is not previous type",
+			Content: `
+resource "aws_elasticache_replication_group" "redis" {
+    node_type = "test"
+}`,
+			Expected: helper.Issues{},
+		},
 	}
 
 	rule := NewAwsElastiCacheReplicationGroupPreviousTypeRule()
