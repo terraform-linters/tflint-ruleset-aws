@@ -227,6 +227,7 @@ var Resources = []string{
 	"aws_efs_file_system",
 	"aws_egress_only_internet_gateway",
 	"aws_eip",
+	"aws_eks_access_entry",
 	"aws_eks_addon",
 	"aws_eks_cluster",
 	"aws_eks_fargate_profile",
