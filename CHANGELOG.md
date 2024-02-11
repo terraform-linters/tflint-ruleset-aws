@@ -1,3 +1,21 @@
+## 0.30.0 (2024-02-11)
+
+### Enhancements
+
+- [#589](https://github.com/terraform-linters/tflint-ruleset-aws/pull/598) [#601](https://github.com/terraform-linters/tflint-ruleset-aws/pull/601) [#602](https://github.com/terraform-linters/tflint-ruleset-aws/pull/602) [#606](https://github.com/terraform-linters/tflint-ruleset-aws/pull/606): Update AWS provider/module and generated content
+
+### Bug Fixes
+
+- [#600](https://github.com/terraform-linters/tflint-ruleset-aws/pull/600): fix: prevent runtime error when instanceType/nodeType have no dot ([@guillaumelecerf](https://github.com/guillaumelecerf))
+
+### Chores
+
+- [#599](https://github.com/terraform-linters/tflint-ruleset-aws/pull/599): Bump golang.org/x/net from 0.19.0 to 0.20.0
+- [#603](https://github.com/terraform-linters/tflint-ruleset-aws/pull/603): Bump github.com/hashicorp/terraform-json from 0.20.0 to 0.21.0
+- [#604](https://github.com/terraform-linters/tflint-ruleset-aws/pull/604): Bump github.com/zclconf/go-cty from 1.14.1 to 1.14.2
+- [#605](https://github.com/terraform-linters/tflint-ruleset-aws/pull/605): Bump peter-evans/create-pull-request from 5 to 6
+- [#607](https://github.com/terraform-linters/tflint-ruleset-aws/pull/607): deps: Go 1.22 ([@wata727](https://github.com/wata727))
+
 ## 0.29.0 (2024-01-08)
 
 ### Enhancements
