@@ -70,7 +70,12 @@ func (r *AwsDBInstancePreviousTypeRule) Check(runner tflint.Runner) error {
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(instanceType string) error {
-			if r.previousInstanceTypes[strings.Split(instanceType, ".")[1]] {
+			parts := strings.Split(instanceType, ".")
+			if len(parts) < 3 {
+				return nil
+			}
+
+			if r.previousInstanceTypes[parts[1]] {
 				runner.EmitIssue(
 					r,
 					fmt.Sprintf("\"%s\" is previous generation instance type.", instanceType),

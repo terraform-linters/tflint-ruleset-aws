@@ -1,4 +1,4 @@
-// +build generators
+//go:build generators
 
 package main
 
@@ -99,18 +99,10 @@ func dataType(resource, attribute string) string {
 		panic(fmt.Sprintf("`%s.%s` not found in the Terraform schema", resource, attribute))
 	}
 
-	switch ty := attrSchema.Type.(type) {
-	case string:
-		if ty != "string" {
-			panic(fmt.Errorf("Unexpected data type: %#v", attrSchema.Type))
-		}
+	if ty := attrSchema.AttributeType.FriendlyName(); ty == "string" {
 		return "string"
-	case []interface{}:
-		if len(ty) != 2 || !(ty[0] == "set" && ty[1] == "string") {
-			panic(fmt.Errorf("Unexpected data type: %#v", attrSchema.Type))
-		}
+	} else if attrSchema.AttributeType.IsSetType() || attrSchema.AttributeType.IsListType() {
 		return "list"
-	default:
-		panic(fmt.Errorf("Unexpected data type: %#v", attrSchema.Type))
 	}
+	panic(fmt.Errorf("Unexpected data type: %#v", attrSchema.AttributeType))
 }

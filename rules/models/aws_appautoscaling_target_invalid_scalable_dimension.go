@@ -46,6 +46,7 @@ func NewAwsAppautoscalingTargetInvalidScalableDimensionRule() *AwsAppautoscaling
 			"elasticache:replication-group:Replicas",
 			"neptune:cluster:ReadReplicaCount",
 			"sagemaker:variant:DesiredProvisionedConcurrency",
+			"sagemaker:inference-component:DesiredCopyCount",
 		},
 	}
 }

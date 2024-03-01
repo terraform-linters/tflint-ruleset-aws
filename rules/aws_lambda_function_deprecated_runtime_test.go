@@ -38,28 +38,6 @@ resource "aws_lambda_function" "function" {
 			},
 		},
 		{
-			Name: "EOF",
-			Content: `
-resource "aws_lambda_function" "function" {
-	function_name = "test_function"
-	role = "test_role"
-	runtime = "nodejs10.x"
-}
-`,
-			Now: time.Date(2021, time.September, 1, 0, 0, 0, 0, time.UTC),
-			Expected: helper.Issues{
-				{
-					Rule:    NewAwsLambdaFunctionDeprecatedRuntimeRule(),
-					Message: "The \"nodejs10.x\" runtime has reached the end of life",
-					Range: hcl.Range{
-						Filename: "resource.tf",
-						Start:    hcl.Pos{Line: 5, Column: 12},
-						End:      hcl.Pos{Line: 5, Column: 24},
-					},
-				},
-			},
-		},
-		{
 			Name: "Live",
 			Content: `
 resource "aws_lambda_function" "function" {

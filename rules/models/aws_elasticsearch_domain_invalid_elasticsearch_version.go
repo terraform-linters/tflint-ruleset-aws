@@ -25,7 +25,7 @@ func NewAwsElasticsearchDomainInvalidElasticsearchVersionRule() *AwsElasticsearc
 	return &AwsElasticsearchDomainInvalidElasticsearchVersionRule{
 		resourceType:  "aws_elasticsearch_domain",
 		attributeName: "elasticsearch_version",
-		pattern:       regexp.MustCompile(`^[0-9]{1}\.[0-9]{1,2}$|^OpenSearch_[0-9]{1,2}\.[0-9]{1,2}$`),
+		pattern:       regexp.MustCompile(`^[0-9]{1}\.[0-9]{1,2}$|^OpenSearch_[0-9]{1,2}\.[0-9]{1,2}$|^OS_[0-9]{1,2}\.[0-9]{1,2}$`),
 	}
 }
 
@@ -72,7 +72,7 @@ func (r *AwsElasticsearchDomainInvalidElasticsearchVersionRule) Check(runner tfl
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[0-9]{1}\.[0-9]{1,2}$|^OpenSearch_[0-9]{1,2}\.[0-9]{1,2}$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[0-9]{1}\.[0-9]{1,2}$|^OpenSearch_[0-9]{1,2}\.[0-9]{1,2}$|^OS_[0-9]{1,2}\.[0-9]{1,2}$`),
 					attribute.Expr.Range(),
 				)
 			}

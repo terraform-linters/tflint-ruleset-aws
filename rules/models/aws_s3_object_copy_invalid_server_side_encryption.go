@@ -27,6 +27,7 @@ func NewAwsS3ObjectCopyInvalidServerSideEncryptionRule() *AwsS3ObjectCopyInvalid
 		enum: []string{
 			"AES256",
 			"aws:kms",
+			"aws:kms:dsse",
 		},
 	}
 }

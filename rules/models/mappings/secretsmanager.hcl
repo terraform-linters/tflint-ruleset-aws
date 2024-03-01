@@ -7,8 +7,6 @@ mapping "aws_secretsmanager_secret" {
   kms_key_id              = KmsKeyIdType
   policy                  = NonEmptyResourcePolicyType
   recovery_window_in_days = RecoveryWindowInDaysType
-  rotation_lambda_arn     = RotationLambdaARNType
-  rotation_rules          = RotationRulesType
   tags                    = TagListType
 }
 

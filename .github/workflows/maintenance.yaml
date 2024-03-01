@@ -8,9 +8,9 @@ jobs:
   job:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: git submodule update --init --depth=0
-      - uses: actions/setup-go@v4
+      - uses: actions/setup-go@v5
         with:
           go-version-file: 'go.mod'
       - run: |
@@ -22,7 +22,7 @@ jobs:
           cd ../..
           git submodule update --remote
           go generate ./...
-      - uses: peter-evans/create-pull-request@v5
+      - uses: peter-evans/create-pull-request@v6
         with:
           commit-message: |
             Update AWS provider/module and generated content

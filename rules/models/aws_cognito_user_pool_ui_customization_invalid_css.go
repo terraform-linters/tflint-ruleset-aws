@@ -8,8 +8,8 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsRedshiftSecurityGroupInvalidNameRule checks the pattern is valid
-type AwsRedshiftSecurityGroupInvalidNameRule struct {
+// AwsCognitoUserPoolUICustomizationInvalidCssRule checks the pattern is valid
+type AwsCognitoUserPoolUICustomizationInvalidCssRule struct {
 	tflint.DefaultRule
 
 	resourceType  string
@@ -17,37 +17,37 @@ type AwsRedshiftSecurityGroupInvalidNameRule struct {
 	max           int
 }
 
-// NewAwsRedshiftSecurityGroupInvalidNameRule returns new rule with default attributes
-func NewAwsRedshiftSecurityGroupInvalidNameRule() *AwsRedshiftSecurityGroupInvalidNameRule {
-	return &AwsRedshiftSecurityGroupInvalidNameRule{
-		resourceType:  "aws_redshift_security_group",
-		attributeName: "name",
-		max:           2147483647,
+// NewAwsCognitoUserPoolUICustomizationInvalidCssRule returns new rule with default attributes
+func NewAwsCognitoUserPoolUICustomizationInvalidCssRule() *AwsCognitoUserPoolUICustomizationInvalidCssRule {
+	return &AwsCognitoUserPoolUICustomizationInvalidCssRule{
+		resourceType:  "aws_cognito_user_pool_ui_customization",
+		attributeName: "css",
+		max:           131072,
 	}
 }
 
 // Name returns the rule name
-func (r *AwsRedshiftSecurityGroupInvalidNameRule) Name() string {
-	return "aws_redshift_security_group_invalid_name"
+func (r *AwsCognitoUserPoolUICustomizationInvalidCssRule) Name() string {
+	return "aws_cognito_user_pool_ui_customization_invalid_css"
 }
 
 // Enabled returns whether the rule is enabled by default
-func (r *AwsRedshiftSecurityGroupInvalidNameRule) Enabled() bool {
+func (r *AwsCognitoUserPoolUICustomizationInvalidCssRule) Enabled() bool {
 	return true
 }
 
 // Severity returns the rule severity
-func (r *AwsRedshiftSecurityGroupInvalidNameRule) Severity() tflint.Severity {
+func (r *AwsCognitoUserPoolUICustomizationInvalidCssRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
 // Link returns the rule reference link
-func (r *AwsRedshiftSecurityGroupInvalidNameRule) Link() string {
+func (r *AwsCognitoUserPoolUICustomizationInvalidCssRule) Link() string {
 	return ""
 }
 
 // Check checks the pattern is valid
-func (r *AwsRedshiftSecurityGroupInvalidNameRule) Check(runner tflint.Runner) error {
+func (r *AwsCognitoUserPoolUICustomizationInvalidCssRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
@@ -69,7 +69,7 @@ func (r *AwsRedshiftSecurityGroupInvalidNameRule) Check(runner tflint.Runner) er
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					"name must be 2147483647 characters or less",
+					"css must be 131072 characters or less",
 					attribute.Expr.Range(),
 				)
 			}

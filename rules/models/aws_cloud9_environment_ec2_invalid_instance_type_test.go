@@ -24,7 +24,7 @@ resource "aws_cloud9_environment_ec2" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsCloud9EnvironmentEc2InvalidInstanceTypeRule(),
-					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("t20.micro"), `^[a-z][1-9][.][a-z0-9]+$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("t20.micro"), `^[a-z]+[1-9][.][a-z0-9]+$`),
 				},
 			},
 		},

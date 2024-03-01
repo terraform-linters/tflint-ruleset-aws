@@ -1,4 +1,4 @@
-// +build generators
+//go:build generators
 
 package main
 
@@ -7,6 +7,7 @@ import (
 	"regexp"
 	"strings"
 
+	tfjson "github.com/hashicorp/terraform-json"
 	utils "github.com/terraform-linters/tflint-ruleset-aws/rules/generator-utils"
 )
 
@@ -24,7 +25,7 @@ type ruleMeta struct {
 	TestNG        string
 }
 
-func generateRuleFile(resource, attribute string, model map[string]interface{}, schema utils.AttributeSchema) {
+func generateRuleFile(resource, attribute string, model map[string]interface{}, schema *tfjson.SchemaAttribute) {
 	ruleName := makeRuleName(resource, attribute)
 
 	meta := &ruleMeta{

@@ -45,14 +45,12 @@ mapping "aws_db_instance" {
   monitoring_interval                   = IntegerOptional
   monitoring_role_arn                   = String
   multi_az                              = BooleanOptional
-  name                                  = String
   option_group_name                     = String
   parameter_group_name                  = String
   password                              = String
   port                                  = IntegerOptional
   publicly_accessible                   = BooleanOptional
   replicate_source_db                   = any
-  security_group_names                  = DBSecurityGroupNameList
   skip_final_snapshot                   = Boolean
   snapshot_identifier                   = String
   storage_encrypted                     = BooleanOptional
@@ -107,13 +105,6 @@ mapping "aws_db_proxy_endpoint" {
   db_proxy_name = DBProxyName
   target_role = DBProxyEndpointTargetRole
   tags = TagList
-}
-
-mapping "aws_db_security_group" {
-  name        = String
-  description = String
-  ingress     = AuthorizeDBSecurityGroupIngressMessage
-  tags        = TagList
 }
 
 mapping "aws_db_snapshot" {

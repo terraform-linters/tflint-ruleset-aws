@@ -28,6 +28,8 @@ func NewAwsCodestarconnectionsHostInvalidProviderTypeRule() *AwsCodestarconnecti
 			"Bitbucket",
 			"GitHub",
 			"GitHubEnterpriseServer",
+			"GitLab",
+			"GitLabSelfManaged",
 		},
 	}
 }

@@ -26,6 +26,7 @@ func NewAwsCloudfrontFunctionInvalidRuntimeRule() *AwsCloudfrontFunctionInvalidR
 		attributeName: "runtime",
 		enum: []string{
 			"cloudfront-js-1.0",
+			"cloudfront-js-2.0",
 		},
 	}
 }

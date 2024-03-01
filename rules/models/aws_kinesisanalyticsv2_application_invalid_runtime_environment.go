@@ -33,6 +33,7 @@ func NewAwsKinesisanalyticsv2ApplicationInvalidRuntimeEnvironmentRule() *AwsKine
 			"FLINK-1_13",
 			"ZEPPELIN-FLINK-2_0",
 			"FLINK-1_15",
+			"ZEPPELIN-FLINK-3_0",
 		},
 	}
 }

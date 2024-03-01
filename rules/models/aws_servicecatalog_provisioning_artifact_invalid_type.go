@@ -29,6 +29,8 @@ func NewAwsServicecatalogProvisioningArtifactInvalidTypeRule() *AwsServicecatalo
 			"MARKETPLACE_AMI",
 			"MARKETPLACE_CAR",
 			"TERRAFORM_OPEN_SOURCE",
+			"TERRAFORM_CLOUD",
+			"EXTERNAL",
 		},
 	}
 }

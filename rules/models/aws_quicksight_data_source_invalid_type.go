@@ -51,6 +51,9 @@ func NewAwsQuicksightDataSourceInvalidTypeRule() *AwsQuicksightDataSourceInvalid
 			"AMAZON_OPENSEARCH",
 			"EXASOL",
 			"DATABRICKS",
+			"STARBURST",
+			"TRINO",
+			"BIGQUERY",
 		},
 	}
 }

@@ -29,7 +29,7 @@ func NewAwsCloud9EnvironmentEc2InvalidInstanceTypeRule() *AwsCloud9EnvironmentEc
 		attributeName: "instance_type",
 		max:           20,
 		min:           5,
-		pattern:       regexp.MustCompile(`^[a-z][1-9][.][a-z0-9]+$`),
+		pattern:       regexp.MustCompile(`^[a-z]+[1-9][.][a-z0-9]+$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsCloud9EnvironmentEc2InvalidInstanceTypeRule) Check(runner tflint.Run
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-z][1-9][.][a-z0-9]+$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-z]+[1-9][.][a-z0-9]+$`),
 					attribute.Expr.Range(),
 				)
 			}

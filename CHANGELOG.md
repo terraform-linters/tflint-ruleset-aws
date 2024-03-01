@@ -1,3 +1,158 @@
+## 0.30.0 (2024-02-11)
+
+### Enhancements
+
+- [#589](https://github.com/terraform-linters/tflint-ruleset-aws/pull/598) [#601](https://github.com/terraform-linters/tflint-ruleset-aws/pull/601) [#602](https://github.com/terraform-linters/tflint-ruleset-aws/pull/602) [#606](https://github.com/terraform-linters/tflint-ruleset-aws/pull/606): Update AWS provider/module and generated content
+
+### Bug Fixes
+
+- [#600](https://github.com/terraform-linters/tflint-ruleset-aws/pull/600): fix: prevent runtime error when instanceType/nodeType have no dot ([@guillaumelecerf](https://github.com/guillaumelecerf))
+
+### Chores
+
+- [#599](https://github.com/terraform-linters/tflint-ruleset-aws/pull/599): Bump golang.org/x/net from 0.19.0 to 0.20.0
+- [#603](https://github.com/terraform-linters/tflint-ruleset-aws/pull/603): Bump github.com/hashicorp/terraform-json from 0.20.0 to 0.21.0
+- [#604](https://github.com/terraform-linters/tflint-ruleset-aws/pull/604): Bump github.com/zclconf/go-cty from 1.14.1 to 1.14.2
+- [#605](https://github.com/terraform-linters/tflint-ruleset-aws/pull/605): Bump peter-evans/create-pull-request from 5 to 6
+- [#607](https://github.com/terraform-linters/tflint-ruleset-aws/pull/607): deps: Go 1.22 ([@wata727](https://github.com/wata727))
+
+## 0.29.0 (2024-01-08)
+
+### Enhancements
+
+- [#580](https://github.com/terraform-linters/tflint-ruleset-aws/pull/580) [#581](https://github.com/terraform-linters/tflint-ruleset-aws/pull/581) [#582](https://github.com/terraform-linters/tflint-ruleset-aws/pull/582) [#583](https://github.com/terraform-linters/tflint-ruleset-aws/pull/583) [#585](https://github.com/terraform-linters/tflint-ruleset-aws/pull/585) [#586](https://github.com/terraform-linters/tflint-ruleset-aws/pull/586) [#587](https://github.com/terraform-linters/tflint-ruleset-aws/pull/587): Update AWS provider/module and generated content
+- [#591](https://github.com/terraform-linters/tflint-ruleset-aws/pull/591): rds: add db.m6idn instance family ([@GeorgeSimpsonAtFanatics](https://github.com/GeorgeSimpsonAtFanatics))
+- [#592](https://github.com/terraform-linters/tflint-ruleset-aws/pull/592): rds: Add m6in, r6idn, r6in instance classes ([@wata727](https://github.com/wata727))
+- [#593](https://github.com/terraform-linters/tflint-ruleset-aws/pull/593): cache: Add cache.c7gn node types ([@wata727](https://github.com/wata727))
+- [#594](https://github.com/terraform-linters/tflint-ruleset-aws/pull/594): Update Lambda deprecated runtimes ([@wata727](https://github.com/wata727))
+
+### Chore
+
+- [#584](https://github.com/terraform-linters/tflint-ruleset-aws/pull/584): Bump golang.org/x/net from 0.18.0 to 0.19.0
+- [#588](https://github.com/terraform-linters/tflint-ruleset-aws/pull/588): Bump actions/setup-go from 4 to 5
+- [#589](https://github.com/terraform-linters/tflint-ruleset-aws/pull/589): generator: use terraform-json types for provider schemas ([@HadrienPatte](https://github.com/HadrienPatte))
+
+## 0.28.0 (2023-11-18)
+
+### Breaking Changes
+
+- [#576](https://github.com/terraform-linters/tflint-ruleset-aws/pull/576): Fix aws_acm_certificate.private_key mapping and remove the rule ([@wata727](https://github.com/wata727))
+  - Removed `aws_acm_certificate_invalid_private_key` rule
+
+### Enhancements
+
+- [#554](https://github.com/terraform-linters/tflint-ruleset-aws/pull/554): s3_bucket_name: add length validation ([@davimmt](https://github.com/davimmt))
+- [#566](https://github.com/terraform-linters/tflint-ruleset-aws/pull/566) [#567](https://github.com/terraform-linters/tflint-ruleset-aws/pull/567) [#568](https://github.com/terraform-linters/tflint-ruleset-aws/pull/568) [#575](https://github.com/terraform-linters/tflint-ruleset-aws/pull/575): Update AWS provider/module and generated content
+- [#571](https://github.com/terraform-linters/tflint-ruleset-aws/pull/571): s3_bucket_name: add all documented naming rules ([@davimmt](https://github.com/davimmt))
+
+### Chores
+
+- [#550](https://github.com/terraform-linters/tflint-ruleset-aws/pull/550): Bump goreleaser/goreleaser-action from 4 to 5
+- [#555](https://github.com/terraform-linters/tflint-ruleset-aws/pull/555) [#558](https://github.com/terraform-linters/tflint-ruleset-aws/pull/558) [#572](https://github.com/terraform-linters/tflint-ruleset-aws/pull/572): Bump golang.org/x/net from 0.15.0 to 0.18.0
+- [#556](https://github.com/terraform-linters/tflint-ruleset-aws/pull/556): Bump github.com/zclconf/go-cty from 1.14.0 to 1.14.1
+- [#559](https://github.com/terraform-linters/tflint-ruleset-aws/pull/559): Bump github.com/dave/dst from 0.27.2 to 0.27.3
+- [#560](https://github.com/terraform-linters/tflint-ruleset-aws/pull/560): Bump github.com/google/go-cmp from 0.5.9 to 0.6.0
+- [#561](https://github.com/terraform-linters/tflint-ruleset-aws/pull/561): Bump github.com/hashicorp/hcl/v2 from 2.18.0 to 2.19.1
+- [#565](https://github.com/terraform-linters/tflint-ruleset-aws/pull/565): Bump google.golang.org/grpc from 1.57.0 to 1.57.1
+
+## 0.27.0 (2023-09-17)
+
+### Enhancements
+
+- [#534](https://github.com/terraform-linters/tflint-ruleset-aws/pull/534) [#544](https://github.com/terraform-linters/tflint-ruleset-aws/pull/544): Update AWS provider/module and generated content
+- [#545](https://github.com/terraform-linters/tflint-ruleset-aws/pull/545): Add support for cache instance families m7g and r7g ([@dvxam](https://github.com/dvxam))
+- [#546](https://github.com/terraform-linters/tflint-ruleset-aws/pull/546): Add missing DB instance classes ([@wata727](https://github.com/wata727))
+- [#547](https://github.com/terraform-linters/tflint-ruleset-aws/pull/547): Update Lambda runtime deprecations ([@wata727](https://github.com/wata727))
+- [#548](https://github.com/terraform-linters/tflint-ruleset-aws/pull/548): Update DB engine list ([@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#535](https://github.com/terraform-linters/tflint-ruleset-aws/pull/535) [#536](https://github.com/terraform-linters/tflint-ruleset-aws/pull/536): Bump github.com/zclconf/go-cty from 1.13.2 to 1.14.0
+- [#537](https://github.com/terraform-linters/tflint-ruleset-aws/pull/537): Bump github.com/hashicorp/hcl/v2 from 2.17.0 to 2.18.0
+- [#540](https://github.com/terraform-linters/tflint-ruleset-aws/pull/540): deps: Go 1.21 ([@wata727](https://github.com/wata727))
+- [#541](https://github.com/terraform-linters/tflint-ruleset-aws/pull/541): Bump actions/checkout from 3 to 4
+- [#542](https://github.com/terraform-linters/tflint-ruleset-aws/pull/542): Bump golang.org/x/net from 0.14.0 to 0.15.0
+
+## 0.26.0 (2023-08-14)
+
+### Breaking Changes
+
+- [#531](https://github.com/terraform-linters/tflint-ruleset-aws/pull/531): Update AWS provider/module and generated content
+  - Removed `aws_budgets_budget_invalid_name` rule
+
+### BugFixes
+
+- [#530](https://github.com/terraform-linters/tflint-ruleset-aws/pull/530): resource_missing_tags: Fix panic for unknown and null values ([@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#529](https://github.com/terraform-linters/tflint-ruleset-aws/pull/529): Bump golang.org/x/net from 0.12.0 to 0.14.0
+
+## 0.25.0 (2023-07-29)
+
+### Enhancements
+
+- [#514](https://github.com/terraform-linters/tflint-ruleset-aws/pull/514): Update AWS provider/module and generated content
+
+### BugFixes
+
+- [#526](https://github.com/terraform-linters/tflint-ruleset-aws/pull/526): Bump tflint-plugin-sdk to v0.18.0 ([@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#523](https://github.com/terraform-linters/tflint-ruleset-aws/pull/523): release: Add raw binary entries to checksums.txt ([@wata727](https://github.com/wata727))
+
+## 0.24.3 (2023-07-22)
+
+- [#517](https://github.com/terraform-linters/tflint-ruleset-aws/pull/517): resource_missing_tags: rewrite to only consider keys ([@bendrucker](https://github.com/bendrucker))
+- [#519](https://github.com/terraform-linters/tflint-ruleset-aws/pull/519): resource_missing_tags: Ignore non-existent provider aliases ([@wata727](https://github.com/wata727))
+
+## 0.24.2 (2023-07-19)
+
+### Enhancements
+
+- [#505](https://github.com/terraform-linters/tflint-ruleset-aws/pull/505) [#513](https://github.com/terraform-linters/tflint-ruleset-aws/pull/513): Update AWS provider/module and generated content
+
+### BugFixes
+
+- [#511](https://github.com/terraform-linters/tflint-ruleset-aws/pull/511): fix: Fixed regression in tags with dynamic values ([@JorgeReus](https://github.com/JorgeReus))
+
+### Chores
+
+- [#512](https://github.com/terraform-linters/tflint-ruleset-aws/pull/512): Bump golang.org/x/net from 0.11.0 to 0.12.0
+
+## 0.24.1 (2023-07-01)
+
+- [#508](https://github.com/terraform-linters/tflint-ruleset-aws/pull/508): fix: Fixed the error 'Provider doesn't exist' and the provider exist ([@JorgeReus](https://github.com/JorgeReus))
+
+## 0.24.0 (2023-06-29)
+
+### Breaking Changes
+
+- [#501](https://github.com/terraform-linters/tflint-ruleset-aws/pull/501): Bump github.com/terraform-linters/tflint-plugin-sdk from 0.16.1 to 0.17.0
+  - TFLint v0.40/v0.41 is no longer supported
+- [#504](https://github.com/terraform-linters/tflint-ruleset-aws/pull/504): Update AWS provider/module and generated content  ([@wata727](https://github.com/wata727))
+  - The following rules have been removed.
+    - `aws_macie_member_account_association_invalid_member_account_id`
+    - `aws_macie_s3_bucket_association_invalid_bucket_name`
+    - `aws_macie_s3_bucket_association_invalid_member_account_id`
+    - `aws_macie_s3_bucket_association_invalid_prefix`
+    - `aws_redshift_security_group_invalid_description`
+    - `aws_redshift_security_group_invalid_name`
+    - `aws_secretsmanager_secret_invalid_rotation_lambda_arn`
+  - The `aws_resource_missing_tags` rule no longer checks `aws_db_security_group`.
+
+### Enhancements
+
+- [#489](https://github.com/terraform-linters/tflint-ruleset-aws/pull/489): feat: Added default tags functionality ([@JorgeReus](https://github.com/JorgeReus))
+
+### Chores
+
+- [#497](https://github.com/terraform-linters/tflint-ruleset-aws/pull/497): Bump github.com/zclconf/go-cty from 1.13.1 to 1.13.2
+- [#498](https://github.com/terraform-linters/tflint-ruleset-aws/pull/498): Bump github.com/hashicorp/hcl/v2 from 2.16.2 to 2.17.0
+- [#500](https://github.com/terraform-linters/tflint-ruleset-aws/pull/500): Bump golang.org/x/net from 0.10.0 to 0.11.0
+- [#502](https://github.com/terraform-linters/tflint-ruleset-aws/pull/502): Bump github.com/stretchr/testify from 1.7.2 to 1.8.4
+
 ## 0.23.1 (2023-05-22)
 
 ### Enhancements

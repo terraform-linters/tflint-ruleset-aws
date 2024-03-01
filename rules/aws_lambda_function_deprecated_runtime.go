@@ -13,43 +13,46 @@ import (
 type AwsLambdaFunctionDeprecatedRuntimeRule struct {
 	tflint.DefaultRule
 
-	resourceType  string
-	attributeName string
-	eosRuntimes   map[string]time.Time
-	eolRuntimes   map[string]time.Time
+	resourceType       string
+	attributeName      string
+	deprecatedRuntimes map[string]time.Time
 
 	Now time.Time
 }
 
 // NewAwsLambdaFunctionDeprecatedRuntimeRule returns new rule with default attributes
 func NewAwsLambdaFunctionDeprecatedRuntimeRule() *AwsLambdaFunctionDeprecatedRuntimeRule {
+	// @see https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
 	return &AwsLambdaFunctionDeprecatedRuntimeRule{
 		resourceType:  "aws_lambda_function",
 		attributeName: "runtime",
-		eosRuntimes: map[string]time.Time{
-			"nodejs10.x":    time.Date(2021, time.July, 30, 0, 0, 0, 0, time.UTC),
-			"nodejs12.x":    time.Date(2022, time.November, 14, 0, 0, 0, 0, time.UTC),
-			"ruby2.5":       time.Date(2021, time.July, 30, 0, 0, 0, 0, time.UTC),
-			"python2.7":     time.Date(2021, time.July, 15, 0, 0, 0, 0, time.UTC),
-			"python3.6":     time.Date(2022, time.July, 18, 0, 0, 0, 0, time.UTC),
-			"dotnetcore2.1": time.Date(2021, time.September, 20, 0, 0, 0, 0, time.UTC),
-			"dotnetcore3.1": time.Date(2023, time.January, 20, 0, 0, 0, 0, time.UTC),
-		},
-		eolRuntimes: map[string]time.Time{
-			"dotnetcore1.0":  time.Date(2019, time.July, 30, 0, 0, 0, 0, time.UTC),
+		deprecatedRuntimes: map[string]time.Time{
+			"nodejs16.x": time.Date(2024, time.June, 12, 0, 0, 0, 0, time.UTC),
+			"python3.8":  time.Date(2024, time.October, 14, 0, 0, 0, 0, time.UTC),
+			"java8":      time.Date(2024, time.January, 8, 0, 0, 0, 0, time.UTC),
+			"dotnet7":    time.Date(2024, time.May, 14, 0, 0, 0, 0, time.UTC),
+			"dotnet6":    time.Date(2024, time.November, 12, 0, 0, 0, 0, time.UTC),
+			"go1.x":      time.Date(2024, time.January, 8, 0, 0, 0, 0, time.UTC),
+			"provided":   time.Date(2024, time.January, 8, 0, 0, 0, 0, time.UTC),
+			// Already reached end of support
+			"nodejs14.x":     time.Date(2023, time.December, 4, 0, 0, 0, 0, time.UTC),
+			"python3.7":      time.Date(2023, time.December, 4, 0, 0, 0, 0, time.UTC),
+			"ruby2.7":        time.Date(2023, time.November, 27, 0, 0, 0, 0, time.UTC),
+			"dotnetcore3.1":  time.Date(2023, time.April, 3, 0, 0, 0, 0, time.UTC),
+			"nodejs12.x":     time.Date(2023, time.March, 31, 0, 0, 0, 0, time.UTC),
+			"python3.6":      time.Date(2022, time.July, 18, 0, 0, 0, 0, time.UTC),
+			"dotnet5.0":      time.Date(2022, time.May, 10, 0, 0, 0, 0, time.UTC),
+			"dotnetcore2.1":  time.Date(2022, time.January, 5, 0, 0, 0, 0, time.UTC),
+			"nodejs10.x":     time.Date(2021, time.July, 30, 0, 0, 0, 0, time.UTC),
+			"ruby2.5":        time.Date(2021, time.July, 30, 0, 0, 0, 0, time.UTC),
+			"python2.7":      time.Date(2021, time.July, 15, 0, 0, 0, 0, time.UTC),
+			"nodejs8.10":     time.Date(2020, time.March, 6, 0, 0, 0, 0, time.UTC),
+			"nodejs4.3":      time.Date(2020, time.March, 5, 0, 0, 0, 0, time.UTC),
+			"nodejs4.3-edge": time.Date(2020, time.March, 5, 0, 0, 0, 0, time.UTC),
+			"nodejs6.10":     time.Date(2019, time.August, 12, 0, 0, 0, 0, time.UTC),
+			"dotnetcore1.0":  time.Date(2019, time.July, 27, 0, 0, 0, 0, time.UTC),
 			"dotnetcore2.0":  time.Date(2019, time.May, 30, 0, 0, 0, 0, time.UTC),
 			"nodejs":         time.Date(2016, time.October, 31, 0, 0, 0, 0, time.UTC),
-			"nodejs4.3":      time.Date(2020, time.March, 06, 0, 0, 0, 0, time.UTC),
-			"nodejs4.3-edge": time.Date(2019, time.April, 30, 0, 0, 0, 0, time.UTC),
-			"nodejs6.10":     time.Date(2019, time.August, 12, 0, 0, 0, 0, time.UTC),
-			"nodejs8.10":     time.Date(2020, time.March, 06, 0, 0, 0, 0, time.UTC),
-			"nodejs10.x":     time.Date(2021, time.August, 30, 0, 0, 0, 0, time.UTC),
-			"nodejs12.x":     time.Date(2022, time.December, 14, 0, 0, 0, 0, time.UTC),
-			"ruby2.5":        time.Date(2021, time.August, 30, 0, 0, 0, 0, time.UTC),
-			"python2.7":      time.Date(2021, time.September, 30, 0, 0, 0, 0, time.UTC),
-			"python3.6":      time.Date(2022, time.August, 17, 0, 0, 0, 0, time.UTC),
-			"dotnetcore2.1":  time.Date(2021, time.October, 30, 0, 0, 0, 0, time.UTC),
-			"dotnetcore3.1":  time.Date(2023, time.February, 20, 0, 0, 0, 0, time.UTC),
 		},
 		Now: time.Now().UTC(),
 	}
@@ -91,13 +94,7 @@ func (r *AwsLambdaFunctionDeprecatedRuntimeRule) Check(runner tflint.Runner) err
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
-			if _, ok := r.eolRuntimes[val]; ok && r.Now.After(r.eolRuntimes[val]) {
-				runner.EmitIssue(
-					r,
-					fmt.Sprintf("The \"%s\" runtime has reached the end of life", val),
-					attribute.Expr.Range(),
-				)
-			} else if _, ok := r.eosRuntimes[val]; ok && r.Now.After(r.eosRuntimes[val]) {
+			if _, ok := r.deprecatedRuntimes[val]; ok && r.Now.After(r.deprecatedRuntimes[val]) {
 				runner.EmitIssue(
 					r,
 					fmt.Sprintf("The \"%s\" runtime has reached the end of support", val),

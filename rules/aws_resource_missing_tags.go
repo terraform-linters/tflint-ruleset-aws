@@ -9,9 +9,11 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
+	"github.com/terraform-linters/tflint-ruleset-aws/aws"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 	"github.com/terraform-linters/tflint-ruleset-aws/rules/tags"
 	"github.com/zclconf/go-cty/cty"
+	"golang.org/x/exp/slices"
 )
 
 // AwsResourceMissingTagsRule checks whether resources are tagged correctly
@@ -25,8 +27,10 @@ type awsResourceTagsRuleConfig struct {
 }
 
 const (
-	tagsAttributeName = "tags"
-	tagBlockName      = "tag"
+	defaultTagsBlockName  = "default_tags"
+	tagsAttributeName     = "tags"
+	tagBlockName          = "tag"
+	providerAttributeName = "provider"
 )
 
 // NewAwsResourceMissingTagsRule returns new rules for all resources that support tags
@@ -54,10 +58,88 @@ func (r *AwsResourceMissingTagsRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
+func (r *AwsResourceMissingTagsRule) getProviderLevelTags(runner tflint.Runner) (map[string][]string, error) {
+	providerSchema := &hclext.BodySchema{
+		Attributes: []hclext.AttributeSchema{
+			{
+				Name:     "alias",
+				Required: false,
+			},
+		},
+		Blocks: []hclext.BlockSchema{
+			{
+				Type: defaultTagsBlockName,
+				Body: &hclext.BodySchema{Attributes: []hclext.AttributeSchema{{Name: tagsAttributeName}}},
+			},
+		},
+	}
+
+	providerBody, err := runner.GetProviderContent("aws", providerSchema, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	// Get provider default tags
+	allProviderTags := make(map[string][]string)
+	var providerAlias string
+	for _, provider := range providerBody.Blocks.OfType(providerAttributeName) {
+		// Get the alias attribute, in terraform when there is a single aws provider its called "default"
+		providerAttr, ok := provider.Body.Attributes["alias"]
+		if !ok {
+			providerAlias = "default"
+		} else {
+			err := runner.EvaluateExpr(providerAttr.Expr, func(alias string) error {
+				logger.Debug("Walk `%s` provider", providerAlias)
+				providerAlias = alias
+				// Init the provider reference even if it doesn't have tags
+				allProviderTags[alias] = nil
+				return nil
+			}, nil)
+			if err != nil {
+				return nil, err
+			}
+		}
+
+		for _, block := range provider.Body.Blocks {
+			var providerTags []string
+			attr, ok := block.Body.Attributes[tagsAttributeName]
+			if !ok {
+				continue
+			}
+
+			err := runner.EvaluateExpr(attr.Expr, func(val cty.Value) error {
+				keys, known := getKeysForValue(val)
+
+				if !known {
+					logger.Warn("The missing aws tags rule can only evaluate provided variables, skipping %s.", provider.Labels[0]+"."+providerAlias+"."+defaultTagsBlockName+"."+tagsAttributeName)
+					return nil
+				}
+
+				logger.Debug("Walk `%s` provider with tags `%v`", providerAlias, keys)
+				providerTags = keys
+				return nil
+			}, nil)
+
+			if err != nil {
+				return nil, err
+			}
+
+			allProviderTags[providerAlias] = providerTags
+		}
+	}
+	return allProviderTags, nil
+}
+
 // Check checks resources for missing tags
 func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 	config := awsResourceTagsRuleConfig{}
 	if err := runner.DecodeRuleConfig(r.Name(), &config); err != nil {
+		return err
+	}
+
+	providerTagsMap, err := r.getProviderLevelTags(runner)
+
+	if err != nil {
 		return err
 	}
 
@@ -67,39 +149,65 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 			continue
 		}
 
-		// Special handling for tags on aws_autoscaling_group resources
-		if resourceType == "aws_autoscaling_group" {
-			err := r.checkAwsAutoScalingGroups(runner, config)
-			if err != nil {
-				return err
-			}
-			continue
-		}
-
 		resources, err := runner.GetResourceContent(resourceType, &hclext.BodySchema{
-			Attributes: []hclext.AttributeSchema{{Name: tagsAttributeName}},
+			Attributes: []hclext.AttributeSchema{
+				{Name: tagsAttributeName},
+				{Name: providerAttributeName},
+			},
 		}, nil)
 		if err != nil {
 			return err
 		}
 
+		if resources.IsEmpty() {
+			continue
+		}
+
 		for _, resource := range resources.Blocks {
-			if attribute, ok := resource.Body.Attributes[tagsAttributeName]; ok {
-				logger.Debug("Walk `%s` attribute", resource.Labels[0]+"."+resource.Labels[1]+"."+tagsAttributeName)
-				wantType := cty.Map(cty.String)
-				err := runner.EvaluateExpr(attribute.Expr, func(resourceTags map[string]string) error {
-					r.emitIssue(runner, resourceTags, config, attribute.Expr.Range())
+			providerAlias := "default"
+			// Override the provider alias if defined
+			if val, ok := resource.Body.Attributes[providerAttributeName]; ok {
+				provider, diagnostics := aws.DecodeProviderConfigRef(val.Expr, "provider")
+				if diagnostics.HasErrors() {
+					logger.Error("error decoding provider: %w", diagnostics)
+					return diagnostics
+				}
+				providerAlias = provider.Alias
+			}
+
+			// If the resource has a tags attribute
+			if attribute, okResource := resource.Body.Attributes[tagsAttributeName]; okResource {
+				logger.Debug(
+					"Walk `%s` attribute",
+					resource.Labels[0]+"."+resource.Labels[1]+"."+tagsAttributeName,
+				)
+
+				err := runner.EvaluateExpr(attribute.Expr, func(val cty.Value) error {
+					keys, known := getKeysForValue(val)
+					if !known {
+						logger.Warn("The missing aws tags rule can only evaluate provided variables, skipping %s.", resource.Labels[0]+"."+resource.Labels[1]+"."+tagsAttributeName)
+						return nil
+					}
+
+					r.emitIssue(runner, append(providerTagsMap[providerAlias], keys...), config, attribute.Expr.Range())
 					return nil
-				}, &tflint.EvaluateExprOption{WantType: &wantType})
+				}, nil)
+
 				if err != nil {
 					return err
 				}
 			} else {
 				logger.Debug("Walk `%s` resource", resource.Labels[0]+"."+resource.Labels[1])
-				r.emitIssue(runner, map[string]string{}, config, resource.DefRange)
+				r.emitIssue(runner, providerTagsMap[providerAlias], config, resource.DefRange)
 			}
 		}
 	}
+
+	// Special handling for tags on aws_autoscaling_group resources
+	if err := r.checkAwsAutoScalingGroups(runner, config); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -116,6 +224,11 @@ type awsAutoscalingGroupTag struct {
 // See: https://github.com/terraform-providers/terraform-provider-aws/blob/master/aws/autoscaling_tags.go
 func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroups(runner tflint.Runner, config awsResourceTagsRuleConfig) error {
 	resourceType := "aws_autoscaling_group"
+
+	// Skip autoscaling group check if its type is excluded in configuration
+	if stringInSlice(resourceType, config.Exclude) {
+		return nil
+	}
 
 	resources, err := runner.GetResourceContent(resourceType, &hclext.BodySchema{}, nil)
 	if err != nil {
@@ -137,7 +250,7 @@ func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroups(runner tflint.Run
 		case len(asgTagBlockTags) > 0 && len(asgTagsAttributeTags) > 0:
 			runner.EmitIssue(r, "Only tag block or tags attribute may be present, but found both", resource.DefRange)
 		case len(asgTagBlockTags) == 0 && len(asgTagsAttributeTags) == 0:
-			r.emitIssue(runner, map[string]string{}, config, resource.DefRange)
+			r.emitIssue(runner, []string{}, config, resource.DefRange)
 		case len(asgTagBlockTags) > 0 && len(asgTagsAttributeTags) == 0:
 			tags := asgTagBlockTags
 			location := tagBlockLocation
@@ -153,8 +266,8 @@ func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroups(runner tflint.Run
 }
 
 // checkAwsAutoScalingGroupsTag checks tag{} blocks on aws_autoscaling_group resources
-func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTag(runner tflint.Runner, config awsResourceTagsRuleConfig, resourceBlock *hclext.Block) (map[string]string, hcl.Range, error) {
-	tags := make(map[string]string)
+func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTag(runner tflint.Runner, config awsResourceTagsRuleConfig, resourceBlock *hclext.Block) ([]string, hcl.Range, error) {
+	tags := make([]string, 0)
 
 	resources, err := runner.GetResourceContent("aws_autoscaling_group", &hclext.BodySchema{
 		Blocks: []hclext.BlockSchema{
@@ -184,7 +297,7 @@ func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTag(runner tflint.
 			}
 
 			err := runner.EvaluateExpr(attribute.Expr, func(key string) error {
-				tags[key] = ""
+				tags = append(tags, key)
 				return nil
 			}, nil)
 			if err != nil {
@@ -197,8 +310,8 @@ func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTag(runner tflint.
 }
 
 // checkAwsAutoScalingGroupsTag checks the tags attribute on aws_autoscaling_group resources
-func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTags(runner tflint.Runner, config awsResourceTagsRuleConfig, resourceBlock *hclext.Block) (map[string]string, hcl.Range, error) {
-	tags := make(map[string]string)
+func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTags(runner tflint.Runner, config awsResourceTagsRuleConfig, resourceBlock *hclext.Block) ([]string, hcl.Range, error) {
+	tags := make([]string, 0)
 
 	resources, err := runner.GetResourceContent("aws_autoscaling_group", &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{
@@ -223,7 +336,7 @@ func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTags(runner tflint
 			}))
 			err := runner.EvaluateExpr(attribute.Expr, func(asgTags []awsAutoscalingGroupTag) error {
 				for _, tag := range asgTags {
-					tags[tag.Key] = tag.Value
+					tags = append(tags, tag.Key)
 				}
 				return nil
 			}, &tflint.EvaluateExprOption{WantType: &wantType})
@@ -237,11 +350,11 @@ func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTags(runner tflint
 	return tags, resourceBlock.DefRange, nil
 }
 
-func (r *AwsResourceMissingTagsRule) emitIssue(runner tflint.Runner, tags map[string]string, config awsResourceTagsRuleConfig, location hcl.Range) {
+func (r *AwsResourceMissingTagsRule) emitIssue(runner tflint.Runner, tags []string, config awsResourceTagsRuleConfig, location hcl.Range) {
 	var missing []string
 	for _, tag := range config.Tags {
-		if _, ok := tags[tag]; !ok {
-			missing = append(missing, fmt.Sprintf("\"%s\"", tag))
+		if !slices.Contains(tags, tag) {
+			missing = append(missing, fmt.Sprintf("%q", tag))
 		}
 	}
 	if len(missing) > 0 {
@@ -259,4 +372,28 @@ func stringInSlice(a string, list []string) bool {
 		}
 	}
 	return false
+}
+
+// getKeysForValue returns a list of keys from a cty.Value, which is assumed to be a map (or unknown).
+// It returns a boolean indicating whether the keys were known.
+// If _any_ key is unknown, the entire value is considered unknown, since we can't know if a required tag might be matched by the unknown key.
+// Values are entirely ignored and can be unknown.
+func getKeysForValue(value cty.Value) (keys []string, known bool) {
+	if !value.CanIterateElements() || !value.IsKnown() {
+		return nil, false
+	}
+	if value.IsNull() {
+		return keys, true
+	}
+
+	return keys, !value.ForEachElement(func(key, _ cty.Value) bool {
+		// If any key is unknown or sensitive, return early as any missing tag could be this unknown key.
+		if !key.IsKnown() || key.IsNull() || key.IsMarked() {
+			return true
+		}
+
+		keys = append(keys, key.AsString())
+
+		return false
+	})
 }

@@ -12,6 +12,10 @@ builds:
       - linux_arm64
       - windows_386
       - windows_amd64
+    hooks:
+      post:
+        - mkdir -p ./dist/raw
+        - cp "{{ .Path }}" "./dist/raw/{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
 archives:
   - id: zip
     name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
@@ -22,6 +26,8 @@ changelog:
   skip: true
 checksum:
   name_template: 'checksums.txt'
+  extra_files:
+    - glob: ./dist/raw/*
 signs:
   - cmd: cosign
     signature: '${artifact}.keyless.sig'

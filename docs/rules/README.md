@@ -74,7 +74,7 @@ These rules enforce best practices and naming conventions:
 |[aws_iam_role_policy_gov_friendly_arns](aws_iam_role_policy_gov_friendly_arns.md)|Ensure `iam_role_policy` resources do not contain `arn:aws:` ARN's||
 |[aws_lambda_function_deprecated_runtime](aws_lambda_function_deprecated_runtime.md)|Disallow deprecated runtimes for Lambda Function|✔|
 |[aws_resource_missing_tags](aws_resource_missing_tags.md)|Require specific tags for all AWS resource types that support them||
-|[aws_s3_bucket_name](aws_s3_bucket_name.md)|Ensures all S3 bucket names match the specified naming rules||
+|[aws_s3_bucket_name](aws_s3_bucket_name.md)|Ensures all S3 bucket names match the naming rules|✔|
 
 ### SDK-based Validations
 
@@ -93,7 +93,6 @@ These rules enforce best practices and naming conventions:
 |aws_acm_certificate_invalid_certificate_authority_arn|✔|
 |aws_acm_certificate_invalid_certificate_body|✔|
 |aws_acm_certificate_invalid_certificate_chain|✔|
-|aws_acm_certificate_invalid_private_key|✔|
 |aws_acm_certificate_validation_invalid_certificate_arn|✔|
 |aws_acmpca_certificate_authority_certificate_invalid_certificate_authority_arn|✔|
 |aws_acmpca_certificate_authority_invalid_type|✔|
@@ -251,7 +250,6 @@ These rules enforce best practices and naming conventions:
 |aws_batch_job_queue_invalid_state|✔|
 |aws_budgets_budget_invalid_account_id|✔|
 |aws_budgets_budget_invalid_budget_type|✔|
-|aws_budgets_budget_invalid_name|✔|
 |aws_budgets_budget_invalid_time_unit|✔|
 |aws_chime_voice_connector_group_invalid_name|✔|
 |aws_chime_voice_connector_invalid_aws_region|✔|
@@ -409,6 +407,7 @@ These rules enforce best practices and naming conventions:
 |aws_cognito_user_pool_invalid_sms_authentication_message|✔|
 |aws_cognito_user_pool_invalid_sms_verification_message|✔|
 |aws_cognito_user_pool_ui_customization_invalid_client_id|✔|
+|aws_cognito_user_pool_ui_customization_invalid_css|✔|
 |aws_cognito_user_pool_ui_customization_invalid_user_pool_id|✔|
 |aws_config_aggregate_authorization_invalid_account_id|✔|
 |aws_config_aggregate_authorization_invalid_region|✔|
@@ -912,10 +911,6 @@ These rules enforce best practices and naming conventions:
 |aws_macie2_classification_job_invalid_job_status|✔|
 |aws_macie2_classification_job_invalid_job_type|✔|
 |aws_macie2_findings_filter_invalid_action|✔|
-|aws_macie_member_account_association_invalid_member_account_id|✔|
-|aws_macie_s3_bucket_association_invalid_bucket_name|✔|
-|aws_macie_s3_bucket_association_invalid_member_account_id|✔|
-|aws_macie_s3_bucket_association_invalid_prefix|✔|
 |aws_media_store_container_invalid_name|✔|
 |aws_media_store_container_policy_invalid_container_name|✔|
 |aws_memorydb_cluster_invalid_acl_name|✔|
@@ -1007,8 +1002,6 @@ These rules enforce best practices and naming conventions:
 |aws_redshift_parameter_group_invalid_description|✔|
 |aws_redshift_parameter_group_invalid_family|✔|
 |aws_redshift_parameter_group_invalid_name|✔|
-|aws_redshift_security_group_invalid_description|✔|
-|aws_redshift_security_group_invalid_name|✔|
 |aws_redshift_snapshot_copy_grant_invalid_kms_key_id|✔|
 |aws_redshift_snapshot_copy_grant_invalid_snapshot_copy_grant_name|✔|
 |aws_redshift_snapshot_schedule_association_invalid_cluster_identifier|✔|
@@ -1162,7 +1155,6 @@ These rules enforce best practices and naming conventions:
 |aws_secretsmanager_secret_invalid_kms_key_id|✔|
 |aws_secretsmanager_secret_invalid_name|✔|
 |aws_secretsmanager_secret_invalid_policy|✔|
-|aws_secretsmanager_secret_invalid_rotation_lambda_arn|✔|
 |aws_secretsmanager_secret_policy_invalid_policy|✔|
 |aws_secretsmanager_secret_policy_invalid_secret_arn|✔|
 |aws_secretsmanager_secret_rotation_invalid_rotation_lambda_arn|✔|

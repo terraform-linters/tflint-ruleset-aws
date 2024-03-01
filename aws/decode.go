@@ -25,7 +25,7 @@ type ProviderConfigRef struct {
 }
 
 // original code: https://github.com/hashicorp/terraform/blob/3fbedf25430ead97eb42575d344427db3c32d524/internal/configs/resource.go#L498-L569
-func decodeProviderConfigRef(expr hcl.Expression, argName string) (*ProviderConfigRef, hcl.Diagnostics) {
+func DecodeProviderConfigRef(expr hcl.Expression, argName string) (*ProviderConfigRef, hcl.Diagnostics) {
 	var diags hcl.Diagnostics
 
 	var shimDiags hcl.Diagnostics

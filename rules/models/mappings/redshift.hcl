@@ -7,7 +7,6 @@ mapping "aws_redshift_cluster" {
   cluster_type                        = String
   master_password                     = String
   master_username                     = String
-  cluster_security_groups             = ClusterSecurityGroupNameList
   vpc_security_group_ids              = VpcSecurityGroupIdList
   cluster_subnet_group_name           = String
   availability_zone                   = String
@@ -57,12 +56,6 @@ mapping "aws_redshift_scheduled_action" {
   start_time = TStamp
   end_time = TStamp
   target_action = ScheduledActionType
-}
-
-mapping "aws_redshift_security_group" {
-  name        = String
-  description = String
-  ingress     = AuthorizeClusterSecurityGroupIngressMessage
 }
 
 mapping "aws_redshift_snapshot_copy_grant" {
