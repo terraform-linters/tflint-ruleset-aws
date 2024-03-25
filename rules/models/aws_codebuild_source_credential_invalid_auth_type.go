@@ -28,6 +28,7 @@ func NewAwsCodebuildSourceCredentialInvalidAuthTypeRule() *AwsCodebuildSourceCre
 			"OAUTH",
 			"BASIC_AUTH",
 			"PERSONAL_ACCESS_TOKEN",
+			"CODECONNECTIONS",
 		},
 	}
 }

@@ -28,6 +28,8 @@ func NewAwsCodebuildSourceCredentialInvalidServerTypeRule() *AwsCodebuildSourceC
 			"GITHUB",
 			"BITBUCKET",
 			"GITHUB_ENTERPRISE",
+			"GITLAB",
+			"GITLAB_SELF_MANAGED",
 		},
 	}
 }

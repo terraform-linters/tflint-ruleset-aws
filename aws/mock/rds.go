@@ -7623,6 +7623,56 @@ func (mr *MockRDSAPIMockRecorder) ModifyGlobalClusterWithContext(arg0, arg1 inte
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyGlobalClusterWithContext", reflect.TypeOf((*MockRDSAPI)(nil).ModifyGlobalClusterWithContext), varargs...)
 }
 
+// ModifyIntegration mocks base method.
+func (m *MockRDSAPI) ModifyIntegration(arg0 *rds.ModifyIntegrationInput) (*rds.ModifyIntegrationOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ModifyIntegration", arg0)
+	ret0, _ := ret[0].(*rds.ModifyIntegrationOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ModifyIntegration indicates an expected call of ModifyIntegration.
+func (mr *MockRDSAPIMockRecorder) ModifyIntegration(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyIntegration", reflect.TypeOf((*MockRDSAPI)(nil).ModifyIntegration), arg0)
+}
+
+// ModifyIntegrationRequest mocks base method.
+func (m *MockRDSAPI) ModifyIntegrationRequest(arg0 *rds.ModifyIntegrationInput) (*request.Request, *rds.ModifyIntegrationOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ModifyIntegrationRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*rds.ModifyIntegrationOutput)
+	return ret0, ret1
+}
+
+// ModifyIntegrationRequest indicates an expected call of ModifyIntegrationRequest.
+func (mr *MockRDSAPIMockRecorder) ModifyIntegrationRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyIntegrationRequest", reflect.TypeOf((*MockRDSAPI)(nil).ModifyIntegrationRequest), arg0)
+}
+
+// ModifyIntegrationWithContext mocks base method.
+func (m *MockRDSAPI) ModifyIntegrationWithContext(arg0 context.Context, arg1 *rds.ModifyIntegrationInput, arg2 ...request.Option) (*rds.ModifyIntegrationOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ModifyIntegrationWithContext", varargs...)
+	ret0, _ := ret[0].(*rds.ModifyIntegrationOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ModifyIntegrationWithContext indicates an expected call of ModifyIntegrationWithContext.
+func (mr *MockRDSAPIMockRecorder) ModifyIntegrationWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyIntegrationWithContext", reflect.TypeOf((*MockRDSAPI)(nil).ModifyIntegrationWithContext), varargs...)
+}
+
 // ModifyOptionGroup mocks base method.
 func (m *MockRDSAPI) ModifyOptionGroup(arg0 *rds.ModifyOptionGroupInput) (*rds.ModifyOptionGroupOutput, error) {
 	m.ctrl.T.Helper()
