@@ -808,6 +808,9 @@ func NewAwsLaunchTemplateInvalidInstanceTypeRule() *AwsLaunchTemplateInvalidInst
 			"r7i.metal-48xl",
 			"r7iz.metal-16xl",
 			"r7iz.metal-32xl",
+			"c7gd.metal",
+			"m7gd.metal",
+			"r7gd.metal",
 		},
 	}
 }

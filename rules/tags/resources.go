@@ -380,6 +380,8 @@ var Resources = []string{
 	"aws_location_place_index",
 	"aws_location_route_calculator",
 	"aws_location_tracker",
+	"aws_m2_application",
+	"aws_m2_environment",
 	"aws_macie2_classification_job",
 	"aws_macie2_custom_data_identifier",
 	"aws_macie2_findings_filter",
