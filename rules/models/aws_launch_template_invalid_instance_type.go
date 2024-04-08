@@ -811,6 +811,16 @@ func NewAwsLaunchTemplateInvalidInstanceTypeRule() *AwsLaunchTemplateInvalidInst
 			"c7gd.metal",
 			"m7gd.metal",
 			"r7gd.metal",
+			"g6.xlarge",
+			"g6.2xlarge",
+			"g6.4xlarge",
+			"g6.8xlarge",
+			"g6.12xlarge",
+			"g6.16xlarge",
+			"g6.24xlarge",
+			"g6.48xlarge",
+			"gr6.4xlarge",
+			"gr6.8xlarge",
 		},
 	}
 }
