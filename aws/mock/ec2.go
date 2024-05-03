@@ -22913,6 +22913,56 @@ func (mr *MockEC2APIMockRecorder) DisableImageDeprecationWithContext(arg0, arg1 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisableImageDeprecationWithContext", reflect.TypeOf((*MockEC2API)(nil).DisableImageDeprecationWithContext), varargs...)
 }
 
+// DisableImageDeregistrationProtection mocks base method.
+func (m *MockEC2API) DisableImageDeregistrationProtection(arg0 *ec2.DisableImageDeregistrationProtectionInput) (*ec2.DisableImageDeregistrationProtectionOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DisableImageDeregistrationProtection", arg0)
+	ret0, _ := ret[0].(*ec2.DisableImageDeregistrationProtectionOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DisableImageDeregistrationProtection indicates an expected call of DisableImageDeregistrationProtection.
+func (mr *MockEC2APIMockRecorder) DisableImageDeregistrationProtection(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisableImageDeregistrationProtection", reflect.TypeOf((*MockEC2API)(nil).DisableImageDeregistrationProtection), arg0)
+}
+
+// DisableImageDeregistrationProtectionRequest mocks base method.
+func (m *MockEC2API) DisableImageDeregistrationProtectionRequest(arg0 *ec2.DisableImageDeregistrationProtectionInput) (*request.Request, *ec2.DisableImageDeregistrationProtectionOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DisableImageDeregistrationProtectionRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.DisableImageDeregistrationProtectionOutput)
+	return ret0, ret1
+}
+
+// DisableImageDeregistrationProtectionRequest indicates an expected call of DisableImageDeregistrationProtectionRequest.
+func (mr *MockEC2APIMockRecorder) DisableImageDeregistrationProtectionRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisableImageDeregistrationProtectionRequest", reflect.TypeOf((*MockEC2API)(nil).DisableImageDeregistrationProtectionRequest), arg0)
+}
+
+// DisableImageDeregistrationProtectionWithContext mocks base method.
+func (m *MockEC2API) DisableImageDeregistrationProtectionWithContext(arg0 context.Context, arg1 *ec2.DisableImageDeregistrationProtectionInput, arg2 ...request.Option) (*ec2.DisableImageDeregistrationProtectionOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DisableImageDeregistrationProtectionWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.DisableImageDeregistrationProtectionOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DisableImageDeregistrationProtectionWithContext indicates an expected call of DisableImageDeregistrationProtectionWithContext.
+func (mr *MockEC2APIMockRecorder) DisableImageDeregistrationProtectionWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DisableImageDeregistrationProtectionWithContext", reflect.TypeOf((*MockEC2API)(nil).DisableImageDeregistrationProtectionWithContext), varargs...)
+}
+
 // DisableImageRequest mocks base method.
 func (m *MockEC2API) DisableImageRequest(arg0 *ec2.DisableImageInput) (*request.Request, *ec2.DisableImageOutput) {
 	m.ctrl.T.Helper()
@@ -24411,6 +24461,56 @@ func (mr *MockEC2APIMockRecorder) EnableImageDeprecationWithContext(arg0, arg1 i
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EnableImageDeprecationWithContext", reflect.TypeOf((*MockEC2API)(nil).EnableImageDeprecationWithContext), varargs...)
+}
+
+// EnableImageDeregistrationProtection mocks base method.
+func (m *MockEC2API) EnableImageDeregistrationProtection(arg0 *ec2.EnableImageDeregistrationProtectionInput) (*ec2.EnableImageDeregistrationProtectionOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "EnableImageDeregistrationProtection", arg0)
+	ret0, _ := ret[0].(*ec2.EnableImageDeregistrationProtectionOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// EnableImageDeregistrationProtection indicates an expected call of EnableImageDeregistrationProtection.
+func (mr *MockEC2APIMockRecorder) EnableImageDeregistrationProtection(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EnableImageDeregistrationProtection", reflect.TypeOf((*MockEC2API)(nil).EnableImageDeregistrationProtection), arg0)
+}
+
+// EnableImageDeregistrationProtectionRequest mocks base method.
+func (m *MockEC2API) EnableImageDeregistrationProtectionRequest(arg0 *ec2.EnableImageDeregistrationProtectionInput) (*request.Request, *ec2.EnableImageDeregistrationProtectionOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "EnableImageDeregistrationProtectionRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.EnableImageDeregistrationProtectionOutput)
+	return ret0, ret1
+}
+
+// EnableImageDeregistrationProtectionRequest indicates an expected call of EnableImageDeregistrationProtectionRequest.
+func (mr *MockEC2APIMockRecorder) EnableImageDeregistrationProtectionRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EnableImageDeregistrationProtectionRequest", reflect.TypeOf((*MockEC2API)(nil).EnableImageDeregistrationProtectionRequest), arg0)
+}
+
+// EnableImageDeregistrationProtectionWithContext mocks base method.
+func (m *MockEC2API) EnableImageDeregistrationProtectionWithContext(arg0 context.Context, arg1 *ec2.EnableImageDeregistrationProtectionInput, arg2 ...request.Option) (*ec2.EnableImageDeregistrationProtectionOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "EnableImageDeregistrationProtectionWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.EnableImageDeregistrationProtectionOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// EnableImageDeregistrationProtectionWithContext indicates an expected call of EnableImageDeregistrationProtectionWithContext.
+func (mr *MockEC2APIMockRecorder) EnableImageDeregistrationProtectionWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EnableImageDeregistrationProtectionWithContext", reflect.TypeOf((*MockEC2API)(nil).EnableImageDeregistrationProtectionWithContext), varargs...)
 }
 
 // EnableImageRequest mocks base method.
@@ -25945,6 +26045,56 @@ func (mr *MockEC2APIMockRecorder) GetInstanceMetadataDefaultsWithContext(arg0, a
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInstanceMetadataDefaultsWithContext", reflect.TypeOf((*MockEC2API)(nil).GetInstanceMetadataDefaultsWithContext), varargs...)
+}
+
+// GetInstanceTpmEkPub mocks base method.
+func (m *MockEC2API) GetInstanceTpmEkPub(arg0 *ec2.GetInstanceTpmEkPubInput) (*ec2.GetInstanceTpmEkPubOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetInstanceTpmEkPub", arg0)
+	ret0, _ := ret[0].(*ec2.GetInstanceTpmEkPubOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetInstanceTpmEkPub indicates an expected call of GetInstanceTpmEkPub.
+func (mr *MockEC2APIMockRecorder) GetInstanceTpmEkPub(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInstanceTpmEkPub", reflect.TypeOf((*MockEC2API)(nil).GetInstanceTpmEkPub), arg0)
+}
+
+// GetInstanceTpmEkPubRequest mocks base method.
+func (m *MockEC2API) GetInstanceTpmEkPubRequest(arg0 *ec2.GetInstanceTpmEkPubInput) (*request.Request, *ec2.GetInstanceTpmEkPubOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetInstanceTpmEkPubRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.GetInstanceTpmEkPubOutput)
+	return ret0, ret1
+}
+
+// GetInstanceTpmEkPubRequest indicates an expected call of GetInstanceTpmEkPubRequest.
+func (mr *MockEC2APIMockRecorder) GetInstanceTpmEkPubRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInstanceTpmEkPubRequest", reflect.TypeOf((*MockEC2API)(nil).GetInstanceTpmEkPubRequest), arg0)
+}
+
+// GetInstanceTpmEkPubWithContext mocks base method.
+func (m *MockEC2API) GetInstanceTpmEkPubWithContext(arg0 context.Context, arg1 *ec2.GetInstanceTpmEkPubInput, arg2 ...request.Option) (*ec2.GetInstanceTpmEkPubOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "GetInstanceTpmEkPubWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.GetInstanceTpmEkPubOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetInstanceTpmEkPubWithContext indicates an expected call of GetInstanceTpmEkPubWithContext.
+func (mr *MockEC2APIMockRecorder) GetInstanceTpmEkPubWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInstanceTpmEkPubWithContext", reflect.TypeOf((*MockEC2API)(nil).GetInstanceTpmEkPubWithContext), varargs...)
 }
 
 // GetInstanceTypesFromInstanceRequirements mocks base method.
