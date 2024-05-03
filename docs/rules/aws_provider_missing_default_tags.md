@@ -48,7 +48,7 @@ Notice: The provider is missing the following tags: "Bar", "Foo". (aws_provider_
 Use this rule in conjuction with aws_resource_missing_tags_rule, for example to enforce common tags and
 resource specific tags, without duplicating tags.
 
-```
+```hcl
 rule "aws_resource_missing_tags" {
   enabled = false
   tags = [
