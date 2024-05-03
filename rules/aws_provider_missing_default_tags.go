@@ -145,7 +145,7 @@ func (r *AwsProviderMissingDefaultTagsRule) Check(runner tflint.Runner) error {
 			}
 
 			// Check tags
-			if err := r.emitIssue(runner, providerTags, config, provider.DefRange); err != nil {
+			if err := r.emitIssue(runner, providerTags, config, attr.Range); err != nil {
 				return err
 			}
 		}

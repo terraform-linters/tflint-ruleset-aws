@@ -55,8 +55,8 @@ rule "aws_provider_missing_default_tags" {
 					Message: "The provider is missing the following tags: \"Bazz\".",
 					Range: hcl.Range{
 						Filename: "module.tf",
-						Start:    hcl.Pos{Line: 2, Column: 1},
-						End:      hcl.Pos{Line: 2, Column: 15},
+						Start:    hcl.Pos{Line: 4, Column: 5},
+						End:      hcl.Pos{Line: 6, Column: 6},
 					},
 				},
 			},
@@ -80,8 +80,8 @@ rule "aws_provider_missing_default_tags" {
 					Message: "The provider is missing the following tags: \"Bazz\", \"Fooz\".",
 					Range: hcl.Range{
 						Filename: "module.tf",
-						Start:    hcl.Pos{Line: 2, Column: 1},
-						End:      hcl.Pos{Line: 2, Column: 15},
+						Start:    hcl.Pos{Line: 4, Column: 5},
+						End:      hcl.Pos{Line: 4, Column: 14},
 					},
 				},
 			},
