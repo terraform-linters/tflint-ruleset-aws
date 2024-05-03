@@ -50,7 +50,7 @@ resource specific tags, without duplicating tags.
 
 ```hcl
 rule "aws_resource_missing_tags" {
-  enabled = false
+  enabled = true
   tags = [
     "kubernetes.io/cluster/eks",
   ]
