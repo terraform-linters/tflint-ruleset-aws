@@ -1,3 +1,20 @@
+## 0.31.0 (2024-05-03)
+
+### Enhancements
+
+- [#613](https://github.com/terraform-linters/tflint-ruleset-aws/pull/613) [#618](https://github.com/terraform-linters/tflint-ruleset-aws/pull/618) [#619](https://github.com/terraform-linters/tflint-ruleset-aws/pull/619) [#623](https://github.com/terraform-linters/tflint-ruleset-aws/pull/623) [#627](https://github.com/terraform-linters/tflint-ruleset-aws/pull/627) [#629](https://github.com/terraform-linters/tflint-ruleset-aws/pull/629): Update AWS provider/module and generated content
+- [#617](https://github.com/terraform-linters/tflint-ruleset-aws/pull/617) [#624](https://github.com/terraform-linters/tflint-ruleset-aws/pull/624): Bump github.com/hashicorp/hcl/v2 from 2.19.1 to 2.20.1
+  - This is required for provider-defined functions support
+
+### Chores
+
+- [#609](https://github.com/terraform-linters/tflint-ruleset-aws/pull/609) [#620](https://github.com/terraform-linters/tflint-ruleset-aws/pull/620) [#628](https://github.com/terraform-linters/tflint-ruleset-aws/pull/628): Bump golang.org/x/net from 0.20.0 to 0.24.0
+- [#614](https://github.com/terraform-linters/tflint-ruleset-aws/pull/614) [#634](https://github.com/terraform-linters/tflint-ruleset-aws/pull/634): Bump github.com/terraform-linters/tflint-plugin-sdk from 0.18.0 to 0.20.0
+- [#615](https://github.com/terraform-linters/tflint-ruleset-aws/pull/615): Bump github.com/stretchr/testify from 1.8.4 to 1.9.0
+- [#616](https://github.com/terraform-linters/tflint-ruleset-aws/pull/616) [#622](https://github.com/terraform-linters/tflint-ruleset-aws/pull/622): Bump github.com/zclconf/go-cty from 1.14.2 to 1.14.4
+- [#621](https://github.com/terraform-linters/tflint-ruleset-aws/pull/621): Bump google.golang.org/protobuf from 1.32.0 to 1.33.0
+- [#635](https://github.com/terraform-linters/tflint-ruleset-aws/pull/635): deps: Go 1.22.2
+
 ## 0.30.0 (2024-02-11)
 
 ### Enhancements
