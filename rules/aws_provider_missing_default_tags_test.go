@@ -87,7 +87,7 @@ rule "aws_provider_missing_default_tags" {
 			},
 		},
 		{
-			Name: "Missing default tags block for provider",
+			Name: "Missing default tags block for provider with no alias",
 			Content: `
 provider "aws" {
 }`,
@@ -99,7 +99,30 @@ rule "aws_provider_missing_default_tags" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsProviderMissingDefaultTagsRule(),
-					Message: "The provider `default` is missing the `default_tags` block",
+					Message: "The aws provider is missing the `default_tags` block",
+					Range: hcl.Range{
+						Filename: "module.tf",
+						Start:    hcl.Pos{Line: 2, Column: 1},
+						End:      hcl.Pos{Line: 2, Column: 15},
+					},
+				},
+			},
+		},
+		{
+			Name: "Missing default tags block for provider with alias",
+			Content: `
+provider "aws" {
+  alias = "test"
+}`,
+			Config: `
+rule "aws_provider_missing_default_tags" {
+  enabled = true
+  tags = ["Bazz", "Fooz"]
+}`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsProviderMissingDefaultTagsRule(),
+					Message: "The aws provider with alias `test` is missing the `default_tags` block",
 					Range: hcl.Range{
 						Filename: "module.tf",
 						Start:    hcl.Pos{Line: 2, Column: 1},

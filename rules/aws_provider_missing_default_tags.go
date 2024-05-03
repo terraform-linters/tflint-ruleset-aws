@@ -105,7 +105,13 @@ func (r *AwsProviderMissingDefaultTagsRule) Check(runner tflint.Runner) error {
 		logger.Debug("Walk `%s` provider", providerAlias)
 
 		if len(provider.Body.Blocks) == 0 {
-			if err := runner.EmitIssue(r, fmt.Sprintf("The provider `%s` is missing the `default_tags` block", providerAlias), provider.DefRange); err != nil {
+			var issue string
+			if providerAlias == "default" {
+				issue = "The aws provider is missing the `default_tags` block"
+			} else {
+				issue = fmt.Sprintf("The aws provider with alias `%s` is missing the `default_tags` block", providerAlias)
+			}
+			if err := runner.EmitIssue(r, issue, provider.DefRange); err != nil {
 				return err
 			}
 			continue
@@ -115,7 +121,9 @@ func (r *AwsProviderMissingDefaultTagsRule) Check(runner tflint.Runner) error {
 			var providerTags []string
 			attr, ok := block.Body.Attributes[providerTagsAttributeName]
 			if !ok {
-				r.emitIssue(runner, providerTags, config, provider.DefRange)
+				if err := r.emitIssue(runner, providerTags, config, provider.DefRange); err != nil {
+					return err
+				}
 				continue
 			}
 
@@ -137,14 +145,16 @@ func (r *AwsProviderMissingDefaultTagsRule) Check(runner tflint.Runner) error {
 			}
 
 			// Check tags
-			r.emitIssue(runner, providerTags, config, provider.DefRange)
+			if err := r.emitIssue(runner, providerTags, config, provider.DefRange); err != nil {
+				return err
+			}
 		}
 	}
 
 	return nil
 }
 
-func (r *AwsProviderMissingDefaultTagsRule) emitIssue(runner tflint.Runner, tags []string, config awsProviderTagsRuleConfig, location hcl.Range) {
+func (r *AwsProviderMissingDefaultTagsRule) emitIssue(runner tflint.Runner, tags []string, config awsProviderTagsRuleConfig, location hcl.Range) error {
 	var missing []string
 	for _, tag := range config.Tags {
 		if !slices.Contains(tags, tag) {
@@ -155,6 +165,10 @@ func (r *AwsProviderMissingDefaultTagsRule) emitIssue(runner tflint.Runner, tags
 		sort.Strings(missing)
 		wanted := strings.Join(missing, ", ")
 		issue := fmt.Sprintf("The provider is missing the following tags: %s.", wanted)
-		runner.EmitIssue(r, issue, location)
+		if err := runner.EmitIssue(r, issue, location); err != nil {
+			return err
+		}
 	}
+
+	return nil
 }
