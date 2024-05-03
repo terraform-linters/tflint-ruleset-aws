@@ -14,8 +14,8 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
-// AwsProviderMissingTagsRule checks whether providers are tagged correctly
-type AwsProviderMissingTagsRule struct {
+// AwsProviderMissingDefaultTagsRule checks whether providers are tagged correctly
+type AwsProviderMissingDefaultTagsRule struct {
 	tflint.DefaultRule
 }
 
@@ -28,33 +28,33 @@ const (
 	providerTagsAttributeName    = "tags"
 )
 
-// NewAwsProviderMissingTagsRule returns new rules for all providers that support tags
-func NewAwsProviderMissingTagsRule() *AwsProviderMissingTagsRule {
-	return &AwsProviderMissingTagsRule{}
+// NewAwsProviderMissingDefaultTagsRule returns new rules for all providers that support tags
+func NewAwsProviderMissingDefaultTagsRule() *AwsProviderMissingDefaultTagsRule {
+	return &AwsProviderMissingDefaultTagsRule{}
 }
 
 // Name returns the rule name
-func (r *AwsProviderMissingTagsRule) Name() string {
-	return "aws_provider_missing_tags"
+func (r *AwsProviderMissingDefaultTagsRule) Name() string {
+	return "aws_provider_missing_default_tags"
 }
 
 // Enabled returns whether the rule is enabled by default
-func (r *AwsProviderMissingTagsRule) Enabled() bool {
+func (r *AwsProviderMissingDefaultTagsRule) Enabled() bool {
 	return false
 }
 
 // Severity returns the rule severity
-func (r *AwsProviderMissingTagsRule) Severity() tflint.Severity {
+func (r *AwsProviderMissingDefaultTagsRule) Severity() tflint.Severity {
 	return tflint.NOTICE
 }
 
 // Link returns the rule reference link
-func (r *AwsProviderMissingTagsRule) Link() string {
+func (r *AwsProviderMissingDefaultTagsRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
 // Check checks providers for missing tags
-func (r *AwsProviderMissingTagsRule) Check(runner tflint.Runner) error {
+func (r *AwsProviderMissingDefaultTagsRule) Check(runner tflint.Runner) error {
 	config := awsProviderTagsRuleConfig{}
 	if err := runner.DecodeRuleConfig(r.Name(), &config); err != nil {
 		return err
@@ -144,7 +144,7 @@ func (r *AwsProviderMissingTagsRule) Check(runner tflint.Runner) error {
 	return nil
 }
 
-func (r *AwsProviderMissingTagsRule) emitIssue(runner tflint.Runner, tags []string, config awsProviderTagsRuleConfig, location hcl.Range) {
+func (r *AwsProviderMissingDefaultTagsRule) emitIssue(runner tflint.Runner, tags []string, config awsProviderTagsRuleConfig, location hcl.Range) {
 	var missing []string
 	for _, tag := range config.Tags {
 		if !slices.Contains(tags, tag) {

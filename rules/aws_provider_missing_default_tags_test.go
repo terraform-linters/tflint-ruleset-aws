@@ -8,7 +8,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_AwsProviderMissingTags(t *testing.T) {
+func Test_AwsProviderMissingDefaultTags(t *testing.T) {
 	cases := []struct {
 		Name     string
 		Content  string
@@ -28,7 +28,7 @@ provider "aws" {
   }
 }`,
 			Config: `
-rule "aws_provider_missing_tags" {
+rule "aws_provider_missing_default_tags" {
   enabled = true
   tags = ["Bazz", "Fooz"]
 }`,
@@ -45,13 +45,13 @@ provider "aws" {
   }
 }`,
 			Config: `
-rule "aws_provider_missing_tags" {
+rule "aws_provider_missing_default_tags" {
   enabled = true
   tags = ["Bazz", "Fooz"]
 }`,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsProviderMissingTagsRule(),
+					Rule:    NewAwsProviderMissingDefaultTagsRule(),
 					Message: "The provider is missing the following tags: \"Bazz\".",
 					Range: hcl.Range{
 						Filename: "module.tf",
@@ -70,13 +70,13 @@ provider "aws" {
   }
 }`,
 			Config: `
-rule "aws_provider_missing_tags" {
+rule "aws_provider_missing_default_tags" {
   enabled = true
   tags = ["Bazz", "Fooz"]
 }`,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsProviderMissingTagsRule(),
+					Rule:    NewAwsProviderMissingDefaultTagsRule(),
 					Message: "The provider is missing the following tags: \"Bazz\", \"Fooz\".",
 					Range: hcl.Range{
 						Filename: "module.tf",
@@ -92,13 +92,13 @@ rule "aws_provider_missing_tags" {
 provider "aws" {
 }`,
 			Config: `
-rule "aws_provider_missing_tags" {
+rule "aws_provider_missing_default_tags" {
   enabled = true
   tags = ["Bazz", "Fooz"]
 }`,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsProviderMissingTagsRule(),
+					Rule:    NewAwsProviderMissingDefaultTagsRule(),
 					Message: "The provider `default` is missing the `default_tags` block",
 					Range: hcl.Range{
 						Filename: "module.tf",
@@ -110,7 +110,7 @@ rule "aws_provider_missing_tags" {
 		},
 	}
 
-	rule := NewAwsProviderMissingTagsRule()
+	rule := NewAwsProviderMissingDefaultTagsRule()
 
 	for _, tc := range cases {
 		t.Run(tc.Name, func(t *testing.T) {
