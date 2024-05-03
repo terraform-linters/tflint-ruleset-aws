@@ -2,6 +2,7 @@ package rules
 
 import (
 	"fmt"
+	"slices"
 	"sort"
 	"strings"
 
@@ -11,7 +12,6 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 	"github.com/zclconf/go-cty/cty"
-	"golang.org/x/exp/slices"
 )
 
 // AwsProviderMissingTagsRule checks whether providers are tagged correctly
