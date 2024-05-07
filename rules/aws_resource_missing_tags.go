@@ -26,13 +26,6 @@ type awsResourceTagsRuleConfig struct {
 	Exclude []string `hclext:"exclude,optional"`
 }
 
-const (
-	defaultTagsBlockName  = "default_tags"
-	tagsAttributeName     = "tags"
-	tagBlockName          = "tag"
-	providerAttributeName = "provider"
-)
-
 // NewAwsResourceMissingTagsRule returns new rules for all resources that support tags
 func NewAwsResourceMissingTagsRule() *AwsResourceMissingTagsRule {
 	return &AwsResourceMissingTagsRule{}
@@ -211,15 +204,6 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 	return nil
 }
 
-// awsAutoscalingGroupTag is used by go-cty to evaluate tags in aws_autoscaling_group resources
-// The type does not need to be public, but its fields do
-// https://github.com/zclconf/go-cty/blob/master/docs/gocty.md#converting-to-and-from-structs
-type awsAutoscalingGroupTag struct {
-	Key               string `cty:"key"`
-	Value             string `cty:"value"`
-	PropagateAtLaunch bool   `cty:"propagate_at_launch"`
-}
-
 // checkAwsAutoScalingGroups handles the special case for tags on AutoScaling Groups
 // See: https://github.com/terraform-providers/terraform-provider-aws/blob/master/aws/autoscaling_tags.go
 func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroups(runner tflint.Runner, config awsResourceTagsRuleConfig) error {
@@ -363,15 +347,6 @@ func (r *AwsResourceMissingTagsRule) emitIssue(runner tflint.Runner, tags []stri
 		issue := fmt.Sprintf("The resource is missing the following tags: %s.", wanted)
 		runner.EmitIssue(r, issue, location)
 	}
-}
-
-func stringInSlice(a string, list []string) bool {
-	for _, b := range list {
-		if b == a {
-			return true
-		}
-	}
-	return false
 }
 
 // getKeysForValue returns a list of keys from a cty.Value, which is assumed to be a map (or unknown).
