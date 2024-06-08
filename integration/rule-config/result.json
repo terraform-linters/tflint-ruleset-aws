@@ -4,7 +4,7 @@
       "rule": {
         "name": "aws_s3_bucket_name",
         "severity": "error",
-        "link": "https://github.com/terraform-linters/tflint-ruleset-aws/blob/v0.31.0/docs/rules/aws_s3_bucket_name.md"
+        "link": "https://github.com/terraform-linters/tflint-ruleset-aws/blob/v0.32.0/docs/rules/aws_s3_bucket_name.md"
       },
       "message": "Bucket name \"foo_bar\" does not match regex \"^[a-z\\-]+$\"",
       "range": {
@@ -24,7 +24,7 @@
       "rule": {
         "name": "aws_s3_bucket_name",
         "severity": "error",
-        "link": "https://github.com/terraform-linters/tflint-ruleset-aws/blob/v0.31.0/docs/rules/aws_s3_bucket_name.md"
+        "link": "https://github.com/terraform-linters/tflint-ruleset-aws/blob/v0.32.0/docs/rules/aws_s3_bucket_name.md"
       },
       "message": "Bucket names can consist only of lowercase letters, numbers, dots (.), and hyphens (-). (name: \"foo_bar\", regex: \"[^a-z0-9\\\\.\\\\-]\")",
       "range": {

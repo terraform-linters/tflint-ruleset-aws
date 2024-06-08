@@ -1,3 +1,18 @@
+## 0.32.0 (2024-06-08)
+
+### Enhancements
+
+- [#633](https://github.com/terraform-linters/tflint-ruleset-aws/pull/633): New rule: aws_provider_missing_tags ([@bootswithdefer](https://github.com/bootswithdefer))
+- [#637](https://github.com/terraform-linters/tflint-ruleset-aws/pull/637): Update AWS provider/module and generated content
+
+### Chores
+
+- [#638](https://github.com/terraform-linters/tflint-ruleset-aws/pull/638): release: Introduce Artifact Attestations ([@wata727](https://github.com/wata727))
+- [#642](https://github.com/terraform-linters/tflint-ruleset-aws/pull/642) [#645](https://github.com/terraform-linters/tflint-ruleset-aws/pull/645): Bump golang.org/x/net from 0.24.0 to 0.26.0
+- [#643](https://github.com/terraform-linters/tflint-ruleset-aws/pull/643): Bump github.com/hashicorp/terraform-json from 0.21.0 to 0.22.1
+- [#646](https://github.com/terraform-linters/tflint-ruleset-aws/pull/646): Bump goreleaser/goreleaser-action from 5 to 6
+- [#647](https://github.com/terraform-linters/tflint-ruleset-aws/pull/647): deps: Go 1.22.4 ([@wata727](https://github.com/wata727))
+
 ## 0.31.0 (2024-05-03)
 
 ### Enhancements
