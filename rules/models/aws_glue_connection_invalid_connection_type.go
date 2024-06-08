@@ -32,6 +32,7 @@ func NewAwsGlueConnectionInvalidConnectionTypeRule() *AwsGlueConnectionInvalidCo
 			"NETWORK",
 			"MARKETPLACE",
 			"CUSTOM",
+			"SALESFORCE",
 		},
 	}
 }

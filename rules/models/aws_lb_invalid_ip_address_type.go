@@ -27,6 +27,7 @@ func NewAwsLbInvalidIPAddressTypeRule() *AwsLbInvalidIPAddressTypeRule {
 		enum: []string{
 			"ipv4",
 			"dualstack",
+			"dualstack-without-public-ipv4",
 		},
 	}
 }
