@@ -10,9 +10,9 @@ import (
 
 const testTagRule = `
 rule "aws_resource_tags" {
-  enabled  = true
+	enabled  = true
 	required = ["A", "B"]
-  values   = { A: ["1", "foo"], B: ["2", "bar"] }
+	values   = { A: ["1", "foo"], B: ["2", "bar"] }
 } `
 
 func Test_AwsResourceTags(t *testing.T) {
