@@ -2,9 +2,9 @@
   "issues": [
     {
       "rule": {
-        "name": "aws_resource_missing_tags",
+        "name": "aws_resource_tags",
         "severity": "info",
-        "link": "https://github.com/terraform-linters/tflint-ruleset-aws/blob/v0.32.0/docs/rules/aws_resource_missing_tags.md"
+        "link": "https://github.com/terraform-linters/tflint-ruleset-aws/blob/v0.32.0/docs/rules/aws_resource_tags.md"
       },
       "message": "The resource is missing the following tags: \"Environment\", \"Name\", \"Type\".",
       "range": {

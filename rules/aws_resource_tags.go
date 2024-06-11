@@ -376,8 +376,6 @@ func (r *AwsResourceTagsRule) checkAwsAutoScalingGroupsTags(runner tflint.Runner
 
 func (r *AwsResourceTagsRule) emitIssue(runner tflint.Runner, tags map[string]string, config awsResourceTagsRuleConfig, location hcl.Range) {
 	// sort the tag names for deterministic output
-	// only evaluate the given tags on the resource NOT the configured tags
-	// the checking of tag presence should use the `aws_resource_missing_tags` lint rule
 	tagsToMatch := sort.StringSlice{}
 	for tagName := range tags {
 		tagsToMatch = append(tagsToMatch, tagName)

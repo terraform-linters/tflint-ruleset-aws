@@ -7,6 +7,6 @@ plugin "aws" {
 }
 
 rule "aws_resource_tags" {
-  enabled = true
-  tags = ["Environment", "Name", "Type"]
+  enabled  = true
+  required = ["Environment", "Name", "Type"]
 }

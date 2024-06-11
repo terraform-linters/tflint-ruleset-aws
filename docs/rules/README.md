@@ -72,7 +72,7 @@ These rules enforce best practices and naming conventions:
 |[aws_iam_policy_gov_friendly_arns](aws_iam_policy_gov_friendly_arns.md)|Ensure `iam_policy` resources do not contain `arn:aws:` ARN's||
 |[aws_iam_role_policy_gov_friendly_arns](aws_iam_role_policy_gov_friendly_arns.md)|Ensure `iam_role_policy` resources do not contain `arn:aws:` ARN's||
 |[aws_lambda_function_deprecated_runtime](aws_lambda_function_deprecated_runtime.md)|Disallow deprecated runtimes for Lambda Function|✔|
-|[aws_resource_missing_tags](aws_resource_missing_tags.md)|Require specific tags for all AWS resource types that support them||
+|[aws_resource_tags](aws_resource_tags.md)|Require specific tags for all AWS resource types that support them||
 |[aws_s3_bucket_name](aws_s3_bucket_name.md)|Ensures all S3 bucket names match the naming rules|✔|
 |[aws_provider_missing_default_tags](aws_provider_missing_default_tags.md)|Require specific tags for all AWS providers default tags||
 

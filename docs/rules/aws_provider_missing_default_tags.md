@@ -45,17 +45,14 @@ Notice: The provider is missing the following tags: "Bar", "Foo". (aws_provider_
 - Using default tags results in better tagging coverage. The resource missing tags rule needs support
   to be added for non-standard uses of tags in the provider, for example EC2 root block devices.
 
-Use this rule in conjuction with aws_resource_missing_tags_rule, for example to enforce common tags and
+Use this rule in conjuction with aws_resource_tags_rule, for example to enforce common tags and
 resource specific tags, without duplicating tags.
 
 ```hcl
-rule "aws_resource_missing_tags" {
-  enabled = true
-  tags = [
+rule "aws_resource_tags" {
+  enabled  = true
+  required = [
     "kubernetes.io/cluster/eks",
-  ]
-  include = [
-    "aws_subnet",
   ]
 }
 
