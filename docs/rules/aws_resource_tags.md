@@ -1,17 +1,18 @@
-# aws_resource_invalid_tags
+# aws_resource_tags
 
-Require tags to be assigned to a specific set of values.
+Rule for resources tag presence and value validation from prefixed list.
 
 ## Example
 
 ```hcl
-rule "aws_resource_invalid_tags" {
-    enabled = true
-    tags    = {
+rule "aws_resource_tags" {
+    enabled  = true
+    exclude  = ["aws_autoscaling_group"]
+    required = ["Environment"]
+    values   = {
         Department  = ["finance", "hr", "payments", "engineering"]
         Environment = ["sandbox", "staging", "production"]
     }
-    exclude = ["aws_autoscaling_group"]
 }
 
 provider "aws" {
@@ -23,7 +24,7 @@ provider "aws" {
 
 resource "aws_s3_bucket" "bucket" {
     ...
-    tags = { Project: "homepage", Department = "science" }
+    tags = { Project: "homepage", Department: "science" }
 }
 ```
 
