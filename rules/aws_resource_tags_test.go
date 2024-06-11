@@ -8,10 +8,11 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-const testInvalidTagRule = `
-rule "aws_resource_invalid_tags" {
+// TODO: Test Required attr
+const testTagRule = `
+rule "aws_resource_tags" {
   enabled = true
-  tags = { A: ["1", "foo"], B: ["2", "bar"] }
+  values = { A: ["1", "foo"], B: ["2", "bar"] }
 } `
 
 func Test_AwsResourceInvalidTags(t *testing.T) {
@@ -28,7 +29,7 @@ func Test_AwsResourceInvalidTags(t *testing.T) {
 			provider "aws" { region = "us-east-1" }
 			resource "aws_instance" "ec2_instance" { }
 			resource "aws_instance" "ec2_instance" { }`,
-			Config:   testInvalidTagRule,
+			Config:   testTagRule,
 			Expected: helper.Issues{},
 		},
 		{
@@ -38,14 +39,14 @@ func Test_AwsResourceInvalidTags(t *testing.T) {
 			resource "aws_instance" "ec2_instance_two" { tags = { A: "xar", B: "zar" } }
 			resource "aws_s3_bucket" "s3_bucket_one" { tags = { A: "xar", B: "zar" } }`,
 			Config: `
-			rule "aws_resource_invalid_tags" {
+			rule "aws_resource_tags" {
 				enabled = true
-				tags = { A: ["1", "foo"], B: ["2", "bar"] }
+				values = { A: ["1", "foo"], B: ["2", "bar"] }
 				exclude = ["aws_instance"]
 			}`,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsResourceInvalidTagsRule(),
+					Rule:    NewAwsResourceTagsRule(),
 					Message: "Received 'xar' for tag 'A', expected one of '1,foo'. Received 'zar' for tag 'B', expected one of '2,bar'.",
 					Range: hcl.Range{
 						Filename: "module.tf",
@@ -63,8 +64,47 @@ func Test_AwsResourceInvalidTags(t *testing.T) {
 			}
 			resource "aws_instance" "ec2_instance_one" {}
 			resource "aws_instance" "ec2_instance_two" {}`,
-			Config:   testInvalidTagRule,
+			Config:   testTagRule,
 			Expected: helper.Issues{},
+		},
+		{
+			Name: "valid provider tags assigned with variables with no explicit tags assigned to resources",
+			Content: `
+			variable "tags" {
+				type = map(string, string)
+				default = {  A = "1", B = "2" }
+			}
+			provider "aws" {
+				default_tags { tags = var.tags }
+			}
+			resource "aws_instance" "ec2_instance_one" {}
+			resource "aws_instance" "ec2_instance_two" {}`,
+			Config:   testTagRule,
+			Expected: helper.Issues{},
+		},
+		{
+			Name: "invalid provider tags assigned with variables with no explicit tags assigned to resources",
+			Content: `
+			variable "tags" {
+				type = map(string, string)
+				default = {  A = "1", B = "zar" }
+			}
+			provider "aws" {
+				default_tags { tags = var.tags }
+			}
+			resource "aws_instance" "ec2_instance_one" {}`,
+			Config: testTagRule,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsResourceTagsRule(),
+					Message: "Received 'zar' for tag 'B', expected one of '2,bar'.",
+					Range: hcl.Range{
+						Filename: "module.tf",
+						Start:    hcl.Pos{Line: 9, Column: 4},
+						End:      hcl.Pos{Line: 9, Column: 46},
+					},
+				},
+			},
 		},
 		{
 			Name: "valid provider tags assigned and invalid explicit tags assigned to resources",
@@ -73,10 +113,10 @@ func Test_AwsResourceInvalidTags(t *testing.T) {
 				default_tags { tags = { A = "1", B = "2" } }
 			}
 			resource "aws_instance" "ec2_instance_one" { tags = { A = "0" }}`,
-			Config: testInvalidTagRule,
+			Config: testTagRule,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsResourceInvalidTagsRule(),
+					Rule:    NewAwsResourceTagsRule(),
 					Message: "Received '0' for tag 'A', expected one of '1,foo'.",
 					Range: hcl.Range{
 						Filename: "module.tf",
@@ -93,7 +133,7 @@ func Test_AwsResourceInvalidTags(t *testing.T) {
 				default_tags { tags = { A = "1", B = "2" } }
 			}
 			resource "aws_autoscaling_group" "asg" {}`,
-			Config:   testInvalidTagRule,
+			Config:   testTagRule,
 			Expected: helper.Issues{},
 		},
 		// NOTE: This test surfaces the unknown relationship between Provider default tags
@@ -105,7 +145,7 @@ func Test_AwsResourceInvalidTags(t *testing.T) {
 				default_tags { tags = { A = "0", B = "0" } }
 			}
 			resource "aws_autoscaling_group" "asg" {}`,
-			Config:   testInvalidTagRule,
+			Config:   testTagRule,
 			Expected: helper.Issues{},
 		},
 		{
@@ -115,10 +155,10 @@ func Test_AwsResourceInvalidTags(t *testing.T) {
 				default_tags { tags = { A = "0", B = "foo" } }
 			}
 			resource "aws_s3_bucket" "bucket" {}`,
-			Config: testInvalidTagRule,
+			Config: testTagRule,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsResourceInvalidTagsRule(),
+					Rule:    NewAwsResourceTagsRule(),
 					Message: "Received '0' for tag 'A', expected one of '1,foo'. Received 'foo' for tag 'B', expected one of '2,bar'.",
 					Range: hcl.Range{
 						Filename: "module.tf",
@@ -141,7 +181,7 @@ func Test_AwsResourceInvalidTags(t *testing.T) {
 			}
 			resource "aws_instance" "ec2_instance" { provider = "one" }
 			resource "aws_instance" "ec2_instance" { provider = "two" }`,
-			Config:   testInvalidTagRule,
+			Config:   testTagRule,
 			Expected: helper.Issues{},
 		},
 		{
@@ -149,10 +189,10 @@ func Test_AwsResourceInvalidTags(t *testing.T) {
 			Content: `
 			resource "aws_instance" "ec2_instance" { tags = { A = "0" } }
 			resource "aws_instance" "ec2_instance" { tags = { B = "0" } }`,
-			Config: testInvalidTagRule,
+			Config: testTagRule,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsResourceInvalidTagsRule(),
+					Rule:    NewAwsResourceTagsRule(),
 					Message: "Received '0' for tag 'A', expected one of '1,foo'.",
 					Range: hcl.Range{
 						Filename: "module.tf",
@@ -161,7 +201,7 @@ func Test_AwsResourceInvalidTags(t *testing.T) {
 					},
 				},
 				{
-					Rule:    NewAwsResourceInvalidTagsRule(),
+					Rule:    NewAwsResourceTagsRule(),
 					Message: "Received '0' for tag 'B', expected one of '2,bar'.",
 					Range: hcl.Range{
 						Filename: "module.tf",
@@ -174,13 +214,13 @@ func Test_AwsResourceInvalidTags(t *testing.T) {
 		{
 			Name:     "explicit resource tag assignment with valid values",
 			Content:  `resource "aws_instance" "ec2_instance" { tags = { A = "1", B = "bar" } }`,
-			Config:   testInvalidTagRule,
+			Config:   testTagRule,
 			Expected: helper.Issues{},
 		},
 		{
 			Name:     "explicit resource tag assignment with unconfigured tag rule",
 			Content:  `resource "aws_instance" "ec2_instance" { tags = { A = "1", B = "bar", C = "3" } }`,
-			Config:   testInvalidTagRule,
+			Config:   testTagRule,
 			Expected: helper.Issues{},
 		},
 		{
@@ -196,10 +236,10 @@ func Test_AwsResourceInvalidTags(t *testing.T) {
 					value = "foo"
 				}
 			}`,
-			Config: testInvalidTagRule,
+			Config: testTagRule,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsResourceInvalidTagsRule(),
+					Rule:    NewAwsResourceTagsRule(),
 					Message: "Received '0' for tag 'A', expected one of '1,foo'. Received 'foo' for tag 'B', expected one of '2,bar'.",
 					Range: hcl.Range{
 						Filename: "module.tf",
@@ -222,12 +262,12 @@ func Test_AwsResourceInvalidTags(t *testing.T) {
 					value = "bar"
 				}
 			}`,
-			Config:   testInvalidTagRule,
+			Config:   testTagRule,
 			Expected: helper.Issues{},
 		},
 	}
 
-	rule := NewAwsResourceInvalidTagsRule()
+	rule := NewAwsResourceTagsRule()
 
 	for _, tc := range cases {
 		t.Run(tc.Name, func(t *testing.T) {

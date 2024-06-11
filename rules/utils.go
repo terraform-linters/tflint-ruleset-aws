@@ -1,5 +1,7 @@
 package rules
 
+import "github.com/zclconf/go-cty/cty"
+
 var validElastiCacheNodeTypes = map[string]bool{
 	// https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html
 	"cache.t2.micro":      true,
@@ -98,4 +100,61 @@ var previousElastiCacheNodeTypes = map[string]bool{
 	"m3": true,
 	"r3": true,
 	"t1": true,
+}
+
+// getKeysForValue returns a list of keys from a cty.Value, which is assumed to be a map (or unknown).
+// It returns a boolean indicating whether the keys were known.
+// If _any_ key is unknown, the entire value is considered unknown, since we can't know if a required tag might be matched by the unknown key.
+// Values are entirely ignored and can be unknown.
+func getKeysForValue(value cty.Value) (keys []string, known bool) {
+	if !value.CanIterateElements() || !value.IsKnown() {
+		return nil, false
+	}
+	if value.IsNull() {
+		return keys, true
+	}
+	return keys, !value.ForEachElement(func(key, _ cty.Value) bool {
+		// If any key is unknown or sensitive, return early as any missing tag could be this unknown key.
+		if !key.IsKnown() || key.IsNull() || key.IsMarked() {
+			return true
+		}
+		keys = append(keys, key.AsString())
+		return false
+	})
+}
+
+func stringInSlice(a string, list []string) bool {
+	for _, b := range list {
+		if b == a {
+			return true
+		}
+	}
+	return false
+}
+
+func getKnownForValue(value cty.Value) (map[string]string, bool) {
+	tags := map[string]string{}
+
+	if !value.CanIterateElements() || !value.IsKnown() {
+		return nil, false
+	}
+	if value.IsNull() {
+		return tags, true
+	}
+
+	return tags, !value.ForEachElement(func(key, value cty.Value) bool {
+		// If any key is unknown or sensitive, return early as any missing tag could be this unknown key.
+		if !key.IsKnown() || key.IsNull() || key.IsMarked() {
+			return true
+		}
+
+		if !value.IsKnown() || value.IsMarked() {
+			return true
+		}
+
+		// We assume the value of the tag is ALWAYS a string
+		tags[key.AsString()] = value.AsString()
+
+		return false
+	})
 }
