@@ -6,7 +6,7 @@
         "severity": "info",
         "link": "https://github.com/terraform-linters/tflint-ruleset-aws/blob/v0.32.0/docs/rules/aws_resource_tags.md"
       },
-      "message": "The resource is missing the following tags: \"Environment\", \"Name\", \"Type\".",
+      "message": "Tag 'Environment' is required. Tag 'Name' is required. Tag 'Type' is required.",
       "range": {
         "filename": "template.tf",
         "start": {
