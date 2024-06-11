@@ -17,10 +17,11 @@ import (
 )
 
 const (
-	defaultTagsBlockName  = "default_tags"
-	tagsAttributeName     = "tags"
-	tagBlockName          = "tag"
-	providerAttributeName = "provider"
+	defaultTagsBlockName         = "default_tags"
+	tagsAttributeName            = "tags"
+	tagBlockName                 = "tag"
+	providerAttributeName        = "provider"
+	autoScalingGroupResourceName = "aws_autoscaling_group"
 )
 
 // AwsResourceTagsRule checks whether resources are tagged with valid values
@@ -32,6 +33,7 @@ type awsResourceTagsRuleConfig struct {
 	Required []string            `hclext:"required,optional"`
 	Values   map[string][]string `hclext:"values,optional"`
 	Exclude  []string            `hclext:"exclude,optional"`
+	Enabled  bool                `hclext:"enabled,optional"`
 }
 
 // awsAutoscalingGroupTag is used by go-cty to evaluate tags in aws_autoscaling_group resources
@@ -283,7 +285,7 @@ func (r *AwsResourceTagsRule) checkAwsAutoScalingGroups(runner tflint.Runner, co
 func (r *AwsResourceTagsRule) checkAwsAutoScalingGroupsTag(runner tflint.Runner, resourceBlock *hclext.Block) (map[string]string, hcl.Range, error) {
 	tags := map[string]string{}
 
-	resources, err := runner.GetResourceContent("aws_autoscaling_group", &hclext.BodySchema{
+	resources, err := runner.GetResourceContent(autoScalingGroupResourceName, &hclext.BodySchema{
 		Blocks: []hclext.BlockSchema{
 			{
 				Type: tagBlockName,
@@ -335,7 +337,7 @@ func (r *AwsResourceTagsRule) checkAwsAutoScalingGroupsTag(runner tflint.Runner,
 func (r *AwsResourceTagsRule) checkAwsAutoScalingGroupsTags(runner tflint.Runner, resourceBlock *hclext.Block) (map[string]string, hcl.Range, error) {
 	tags := map[string]string{}
 
-	resources, err := runner.GetResourceContent("aws_autoscaling_group", &hclext.BodySchema{
+	resources, err := runner.GetResourceContent(autoScalingGroupResourceName, &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{
 			{Name: tagsAttributeName},
 		},
@@ -382,19 +384,28 @@ func (r *AwsResourceTagsRule) emitIssue(runner tflint.Runner, tags map[string]st
 	}
 	tagsToMatch.Sort()
 
-	str := ""
+	errors := []string{}
+
+	// Check the provided tags are valid
 	for _, tagName := range tagsToMatch {
 		allowedValues, ok := config.Values[tagName]
 		// if the tag has a rule configuration then check
 		if ok {
 			valueProvided := tags[tagName]
 			if !slices.Contains(allowedValues, valueProvided) {
-				str = str + fmt.Sprintf("Received '%s' for tag '%s', expected one of '%s'. ", valueProvided, tagName, strings.Join(allowedValues, ","))
+				errors = append(errors, fmt.Sprintf("Received '%s' for tag '%s', expected one of '%s'.", valueProvided, tagName, strings.Join(allowedValues, ", ")))
 			}
 		}
 	}
 
-	if len(str) > 0 {
-		runner.EmitIssue(r, strings.TrimSpace(str), location)
+	// Check all required tags are present
+	for _, requiredTagName := range config.Required {
+		if !stringInSlice(requiredTagName, tagsToMatch) {
+			errors = append(errors, fmt.Sprintf("Tag '%s' is required.", requiredTagName))
+		}
+	}
+
+	if len(errors) > 0 {
+		runner.EmitIssue(r, strings.Join(errors, " "), location)
 	}
 }
