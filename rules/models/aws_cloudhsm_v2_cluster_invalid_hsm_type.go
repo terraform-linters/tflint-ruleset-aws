@@ -17,6 +17,7 @@ type AwsCloudhsmV2ClusterInvalidHsmTypeRule struct {
 
 	resourceType  string
 	attributeName string
+	max           int
 	pattern       *regexp.Regexp
 }
 
@@ -25,7 +26,8 @@ func NewAwsCloudhsmV2ClusterInvalidHsmTypeRule() *AwsCloudhsmV2ClusterInvalidHsm
 	return &AwsCloudhsmV2ClusterInvalidHsmTypeRule{
 		resourceType:  "aws_cloudhsm_v2_cluster",
 		attributeName: "hsm_type",
-		pattern:       regexp.MustCompile(`^(hsm1\.medium)$`),
+		max:           32,
+		pattern:       regexp.MustCompile(`^((p|)hsm[0-9][a-z.]*\.[a-zA-Z]+)$`),
 	}
 }
 
@@ -69,10 +71,17 @@ func (r *AwsCloudhsmV2ClusterInvalidHsmTypeRule) Check(runner tflint.Runner) err
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+			if len(val) > r.max {
+				runner.EmitIssue(
+					r,
+					"hsm_type must be 32 characters or less",
+					attribute.Expr.Range(),
+				)
+			}
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(hsm1\.medium)$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^((p|)hsm[0-9][a-z.]*\.[a-zA-Z]+)$`),
 					attribute.Expr.Range(),
 				)
 			}

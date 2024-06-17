@@ -28,6 +28,7 @@ func NewAwsKmsKeyInvalidKeyUsageRule() *AwsKmsKeyInvalidKeyUsageRule {
 			"SIGN_VERIFY",
 			"ENCRYPT_DECRYPT",
 			"GENERATE_VERIFY_MAC",
+			"KEY_AGREEMENT",
 		},
 	}
 }
