@@ -19,7 +19,7 @@ test "aws_cloudhsm_v2_cluster" "source_backup_identifier" {
 
 test "aws_cloudhsm_v2_cluster" "hsm_type" {
   ok = "hsm1.medium"
-  ng = "hsm1.micro"
+  ng = "t2.medium"
 }
 
 test "aws_cloudhsm_v2_hsm" "cluster_id" {
