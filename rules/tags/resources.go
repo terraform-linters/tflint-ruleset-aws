@@ -191,6 +191,7 @@ var Resources = []string{
 	"aws_docdb_event_subscription",
 	"aws_docdb_subnet_group",
 	"aws_docdbelastic_cluster",
+	"aws_drs_replication_configuration_template",
 	"aws_dx_connection",
 	"aws_dx_hosted_private_virtual_interface_accepter",
 	"aws_dx_hosted_public_virtual_interface_accepter",
