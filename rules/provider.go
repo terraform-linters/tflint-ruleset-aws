@@ -21,7 +21,6 @@ var manualRules = []tflint.Rule{
 	NewAwsInstancePreviousTypeRule(),
 	NewAwsMqBrokerInvalidEngineTypeRule(),
 	NewAwsMqConfigurationInvalidEngineTypeRule(),
-	NewAwsResourceMissingTagsRule(),
 	NewAwsRouteNotSpecifiedTargetRule(),
 	NewAwsRouteSpecifiedMultipleTargetsRule(),
 	NewAwsS3BucketInvalidACLRule(),
@@ -40,6 +39,7 @@ var manualRules = []tflint.Rule{
 	NewAwsSecurityGroupInvalidProtocolRule(),
 	NewAwsSecurityGroupRuleInvalidProtocolRule(),
 	NewAwsProviderMissingDefaultTagsRule(),
+	NewAwsResourceTagsRule(),
 }
 
 // Rules is a list of all rules

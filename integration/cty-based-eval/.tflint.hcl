@@ -6,7 +6,7 @@ plugin "aws" {
   enabled = true
 }
 
-rule "aws_resource_missing_tags" {
-  enabled = true
-  tags = ["Environment", "Name", "Type"]
+rule "aws_resource_tags" {
+  enabled  = true
+  required = ["Environment", "Name", "Type"]
 }
