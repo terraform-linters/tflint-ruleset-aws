@@ -27,6 +27,7 @@ func NewAwsEksNodeGroupInvalidCapacityTypeRule() *AwsEksNodeGroupInvalidCapacity
 		enum: []string{
 			"ON_DEMAND",
 			"SPOT",
+			"CAPACITY_BLOCK",
 		},
 	}
 }
