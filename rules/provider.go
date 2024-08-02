@@ -40,6 +40,7 @@ var manualRules = []tflint.Rule{
 	NewAwsSecurityGroupInvalidProtocolRule(),
 	NewAwsSecurityGroupRuleInvalidProtocolRule(),
 	NewAwsProviderMissingDefaultTagsRule(),
+	NewAwsIAMAccessKeyForbiddenRule(),
 }
 
 // Rules is a list of all rules
