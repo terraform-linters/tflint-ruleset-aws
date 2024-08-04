@@ -3801,6 +3801,56 @@ func (mr *MockEC2APIMockRecorder) CreateIpam(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateIpam", reflect.TypeOf((*MockEC2API)(nil).CreateIpam), arg0)
 }
 
+// CreateIpamExternalResourceVerificationToken mocks base method.
+func (m *MockEC2API) CreateIpamExternalResourceVerificationToken(arg0 *ec2.CreateIpamExternalResourceVerificationTokenInput) (*ec2.CreateIpamExternalResourceVerificationTokenOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateIpamExternalResourceVerificationToken", arg0)
+	ret0, _ := ret[0].(*ec2.CreateIpamExternalResourceVerificationTokenOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateIpamExternalResourceVerificationToken indicates an expected call of CreateIpamExternalResourceVerificationToken.
+func (mr *MockEC2APIMockRecorder) CreateIpamExternalResourceVerificationToken(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateIpamExternalResourceVerificationToken", reflect.TypeOf((*MockEC2API)(nil).CreateIpamExternalResourceVerificationToken), arg0)
+}
+
+// CreateIpamExternalResourceVerificationTokenRequest mocks base method.
+func (m *MockEC2API) CreateIpamExternalResourceVerificationTokenRequest(arg0 *ec2.CreateIpamExternalResourceVerificationTokenInput) (*request.Request, *ec2.CreateIpamExternalResourceVerificationTokenOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateIpamExternalResourceVerificationTokenRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.CreateIpamExternalResourceVerificationTokenOutput)
+	return ret0, ret1
+}
+
+// CreateIpamExternalResourceVerificationTokenRequest indicates an expected call of CreateIpamExternalResourceVerificationTokenRequest.
+func (mr *MockEC2APIMockRecorder) CreateIpamExternalResourceVerificationTokenRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateIpamExternalResourceVerificationTokenRequest", reflect.TypeOf((*MockEC2API)(nil).CreateIpamExternalResourceVerificationTokenRequest), arg0)
+}
+
+// CreateIpamExternalResourceVerificationTokenWithContext mocks base method.
+func (m *MockEC2API) CreateIpamExternalResourceVerificationTokenWithContext(arg0 context.Context, arg1 *ec2.CreateIpamExternalResourceVerificationTokenInput, arg2 ...request.Option) (*ec2.CreateIpamExternalResourceVerificationTokenOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "CreateIpamExternalResourceVerificationTokenWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.CreateIpamExternalResourceVerificationTokenOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateIpamExternalResourceVerificationTokenWithContext indicates an expected call of CreateIpamExternalResourceVerificationTokenWithContext.
+func (mr *MockEC2APIMockRecorder) CreateIpamExternalResourceVerificationTokenWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateIpamExternalResourceVerificationTokenWithContext", reflect.TypeOf((*MockEC2API)(nil).CreateIpamExternalResourceVerificationTokenWithContext), varargs...)
+}
+
 // CreateIpamPool mocks base method.
 func (m *MockEC2API) CreateIpamPool(arg0 *ec2.CreateIpamPoolInput) (*ec2.CreateIpamPoolOutput, error) {
 	m.ctrl.T.Helper()
@@ -7599,6 +7649,56 @@ func (m *MockEC2API) DeleteIpam(arg0 *ec2.DeleteIpamInput) (*ec2.DeleteIpamOutpu
 func (mr *MockEC2APIMockRecorder) DeleteIpam(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteIpam", reflect.TypeOf((*MockEC2API)(nil).DeleteIpam), arg0)
+}
+
+// DeleteIpamExternalResourceVerificationToken mocks base method.
+func (m *MockEC2API) DeleteIpamExternalResourceVerificationToken(arg0 *ec2.DeleteIpamExternalResourceVerificationTokenInput) (*ec2.DeleteIpamExternalResourceVerificationTokenOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteIpamExternalResourceVerificationToken", arg0)
+	ret0, _ := ret[0].(*ec2.DeleteIpamExternalResourceVerificationTokenOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteIpamExternalResourceVerificationToken indicates an expected call of DeleteIpamExternalResourceVerificationToken.
+func (mr *MockEC2APIMockRecorder) DeleteIpamExternalResourceVerificationToken(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteIpamExternalResourceVerificationToken", reflect.TypeOf((*MockEC2API)(nil).DeleteIpamExternalResourceVerificationToken), arg0)
+}
+
+// DeleteIpamExternalResourceVerificationTokenRequest mocks base method.
+func (m *MockEC2API) DeleteIpamExternalResourceVerificationTokenRequest(arg0 *ec2.DeleteIpamExternalResourceVerificationTokenInput) (*request.Request, *ec2.DeleteIpamExternalResourceVerificationTokenOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteIpamExternalResourceVerificationTokenRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.DeleteIpamExternalResourceVerificationTokenOutput)
+	return ret0, ret1
+}
+
+// DeleteIpamExternalResourceVerificationTokenRequest indicates an expected call of DeleteIpamExternalResourceVerificationTokenRequest.
+func (mr *MockEC2APIMockRecorder) DeleteIpamExternalResourceVerificationTokenRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteIpamExternalResourceVerificationTokenRequest", reflect.TypeOf((*MockEC2API)(nil).DeleteIpamExternalResourceVerificationTokenRequest), arg0)
+}
+
+// DeleteIpamExternalResourceVerificationTokenWithContext mocks base method.
+func (m *MockEC2API) DeleteIpamExternalResourceVerificationTokenWithContext(arg0 context.Context, arg1 *ec2.DeleteIpamExternalResourceVerificationTokenInput, arg2 ...request.Option) (*ec2.DeleteIpamExternalResourceVerificationTokenOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DeleteIpamExternalResourceVerificationTokenWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.DeleteIpamExternalResourceVerificationTokenOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteIpamExternalResourceVerificationTokenWithContext indicates an expected call of DeleteIpamExternalResourceVerificationTokenWithContext.
+func (mr *MockEC2APIMockRecorder) DeleteIpamExternalResourceVerificationTokenWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteIpamExternalResourceVerificationTokenWithContext", reflect.TypeOf((*MockEC2API)(nil).DeleteIpamExternalResourceVerificationTokenWithContext), varargs...)
 }
 
 // DeleteIpamPool mocks base method.
@@ -15121,6 +15221,56 @@ func (mr *MockEC2APIMockRecorder) DescribeIpamByoasnWithContext(arg0, arg1 inter
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{arg0, arg1}, arg2...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeIpamByoasnWithContext", reflect.TypeOf((*MockEC2API)(nil).DescribeIpamByoasnWithContext), varargs...)
+}
+
+// DescribeIpamExternalResourceVerificationTokens mocks base method.
+func (m *MockEC2API) DescribeIpamExternalResourceVerificationTokens(arg0 *ec2.DescribeIpamExternalResourceVerificationTokensInput) (*ec2.DescribeIpamExternalResourceVerificationTokensOutput, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeIpamExternalResourceVerificationTokens", arg0)
+	ret0, _ := ret[0].(*ec2.DescribeIpamExternalResourceVerificationTokensOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeIpamExternalResourceVerificationTokens indicates an expected call of DescribeIpamExternalResourceVerificationTokens.
+func (mr *MockEC2APIMockRecorder) DescribeIpamExternalResourceVerificationTokens(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeIpamExternalResourceVerificationTokens", reflect.TypeOf((*MockEC2API)(nil).DescribeIpamExternalResourceVerificationTokens), arg0)
+}
+
+// DescribeIpamExternalResourceVerificationTokensRequest mocks base method.
+func (m *MockEC2API) DescribeIpamExternalResourceVerificationTokensRequest(arg0 *ec2.DescribeIpamExternalResourceVerificationTokensInput) (*request.Request, *ec2.DescribeIpamExternalResourceVerificationTokensOutput) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DescribeIpamExternalResourceVerificationTokensRequest", arg0)
+	ret0, _ := ret[0].(*request.Request)
+	ret1, _ := ret[1].(*ec2.DescribeIpamExternalResourceVerificationTokensOutput)
+	return ret0, ret1
+}
+
+// DescribeIpamExternalResourceVerificationTokensRequest indicates an expected call of DescribeIpamExternalResourceVerificationTokensRequest.
+func (mr *MockEC2APIMockRecorder) DescribeIpamExternalResourceVerificationTokensRequest(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeIpamExternalResourceVerificationTokensRequest", reflect.TypeOf((*MockEC2API)(nil).DescribeIpamExternalResourceVerificationTokensRequest), arg0)
+}
+
+// DescribeIpamExternalResourceVerificationTokensWithContext mocks base method.
+func (m *MockEC2API) DescribeIpamExternalResourceVerificationTokensWithContext(arg0 context.Context, arg1 *ec2.DescribeIpamExternalResourceVerificationTokensInput, arg2 ...request.Option) (*ec2.DescribeIpamExternalResourceVerificationTokensOutput, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{arg0, arg1}
+	for _, a := range arg2 {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "DescribeIpamExternalResourceVerificationTokensWithContext", varargs...)
+	ret0, _ := ret[0].(*ec2.DescribeIpamExternalResourceVerificationTokensOutput)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DescribeIpamExternalResourceVerificationTokensWithContext indicates an expected call of DescribeIpamExternalResourceVerificationTokensWithContext.
+func (mr *MockEC2APIMockRecorder) DescribeIpamExternalResourceVerificationTokensWithContext(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{arg0, arg1}, arg2...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeIpamExternalResourceVerificationTokensWithContext", reflect.TypeOf((*MockEC2API)(nil).DescribeIpamExternalResourceVerificationTokensWithContext), varargs...)
 }
 
 // DescribeIpamPools mocks base method.
