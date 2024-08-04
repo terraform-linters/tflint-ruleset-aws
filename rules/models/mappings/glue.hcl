@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/glue/2017-03-31/api-2.json"
+import = "aws-sdk-ruby/apis/glue/2017-03-31/api-2.json"
 
 mapping "aws_glue_catalog_database" {
   name         = any // NameString

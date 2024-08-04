@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/route53-recovery-control-config/2020-11-02/api-2.json"
+import = "aws-sdk-ruby/apis/route53-recovery-control-config/2020-11-02/api-2.json"
 
 mapping "aws_route53recoverycontrolconfig_cluster" {
   name = __stringMin1Max64PatternS

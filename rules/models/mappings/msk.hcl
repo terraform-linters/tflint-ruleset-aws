@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/kafka/2018-11-14/api-2.json"
+import = "aws-sdk-ruby/apis/kafka/2018-11-14/api-2.json"
 
 mapping "aws_msk_cluster" {
   broker_node_group_info = BrokerNodeGroupInfo

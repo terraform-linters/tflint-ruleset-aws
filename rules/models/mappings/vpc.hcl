@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/ec2/2016-11-15/api-2.json"
+import = "aws-sdk-ruby/apis/ec2/2016-11-15/api-2.json"
 
 mapping "aws_customer_gateway" {
   bgp_asn    = Integer

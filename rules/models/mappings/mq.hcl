@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/mq/2017-11-27/api-2.json"
+import = "aws-sdk-ruby/apis/mq/2017-11-27/api-2.json"
 
 mapping "aws_mq_broker" {
   apply_immediately             = any

@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/worklink/2018-09-25/api-2.json"
+import = "aws-sdk-ruby/apis/worklink/2018-09-25/api-2.json"
 
 mapping "aws_worklink_fleet" {
   name                           = FleetName

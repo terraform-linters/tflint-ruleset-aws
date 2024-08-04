@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/iam/2010-05-08/api-2.json"
+import = "aws-sdk-ruby/apis/iam/2010-05-08/api-2.json"
 
 mapping "aws_iam_access_key" {
   user    = existingUserNameType

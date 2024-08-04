@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/codedeploy/2014-10-06/api-2.json"
+import = "aws-sdk-ruby/apis/codedeploy/2014-10-06/api-2.json"
 
 mapping "aws_codedeploy_app" {
   name             = ApplicationName

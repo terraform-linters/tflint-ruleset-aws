@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/globalaccelerator/2018-08-08/api-2.json"
+import = "aws-sdk-ruby/apis/globalaccelerator/2018-08-08/api-2.json"
 
 mapping "aws_globalaccelerator_accelerator" {
   name            = GenericString

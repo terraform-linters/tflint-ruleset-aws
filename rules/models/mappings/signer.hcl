@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/signer/2017-08-25/api-2.json"
+import = "aws-sdk-ruby/apis/signer/2017-08-25/api-2.json"
 
 mapping "aws_signer_signing_job" {
   profile_name = ProfileName

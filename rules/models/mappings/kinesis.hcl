@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/kinesis/2013-12-02/api-2.json"
+import = "aws-sdk-ruby/apis/kinesis/2013-12-02/api-2.json"
 
 mapping "aws_kinesis_stream" {
   name                      = StreamName

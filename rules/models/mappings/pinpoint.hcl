@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/pinpoint/2016-12-01/api-2.json"
+import = "aws-sdk-ruby/apis/pinpoint/2016-12-01/api-2.json"
 
 mapping "aws_pinpoint_app" {
   name          = __string

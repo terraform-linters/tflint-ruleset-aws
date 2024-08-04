@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/iot/2015-05-28/api-2.json"
+import = "aws-sdk-ruby/apis/iot/2015-05-28/api-2.json"
 
 mapping "aws_iot_certificate" {
   active = SetAsActive

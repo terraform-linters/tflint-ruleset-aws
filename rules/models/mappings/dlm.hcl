@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/dlm/2018-01-12/api-2.json"
+import = "aws-sdk-ruby/apis/dlm/2018-01-12/api-2.json"
 
 mapping "aws_dlm_lifecycle_policy" {
   description        = PolicyDescription

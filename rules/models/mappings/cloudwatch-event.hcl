@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/events/2015-10-07/api-2.json"
+import = "aws-sdk-ruby/apis/events/2015-10-07/api-2.json"
 
 mapping "aws_cloudwatch_event_api_destination" {
   name = ApiDestinationName

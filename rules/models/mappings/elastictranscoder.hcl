@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/elastictranscoder/2012-09-25/api-2.json"
+import = "aws-sdk-ruby/apis/elastictranscoder/2012-09-25/api-2.json"
 
 mapping "aws_elastictranscoder_pipeline" {
   aws_kms_key_arn              = KeyArn

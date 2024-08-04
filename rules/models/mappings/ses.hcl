@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/email/2010-12-01/api-2.json"
+import = "aws-sdk-ruby/apis/email/2010-12-01/api-2.json"
 
 mapping "aws_ses_active_receipt_rule_set" {
   rule_set_name = ReceiptRuleSetName

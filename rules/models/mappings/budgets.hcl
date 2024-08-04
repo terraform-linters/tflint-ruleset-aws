@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/budgets/2016-10-20/api-2.json"
+import = "aws-sdk-ruby/apis/budgets/2016-10-20/api-2.json"
 
 mapping "aws_budgets_budget" {
   account_id  = AccountId

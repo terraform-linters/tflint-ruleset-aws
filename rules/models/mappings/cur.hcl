@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/cur/2017-01-06/api-2.json"
+import = "aws-sdk-ruby/apis/cur/2017-01-06/api-2.json"
 
 mapping "aws_cur_report_definition" {
   report_name = ReportName

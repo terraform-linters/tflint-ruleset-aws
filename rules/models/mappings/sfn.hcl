@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/states/2016-11-23/api-2.json"
+import = "aws-sdk-ruby/apis/states/2016-11-23/api-2.json"
 
 mapping "aws_sfn_activity" {
   name = Name

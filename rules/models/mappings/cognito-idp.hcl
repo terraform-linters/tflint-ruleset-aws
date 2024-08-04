@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/cognito-idp/2016-04-18/api-2.json"
+import = "aws-sdk-ruby/apis/cognito-idp/2016-04-18/api-2.json"
 
 mapping "aws_cognito_identity_provider" {
   user_pool_id  = UserPoolIdType

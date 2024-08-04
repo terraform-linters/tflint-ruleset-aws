@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/neptune/2014-10-31/api-2.json"
+import = "aws-sdk-ruby/apis/neptune/2014-10-31/api-2.json"
 
 mapping "aws_neptune_parameter_group" {
   name        = String

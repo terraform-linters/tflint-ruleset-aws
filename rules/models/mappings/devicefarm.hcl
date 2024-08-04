@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/devicefarm/2015-06-23/api-2.json"
+import = "aws-sdk-ruby/apis/devicefarm/2015-06-23/api-2.json"
 
 mapping "aws_devicefarm_device_pool" {
   name = Name

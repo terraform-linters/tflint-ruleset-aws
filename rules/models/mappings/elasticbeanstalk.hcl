@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/elasticbeanstalk/2010-12-01/api-2.json"
+import = "aws-sdk-ruby/apis/elasticbeanstalk/2010-12-01/api-2.json"
 
 mapping "aws_elastic_beanstalk_application" {
   name        = ApplicationName
