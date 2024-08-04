@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/monitoring/2010-08-01/api-2.json"
+import = "aws-sdk-ruby/apis/monitoring/2010-08-01/api-2.json"
 
 mapping "aws_cloudwatch_metric_alarm" {
   alarm_name                            = AlarmName

@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/cloud9/2017-09-23/api-2.json"
+import = "aws-sdk-ruby/apis/cloud9/2017-09-23/api-2.json"
 
 mapping "aws_cloud9_environment_ec2" {
   name                        = EnvironmentName

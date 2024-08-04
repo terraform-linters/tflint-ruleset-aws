@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/s3control/2018-08-20/api-2.json"
+import = "aws-sdk-ruby/apis/s3control/2018-08-20/api-2.json"
 
 mapping "aws_s3control_access_point_policy" {
   access_point_arn = S3AccessPointArn

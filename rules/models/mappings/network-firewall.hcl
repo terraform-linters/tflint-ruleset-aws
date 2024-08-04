@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/network-firewall/2020-11-12/api-2.json"
+import = "aws-sdk-ruby/apis/network-firewall/2020-11-12/api-2.json"
 
 mapping "aws_networkfirewall_firewall" {
   description = Description

@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/workspaces/2015-04-08/api-2.json"
+import = "aws-sdk-ruby/apis/workspaces/2015-04-08/api-2.json"
 
 mapping "aws_workspaces_directory" {
   directory_id = DirectoryId

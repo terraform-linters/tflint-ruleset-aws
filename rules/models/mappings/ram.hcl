@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/ram/2018-01-04/api-2.json"
+import = "aws-sdk-ruby/apis/ram/2018-01-04/api-2.json"
 
 mapping "aws_ram_principal_association" {
   principal          = String

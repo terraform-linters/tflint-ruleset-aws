@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/securityhub/2018-10-26/api-2.json"
+import = "aws-sdk-ruby/apis/securityhub/2018-10-26/api-2.json"
 
 mapping "aws_securityhub_account" {}
 

@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/sns/2010-03-31/api-2.json"
+import = "aws-sdk-ruby/apis/sns/2010-03-31/api-2.json"
 
 mapping "aws_sns_platform_application" {
   name                             = String

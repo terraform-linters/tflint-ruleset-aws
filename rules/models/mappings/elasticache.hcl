@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/elasticache/2015-02-02/api-2.json"
+import = "aws-sdk-ruby/apis/elasticache/2015-02-02/api-2.json"
 
 mapping "aws_elasticache_cluster" {
   cluster_id                   = String

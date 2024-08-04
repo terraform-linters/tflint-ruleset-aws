@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/lakeformation/2017-03-31/api-2.json"
+import = "aws-sdk-ruby/apis/lakeformation/2017-03-31/api-2.json"
 
 mapping "aws_lakeformation_data_lake_settings" {
   admins = DataLakePrincipalList

@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/dynamodb/2012-08-10/api-2.json"
+import = "aws-sdk-ruby/apis/dynamodb/2012-08-10/api-2.json"
 
 mapping "aws_dynamodb_global_table" {
   name    = TableName

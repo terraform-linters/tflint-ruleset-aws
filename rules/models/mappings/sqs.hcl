@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/sqs/2012-11-05/api-2.json"
+import = "aws-sdk-ruby/apis/sqs/2012-11-05/api-2.json"
 
 mapping "aws_sqs_queue" {
   name                              = String

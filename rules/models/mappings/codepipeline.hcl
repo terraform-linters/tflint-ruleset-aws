@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/codepipeline/2015-07-09/api-2.json"
+import = "aws-sdk-ruby/apis/codepipeline/2015-07-09/api-2.json"
 
 mapping "aws_codepipeline" {
   name     = PipelineName

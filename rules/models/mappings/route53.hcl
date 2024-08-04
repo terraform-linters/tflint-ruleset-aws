@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/route53/2013-04-01/api-2.json"
+import = "aws-sdk-ruby/apis/route53/2013-04-01/api-2.json"
 
 mapping "aws_route53_delegation_set" {
   reference_name = Nonce

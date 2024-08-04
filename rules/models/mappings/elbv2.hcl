@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/elasticloadbalancingv2/2015-12-01/api-2.json"
+import = "aws-sdk-ruby/apis/elasticloadbalancingv2/2015-12-01/api-2.json"
 
 mapping "aws_lb" {
   name                             = LoadBalancerName
