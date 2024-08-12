@@ -4,21 +4,37 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/ec2"
-	"github.com/aws/aws-sdk-go/service/rds"
-	"github.com/golang/mock/gomock"
+	"github.com/aws/aws-sdk-go-v2/service/ec2"
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
-	awsruleset "github.com/terraform-linters/tflint-ruleset-aws/aws"
-	"github.com/terraform-linters/tflint-ruleset-aws/aws/mock"
+	"github.com/terraform-linters/tflint-ruleset-aws/aws"
 )
+
+type mockClient struct {
+	aws.AwsClient
+
+	describeSecurityGroups func() (map[string]bool, error)
+	describeDBSubnetGroups func() (map[string]bool, error)
+	describeImages         func(*ec2.DescribeImagesInput) (map[string]bool, error)
+}
+
+func (m *mockClient) DescribeSecurityGroups() (map[string]bool, error) {
+	return m.describeSecurityGroups()
+}
+
+func (m *mockClient) DescribeDBSubnetGroups() (map[string]bool, error) {
+	return m.describeDBSubnetGroups()
+}
+
+func (m *mockClient) DescribeImages(in *ec2.DescribeImagesInput) (map[string]bool, error) {
+	return m.describeImages(in)
+}
 
 func Test_APIListData(t *testing.T) {
 	cases := []struct {
 		Name     string
 		Content  string
-		Response []*ec2.SecurityGroup
+		Client   *mockClient
 		Expected helper.Issues
 	}{
 		{
@@ -30,12 +46,12 @@ resource "aws_alb" "balancer" {
         "sg-abcd1234",
     ]
 }`,
-			Response: []*ec2.SecurityGroup{
-				{
-					GroupId: aws.String("sg-12345678"),
-				},
-				{
-					GroupId: aws.String("sg-abcdefgh"),
+			Client: &mockClient{
+				describeSecurityGroups: func() (map[string]bool, error) {
+					return map[string]bool{
+						"sg-12345678": true,
+						"sg-abcdefgh": true,
+					}, nil
 				},
 			},
 			Expected: helper.Issues{
@@ -68,12 +84,12 @@ resource "aws_alb" "balancer" {
         "sg-abcd1234",
     ]
 }`,
-			Response: []*ec2.SecurityGroup{
-				{
-					GroupId: aws.String("sg-1234abcd"),
-				},
-				{
-					GroupId: aws.String("sg-abcd1234"),
+			Client: &mockClient{
+				describeSecurityGroups: func() (map[string]bool, error) {
+					return map[string]bool{
+						"sg-1234abcd": true,
+						"sg-abcd1234": true,
+					}, nil
 				},
 			},
 			Expected: helper.Issues{},
@@ -88,12 +104,12 @@ variable "security_groups" {
 resource "aws_alb" "balancer" {
     security_groups = "${var.security_groups}"
 }`,
-			Response: []*ec2.SecurityGroup{
-				{
-					GroupId: aws.String("sg-12345678"),
-				},
-				{
-					GroupId: aws.String("sg-abcdefgh"),
+			Client: &mockClient{
+				describeSecurityGroups: func() (map[string]bool, error) {
+					return map[string]bool{
+						"sg-12345678": true,
+						"sg-abcdefgh": true,
+					}, nil
 				},
 			},
 			Expected: helper.Issues{
@@ -119,24 +135,17 @@ resource "aws_alb" "balancer" {
 		},
 	}
 
-	ctrl := gomock.NewController(t)
-	defer ctrl.Finish()
-
 	for _, tc := range cases {
-		runner := NewTestRunner(t, map[string]string{"resource.tf": tc.Content})
+		t.Run(tc.Name, func(t *testing.T) {
+			runner := NewTestRunner(t, map[string]string{"resource.tf": tc.Content}, tc.Client)
 
-		ec2mock := mock.NewMockEC2API(ctrl)
-		ec2mock.EXPECT().DescribeSecurityGroups(&ec2.DescribeSecurityGroupsInput{}).Return(&ec2.DescribeSecurityGroupsOutput{
-			SecurityGroups: tc.Response,
-		}, nil)
-		runner.AwsClients["aws"].EC2 = ec2mock
+			rule := NewAwsALBInvalidSecurityGroupRule()
+			if err := rule.Check(runner); err != nil {
+				t.Fatalf("Unexpected error occurred: %s", err)
+			}
 
-		rule := NewAwsALBInvalidSecurityGroupRule()
-		if err := rule.Check(runner); err != nil {
-			t.Fatalf("Unexpected error occurred: %s", err)
-		}
-
-		helper.AssertIssues(t, tc.Expected, runner.Runner.(*helper.Runner).Issues)
+			helper.AssertIssues(t, tc.Expected, runner.Runner.(*helper.Runner).Issues)
+		})
 	}
 }
 
@@ -144,7 +153,7 @@ func Test_APIStringData(t *testing.T) {
 	cases := []struct {
 		Name     string
 		Content  string
-		Response []*rds.DBSubnetGroup
+		Client   *mockClient
 		Expected helper.Issues
 	}{
 		{
@@ -153,12 +162,12 @@ func Test_APIStringData(t *testing.T) {
 resource "aws_db_instance" "mysql" {
     db_subnet_group_name = "app-server"
 }`,
-			Response: []*rds.DBSubnetGroup{
-				{
-					DBSubnetGroupName: aws.String("app-server1"),
-				},
-				{
-					DBSubnetGroupName: aws.String("app-server2"),
+			Client: &mockClient{
+				describeDBSubnetGroups: func() (map[string]bool, error) {
+					return map[string]bool{
+						"app-server1": true,
+						"app-server2": true,
+					}, nil
 				},
 			},
 			Expected: helper.Issues{
@@ -179,39 +188,30 @@ resource "aws_db_instance" "mysql" {
 resource "aws_db_instance" "mysql" {
     db_subnet_group_name = "app-server"
 }`,
-			Response: []*rds.DBSubnetGroup{
-				{
-					DBSubnetGroupName: aws.String("app-server1"),
-				},
-				{
-					DBSubnetGroupName: aws.String("app-server2"),
-				},
-				{
-					DBSubnetGroupName: aws.String("app-server"),
+			Client: &mockClient{
+				describeDBSubnetGroups: func() (map[string]bool, error) {
+					return map[string]bool{
+						"app-server1": true,
+						"app-server2": true,
+						"app-server":  true,
+					}, nil
 				},
 			},
 			Expected: helper.Issues{},
 		},
 	}
 
-	ctrl := gomock.NewController(t)
-	defer ctrl.Finish()
-
 	for _, tc := range cases {
-		runner := NewTestRunner(t, map[string]string{"resource.tf": tc.Content})
+		t.Run(tc.Name, func(t *testing.T) {
+			runner := NewTestRunner(t, map[string]string{"resource.tf": tc.Content}, tc.Client)
 
-		rdsmock := mock.NewMockRDSAPI(ctrl)
-		rdsmock.EXPECT().DescribeDBSubnetGroups(&rds.DescribeDBSubnetGroupsInput{}).Return(&rds.DescribeDBSubnetGroupsOutput{
-			DBSubnetGroups: tc.Response,
-		}, nil)
-		runner.AwsClients["aws"].RDS = rdsmock
+			rule := NewAwsDBInstanceInvalidDBSubnetGroupRule()
+			if err := rule.Check(runner); err != nil {
+				t.Fatalf("Unexpected error occurred: %s", err)
+			}
 
-		rule := NewAwsDBInstanceInvalidDBSubnetGroupRule()
-		if err := rule.Check(runner); err != nil {
-			t.Fatalf("Unexpected error occurred: %s", err)
-		}
-
-		helper.AssertIssues(t, tc.Expected, runner.Runner.(*helper.Runner).Issues)
+			helper.AssertIssues(t, tc.Expected, runner.Runner.(*helper.Runner).Issues)
+		})
 	}
 }
 
@@ -220,6 +220,7 @@ func Test_API_error(t *testing.T) {
 		Name     string
 		Content  string
 		Response error
+		Client   *mockClient
 		Error    error
 	}{
 		{
@@ -231,23 +232,20 @@ resource "aws_alb" "balancer" {
         "sg-abcd1234",
     ]
 }`,
-			Response: errors.New("MissingRegion: could not find region configuration"),
-			Error:    errors.New("An error occurred while invoking DescribeSecurityGroups; MissingRegion: could not find region configuration"),
+			Client: &mockClient{
+				describeSecurityGroups: func() (map[string]bool, error) {
+					return nil, errors.New("MissingRegion: could not find region configuration")
+				},
+			},
+			Error: errors.New("An error occurred while invoking DescribeSecurityGroups; MissingRegion: could not find region configuration"),
 		},
 	}
-
-	ctrl := gomock.NewController(t)
-	defer ctrl.Finish()
 
 	rule := NewAwsALBInvalidSecurityGroupRule()
 
 	for _, tc := range cases {
 		t.Run(tc.Name, func(t *testing.T) {
-			runner := NewTestRunner(t, map[string]string{"resource.tf": tc.Content})
-
-			ec2mock := mock.NewMockEC2API(ctrl)
-			ec2mock.EXPECT().DescribeSecurityGroups(&ec2.DescribeSecurityGroupsInput{}).Return(nil, tc.Response)
-			runner.AwsClients["aws"].EC2 = ec2mock
+			runner := NewTestRunner(t, map[string]string{"resource.tf": tc.Content}, tc.Client)
 
 			err := rule.Check(runner)
 			if err == nil {
@@ -260,11 +258,11 @@ resource "aws_alb" "balancer" {
 	}
 }
 
-func NewTestRunner(t *testing.T, files map[string]string) *awsruleset.Runner {
-	return &awsruleset.Runner{
+func NewTestRunner(t *testing.T, files map[string]string, client *mockClient) *aws.Runner {
+	return &aws.Runner{
 		Runner: helper.TestRunner(t, files),
-		AwsClients: map[string]*awsruleset.Client{
-			"aws": &awsruleset.Client{},
+		AwsClients: map[string]aws.Client{
+			"aws": client,
 		},
 	}
 }
