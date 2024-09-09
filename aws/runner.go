@@ -13,12 +13,12 @@ import (
 type Runner struct {
 	tflint.Runner
 	PluginConfig *Config
-	AwsClients   map[string]*Client
+	AwsClients   map[string]Client
 }
 
 // NewRunner returns a custom AWS runner.
 func NewRunner(runner tflint.Runner, config *Config) (*Runner, error) {
-	clients := map[string]*Client{
+	clients := map[string]Client{
 		"aws": nil,
 	}
 	if config.DeepCheck {
@@ -45,7 +45,7 @@ func NewRunner(runner tflint.Runner, config *Config) (*Runner, error) {
 	}, nil
 }
 
-func (r *Runner) AwsClient(attributes hclext.Attributes) (*Client, error) {
+func (r *Runner) AwsClient(attributes hclext.Attributes) (Client, error) {
 	provider := "aws"
 	if attr, exists := attributes["provider"]; exists {
 		providerConfigRef, diags := DecodeProviderConfigRef(attr.Expr, "provider")
