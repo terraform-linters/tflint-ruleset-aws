@@ -1,3 +1,20 @@
+## 0.33.0 (2024-09-10)
+
+### Enhancements
+
+- [#650](https://github.com/terraform-linters/tflint-ruleset-aws/pull/650) [#651](https://github.com/terraform-linters/tflint-ruleset-aws/pull/651) [#653](https://github.com/terraform-linters/tflint-ruleset-aws/pull/653) [#655](https://github.com/terraform-linters/tflint-ruleset-aws/pull/655) [#656](https://github.com/terraform-linters/tflint-ruleset-aws/pull/656) [#658](https://github.com/terraform-linters/tflint-ruleset-aws/pull/658) [#659](https://github.com/terraform-linters/tflint-ruleset-aws/pull/659) [#660](https://github.com/terraform-linters/tflint-ruleset-aws/pull/660): Update AWS provider/module and generated content
+
+### Chores
+
+- [#652](https://github.com/terraform-linters/tflint-ruleset-aws/pull/652): Fix HSMv2 type tests ([@wata727](https://github.com/wata727))
+- [#654](https://github.com/terraform-linters/tflint-ruleset-aws/pull/654) [#668](https://github.com/terraform-linters/tflint-ruleset-aws/pull/668): Bump github.com/hashicorp/hcl/v2 from 2.20.1 to 2.22.0
+- [#657](https://github.com/terraform-linters/tflint-ruleset-aws/pull/657) [#670](https://github.com/terraform-linters/tflint-ruleset-aws/pull/670): Bump golang.org/x/net from 0.26.0 to 0.29.0
+- [#665](https://github.com/terraform-linters/tflint-ruleset-aws/pull/665): mappings: Migrate import paths from aws-sdk-go to aws-sdk-ruby ([@wata727](https://github.com/wata727))
+- [#663](https://github.com/terraform-linters/tflint-ruleset-aws/pull/663): Bump github.com/terraform-linters/tflint-plugin-sdk from 0.20.0 to 0.21.0
+- [#667](https://github.com/terraform-linters/tflint-ruleset-aws/pull/667): Migrate aws-sdk-go to v2 ([@wata727](https://github.com/wata727))
+- [#671](https://github.com/terraform-linters/tflint-ruleset-aws/pull/671): Bump peter-evans/create-pull-request from 6 to 7
+- [#672](https://github.com/terraform-linters/tflint-ruleset-aws/pull/672): deps: Go 1.23.1
+
 ## 0.32.0 (2024-06-08)
 
 ### Enhancements
