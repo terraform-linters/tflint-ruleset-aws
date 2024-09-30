@@ -21,7 +21,7 @@ require (
 )
 
 require (
-	github.com/aws/aws-sdk-go-v2/service/ec2 v1.173.0
+	github.com/aws/aws-sdk-go-v2/service/ec2 v1.179.2
 	github.com/aws/aws-sdk-go-v2/service/ecs v1.46.3
 	github.com/aws/aws-sdk-go-v2/service/elasticache v1.40.5
 	github.com/aws/aws-sdk-go-v2/service/elasticloadbalancing v1.27.3
@@ -48,10 +48,10 @@ require (
 	github.com/aws/aws-sdk-go-v2/internal/ini v1.8.0 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/v4a v1.3.10 // indirect
 	github.com/aws/aws-sdk-go-v2/service/dynamodb v1.32.9 // indirect
-	github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.11.3 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.11.5 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.3.12 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/endpoint-discovery v1.9.11 // indirect
-	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.11.17 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.11.20 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.17.10 // indirect
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.55.2 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sqs v1.32.7 // indirect
