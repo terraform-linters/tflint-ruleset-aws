@@ -88,12 +88,12 @@ func getBaseConfig(creds Credentials) (*awsbase.Config, error) {
 	}
 
 	if creds.AssumeRoleARN != "" || creds.AssumeRoleExternalID != "" || creds.AssumeRolePolicy != "" || creds.AssumeRoleSessionName != "" {
-		config.AssumeRole = &awsbase.AssumeRole{
+		config.AssumeRole = append(config.AssumeRole, awsbase.AssumeRole{
 			RoleARN:     creds.AssumeRoleARN,
 			ExternalID:  creds.AssumeRoleExternalID,
 			Policy:      creds.AssumeRolePolicy,
 			SessionName: creds.AssumeRoleSessionName,
-		}
+		})
 	}
 	if expandedCredsFile != "" {
 		config.SharedCredentialsFiles = []string{expandedCredsFile}
