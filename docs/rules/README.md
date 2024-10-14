@@ -1446,13 +1446,6 @@ These rules enforce best practices and naming conventions:
 |aws_wafv2_web_acl_invalid_name|✔|
 |aws_wafv2_web_acl_invalid_scope|✔|
 |aws_wafv2_web_acl_logging_configuration_invalid_resource_arn|✔|
-|aws_worklink_fleet_invalid_audit_stream_arn|✔|
-|aws_worklink_fleet_invalid_device_ca_certificate|✔|
-|aws_worklink_fleet_invalid_display_name|✔|
-|aws_worklink_fleet_invalid_name|✔|
-|aws_worklink_website_certificate_authority_association_invalid_certificate|✔|
-|aws_worklink_website_certificate_authority_association_invalid_display_name|✔|
-|aws_worklink_website_certificate_authority_association_invalid_fleet_arn|✔|
 |aws_workspaces_directory_invalid_directory_id|✔|
 |aws_workspaces_workspace_invalid_bundle_id|✔|
 |aws_workspaces_workspace_invalid_directory_id|✔|
