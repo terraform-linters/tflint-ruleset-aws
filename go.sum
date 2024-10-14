@@ -28,8 +28,8 @@ github.com/aws/aws-sdk-go-v2/service/ecs v1.47.3 h1:4eCmSyAxsmZ1i8Bf3YoXX0XXx4hN
 github.com/aws/aws-sdk-go-v2/service/ecs v1.47.3/go.mod h1:sMFLFhL27cKYa/eQYZp4asvIwHsnJWrAzTUpy9AQdnU=
 github.com/aws/aws-sdk-go-v2/service/elasticache v1.41.3 h1:hYP4kYiY2RQ8QDXBkIe9xD6B/fDTlGV3inxusAmpXzQ=
 github.com/aws/aws-sdk-go-v2/service/elasticache v1.41.3/go.mod h1:EaaOoWGtdLYKuknbTnluNoN+qUUl6uZ6I7+Uwww9nBg=
-github.com/aws/aws-sdk-go-v2/service/elasticloadbalancing v1.27.3 h1:6GwGMmJD+KxJ11vqvKX2jtcyfvurkp33SVp6OxYrIJg=
-github.com/aws/aws-sdk-go-v2/service/elasticloadbalancing v1.27.3/go.mod h1:A6rhNF3Qz6pn97WX3DcIK7g6ODOCYR7t698ptify9eM=
+github.com/aws/aws-sdk-go-v2/service/elasticloadbalancing v1.28.2 h1:+/eG+yT9FrwU5c4/9Mv8tAwvK1j/y9YAviBorLmX8kM=
+github.com/aws/aws-sdk-go-v2/service/elasticloadbalancing v1.28.2/go.mod h1:nm9N+f+q+SfuI7a+Aex//PdsBpwtX6LvffMVKJXNPBE=
 github.com/aws/aws-sdk-go-v2/service/elasticloadbalancingv2 v1.38.3 h1:Tcyl8egpRWLz/ch9Pmn4kX75WsleGmnq+Kro9IqU3wA=
 github.com/aws/aws-sdk-go-v2/service/elasticloadbalancingv2 v1.38.3/go.mod h1:V/sx2Ja18AlrvTGQsilx8CAH0CPm+hpKdT9RbSpceik=
 github.com/aws/aws-sdk-go-v2/service/iam v1.37.2 h1:E7vCDUFeDN8uOk8Nb2d4E1howWS1TR4HrKABXsvttIs=
