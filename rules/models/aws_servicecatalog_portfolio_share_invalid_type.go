@@ -25,9 +25,10 @@ func NewAwsServicecatalogPortfolioShareInvalidTypeRule() *AwsServicecatalogPortf
 		resourceType:  "aws_servicecatalog_portfolio_share",
 		attributeName: "type",
 		enum: []string{
-			"IMPORTED",
-			"AWS_SERVICECATALOG",
-			"AWS_ORGANIZATIONS",
+			"ACCOUNT",
+			"ORGANIZATION",
+			"ORGANIZATIONAL_UNIT",
+			"ORGANIZATION_MEMBER_ACCOUNT",
 		},
 	}
 }

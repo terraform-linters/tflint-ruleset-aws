@@ -24,7 +24,7 @@ mapping "aws_servicecatalog_portfolio" {
 mapping "aws_servicecatalog_portfolio_share" {
   portfolio_id = Id
   principal_id = Id
-  type = PortfolioShareType
+  type = DescribePortfolioShareType
   accept_language = AcceptLanguage
 }
 
