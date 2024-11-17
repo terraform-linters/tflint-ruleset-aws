@@ -1,3 +1,22 @@
+## 0.35.0 (2024-11-17)
+
+### Enhancements
+
+- [#725](https://github.com/terraform-linters/tflint-ruleset-aws/pull/725): Update AWS provider/module and generated content
+
+### Chores
+
+- [#726](https://github.com/terraform-linters/tflint-ruleset-aws/pull/726) [#731](https://github.com/terraform-linters/tflint-ruleset-aws/pull/731) [#739](https://github.com/terraform-linters/tflint-ruleset-aws/pull/739) [#746](https://github.com/terraform-linters/tflint-ruleset-aws/pull/746): Bump github.com/aws/aws-sdk-go-v2/service/ecs from 1.47.3 to 1.49.2
+- [#727](https://github.com/terraform-linters/tflint-ruleset-aws/pull/727) [#732](https://github.com/terraform-linters/tflint-ruleset-aws/pull/732) [#747](https://github.com/terraform-linters/tflint-ruleset-aws/pull/747): Bump github.com/aws/aws-sdk-go-v2/service/ec2 from 1.182.0 to 1.187.1
+- [#728](https://github.com/terraform-linters/tflint-ruleset-aws/pull/728) [#730](https://github.com/terraform-linters/tflint-ruleset-aws/pull/730) [#736](https://github.com/terraform-linters/tflint-ruleset-aws/pull/736) [#748](https://github.com/terraform-linters/tflint-ruleset-aws/pull/748): Bump github.com/aws/aws-sdk-go-v2/service/rds from 1.87.2 to 1.89.1
+- [#733](https://github.com/terraform-linters/tflint-ruleset-aws/pull/733) [#751](https://github.com/terraform-linters/tflint-ruleset-aws/pull/751): Bump github.com/aws/aws-sdk-go-v2/service/iam from 1.37.2 to 1.37.3
+- [#735](https://github.com/terraform-linters/tflint-ruleset-aws/pull/735): Bump github.com/hashicorp/terraform-json from 0.22.1 to 0.23.0
+- [#738](https://github.com/terraform-linters/tflint-ruleset-aws/pull/738) [#743](https://github.com/terraform-linters/tflint-ruleset-aws/pull/743): Bump github.com/aws/aws-sdk-go-v2/service/elasticloadbalancing from 1.28.2 to 1.28.4
+- [#740](https://github.com/terraform-linters/tflint-ruleset-aws/pull/740): Bump github.com/hashicorp/aws-sdk-go-base/v2 from 2.0.0-beta.58 to 2.0.0-beta.59
+- [#741](https://github.com/terraform-linters/tflint-ruleset-aws/pull/741): Bump github.com/aws/aws-sdk-go-v2/service/elasticache from 1.43.0 to 1.43.2
+- [#742](https://github.com/terraform-linters/tflint-ruleset-aws/pull/742): Bump github.com/aws/aws-sdk-go-v2/service/elasticloadbalancingv2 from 1.40.0 to 1.41.1
+- [#744](https://github.com/terraform-linters/tflint-ruleset-aws/pull/744): Bump golang.org/x/net from 0.30.0 to 0.31.0
+
 ## 0.34.0 (2024-10-15)
 
 ### Breaking Changes
