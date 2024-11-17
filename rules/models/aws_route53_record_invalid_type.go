@@ -38,6 +38,10 @@ func NewAwsRoute53RecordInvalidTypeRule() *AwsRoute53RecordInvalidTypeRule {
 			"AAAA",
 			"CAA",
 			"DS",
+			"TLSA",
+			"SSHFP",
+			"SVCB",
+			"HTTPS",
 		},
 	}
 }
