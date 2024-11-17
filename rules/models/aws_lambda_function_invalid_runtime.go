@@ -63,6 +63,7 @@ func NewAwsLambdaFunctionInvalidRuntimeRule() *AwsLambdaFunctionInvalidRuntimeRu
 			"provided.al2023",
 			"python3.12",
 			"java21",
+			"python3.13",
 		},
 	}
 }
