@@ -609,7 +609,6 @@ var Rules = []tflint.Rule{
 	NewAwsGlueCatalogTableInvalidTableTypeRule(),
 	NewAwsGlueCatalogTableInvalidViewExpandedTextRule(),
 	NewAwsGlueCatalogTableInvalidViewOriginalTextRule(),
-	NewAwsGlueConnectionInvalidConnectionTypeRule(),
 	NewAwsGlueCrawlerInvalidSecurityConfigurationRule(),
 	NewAwsGlueCrawlerInvalidTablePrefixRule(),
 	NewAwsGlueDevEndpointInvalidRoleArnRule(),

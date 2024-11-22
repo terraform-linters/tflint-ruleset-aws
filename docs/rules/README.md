@@ -685,7 +685,6 @@ These rules enforce best practices and naming conventions:
 |aws_glue_catalog_table_invalid_table_type|✔|
 |aws_glue_catalog_table_invalid_view_expanded_text|✔|
 |aws_glue_catalog_table_invalid_view_original_text|✔|
-|aws_glue_connection_invalid_connection_type|✔|
 |aws_glue_crawler_invalid_security_configuration|✔|
 |aws_glue_crawler_invalid_table_prefix|✔|
 |aws_glue_dev_endpoint_invalid_role_arn|✔|
