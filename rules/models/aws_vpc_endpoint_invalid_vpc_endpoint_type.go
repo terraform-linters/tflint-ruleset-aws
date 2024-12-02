@@ -28,6 +28,8 @@ func NewAwsVpcEndpointInvalidVpcEndpointTypeRule() *AwsVpcEndpointInvalidVpcEndp
 			"Interface",
 			"Gateway",
 			"GatewayLoadBalancer",
+			"Resource",
+			"ServiceNetwork",
 		},
 	}
 }
