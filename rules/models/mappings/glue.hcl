@@ -32,8 +32,8 @@ mapping "aws_glue_classifier" {
 
 mapping "aws_glue_connection" {
   catalog_id                       = any // CatalogIdString
-  connection_properties            = ConnectionProperties
-  connection_type                  = ConnectionType
+  connection_properties            = any // ConnectionProperties
+  connection_type                  = any // ConnectionType
   description                      = any // DescriptionString
   match_criteria                   = MatchCriteria
   name                             = any // NameString
