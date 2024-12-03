@@ -661,6 +661,7 @@ var Resources = []string{
 	"aws_verifiedaccess_instance",
 	"aws_verifiedaccess_trust_provider",
 	"aws_vpc",
+	"aws_vpc_block_public_access_exclusion",
 	"aws_vpc_dhcp_options",
 	"aws_vpc_endpoint",
 	"aws_vpc_endpoint_service",
