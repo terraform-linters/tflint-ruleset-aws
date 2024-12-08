@@ -112,6 +112,8 @@ var Resources = []string{
 	"aws_codebuild_project",
 	"aws_codebuild_report_group",
 	"aws_codecommit_repository",
+	"aws_codeconnections_connection",
+	"aws_codeconnections_host",
 	"aws_codedeploy_app",
 	"aws_codedeploy_deployment_group",
 	"aws_codeguruprofiler_profiling_group",
