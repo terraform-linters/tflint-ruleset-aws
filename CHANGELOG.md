@@ -1,3 +1,26 @@
+## 0.36.0 (2024-12-08)
+
+### Breaking Changes
+
+- [#759](https://github.com/terraform-linters/tflint-ruleset-aws/pull/759): glue: disable connection type and properties checks ([@bendrucker](https://github.com/bendrucker))
+  - Removed `aws_glue_connection_invalid_connection_type` rule
+
+### Enhancements
+
+- [#758](https://github.com/terraform-linters/tflint-ruleset-aws/pull/758) [#768](https://github.com/terraform-linters/tflint-ruleset-aws/pull/768) [#779](https://github.com/terraform-linters/tflint-ruleset-aws/pull/779) [#780](https://github.com/terraform-linters/tflint-ruleset-aws/pull/780): Update AWS provider/module and generated content
+
+### Chores
+
+- [#755](https://github.com/terraform-linters/tflint-ruleset-aws/pull/755): Bump github.com/hashicorp/hcl/v2 from 2.22.0 to 2.23.0
+- [#765](https://github.com/terraform-linters/tflint-ruleset-aws/pull/765): Bump github.com/stretchr/testify from 1.9.0 to 1.10.0
+- [#769](https://github.com/terraform-linters/tflint-ruleset-aws/pull/769): Bump github.com/aws/aws-sdk-go-v2/service/ec2 from 1.187.1 to 1.194.0
+- [#777](https://github.com/terraform-linters/tflint-ruleset-aws/pull/777): Bump the aws-sdk group with 7 updates
+- [#778](https://github.com/terraform-linters/tflint-ruleset-aws/pull/778): Bump github.com/zclconf/go-cty from 1.15.0 to 1.15.1
+- [#781](https://github.com/terraform-linters/tflint-ruleset-aws/pull/781): Enable Dependabot auto-merge ([@wata727](https://github.com/wata727))
+- [#782](https://github.com/terraform-linters/tflint-ruleset-aws/pull/782): Bump golang.org/x/net from 0.31.0 to 0.32.0
+- [#783](https://github.com/terraform-linters/tflint-ruleset-aws/pull/783): Squash auto-merge Dependabot PRs ([@wata727](https://github.com/wata727))
+- [#784](https://github.com/terraform-linters/tflint-ruleset-aws/pull/784): Bump actions/attest-build-provenance from 1 to 2
+
 ## 0.35.0 (2024-11-17)
 
 ### Enhancements
