@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	awsbase "github.com/hashicorp/aws-sdk-go-base"
+	awsbase "github.com/hashicorp/aws-sdk-go-base/v2"
 	"github.com/mitchellh/go-homedir"
 )
 
@@ -44,7 +44,7 @@ func Test_getBaseConfig(t *testing.T) {
 			},
 			Expected: &awsbase.Config{
 				Profile:                "default",
-				CredsFilename:          filepath.Join(home, ".aws", "creds"),
+				SharedCredentialsFiles: []string{filepath.Join(home, ".aws", "creds")},
 				Region:                 "us-east-1",
 				CallerDocumentationURL: "https://github.com/terraform-linters/tflint-ruleset-aws/blob/master/docs/deep_checking.md",
 				CallerName:             "tflint-ruleset-aws",
@@ -53,13 +53,15 @@ func Test_getBaseConfig(t *testing.T) {
 	}
 
 	for _, tc := range cases {
-		base, err := getBaseConfig(tc.Creds)
-		if err != nil {
-			t.Fatalf("Failed `%s` test: Unexpected error occurred: %s", tc.Name, err)
-		}
-		if !cmp.Equal(tc.Expected, base) {
-			t.Fatalf("Failed `%s` test: Diff=%s", tc.Name, cmp.Diff(tc.Expected, base))
-		}
+		t.Run(tc.Name, func(t *testing.T) {
+			base, err := getBaseConfig(tc.Creds)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if !cmp.Equal(tc.Expected, base) {
+				t.Fatalf("diff=%s", cmp.Diff(tc.Expected, base))
+			}
+		})
 	}
 }
 

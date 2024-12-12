@@ -1,44 +1,35 @@
 package aws
 
 import (
-	"github.com/aws/aws-sdk-go/service/ec2"
-	"github.com/aws/aws-sdk-go/service/ec2/ec2iface"
-	"github.com/aws/aws-sdk-go/service/ecs"
-	"github.com/aws/aws-sdk-go/service/ecs/ecsiface"
-	"github.com/aws/aws-sdk-go/service/elasticache"
-	"github.com/aws/aws-sdk-go/service/elasticache/elasticacheiface"
-	"github.com/aws/aws-sdk-go/service/elb"
-	"github.com/aws/aws-sdk-go/service/elb/elbiface"
-	"github.com/aws/aws-sdk-go/service/elbv2"
-	"github.com/aws/aws-sdk-go/service/elbv2/elbv2iface"
-	"github.com/aws/aws-sdk-go/service/iam"
-	"github.com/aws/aws-sdk-go/service/iam/iamiface"
-	"github.com/aws/aws-sdk-go/service/rds"
-	"github.com/aws/aws-sdk-go/service/rds/rdsiface"
-	awsbase "github.com/hashicorp/aws-sdk-go-base"
+	"context"
+	"errors"
+	"fmt"
+
+	"github.com/aws/aws-sdk-go-v2/service/ec2"
+	"github.com/aws/aws-sdk-go-v2/service/ecs"
+	"github.com/aws/aws-sdk-go-v2/service/elasticache"
+	"github.com/aws/aws-sdk-go-v2/service/elasticloadbalancing"
+	"github.com/aws/aws-sdk-go-v2/service/elasticloadbalancingv2"
+	"github.com/aws/aws-sdk-go-v2/service/iam"
+	"github.com/aws/aws-sdk-go-v2/service/rds"
+	awsbase "github.com/hashicorp/aws-sdk-go-base/v2"
 	"github.com/mitchellh/go-homedir"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 )
 
-//go:generate go run github.com/golang/mock/mockgen -destination mock/ec2.go -package mock github.com/aws/aws-sdk-go/service/ec2/ec2iface EC2API
-//go:generate go run github.com/golang/mock/mockgen -destination mock/elasticache.go -package mock github.com/aws/aws-sdk-go/service/elasticache/elasticacheiface ElastiCacheAPI
-//go:generate go run github.com/golang/mock/mockgen -destination mock/elb.go -package mock github.com/aws/aws-sdk-go/service/elb/elbiface ELBAPI
-//go:generate go run github.com/golang/mock/mockgen -destination mock/elbv2.go -package mock github.com/aws/aws-sdk-go/service/elbv2/elbv2iface ELBV2API
-//go:generate go run github.com/golang/mock/mockgen -destination mock/iam.go -package mock github.com/aws/aws-sdk-go/service/iam/iamiface IAMAPI
-//go:generate go run github.com/golang/mock/mockgen -destination mock/rds.go -package mock github.com/aws/aws-sdk-go/service/rds/rdsiface RDSAPI
-//go:generate go run github.com/golang/mock/mockgen -destination mock/ecs.go -package mock github.com/aws/aws-sdk-go/service/ecs/ecsiface ECSAPI
-
-// Client is a wrapper of the AWS SDK client
-// It has interfaces for each services to make testing easier
-type Client struct {
-	IAM         iamiface.IAMAPI
-	EC2         ec2iface.EC2API
-	RDS         rdsiface.RDSAPI
-	ElastiCache elasticacheiface.ElastiCacheAPI
-	ELB         elbiface.ELBAPI
-	ELBV2       elbv2iface.ELBV2API
-	ECS         ecsiface.ECSAPI
+// AwsClient is a wrapper of the AWS SDK client.
+// This is the real implementation that satisfies the interface.
+type AwsClient struct {
+	IAM         *iam.Client
+	EC2         *ec2.Client
+	RDS         *rds.Client
+	ElastiCache *elasticache.Client
+	ELB         *elasticloadbalancing.Client
+	ELBV2       *elasticloadbalancingv2.Client
+	ECS         *ecs.Client
 }
+
+var _ Client = (*AwsClient)(nil)
 
 // Credentials is credentials for AWS used in deep check mode
 type Credentials struct {
@@ -54,7 +45,7 @@ type Credentials struct {
 }
 
 // NewClient returns a new Client with configured session
-func NewClient(creds Credentials) (*Client, error) {
+func NewClient(creds Credentials) (Client, error) {
 	logger.Info("Initialize AWS Client")
 
 	config, err := getBaseConfig(creds)
@@ -62,19 +53,22 @@ func NewClient(creds Credentials) (*Client, error) {
 		return nil, err
 	}
 
-	s, err := awsbase.GetSession(config)
+	_, awsConfig, diags := awsbase.GetAwsConfig(context.Background(), config)
+	for _, diag := range diags.Errors() {
+		err = errors.Join(err, fmt.Errorf("%s; %s", diag.Summary(), diag.Detail()))
+	}
 	if err != nil {
 		return nil, err
 	}
 
-	return &Client{
-		IAM:         iam.New(s),
-		EC2:         ec2.New(s),
-		RDS:         rds.New(s),
-		ElastiCache: elasticache.New(s),
-		ELB:         elb.New(s),
-		ELBV2:       elbv2.New(s),
-		ECS:         ecs.New(s),
+	return &AwsClient{
+		IAM:         iam.NewFromConfig(awsConfig),
+		EC2:         ec2.NewFromConfig(awsConfig),
+		RDS:         rds.NewFromConfig(awsConfig),
+		ElastiCache: elasticache.NewFromConfig(awsConfig),
+		ELB:         elasticloadbalancing.NewFromConfig(awsConfig),
+		ELBV2:       elasticloadbalancingv2.NewFromConfig(awsConfig),
+		ECS:         ecs.NewFromConfig(awsConfig),
 	}, nil
 }
 
@@ -84,19 +78,28 @@ func getBaseConfig(creds Credentials) (*awsbase.Config, error) {
 		return nil, err
 	}
 
-	return &awsbase.Config{
+	config := &awsbase.Config{
 		AccessKey:              creds.AccessKey,
-		AssumeRoleARN:          creds.AssumeRoleARN,
-		AssumeRoleExternalID:   creds.AssumeRoleExternalID,
-		AssumeRolePolicy:       creds.AssumeRolePolicy,
-		AssumeRoleSessionName:  creds.AssumeRoleSessionName,
 		SecretKey:              creds.SecretKey,
 		Profile:                creds.Profile,
-		CredsFilename:          expandedCredsFile,
 		Region:                 creds.Region,
 		CallerName:             "tflint-ruleset-aws",
 		CallerDocumentationURL: "https://github.com/terraform-linters/tflint-ruleset-aws/blob/master/docs/deep_checking.md",
-	}, nil
+	}
+
+	if creds.AssumeRoleARN != "" || creds.AssumeRoleExternalID != "" || creds.AssumeRolePolicy != "" || creds.AssumeRoleSessionName != "" {
+		config.AssumeRole = append(config.AssumeRole, awsbase.AssumeRole{
+			RoleARN:     creds.AssumeRoleARN,
+			ExternalID:  creds.AssumeRoleExternalID,
+			Policy:      creds.AssumeRolePolicy,
+			SessionName: creds.AssumeRoleSessionName,
+		})
+	}
+	if expandedCredsFile != "" {
+		config.SharedCredentialsFiles = []string{expandedCredsFile}
+	}
+
+	return config, nil
 }
 
 // Merge returns a merged credentials

@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/chime/2018-05-01/api-2.json"
+import = "aws-sdk-ruby/apis/chime/2018-05-01/api-2.json"
 
 mapping "aws_chime_voice_connector" {
   name = VoiceConnectorName

@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/elasticfilesystem/2015-02-01/api-2.json"
+import = "aws-sdk-ruby/apis/elasticfilesystem/2015-02-01/api-2.json"
 
 mapping "aws_efs_access_point" {
   file_system_id = FileSystemId

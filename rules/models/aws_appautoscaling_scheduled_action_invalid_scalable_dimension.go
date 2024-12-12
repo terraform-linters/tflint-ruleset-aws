@@ -47,6 +47,7 @@ func NewAwsAppautoscalingScheduledActionInvalidScalableDimensionRule() *AwsAppau
 			"neptune:cluster:ReadReplicaCount",
 			"sagemaker:variant:DesiredProvisionedConcurrency",
 			"sagemaker:inference-component:DesiredCopyCount",
+			"workspaces:workspacespool:DesiredUserSessions",
 		},
 	}
 }

@@ -31,6 +31,7 @@ func NewAwsAcmpcaCertificateInvalidSigningAlgorithmRule() *AwsAcmpcaCertificateI
 			"SHA256WITHRSA",
 			"SHA384WITHRSA",
 			"SHA512WITHRSA",
+			"SM3WITHSM2",
 		},
 	}
 }

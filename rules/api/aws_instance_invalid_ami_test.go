@@ -4,13 +4,10 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/awserr"
-	"github.com/aws/aws-sdk-go/service/ec2"
-	"github.com/golang/mock/gomock"
+	"github.com/aws/aws-sdk-go-v2/service/ec2"
+	"github.com/aws/smithy-go"
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
-	"github.com/terraform-linters/tflint-ruleset-aws/aws/mock"
 )
 
 func Test_AwsInstanceInvalidAMI_invalid(t *testing.T) {
@@ -18,18 +15,15 @@ func Test_AwsInstanceInvalidAMI_invalid(t *testing.T) {
 resource "aws_instance" "invalid" {
 	ami = "ami-1234abcd"
 }`
-	runner := NewTestRunner(t, map[string]string{"instances.tf": content})
-
-	ctrl := gomock.NewController(t)
-	defer ctrl.Finish()
-
-	ec2mock := mock.NewMockEC2API(ctrl)
-	ec2mock.EXPECT().DescribeImages(&ec2.DescribeImagesInput{
-		ImageIds: aws.StringSlice([]string{"ami-1234abcd"}),
-	}).Return(&ec2.DescribeImagesOutput{
-		Images: []*ec2.Image{},
-	}, nil)
-	runner.AwsClients["aws"].EC2 = ec2mock
+	client := &mockClient{
+		describeImages: func(in *ec2.DescribeImagesInput) (map[string]bool, error) {
+			if !(len(in.ImageIds) == 1 && in.ImageIds[0] == "ami-1234abcd") {
+				t.Fatal("passed ImageIds should be ami-1234abcd")
+			}
+			return map[string]bool{}, nil
+		},
+	}
+	runner := NewTestRunner(t, map[string]string{"instances.tf": content}, client)
 
 	rule := NewAwsInstanceInvalidAMIRule()
 	if err := rule.Check(runner); err != nil {
@@ -55,22 +49,15 @@ func Test_AwsInstanceInvalidAMI_valid(t *testing.T) {
 resource "aws_instance" "valid" {
 	ami = "ami-9ad76sd1"
 }`
-	runner := NewTestRunner(t, map[string]string{"instances.tf": content})
-
-	ctrl := gomock.NewController(t)
-	defer ctrl.Finish()
-
-	ec2mock := mock.NewMockEC2API(ctrl)
-	ec2mock.EXPECT().DescribeImages(&ec2.DescribeImagesInput{
-		ImageIds: aws.StringSlice([]string{"ami-9ad76sd1"}),
-	}).Return(&ec2.DescribeImagesOutput{
-		Images: []*ec2.Image{
-			{
-				ImageId: aws.String("ami-9ad76sd1"),
-			},
+	client := &mockClient{
+		describeImages: func(in *ec2.DescribeImagesInput) (map[string]bool, error) {
+			if !(len(in.ImageIds) == 1 && in.ImageIds[0] == "ami-9ad76sd1") {
+				t.Fatal("passed ImageIds should be ami-9ad76sd1")
+			}
+			return map[string]bool{"ami-9ad76sd1": true}, nil
 		},
-	}, nil)
-	runner.AwsClients["aws"].EC2 = ec2mock
+	}
+	runner := NewTestRunner(t, map[string]string{"instances.tf": content}, client)
 
 	rule := NewAwsInstanceInvalidAMIRule()
 	if err := rule.Check(runner); err != nil {
@@ -83,11 +70,10 @@ resource "aws_instance" "valid" {
 
 func Test_AwsInstanceInvalidAMI_error(t *testing.T) {
 	cases := []struct {
-		Name     string
-		Content  string
-		Request  *ec2.DescribeImagesInput
-		Response error
-		Error    error
+		Name    string
+		Content string
+		Client  *mockClient
+		Error   error
 	}{
 		{
 			Name: "AWS API error",
@@ -95,15 +81,19 @@ func Test_AwsInstanceInvalidAMI_error(t *testing.T) {
 resource "aws_instance" "valid" {
   ami = "ami-9ad76sd1"
 }`,
-			Request: &ec2.DescribeImagesInput{
-				ImageIds: aws.StringSlice([]string{"ami-9ad76sd1"}),
+			Client: &mockClient{
+				describeImages: func(in *ec2.DescribeImagesInput) (map[string]bool, error) {
+					if !(len(in.ImageIds) == 1 && in.ImageIds[0] == "ami-9ad76sd1") {
+						t.Fatal("passed ImageIds should be ami-9ad76sd1")
+					}
+
+					return map[string]bool{}, &smithy.GenericAPIError{
+						Code:    "MissingRegion",
+						Message: "could not find region configuration",
+					}
+				},
 			},
-			Response: awserr.New(
-				"MissingRegion",
-				"could not find region configuration",
-				nil,
-			),
-			Error: errors.New("An error occurred while describing images; MissingRegion: could not find region configuration"),
+			Error: errors.New("An error occurred while describing images; api error MissingRegion: could not find region configuration"),
 		},
 		{
 			Name: "Unexpected error",
@@ -111,26 +101,24 @@ resource "aws_instance" "valid" {
 resource "aws_instance" "valid" {
   ami = "ami-9ad76sd1"
 }`,
-			Request: &ec2.DescribeImagesInput{
-				ImageIds: aws.StringSlice([]string{"ami-9ad76sd1"}),
+			Client: &mockClient{
+				describeImages: func(in *ec2.DescribeImagesInput) (map[string]bool, error) {
+					if !(len(in.ImageIds) == 1 && in.ImageIds[0] == "ami-9ad76sd1") {
+						t.Fatal("passed ImageIds should be ami-9ad76sd1")
+					}
+
+					return map[string]bool{}, errors.New("Unexpected")
+				},
 			},
-			Response: errors.New("Unexpected"),
-			Error:    errors.New("An error occurred while describing images; Unexpected"),
+			Error: errors.New("An error occurred while describing images; Unexpected"),
 		},
 	}
-
-	ctrl := gomock.NewController(t)
-	defer ctrl.Finish()
 
 	rule := NewAwsInstanceInvalidAMIRule()
 
 	for _, tc := range cases {
 		t.Run(tc.Name, func(t *testing.T) {
-			runner := NewTestRunner(t, map[string]string{"instances.tf": tc.Content})
-
-			ec2mock := mock.NewMockEC2API(ctrl)
-			ec2mock.EXPECT().DescribeImages(tc.Request).Return(nil, tc.Response)
-			runner.AwsClients["aws"].EC2 = ec2mock
+			runner := NewTestRunner(t, map[string]string{"instances.tf": tc.Content}, tc.Client)
 
 			err := rule.Check(runner)
 			if err == nil {
@@ -145,12 +133,11 @@ resource "aws_instance" "valid" {
 
 func Test_AwsInstanceInvalidAMI_AMIError(t *testing.T) {
 	cases := []struct {
-		Name     string
-		Content  string
-		Request  *ec2.DescribeImagesInput
-		Response error
-		Issues   helper.Issues
-		Error    bool
+		Name    string
+		Content string
+		Client  *mockClient
+		Issues  helper.Issues
+		Error   bool
 	}{
 		{
 			Name: "not found",
@@ -158,14 +145,18 @@ func Test_AwsInstanceInvalidAMI_AMIError(t *testing.T) {
 resource "aws_instance" "not_found" {
 	ami = "ami-9ad76sd1"
 }`,
-			Request: &ec2.DescribeImagesInput{
-				ImageIds: aws.StringSlice([]string{"ami-9ad76sd1"}),
+			Client: &mockClient{
+				describeImages: func(in *ec2.DescribeImagesInput) (map[string]bool, error) {
+					if !(len(in.ImageIds) == 1 && in.ImageIds[0] == "ami-9ad76sd1") {
+						t.Fatal("passed ImageIds should be ami-9ad76sd1")
+					}
+
+					return map[string]bool{}, &smithy.GenericAPIError{
+						Code:    "InvalidAMIID.NotFound",
+						Message: "The image id '[ami-9ad76sd1]' does not exist",
+					}
+				},
 			},
-			Response: awserr.New(
-				"InvalidAMIID.NotFound",
-				"The image id '[ami-9ad76sd1]' does not exist",
-				nil,
-			),
 			Issues: helper.Issues{
 				{
 					Rule:    NewAwsInstanceInvalidAMIRule(),
@@ -185,14 +176,18 @@ resource "aws_instance" "not_found" {
 resource "aws_instance" "malformed" {
 	ami = "image-9ad76sd1"
 }`,
-			Request: &ec2.DescribeImagesInput{
-				ImageIds: aws.StringSlice([]string{"image-9ad76sd1"}),
+			Client: &mockClient{
+				describeImages: func(in *ec2.DescribeImagesInput) (map[string]bool, error) {
+					if !(len(in.ImageIds) == 1 && in.ImageIds[0] == "image-9ad76sd1") {
+						t.Fatalf("passed ImageIds should be [image-9ad76sd1], but got %#v", in.ImageIds)
+					}
+
+					return map[string]bool{}, &smithy.GenericAPIError{
+						Code:    "InvalidAMIID.Malformed",
+						Message: `Invalid id: "image-9ad76sd1"`,
+					}
+				},
 			},
-			Response: awserr.New(
-				"InvalidAMIID.Malformed",
-				"Invalid id: \"image-9ad76sd1\" (expecting \"ami-...\")",
-				nil,
-			),
 			Issues: helper.Issues{
 				{
 					Rule:    NewAwsInstanceInvalidAMIRule(),
@@ -212,14 +207,18 @@ resource "aws_instance" "malformed" {
 resource "aws_instance" "unavailable" {
 	ami = "ami-1234567"
 }`,
-			Request: &ec2.DescribeImagesInput{
-				ImageIds: aws.StringSlice([]string{"ami-1234567"}),
+			Client: &mockClient{
+				describeImages: func(in *ec2.DescribeImagesInput) (map[string]bool, error) {
+					if !(len(in.ImageIds) == 1 && in.ImageIds[0] == "ami-1234567") {
+						t.Fatal("passed ImageIds should be ami-1234567")
+					}
+
+					return map[string]bool{}, &smithy.GenericAPIError{
+						Code:    "InvalidAMIID.Unavailable",
+						Message: "The image ID: 'ami-1234567' is no longer available",
+					}
+				},
 			},
-			Response: awserr.New(
-				"InvalidAMIID.Unavailable",
-				"The image ID: 'ami-1234567' is no longer available",
-				nil,
-			),
 			Issues: helper.Issues{
 				{
 					Rule:    NewAwsInstanceInvalidAMIRule(),
@@ -235,26 +234,21 @@ resource "aws_instance" "unavailable" {
 		},
 	}
 
-	ctrl := gomock.NewController(t)
-	defer ctrl.Finish()
-
 	rule := NewAwsInstanceInvalidAMIRule()
 
 	for _, tc := range cases {
-		runner := NewTestRunner(t, map[string]string{"instances.tf": tc.Content})
+		t.Run(tc.Name, func(t *testing.T) {
+			runner := NewTestRunner(t, map[string]string{"instances.tf": tc.Content}, tc.Client)
 
-		ec2mock := mock.NewMockEC2API(ctrl)
-		ec2mock.EXPECT().DescribeImages(tc.Request).Return(nil, tc.Response)
-		runner.AwsClients["aws"].EC2 = ec2mock
+			err := rule.Check(runner)
+			if err != nil && !tc.Error {
+				t.Fatalf("Failed `%s` test: unexpected error occurred: %s", tc.Name, err)
+			}
+			if err == nil && tc.Error {
+				t.Fatalf("Failed `%s` test: expected to return an error, but nothing occurred", tc.Name)
+			}
 
-		err := rule.Check(runner)
-		if err != nil && !tc.Error {
-			t.Fatalf("Failed `%s` test: unexpected error occurred: %s", tc.Name, err)
-		}
-		if err == nil && tc.Error {
-			t.Fatalf("Failed `%s` test: expected to return an error, but nothing occurred", tc.Name)
-		}
-
-		helper.AssertIssues(t, tc.Issues, runner.Runner.(*helper.Runner).Issues)
+			helper.AssertIssues(t, tc.Issues, runner.Runner.(*helper.Runner).Issues)
+		})
 	}
 }

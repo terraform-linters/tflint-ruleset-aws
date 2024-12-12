@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/elasticloadbalancing/2012-06-01/api-2.json"
+import = "aws-sdk-ruby/apis/elasticloadbalancing/2012-06-01/api-2.json"
 
 mapping "aws_app_cookie_stickiness_policy" {
   name          = PolicyName

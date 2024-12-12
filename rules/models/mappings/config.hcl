@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/config/2014-11-12/api-2.json"
+import = "aws-sdk-ruby/apis/config/2014-11-12/api-2.json"
 
 mapping "aws_config_aggregate_authorization" {
   account_id = AccountId

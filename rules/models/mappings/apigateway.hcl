@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/apigateway/2015-07-09/api-2.json"
+import = "aws-sdk-ruby/apis/apigateway/2015-07-09/api-2.json"
 
 mapping "aws_api_gateway_documentation_part" {
   location = DocumentationPartLocation

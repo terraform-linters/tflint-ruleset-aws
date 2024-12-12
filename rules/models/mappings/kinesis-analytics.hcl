@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/kinesisanalytics/2015-08-14/api-2.json"
+import = "aws-sdk-ruby/apis/kinesisanalytics/2015-08-14/api-2.json"
 
 mapping "aws_kinesis_analytics_application" {
   name                       = ApplicationName

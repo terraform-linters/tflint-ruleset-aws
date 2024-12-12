@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/firehose/2015-08-04/api-2.json"
+import = "aws-sdk-ruby/apis/firehose/2015-08-04/api-2.json"
 
 mapping "aws_kinesis_firehose_delivery_stream" {
   name                         = DeliveryStreamName

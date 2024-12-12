@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/lambda/2015-03-31/api-2.json"
+import = "aws-sdk-ruby/apis/lambda/2015-03-31/api-2.json"
 
 mapping "aws_lambda_alias" {
   name             = any // Alias

@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/organizations/2016-11-28/api-2.json"
+import = "aws-sdk-ruby/apis/organizations/2016-11-28/api-2.json"
 
 mapping "aws_organizations_account" {
   name                       = AccountName

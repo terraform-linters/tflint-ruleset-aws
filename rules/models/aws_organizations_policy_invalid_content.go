@@ -17,7 +17,6 @@ type AwsOrganizationsPolicyInvalidContentRule struct {
 
 	resourceType  string
 	attributeName string
-	max           int
 	min           int
 	pattern       *regexp.Regexp
 }
@@ -27,7 +26,6 @@ func NewAwsOrganizationsPolicyInvalidContentRule() *AwsOrganizationsPolicyInvali
 	return &AwsOrganizationsPolicyInvalidContentRule{
 		resourceType:  "aws_organizations_policy",
 		attributeName: "content",
-		max:           1000000,
 		min:           1,
 		pattern:       regexp.MustCompile(`^[\s\S]*$`),
 	}
@@ -73,13 +71,6 @@ func (r *AwsOrganizationsPolicyInvalidContentRule) Check(runner tflint.Runner) e
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
-			if len(val) > r.max {
-				runner.EmitIssue(
-					r,
-					"content must be 1000000 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
 			if len(val) < r.min {
 				runner.EmitIssue(
 					r,

@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/wafv2/2019-07-29/api-2.json"
+import = "aws-sdk-ruby/apis/wafv2/2019-07-29/api-2.json"
 
 mapping "aws_wafv2_ip_set" {
   name = EntityName

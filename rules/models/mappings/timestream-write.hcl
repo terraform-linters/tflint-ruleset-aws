@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/timestream-write/2018-11-01/api-2.json"
+import = "aws-sdk-ruby/apis/timestream-write/2018-11-01/api-2.json"
 
 mapping "aws_timestreamwrite_database" {
   database_name = ResourceCreateAPIName

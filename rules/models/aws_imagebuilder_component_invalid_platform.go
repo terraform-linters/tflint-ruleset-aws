@@ -27,6 +27,7 @@ func NewAwsImagebuilderComponentInvalidPlatformRule() *AwsImagebuilderComponentI
 		enum: []string{
 			"Windows",
 			"Linux",
+			"macOS",
 		},
 	}
 }

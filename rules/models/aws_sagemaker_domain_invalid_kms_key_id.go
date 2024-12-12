@@ -27,7 +27,7 @@ func NewAwsSagemakerDomainInvalidKmsKeyIDRule() *AwsSagemakerDomainInvalidKmsKey
 		resourceType:  "aws_sagemaker_domain",
 		attributeName: "kms_key_id",
 		max:           2048,
-		pattern:       regexp.MustCompile(`^.*$`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z0-9:/_-]*$`),
 	}
 }
 
@@ -81,7 +81,7 @@ func (r *AwsSagemakerDomainInvalidKmsKeyIDRule) Check(runner tflint.Runner) erro
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^.*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9:/_-]*$`),
 					attribute.Expr.Range(),
 				)
 			}

@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/lightsail/2016-11-28/api-2.json"
+import = "aws-sdk-ruby/apis/lightsail/2016-11-28/api-2.json"
 
 mapping "aws_lightsail_domain" {
   domain_name = DomainName

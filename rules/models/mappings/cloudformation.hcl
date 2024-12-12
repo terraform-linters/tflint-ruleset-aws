@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/cloudformation/2010-05-15/api-2.json"
+import = "aws-sdk-ruby/apis/cloudformation/2010-05-15/api-2.json"
 
 mapping "aws_cloudformation_stack" {
   template_url = TemplateURL

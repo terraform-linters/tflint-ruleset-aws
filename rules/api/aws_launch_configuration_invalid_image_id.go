@@ -1,11 +1,11 @@
 package api
 
 import (
+	"errors"
 	"fmt"
 
-	awssdk "github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/awserr"
-	"github.com/aws/aws-sdk-go/service/ec2"
+	"github.com/aws/aws-sdk-go-v2/service/ec2"
+	"github.com/aws/smithy-go"
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -83,12 +83,13 @@ func (r *AwsLaunchConfigurationInvalidImageIDRule) Check(rr tflint.Runner) error
 		err = runner.EvaluateExpr(attribute.Expr, func(ami string) error {
 			if !r.amiIDs[ami] {
 				logger.Debug("Fetch AMI images: %s", ami)
-				resp, err := awsClient.EC2.DescribeImages(&ec2.DescribeImagesInput{
-					ImageIds: awssdk.StringSlice([]string{ami}),
+				resp, err := awsClient.DescribeImages(&ec2.DescribeImagesInput{
+					ImageIds: []string{ami},
 				})
 				if err != nil {
-					if aerr, ok := err.(awserr.Error); ok {
-						switch aerr.Code() {
+					var aerr smithy.APIError
+					if errors.As(err, &aerr) {
+						switch aerr.ErrorCode() {
 						case "InvalidAMIID.Malformed":
 							fallthrough
 						case "InvalidAMIID.NotFound":
@@ -107,9 +108,9 @@ func (r *AwsLaunchConfigurationInvalidImageIDRule) Check(rr tflint.Runner) error
 					return err
 				}
 
-				if len(resp.Images) != 0 {
-					for _, image := range resp.Images {
-						r.amiIDs[*image.ImageId] = true
+				if len(resp) != 0 {
+					for imageID, exists := range resp {
+						r.amiIDs[imageID] = exists
 					}
 				} else {
 					runner.EmitIssue(

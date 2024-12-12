@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/ssm/2014-11-06/api-2.json"
+import = "aws-sdk-ruby/apis/ssm/2014-11-06/api-2.json"
 
 mapping "aws_ssm_activation" {
   name               = DefaultInstanceName

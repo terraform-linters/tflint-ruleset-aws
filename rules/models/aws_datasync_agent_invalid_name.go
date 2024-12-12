@@ -18,7 +18,6 @@ type AwsDatasyncAgentInvalidNameRule struct {
 	resourceType  string
 	attributeName string
 	max           int
-	min           int
 	pattern       *regexp.Regexp
 }
 
@@ -28,7 +27,6 @@ func NewAwsDatasyncAgentInvalidNameRule() *AwsDatasyncAgentInvalidNameRule {
 		resourceType:  "aws_datasync_agent",
 		attributeName: "name",
 		max:           256,
-		min:           1,
 		pattern:       regexp.MustCompile(`^[a-zA-Z0-9\s+=._:@/-]+$`),
 	}
 }
@@ -77,13 +75,6 @@ func (r *AwsDatasyncAgentInvalidNameRule) Check(runner tflint.Runner) error {
 				runner.EmitIssue(
 					r,
 					"name must be 256 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
-			if len(val) < r.min {
-				runner.EmitIssue(
-					r,
-					"name must be 1 characters or higher",
 					attribute.Expr.Range(),
 				)
 			}

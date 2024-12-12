@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/autoscaling/2011-01-01/api-2.json"
+import = "aws-sdk-ruby/apis/autoscaling/2011-01-01/api-2.json"
 
 mapping "aws_launch_configuration" {
   name                           = CreateLaunchConfigurationType

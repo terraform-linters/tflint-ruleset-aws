@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/backup/2018-11-15/api-2.json"
+import = "aws-sdk-ruby/apis/backup/2018-11-15/api-2.json"
 
 mapping "aws_backup_selection" {
   name = BackupSelectionName

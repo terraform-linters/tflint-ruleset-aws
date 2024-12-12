@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/license-manager/2018-08-01/api-2.json"
+import = "aws-sdk-ruby/apis/license-manager/2018-08-01/api-2.json"
 
 mapping "aws_licensemanager_association" {
   license_configuration_arn = String

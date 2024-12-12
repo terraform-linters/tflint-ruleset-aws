@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/glue/2017-03-31/api-2.json"
+import = "aws-sdk-ruby/apis/glue/2017-03-31/api-2.json"
 
 mapping "aws_glue_catalog_database" {
   name         = any // NameString
@@ -32,8 +32,8 @@ mapping "aws_glue_classifier" {
 
 mapping "aws_glue_connection" {
   catalog_id                       = any // CatalogIdString
-  connection_properties            = ConnectionProperties
-  connection_type                  = ConnectionType
+  connection_properties            = any // ConnectionProperties
+  connection_type                  = any // ConnectionType
   description                      = any // DescriptionString
   match_criteria                   = MatchCriteria
   name                             = any // NameString

@@ -27,7 +27,7 @@ func NewAwsSagemakerEndpointConfigurationInvalidKmsKeyArnRule() *AwsSagemakerEnd
 		resourceType:  "aws_sagemaker_endpoint_configuration",
 		attributeName: "kms_key_arn",
 		max:           2048,
-		pattern:       regexp.MustCompile(`^.*$`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z0-9:/_-]*$`),
 	}
 }
 
@@ -81,7 +81,7 @@ func (r *AwsSagemakerEndpointConfigurationInvalidKmsKeyArnRule) Check(runner tfl
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^.*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9:/_-]*$`),
 					attribute.Expr.Range(),
 				)
 			}

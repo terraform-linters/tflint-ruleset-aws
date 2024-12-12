@@ -29,7 +29,7 @@ func NewAwsGlueMlTransformInvalidGlueVersionRule() *AwsGlueMlTransformInvalidGlu
 		attributeName: "glue_version",
 		max:           255,
 		min:           1,
-		pattern:       regexp.MustCompile(`^\w+\.\w+$`),
+		pattern:       regexp.MustCompile(`^(\w+\.)+\w+$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsGlueMlTransformInvalidGlueVersionRule) Check(runner tflint.Runner) e
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^\w+\.\w+$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(\w+\.)+\w+$`),
 					attribute.Expr.Range(),
 				)
 			}

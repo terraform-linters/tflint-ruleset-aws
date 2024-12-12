@@ -29,7 +29,7 @@ func NewAwsResourcegroupsGroupInvalidNameRule() *AwsResourcegroupsGroupInvalidNa
 		attributeName: "name",
 		max:           300,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[a-zA-Z0-9_\.-]+$`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z0-9_\.-]{1,300}|[a-zA-Z0-9_\.-]{1,150}/[a-z0-9]{26}$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsResourcegroupsGroupInvalidNameRule) Check(runner tflint.Runner) erro
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9_\.-]+$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9_\.-]{1,300}|[a-zA-Z0-9_\.-]{1,150}/[a-z0-9]{26}$`),
 					attribute.Expr.Range(),
 				)
 			}

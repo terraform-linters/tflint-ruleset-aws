@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/s3/2006-03-01/api-2.json"
+import = "aws-sdk-ruby/apis/s3/2006-03-01/api-2.json"
 
 mapping "aws_s3_account_public_access_block" {
   account_id              = AccountId

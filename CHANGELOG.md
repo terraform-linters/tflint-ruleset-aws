@@ -1,3 +1,130 @@
+## 0.36.0 (2024-12-08)
+
+### Breaking Changes
+
+- [#759](https://github.com/terraform-linters/tflint-ruleset-aws/pull/759): glue: disable connection type and properties checks ([@bendrucker](https://github.com/bendrucker))
+  - Removed `aws_glue_connection_invalid_connection_type` rule
+
+### Enhancements
+
+- [#758](https://github.com/terraform-linters/tflint-ruleset-aws/pull/758) [#768](https://github.com/terraform-linters/tflint-ruleset-aws/pull/768) [#779](https://github.com/terraform-linters/tflint-ruleset-aws/pull/779) [#780](https://github.com/terraform-linters/tflint-ruleset-aws/pull/780): Update AWS provider/module and generated content
+
+### Chores
+
+- [#755](https://github.com/terraform-linters/tflint-ruleset-aws/pull/755): Bump github.com/hashicorp/hcl/v2 from 2.22.0 to 2.23.0
+- [#765](https://github.com/terraform-linters/tflint-ruleset-aws/pull/765): Bump github.com/stretchr/testify from 1.9.0 to 1.10.0
+- [#769](https://github.com/terraform-linters/tflint-ruleset-aws/pull/769): Bump github.com/aws/aws-sdk-go-v2/service/ec2 from 1.187.1 to 1.194.0
+- [#777](https://github.com/terraform-linters/tflint-ruleset-aws/pull/777): Bump the aws-sdk group with 7 updates
+- [#778](https://github.com/terraform-linters/tflint-ruleset-aws/pull/778): Bump github.com/zclconf/go-cty from 1.15.0 to 1.15.1
+- [#781](https://github.com/terraform-linters/tflint-ruleset-aws/pull/781): Enable Dependabot auto-merge ([@wata727](https://github.com/wata727))
+- [#782](https://github.com/terraform-linters/tflint-ruleset-aws/pull/782): Bump golang.org/x/net from 0.31.0 to 0.32.0
+- [#783](https://github.com/terraform-linters/tflint-ruleset-aws/pull/783): Squash auto-merge Dependabot PRs ([@wata727](https://github.com/wata727))
+- [#784](https://github.com/terraform-linters/tflint-ruleset-aws/pull/784): Bump actions/attest-build-provenance from 1 to 2
+
+## 0.35.0 (2024-11-17)
+
+### Enhancements
+
+- [#725](https://github.com/terraform-linters/tflint-ruleset-aws/pull/725): Update AWS provider/module and generated content
+
+### Chores
+
+- [#726](https://github.com/terraform-linters/tflint-ruleset-aws/pull/726) [#731](https://github.com/terraform-linters/tflint-ruleset-aws/pull/731) [#739](https://github.com/terraform-linters/tflint-ruleset-aws/pull/739) [#746](https://github.com/terraform-linters/tflint-ruleset-aws/pull/746): Bump github.com/aws/aws-sdk-go-v2/service/ecs from 1.47.3 to 1.49.2
+- [#727](https://github.com/terraform-linters/tflint-ruleset-aws/pull/727) [#732](https://github.com/terraform-linters/tflint-ruleset-aws/pull/732) [#747](https://github.com/terraform-linters/tflint-ruleset-aws/pull/747): Bump github.com/aws/aws-sdk-go-v2/service/ec2 from 1.182.0 to 1.187.1
+- [#728](https://github.com/terraform-linters/tflint-ruleset-aws/pull/728) [#730](https://github.com/terraform-linters/tflint-ruleset-aws/pull/730) [#736](https://github.com/terraform-linters/tflint-ruleset-aws/pull/736) [#748](https://github.com/terraform-linters/tflint-ruleset-aws/pull/748): Bump github.com/aws/aws-sdk-go-v2/service/rds from 1.87.2 to 1.89.1
+- [#733](https://github.com/terraform-linters/tflint-ruleset-aws/pull/733) [#751](https://github.com/terraform-linters/tflint-ruleset-aws/pull/751): Bump github.com/aws/aws-sdk-go-v2/service/iam from 1.37.2 to 1.37.3
+- [#735](https://github.com/terraform-linters/tflint-ruleset-aws/pull/735): Bump github.com/hashicorp/terraform-json from 0.22.1 to 0.23.0
+- [#738](https://github.com/terraform-linters/tflint-ruleset-aws/pull/738) [#743](https://github.com/terraform-linters/tflint-ruleset-aws/pull/743): Bump github.com/aws/aws-sdk-go-v2/service/elasticloadbalancing from 1.28.2 to 1.28.4
+- [#740](https://github.com/terraform-linters/tflint-ruleset-aws/pull/740): Bump github.com/hashicorp/aws-sdk-go-base/v2 from 2.0.0-beta.58 to 2.0.0-beta.59
+- [#741](https://github.com/terraform-linters/tflint-ruleset-aws/pull/741): Bump github.com/aws/aws-sdk-go-v2/service/elasticache from 1.43.0 to 1.43.2
+- [#742](https://github.com/terraform-linters/tflint-ruleset-aws/pull/742): Bump github.com/aws/aws-sdk-go-v2/service/elasticloadbalancingv2 from 1.40.0 to 1.41.1
+- [#744](https://github.com/terraform-linters/tflint-ruleset-aws/pull/744): Bump golang.org/x/net from 0.30.0 to 0.31.0
+
+## 0.34.0 (2024-10-15)
+
+### Breaking Changes
+
+- [#719](https://github.com/terraform-linters/tflint-ruleset-aws/pull/719): Remove worklink rules ([@wata727](https://github.com/wata727))
+  - The following rules are removed
+    - `aws_worklink_fleet_invalid_audit_stream_arn`
+    - `aws_worklink_fleet_invalid_device_ca_certificate`
+    - `aws_worklink_fleet_invalid_display_name`
+    - `aws_worklink_fleet_invalid_name`
+    - `aws_worklink_website_certificate_authority_association_invalid_certificate`
+    - `aws_worklink_website_certificate_authority_association_invalid_display_name`
+    - `aws_worklink_website_certificate_authority_association_invalid_fleet_arn`
+
+### Enhancements
+
+- [#720](https://github.com/terraform-linters/tflint-ruleset-aws/pull/720): Update AWS provider/module and generated content
+
+### Bug Fixes
+
+- [#721](https://github.com/terraform-linters/tflint-ruleset-aws/pull/721): Fix incorrect mapping about aws_servicecatalog_portfolio_share type ([@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#692](https://github.com/terraform-linters/tflint-ruleset-aws/pull/692) [#712](https://github.com/terraform-linters/tflint-ruleset-aws/pull/712): Bump github.com/aws/aws-sdk-go-v2/service/ecs from 1.44.3 to 1.47.3
+- [#693](https://github.com/terraform-linters/tflint-ruleset-aws/pull/693): Bump github.com/hashicorp/aws-sdk-go-base/v2 from 2.0.0-beta.54 to 2.0.0-beta.58
+- [#694](https://github.com/terraform-linters/tflint-ruleset-aws/pull/694) [#717](https://github.com/terraform-linters/tflint-ruleset-aws/pull/717): Bump github.com/aws/aws-sdk-go-v2/service/iam from 1.34.3 to 1.37.2
+- [#695](https://github.com/terraform-linters/tflint-ruleset-aws/pull/695) [#714](https://github.com/terraform-linters/tflint-ruleset-aws/pull/714): Bump github.com/aws/aws-sdk-go-v2/service/rds from 1.82.0 to 1.87.2
+- [#696](https://github.com/terraform-linters/tflint-ruleset-aws/pull/696) [#715](https://github.com/terraform-linters/tflint-ruleset-aws/pull/715): Bump github.com/aws/aws-sdk-go-v2/service/elasticloadbalancing from 1.26.3 to 1.28.2
+- [#697](https://github.com/terraform-linters/tflint-ruleset-aws/pull/697) [#713](https://github.com/terraform-linters/tflint-ruleset-aws/pull/713): Bump github.com/aws/aws-sdk-go-v2/service/ec2 from 1.173.0 to 1.182.0
+- [#698](https://github.com/terraform-linters/tflint-ruleset-aws/pull/698) [#718](https://github.com/terraform-linters/tflint-ruleset-aws/pull/718): Bump github.com/aws/aws-sdk-go-v2/service/elasticloadbalancingv2 from 1.34.0 to 1.40.0
+- [#699](https://github.com/terraform-linters/tflint-ruleset-aws/pull/699) [#716](https://github.com/terraform-linters/tflint-ruleset-aws/pull/716): Bump github.com/aws/aws-sdk-go-v2/service/elasticache from 1.40.5 to 1.43.0
+- [#702](https://github.com/terraform-linters/tflint-ruleset-aws/pull/702): Bump golang.org/x/net from 0.29.0 to 0.30.0
+- [#722](https://github.com/terraform-linters/tflint-ruleset-aws/pull/722): Bump GoReleaser to v2 ([@wata727](https://github.com/wata727))
+- [#723](https://github.com/terraform-linters/tflint-ruleset-aws/pull/723): Remove patch version pin from go.mod ([@wata727](https://github.com/wata727))
+
+## 0.33.0 (2024-09-10)
+
+### Enhancements
+
+- [#650](https://github.com/terraform-linters/tflint-ruleset-aws/pull/650) [#651](https://github.com/terraform-linters/tflint-ruleset-aws/pull/651) [#653](https://github.com/terraform-linters/tflint-ruleset-aws/pull/653) [#655](https://github.com/terraform-linters/tflint-ruleset-aws/pull/655) [#656](https://github.com/terraform-linters/tflint-ruleset-aws/pull/656) [#658](https://github.com/terraform-linters/tflint-ruleset-aws/pull/658) [#659](https://github.com/terraform-linters/tflint-ruleset-aws/pull/659) [#660](https://github.com/terraform-linters/tflint-ruleset-aws/pull/660): Update AWS provider/module and generated content
+
+### Chores
+
+- [#652](https://github.com/terraform-linters/tflint-ruleset-aws/pull/652): Fix HSMv2 type tests ([@wata727](https://github.com/wata727))
+- [#654](https://github.com/terraform-linters/tflint-ruleset-aws/pull/654) [#668](https://github.com/terraform-linters/tflint-ruleset-aws/pull/668): Bump github.com/hashicorp/hcl/v2 from 2.20.1 to 2.22.0
+- [#657](https://github.com/terraform-linters/tflint-ruleset-aws/pull/657) [#670](https://github.com/terraform-linters/tflint-ruleset-aws/pull/670): Bump golang.org/x/net from 0.26.0 to 0.29.0
+- [#665](https://github.com/terraform-linters/tflint-ruleset-aws/pull/665): mappings: Migrate import paths from aws-sdk-go to aws-sdk-ruby ([@wata727](https://github.com/wata727))
+- [#663](https://github.com/terraform-linters/tflint-ruleset-aws/pull/663): Bump github.com/terraform-linters/tflint-plugin-sdk from 0.20.0 to 0.21.0
+- [#667](https://github.com/terraform-linters/tflint-ruleset-aws/pull/667): Migrate aws-sdk-go to v2 ([@wata727](https://github.com/wata727))
+- [#671](https://github.com/terraform-linters/tflint-ruleset-aws/pull/671): Bump peter-evans/create-pull-request from 6 to 7
+- [#672](https://github.com/terraform-linters/tflint-ruleset-aws/pull/672): deps: Go 1.23.1
+
+## 0.32.0 (2024-06-08)
+
+### Enhancements
+
+- [#633](https://github.com/terraform-linters/tflint-ruleset-aws/pull/633): New rule: aws_provider_missing_tags ([@bootswithdefer](https://github.com/bootswithdefer))
+- [#637](https://github.com/terraform-linters/tflint-ruleset-aws/pull/637): Update AWS provider/module and generated content
+
+### Chores
+
+- [#638](https://github.com/terraform-linters/tflint-ruleset-aws/pull/638): release: Introduce Artifact Attestations ([@wata727](https://github.com/wata727))
+- [#642](https://github.com/terraform-linters/tflint-ruleset-aws/pull/642) [#645](https://github.com/terraform-linters/tflint-ruleset-aws/pull/645): Bump golang.org/x/net from 0.24.0 to 0.26.0
+- [#643](https://github.com/terraform-linters/tflint-ruleset-aws/pull/643): Bump github.com/hashicorp/terraform-json from 0.21.0 to 0.22.1
+- [#646](https://github.com/terraform-linters/tflint-ruleset-aws/pull/646): Bump goreleaser/goreleaser-action from 5 to 6
+- [#647](https://github.com/terraform-linters/tflint-ruleset-aws/pull/647): deps: Go 1.22.4 ([@wata727](https://github.com/wata727))
+
+## 0.31.0 (2024-05-03)
+
+### Enhancements
+
+- [#613](https://github.com/terraform-linters/tflint-ruleset-aws/pull/613) [#618](https://github.com/terraform-linters/tflint-ruleset-aws/pull/618) [#619](https://github.com/terraform-linters/tflint-ruleset-aws/pull/619) [#623](https://github.com/terraform-linters/tflint-ruleset-aws/pull/623) [#627](https://github.com/terraform-linters/tflint-ruleset-aws/pull/627) [#629](https://github.com/terraform-linters/tflint-ruleset-aws/pull/629): Update AWS provider/module and generated content
+- [#617](https://github.com/terraform-linters/tflint-ruleset-aws/pull/617) [#624](https://github.com/terraform-linters/tflint-ruleset-aws/pull/624): Bump github.com/hashicorp/hcl/v2 from 2.19.1 to 2.20.1
+  - This is required for provider-defined functions support
+
+### Chores
+
+- [#609](https://github.com/terraform-linters/tflint-ruleset-aws/pull/609) [#620](https://github.com/terraform-linters/tflint-ruleset-aws/pull/620) [#628](https://github.com/terraform-linters/tflint-ruleset-aws/pull/628): Bump golang.org/x/net from 0.20.0 to 0.24.0
+- [#614](https://github.com/terraform-linters/tflint-ruleset-aws/pull/614) [#634](https://github.com/terraform-linters/tflint-ruleset-aws/pull/634): Bump github.com/terraform-linters/tflint-plugin-sdk from 0.18.0 to 0.20.0
+- [#615](https://github.com/terraform-linters/tflint-ruleset-aws/pull/615): Bump github.com/stretchr/testify from 1.8.4 to 1.9.0
+- [#616](https://github.com/terraform-linters/tflint-ruleset-aws/pull/616) [#622](https://github.com/terraform-linters/tflint-ruleset-aws/pull/622): Bump github.com/zclconf/go-cty from 1.14.2 to 1.14.4
+- [#621](https://github.com/terraform-linters/tflint-ruleset-aws/pull/621): Bump google.golang.org/protobuf from 1.32.0 to 1.33.0
+- [#635](https://github.com/terraform-linters/tflint-ruleset-aws/pull/635): deps: Go 1.22.2
+
 ## 0.30.0 (2024-02-11)
 
 ### Enhancements

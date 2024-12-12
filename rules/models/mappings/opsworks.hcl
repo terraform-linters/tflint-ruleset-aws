@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/opsworks/2013-02-18/api-2.json"
+import = "aws-sdk-ruby/apis/opsworks/2013-02-18/api-2.json"
 
 mapping "aws_opsworks_application" {
   name                      = String

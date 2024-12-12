@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/codecommit/2015-04-13/api-2.json"
+import = "aws-sdk-ruby/apis/codecommit/2015-04-13/api-2.json"
 
 mapping "aws_codecommit_approval_rule_template" {
   content = ApprovalRuleTemplateContent

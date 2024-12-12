@@ -1,4 +1,4 @@
-import = "aws-sdk-go/models/apis/acm/2015-12-08/api-2.json"
+import = "aws-sdk-ruby/apis/acm/2015-12-08/api-2.json"
 
 mapping "aws_acm_certificate" {
   // domain_name            = DomainNameString

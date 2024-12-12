@@ -46,6 +46,7 @@ func NewAwsLambdaFunctionInvalidRuntimeRule() *AwsLambdaFunctionInvalidRuntimeRu
 			"dotnetcore2.1",
 			"dotnetcore3.1",
 			"dotnet6",
+			"dotnet8",
 			"nodejs4.3-edge",
 			"go1.x",
 			"ruby2.5",
@@ -56,11 +57,14 @@ func NewAwsLambdaFunctionInvalidRuntimeRule() *AwsLambdaFunctionInvalidRuntimeRu
 			"python3.10",
 			"java17",
 			"ruby3.2",
+			"ruby3.3",
 			"python3.11",
 			"nodejs20.x",
 			"provided.al2023",
 			"python3.12",
 			"java21",
+			"python3.13",
+			"nodejs22.x",
 		},
 	}
 }

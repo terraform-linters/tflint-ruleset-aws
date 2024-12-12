@@ -75,6 +75,7 @@ These rules enforce best practices and naming conventions:
 |[aws_lambda_function_deprecated_runtime](aws_lambda_function_deprecated_runtime.md)|Disallow deprecated runtimes for Lambda Function|✔|
 |[aws_resource_missing_tags](aws_resource_missing_tags.md)|Require specific tags for all AWS resource types that support them||
 |[aws_s3_bucket_name](aws_s3_bucket_name.md)|Ensures all S3 bucket names match the naming rules|✔|
+|[aws_provider_missing_default_tags](aws_provider_missing_default_tags.md)|Require specific tags for all AWS providers default tags||
 
 ### SDK-based Validations
 
@@ -685,7 +686,6 @@ These rules enforce best practices and naming conventions:
 |aws_glue_catalog_table_invalid_table_type|✔|
 |aws_glue_catalog_table_invalid_view_expanded_text|✔|
 |aws_glue_catalog_table_invalid_view_original_text|✔|
-|aws_glue_connection_invalid_connection_type|✔|
 |aws_glue_crawler_invalid_security_configuration|✔|
 |aws_glue_crawler_invalid_table_prefix|✔|
 |aws_glue_dev_endpoint_invalid_role_arn|✔|
@@ -1446,13 +1446,6 @@ These rules enforce best practices and naming conventions:
 |aws_wafv2_web_acl_invalid_name|✔|
 |aws_wafv2_web_acl_invalid_scope|✔|
 |aws_wafv2_web_acl_logging_configuration_invalid_resource_arn|✔|
-|aws_worklink_fleet_invalid_audit_stream_arn|✔|
-|aws_worklink_fleet_invalid_device_ca_certificate|✔|
-|aws_worklink_fleet_invalid_display_name|✔|
-|aws_worklink_fleet_invalid_name|✔|
-|aws_worklink_website_certificate_authority_association_invalid_certificate|✔|
-|aws_worklink_website_certificate_authority_association_invalid_display_name|✔|
-|aws_worklink_website_certificate_authority_association_invalid_fleet_arn|✔|
 |aws_workspaces_directory_invalid_directory_id|✔|
 |aws_workspaces_workspace_invalid_bundle_id|✔|
 |aws_workspaces_workspace_invalid_directory_id|✔|
