@@ -9,7 +9,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-func Test_AwsIAMPolicyAttachmentHasAlternativesRule(t *testing.T) {
+func Test_AwsIAMPolicyAttachmentExclusiveAttachmentRule(t *testing.T) {
 	rand.Seed(time.Now().UnixNano())
 	cases := []struct {
 		Name     string
@@ -25,7 +25,7 @@ resource "aws_iam_policy_attachment" "attachment" {
 `,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsIAMPolicyAttachmentHasAlternativesRule(),
+					Rule:    NewAwsIAMPolicyAttachmentExclusiveAttachmentRule(),
 					Message: "Consider aws_iam_role_policy_attachment, aws_iam_user_policy_attachment, or aws_iam_group_policy_attachment instead.",
 					Range: hcl.Range{
 						Filename: "resource.tf",
@@ -46,7 +46,7 @@ resource "aws_iam_role_policy_attachment" "attachment" {
 		},
 	}
 
-	rule := NewAwsIAMPolicyAttachmentHasAlternativesRule()
+	rule := NewAwsIAMPolicyAttachmentExclusiveAttachmentRule()
 
 	for _, tc := range cases {
 		runner := helper.TestRunner(t, map[string]string{"resource.tf": tc.Content})

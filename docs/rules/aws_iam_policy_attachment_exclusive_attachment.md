@@ -1,11 +1,11 @@
-# aws_iam_policy_attachment_has_alternatives
+# aws_iam_policy_attachment_exclusive_attachment
 
 Consider alternative resources to `aws_iam_policy_attachment`.
 
 ## Configuration
 
 ```hcl
-rule "aws_iam_policy_attachment_has_alternatives" {
+rule "aws_iam_policy_attachment_exclusive_attachment" {
   enabled = true
 }
 ```

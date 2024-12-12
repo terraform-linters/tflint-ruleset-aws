@@ -6,44 +6,44 @@ import (
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
 
-// AwsIAMPolicyAttachmentHasAlternativesRule warns that the resource has alternatives recommended
-type AwsIAMPolicyAttachmentHasAlternativesRule struct {
+// AwsIAMPolicyAttachmentExclusiveAttachmentRule warns that the resource has alternatives recommended
+type AwsIAMPolicyAttachmentExclusiveAttachmentRule struct {
 	tflint.DefaultRule
 
 	resourceType  string
 	attributeName string
 }
 
-// AwsIAMPolicyAttachmentHasAlternativesRule returns new rule with default attributes
-func NewAwsIAMPolicyAttachmentHasAlternativesRule() *AwsIAMPolicyAttachmentHasAlternativesRule {
-	return &AwsIAMPolicyAttachmentHasAlternativesRule{
+// AwsIAMPolicyAttachmentExclusiveAttachmentRule returns new rule with default attributes
+func NewAwsIAMPolicyAttachmentExclusiveAttachmentRule() *AwsIAMPolicyAttachmentExclusiveAttachmentRule {
+	return &AwsIAMPolicyAttachmentExclusiveAttachmentRule{
 		resourceType:  "aws_iam_policy_attachment",
 		attributeName: "name",
 	}
 }
 
 // Name returns the rule name
-func (r *AwsIAMPolicyAttachmentHasAlternativesRule) Name() string {
-	return "aws_iam_policy_attachment_has_alternatives"
+func (r *AwsIAMPolicyAttachmentExclusiveAttachmentRule) Name() string {
+	return "aws_iam_policy_attachment_exclusive_attachment"
 }
 
 // Enabled returns whether the rule is enabled by default
-func (r *AwsIAMPolicyAttachmentHasAlternativesRule) Enabled() bool {
+func (r *AwsIAMPolicyAttachmentExclusiveAttachmentRule) Enabled() bool {
 	return false
 }
 
 // Severity returns the rule severity
-func (r *AwsIAMPolicyAttachmentHasAlternativesRule) Severity() tflint.Severity {
+func (r *AwsIAMPolicyAttachmentExclusiveAttachmentRule) Severity() tflint.Severity {
 	return tflint.WARNING
 }
 
 // Link returns the rule reference link
-func (r *AwsIAMPolicyAttachmentHasAlternativesRule) Link() string {
+func (r *AwsIAMPolicyAttachmentExclusiveAttachmentRule) Link() string {
 	return project.ReferenceLink(r.Name())
 }
 
 // Check checks the length of the policy
-func (r *AwsIAMPolicyAttachmentHasAlternativesRule) Check(runner tflint.Runner) error {
+func (r *AwsIAMPolicyAttachmentExclusiveAttachmentRule) Check(runner tflint.Runner) error {
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{{Name: r.attributeName}},
 	}, nil)
