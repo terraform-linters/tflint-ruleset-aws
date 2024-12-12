@@ -35,6 +35,15 @@ resource "aws_iam_policy_attachment" "attachment" {
 				},
 			},
 		},
+		{
+			Name: "no issues with resource",
+			Content: `
+resource "aws_iam_role_policy_attachment" "attachment" {
+	role       = "test_role"
+}
+`,
+			Expected: helper.Issues{},
+		},
 	}
 
 	rule := NewAwsIAMPolicyAttachmentHasAlternativesRule()
