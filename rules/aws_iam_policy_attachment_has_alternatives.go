@@ -57,8 +57,6 @@ func (r *AwsIAMPolicyAttachmentHasAlternativesRule) Check(runner tflint.Runner) 
 			continue
 		}
 
-		var name string
-		err := runner.EvaluateExpr(attribute.Expr, &name, nil)
 		runner.EmitIssue(
 			r,
 			"Consider aws_iam_role_policy_attachment, aws_iam_user_policy_attachment, or aws_iam_group_policy_attachment instead.",
