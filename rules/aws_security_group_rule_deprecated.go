@@ -6,8 +6,7 @@ import (
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
 
-// TODO: Write the rule's description here
-// AwsSecurityGroupRuleDeprecatedRule checks ...
+// AwsSecurityGroupRuleDeprecatedRule checks that aws_security_group_rule is not used
 type AwsSecurityGroupRuleDeprecatedRule struct {
 	tflint.DefaultRule
 
@@ -18,9 +17,8 @@ type AwsSecurityGroupRuleDeprecatedRule struct {
 // NewAwsSecurityGroupRuleDeprecatedRule returns new rule with default attributes
 func NewAwsSecurityGroupRuleDeprecatedRule() *AwsSecurityGroupRuleDeprecatedRule {
 	return &AwsSecurityGroupRuleDeprecatedRule{
-		// TODO: Write resource type and attribute name here
-		resourceType:  "...",
-		attributeName: "...",
+		resourceType:  "aws_security_group_rule",
+		attributeName: "security_group_id",
 	}
 }
 
@@ -31,28 +29,21 @@ func (r *AwsSecurityGroupRuleDeprecatedRule) Name() string {
 
 // Enabled returns whether the rule is enabled by default
 func (r *AwsSecurityGroupRuleDeprecatedRule) Enabled() bool {
-	// TODO: Determine whether the rule is enabled by default
-	return true
+	return false
 }
 
 // Severity returns the rule severity
 func (r *AwsSecurityGroupRuleDeprecatedRule) Severity() tflint.Severity {
-	// TODO: Determine the rule's severiry
-	return tflint.ERROR
+	return tflint.WARNING
 }
 
 // Link returns the rule reference link
 func (r *AwsSecurityGroupRuleDeprecatedRule) Link() string {
-	// TODO: If the rule is so trivial that no documentation is needed, return "" instead.
 	return project.ReferenceLink(r.Name())
 }
 
-// TODO: Write the details of the inspection
-// Check checks ...
+// Check that aws_security_group_rule resource is not used
 func (r *AwsSecurityGroupRuleDeprecatedRule) Check(runner tflint.Runner) error {
-	// TODO: Write the implementation here. See this documentation for what tflint.Runner can do.
-	//       https://pkg.go.dev/github.com/terraform-linters/tflint-plugin-sdk/tflint#Runner
-
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{
 			{Name: r.attributeName},

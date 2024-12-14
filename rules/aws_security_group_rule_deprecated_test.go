@@ -14,22 +14,32 @@ func Test_AwsSecurityGroupRuleDeprecated(t *testing.T) {
 		Expected helper.Issues
 	}{
 		{
-			Name: "basic",
+			Name: "resource is used",
 			Content: `
-resource "null_resource" "null" {
+resource "aws_security_group_rule" "test" {
+	security_group_id = "sg-12345678"
 }
 `,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsSecurityGroupRuleDeprecatedRule(),
-					Message: "TODO",
+					Message: "Consider using aws_vpc_security_group_egress_rule or aws_vpc_security_group_ingress_rule instead.",
 					Range: hcl.Range{
 						Filename: "resource.tf",
-						Start:    hcl.Pos{Line: 0, Column: 0},
-						End:      hcl.Pos{Line: 0, Column: 0},
+						Start:    hcl.Pos{Line: 3, Column: 22},
+						End:      hcl.Pos{Line: 3, Column: 35},
 					},
 				},
 			},
+		},
+		{
+			Name: "everything is fine",
+			Content: `
+resource "aws_security_group" "test" {
+	name = "test"
+}
+`,
+			Expected: helper.Issues{},
 		},
 	}
 
