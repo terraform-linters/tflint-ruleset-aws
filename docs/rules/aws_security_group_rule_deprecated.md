@@ -14,13 +14,12 @@ resource "aws_security_group_rule" "foo" {
 ❯ tflint
 1 issue(s) found:
 
-Warning: Consider using aws_vpc_security_group_egress_rule or aws_vpc_security_group_ingress_rule instead.
+Warning: Consider using aws_vpc_security_group_egress_rule or aws_vpc_security_group_ingress_rule instead. (aws_security_group_rule_deprecated)
 
-  on test.tf line 5:
+  on bastion.tf line 4:
    4:   resource "aws_security_group_rule" "foo" {
-   5:     security_group_id = "sg-12345678"
-   6:   }
 ```
+
 ## Why
 
 Avoid using the `aws_security_group_rule` resource, as it struggles with managing multiple CIDR blocks, and, due to the historical lack of unique IDs, tags and descriptions.
