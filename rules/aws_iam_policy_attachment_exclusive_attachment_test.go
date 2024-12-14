@@ -11,6 +11,7 @@ import (
 
 func Test_AwsIAMPolicyAttachmentExclusiveAttachmentRule(t *testing.T) {
 	rand.Seed(time.Now().UnixNano())
+
 	cases := []struct {
 		Name     string
 		Content  string
