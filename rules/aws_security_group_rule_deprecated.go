@@ -54,15 +54,10 @@ func (r *AwsSecurityGroupRuleDeprecatedRule) Check(runner tflint.Runner) error {
 	}
 
 	for _, resource := range resources.Blocks {
-		attribute, exists := resource.Body.Attributes[r.attributeName]
-		if !exists {
-			continue
-		}
-
 		runner.EmitIssue(
 			r,
 			"Consider using aws_vpc_security_group_egress_rule or aws_vpc_security_group_ingress_rule instead.",
-			attribute.Expr.Range(),
+			resource.DefRange,
 		)
 	}
 

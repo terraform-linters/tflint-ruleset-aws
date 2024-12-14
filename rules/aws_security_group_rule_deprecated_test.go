@@ -26,8 +26,8 @@ resource "aws_security_group_rule" "test" {
 					Message: "Consider using aws_vpc_security_group_egress_rule or aws_vpc_security_group_ingress_rule instead.",
 					Range: hcl.Range{
 						Filename: "resource.tf",
-						Start:    hcl.Pos{Line: 3, Column: 22},
-						End:      hcl.Pos{Line: 3, Column: 35},
+						Start:    hcl.Pos{Line: 2, Column: 1},
+						End:      hcl.Pos{Line: 2, Column: 42},
 					},
 				},
 			},

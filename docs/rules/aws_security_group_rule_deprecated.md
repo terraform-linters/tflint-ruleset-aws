@@ -5,22 +5,26 @@
 ## Example
 
 ```hcl
-resource "null_resource" "foo" {
-  // TODO: Write the example Terraform code which violates the rule
+resource "aws_security_group_rule" "foo" {
+  security_group_id = "sg-12345678"
 }
 ```
 
+```sh
+❯ tflint
+1 issue(s) found:
+
+Warning: Consider using aws_vpc_security_group_egress_rule or aws_vpc_security_group_ingress_rule instead.
+
+  on test.tf line 5:
+   4:   resource "aws_security_group_rule" "foo" {
+   5:     security_group_id = "sg-12345678"
+   6:   }
 ```
-$ tflint
-
-// TODO: Write the output when inspects the above code
-
-```
-
 ## Why
 
-// TODO: Write why you should follow the rule. This section is also a place to explain the value of the rule
+Avoid using the `aws_security_group_rule` resource, as it struggles with managing multiple CIDR blocks, and, due to the historical lack of unique IDs, tags and descriptions.
 
 ## How To Fix
 
-// TODO: Write how to fix it to avoid the problem
+Depending on `foo.type`, you can fix the issue by using either `aws_vpc_security_group_egress_rule` or `aws_vpc_security_group_ingress_rule`:
