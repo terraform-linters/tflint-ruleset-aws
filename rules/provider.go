@@ -31,6 +31,7 @@ var manualRules = []tflint.Rule{
 	NewAwsElastiCacheReplicationGroupDefaultParameterGroupRule(),
 	NewAwsElastiCacheReplicationGroupInvalidTypeRule(),
 	NewAwsElastiCacheReplicationGroupPreviousTypeRule(),
+	NewAwsIAMPolicyAttachmentExclusiveAttachmentRule(),
 	NewAwsIAMPolicySidInvalidCharactersRule(),
 	NewAwsIAMPolicyTooLongPolicyRule(),
 	NewAwsLambdaFunctionDeprecatedRuntimeRule(),
