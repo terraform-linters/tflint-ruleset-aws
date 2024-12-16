@@ -44,11 +44,7 @@ func (r *AwsSecurityGroupRuleDeprecatedRule) Link() string {
 
 // Check that aws_security_group_rule resource is not used
 func (r *AwsSecurityGroupRuleDeprecatedRule) Check(runner tflint.Runner) error {
-	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
-		Attributes: []hclext.AttributeSchema{
-			{Name: r.attributeName},
-		},
-	}, nil)
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{}, nil)
 	if err != nil {
 		return err
 	}
