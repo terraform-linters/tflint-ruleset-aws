@@ -52,15 +52,10 @@ func (r *AwsIAMPolicyAttachmentExclusiveAttachmentRule) Check(runner tflint.Runn
 	}
 
 	for _, resource := range resources.Blocks {
-		attribute, exists := resource.Body.Attributes[r.attributeName]
-		if !exists {
-			continue
-		}
-
 		runner.EmitIssue(
 			r,
-			"Consider aws_iam_role_policy_attachment, aws_iam_user_policy_attachment, or aws_iam_group_policy_attachment instead.",
-			attribute.Expr.Range(),
+			"Within the entire AWS account, all users, roles, and groups that a single policy is attached to must be specified by a single aws_iam_policy_attachment resource. Consider aws_iam_role_policy_attachment, aws_iam_user_policy_attachment, or aws_iam_group_policy_attachment instead.",
+			resource.DefRange,
 		)
 
 		if err != nil {

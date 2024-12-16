@@ -30,8 +30,8 @@ resource "aws_iam_policy_attachment" "attachment" {
 					Message: "Consider aws_iam_role_policy_attachment, aws_iam_user_policy_attachment, or aws_iam_group_policy_attachment instead.",
 					Range: hcl.Range{
 						Filename: "resource.tf",
-						Start:    hcl.Pos{Line: 3, Column: 9},
-						End:      hcl.Pos{Line: 3, Column: 26},
+						Start:    hcl.Pos{Line: 2, Column: 1},
+						End:      hcl.Pos{Line: 2, Column: 50},
 					},
 				},
 			},
