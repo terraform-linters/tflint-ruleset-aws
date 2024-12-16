@@ -28,4 +28,4 @@ For further information, see the [Terraform documentation](https://registry.terr
 
 ## How To Fix
 
-Depending on `foo.type`, you can fix the issue by using either `aws_vpc_security_group_egress_rule` or `aws_vpc_security_group_ingress_rule`.
+Depending on `type`, you can fix the issue by using either `aws_vpc_security_group_egress_rule` or `aws_vpc_security_group_ingress_rule`.
