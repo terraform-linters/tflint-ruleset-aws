@@ -44,9 +44,7 @@ func (r *AwsIAMPolicyAttachmentExclusiveAttachmentRule) Link() string {
 
 // Check that the resource is not used
 func (r *AwsIAMPolicyAttachmentExclusiveAttachmentRule) Check(runner tflint.Runner) error {
-	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
-		Attributes: []hclext.AttributeSchema{{Name: r.attributeName}},
-	}, nil)
+	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{}, nil)
 	if err != nil {
 		return err
 	}
