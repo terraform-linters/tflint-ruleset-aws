@@ -63,4 +63,4 @@ resource "aws_vpc_security_group_egress_rule" "example" {
 
 using the attributes according to your code.
 
-`ingress` blocks are replaced by `aws_vpc_security_group_egress_rule` in the same way.
+`ingress` blocks are replaced by `aws_vpc_security_group_ingress_rule` in the same way.
