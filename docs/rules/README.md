@@ -52,6 +52,7 @@ These rules warn of possible errors that can occur at `terraform apply`. Rules m
 |aws_s3_bucket_invalid_region|Disallow invalid region for S3 bucket||✔|
 |aws_spot_fleet_request_invalid_excess_capacity_termination_policy|Disallow invalid excess capacity termination policy||✔|
 |[aws_security_group_invalid_protocol](aws_security_group_invalid_protocol.md)|Disallow using invalid protocol||✔|
+|[aws_security_group_rule_deprecated](aws_security_group_rule_deprecated.md)|Disallow using `aws_security_group_rule` resource|||
 |[aws_security_group_rule_invalid_protocol](aws_security_group_rule_invalid_protocol.md)|Disallow using invalid protocol||✔|
 
 ### Best Practices/Naming Conventions
