@@ -23,7 +23,7 @@ resource "aws_iam_policy_attachment" "attachment" {
 ```shell
 $ tflint
 1 issue(s) found:
-Warning: Consider aws_iam_role_policy_attachment, aws_iam_user_policy_attachment, or aws_iam_group_policy_attachment instead. (aws_iam_policy_attachment_has_alternatives)
+Warning: Within the entire AWS account, all users, roles, and groups that a single policy is attached to must be specified by a single aws_iam_policy_attachment resource. Consider aws_iam_role_policy_attachment, aws_iam_user_policy_attachment, or aws_iam_group_policy_attachment instead. (aws_iam_policy_attachment_has_alternatives)
   on template.tf line 2:
    2:  resource "aws_iam_policy_attachment" "attachment" {
 ```
