@@ -52,7 +52,6 @@ These rules warn of possible errors that can occur at `terraform apply`. Rules m
 |aws_s3_bucket_invalid_region|Disallow invalid region for S3 bucket||✔|
 |aws_spot_fleet_request_invalid_excess_capacity_termination_policy|Disallow invalid excess capacity termination policy||✔|
 |[aws_security_group_invalid_protocol](aws_security_group_invalid_protocol.md)|Disallow using invalid protocol||✔|
-|[aws_security_group_rule_deprecated](aws_security_group_rule_deprecated.md)|Disallow using `aws_security_group_rule` resource|||
 |[aws_security_group_rule_invalid_protocol](aws_security_group_rule_invalid_protocol.md)|Disallow using invalid protocol||✔|
 
 ### Best Practices/Naming Conventions
@@ -73,9 +72,10 @@ These rules enforce best practices and naming conventions:
 |[aws_iam_policy_gov_friendly_arns](aws_iam_policy_gov_friendly_arns.md)|Ensure `iam_policy` resources do not contain `arn:aws:` ARN's||
 |[aws_iam_role_policy_gov_friendly_arns](aws_iam_role_policy_gov_friendly_arns.md)|Ensure `iam_role_policy` resources do not contain `arn:aws:` ARN's||
 |[aws_lambda_function_deprecated_runtime](aws_lambda_function_deprecated_runtime.md)|Disallow deprecated runtimes for Lambda Function|✔|
+|[aws_provider_missing_default_tags](aws_provider_missing_default_tags.md)|Require specific tags for all AWS providers default tags||
 |[aws_resource_missing_tags](aws_resource_missing_tags.md)|Require specific tags for all AWS resource types that support them||
 |[aws_s3_bucket_name](aws_s3_bucket_name.md)|Ensures all S3 bucket names match the naming rules|✔|
-|[aws_provider_missing_default_tags](aws_provider_missing_default_tags.md)|Require specific tags for all AWS providers default tags||
+|[aws_security_group_rule_deprecated](aws_security_group_rule_deprecated.md)|Disallow using `aws_security_group_rule` resource||
 
 ### SDK-based Validations
 
