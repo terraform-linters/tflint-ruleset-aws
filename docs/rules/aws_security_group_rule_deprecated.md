@@ -1,12 +1,13 @@
 # aws_security_group_rule_deprecated
 
-// TODO: Write the rule's description here
+The `aws_security_group_rule` resource should be replaced with `aws_vpc_security_group_egress_rule` or `aws_vpc_security_group_ingress_rule`. It lacks support of unique IDs, tags, and descriptions, and has difficulties managing multiple CIDR blocks.
 
 ## Example
 
 ```hcl
 resource "aws_security_group_rule" "foo" {
   security_group_id = "sg-12345678"
+  type              = "ingress"
 }
 ```
 
@@ -22,9 +23,7 @@ Warning: Consider using aws_vpc_security_group_egress_rule or aws_vpc_security_g
 
 ## Why
 
-Avoid using the `aws_security_group_rule` resource, as it struggles with managing multiple CIDR blocks, and, due to the historical lack of unique IDs, tags and descriptions.
-
-For further information, see the [Terraform documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule).
+Avoid using the [`aws_security_group_rule`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) resource because it has difficulties managing multiple CIDR blocks and historically lacks unique IDs, tags, and descriptions. To prevent these issues, follow the current best practice of using the `aws_vpc_security_group_egress_rule` and `aws_vpc_security_group_ingress_rule` resources.
 
 ## How To Fix
 
