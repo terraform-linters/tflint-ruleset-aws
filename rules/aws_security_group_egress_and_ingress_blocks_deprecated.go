@@ -58,7 +58,7 @@ func (r *AwsSecurityGroupEgressAndIngressBlocksDeprecatedRule) Check(runner tfli
 			if block.Type == "egress" || block.Type == "ingress" {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf("Replace this %s block with aws_vpc_security_group_ingress_rule. Otherwise, rule conflicts, perpetual differences, and result in rules being overwritten may occur.", block.Type),
+					fmt.Sprintf("Replace this %s block with aws_vpc_security_group_%s_rule. Otherwise, rule conflicts, perpetual differences, and result in rules being overwritten may occur.", block.Type, block.Type),
 					block.DefRange,
 				)
 			} else {

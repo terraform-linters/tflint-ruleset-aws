@@ -26,9 +26,18 @@ resource "aws_security_group" "foo" {
 
 ```
 $ tflint
+2 issue(s) found:
 
-// TODO: Write the output when inspects the above code
+Notice: Replace this egress block with aws_vpc_security_group_egress_rule. Otherwise, rule conflicts, perpetual differences, and result in rules being overwritten may occur. (aws_security_group_egress_and_ingress_blocks_deprecated)
 
+  on test.tf line 4:
+   4:   egress {
+   
+Notice: Replace this ingress block with aws_vpc_security_group_ingress_rule. Otherwise, rule conflicts, perpetual differences, and result in rules being overwritten may occur. (aws_security_group_egress_and_ingress_blocks_deprecated)
+
+  on test.tf line 11:
+   11:   ingress {
+   
 ```
 
 ## Why

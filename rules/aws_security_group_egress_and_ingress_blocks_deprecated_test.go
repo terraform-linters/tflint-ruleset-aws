@@ -56,7 +56,7 @@ resource "aws_security_group" "test" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsSecurityGroupEgressAndIngressBlocksDeprecatedRule(),
-					Message: "Replace this egress block with aws_vpc_security_group_ingress_rule. Otherwise, rule conflicts, perpetual differences, and result in rules being overwritten may occur.",
+					Message: "Replace this egress block with aws_vpc_security_group_egress_rule. Otherwise, rule conflicts, perpetual differences, and result in rules being overwritten may occur.",
 					Range: hcl.Range{
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 5, Column: 3},
