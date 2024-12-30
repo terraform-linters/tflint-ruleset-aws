@@ -1177,14 +1177,11 @@ These rules enforce best practices and naming conventions:
 |aws_securityhub_standards_control_invalid_standards_control_arn|✔|
 |aws_securityhub_standards_subscription_invalid_standards_arn|✔|
 |aws_service_discovery_http_namespace_invalid_description|✔|
-|aws_service_discovery_http_namespace_invalid_name|✔|
 |aws_service_discovery_instance_invalid_instance_id|✔|
 |aws_service_discovery_instance_invalid_service_id|✔|
 |aws_service_discovery_private_dns_namespace_invalid_description|✔|
-|aws_service_discovery_private_dns_namespace_invalid_name|✔|
 |aws_service_discovery_private_dns_namespace_invalid_vpc|✔|
 |aws_service_discovery_public_dns_namespace_invalid_description|✔|
-|aws_service_discovery_public_dns_namespace_invalid_name|✔|
 |aws_service_discovery_service_invalid_description|✔|
 |aws_servicecatalog_budget_resource_association_invalid_budget_name|✔|
 |aws_servicecatalog_budget_resource_association_invalid_resource_id|✔|
