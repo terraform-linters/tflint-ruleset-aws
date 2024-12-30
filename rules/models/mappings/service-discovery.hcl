@@ -1,7 +1,7 @@
 import = "aws-sdk-ruby/apis/servicediscovery/2017-03-14/api-2.json"
 
 mapping "aws_service_discovery_http_namespace" {
-  name        = NamespaceName
+  name        = any //NamespaceName
   description = ResourceDescription
 }
 
@@ -12,13 +12,13 @@ mapping "aws_service_discovery_instance" {
 }
 
 mapping "aws_service_discovery_private_dns_namespace" {
-  name        = NamespaceName
+  name        = any //NamespaceName
   vpc         = ResourceId
   description = ResourceDescription
 }
 
 mapping "aws_service_discovery_public_dns_namespace" {
-  name        = NamespaceName
+  name        = any //NamespaceName
   description = ResourceDescription
 }
 
