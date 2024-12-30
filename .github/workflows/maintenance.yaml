@@ -13,6 +13,7 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version-file: 'go.mod'
+      - uses: hashicorp/setup-terraform@v3
       - run: |
           go get github.com/aws/aws-sdk-go
           go mod tidy
