@@ -14,9 +14,8 @@ jobs:
         with:
           go-version-file: 'go.mod'
       - uses: hashicorp/setup-terraform@v3
-      - run: |
-          go get github.com/aws/aws-sdk-go
-          go mod tidy
+      - name: go generate ./...
+        run: |
           cd tools/provider-schema
           terraform init -upgrade
           terraform providers schema -json > schema.json
