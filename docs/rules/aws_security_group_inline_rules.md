@@ -43,8 +43,9 @@ Notice: Replace this ingress block with aws_vpc_security_group_ingress_rule. (aw
 
 ## Why
 
-Refrain from using the `ingress` and `egress` arguments of the `aws_security_group` resource for in-line rules, as they have difficulties managing multiple CIDR blocks and historically lack unique IDs, tags, and descriptions. See [best practices](https://registry.terraform.io/providers/hashicorp/aws/5.82.2/docs/resources/security_group).
+In-line rules are difficult to manage and maintain, especially when multiple CIDR blocks are used. They lack unique IDs, tags, and descriptions, which makes it hard to identify and manage them.
 
+See [best practices](https://registry.terraform.io/providers/hashicorp/aws/5.82.2/docs/resources/security_group).
 
 ## How To Fix
 
@@ -61,6 +62,4 @@ resource "aws_vpc_security_group_egress_rule" "example" {
 }
 ```
 
-using the attributes according to your code.
-
-`ingress` blocks are replaced by `aws_vpc_security_group_ingress_rule` in the same way.
+using the attributes according to your code. For `ingress` blocks use `aws_vpc_security_group_ingress_rule` in the same way.
