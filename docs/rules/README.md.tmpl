@@ -74,7 +74,7 @@ These rules enforce best practices and naming conventions:
 |[aws_lambda_function_deprecated_runtime](aws_lambda_function_deprecated_runtime.md)|Disallow deprecated runtimes for Lambda Function|✔|
 |[aws_resource_missing_tags](aws_resource_missing_tags.md)|Require specific tags for all AWS resource types that support them||
 |[aws_s3_bucket_name](aws_s3_bucket_name.md)|Ensures all S3 bucket names match the naming rules|✔|
-|[aws_security_group_egress_and_ingress_blocks_deprecated](aws_security_group_egress_and_ingress_blocks_deprecated.md)|Disallow `ingress` and `egress` arguments of the `aws_security_group` resource||
+|[aws_security_group_inline_rules](aws_security_group_inline_rules.md)|Disallow `ingress` and `egress` arguments of the `aws_security_group` resource||
 |[aws_provider_missing_default_tags](aws_provider_missing_default_tags.md)|Require specific tags for all AWS providers default tags||
 
 ### SDK-based Validations
