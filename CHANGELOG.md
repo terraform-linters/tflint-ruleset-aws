@@ -1,3 +1,28 @@
+## 0.37.0 (2024-12-31)
+
+### Breaking Changes
+
+- [#789](https://github.com/terraform-linters/tflint-ruleset-aws/pull/789) [#798](https://github.com/terraform-linters/tflint-ruleset-aws/pull/798): Update AWS provider/module and generated content
+  - Removed the following rules
+    - `aws_service_discovery_http_namespace_invalid_name`
+    - `aws_service_discovery_private_dns_namespace_invalid_name`
+    - `aws_service_discovery_public_dns_namespace_invalid_name`
+
+### Enhancements
+
+- [#787](https://github.com/terraform-linters/tflint-ruleset-aws/pull/787) [#800](https://github.com/terraform-linters/tflint-ruleset-aws/pull/800): Add new db.m8g, r8g, r7i, r6i-preconfigured, m7i, c6gd instances ([@gnetsman](https://github.com/gnetsman), [@wata727](https://github.com/wata727))
+- [#786](https://github.com/terraform-linters/tflint-ruleset-aws/pull/786): feat: add `aws_iam_policy_attachment_exclusive_attachment` rule ([@kayman-mk](https://github.com/kayman-mk))
+- [#790](https://github.com/terraform-linters/tflint-ruleset-aws/pull/790): feat: add `aws_security_group_rule_deprecated` rule ([@kayman-mk](https://github.com/kayman-mk))
+- [#801](https://github.com/terraform-linters/tflint-ruleset-aws/pull/801): rules: Add missing DB engines ([@wata727](https://github.com/wata727))
+- [#802](https://github.com/terraform-linters/tflint-ruleset-aws/pull/802): rules: Add cache.c7gn high-bandwidth node type ([@wata727](https://github.com/wata727))
+- [#803](https://github.com/terraform-linters/tflint-ruleset-aws/pull/803): rules: Update Lambda runtime deprecations ([@wata727](https://github.com/wata727))
+
+### Chores
+
+- [#791](https://github.com/terraform-linters/tflint-ruleset-aws/pull/791) [#795](https://github.com/terraform-linters/tflint-ruleset-aws/pull/795) [#797](https://github.com/terraform-linters/tflint-ruleset-aws/pull/797): Bump aws-sdk-go-v2
+- [#792](https://github.com/terraform-linters/tflint-ruleset-aws/pull/792): Bump github.com/hashicorp/terraform-json from 0.23.0 to 0.24.0
+- [#796](https://github.com/terraform-linters/tflint-ruleset-aws/pull/796): Bump golang.org/x/net from 0.32.0 to 0.33.0
+
 ## 0.36.0 (2024-12-08)
 
 ### Breaking Changes

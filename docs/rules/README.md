@@ -68,6 +68,7 @@ These rules enforce best practices and naming conventions:
 |[aws_elasticache_replication_group_previous_type](aws_elasticache_replication_group_previous_type.md)|Disallow using previous node types|✔|
 |[aws_elasticache_replication_group_default_parameter_group](aws_elasticache_replication_group_default_parameter_group.md)|Disallow using default parameter group|✔|
 |[aws_instance_previous_type](aws_instance_previous_type.md)|Disallow using previous generation instance types|✔|
+|[aws_iam_policy_attachment_exclusive_attachment](aws_iam_policy_attachment_exclusive_attachment.md)|Consider alternative resources to `aws_iam_policy_attachment`||
 |[aws_iam_policy_document_gov_friendly_arns](aws_iam_policy_document_gov_friendly_arns.md)|Ensure `iam_policy_document` data sources do not contain `arn:aws:` ARN's||
 |[aws_iam_policy_gov_friendly_arns](aws_iam_policy_gov_friendly_arns.md)|Ensure `iam_policy` resources do not contain `arn:aws:` ARN's||
 |[aws_iam_role_policy_gov_friendly_arns](aws_iam_role_policy_gov_friendly_arns.md)|Ensure `iam_role_policy` resources do not contain `arn:aws:` ARN's||
@@ -75,6 +76,7 @@ These rules enforce best practices and naming conventions:
 |[aws_resource_missing_tags](aws_resource_missing_tags.md)|Require specific tags for all AWS resource types that support them||
 |[aws_s3_bucket_name](aws_s3_bucket_name.md)|Ensures all S3 bucket names match the naming rules|✔|
 |[aws_security_group_inline_rules](aws_security_group_inline_rules.md)|Disallow `ingress` and `egress` arguments of the `aws_security_group` resource||
+|[aws_security_group_rule_deprecated](aws_security_group_rule_deprecated.md)|Disallow using `aws_security_group_rule` resource||
 |[aws_provider_missing_default_tags](aws_provider_missing_default_tags.md)|Require specific tags for all AWS providers default tags||
 
 ### SDK-based Validations
@@ -1176,14 +1178,11 @@ These rules enforce best practices and naming conventions:
 |aws_securityhub_standards_control_invalid_standards_control_arn|✔|
 |aws_securityhub_standards_subscription_invalid_standards_arn|✔|
 |aws_service_discovery_http_namespace_invalid_description|✔|
-|aws_service_discovery_http_namespace_invalid_name|✔|
 |aws_service_discovery_instance_invalid_instance_id|✔|
 |aws_service_discovery_instance_invalid_service_id|✔|
 |aws_service_discovery_private_dns_namespace_invalid_description|✔|
-|aws_service_discovery_private_dns_namespace_invalid_name|✔|
 |aws_service_discovery_private_dns_namespace_invalid_vpc|✔|
 |aws_service_discovery_public_dns_namespace_invalid_description|✔|
-|aws_service_discovery_public_dns_namespace_invalid_name|✔|
 |aws_service_discovery_service_invalid_description|✔|
 |aws_servicecatalog_budget_resource_association_invalid_budget_name|✔|
 |aws_servicecatalog_budget_resource_association_invalid_resource_id|✔|

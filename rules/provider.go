@@ -31,6 +31,7 @@ var manualRules = []tflint.Rule{
 	NewAwsElastiCacheReplicationGroupDefaultParameterGroupRule(),
 	NewAwsElastiCacheReplicationGroupInvalidTypeRule(),
 	NewAwsElastiCacheReplicationGroupPreviousTypeRule(),
+	NewAwsIAMPolicyAttachmentExclusiveAttachmentRule(),
 	NewAwsIAMPolicySidInvalidCharactersRule(),
 	NewAwsIAMPolicyTooLongPolicyRule(),
 	NewAwsLambdaFunctionDeprecatedRuntimeRule(),
@@ -41,6 +42,7 @@ var manualRules = []tflint.Rule{
 	NewAwsSecurityGroupRuleInvalidProtocolRule(),
 	NewAwsProviderMissingDefaultTagsRule(),
 	NewAwsSecurityGroupInlineRulesRule(),
+	NewAwsSecurityGroupRuleDeprecatedRule(),
 }
 
 // Rules is a list of all rules
