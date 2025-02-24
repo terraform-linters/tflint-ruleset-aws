@@ -6,7 +6,7 @@ require (
 	github.com/agext/levenshtein v1.2.2 // indirect
 	github.com/dave/dst v0.27.3
 	github.com/fatih/color v1.18.0 // indirect
-	github.com/google/go-cmp v0.6.0
+	github.com/google/go-cmp v0.7.0
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/hcl/v2 v2.23.0
 	github.com/hashicorp/yamux v0.1.1 // indirect
