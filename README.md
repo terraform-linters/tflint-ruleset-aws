@@ -1,5 +1,5 @@
 # TFLint Ruleset for terraform-provider-aws
-[![Build Status](https://github.com/terraform-linters/tflint-ruleset-aws/workflows/build/badge.svg?branch=master)](https://github.com/terraform-linters/tflint-ruleset-aws/actions)
+[![Build Status](https://github.com/terraform-linters/tflint-ruleset-aws/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/terraform-linters/tflint-ruleset-aws/actions)
 [![GitHub release](https://img.shields.io/github/release/terraform-linters/tflint-ruleset-aws.svg)](https://github.com/terraform-linters/tflint-ruleset-aws/releases/latest)
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-blue.svg)](LICENSE)
 
@@ -10,7 +10,7 @@ This ruleset focus on possible errors and best practices about AWS resources. Ma
 ## Requirements
 
 - TFLint v0.42+
-- Go v1.23
+- Go v1.24
 
 ## Installation
 
