@@ -34,6 +34,7 @@ func NewAwsConnectContactFlowInvalidTypeRule() *AwsConnectContactFlowInvalidType
 			"OUTBOUND_WHISPER",
 			"AGENT_TRANSFER",
 			"QUEUE_TRANSFER",
+			"CAMPAIGN",
 		},
 	}
 }
