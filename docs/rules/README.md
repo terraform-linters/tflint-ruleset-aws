@@ -71,6 +71,7 @@ These rules enforce best practices and naming conventions:
 |[aws_iam_policy_attachment_exclusive_attachment](aws_iam_policy_attachment_exclusive_attachment.md)|Consider alternative resources to `aws_iam_policy_attachment`||
 |[aws_iam_policy_document_gov_friendly_arns](aws_iam_policy_document_gov_friendly_arns.md)|Ensure `iam_policy_document` data sources do not contain `arn:aws:` ARN's||
 |[aws_iam_policy_gov_friendly_arns](aws_iam_policy_gov_friendly_arns.md)|Ensure `iam_policy` resources do not contain `arn:aws:` ARN's||
+|[aws_iam_role_deprecated_policy_attributes](aws_iam_role_deprecated_policy_attributes.md)|Disallow using deprecated policy attributes of `aws_iam_role`||
 |[aws_iam_role_policy_gov_friendly_arns](aws_iam_role_policy_gov_friendly_arns.md)|Ensure `iam_role_policy` resources do not contain `arn:aws:` ARN's||
 |[aws_lambda_function_deprecated_runtime](aws_lambda_function_deprecated_runtime.md)|Disallow deprecated runtimes for Lambda Function|✔|
 |[aws_resource_missing_tags](aws_resource_missing_tags.md)|Require specific tags for all AWS resource types that support them||
