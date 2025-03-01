@@ -3,14 +3,22 @@ package integration
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"testing"
+	"text/template"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
+
+type meta struct {
+	Version string
+}
 
 func TestIntegration(t *testing.T) {
 	cases := []struct {
@@ -96,19 +104,13 @@ func TestIntegration(t *testing.T) {
 				t.Fatalf("%s, stdout=%s stderr=%s", err, stdout.String(), stderr.String())
 			}
 
-			var b []byte
-			var err error
-			if runtime.GOOS == "windows" && IsWindowsResultExist() {
-				b, err = os.ReadFile(filepath.Join(testDir, "result_windows.json"))
-			} else {
-				b, err = os.ReadFile(filepath.Join(testDir, "result.json"))
-			}
+			rawWant, err := readResultFile(testDir)
 			if err != nil {
 				t.Fatal(err)
 			}
 
-			var expected interface{}
-			if err := json.Unmarshal(b, &expected); err != nil {
+			var want interface{}
+			if err := json.Unmarshal(rawWant, &want); err != nil {
 				t.Fatal(err)
 			}
 
@@ -117,14 +119,32 @@ func TestIntegration(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if diff := cmp.Diff(got, expected); diff != "" {
+			if diff := cmp.Diff(got, want); diff != "" {
 				t.Fatal(diff)
 			}
 		})
 	}
 }
 
-func IsWindowsResultExist() bool {
-	_, err := os.Stat("result_windows.json")
-	return !os.IsNotExist(err)
+func readResultFile(dir string) ([]byte, error) {
+	resultFile := "result.json"
+	if runtime.GOOS == "windows" {
+		if _, err := os.Stat(filepath.Join(dir, "result_windows.json")); !os.IsNotExist(err) {
+			resultFile = "result_windows.json"
+		}
+	}
+	if _, err := os.Stat(fmt.Sprintf("%s.tmpl", resultFile)); !os.IsNotExist(err) {
+		resultFile = fmt.Sprintf("%s.tmpl", resultFile)
+	}
+
+	if !strings.HasSuffix(resultFile, ".tmpl") {
+		return os.ReadFile(filepath.Join(dir, resultFile))
+	}
+
+	want := new(bytes.Buffer)
+	tmpl := template.Must(template.ParseFiles(filepath.Join(dir, resultFile)))
+	if err := tmpl.Execute(want, meta{Version: project.Version}); err != nil {
+		return nil, err
+	}
+	return want.Bytes(), nil
 }
