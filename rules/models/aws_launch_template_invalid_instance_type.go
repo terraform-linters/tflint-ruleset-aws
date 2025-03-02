@@ -907,6 +907,14 @@ func NewAwsLaunchTemplateInvalidInstanceTypeRule() *AwsLaunchTemplateInvalidInst
 			"i8g.16xlarge",
 			"i8g.24xlarge",
 			"i8g.metal-24xl",
+			"u7i-6tb.112xlarge",
+			"u7i-8tb.112xlarge",
+			"u7inh-32tb.480xlarge",
+			"p5e.48xlarge",
+			"p5en.48xlarge",
+			"f2.12xlarge",
+			"f2.48xlarge",
+			"trn2.48xlarge",
 		},
 	}
 }
