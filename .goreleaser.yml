@@ -23,8 +23,6 @@ archives:
     format: zip
     files:
       - none*
-changelog:
-  disable: true
 checksum:
   name_template: 'checksums.txt'
   extra_files:
