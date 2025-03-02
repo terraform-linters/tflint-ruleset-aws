@@ -1,3 +1,5 @@
+See https://github.com/terraform-linters/tflint-ruleset-aws/releases for later releases.
+
 ## 0.37.0 (2024-12-31)
 
 ### Breaking Changes
