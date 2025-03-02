@@ -27,7 +27,7 @@ func NewAwsDatasyncLocationFsxWindowsFileSystemInvalidUserRule() *AwsDatasyncLoc
 		resourceType:  "aws_datasync_location_fsx_windows_file_system",
 		attributeName: "user",
 		max:           104,
-		pattern:       regexp.MustCompile(`^[^\x5B\x5D\\/:;|=,+*?]{1,104}$`),
+		pattern:       regexp.MustCompile(`^[^\x22\x5B\x5D/\\:;|=,+*?\x3C\x3E]{1,104}$`),
 	}
 }
 
@@ -81,7 +81,7 @@ func (r *AwsDatasyncLocationFsxWindowsFileSystemInvalidUserRule) Check(runner tf
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[^\x5B\x5D\\/:;|=,+*?]{1,104}$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[^\x22\x5B\x5D/\\:;|=,+*?\x3C\x3E]{1,104}$`),
 					attribute.Expr.Range(),
 				)
 			}
