@@ -511,6 +511,7 @@ var Resources = []string{
 	"aws_pinpointsmsvoicev2_phone_number",
 	"aws_pipes_pipe",
 	"aws_placement_group",
+	"aws_prometheus_rule_group_namespace",
 	"aws_prometheus_scraper",
 	"aws_prometheus_workspace",
 	"aws_qbusiness_application",
