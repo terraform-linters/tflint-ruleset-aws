@@ -1,7 +1,6 @@
 module github.com/terraform-linters/tflint-ruleset-aws
 
 go 1.24.0
-
 require (
 	github.com/agext/levenshtein v1.2.2 // indirect
 	github.com/dave/dst v0.27.3
@@ -20,8 +19,8 @@ require (
 )
 
 require (
-	github.com/aws/aws-sdk-go-v2/service/ec2 v1.208.0
-	github.com/aws/aws-sdk-go-v2/service/ecs v1.54.1
+	github.com/aws/aws-sdk-go-v2/service/ec2 v1.210.0
+	github.com/aws/aws-sdk-go-v2/service/ecs v1.54.2
 	github.com/aws/aws-sdk-go-v2/service/elasticache v1.45.1
 	github.com/aws/aws-sdk-go-v2/service/elasticloadbalancing v1.29.1
 	github.com/aws/aws-sdk-go-v2/service/elasticloadbalancingv2 v1.45.0
