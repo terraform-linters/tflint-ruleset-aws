@@ -140,7 +140,7 @@ func (r *AwsProviderMissingDefaultTagsRule) Check(runner tflint.Runner) error {
 			}, nil)
 
 			if err != nil {
-				logger.Warn("Could not evaluate tags, skipping %s.", provider.Labels[0]+"."+providerAlias+"."+providerDefaultTagsBlockName+"."+providerTagsAttributeName)
+				logger.Warn("Could not evaluate tags, skipping %s.%s.%s.%s: %s", provider.Labels[0], providerAlias, providerDefaultTagsBlockName, providerTagsAttributeName, err)
 				continue
 			}
 
