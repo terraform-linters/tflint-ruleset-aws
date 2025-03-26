@@ -159,8 +159,6 @@ provider "aws" {
     }
 	}
 
-  // This variable MUST be set, otherwise the configuration is invalid
-  // The rule should error when encountering this in the tags expression
   variable "tag" {
     type = string
   }
