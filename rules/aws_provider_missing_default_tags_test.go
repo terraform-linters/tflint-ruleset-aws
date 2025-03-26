@@ -14,7 +14,7 @@ func Test_AwsProviderMissingDefaultTags(t *testing.T) {
 		Content  string
 		Config   string
 		Expected helper.Issues
-		RaiseErr error
+		Err      string
 	}{
 		{
 			Name: "Default tags for provider",
@@ -66,7 +66,7 @@ rule "aws_provider_missing_default_tags" {
 			Content: `
 provider "aws" {
   default_tags {
-    tags = []
+    tags = {}
   }
 }`,
 			Config: `
@@ -131,6 +131,49 @@ rule "aws_provider_missing_default_tags" {
 				},
 			},
 		},
+		{
+			Name: "default tags wholly unknown",
+			Content: `
+provider "aws" {
+  default_tags {
+    tags = var.tags
+	}
+}
+
+variable "tags" {
+  type = map(string)
+}`,
+			Config: `
+rule "aws_provider_missing_default_tags" {
+  enabled = true
+  tags = ["Bazz", "Fooz"]
+}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Name: "null key",
+			Content: `
+provider "aws" {
+  default_tags {
+      tags = {
+        (var.tag): "bar"
+      }
+    }
+	}
+
+  // This variable MUST be set, otherwise the configuration is invalid
+  // The rule should error when encountering this in the tags expression
+  variable "tag" {
+    type = string
+  }
+  `,
+			Config: `
+rule "aws_provider_missing_default_tags" {
+  enabled = true
+  tags = ["Bazz", "Fooz"]
+}`,
+			Err: "Can't use a null value as a key.",
+		},
 	}
 
 	rule := NewAwsProviderMissingDefaultTagsRule()
@@ -141,11 +184,14 @@ rule "aws_provider_missing_default_tags" {
 
 			err := rule.Check(runner)
 
-			if tc.RaiseErr == nil && err != nil {
-				t.Fatalf("Unexpected error occurred in test \"%s\": %s", tc.Name, err)
+			if tc.Err != "" {
+				assert.ErrorContains(t, err, tc.Err)
+				return
 			}
 
-			assert.Equal(t, tc.RaiseErr, err)
+			if err != nil {
+				t.Fatalf("unexpected error: %s", err)
+			}
 
 			helper.AssertIssues(t, tc.Expected, runner.Issues)
 		})
