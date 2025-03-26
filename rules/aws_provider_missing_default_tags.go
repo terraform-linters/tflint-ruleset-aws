@@ -1,7 +1,6 @@
 package rules
 
 import (
-	"errors"
 	"fmt"
 	"slices"
 	"sort"
@@ -140,13 +139,9 @@ func (r *AwsProviderMissingDefaultTagsRule) Check(runner tflint.Runner) error {
 				return nil
 			}, nil)
 
-			if errors.Is(err, tflint.ErrUnknownValue) {
-				logger.Warn("The missing aws tags rule can only evaluate provided variables, skipping %s.", provider.Labels[0]+"."+providerAlias+"."+providerDefaultTagsBlockName+"."+providerTagsAttributeName)
-				continue
-			}
-
 			if err != nil {
-				return err
+				logger.Warn("Could not evaluate tags, skipping %s.", provider.Labels[0]+"."+providerAlias+"."+providerDefaultTagsBlockName+"."+providerTagsAttributeName)
+				continue
 			}
 
 			// Check tags

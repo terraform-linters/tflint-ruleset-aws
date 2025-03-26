@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	hcl "github.com/hashicorp/hcl/v2"
-	"github.com/stretchr/testify/assert"
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
@@ -14,7 +13,6 @@ func Test_AwsProviderMissingDefaultTags(t *testing.T) {
 		Content  string
 		Config   string
 		Expected helper.Issues
-		Err      string
 	}{
 		{
 			Name: "Default tags for provider",
@@ -172,7 +170,7 @@ rule "aws_provider_missing_default_tags" {
   enabled = true
   tags = ["Bazz", "Fooz"]
 }`,
-			Err: "Can't use a null value as a key.",
+			Expected: helper.Issues{},
 		},
 	}
 
@@ -182,14 +180,7 @@ rule "aws_provider_missing_default_tags" {
 		t.Run(tc.Name, func(t *testing.T) {
 			runner := helper.TestRunner(t, map[string]string{"module.tf": tc.Content, ".tflint.hcl": tc.Config})
 
-			err := rule.Check(runner)
-
-			if tc.Err != "" {
-				assert.ErrorContains(t, err, tc.Err)
-				return
-			}
-
-			if err != nil {
+			if err := rule.Check(runner); err != nil {
 				t.Fatalf("unexpected error: %s", err)
 			}
 
