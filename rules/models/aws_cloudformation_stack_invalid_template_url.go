@@ -23,7 +23,7 @@ func NewAwsCloudformationStackInvalidTemplateURLRule() *AwsCloudformationStackIn
 	return &AwsCloudformationStackInvalidTemplateURLRule{
 		resourceType:  "aws_cloudformation_stack",
 		attributeName: "template_url",
-		max:           1024,
+		max:           5120,
 		min:           1,
 	}
 }
@@ -71,7 +71,7 @@ func (r *AwsCloudformationStackInvalidTemplateURLRule) Check(runner tflint.Runne
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					"template_url must be 1024 characters or less",
+					"template_url must be 5120 characters or less",
 					attribute.Expr.Range(),
 				)
 			}
