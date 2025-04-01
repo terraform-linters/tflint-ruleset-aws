@@ -99,7 +99,7 @@ func (r *AwsProviderMissingDefaultTagsRule) Check(runner tflint.Runner) error {
 				return nil
 			}, nil)
 			if err != nil {
-				return nil
+				return err
 			}
 		}
 		logger.Debug("Walk `%s` provider", providerAlias)
@@ -131,8 +131,7 @@ func (r *AwsProviderMissingDefaultTagsRule) Check(runner tflint.Runner) error {
 				keys, known := getKeysForValue(val)
 
 				if !known {
-					logger.Warn("The missing aws tags rule can only evaluate provided variables, skipping %s.", provider.Labels[0]+"."+providerAlias+"."+providerDefaultTagsBlockName+"."+providerTagsAttributeName)
-					return nil
+					return tflint.ErrUnknownValue
 				}
 
 				logger.Debug("Walk `%s` provider with tags `%v`", providerAlias, keys)
@@ -141,7 +140,8 @@ func (r *AwsProviderMissingDefaultTagsRule) Check(runner tflint.Runner) error {
 			}, nil)
 
 			if err != nil {
-				return nil
+				logger.Warn("Could not evaluate tags, skipping %s.%s.%s.%s: %s", provider.Labels[0], providerAlias, providerDefaultTagsBlockName, providerTagsAttributeName, err)
+				continue
 			}
 
 			// Check tags
