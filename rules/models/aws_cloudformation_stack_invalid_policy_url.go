@@ -23,7 +23,7 @@ func NewAwsCloudformationStackInvalidPolicyURLRule() *AwsCloudformationStackInva
 	return &AwsCloudformationStackInvalidPolicyURLRule{
 		resourceType:  "aws_cloudformation_stack",
 		attributeName: "policy_url",
-		max:           1350,
+		max:           5120,
 		min:           1,
 	}
 }
@@ -71,7 +71,7 @@ func (r *AwsCloudformationStackInvalidPolicyURLRule) Check(runner tflint.Runner)
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					"policy_url must be 1350 characters or less",
+					"policy_url must be 5120 characters or less",
 					attribute.Expr.Range(),
 				)
 			}
