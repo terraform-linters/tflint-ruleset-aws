@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	hcl "github.com/hashicorp/hcl/v2"
-	"github.com/stretchr/testify/assert"
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
@@ -14,7 +13,6 @@ func Test_AwsProviderMissingDefaultTags(t *testing.T) {
 		Content  string
 		Config   string
 		Expected helper.Issues
-		RaiseErr error
 	}{
 		{
 			Name: "Default tags for provider",
@@ -66,7 +64,7 @@ rule "aws_provider_missing_default_tags" {
 			Content: `
 provider "aws" {
   default_tags {
-    tags = []
+    tags = {}
   }
 }`,
 			Config: `
@@ -131,6 +129,47 @@ rule "aws_provider_missing_default_tags" {
 				},
 			},
 		},
+		{
+			Name: "default tags wholly unknown",
+			Content: `
+provider "aws" {
+  default_tags {
+    tags = var.tags
+	}
+}
+
+variable "tags" {
+  type = map(string)
+}`,
+			Config: `
+rule "aws_provider_missing_default_tags" {
+  enabled = true
+  tags = ["Bazz", "Fooz"]
+}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Name: "null key",
+			Content: `
+provider "aws" {
+  default_tags {
+      tags = {
+        (var.tag): "bar"
+      }
+    }
+	}
+
+  variable "tag" {
+    type = string
+  }
+  `,
+			Config: `
+rule "aws_provider_missing_default_tags" {
+  enabled = true
+  tags = ["Bazz", "Fooz"]
+}`,
+			Expected: helper.Issues{},
+		},
 	}
 
 	rule := NewAwsProviderMissingDefaultTagsRule()
@@ -139,13 +178,9 @@ rule "aws_provider_missing_default_tags" {
 		t.Run(tc.Name, func(t *testing.T) {
 			runner := helper.TestRunner(t, map[string]string{"module.tf": tc.Content, ".tflint.hcl": tc.Config})
 
-			err := rule.Check(runner)
-
-			if tc.RaiseErr == nil && err != nil {
-				t.Fatalf("Unexpected error occurred in test \"%s\": %s", tc.Name, err)
+			if err := rule.Check(runner); err != nil {
+				t.Fatalf("unexpected error: %s", err)
 			}
-
-			assert.Equal(t, tc.RaiseErr, err)
 
 			helper.AssertIssues(t, tc.Expected, runner.Issues)
 		})
