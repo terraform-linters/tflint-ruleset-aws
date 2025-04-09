@@ -43,6 +43,7 @@ var manualRules = []tflint.Rule{
 	NewAwsProviderMissingDefaultTagsRule(),
 	NewAwsSecurityGroupInlineRulesRule(),
 	NewAwsSecurityGroupRuleDeprecatedRule(),
+	NewAwsSecretsmanagerSecretVersionSecretStringRule(),
 }
 
 // Rules is a list of all rules
