@@ -18,36 +18,40 @@ type AwsWriteOnlyAttributesRule struct {
 }
 
 type writeOnlyAttribute struct {
-	original    string
-	alternative string
+	original             string
+	writeOnlyAlternative string
+	otherAlternative     string
 }
 
 // NewAwsWriteOnlyAttributesRule returns new rule with default attributes
 func NewAwsWriteOnlyAttributesRule() *AwsWriteOnlyAttributesRule {
 	writeOnlyAttributes := map[string]writeOnlyAttribute{
 		"aws_secretsmanager_secret_version": {
-			original:    "secret_string",
-			alternative: "secret_string_wo",
+			original:             "secret_string",
+			writeOnlyAlternative: "secret_string_wo",
 		},
 		"aws_rds_cluster": {
-			original:    "master_password",
-			alternative: "master_password_wo",
+			original:             "master_password",
+			writeOnlyAlternative: "master_password_wo",
+			otherAlternative:     "manage_master_user_password",
 		},
 		"aws_redshift_cluster": {
-			original:    "master_password",
-			alternative: "master_password_wo",
+			original:             "master_password",
+			writeOnlyAlternative: "master_password_wo",
+			otherAlternative:     "manage_master_password",
 		},
 		"aws_docdb_cluster": {
-			original:    "master_password",
-			alternative: "master_password_wo",
+			original:             "master_password",
+			writeOnlyAlternative: "master_password_wo",
 		},
 		"aws_redshiftserverless_namespace": {
-			original:    "admin_password",
-			alternative: "admin_password_wo",
+			original:             "admin_password",
+			writeOnlyAlternative: "admin_password_wo",
+			otherAlternative:     "manage_admin_password",
 		},
 		"aws_ssm_parameter": {
-			original:    "value",
-			alternative: "value_wo",
+			original:             "value",
+			writeOnlyAlternative: "value_wo",
 		},
 	}
 	return &AwsWriteOnlyAttributesRule{
@@ -94,13 +98,18 @@ func (r *AwsWriteOnlyAttributesRule) Check(runner tflint.Runner) error {
 			}
 
 			err := runner.EvaluateExpr(attribute.Expr, func(val cty.Value) error {
+				mitigation := fmt.Sprintf("\"%s\" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only attribute \"%s\".", attributes.original, attributes.writeOnlyAlternative)
+				if attributes.otherAlternative != "" {
+					mitigation += fmt.Sprintf(" Alternatively, you can use \"%s\" to manage the secret in an different way.", attributes.otherAlternative)
+				}
+
 				if !val.IsNull() {
 					if err := runner.EmitIssueWithFix(
 						r,
-						fmt.Sprintf("\"%s\" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only attribute \"%s\".", attributes.original, attributes.alternative),
+						mitigation,
 						attribute.Expr.Range(),
 						func(f tflint.Fixer) error {
-							return f.ReplaceText(attribute.NameRange, attributes.alternative)
+							return f.ReplaceText(attribute.NameRange, attributes.writeOnlyAlternative)
 						},
 					); err != nil {
 						return fmt.Errorf("failed to call EmitIssueWithFix(): %w", err)
