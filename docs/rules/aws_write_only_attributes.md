@@ -1,6 +1,6 @@
 # aws_write_only_attributes
 
-Disallows using the normal attribute, in favor of an available write-only attribute. This is only valid for Terraform version 1.11.0 and later.
+Disallows using the normal attribute containing sensitive information, in favor of an available write-only attribute. This is only valid for Terraform version 1.11.0 and later. If there alternative options available to prevent this information ending up in state, these are suggested as well.
 
 ## Example
 
