@@ -31,7 +31,7 @@ Using write-only arguments mitigates the risk of a malicious actor obtaining pri
 
 ## How To Fix
 
-Replace the `secret_string` with `secret_string_wo`, preferable via using an ephemeral resource as source or using an ephemeral variable:
+Replace the attribute with its write-only argument equivalent. Reference an ephemeral resource or ephemeral variable to ensure that the sensitive value is not persisted to state.
 
 ```hcl
 ephemeral "random_password" "test" {
