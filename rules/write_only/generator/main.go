@@ -27,10 +27,10 @@ func main() {
 	}
 
 	// Generate the rule file
-	utils.GenerateFile("../../rules/aws_write_only_arguments.go", "../../rules/write_only/rule.go.tmpl", resourcesWithWriteOnly)
+	utils.GenerateFile("../../rules/write_only/aws_write_only_arguments.go", "../../rules/write_only/rule.go.tmpl", resourcesWithWriteOnly)
 
 	// Generate the test file
-	utils.GenerateFile("../../rules/aws_write_only_arguments_test.go", "../../rules/write_only/rule_test.go.tmpl", resourcesWithWriteOnly)
+	utils.GenerateFile("../../rules/write_only/aws_write_only_arguments_test.go", "../../rules/write_only/rule_test.go.tmpl", resourcesWithWriteOnly)
 }
 
 func findReplaceableAttribute(arguments []string, resource *tfjson.Schema) []writeOnlyArgument {
