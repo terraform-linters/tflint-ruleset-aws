@@ -1,10 +1,10 @@
-# aws_write_only_attributes
+# aws_write_only_arguments
 
 Recommends using available [write-only arguments](https://developer.hashicorp.com/terraform/language/resources/ephemeral/write-only) instead of the original sensitive attribute. This is only valid for Terraform v1.11+.
 
 ## Example
 
-This example uses `aws_secretsmanager_secret_version`, but the rule applies to all resources with write-only attributes:
+This example uses `aws_secretsmanager_secret_version`, but the rule applies to all resources with write-only arguments:
 
 ```hcl
 resource "aws_secretsmanager_secret_version" "test" {
@@ -16,7 +16,7 @@ resource "aws_secretsmanager_secret_version" "test" {
 $ tflint
 1 issue(s) found:
 
-Warning: [Fixable] "secret_string" is a non-ephemeral attribute, which means this secret is stored in state. Please use "secret_string_wo". (aws_write_only_attributes)
+Warning: [Fixable] "secret_string" is a non-ephemeral attribute, which means this secret is stored in state. Please use "secret_string_wo". (aws_write_only_arguments)
 
   on test.tf line 3:
    3:   secret_string = var.secret
@@ -48,7 +48,7 @@ resource "aws_secretsmanager_secret_version" "test" {
 ```hcl
 variable "test" {
   type        = string
-  ephemeral   = true # Optional, non-ephemeral values can also be used for write-only attributes
+  ephemeral   = true # Optional, non-ephemeral values can also be used for write-only arguments
   description = "Input variable for a secret"
 }
 
