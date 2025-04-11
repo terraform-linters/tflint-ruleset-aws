@@ -23,8 +23,8 @@ resource "aws_secretsmanager_secret_version" "test" {
 `,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsWriteOnlyAttributesRule(),
-					Message: `"secret_string" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only attribute "secret_string_wo".`,
+					Rule:    NewAwsWriteOnlyArgumentsRule(),
+					Message: `"secret_string" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only argument "secret_string_wo".`,
 					Range: hcl.Range{
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 3, Column: 19},
@@ -56,8 +56,8 @@ resource "aws_rds_cluster" "test" {
 `,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsWriteOnlyAttributesRule(),
-					Message: `"master_password" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only attribute "master_password_wo". Alternatively, you can use "manage_master_user_password" to manage the secret in an different way.`,
+					Rule:    NewAwsWriteOnlyArgumentsRule(),
+					Message: `"master_password" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only argument "master_password_wo".`,
 					Range: hcl.Range{
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 3, Column: 21},
@@ -80,6 +80,40 @@ resource "aws_rds_cluster" "test" {
 `,
 			Expected: helper.Issues{},
 		},
+
+		{
+			Name: "basic aws_db_instance",
+			Content: `
+resource "aws_db_instance" "test" {
+  password = "test"
+}
+`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsWriteOnlyArgumentsRule(),
+					Message: `"password" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only argument "password_wo".`,
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 3, Column: 14},
+						End:      hcl.Pos{Line: 3, Column: 20},
+					},
+				},
+			},
+			Fixed: `
+resource "aws_db_instance" "test" {
+  password_wo = "test"
+}
+`,
+		},
+		{
+			Name: "everything is fine aws_db_instance",
+			Content: `
+resource "aws_db_instance" "test" {
+  password_wo = "test"
+}
+`,
+			Expected: helper.Issues{},
+		},
 		{
 			Name: "basic aws_redshift_cluster",
 			Content: `
@@ -89,8 +123,8 @@ resource "aws_redshift_cluster" "test" {
 `,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsWriteOnlyAttributesRule(),
-					Message: `"master_password" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only attribute "master_password_wo". Alternatively, you can use "manage_master_password" to manage the secret in an different way.`,
+					Rule:    NewAwsWriteOnlyArgumentsRule(),
+					Message: `"master_password" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only argument "master_password_wo".`,
 					Range: hcl.Range{
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 3, Column: 21},
@@ -122,8 +156,8 @@ resource "aws_docdb_cluster" "test" {
 `,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsWriteOnlyAttributesRule(),
-					Message: `"master_password" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only attribute "master_password_wo".`,
+					Rule:    NewAwsWriteOnlyArgumentsRule(),
+					Message: `"master_password" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only argument "master_password_wo".`,
 					Range: hcl.Range{
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 3, Column: 21},
@@ -156,8 +190,8 @@ resource "aws_redshiftserverless_namespace" "test" {
 `,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsWriteOnlyAttributesRule(),
-					Message: `"admin_password" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only attribute "admin_password_wo". Alternatively, you can use "manage_admin_password" to manage the secret in an different way.`,
+					Rule:    NewAwsWriteOnlyArgumentsRule(),
+					Message: `"admin_password" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only argument "admin_password_wo".`,
 					Range: hcl.Range{
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 3, Column: 20},
@@ -189,8 +223,8 @@ resource "aws_ssm_parameter" "test" {
 `,
 			Expected: helper.Issues{
 				{
-					Rule:    NewAwsWriteOnlyAttributesRule(),
-					Message: `"value" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only attribute "value_wo".`,
+					Rule:    NewAwsWriteOnlyArgumentsRule(),
+					Message: `"value" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only argument "value_wo".`,
 					Range: hcl.Range{
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 3, Column: 11},
@@ -216,7 +250,7 @@ resource "aws_ssm_parameter" "test" {
 		},
 	}
 
-	rule := NewAwsWriteOnlyAttributesRule()
+	rule := NewAwsWriteOnlyArgumentsRule()
 
 	for _, tc := range cases {
 		filename := "resource.tf"
