@@ -4,7 +4,7 @@ Disallows using the normal attribute containing sensitive information, in favor 
 
 ## Example
 
-In this example `aws_secretsmanager_secret_version` is used, but you can replace that with any resource with write-only attributes:
+This example uses `aws_secretsmanager_secret_version`, but the rule applies to all resources with write-only attributes:
 
 ```hcl
 resource "aws_secretsmanager_secret_version" "test" {
