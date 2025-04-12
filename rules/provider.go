@@ -45,6 +45,7 @@ var manualRules = []tflint.Rule{
 	NewAwsSecurityGroupInlineRulesRule(),
 	NewAwsSecurityGroupRuleDeprecatedRule(),
 	ephemeral.NewAwsWriteOnlyArgumentsRule(),
+	ephemeral.NewAwsEphemeralResourcesRule(),
 }
 
 // Rules is a list of all rules
