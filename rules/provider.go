@@ -3,8 +3,8 @@ package rules
 import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/rules/api"
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/ephemeral"
 	"github.com/terraform-linters/tflint-ruleset-aws/rules/models"
-	"github.com/terraform-linters/tflint-ruleset-aws/rules/write_only"
 )
 
 var manualRules = []tflint.Rule{
@@ -44,8 +44,7 @@ var manualRules = []tflint.Rule{
 	NewAwsProviderMissingDefaultTagsRule(),
 	NewAwsSecurityGroupInlineRulesRule(),
 	NewAwsSecurityGroupRuleDeprecatedRule(),
-	NewAwsIAMRoleDeprecatedPolicyAttributesRule(),
-	write_only.NewAwsWriteOnlyArgumentsRule(),
+	ephemeral.NewAwsWriteOnlyArgumentsRule(),
 }
 
 // Rules is a list of all rules
