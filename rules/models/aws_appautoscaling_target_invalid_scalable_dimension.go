@@ -42,6 +42,7 @@ func NewAwsAppautoscalingTargetInvalidScalableDimensionRule() *AwsAppautoscaling
 			"cassandra:table:ReadCapacityUnits",
 			"cassandra:table:WriteCapacityUnits",
 			"kafka:broker-storage:VolumeSize",
+			"elasticache:cache-cluster:Nodes",
 			"elasticache:replication-group:NodeGroups",
 			"elasticache:replication-group:Replicas",
 			"neptune:cluster:ReadReplicaCount",
