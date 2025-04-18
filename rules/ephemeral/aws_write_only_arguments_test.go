@@ -30,7 +30,8 @@ resource "aws_db_instance" "test" {
 			},
 			Fixed: `
 resource "aws_db_instance" "test" {
-  password_wo = "test"
+  password_wo         = "test"
+  password_wo_version = 1
 }
 `,
 		},
@@ -38,7 +39,8 @@ resource "aws_db_instance" "test" {
 			Name: "everything is fine aws_db_instance",
 			Content: `
 resource "aws_db_instance" "test" {
-  password_wo = "test"
+  password_wo         = "test"
+  password_wo_version = 1
 }
 `,
 			Expected: helper.Issues{},
@@ -58,7 +60,8 @@ resource "aws_docdb_cluster" "test" {
 			},
 			Fixed: `
 resource "aws_docdb_cluster" "test" {
-  master_password_wo = "test"
+  master_password_wo         = "test"
+  master_password_wo_version = 1
 }
 `,
 		},
@@ -66,7 +69,8 @@ resource "aws_docdb_cluster" "test" {
 			Name: "everything is fine aws_docdb_cluster",
 			Content: `
 resource "aws_docdb_cluster" "test" {
-  master_password_wo = "test"
+  master_password_wo         = "test"
+  master_password_wo_version = 1
 }
 `,
 			Expected: helper.Issues{},
@@ -86,7 +90,8 @@ resource "aws_rds_cluster" "test" {
 			},
 			Fixed: `
 resource "aws_rds_cluster" "test" {
-  master_password_wo = "test"
+  master_password_wo         = "test"
+  master_password_wo_version = 1
 }
 `,
 		},
@@ -94,7 +99,8 @@ resource "aws_rds_cluster" "test" {
 			Name: "everything is fine aws_rds_cluster",
 			Content: `
 resource "aws_rds_cluster" "test" {
-  master_password_wo = "test"
+  master_password_wo         = "test"
+  master_password_wo_version = 1
 }
 `,
 			Expected: helper.Issues{},
@@ -114,7 +120,8 @@ resource "aws_redshift_cluster" "test" {
 			},
 			Fixed: `
 resource "aws_redshift_cluster" "test" {
-  master_password_wo = "test"
+  master_password_wo         = "test"
+  master_password_wo_version = 1
 }
 `,
 		},
@@ -122,7 +129,8 @@ resource "aws_redshift_cluster" "test" {
 			Name: "everything is fine aws_redshift_cluster",
 			Content: `
 resource "aws_redshift_cluster" "test" {
-  master_password_wo = "test"
+  master_password_wo         = "test"
+  master_password_wo_version = 1
 }
 `,
 			Expected: helper.Issues{},
@@ -142,7 +150,8 @@ resource "aws_redshiftserverless_namespace" "test" {
 			},
 			Fixed: `
 resource "aws_redshiftserverless_namespace" "test" {
-  admin_user_password_wo = "test"
+  admin_user_password_wo         = "test"
+  admin_user_password_wo_version = 1
 }
 `,
 		},
@@ -150,7 +159,8 @@ resource "aws_redshiftserverless_namespace" "test" {
 			Name: "everything is fine aws_redshiftserverless_namespace",
 			Content: `
 resource "aws_redshiftserverless_namespace" "test" {
-  admin_user_password_wo = "test"
+  admin_user_password_wo         = "test"
+  admin_user_password_wo_version = 1
 }
 `,
 			Expected: helper.Issues{},
@@ -170,7 +180,8 @@ resource "aws_secretsmanager_secret_version" "test" {
 			},
 			Fixed: `
 resource "aws_secretsmanager_secret_version" "test" {
-  secret_string_wo = "test"
+  secret_string_wo         = "test"
+  secret_string_wo_version = 1
 }
 `,
 		},
@@ -178,7 +189,8 @@ resource "aws_secretsmanager_secret_version" "test" {
 			Name: "everything is fine aws_secretsmanager_secret_version",
 			Content: `
 resource "aws_secretsmanager_secret_version" "test" {
-  secret_string_wo = "test"
+  secret_string_wo         = "test"
+  secret_string_wo_version = 1
 }
 `,
 			Expected: helper.Issues{},
@@ -198,7 +210,8 @@ resource "aws_ssm_parameter" "test" {
 			},
 			Fixed: `
 resource "aws_ssm_parameter" "test" {
-  value_wo = "test"
+  value_wo         = "test"
+  value_wo_version = 1
 }
 `,
 		},
@@ -206,7 +219,8 @@ resource "aws_ssm_parameter" "test" {
 			Name: "everything is fine aws_ssm_parameter",
 			Content: `
 resource "aws_ssm_parameter" "test" {
-  value_wo = "test"
+  value_wo         = "test"
+  value_wo_version = 1
 }
 `,
 			Expected: helper.Issues{},

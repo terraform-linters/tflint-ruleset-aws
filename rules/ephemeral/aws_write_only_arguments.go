@@ -19,8 +19,9 @@ type AwsWriteOnlyArgumentsRule struct {
 }
 
 type writeOnlyArgument struct {
-	originalAttribute    string
-	writeOnlyAlternative string
+	originalAttribute         string
+	writeOnlyAlternative      string
+	writeOnlyVersionAttribute string
 }
 
 // NewAwsWriteOnlyArgumentsRule returns new rule with default attributes
@@ -28,44 +29,51 @@ func NewAwsWriteOnlyArgumentsRule() *AwsWriteOnlyArgumentsRule {
 	writeOnlyArguments := map[string][]writeOnlyArgument{
 		"aws_db_instance": {
 			{
-				originalAttribute:    "password",
-				writeOnlyAlternative: "password_wo",
+				originalAttribute:         "password",
+				writeOnlyAlternative:      "password_wo",
+				writeOnlyVersionAttribute: "password_wo_version",
 			},
 		},
 		"aws_docdb_cluster": {
 			{
-				originalAttribute:    "master_password",
-				writeOnlyAlternative: "master_password_wo",
+				originalAttribute:         "master_password",
+				writeOnlyAlternative:      "master_password_wo",
+				writeOnlyVersionAttribute: "master_password_wo_version",
 			},
 		},
 		"aws_rds_cluster": {
 			{
-				originalAttribute:    "master_password",
-				writeOnlyAlternative: "master_password_wo",
+				originalAttribute:         "master_password",
+				writeOnlyAlternative:      "master_password_wo",
+				writeOnlyVersionAttribute: "master_password_wo_version",
 			},
 		},
 		"aws_redshift_cluster": {
 			{
-				originalAttribute:    "master_password",
-				writeOnlyAlternative: "master_password_wo",
+				originalAttribute:         "master_password",
+				writeOnlyAlternative:      "master_password_wo",
+				writeOnlyVersionAttribute: "master_password_wo_version",
 			},
 		},
 		"aws_redshiftserverless_namespace": {
 			{
-				originalAttribute:    "admin_user_password",
-				writeOnlyAlternative: "admin_user_password_wo",
+				originalAttribute:         "admin_user_password",
+				writeOnlyAlternative:      "admin_user_password_wo",
+				writeOnlyVersionAttribute: "admin_user_password_wo_version",
 			},
 		},
 		"aws_secretsmanager_secret_version": {
 			{
-				originalAttribute:    "secret_string",
-				writeOnlyAlternative: "secret_string_wo",
+				originalAttribute:         "secret_string",
+				writeOnlyAlternative:      "secret_string_wo",
+				writeOnlyVersionAttribute: "secret_string_wo_version",
 			},
 		},
 		"aws_ssm_parameter": {
 			{
-				originalAttribute:    "value",
-				writeOnlyAlternative: "value_wo",
+				originalAttribute:         "value",
+				writeOnlyAlternative:      "value_wo",
+				writeOnlyVersionAttribute: "value_wo_version",
 			},
 		},
 	}
@@ -120,7 +128,11 @@ func (r *AwsWriteOnlyArgumentsRule) Check(runner tflint.Runner) error {
 							fmt.Sprintf("\"%s\" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only argument \"%s\".", resourceAttribute.originalAttribute, resourceAttribute.writeOnlyAlternative),
 							attribute.Expr.Range(),
 							func(f tflint.Fixer) error {
-								return f.ReplaceText(attribute.NameRange, resourceAttribute.writeOnlyAlternative)
+								err := f.ReplaceText(attribute.NameRange, resourceAttribute.writeOnlyAlternative)
+								if err != nil {
+									return err
+								}
+								return f.InsertTextAfter(attribute.Range, fmt.Sprintf("\n  %s = 1", resourceAttribute.writeOnlyVersionAttribute))
 							},
 						); err != nil {
 							return fmt.Errorf("failed to call EmitIssueWithFix(): %w", err)

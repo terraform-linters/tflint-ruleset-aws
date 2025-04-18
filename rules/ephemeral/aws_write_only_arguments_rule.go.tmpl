@@ -19,8 +19,9 @@ type AwsWriteOnlyArgumentsRule struct {
 }
 
 type writeOnlyArgument struct {
-	originalAttribute    string
-	writeOnlyAlternative string
+	originalAttribute         string
+	writeOnlyAlternative      string
+	writeOnlyVersionAttribute string
 }
 
 // NewAwsWriteOnlyArgumentsRule returns new rule with default attributes
@@ -29,8 +30,9 @@ func NewAwsWriteOnlyArgumentsRule() *AwsWriteOnlyArgumentsRule {
 		{{- range $name, $value := . }}
 		"{{ $name }}": { {{- range $kk, $writeOnly := $value }}
 			{
-				originalAttribute:    "{{ $writeOnly.OriginalAttribute }}",
-				writeOnlyAlternative: "{{ $writeOnly.WriteOnlyAlternative }}",
+				originalAttribute:         "{{ $writeOnly.OriginalAttribute }}",
+				writeOnlyAlternative:      "{{ $writeOnly.WriteOnlyAlternative }}",
+				writeOnlyVersionAttribute: "{{ $writeOnly.WriteOnlyVersionAttribute }}",
 			},
 		},
 		{{- end -}}{{- end }}
@@ -86,7 +88,11 @@ func (r *AwsWriteOnlyArgumentsRule) Check(runner tflint.Runner) error {
 							fmt.Sprintf("\"%s\" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only argument \"%s\".", resourceAttribute.originalAttribute, resourceAttribute.writeOnlyAlternative),
 							attribute.Expr.Range(),
 							func(f tflint.Fixer) error {
-								return f.ReplaceText(attribute.NameRange, resourceAttribute.writeOnlyAlternative)
+								err := f.ReplaceText(attribute.NameRange, resourceAttribute.writeOnlyAlternative)
+								if err != nil {
+									return err
+								}
+								return f.InsertTextAfter(attribute.Range, fmt.Sprintf("\n  %s = 1", resourceAttribute.writeOnlyVersionAttribute))
 							},
 						); err != nil {
 							return fmt.Errorf("failed to call EmitIssueWithFix(): %w", err)

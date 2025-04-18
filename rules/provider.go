@@ -44,6 +44,7 @@ var manualRules = []tflint.Rule{
 	NewAwsProviderMissingDefaultTagsRule(),
 	NewAwsSecurityGroupInlineRulesRule(),
 	NewAwsSecurityGroupRuleDeprecatedRule(),
+	NewAwsIAMRoleDeprecatedPolicyAttributesRule(),
 	ephemeral.NewAwsWriteOnlyArgumentsRule(),
 }
 

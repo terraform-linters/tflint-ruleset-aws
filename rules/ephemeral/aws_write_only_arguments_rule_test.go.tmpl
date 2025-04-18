@@ -32,7 +32,8 @@ resource "{{ $name }}" "test" {
 			},
 			Fixed: `
 resource "{{ $name }}" "test" {
-  {{ $writeOnly.WriteOnlyAlternative }} = "test"
+  {{ $writeOnly.WriteOnlyAlternative }}         = "test"
+  {{ $writeOnly.WriteOnlyVersionAttribute }} = 1
 }
 `,
 		},
@@ -40,7 +41,8 @@ resource "{{ $name }}" "test" {
 			Name: "everything is fine {{ $name }}",
 			Content: `
 resource "{{ $name }}" "test" {
-  {{ $writeOnly.WriteOnlyAlternative }} = "test"
+  {{ $writeOnly.WriteOnlyAlternative }}         = "test"
+  {{ $writeOnly.WriteOnlyVersionAttribute }} = 1
 }
 `,
 			Expected: helper.Issues{},

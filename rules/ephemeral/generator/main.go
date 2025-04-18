@@ -10,8 +10,9 @@ import (
 )
 
 type writeOnlyArgument struct {
-	OriginalAttribute    string
-	WriteOnlyAlternative string
+	OriginalAttribute         string
+	WriteOnlyAlternative      string
+	WriteOnlyVersionAttribute string
 }
 
 func main() {
@@ -38,10 +39,13 @@ func findReplaceableAttribute(arguments []string, resource *tfjson.Schema) []wri
 
 	for _, argument := range arguments {
 		// Check if the argument ends with "_wo" and if the original attribute without "_wo" suffix exists in the resource schema
-		if attribute := strings.TrimSuffix(argument, "_wo"); strings.HasSuffix(argument, "_wo") && resource.Block.Attributes[attribute] != nil {
+		attribute := strings.TrimSuffix(argument, "_wo")
+		versionAttribute := attribute + "_wo_version"
+		if strings.HasSuffix(argument, "_wo") && resource.Block.Attributes[attribute] != nil && resource.Block.Attributes[versionAttribute] != nil {
 			writeOnlyArguments = append(writeOnlyArguments, writeOnlyArgument{
-				OriginalAttribute:    attribute,
-				WriteOnlyAlternative: argument,
+				OriginalAttribute:         attribute,
+				WriteOnlyAlternative:      argument,
+				WriteOnlyVersionAttribute: versionAttribute,
 			})
 		}
 	}
