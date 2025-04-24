@@ -3,6 +3,7 @@ package rules
 import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/rules/api"
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/ephemeral"
 	"github.com/terraform-linters/tflint-ruleset-aws/rules/models"
 )
 
@@ -44,6 +45,7 @@ var manualRules = []tflint.Rule{
 	NewAwsSecurityGroupInlineRulesRule(),
 	NewAwsSecurityGroupRuleDeprecatedRule(),
 	NewAwsIAMRoleDeprecatedPolicyAttributesRule(),
+	ephemeral.NewAwsWriteOnlyArgumentsRule(),
 }
 
 // Rules is a list of all rules
