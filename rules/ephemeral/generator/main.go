@@ -1,5 +1,3 @@
-//go:build generators
-
 package main
 
 import (

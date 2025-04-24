@@ -3,6 +3,7 @@ package ephemeral
 import (
 	"testing"
 
+	"github.com/hashicorp/hcl/v2"
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
@@ -24,6 +25,11 @@ resource "aws_secretsmanager_secret_version" "test" {
 				{
 					Rule:    NewAwsWriteOnlyArgumentsRule(),
 					Message: `"secret_string" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only argument "secret_string_wo".`,
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 3, Column: 19},
+						End:      hcl.Pos{Line: 3, Column: 25},
+					},
 				},
 			},
 			Fixed: `
@@ -54,7 +60,7 @@ resource "aws_secretsmanager_secret_version" "test" {
 		if err := rule.Check(runner); err != nil {
 			t.Fatalf("Unexpected error occurred: %s", err)
 		}
-		helper.AssertIssuesWithoutRange(t, tc.Expected, runner.Issues)
+		helper.AssertIssues(t, tc.Expected, runner.Issues)
 
 		want := map[string]string{}
 		if tc.Fixed != "" {
