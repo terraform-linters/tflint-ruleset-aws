@@ -10,6 +10,9 @@ on:
   schedule:
     - cron: "0 0 * * *"
 
+permissions:
+  contents: read
+
 jobs:
   test:
     name: ${{ matrix.os }}
@@ -29,8 +32,3 @@ jobs:
       run: make test
     - name: Run build
       run: make build
-    - name: Upload Artifact
-      uses: actions/upload-artifact@master
-      with:
-        name: tflint-ruleset-aws-${{ matrix.os }}
-        path: tflint-ruleset-aws
