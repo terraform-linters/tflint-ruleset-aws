@@ -19,7 +19,7 @@ import (
 
 var token = os.Getenv("GITHUB_TOKEN")
 var versionRegexp = regexp.MustCompile(`^\d+\.\d+\.\d+$`)
-var goModRequireSDKRegexp = regexp.MustCompile(`github.com/terraform-linters/tflint-plugin-sdk v(.+)`)
+var goModRequireSDKRegexp = regexp.MustCompile(`github\.com/terraform-linters/tflint-plugin-sdk v(.+)`)
 
 func main() {
 	if err := os.Chdir("../../"); err != nil {
