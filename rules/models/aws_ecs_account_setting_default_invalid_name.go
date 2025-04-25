@@ -34,6 +34,7 @@ func NewAwsEcsAccountSettingDefaultInvalidNameRule() *AwsEcsAccountSettingDefaul
 			"tagResourceAuthorization",
 			"fargateTaskRetirementWaitPeriod",
 			"guardDutyActivate",
+			"defaultLogDriverMode",
 		},
 	}
 }

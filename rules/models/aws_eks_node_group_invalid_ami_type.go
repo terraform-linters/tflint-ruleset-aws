@@ -43,6 +43,7 @@ func NewAwsEksNodeGroupInvalidAMITypeRule() *AwsEksNodeGroupInvalidAMITypeRule {
 			"AL2023_ARM_64_STANDARD",
 			"AL2023_x86_64_NEURON",
 			"AL2023_x86_64_NVIDIA",
+			"AL2023_ARM_64_NVIDIA",
 		},
 	}
 }
