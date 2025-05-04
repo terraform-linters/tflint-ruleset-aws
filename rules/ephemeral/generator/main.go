@@ -1,6 +1,7 @@
 package main
 
 import (
+	"slices"
 	"strings"
 
 	tfjson "github.com/hashicorp/terraform-json"
@@ -25,8 +26,21 @@ func main() {
 		}
 	}
 
-	// Generate the write-only arguments variable to file
+	// Generate the write-only arguments variable
 	utils.GenerateFile("../../rules/ephemeral/write_only_arguments_gen.go", "../../rules/ephemeral/write_only_arguments_gen.go.tmpl", resourcesWithWriteOnly)
+
+	ephemeralResourcesAsDataAlternative := []string{}
+	// Iterate over all ephemeral resources in the AWS provider schema
+	for resourceName, _ := range awsProvider.EphemeralResourceSchemas {
+		if awsProvider.DataSourceSchemas[resourceName] != nil {
+			ephemeralResourcesAsDataAlternative = append(ephemeralResourcesAsDataAlternative, resourceName)
+		}
+	}
+
+	slices.Sort(ephemeralResourcesAsDataAlternative)
+
+	// Generate the ephemeral resources variable
+	utils.GenerateFile("../../rules/ephemeral/ephemeral_resources_gen.go", "../../rules/ephemeral/ephemeral_resources_gen.go.tmpl", ephemeralResourcesAsDataAlternative)
 }
 
 func findReplaceableAttribute(arguments []string, resource *tfjson.Schema) []writeOnlyArgument {
