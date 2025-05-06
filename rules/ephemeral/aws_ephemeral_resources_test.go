@@ -31,10 +31,6 @@ data "aws_eks_cluster_auth" "test" {
 					},
 				},
 			},
-			Fixed: `
-ephemeral "aws_eks_cluster_auth" "test" {
-}
-`,
 		},
 	}
 
@@ -48,11 +44,5 @@ ephemeral "aws_eks_cluster_auth" "test" {
 			t.Fatalf("Unexpected error occurred: %s", err)
 		}
 		helper.AssertIssues(t, tc.Expected, runner.Issues)
-
-		want := map[string]string{}
-		if tc.Fixed != "" {
-			want[filename] = tc.Fixed
-		}
-		helper.AssertChanges(t, want, runner.Changes())
 	}
 }

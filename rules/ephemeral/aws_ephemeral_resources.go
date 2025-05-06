@@ -51,15 +51,12 @@ func (r *AwsEphemeralResourcesRule) Check(runner tflint.Runner) error {
 		}
 
 		for _, resource := range resources.Blocks {
-			if err := runner.EmitIssueWithFix(
+			if err := runner.EmitIssue(
 				r,
 				fmt.Sprintf("\"%s\" is a non-ephemeral data source, which means that all (sensitive) attributes are stored in state. Please use ephemeral resource \"%s\" instead.", resourceType, resourceType),
 				resource.TypeRange,
-				func(f tflint.Fixer) error {
-					return f.ReplaceText(resource.TypeRange, "ephemeral")
-				},
 			); err != nil {
-				return fmt.Errorf("failed to call EmitIssueWithFix(): %w", err)
+				return fmt.Errorf("failed to call EmitIssue(): %w", err)
 			}
 		}
 	}
