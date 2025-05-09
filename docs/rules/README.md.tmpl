@@ -80,6 +80,15 @@ These rules enforce best practices and naming conventions:
 |[aws_security_group_rule_deprecated](aws_security_group_rule_deprecated.md)|Disallow using `aws_security_group_rule` resource||
 |[aws_provider_missing_default_tags](aws_provider_missing_default_tags.md)|Require specific tags for all AWS providers default tags||
 
+### Removing secrets from state
+
+These rules recommend best practices to keep sensitive information from state:
+
+|Rule|Description|Enabled by default|
+| --- | --- | --- |
+|[aws_ephemeral_resources](aws_ephemeral_resources.md)|Recommends using available ephemeral resources instead of the original data source. This is only valid for Terraform v1.10+.||
+|[aws_write_only_arguments](aws_write_only_arguments.md)|Recommends using available write-only arguments instead of the original sensitive attribute. This is only valid for Terraform v1.11+.||
+
 ### SDK-based Validations
 
 700+ rules based on the aws-sdk validations are also available:
