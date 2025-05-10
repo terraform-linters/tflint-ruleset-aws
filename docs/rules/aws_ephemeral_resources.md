@@ -17,7 +17,7 @@ data "aws_secretsmanager_random_password" "test" {
 $ tflint
 1 issue(s) found:
 
-Warning: [Fixable] "aws_secretsmanager_random_password" is a non-ephemeral data source, which means that all (sensitive) attributes are stored in state. Please use ephemeral resource "aws_secretsmanager_random_password" instead. (aws_ephemeral_resources)
+Warning: "aws_secretsmanager_random_password" is a non-ephemeral data source, which means that all (sensitive) attributes are stored in state. Please use ephemeral resource "aws_secretsmanager_random_password" instead. (aws_ephemeral_resources)
 
   on test.tf line 2:
    2: data "aws_secretsmanager_random_password" "test"

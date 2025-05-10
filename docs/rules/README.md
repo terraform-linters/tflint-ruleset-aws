@@ -61,32 +61,25 @@ These rules enforce best practices and naming conventions:
 |Rule|Description|Enabled by default|
 | --- | --- | --- |
 |[aws_acm_certificate_lifecycle](aws_acm_certificate_lifecycle.md)|Disallow adding `aws_acm_certificate` resource without setting `create_before_destroy = true` in `lifecycle` block |✔|
-|[aws_db_instance_previous_type](aws_db_instance_previous_type.md)|Disallow using previous generation instance types|✔|
 |[aws_db_instance_default_parameter_group](aws_db_instance_default_parameter_group.md)|Disallow using default DB parameter group|✔|
-|[aws_elasticache_cluster_previous_type](aws_elasticache_cluster_previous_type.md)|Disallow using previous node types|✔|
+|[aws_db_instance_previous_type](aws_db_instance_previous_type.md)|Disallow using previous generation instance types|✔|
 |[aws_elasticache_cluster_default_parameter_group](aws_elasticache_cluster_default_parameter_group.md)|Disallow using default parameter group|✔|
-|[aws_elasticache_replication_group_previous_type](aws_elasticache_replication_group_previous_type.md)|Disallow using previous node types|✔|
+|[aws_elasticache_cluster_previous_type](aws_elasticache_cluster_previous_type.md)|Disallow using previous node types|✔|
 |[aws_elasticache_replication_group_default_parameter_group](aws_elasticache_replication_group_default_parameter_group.md)|Disallow using default parameter group|✔|
-|[aws_instance_previous_type](aws_instance_previous_type.md)|Disallow using previous generation instance types|✔|
+|[aws_elasticache_replication_group_previous_type](aws_elasticache_replication_group_previous_type.md)|Disallow using previous node types|✔|
+|[aws_ephemeral_resources](aws_ephemeral_resources.md)|Recommends using available ephemeral resources instead of the original data source. This is only valid for Terraform v1.10+.||
 |[aws_iam_policy_attachment_exclusive_attachment](aws_iam_policy_attachment_exclusive_attachment.md)|Consider alternative resources to `aws_iam_policy_attachment`||
 |[aws_iam_policy_document_gov_friendly_arns](aws_iam_policy_document_gov_friendly_arns.md)|Ensure `iam_policy_document` data sources do not contain `arn:aws:` ARN's||
 |[aws_iam_policy_gov_friendly_arns](aws_iam_policy_gov_friendly_arns.md)|Ensure `iam_policy` resources do not contain `arn:aws:` ARN's||
 |[aws_iam_role_deprecated_policy_attributes](aws_iam_role_deprecated_policy_attributes.md)|Disallow using deprecated policy attributes of `aws_iam_role`||
 |[aws_iam_role_policy_gov_friendly_arns](aws_iam_role_policy_gov_friendly_arns.md)|Ensure `iam_role_policy` resources do not contain `arn:aws:` ARN's||
+|[aws_instance_previous_type](aws_instance_previous_type.md)|Disallow using previous generation instance types|✔|
 |[aws_lambda_function_deprecated_runtime](aws_lambda_function_deprecated_runtime.md)|Disallow deprecated runtimes for Lambda Function|✔|
+|[aws_provider_missing_default_tags](aws_provider_missing_default_tags.md)|Require specific tags for all AWS providers default tags||
 |[aws_resource_missing_tags](aws_resource_missing_tags.md)|Require specific tags for all AWS resource types that support them||
 |[aws_s3_bucket_name](aws_s3_bucket_name.md)|Ensures all S3 bucket names match the naming rules|✔|
 |[aws_security_group_inline_rules](aws_security_group_inline_rules.md)|Disallow `ingress` and `egress` arguments of the `aws_security_group` resource||
 |[aws_security_group_rule_deprecated](aws_security_group_rule_deprecated.md)|Disallow using `aws_security_group_rule` resource||
-|[aws_provider_missing_default_tags](aws_provider_missing_default_tags.md)|Require specific tags for all AWS providers default tags||
-
-### Removing secrets from state
-
-These rules recommend best practices to keep sensitive information from state:
-
-|Rule|Description|Enabled by default|
-| --- | --- | --- |
-|[aws_ephemeral_resources](aws_ephemeral_resources.md)|Recommends using available ephemeral resources instead of the original data source. This is only valid for Terraform v1.10+.||
 |[aws_write_only_arguments](aws_write_only_arguments.md)|Recommends using available write-only arguments instead of the original sensitive attribute. This is only valid for Terraform v1.11+.||
 
 ### SDK-based Validations
