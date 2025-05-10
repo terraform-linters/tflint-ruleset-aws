@@ -29,7 +29,7 @@ func NewAwsSsoadminManagedPolicyAttachmentInvalidManagedPolicyArnRule() *AwsSsoa
 		attributeName: "managed_policy_arn",
 		max:           2048,
 		min:           20,
-		pattern:       regexp.MustCompile(`^arn:(aws|aws-us-gov|aws-cn|aws-iso|aws-iso-b):iam::aws:policy/[\p{L}\p{M}\p{Z}\p{S}\p{N}\p{P}]+$`),
+		pattern:       regexp.MustCompile(`^arn:(aws|aws-us-gov|aws-cn|aws-iso|aws-iso-b):iam::aws:policy((/[A-Za-z0-9\.,\+@=_-]+)*)/([A-Za-z0-9\.,\+=@_-]+)$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsSsoadminManagedPolicyAttachmentInvalidManagedPolicyArnRule) Check(ru
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:(aws|aws-us-gov|aws-cn|aws-iso|aws-iso-b):iam::aws:policy/[\p{L}\p{M}\p{Z}\p{S}\p{N}\p{P}]+$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:(aws|aws-us-gov|aws-cn|aws-iso|aws-iso-b):iam::aws:policy((/[A-Za-z0-9\.,\+@=_-]+)*)/([A-Za-z0-9\.,\+=@_-]+)$`),
 					attribute.Expr.Range(),
 				)
 			}

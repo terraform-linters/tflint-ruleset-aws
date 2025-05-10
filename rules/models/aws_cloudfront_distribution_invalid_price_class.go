@@ -28,6 +28,7 @@ func NewAwsCloudfrontDistributionInvalidPriceClassRule() *AwsCloudfrontDistribut
 			"PriceClass_100",
 			"PriceClass_200",
 			"PriceClass_All",
+			"None",
 		},
 	}
 }
