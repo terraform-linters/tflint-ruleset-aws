@@ -40,6 +40,8 @@ func NewAwsSsmDocumentInvalidDocumentTypeRule() *AwsSsmDocumentInvalidDocumentTy
 			"CloudFormation",
 			"ConformancePackTemplate",
 			"QuickSetup",
+			"ManualApprovalPolicy",
+			"AutoApprovalPolicy",
 		},
 	}
 }

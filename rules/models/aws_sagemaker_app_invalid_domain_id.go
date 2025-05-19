@@ -27,7 +27,7 @@ func NewAwsSagemakerAppInvalidDomainIDRule() *AwsSagemakerAppInvalidDomainIDRule
 		resourceType:  "aws_sagemaker_app",
 		attributeName: "domain_id",
 		max:           63,
-		pattern:       regexp.MustCompile(`^d-(-*[a-z0-9]){1,61}`),
+		pattern:       regexp.MustCompile(`^d-(-*[a-z0-9]){1,61}$`),
 	}
 }
 
@@ -81,7 +81,7 @@ func (r *AwsSagemakerAppInvalidDomainIDRule) Check(runner tflint.Runner) error {
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^d-(-*[a-z0-9]){1,61}`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^d-(-*[a-z0-9]){1,61}$`),
 					attribute.Expr.Range(),
 				)
 			}

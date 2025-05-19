@@ -29,7 +29,7 @@ func NewAwsSagemakerFlowDefinitionInvalidFlowDefinitionNameRule() *AwsSagemakerF
 		attributeName: "flow_definition_name",
 		max:           63,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[a-z0-9](-*[a-z0-9]){0,62}`),
+		pattern:       regexp.MustCompile(`^[a-z0-9](-*[a-z0-9]){0,62}$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsSagemakerFlowDefinitionInvalidFlowDefinitionNameRule) Check(runner t
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-z0-9](-*[a-z0-9]){0,62}`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-z0-9](-*[a-z0-9]){0,62}$`),
 					attribute.Expr.Range(),
 				)
 			}
