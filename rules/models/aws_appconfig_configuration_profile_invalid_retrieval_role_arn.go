@@ -29,7 +29,7 @@ func NewAwsAppconfigConfigurationProfileInvalidRetrievalRoleArnRule() *AwsAppcon
 		attributeName: "retrieval_role_arn",
 		max:           2048,
 		min:           20,
-		pattern:       regexp.MustCompile(`^((arn):(aws|aws-cn|aws-iso|aws-iso-[a-z]{1}|aws-us-gov):(iam)::\d{12}:role[/].*)$`),
+		pattern:       regexp.MustCompile(`^((arn):(aws|aws-cn|aws-iso|aws-iso-[a-z]{1}|aws-us-gov|aws-eusc):(iam)::\d{12}:role[/].*)$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsAppconfigConfigurationProfileInvalidRetrievalRoleArnRule) Check(runn
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^((arn):(aws|aws-cn|aws-iso|aws-iso-[a-z]{1}|aws-us-gov):(iam)::\d{12}:role[/].*)$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^((arn):(aws|aws-cn|aws-iso|aws-iso-[a-z]{1}|aws-us-gov|aws-eusc):(iam)::\d{12}:role[/].*)$`),
 					attribute.Expr.Range(),
 				)
 			}
