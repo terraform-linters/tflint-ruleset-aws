@@ -19,7 +19,7 @@ You can install the plugin by adding a config to `.tflint.hcl` and running `tfli
 ```hcl
 plugin "aws" {
     enabled = true
-    version = "0.39.0"
+    version = "0.40.0"
     source  = "github.com/terraform-linters/tflint-ruleset-aws"
 }
 ```
