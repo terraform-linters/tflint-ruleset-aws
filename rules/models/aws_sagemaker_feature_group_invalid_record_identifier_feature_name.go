@@ -29,7 +29,7 @@ func NewAwsSagemakerFeatureGroupInvalidRecordIdentifierFeatureNameRule() *AwsSag
 		attributeName: "record_identifier_feature_name",
 		max:           64,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[a-zA-Z0-9]([-_]*[a-zA-Z0-9]){0,63}`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z0-9]([-_]*[a-zA-Z0-9]){0,63}$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsSagemakerFeatureGroupInvalidRecordIdentifierFeatureNameRule) Check(r
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9]([-_]*[a-zA-Z0-9]){0,63}`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9]([-_]*[a-zA-Z0-9]){0,63}$`),
 					attribute.Expr.Range(),
 				)
 			}
