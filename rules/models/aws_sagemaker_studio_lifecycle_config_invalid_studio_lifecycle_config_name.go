@@ -27,7 +27,7 @@ func NewAwsSagemakerStudioLifecycleConfigInvalidStudioLifecycleConfigNameRule() 
 		resourceType:  "aws_sagemaker_studio_lifecycle_config",
 		attributeName: "studio_lifecycle_config_name",
 		max:           63,
-		pattern:       regexp.MustCompile(`^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}$`),
 	}
 }
 
@@ -81,7 +81,7 @@ func (r *AwsSagemakerStudioLifecycleConfigInvalidStudioLifecycleConfigNameRule) 
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}$`),
 					attribute.Expr.Range(),
 				)
 			}

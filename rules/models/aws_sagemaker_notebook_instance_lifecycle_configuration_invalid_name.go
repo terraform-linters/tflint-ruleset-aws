@@ -27,7 +27,7 @@ func NewAwsSagemakerNotebookInstanceLifecycleConfigurationInvalidNameRule() *Aws
 		resourceType:  "aws_sagemaker_notebook_instance_lifecycle_configuration",
 		attributeName: "name",
 		max:           63,
-		pattern:       regexp.MustCompile(`^[a-zA-Z0-9](-*[a-zA-Z0-9])*`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z0-9](-*[a-zA-Z0-9])*$`),
 	}
 }
 
@@ -81,7 +81,7 @@ func (r *AwsSagemakerNotebookInstanceLifecycleConfigurationInvalidNameRule) Chec
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9](-*[a-zA-Z0-9])*`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9](-*[a-zA-Z0-9])*$`),
 					attribute.Expr.Range(),
 				)
 			}

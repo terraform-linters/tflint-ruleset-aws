@@ -27,7 +27,7 @@ func NewAwsSagemakerDomainInvalidDomainNameRule() *AwsSagemakerDomainInvalidDoma
 		resourceType:  "aws_sagemaker_domain",
 		attributeName: "domain_name",
 		max:           63,
-		pattern:       regexp.MustCompile(`^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}$`),
 	}
 }
 
@@ -81,7 +81,7 @@ func (r *AwsSagemakerDomainInvalidDomainNameRule) Check(runner tflint.Runner) er
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}$`),
 					attribute.Expr.Range(),
 				)
 			}
