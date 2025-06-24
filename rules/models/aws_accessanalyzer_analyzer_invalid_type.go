@@ -29,6 +29,8 @@ func NewAwsAccessanalyzerAnalyzerInvalidTypeRule() *AwsAccessanalyzerAnalyzerInv
 			"ORGANIZATION",
 			"ACCOUNT_UNUSED_ACCESS",
 			"ORGANIZATION_UNUSED_ACCESS",
+			"ACCOUNT_INTERNAL_ACCESS",
+			"ORGANIZATION_INTERNAL_ACCESS",
 		},
 	}
 }
@@ -72,7 +74,7 @@ func (r *AwsAccessanalyzerAnalyzerInvalidTypeRule) Check(runner tflint.Runner) e
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			found := false
 			for _, item := range r.enum {
 				if item == val {
