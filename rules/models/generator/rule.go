@@ -117,6 +117,11 @@ func replacePattern(pattern string) string {
 	reg := regexp.MustCompile(`\\u([0-9A-F]{4})`)
 	replaced := reg.ReplaceAllString(pattern, `\x{$1}`)
 
+	// Handle incomplete patterns like "^(?s)" which should be "^(?s).*$"
+	if replaced == "^(?s)" {
+		return "^(?s).*$"
+	}
+
 	if !strings.HasPrefix(replaced, "^") && !strings.HasSuffix(replaced, "$") {
 		return fmt.Sprintf("^%s$", replaced)
 	}
