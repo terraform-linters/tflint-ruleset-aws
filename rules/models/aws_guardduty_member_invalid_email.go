@@ -3,9 +3,6 @@
 package models
 
 import (
-	"fmt"
-	"regexp"
-
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -19,7 +16,6 @@ type AwsGuarddutyMemberInvalidEmailRule struct {
 	attributeName string
 	max           int
 	min           int
-	pattern       *regexp.Regexp
 }
 
 // NewAwsGuarddutyMemberInvalidEmailRule returns new rule with default attributes
@@ -29,7 +25,6 @@ func NewAwsGuarddutyMemberInvalidEmailRule() *AwsGuarddutyMemberInvalidEmailRule
 		attributeName: "email",
 		max:           64,
 		min:           6,
-		pattern:       regexp.MustCompile(`^See rules in parameter description$`),
 	}
 }
 
@@ -84,13 +79,6 @@ func (r *AwsGuarddutyMemberInvalidEmailRule) Check(runner tflint.Runner) error {
 				runner.EmitIssue(
 					r,
 					"email must be 6 characters or higher",
-					attribute.Expr.Range(),
-				)
-			}
-			if !r.pattern.MatchString(val) {
-				runner.EmitIssue(
-					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^See rules in parameter description$`),
 					attribute.Expr.Range(),
 				)
 			}

@@ -114,6 +114,12 @@ func replacePattern(pattern string) string {
 	if pattern == "" {
 		return pattern
 	}
+	
+	// Handle placeholder patterns that shouldn't be used as regex
+	if pattern == "^See rules in parameter description$" {
+		return ""
+	}
+	
 	reg := regexp.MustCompile(`\\u([0-9A-F]{4})`)
 	replaced := reg.ReplaceAllString(pattern, `\x{$1}`)
 
@@ -123,6 +129,10 @@ func replacePattern(pattern string) string {
 	}
 
 	if !strings.HasPrefix(replaced, "^") && !strings.HasSuffix(replaced, "$") {
+		// Handle single character classes that should match one or more characters
+		if replaced == "\\S" {
+			return "^\\S+$"
+		}
 		return fmt.Sprintf("^%s$", replaced)
 	}
 	return replaced
