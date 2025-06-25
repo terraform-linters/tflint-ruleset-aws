@@ -131,7 +131,8 @@ func replacePattern(pattern string) string {
 	if !strings.HasPrefix(replaced, "^") && !strings.HasSuffix(replaced, "$") {
 		// Handle single character classes that should match one or more characters
 		if replaced == "\\S" {
-			return "^\\S+$"
+			// Use Ruby SDK compatible format for minimal diff
+			return "^.*\\S.*$"
 		}
 		return fmt.Sprintf("^%s$", replaced)
 	}
