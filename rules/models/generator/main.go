@@ -232,8 +232,16 @@ func convertSmithyShape(smithyShape map[string]interface{}) map[string]interface
 	// Handle enum type shapes (where type is "enum")
 	if shapeType, ok := smithyShape["type"].(string); ok && shapeType == "enum" {
 		if members, ok := smithyShape["members"].(map[string]interface{}); ok {
+			// Sort member names to ensure deterministic order
+			memberNames := make([]string, 0, len(members))
+			for memberName := range members {
+				memberNames = append(memberNames, memberName)
+			}
+			sort.Strings(memberNames)
+			
 			enumValues := make([]string, 0, len(members))
-			for memberName, memberData := range members {
+			for _, memberName := range memberNames {
+				memberData := members[memberName]
 				// Extract enumValue from traits, fallback to memberName if not present
 				enumValue := memberName
 				if memberMap, ok := memberData.(map[string]interface{}); ok {

@@ -25,11 +25,11 @@ func NewAwsAPIGatewayIntegrationInvalidTypeRule() *AwsAPIGatewayIntegrationInval
 		resourceType:  "aws_api_gateway_integration",
 		attributeName: "type",
 		enum: []string{
-			"HTTP",
 			"AWS",
-			"MOCK",
-			"HTTP_PROXY",
 			"AWS_PROXY",
+			"HTTP",
+			"HTTP_PROXY",
+			"MOCK",
 		},
 	}
 }

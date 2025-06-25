@@ -25,11 +25,11 @@ func NewAwsCodestarconnectionsHostInvalidProviderTypeRule() *AwsCodestarconnecti
 		resourceType:  "aws_codestarconnections_host",
 		attributeName: "provider_type",
 		enum: []string{
-			"GitLabSelfManaged",
 			"Bitbucket",
 			"GitHub",
 			"GitHubEnterpriseServer",
 			"GitLab",
+			"GitLabSelfManaged",
 		},
 	}
 }

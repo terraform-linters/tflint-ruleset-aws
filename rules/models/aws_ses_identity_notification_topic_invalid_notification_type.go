@@ -25,9 +25,9 @@ func NewAwsSesIdentityNotificationTopicInvalidNotificationTypeRule() *AwsSesIden
 		resourceType:  "aws_ses_identity_notification_topic",
 		attributeName: "notification_type",
 		enum: []string{
+			"Bounce",
 			"Complaint",
 			"Delivery",
-			"Bounce",
 		},
 	}
 }

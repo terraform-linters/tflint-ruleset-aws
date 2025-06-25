@@ -25,12 +25,12 @@ func NewAwsShieldProtectionGroupInvalidResourceTypeRule() *AwsShieldProtectionGr
 		resourceType:  "aws_shield_protection_group",
 		attributeName: "resource_type",
 		enum: []string{
-			"CLOUDFRONT_DISTRIBUTION",
-			"ROUTE_53_HOSTED_ZONE",
-			"ELASTIC_IP_ALLOCATION",
-			"CLASSIC_LOAD_BALANCER",
 			"APPLICATION_LOAD_BALANCER",
+			"CLASSIC_LOAD_BALANCER",
+			"CLOUDFRONT_DISTRIBUTION",
+			"ELASTIC_IP_ALLOCATION",
 			"GLOBAL_ACCELERATOR",
+			"ROUTE_53_HOSTED_ZONE",
 		},
 	}
 }

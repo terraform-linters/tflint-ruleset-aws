@@ -25,10 +25,10 @@ func NewAwsGlueTriggerInvalidTypeRule() *AwsGlueTriggerInvalidTypeRule {
 		resourceType:  "aws_glue_trigger",
 		attributeName: "type",
 		enum: []string{
-			"EVENT",
-			"SCHEDULED",
 			"CONDITIONAL",
+			"EVENT",
 			"ON_DEMAND",
+			"SCHEDULED",
 		},
 	}
 }

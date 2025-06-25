@@ -25,8 +25,8 @@ func NewAwsS3BucketInventoryInvalidIncludedObjectVersionsRule() *AwsS3BucketInve
 		resourceType:  "aws_s3_bucket_inventory",
 		attributeName: "included_object_versions",
 		enum: []string{
-			"Current",
 			"All",
+			"Current",
 		},
 	}
 }

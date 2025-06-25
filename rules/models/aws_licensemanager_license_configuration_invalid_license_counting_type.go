@@ -26,9 +26,9 @@ func NewAwsLicensemanagerLicenseConfigurationInvalidLicenseCountingTypeRule() *A
 		attributeName: "license_counting_type",
 		enum: []string{
 			"Core",
+			"Instance",
 			"Socket",
 			"vCPU",
-			"Instance",
 		},
 	}
 }

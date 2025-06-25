@@ -25,8 +25,8 @@ func NewAwsApigatewayv2IntegrationInvalidConnectionTypeRule() *AwsApigatewayv2In
 		resourceType:  "aws_apigatewayv2_integration",
 		attributeName: "connection_type",
 		enum: []string{
-			"VPC_LINK",
 			"INTERNET",
+			"VPC_LINK",
 		},
 	}
 }

@@ -25,8 +25,8 @@ func NewAwsS3ObjectCopyInvalidObjectLockModeRule() *AwsS3ObjectCopyInvalidObject
 		resourceType:  "aws_s3_object_copy",
 		attributeName: "object_lock_mode",
 		enum: []string{
-			"GOVERNANCE",
 			"COMPLIANCE",
+			"GOVERNANCE",
 		},
 	}
 }

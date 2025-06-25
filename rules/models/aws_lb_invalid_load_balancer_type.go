@@ -25,8 +25,8 @@ func NewAwsLbInvalidLoadBalancerTypeRule() *AwsLbInvalidLoadBalancerTypeRule {
 		resourceType:  "aws_lb",
 		attributeName: "load_balancer_type",
 		enum: []string{
-			"gateway",
 			"application",
+			"gateway",
 			"network",
 		},
 	}

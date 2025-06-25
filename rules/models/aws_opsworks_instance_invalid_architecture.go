@@ -25,8 +25,8 @@ func NewAwsOpsworksInstanceInvalidArchitectureRule() *AwsOpsworksInstanceInvalid
 		resourceType:  "aws_opsworks_instance",
 		attributeName: "architecture",
 		enum: []string{
-			"x86_64",
 			"i386",
+			"x86_64",
 		},
 	}
 }

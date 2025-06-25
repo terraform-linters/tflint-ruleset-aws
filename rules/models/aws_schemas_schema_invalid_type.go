@@ -25,8 +25,8 @@ func NewAwsSchemasSchemaInvalidTypeRule() *AwsSchemasSchemaInvalidTypeRule {
 		resourceType:  "aws_schemas_schema",
 		attributeName: "type",
 		enum: []string{
-			"OpenApi3",
 			"JSONSchemaDraft4",
+			"OpenApi3",
 		},
 	}
 }

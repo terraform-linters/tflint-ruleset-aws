@@ -26,8 +26,8 @@ func NewAwsCodedeployDeploymentConfigInvalidComputePlatformRule() *AwsCodedeploy
 		attributeName: "compute_platform",
 		enum: []string{
 			"ECS",
-			"Server",
 			"Lambda",
+			"Server",
 		},
 	}
 }

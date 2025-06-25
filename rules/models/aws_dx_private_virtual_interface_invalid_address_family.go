@@ -25,8 +25,8 @@ func NewAwsDxPrivateVirtualInterfaceInvalidAddressFamilyRule() *AwsDxPrivateVirt
 		resourceType:  "aws_dx_private_virtual_interface",
 		attributeName: "address_family",
 		enum: []string{
-			"ipv6",
 			"ipv4",
+			"ipv6",
 		},
 	}
 }

@@ -25,14 +25,14 @@ func NewAwsGlueSchemaInvalidCompatibilityRule() *AwsGlueSchemaInvalidCompatibili
 		resourceType:  "aws_glue_schema",
 		attributeName: "compatibility",
 		enum: []string{
+			"BACKWARD",
+			"BACKWARD_ALL",
+			"DISABLED",
+			"FORWARD",
+			"FORWARD_ALL",
 			"FULL",
 			"FULL_ALL",
 			"NONE",
-			"DISABLED",
-			"BACKWARD",
-			"BACKWARD_ALL",
-			"FORWARD",
-			"FORWARD_ALL",
 		},
 	}
 }

@@ -25,11 +25,11 @@ func NewAwsConfigConfigRuleInvalidMaximumExecutionFrequencyRule() *AwsConfigConf
 		resourceType:  "aws_config_config_rule",
 		attributeName: "maximum_execution_frequency",
 		enum: []string{
-			"Three_Hours",
+			"One_Hour",
 			"Six_Hours",
+			"Three_Hours",
 			"Twelve_Hours",
 			"TwentyFour_Hours",
-			"One_Hour",
 		},
 	}
 }

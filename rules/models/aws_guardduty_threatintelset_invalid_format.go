@@ -29,12 +29,12 @@ func NewAwsGuarddutyThreatintelsetInvalidFormatRule() *AwsGuarddutyThreatintelse
 		max:           300,
 		min:           1,
 		enum: []string{
-			"FIRE_EYE",
-			"TXT",
-			"STIX",
-			"OTX_CSV",
 			"ALIEN_VAULT",
+			"FIRE_EYE",
+			"OTX_CSV",
 			"PROOF_POINT",
+			"STIX",
+			"TXT",
 		},
 	}
 }

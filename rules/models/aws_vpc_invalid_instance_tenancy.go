@@ -25,8 +25,8 @@ func NewAwsVpcInvalidInstanceTenancyRule() *AwsVpcInvalidInstanceTenancyRule {
 		resourceType:  "aws_vpc",
 		attributeName: "instance_tenancy",
 		enum: []string{
-			"default",
 			"dedicated",
+			"default",
 			"host",
 		},
 	}

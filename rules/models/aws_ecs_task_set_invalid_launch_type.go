@@ -25,9 +25,9 @@ func NewAwsEcsTaskSetInvalidLaunchTypeRule() *AwsEcsTaskSetInvalidLaunchTypeRule
 		resourceType:  "aws_ecs_task_set",
 		attributeName: "launch_type",
 		enum: []string{
-			"FARGATE",
-			"EXTERNAL",
 			"EC2",
+			"EXTERNAL",
+			"FARGATE",
 		},
 	}
 }

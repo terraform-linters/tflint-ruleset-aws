@@ -26,10 +26,10 @@ func NewAwsApigatewayv2IntegrationInvalidIntegrationTypeRule() *AwsApigatewayv2I
 		attributeName: "integration_type",
 		enum: []string{
 			"AWS",
-			"HTTP",
-			"MOCK",
-			"HTTP_PROXY",
 			"AWS_PROXY",
+			"HTTP",
+			"HTTP_PROXY",
+			"MOCK",
 		},
 	}
 }

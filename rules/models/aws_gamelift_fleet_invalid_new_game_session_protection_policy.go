@@ -25,8 +25,8 @@ func NewAwsGameliftFleetInvalidNewGameSessionProtectionPolicyRule() *AwsGamelift
 		resourceType:  "aws_gamelift_fleet",
 		attributeName: "new_game_session_protection_policy",
 		enum: []string{
-			"NoProtection",
 			"FullProtection",
+			"NoProtection",
 		},
 	}
 }

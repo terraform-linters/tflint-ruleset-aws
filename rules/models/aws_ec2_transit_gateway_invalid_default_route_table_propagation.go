@@ -25,8 +25,8 @@ func NewAwsEc2TransitGatewayInvalidDefaultRouteTablePropagationRule() *AwsEc2Tra
 		resourceType:  "aws_ec2_transit_gateway",
 		attributeName: "default_route_table_propagation",
 		enum: []string{
-			"enable",
 			"disable",
+			"enable",
 		},
 	}
 }

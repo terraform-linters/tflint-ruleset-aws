@@ -25,8 +25,8 @@ func NewAwsEc2TransitGatewayInvalidDNSSupportRule() *AwsEc2TransitGatewayInvalid
 		resourceType:  "aws_ec2_transit_gateway",
 		attributeName: "dns_support",
 		enum: []string{
-			"enable",
 			"disable",
+			"enable",
 		},
 	}
 }

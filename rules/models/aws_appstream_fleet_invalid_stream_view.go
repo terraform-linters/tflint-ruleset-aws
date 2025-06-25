@@ -25,8 +25,8 @@ func NewAwsAppstreamFleetInvalidStreamViewRule() *AwsAppstreamFleetInvalidStream
 		resourceType:  "aws_appstream_fleet",
 		attributeName: "stream_view",
 		enum: []string{
-			"DESKTOP",
 			"APP",
+			"DESKTOP",
 		},
 	}
 }

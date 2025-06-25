@@ -25,8 +25,8 @@ func NewAwsRoute53ResolverFirewallRuleGroupAssociationInvalidMutationProtectionR
 		resourceType:  "aws_route53_resolver_firewall_rule_group_association",
 		attributeName: "mutation_protection",
 		enum: []string{
-			"ENABLED",
 			"DISABLED",
+			"ENABLED",
 		},
 	}
 }

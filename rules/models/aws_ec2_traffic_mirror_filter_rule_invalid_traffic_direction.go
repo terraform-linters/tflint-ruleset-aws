@@ -25,8 +25,8 @@ func NewAwsEc2TrafficMirrorFilterRuleInvalidTrafficDirectionRule() *AwsEc2Traffi
 		resourceType:  "aws_ec2_traffic_mirror_filter_rule",
 		attributeName: "traffic_direction",
 		enum: []string{
-			"ingress",
 			"egress",
+			"ingress",
 		},
 	}
 }

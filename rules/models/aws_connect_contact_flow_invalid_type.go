@@ -26,15 +26,15 @@ func NewAwsConnectContactFlowInvalidTypeRule() *AwsConnectContactFlowInvalidType
 		attributeName: "type",
 		enum: []string{
 			"AGENT_HOLD",
-			"AGENT_WHISPER",
-			"CONTACT_FLOW",
-			"CUSTOMER_QUEUE",
-			"OUTBOUND_WHISPER",
 			"AGENT_TRANSFER",
-			"QUEUE_TRANSFER",
+			"AGENT_WHISPER",
 			"CAMPAIGN",
+			"CONTACT_FLOW",
 			"CUSTOMER_HOLD",
+			"CUSTOMER_QUEUE",
 			"CUSTOMER_WHISPER",
+			"OUTBOUND_WHISPER",
+			"QUEUE_TRANSFER",
 		},
 	}
 }

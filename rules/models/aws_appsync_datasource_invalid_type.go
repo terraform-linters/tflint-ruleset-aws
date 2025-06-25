@@ -25,15 +25,15 @@ func NewAwsAppsyncDatasourceInvalidTypeRule() *AwsAppsyncDatasourceInvalidTypeRu
 		resourceType:  "aws_appsync_datasource",
 		attributeName: "type",
 		enum: []string{
-			"RELATIONAL_DATABASE",
-			"AMAZON_OPENSEARCH_SERVICE",
 			"AMAZON_BEDROCK_RUNTIME",
-			"AWS_LAMBDA",
 			"AMAZON_DYNAMODB",
-			"HTTP",
-			"AMAZON_EVENTBRIDGE",
 			"AMAZON_ELASTICSEARCH",
+			"AMAZON_EVENTBRIDGE",
+			"AMAZON_OPENSEARCH_SERVICE",
+			"AWS_LAMBDA",
+			"HTTP",
 			"NONE",
+			"RELATIONAL_DATABASE",
 		},
 	}
 }

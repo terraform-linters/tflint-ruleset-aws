@@ -25,8 +25,8 @@ func NewAwsDBProxyEndpointInvalidTargetRoleRule() *AwsDBProxyEndpointInvalidTarg
 		resourceType:  "aws_db_proxy_endpoint",
 		attributeName: "target_role",
 		enum: []string{
-			"READ_WRITE",
 			"READ_ONLY",
+			"READ_WRITE",
 		},
 	}
 }

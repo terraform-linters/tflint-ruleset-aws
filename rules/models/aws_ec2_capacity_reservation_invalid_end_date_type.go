@@ -25,8 +25,8 @@ func NewAwsEc2CapacityReservationInvalidEndDateTypeRule() *AwsEc2CapacityReserva
 		resourceType:  "aws_ec2_capacity_reservation",
 		attributeName: "end_date_type",
 		enum: []string{
-			"unlimited",
 			"limited",
+			"unlimited",
 		},
 	}
 }

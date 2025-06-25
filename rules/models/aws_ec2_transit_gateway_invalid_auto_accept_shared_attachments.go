@@ -25,8 +25,8 @@ func NewAwsEc2TransitGatewayInvalidAutoAcceptSharedAttachmentsRule() *AwsEc2Tran
 		resourceType:  "aws_ec2_transit_gateway",
 		attributeName: "auto_accept_shared_attachments",
 		enum: []string{
-			"enable",
 			"disable",
+			"enable",
 		},
 	}
 }

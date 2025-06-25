@@ -25,8 +25,8 @@ func NewAwsS3ObjectCopyInvalidObjectLockLegalHoldStatusRule() *AwsS3ObjectCopyIn
 		resourceType:  "aws_s3_object_copy",
 		attributeName: "object_lock_legal_hold_status",
 		enum: []string{
-			"ON",
 			"OFF",
+			"ON",
 		},
 	}
 }

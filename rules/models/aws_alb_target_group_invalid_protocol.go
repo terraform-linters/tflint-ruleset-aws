@@ -25,11 +25,11 @@ func NewAwsALBTargetGroupInvalidProtocolRule() *AwsALBTargetGroupInvalidProtocol
 		resourceType:  "aws_alb_target_group",
 		attributeName: "protocol",
 		enum: []string{
-			"TCP_UDP",
 			"GENEVE",
 			"HTTP",
 			"HTTPS",
 			"TCP",
+			"TCP_UDP",
 			"TLS",
 			"UDP",
 		},

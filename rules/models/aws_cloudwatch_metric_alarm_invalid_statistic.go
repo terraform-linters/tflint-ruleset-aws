@@ -25,11 +25,11 @@ func NewAwsCloudwatchMetricAlarmInvalidStatisticRule() *AwsCloudwatchMetricAlarm
 		resourceType:  "aws_cloudwatch_metric_alarm",
 		attributeName: "statistic",
 		enum: []string{
-			"SampleCount",
 			"Average",
-			"Sum",
-			"Minimum",
 			"Maximum",
+			"Minimum",
+			"SampleCount",
+			"Sum",
 		},
 	}
 }

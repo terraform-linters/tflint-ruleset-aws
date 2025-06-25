@@ -25,8 +25,8 @@ func NewAwsEc2AvailabilityZoneGroupInvalidOptInStatusRule() *AwsEc2AvailabilityZ
 		resourceType:  "aws_ec2_availability_zone_group",
 		attributeName: "opt_in_status",
 		enum: []string{
-			"opted-in",
 			"not-opted-in",
+			"opted-in",
 		},
 	}
 }

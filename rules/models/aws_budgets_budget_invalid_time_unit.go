@@ -25,10 +25,10 @@ func NewAwsBudgetsBudgetInvalidTimeUnitRule() *AwsBudgetsBudgetInvalidTimeUnitRu
 		resourceType:  "aws_budgets_budget",
 		attributeName: "time_unit",
 		enum: []string{
+			"ANNUALLY",
 			"DAILY",
 			"MONTHLY",
 			"QUARTERLY",
-			"ANNUALLY",
 		},
 	}
 }

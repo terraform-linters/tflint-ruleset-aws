@@ -25,8 +25,8 @@ func NewAwsOrganizationsAccountInvalidIAMUserAccessToBillingRule() *AwsOrganizat
 		resourceType:  "aws_organizations_account",
 		attributeName: "iam_user_access_to_billing",
 		enum: []string{
-			"DENY",
 			"ALLOW",
+			"DENY",
 		},
 	}
 }

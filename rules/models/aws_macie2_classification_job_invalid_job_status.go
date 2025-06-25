@@ -25,12 +25,12 @@ func NewAwsMacie2ClassificationJobInvalidJobStatusRule() *AwsMacie2Classificatio
 		resourceType:  "aws_macie2_classification_job",
 		attributeName: "job_status",
 		enum: []string{
-			"IDLE",
-			"USER_PAUSED",
-			"RUNNING",
-			"PAUSED",
 			"CANCELLED",
 			"COMPLETE",
+			"IDLE",
+			"PAUSED",
+			"RUNNING",
+			"USER_PAUSED",
 		},
 	}
 }

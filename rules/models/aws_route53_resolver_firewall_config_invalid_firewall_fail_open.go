@@ -25,8 +25,8 @@ func NewAwsRoute53ResolverFirewallConfigInvalidFirewallFailOpenRule() *AwsRoute5
 		resourceType:  "aws_route53_resolver_firewall_config",
 		attributeName: "firewall_fail_open",
 		enum: []string{
-			"ENABLED",
 			"DISABLED",
+			"ENABLED",
 			"USE_LOCAL_RESOURCE_SETTING",
 		},
 	}

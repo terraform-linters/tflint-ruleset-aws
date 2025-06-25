@@ -25,10 +25,10 @@ func NewAwsCloudfrontDistributionInvalidPriceClassRule() *AwsCloudfrontDistribut
 		resourceType:  "aws_cloudfront_distribution",
 		attributeName: "price_class",
 		enum: []string{
+			"None",
 			"PriceClass_100",
 			"PriceClass_200",
 			"PriceClass_All",
-			"None",
 		},
 	}
 }

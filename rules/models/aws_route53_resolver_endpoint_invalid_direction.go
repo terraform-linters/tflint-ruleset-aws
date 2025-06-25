@@ -25,8 +25,8 @@ func NewAwsRoute53ResolverEndpointInvalidDirectionRule() *AwsRoute53ResolverEndp
 		resourceType:  "aws_route53_resolver_endpoint",
 		attributeName: "direction",
 		enum: []string{
-			"INBOUND_DELEGATION",
 			"INBOUND",
+			"INBOUND_DELEGATION",
 			"OUTBOUND",
 		},
 	}

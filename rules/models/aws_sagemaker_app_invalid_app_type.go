@@ -25,15 +25,15 @@ func NewAwsSagemakerAppInvalidAppTypeRule() *AwsSagemakerAppInvalidAppTypeRule {
 		resourceType:  "aws_sagemaker_app",
 		attributeName: "app_type",
 		enum: []string{
-			"KernelGateway",
-			"CodeEditor",
-			"RStudioServerPro",
-			"JupyterServer",
-			"DetailedProfiler",
-			"TensorBoard",
-			"JupyterLab",
-			"RSessionGateway",
 			"Canvas",
+			"CodeEditor",
+			"DetailedProfiler",
+			"JupyterLab",
+			"JupyterServer",
+			"KernelGateway",
+			"RSessionGateway",
+			"RStudioServerPro",
+			"TensorBoard",
 		},
 	}
 }

@@ -25,9 +25,9 @@ func NewAwsFsxOntapVolumeInvalidSecurityStyleRule() *AwsFsxOntapVolumeInvalidSec
 		resourceType:  "aws_fsx_ontap_volume",
 		attributeName: "security_style",
 		enum: []string{
-			"UNIX",
-			"NTFS",
 			"MIXED",
+			"NTFS",
+			"UNIX",
 		},
 	}
 }

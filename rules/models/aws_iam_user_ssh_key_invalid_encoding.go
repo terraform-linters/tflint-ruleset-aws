@@ -25,8 +25,8 @@ func NewAwsIAMUserSSHKeyInvalidEncodingRule() *AwsIAMUserSSHKeyInvalidEncodingRu
 		resourceType:  "aws_iam_user_ssh_key",
 		attributeName: "encoding",
 		enum: []string{
-			"SSH",
 			"PEM",
+			"SSH",
 		},
 	}
 }

@@ -25,8 +25,8 @@ func NewAwsGlobalacceleratorAcceleratorInvalidIPAddressTypeRule() *AwsGlobalacce
 		resourceType:  "aws_globalaccelerator_accelerator",
 		attributeName: "ip_address_type",
 		enum: []string{
-			"IPV4",
 			"DUAL_STACK",
+			"IPV4",
 		},
 	}
 }

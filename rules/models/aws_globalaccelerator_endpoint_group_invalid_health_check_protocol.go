@@ -25,9 +25,9 @@ func NewAwsGlobalacceleratorEndpointGroupInvalidHealthCheckProtocolRule() *AwsGl
 		resourceType:  "aws_globalaccelerator_endpoint_group",
 		attributeName: "health_check_protocol",
 		enum: []string{
-			"TCP",
 			"HTTP",
 			"HTTPS",
+			"TCP",
 		},
 	}
 }

@@ -25,13 +25,13 @@ func NewAwsOpsworksApplicationInvalidTypeRule() *AwsOpsworksApplicationInvalidTy
 		resourceType:  "aws_opsworks_application",
 		attributeName: "type",
 		enum: []string{
-			"nodejs",
-			"static",
-			"other",
 			"aws-flow-ruby",
 			"java",
-			"rails",
+			"nodejs",
+			"other",
 			"php",
+			"rails",
+			"static",
 		},
 	}
 }

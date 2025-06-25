@@ -25,13 +25,13 @@ func NewAwsEbsVolumeInvalidTypeRule() *AwsEbsVolumeInvalidTypeRule {
 		resourceType:  "aws_ebs_volume",
 		attributeName: "type",
 		enum: []string{
-			"standard",
+			"gp2",
+			"gp3",
 			"io1",
 			"io2",
-			"gp2",
 			"sc1",
 			"st1",
-			"gp3",
+			"standard",
 		},
 	}
 }

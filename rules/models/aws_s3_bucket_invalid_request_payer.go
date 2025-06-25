@@ -25,8 +25,8 @@ func NewAwsS3BucketInvalidRequestPayerRule() *AwsS3BucketInvalidRequestPayerRule
 		resourceType:  "aws_s3_bucket",
 		attributeName: "request_payer",
 		enum: []string{
-			"Requester",
 			"BucketOwner",
+			"Requester",
 		},
 	}
 }
