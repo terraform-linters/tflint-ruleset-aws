@@ -28,7 +28,7 @@ func NewAwsFsxOntapFileSystemInvalidFsxAdminPasswordRule() *AwsFsxOntapFileSyste
 		attributeName: "fsx_admin_password",
 		max:           50,
 		min:           8,
-		pattern:       regexp.MustCompile(`^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{8,50}$`),
+		pattern:       regexp.MustCompile(`^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{8,50}`),
 	}
 }
 
@@ -89,7 +89,7 @@ func (r *AwsFsxOntapFileSystemInvalidFsxAdminPasswordRule) Check(runner tflint.R
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					`fsx_admin_password does not match valid pattern ^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{8,50}$`,
+					`fsx_admin_password does not match valid pattern ^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{8,50}`,
 					attribute.Expr.Range(),
 				)
 			}

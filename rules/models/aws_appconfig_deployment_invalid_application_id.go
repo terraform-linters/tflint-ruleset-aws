@@ -25,7 +25,7 @@ func NewAwsAppconfigDeploymentInvalidApplicationIDRule() *AwsAppconfigDeployment
 	return &AwsAppconfigDeploymentInvalidApplicationIDRule{
 		resourceType:  "aws_appconfig_deployment",
 		attributeName: "application_id",
-		pattern:       regexp.MustCompile(`^[a-z0-9]{4,7}$`),
+		pattern:       regexp.MustCompile(`^[a-z0-9]{4,7}`),
 	}
 }
 
@@ -72,7 +72,7 @@ func (r *AwsAppconfigDeploymentInvalidApplicationIDRule) Check(runner tflint.Run
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-z0-9]{4,7}$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-z0-9]{4,7}`),
 					attribute.Expr.Range(),
 				)
 			}

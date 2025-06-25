@@ -25,7 +25,7 @@ func NewAwsSsmAssociationInvalidNameRule() *AwsSsmAssociationInvalidNameRule {
 	return &AwsSsmAssociationInvalidNameRule{
 		resourceType:  "aws_ssm_association",
 		attributeName: "name",
-		pattern:       regexp.MustCompile(`^[a-zA-Z0-9_\-.:/]{3,128}$`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z0-9_\-.:/]{3,128}`),
 	}
 }
 
@@ -72,7 +72,7 @@ func (r *AwsSsmAssociationInvalidNameRule) Check(runner tflint.Runner) error {
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9_\-.:/]{3,128}$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9_\-.:/]{3,128}`),
 					attribute.Expr.Range(),
 				)
 			}

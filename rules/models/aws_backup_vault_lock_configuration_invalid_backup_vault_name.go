@@ -25,7 +25,7 @@ func NewAwsBackupVaultLockConfigurationInvalidBackupVaultNameRule() *AwsBackupVa
 	return &AwsBackupVaultLockConfigurationInvalidBackupVaultNameRule{
 		resourceType:  "aws_backup_vault_lock_configuration",
 		attributeName: "backup_vault_name",
-		pattern:       regexp.MustCompile(`^[a-zA-Z0-9\-\_]{2,50}$`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z0-9\-\_]{2,50}`),
 	}
 }
 
@@ -72,7 +72,7 @@ func (r *AwsBackupVaultLockConfigurationInvalidBackupVaultNameRule) Check(runner
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9\-\_]{2,50}$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9\-\_]{2,50}`),
 					attribute.Expr.Range(),
 				)
 			}

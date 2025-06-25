@@ -29,7 +29,7 @@ func NewAwsQuicksightUserInvalidAwsAccountIDRule() *AwsQuicksightUserInvalidAwsA
 		attributeName: "aws_account_id",
 		max:           12,
 		min:           12,
-		pattern:       regexp.MustCompile(`^[0-9]{12}$`),
+		pattern:       regexp.MustCompile(`^[0-9]{12}`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsQuicksightUserInvalidAwsAccountIDRule) Check(runner tflint.Runner) e
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[0-9]{12}$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[0-9]{12}`),
 					attribute.Expr.Range(),
 				)
 			}

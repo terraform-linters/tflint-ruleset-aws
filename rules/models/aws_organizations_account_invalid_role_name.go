@@ -27,7 +27,7 @@ func NewAwsOrganizationsAccountInvalidRoleNameRule() *AwsOrganizationsAccountInv
 		resourceType:  "aws_organizations_account",
 		attributeName: "role_name",
 		max:           64,
-		pattern:       regexp.MustCompile(`^[\w+=,.@-]{1,64}$`),
+		pattern:       regexp.MustCompile(`^[\w+=,.@-]{1,64}`),
 	}
 }
 
@@ -81,7 +81,7 @@ func (r *AwsOrganizationsAccountInvalidRoleNameRule) Check(runner tflint.Runner)
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[\w+=,.@-]{1,64}$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[\w+=,.@-]{1,64}`),
 					attribute.Expr.Range(),
 				)
 			}

@@ -140,6 +140,19 @@ func replacePattern(pattern string) string {
 	// Handle patterns that need to preserve original format for backward compatibility
 	// These transformations maintain the same validation behavior while minimizing diffs
 	
+	// Handle patterns with $ anchors that should be removed for backward compatibility
+	if strings.HasPrefix(replaced, "^") && strings.HasSuffix(replaced, "$") {
+		// Simple quantified character class patterns that originally didn't have $ anchors
+		// e.g., "^[a-zA-Z0-9_]{2,}$" should become "^[a-zA-Z0-9_]{2,}"
+		// Only apply to simple patterns that start with ^[ and end with }$ with no other complex parts
+		if strings.HasPrefix(replaced, "^[") && strings.Count(replaced, "[") == 1 && strings.Count(replaced, "]") == 1 {
+			bracketPos := strings.Index(replaced, "]")
+			if bracketPos > 0 && bracketPos < len(replaced)-3 && strings.Contains(replaced[bracketPos:], "]{") {
+				return strings.TrimSuffix(replaced, "$")
+			}
+		}
+	}
+	
 	// Convert common Smithy prefix patterns back to original format for backward compatibility
 	if strings.HasPrefix(replaced, "^") && !strings.HasSuffix(replaced, "$") {
 		// Special case: patterns like "^[^:]" should stay as-is (no $ anchor)

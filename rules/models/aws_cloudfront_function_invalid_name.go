@@ -29,7 +29,7 @@ func NewAwsCloudfrontFunctionInvalidNameRule() *AwsCloudfrontFunctionInvalidName
 		attributeName: "name",
 		max:           64,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[a-zA-Z0-9-_]{1,64}$`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z0-9-_]{1,64}`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsCloudfrontFunctionInvalidNameRule) Check(runner tflint.Runner) error
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9-_]{1,64}$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9-_]{1,64}`),
 					attribute.Expr.Range(),
 				)
 			}

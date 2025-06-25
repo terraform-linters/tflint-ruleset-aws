@@ -29,7 +29,7 @@ func NewAwsSsmPatchGroupInvalidBaselineIDRule() *AwsSsmPatchGroupInvalidBaseline
 		attributeName: "baseline_id",
 		max:           128,
 		min:           20,
-		pattern:       regexp.MustCompile(`^[a-zA-Z0-9_\-:/]{20,128}$`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z0-9_\-:/]{20,128}`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsSsmPatchGroupInvalidBaselineIDRule) Check(runner tflint.Runner) erro
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9_\-:/]{20,128}$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9_\-:/]{20,128}`),
 					attribute.Expr.Range(),
 				)
 			}

@@ -29,7 +29,7 @@ func NewAwsCodeartifactDomainPermissionsPolicyInvalidDomainOwnerRule() *AwsCodea
 		attributeName: "domain_owner",
 		max:           12,
 		min:           12,
-		pattern:       regexp.MustCompile(`^[0-9]{12}$`),
+		pattern:       regexp.MustCompile(`^[0-9]{12}`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsCodeartifactDomainPermissionsPolicyInvalidDomainOwnerRule) Check(run
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[0-9]{12}$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[0-9]{12}`),
 					attribute.Expr.Range(),
 				)
 			}

@@ -29,7 +29,7 @@ func NewAwsFsxOntapFileSystemInvalidEndpointIPAddressRangeRule() *AwsFsxOntapFil
 		attributeName: "endpoint_ip_address_range",
 		max:           17,
 		min:           9,
-		pattern:       regexp.MustCompile(`^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{9,17}$`),
+		pattern:       regexp.MustCompile(`^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{9,17}`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsFsxOntapFileSystemInvalidEndpointIPAddressRangeRule) Check(runner tf
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{9,17}$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{9,17}`),
 					attribute.Expr.Range(),
 				)
 			}
