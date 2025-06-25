@@ -25,11 +25,11 @@ func NewAwsVpcEndpointInvalidVpcEndpointTypeRule() *AwsVpcEndpointInvalidVpcEndp
 		resourceType:  "aws_vpc_endpoint",
 		attributeName: "vpc_endpoint_type",
 		enum: []string{
+			"ServiceNetwork",
+			"Interface",
 			"Gateway",
 			"GatewayLoadBalancer",
 			"Resource",
-			"ServiceNetwork",
-			"Interface",
 		},
 	}
 }

@@ -25,13 +25,13 @@ func NewAwsAcmpcaCertificateInvalidSigningAlgorithmRule() *AwsAcmpcaCertificateI
 		resourceType:  "aws_acmpca_certificate",
 		attributeName: "signing_algorithm",
 		enum: []string{
-			"SHA256WITHECDSA",
 			"SHA384WITHECDSA",
 			"SHA512WITHECDSA",
 			"SHA256WITHRSA",
 			"SHA384WITHRSA",
 			"SHA512WITHRSA",
 			"SM3WITHSM2",
+			"SHA256WITHECDSA",
 		},
 	}
 }

@@ -25,13 +25,13 @@ func NewAwsStoragegatewayNfsFileShareInvalidObjectACLRule() *AwsStoragegatewayNf
 		resourceType:  "aws_storagegateway_nfs_file_share",
 		attributeName: "object_acl",
 		enum: []string{
+			"aws-exec-read",
 			"private",
 			"public-read",
 			"public-read-write",
 			"authenticated-read",
 			"bucket-owner-read",
 			"bucket-owner-full-control",
-			"aws-exec-read",
 		},
 	}
 }

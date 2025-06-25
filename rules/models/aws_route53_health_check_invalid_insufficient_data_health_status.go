@@ -25,9 +25,9 @@ func NewAwsRoute53HealthCheckInvalidInsufficientDataHealthStatusRule() *AwsRoute
 		resourceType:  "aws_route53_health_check",
 		attributeName: "insufficient_data_health_status",
 		enum: []string{
+			"LastKnownStatus",
 			"Healthy",
 			"Unhealthy",
-			"LastKnownStatus",
 		},
 	}
 }

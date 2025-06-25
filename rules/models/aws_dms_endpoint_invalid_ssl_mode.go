@@ -25,10 +25,10 @@ func NewAwsDmsEndpointInvalidSslModeRule() *AwsDmsEndpointInvalidSslModeRule {
 		resourceType:  "aws_dms_endpoint",
 		attributeName: "ssl_mode",
 		enum: []string{
-			"none",
-			"require",
 			"verify-ca",
 			"verify-full",
+			"none",
+			"require",
 		},
 	}
 }

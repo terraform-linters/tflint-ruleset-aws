@@ -29,12 +29,12 @@ func NewAwsGuarddutyIpsetInvalidFormatRule() *AwsGuarddutyIpsetInvalidFormatRule
 		max:           300,
 		min:           1,
 		enum: []string{
-			"FIRE_EYE",
 			"TXT",
 			"STIX",
 			"OTX_CSV",
 			"ALIEN_VAULT",
 			"PROOF_POINT",
+			"FIRE_EYE",
 		},
 	}
 }

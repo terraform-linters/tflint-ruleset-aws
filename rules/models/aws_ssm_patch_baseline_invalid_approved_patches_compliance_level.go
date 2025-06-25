@@ -25,12 +25,12 @@ func NewAwsSsmPatchBaselineInvalidApprovedPatchesComplianceLevelRule() *AwsSsmPa
 		resourceType:  "aws_ssm_patch_baseline",
 		attributeName: "approved_patches_compliance_level",
 		enum: []string{
-			"UNSPECIFIED",
-			"CRITICAL",
 			"HIGH",
 			"MEDIUM",
 			"LOW",
 			"INFORMATIONAL",
+			"UNSPECIFIED",
+			"CRITICAL",
 		},
 	}
 }

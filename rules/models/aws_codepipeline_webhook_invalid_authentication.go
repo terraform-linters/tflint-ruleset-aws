@@ -25,9 +25,9 @@ func NewAwsCodepipelineWebhookInvalidAuthenticationRule() *AwsCodepipelineWebhoo
 		resourceType:  "aws_codepipeline_webhook",
 		attributeName: "authentication",
 		enum: []string{
+			"GITHUB_HMAC",
 			"IP",
 			"UNAUTHENTICATED",
-			"GITHUB_HMAC",
 		},
 	}
 }

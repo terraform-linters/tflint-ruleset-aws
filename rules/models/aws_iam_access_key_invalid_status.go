@@ -25,8 +25,8 @@ func NewAwsIAMAccessKeyInvalidStatusRule() *AwsIAMAccessKeyInvalidStatusRule {
 		resourceType:  "aws_iam_access_key",
 		attributeName: "status",
 		enum: []string{
-			"Inactive",
 			"Active",
+			"Inactive",
 		},
 	}
 }

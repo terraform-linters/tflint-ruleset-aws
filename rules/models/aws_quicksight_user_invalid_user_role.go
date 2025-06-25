@@ -25,14 +25,14 @@ func NewAwsQuicksightUserInvalidUserRoleRule() *AwsQuicksightUserInvalidUserRole
 		resourceType:  "aws_quicksight_user",
 		attributeName: "user_role",
 		enum: []string{
-			"ADMIN",
-			"AUTHOR",
 			"READER",
 			"RESTRICTED_AUTHOR",
 			"RESTRICTED_READER",
 			"ADMIN_PRO",
 			"AUTHOR_PRO",
 			"READER_PRO",
+			"ADMIN",
+			"AUTHOR",
 		},
 	}
 }

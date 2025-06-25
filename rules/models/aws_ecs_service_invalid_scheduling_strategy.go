@@ -25,8 +25,8 @@ func NewAwsEcsServiceInvalidSchedulingStrategyRule() *AwsEcsServiceInvalidSchedu
 		resourceType:  "aws_ecs_service",
 		attributeName: "scheduling_strategy",
 		enum: []string{
-			"REPLICA",
 			"DAEMON",
+			"REPLICA",
 		},
 	}
 }

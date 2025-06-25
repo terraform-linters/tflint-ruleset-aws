@@ -25,17 +25,17 @@ func NewAwsS3ObjectCopyInvalidStorageClassRule() *AwsS3ObjectCopyInvalidStorageC
 		resourceType:  "aws_s3_object_copy",
 		attributeName: "storage_class",
 		enum: []string{
-			"GLACIER_IR",
 			"SNOW",
+			"STANDARD_IA",
+			"ONEZONE_IA",
 			"EXPRESS_ONEZONE",
 			"STANDARD",
-			"ONEZONE_IA",
-			"GLACIER",
-			"OUTPOSTS",
 			"REDUCED_REDUNDANCY",
-			"STANDARD_IA",
 			"INTELLIGENT_TIERING",
+			"GLACIER",
 			"DEEP_ARCHIVE",
+			"OUTPOSTS",
+			"GLACIER_IR",
 		},
 	}
 }

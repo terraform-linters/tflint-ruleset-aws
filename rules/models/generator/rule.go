@@ -116,6 +116,12 @@ func replacePattern(pattern string) string {
 	}
 	reg := regexp.MustCompile(`\\u([0-9A-F]{4})`)
 	replaced := reg.ReplaceAllString(pattern, `\x{$1}`)
+	
+	// Fix for spurious pattern changes: \S should be \S+ to allow multiple non-whitespace characters
+	if replaced == "\\S" {
+		replaced = "\\S+"
+	}
+	
 	if !strings.HasPrefix(replaced, "^") && !strings.HasSuffix(replaced, "$") {
 		return fmt.Sprintf("^%s$", replaced)
 	}

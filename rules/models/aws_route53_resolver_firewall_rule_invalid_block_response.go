@@ -25,9 +25,9 @@ func NewAwsRoute53ResolverFirewallRuleInvalidBlockResponseRule() *AwsRoute53Reso
 		resourceType:  "aws_route53_resolver_firewall_rule",
 		attributeName: "block_response",
 		enum: []string{
-			"NODATA",
 			"NXDOMAIN",
 			"OVERRIDE",
+			"NODATA",
 		},
 	}
 }

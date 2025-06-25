@@ -25,8 +25,8 @@ func NewAwsKinesisStreamInvalidEncryptionTypeRule() *AwsKinesisStreamInvalidEncr
 		resourceType:  "aws_kinesis_stream",
 		attributeName: "encryption_type",
 		enum: []string{
-			"KMS",
 			"NONE",
+			"KMS",
 		},
 	}
 }

@@ -25,9 +25,9 @@ func NewAwsDBProxyInvalidEngineFamilyRule() *AwsDBProxyInvalidEngineFamilyRule {
 		resourceType:  "aws_db_proxy",
 		attributeName: "engine_family",
 		enum: []string{
+			"MYSQL",
 			"POSTGRESQL",
 			"SQLSERVER",
-			"MYSQL",
 		},
 	}
 }

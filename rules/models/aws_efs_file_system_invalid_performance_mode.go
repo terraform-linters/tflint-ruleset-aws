@@ -25,8 +25,8 @@ func NewAwsEfsFileSystemInvalidPerformanceModeRule() *AwsEfsFileSystemInvalidPer
 		resourceType:  "aws_efs_file_system",
 		attributeName: "performance_mode",
 		enum: []string{
-			"maxIO",
 			"generalPurpose",
+			"maxIO",
 		},
 	}
 }

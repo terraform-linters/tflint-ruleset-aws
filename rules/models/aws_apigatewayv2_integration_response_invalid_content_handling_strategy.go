@@ -25,8 +25,8 @@ func NewAwsApigatewayv2IntegrationResponseInvalidContentHandlingStrategyRule() *
 		resourceType:  "aws_apigatewayv2_integration_response",
 		attributeName: "content_handling_strategy",
 		enum: []string{
-			"CONVERT_TO_TEXT",
 			"CONVERT_TO_BINARY",
+			"CONVERT_TO_TEXT",
 		},
 	}
 }

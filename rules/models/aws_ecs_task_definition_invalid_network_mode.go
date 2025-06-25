@@ -25,10 +25,10 @@ func NewAwsEcsTaskDefinitionInvalidNetworkModeRule() *AwsEcsTaskDefinitionInvali
 		resourceType:  "aws_ecs_task_definition",
 		attributeName: "network_mode",
 		enum: []string{
-			"bridge",
 			"host",
 			"awsvpc",
 			"none",
+			"bridge",
 		},
 	}
 }
