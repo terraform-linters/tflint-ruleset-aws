@@ -74,13 +74,8 @@ func main() {
 
 		// Detect format and extract shapes accordingly
 		var shapes map[string]interface{}
-		if smithyVersion, ok := api["smithy"]; ok && smithyVersion != nil {
-			// Smithy format (api-models-aws)
-			shapes = api["shapes"].(map[string]interface{})
-		} else {
-			// Legacy Ruby SDK format
-			shapes = api["shapes"].(map[string]interface{})
-		}
+		// Extract shapes from Smithy format
+		shapes = api["shapes"].(map[string]interface{})
 
 		for _, mapping := range mappingFile.Mappings {
 			for attribute, value := range mapping.Attrs {
@@ -142,33 +137,26 @@ func fetchSchema(resource, attribute string, model map[string]interface{}, provi
 	return attrSchema
 }
 
-// findShape locates a shape in either Ruby SDK or Smithy format
+// findShape locates a shape in Smithy format
 func findShape(shapes map[string]interface{}, shapeName, importPath string) map[string]interface{} {
-	// First try direct lookup (Ruby SDK format)
-	if shape, ok := shapes[shapeName]; ok {
-		return shape.(map[string]interface{})
+	// Try with service namespace qualification
+	serviceNamespace := extractServiceNamespace(shapes)
+	if serviceNamespace != "" {
+		qualifiedName := fmt.Sprintf("%s#%s", serviceNamespace, shapeName)
+		if shape, ok := shapes[qualifiedName]; ok {
+			// Convert Smithy shape to standard format for compatibility
+			return convertSmithyShape(shape.(map[string]interface{}))
+		}
 	}
 	
-	// If not found and this looks like a Smithy file, try with service namespace
-	if isSmithyFile(importPath) {
-		serviceNamespace := extractServiceNamespace(shapes)
-		if serviceNamespace != "" {
-			qualifiedName := fmt.Sprintf("%s#%s", serviceNamespace, shapeName)
-			if shape, ok := shapes[qualifiedName]; ok {
-				// Convert Smithy shape to Ruby SDK-like format for compatibility
-				return convertSmithyShape(shape.(map[string]interface{}))
-			}
-		}
+	// Fallback to direct lookup
+	if shape, ok := shapes[shapeName]; ok {
+		return shape.(map[string]interface{})
 	}
 	
 	return nil
 }
 
-// isSmithyFile checks if the import path is for a Smithy file
-func isSmithyFile(importPath string) bool {
-	return strings.Contains(importPath, "api-models-aws") && 
-		   !strings.Contains(importPath, "aws-sdk-ruby")
-}
 
 // extractServiceNamespace gets the service namespace from the Smithy shapes
 func extractServiceNamespace(shapes map[string]interface{}) string {
@@ -186,7 +174,7 @@ func extractServiceNamespace(shapes map[string]interface{}) string {
 	return ""
 }
 
-// convertSmithyShape converts a Smithy shape format to Ruby SDK-like format
+// convertSmithyShape converts a Smithy shape format to standard format
 func convertSmithyShape(smithyShape map[string]interface{}) map[string]interface{} {
 	result := make(map[string]interface{})
 	
@@ -195,7 +183,7 @@ func convertSmithyShape(smithyShape map[string]interface{}) map[string]interface
 		result["type"] = shapeType
 	}
 	
-	// Convert traits to Ruby SDK format
+	// Convert traits to standard format
 	if traits, ok := smithyShape["traits"].(map[string]interface{}); ok {
 		// Handle length constraints
 		if lengthTrait, ok := traits["smithy.api#length"].(map[string]interface{}); ok {

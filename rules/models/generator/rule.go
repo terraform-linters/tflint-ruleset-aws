@@ -88,7 +88,7 @@ func fetchNumber(model map[string]interface{}, key string) int {
 
 func fetchStrings(model map[string]interface{}, key string) []string {
 	if raw, ok := model[key]; ok {
-		// Handle both []interface{} (Ruby SDK format) and []string (converted Smithy format)
+		// Handle both []interface{} (legacy format) and []string (converted Smithy format)
 		switch v := raw.(type) {
 		case []interface{}:
 			ret := make([]string, len(v))
@@ -131,7 +131,7 @@ func replacePattern(pattern string) string {
 	if !strings.HasPrefix(replaced, "^") && !strings.HasSuffix(replaced, "$") {
 		// Handle single character classes that should match one or more characters
 		if replaced == "\\S" {
-			// Use Ruby SDK compatible format for minimal diff
+			// Use AWS Service Model Definition compatible format for minimal diff
 			return "^.*\\S.*$"
 		}
 		return fmt.Sprintf("^%s$", replaced)
