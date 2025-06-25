@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/eks/2017-11-01/api-2.json"
+import = "api-models-aws/models/eks/service/2017-11-01/eks-2017-11-01.json"
 
 mapping "aws_eks_addon" {
   cluster_name = ClusterName

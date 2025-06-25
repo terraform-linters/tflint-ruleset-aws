@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/ecs/2014-11-13/api-2.json"
+import = "api-models-aws/models/ecs/service/2014-11-13/ecs-2014-11-13.json"
 
 mapping "aws_ecs_account_setting_default" {
   name = SettingName

@@ -25,8 +25,8 @@ func NewAwsOpsworksStackInvalidDefaultRootDeviceTypeRule() *AwsOpsworksStackInva
 		resourceType:  "aws_opsworks_stack",
 		attributeName: "default_root_device_type",
 		enum: []string{
-			"ebs",
 			"instance-store",
+			"ebs",
 		},
 	}
 }

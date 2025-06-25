@@ -26,7 +26,7 @@ func NewAwsAmplifyAppInvalidOAuthTokenRule() *AwsAmplifyAppInvalidOAuthTokenRule
 		resourceType:  "aws_amplify_app",
 		attributeName: "oauth_token",
 		max:           1000,
-		pattern:       regexp.MustCompile(`^(?s).*$`),
+		pattern:       regexp.MustCompile(`^(?s)`),
 	}
 }
 
@@ -80,7 +80,7 @@ func (r *AwsAmplifyAppInvalidOAuthTokenRule) Check(runner tflint.Runner) error {
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					`oauth_token does not match valid pattern ^(?s).*$`,
+					`oauth_token does not match valid pattern ^(?s)`,
 					attribute.Expr.Range(),
 				)
 			}

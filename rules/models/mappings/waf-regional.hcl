@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/waf-regional/2016-11-28/api-2.json"
+import = "api-models-aws/models/waf-regional/service/2016-11-28/waf-regional-2016-11-28.json"
 
 mapping "aws_wafregional_byte_match_set" {
   name              = ResourceName

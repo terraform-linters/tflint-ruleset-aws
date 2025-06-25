@@ -25,9 +25,9 @@ func NewAwsFsxOntapStorageVirtualMachineInvalidRootVolumeSecurityStyleRule() *Aw
 		resourceType:  "aws_fsx_ontap_storage_virtual_machine",
 		attributeName: "root_volume_security_style",
 		enum: []string{
+			"MIXED",
 			"UNIX",
 			"NTFS",
-			"MIXED",
 		},
 	}
 }

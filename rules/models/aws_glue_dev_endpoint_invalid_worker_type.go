@@ -25,13 +25,13 @@ func NewAwsGlueDevEndpointInvalidWorkerTypeRule() *AwsGlueDevEndpointInvalidWork
 		resourceType:  "aws_glue_dev_endpoint",
 		attributeName: "worker_type",
 		enum: []string{
+			"G.8X",
+			"Z.2X",
 			"Standard",
 			"G.1X",
 			"G.2X",
 			"G.025X",
 			"G.4X",
-			"G.8X",
-			"Z.2X",
 		},
 	}
 }

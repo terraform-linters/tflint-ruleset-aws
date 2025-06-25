@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/codeartifact/2018-09-22/api-2.json"
+import = "api-models-aws/models/codeartifact/service/2018-09-22/codeartifact-2018-09-22.json"
 
 mapping "aws_codeartifact_domain" {
   domain = DomainName

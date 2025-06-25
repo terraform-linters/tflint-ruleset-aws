@@ -25,10 +25,10 @@ func NewAwsAppstreamUserStackAssociationInvalidAuthenticationTypeRule() *AwsApps
 		resourceType:  "aws_appstream_user_stack_association",
 		attributeName: "authentication_type",
 		enum: []string{
-			"API",
 			"SAML",
 			"USERPOOL",
 			"AWS_AD",
+			"API",
 		},
 	}
 }

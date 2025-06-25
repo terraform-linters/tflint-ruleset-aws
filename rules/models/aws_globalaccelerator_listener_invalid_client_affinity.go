@@ -25,8 +25,8 @@ func NewAwsGlobalacceleratorListenerInvalidClientAffinityRule() *AwsGlobalaccele
 		resourceType:  "aws_globalaccelerator_listener",
 		attributeName: "client_affinity",
 		enum: []string{
-			"NONE",
 			"SOURCE_IP",
+			"NONE",
 		},
 	}
 }

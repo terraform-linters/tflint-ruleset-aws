@@ -25,8 +25,8 @@ func NewAwsAppconfigDeploymentStrategyInvalidReplicateToRule() *AwsAppconfigDepl
 		resourceType:  "aws_appconfig_deployment_strategy",
 		attributeName: "replicate_to",
 		enum: []string{
-			"NONE",
 			"SSM_DOCUMENT",
+			"NONE",
 		},
 	}
 }

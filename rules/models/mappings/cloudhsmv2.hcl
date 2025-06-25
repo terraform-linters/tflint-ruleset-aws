@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/cloudhsmv2/2017-04-28/api-2.json"
+import = "api-models-aws/models/cloudhsm-v2/service/2017-04-28/cloudhsm-v2-2017-04-28.json"
 
 mapping "aws_cloudhsm_v2_cluster" {
   source_backup_identifier = BackupId

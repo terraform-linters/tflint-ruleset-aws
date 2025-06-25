@@ -25,16 +25,16 @@ func NewAwsConnectContactFlowInvalidTypeRule() *AwsConnectContactFlowInvalidType
 		resourceType:  "aws_connect_contact_flow",
 		attributeName: "type",
 		enum: []string{
-			"CONTACT_FLOW",
-			"CUSTOMER_QUEUE",
 			"CUSTOMER_HOLD",
 			"CUSTOMER_WHISPER",
+			"AGENT_TRANSFER",
+			"CAMPAIGN",
+			"CONTACT_FLOW",
+			"CUSTOMER_QUEUE",
 			"AGENT_HOLD",
 			"AGENT_WHISPER",
 			"OUTBOUND_WHISPER",
-			"AGENT_TRANSFER",
 			"QUEUE_TRANSFER",
-			"CAMPAIGN",
 		},
 	}
 }

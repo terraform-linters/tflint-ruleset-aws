@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/codestar-connections/2019-12-01/api-2.json"
+import = "api-models-aws/models/codestar-connections/service/2019-12-01/codestar-connections-2019-12-01.json"
 
 mapping "aws_codestarconnections_connection" {
   name = ConnectionName

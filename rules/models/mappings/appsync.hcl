@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/appsync/2017-07-25/api-2.json"
+import = "api-models-aws/models/appsync/service/2017-07-25/appsync-2017-07-25.json"
 
 mapping "aws_appsync_datasource" {
   name = ResourceName

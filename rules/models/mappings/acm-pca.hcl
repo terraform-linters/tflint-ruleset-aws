@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/acm-pca/2017-08-22/api-2.json"
+import = "api-models-aws/models/acm-pca/service/2017-08-22/acm-pca-2017-08-22.json"
 
 mapping "aws_acmpca_certificate" {
   certificate_authority_arn   = Arn

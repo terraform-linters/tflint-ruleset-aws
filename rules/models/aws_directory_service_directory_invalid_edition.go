@@ -25,8 +25,8 @@ func NewAwsDirectoryServiceDirectoryInvalidEditionRule() *AwsDirectoryServiceDir
 		resourceType:  "aws_directory_service_directory",
 		attributeName: "edition",
 		enum: []string{
-			"Enterprise",
 			"Standard",
+			"Enterprise",
 		},
 	}
 }

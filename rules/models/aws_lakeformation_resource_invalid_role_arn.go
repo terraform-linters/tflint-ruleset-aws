@@ -25,7 +25,7 @@ func NewAwsLakeformationResourceInvalidRoleArnRule() *AwsLakeformationResourceIn
 	return &AwsLakeformationResourceInvalidRoleArnRule{
 		resourceType:  "aws_lakeformation_resource",
 		attributeName: "role_arn",
-		pattern:       regexp.MustCompile(`^arn:aws:iam::[0-9]*:role/.*$`),
+		pattern:       regexp.MustCompile(`^arn:aws:iam::[0-9]*:role/`),
 	}
 }
 
@@ -72,7 +72,7 @@ func (r *AwsLakeformationResourceInvalidRoleArnRule) Check(runner tflint.Runner)
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:aws:iam::[0-9]*:role/.*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:aws:iam::[0-9]*:role/`),
 					attribute.Expr.Range(),
 				)
 			}

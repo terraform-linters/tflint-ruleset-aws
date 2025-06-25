@@ -25,13 +25,13 @@ func NewAwsCloudwatchMetricAlarmInvalidComparisonOperatorRule() *AwsCloudwatchMe
 		resourceType:  "aws_cloudwatch_metric_alarm",
 		attributeName: "comparison_operator",
 		enum: []string{
-			"GreaterThanOrEqualToThreshold",
-			"GreaterThanThreshold",
 			"LessThanThreshold",
 			"LessThanOrEqualToThreshold",
 			"LessThanLowerOrGreaterThanUpperThreshold",
 			"LessThanLowerThreshold",
 			"GreaterThanUpperThreshold",
+			"GreaterThanOrEqualToThreshold",
+			"GreaterThanThreshold",
 		},
 	}
 }

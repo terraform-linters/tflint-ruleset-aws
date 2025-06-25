@@ -25,11 +25,11 @@ func NewAwsSsmAssociationInvalidComplianceSeverityRule() *AwsSsmAssociationInval
 		resourceType:  "aws_ssm_association",
 		attributeName: "compliance_severity",
 		enum: []string{
-			"CRITICAL",
 			"HIGH",
 			"MEDIUM",
 			"LOW",
 			"UNSPECIFIED",
+			"CRITICAL",
 		},
 	}
 }

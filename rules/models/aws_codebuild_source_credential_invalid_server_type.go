@@ -25,11 +25,11 @@ func NewAwsCodebuildSourceCredentialInvalidServerTypeRule() *AwsCodebuildSourceC
 		resourceType:  "aws_codebuild_source_credential",
 		attributeName: "server_type",
 		enum: []string{
-			"GITHUB",
-			"BITBUCKET",
 			"GITHUB_ENTERPRISE",
 			"GITLAB",
 			"GITLAB_SELF_MANAGED",
+			"GITHUB",
+			"BITBUCKET",
 		},
 	}
 }

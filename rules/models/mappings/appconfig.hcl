@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/appconfig/2019-10-09/api-2.json"
+import = "api-models-aws/models/appconfig/service/2019-10-09/appconfig-2019-10-09.json"
 
 mapping "aws_appconfig_application" {
   name = Name

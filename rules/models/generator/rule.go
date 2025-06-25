@@ -88,12 +88,17 @@ func fetchNumber(model map[string]interface{}, key string) int {
 
 func fetchStrings(model map[string]interface{}, key string) []string {
 	if raw, ok := model[key]; ok {
-		list := raw.([]interface{})
-		ret := make([]string, len(list))
-		for i, v := range list {
-			ret[i] = v.(string)
+		// Handle both []interface{} (Ruby SDK format) and []string (converted Smithy format)
+		switch v := raw.(type) {
+		case []interface{}:
+			ret := make([]string, len(v))
+			for i, item := range v {
+				ret[i] = item.(string)
+			}
+			return ret
+		case []string:
+			return v
 		}
-		return ret
 	}
 	return []string{}
 }

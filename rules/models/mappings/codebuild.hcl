@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/codebuild/2016-10-06/api-2.json"
+import = "api-models-aws/models/codebuild/service/2016-10-06/codebuild-2016-10-06.json"
 
 mapping "aws_codebuild_project" {
   build_timeout = TimeOut

@@ -27,7 +27,7 @@ func NewAwsAmplifyAppInvalidRepositoryRule() *AwsAmplifyAppInvalidRepositoryRule
 		resourceType:  "aws_amplify_app",
 		attributeName: "repository",
 		max:           1000,
-		pattern:       regexp.MustCompile(`^(?s).*$`),
+		pattern:       regexp.MustCompile(`^(?s)`),
 	}
 }
 
@@ -81,7 +81,7 @@ func (r *AwsAmplifyAppInvalidRepositoryRule) Check(runner tflint.Runner) error {
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(?s).*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(?s)`),
 					attribute.Expr.Range(),
 				)
 			}

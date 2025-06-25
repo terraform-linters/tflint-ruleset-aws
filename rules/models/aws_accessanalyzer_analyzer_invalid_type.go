@@ -29,6 +29,8 @@ func NewAwsAccessanalyzerAnalyzerInvalidTypeRule() *AwsAccessanalyzerAnalyzerInv
 			"ORGANIZATION",
 			"ACCOUNT_UNUSED_ACCESS",
 			"ORGANIZATION_UNUSED_ACCESS",
+			"ACCOUNT_INTERNAL_ACCESS",
+			"ORGANIZATION_INTERNAL_ACCESS",
 		},
 	}
 }

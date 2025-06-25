@@ -25,9 +25,9 @@ func NewAwsRoute53ResolverFirewallRuleInvalidActionRule() *AwsRoute53ResolverFir
 		resourceType:  "aws_route53_resolver_firewall_rule",
 		attributeName: "action",
 		enum: []string{
+			"ALERT",
 			"ALLOW",
 			"BLOCK",
-			"ALERT",
 		},
 	}
 }

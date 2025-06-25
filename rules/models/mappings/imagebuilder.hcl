@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/imagebuilder/2019-12-02/api-2.json"
+import = "api-models-aws/models/imagebuilder/service/2019-12-02/imagebuilder-2019-12-02.json"
 
 mapping "aws_imagebuilder_component" {
   name = ResourceName

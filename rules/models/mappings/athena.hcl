@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/athena/2017-05-18/api-2.json"
+import = "api-models-aws/models/athena/service/2017-05-18/athena-2017-05-18.json"
 
 mapping "aws_athena_database" {
   name = DatabaseString

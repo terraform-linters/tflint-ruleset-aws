@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/datapipeline/2012-10-29/api-2.json"
+import = "api-models-aws/models/data-pipeline/service/2012-10-29/data-pipeline-2012-10-29.json"
 
 mapping "aws_datapipeline_pipeline" {
   name        = any // id

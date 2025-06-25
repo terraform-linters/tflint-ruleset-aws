@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/dms/2016-01-01/api-2.json"
+import = "api-models-aws/models/database-migration-service/service/2016-01-01/database-migration-service-2016-01-01.json"
 
 mapping "aws_dms_certificate" {
   certificate_id = String

@@ -25,17 +25,17 @@ func NewAwsS3BucketObjectInvalidStorageClassRule() *AwsS3BucketObjectInvalidStor
 		resourceType:  "aws_s3_bucket_object",
 		attributeName: "storage_class",
 		enum: []string{
-			"STANDARD",
 			"REDUCED_REDUNDANCY",
 			"STANDARD_IA",
-			"ONEZONE_IA",
 			"INTELLIGENT_TIERING",
-			"GLACIER",
 			"DEEP_ARCHIVE",
-			"OUTPOSTS",
 			"GLACIER_IR",
 			"SNOW",
 			"EXPRESS_ONEZONE",
+			"STANDARD",
+			"ONEZONE_IA",
+			"GLACIER",
+			"OUTPOSTS",
 		},
 	}
 }

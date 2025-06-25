@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/docdb/2014-10-31/api-2.json"
+import = "api-models-aws/models/docdb/service/2014-10-31/docdb-2014-10-31.json"
 
 mapping "aws_docdb_cluster" {
   apply_immediately               = Boolean

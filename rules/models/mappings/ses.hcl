@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/email/2010-12-01/api-2.json"
+import = "api-models-aws/models/ses/service/2010-12-01/ses-2010-12-01.json"
 
 mapping "aws_ses_active_receipt_rule_set" {
   rule_set_name = ReceiptRuleSetName

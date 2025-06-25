@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/cloudfront/2020-05-31/api-2.json"
+import = "api-models-aws/models/cloudfront/service/2020-05-31/cloudfront-2020-05-31.json"
 
 mapping "aws_cloudfront_cache_policy" {
   parameters_in_cache_key_and_forwarded_to_origin = ParametersInCacheKeyAndForwardedToOrigin

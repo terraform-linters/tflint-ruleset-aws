@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/storagegateway/2013-06-30/api-2.json"
+import = "api-models-aws/models/storage-gateway/service/2013-06-30/storage-gateway-2013-06-30.json"
 
 mapping "aws_storagegateway_cache" {
   disk_id     = DiskId

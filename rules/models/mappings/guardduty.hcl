@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/guardduty/2017-11-28/api-2.json"
+import = "api-models-aws/models/guardduty/service/2017-11-28/guardduty-2017-11-28.json"
 
 mapping "aws_guardduty_detector" {
   enable                       = Boolean

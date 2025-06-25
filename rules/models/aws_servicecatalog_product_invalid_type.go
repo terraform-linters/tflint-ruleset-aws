@@ -27,11 +27,11 @@ func NewAwsServicecatalogProductInvalidTypeRule() *AwsServicecatalogProductInval
 		attributeName: "type",
 		max:           8191,
 		enum: []string{
+			"TERRAFORM_CLOUD",
+			"EXTERNAL",
 			"CLOUD_FORMATION_TEMPLATE",
 			"MARKETPLACE",
 			"TERRAFORM_OPEN_SOURCE",
-			"TERRAFORM_CLOUD",
-			"EXTERNAL",
 		},
 	}
 }

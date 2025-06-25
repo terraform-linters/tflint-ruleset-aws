@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/ecr-public/2020-10-30/api-2.json"
+import = "api-models-aws/models/ecr-public/service/2020-10-30/ecr-public-2020-10-30.json"
 
 mapping "aws_ecrpublic_repository" {
   repository_name = RepositoryName

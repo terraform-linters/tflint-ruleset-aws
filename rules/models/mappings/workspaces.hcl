@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/workspaces/2015-04-08/api-2.json"
+import = "api-models-aws/models/workspaces/service/2015-04-08/workspaces-2015-04-08.json"
 
 mapping "aws_workspaces_directory" {
   directory_id = DirectoryId

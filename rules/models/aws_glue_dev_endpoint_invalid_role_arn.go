@@ -25,7 +25,7 @@ func NewAwsGlueDevEndpointInvalidRoleArnRule() *AwsGlueDevEndpointInvalidRoleArn
 	return &AwsGlueDevEndpointInvalidRoleArnRule{
 		resourceType:  "aws_glue_dev_endpoint",
 		attributeName: "role_arn",
-		pattern:       regexp.MustCompile(`^arn:aws:iam::\d{12}:role/.*$`),
+		pattern:       regexp.MustCompile(`^arn:aws:iam::\d{12}:role/`),
 	}
 }
 
@@ -72,7 +72,7 @@ func (r *AwsGlueDevEndpointInvalidRoleArnRule) Check(runner tflint.Runner) error
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:aws:iam::\d{12}:role/.*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:aws:iam::\d{12}:role/`),
 					attribute.Expr.Range(),
 				)
 			}

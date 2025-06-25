@@ -27,7 +27,7 @@ func NewAwsAmplifyBranchInvalidDisplayNameRule() *AwsAmplifyBranchInvalidDisplay
 		resourceType:  "aws_amplify_branch",
 		attributeName: "display_name",
 		max:           255,
-		pattern:       regexp.MustCompile(`^(?s).*$`),
+		pattern:       regexp.MustCompile(`^(?s)`),
 	}
 }
 
@@ -81,7 +81,7 @@ func (r *AwsAmplifyBranchInvalidDisplayNameRule) Check(runner tflint.Runner) err
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(?s).*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(?s)`),
 					attribute.Expr.Range(),
 				)
 			}

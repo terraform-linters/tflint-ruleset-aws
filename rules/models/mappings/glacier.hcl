@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/glacier/2012-06-01/api-2.json"
+import = "api-models-aws/models/glacier/service/2012-06-01/glacier-2012-06-01.json"
 
 mapping "aws_glacier_vault" {
   name          = string

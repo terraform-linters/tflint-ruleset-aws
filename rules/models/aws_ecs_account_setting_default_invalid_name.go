@@ -25,16 +25,16 @@ func NewAwsEcsAccountSettingDefaultInvalidNameRule() *AwsEcsAccountSettingDefaul
 		resourceType:  "aws_ecs_account_setting_default",
 		attributeName: "name",
 		enum: []string{
+			"fargateTaskRetirementWaitPeriod",
+			"guardDutyActivate",
+			"tagResourceAuthorization",
+			"defaultLogDriverMode",
 			"serviceLongArnFormat",
 			"taskLongArnFormat",
 			"containerInstanceLongArnFormat",
 			"awsvpcTrunking",
 			"containerInsights",
 			"fargateFIPSMode",
-			"tagResourceAuthorization",
-			"fargateTaskRetirementWaitPeriod",
-			"guardDutyActivate",
-			"defaultLogDriverMode",
 		},
 	}
 }

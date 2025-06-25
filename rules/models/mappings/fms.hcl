@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/fms/2018-01-01/api-2.json"
+import = "api-models-aws/models/fms/service/2018-01-01/fms-2018-01-01.json"
 
 mapping "aws_fms_admin_account" {
   account_id = AWSAccountId
