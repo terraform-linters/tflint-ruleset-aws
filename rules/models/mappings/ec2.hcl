@@ -257,7 +257,6 @@ mapping "aws_ec2_transit_gateway_vpc_attachment_accepter" {
 }
 
 mapping "aws_eip" {
-  vpc                       = Boolean
   instance                  = String
   network_interface         = String
   associate_with_private_ip = String
@@ -280,8 +279,6 @@ mapping "aws_instance" {
   placement_group                      = Placement
   tenancy                              = Tenancy
   host_id                              = String
-  cpu_core_count                       = Integer
-  cpu_threads_per_core                 = Integer
   ebs_optimized                        = Boolean
   disable_api_termination              = Boolean
   instance_initiated_shutdown_behavior = ShutdownBehavior
