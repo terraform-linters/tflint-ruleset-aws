@@ -377,7 +377,6 @@ mapping "aws_spot_instance_request" {
   wait_for_fulfillment            = Boolean
   spot_type                       = String
   launch_group                    = String
-  block_duration_minutes          = Integer
   instance_interruption_behavior  = InstanceInterruptionBehavior
   valid_until                     = DateTime
   valid_from                      = DateTime
