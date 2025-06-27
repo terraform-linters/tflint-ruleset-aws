@@ -321,8 +321,6 @@ mapping "aws_launch_template" {
   credit_specification                 = CreditSpecificationRequest
   disable_api_termination              = Boolean
   ebs_optimized                        = Boolean
-  elastic_gpu_specifications           = ElasticGpuSpecificationList
-  elastic_inference_accelerator        = LaunchTemplateElasticInferenceAcceleratorList
   iam_instance_profile                 = LaunchTemplateIamInstanceProfileSpecificationRequest
   image_id                             = String
   instance_initiated_shutdown_behavior = ShutdownBehavior

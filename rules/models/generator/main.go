@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 	"sort"
 
@@ -82,8 +83,8 @@ func main() {
 				model := shapes[shapeName].(map[string]interface{})
 				schema, err := fetchSchema(mapping.Resource, attribute, model, awsProvider)
 				if err != nil {
-					fmt.Printf("Skipping `%s.%s`: %v\n", mapping.Resource, attribute, err)
-					continue
+					fmt.Fprintf(os.Stderr, "Error processing `%s.%s`: %v\n", mapping.Resource, attribute, err)
+					os.Exit(1)
 				}
 				if validMapping(model) {
 					fmt.Printf("Generating rule for `%s.%s`\n", mapping.Resource, attribute)
