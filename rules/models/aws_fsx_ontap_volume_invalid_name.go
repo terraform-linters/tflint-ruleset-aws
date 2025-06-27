@@ -29,7 +29,7 @@ func NewAwsFsxOntapVolumeInvalidNameRule() *AwsFsxOntapVolumeInvalidNameRule {
 		attributeName: "name",
 		max:           203,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{1,203}`),
+		pattern:       regexp.MustCompile(`^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{1,203}$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsFsxOntapVolumeInvalidNameRule) Check(runner tflint.Runner) error {
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{1,203}`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{1,203}$`),
 					attribute.Expr.Range(),
 				)
 			}

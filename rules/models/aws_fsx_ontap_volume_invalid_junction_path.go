@@ -29,7 +29,7 @@ func NewAwsFsxOntapVolumeInvalidJunctionPathRule() *AwsFsxOntapVolumeInvalidJunc
 		attributeName: "junction_path",
 		max:           255,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{1,255}`),
+		pattern:       regexp.MustCompile(`^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{1,255}$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsFsxOntapVolumeInvalidJunctionPathRule) Check(runner tflint.Runner) e
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{1,255}`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{1,255}$`),
 					attribute.Expr.Range(),
 				)
 			}

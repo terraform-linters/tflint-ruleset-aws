@@ -29,7 +29,7 @@ func NewAwsSignerSigningProfilePermissionInvalidProfileVersionRule() *AwsSignerS
 		attributeName: "profile_version",
 		max:           10,
 		min:           10,
-		pattern:       regexp.MustCompile(`^[a-zA-Z0-9]{10}`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z0-9]{10}$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsSignerSigningProfilePermissionInvalidProfileVersionRule) Check(runne
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9]{10}`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9]{10}$`),
 					attribute.Expr.Range(),
 				)
 			}

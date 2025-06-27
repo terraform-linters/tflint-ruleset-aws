@@ -29,7 +29,7 @@ func NewAwsSsmMaintenanceWindowInvalidNameRule() *AwsSsmMaintenanceWindowInvalid
 		attributeName: "name",
 		max:           128,
 		min:           3,
-		pattern:       regexp.MustCompile(`^[a-zA-Z0-9_\-.]{3,128}`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z0-9_\-.]{3,128}$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsSsmMaintenanceWindowInvalidNameRule) Check(runner tflint.Runner) err
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9_\-.]{3,128}`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9_\-.]{3,128}$`),
 					attribute.Expr.Range(),
 				)
 			}

@@ -29,7 +29,7 @@ func NewAwsFsxOntapStorageVirtualMachineInvalidNameRule() *AwsFsxOntapStorageVir
 		attributeName: "name",
 		max:           47,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{1,47}`),
+		pattern:       regexp.MustCompile(`^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{1,47}$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsFsxOntapStorageVirtualMachineInvalidNameRule) Check(runner tflint.Ru
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{1,47}`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[^\x{0000}\x{0085}\x{2028}\x{2029}\r\n]{1,47}$`),
 					attribute.Expr.Range(),
 				)
 			}

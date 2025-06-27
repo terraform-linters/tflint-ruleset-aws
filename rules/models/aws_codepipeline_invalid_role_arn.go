@@ -27,7 +27,7 @@ func NewAwsCodepipelineInvalidRoleArnRule() *AwsCodepipelineInvalidRoleArnRule {
 		resourceType:  "aws_codepipeline",
 		attributeName: "role_arn",
 		max:           1024,
-		pattern:       regexp.MustCompile(`^arn:aws(-[\w]+)*:iam::[0-9]{12}:role/`),
+		pattern:       regexp.MustCompile(`^arn:aws(-[\w]+)*:iam::[0-9]{12}:role/.*$`),
 	}
 }
 
@@ -81,7 +81,7 @@ func (r *AwsCodepipelineInvalidRoleArnRule) Check(runner tflint.Runner) error {
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:aws(-[\w]+)*:iam::[0-9]{12}:role/`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:aws(-[\w]+)*:iam::[0-9]{12}:role/.*$`),
 					attribute.Expr.Range(),
 				)
 			}

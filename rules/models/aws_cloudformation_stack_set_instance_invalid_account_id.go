@@ -25,7 +25,7 @@ func NewAwsCloudformationStackSetInstanceInvalidAccountIDRule() *AwsCloudformati
 	return &AwsCloudformationStackSetInstanceInvalidAccountIDRule{
 		resourceType:  "aws_cloudformation_stack_set_instance",
 		attributeName: "account_id",
-		pattern:       regexp.MustCompile(`^[0-9]{12}`),
+		pattern:       regexp.MustCompile(`^[0-9]{12}$`),
 	}
 }
 
@@ -72,7 +72,7 @@ func (r *AwsCloudformationStackSetInstanceInvalidAccountIDRule) Check(runner tfl
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[0-9]{12}`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[0-9]{12}$`),
 					attribute.Expr.Range(),
 				)
 			}

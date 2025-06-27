@@ -29,7 +29,7 @@ func NewAwsSignerSigningProfilePermissionInvalidProfileNameRule() *AwsSignerSign
 		attributeName: "profile_name",
 		max:           64,
 		min:           2,
-		pattern:       regexp.MustCompile(`^[a-zA-Z0-9_]{2,}`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z0-9_]{2,}$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsSignerSigningProfilePermissionInvalidProfileNameRule) Check(runner t
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9_]{2,}`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9_]{2,}$`),
 					attribute.Expr.Range(),
 				)
 			}

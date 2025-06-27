@@ -25,7 +25,7 @@ func NewAwsAppconfigHostedConfigurationVersionInvalidApplicationIDRule() *AwsApp
 	return &AwsAppconfigHostedConfigurationVersionInvalidApplicationIDRule{
 		resourceType:  "aws_appconfig_hosted_configuration_version",
 		attributeName: "application_id",
-		pattern:       regexp.MustCompile(`^[a-z0-9]{4,7}`),
+		pattern:       regexp.MustCompile(`^[a-z0-9]{4,7}$`),
 	}
 }
 
@@ -72,7 +72,7 @@ func (r *AwsAppconfigHostedConfigurationVersionInvalidApplicationIDRule) Check(r
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-z0-9]{4,7}`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-z0-9]{4,7}$`),
 					attribute.Expr.Range(),
 				)
 			}

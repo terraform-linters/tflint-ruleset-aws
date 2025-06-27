@@ -29,7 +29,7 @@ func NewAwsApprunnerCustomDomainAssociationInvalidDomainNameRule() *AwsApprunner
 		attributeName: "domain_name",
 		max:           255,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[A-Za-z0-9*.-]{1,255}`),
+		pattern:       regexp.MustCompile(`^[A-Za-z0-9*.-]{1,255}$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsApprunnerCustomDomainAssociationInvalidDomainNameRule) Check(runner 
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[A-Za-z0-9*.-]{1,255}`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[A-Za-z0-9*.-]{1,255}$`),
 					attribute.Expr.Range(),
 				)
 			}

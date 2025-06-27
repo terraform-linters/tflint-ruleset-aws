@@ -29,7 +29,7 @@ func NewAwsFsxOpenzfsSnapshotInvalidNameRule() *AwsFsxOpenzfsSnapshotInvalidName
 		attributeName: "name",
 		max:           203,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[a-zA-Z0-9_:.-]{1,203}`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z0-9_:.-]{1,203}$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsFsxOpenzfsSnapshotInvalidNameRule) Check(runner tflint.Runner) error
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9_:.-]{1,203}`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9_:.-]{1,203}$`),
 					attribute.Expr.Range(),
 				)
 			}
