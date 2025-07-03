@@ -5,7 +5,7 @@
 
 TFLint ruleset plugin for Terraform AWS Provider
 
-This ruleset focus on possible errors and best practices about AWS resources. Many rules are enabled by default and warn against code that might fail when running `terraform apply`, or clearly unrecommened.
+This ruleset focus on possible errors and best practices about AWS resources. In other words, the rules warn against code that might fail when running `terraform apply` or practices that should be avoided.
 
 ## Requirements
 
@@ -14,7 +14,7 @@ This ruleset focus on possible errors and best practices about AWS resources. Ma
 
 ## Installation
 
-You can install the plugin by adding a config to `.tflint.hcl` and running `tflint --init`:
+After configuring [TFLint](https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/config.md), you can install the plugin by adding a config to `.tflint.hcl` and running `tflint --init`:
 
 ```hcl
 plugin "aws" {
@@ -24,7 +24,7 @@ plugin "aws" {
 }
 ```
 
-For more configuration about the plugin, see [Plugin Configuration](docs/configuration.md).
+For more information about configuration options for this ruleset plugin, see [Plugin Configuration](docs/configuration.md).
 
 ## Getting Started
 
