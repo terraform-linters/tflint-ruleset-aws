@@ -28,8 +28,6 @@ mapping "aws_redshift_cluster" {
   snapshot_cluster_identifier         = String
   owner_account                       = String
   iam_roles                           = IamRoleArnList
-  logging                             = LoggingStatus
-  snapshot_copy                       = EnableSnapshotCopyMessage
   tags                                = TagList
 }
 

@@ -257,7 +257,6 @@ mapping "aws_ec2_transit_gateway_vpc_attachment_accepter" {
 }
 
 mapping "aws_eip" {
-  vpc                       = Boolean
   instance                  = String
   network_interface         = String
   associate_with_private_ip = String
@@ -280,8 +279,6 @@ mapping "aws_instance" {
   placement_group                      = Placement
   tenancy                              = Tenancy
   host_id                              = String
-  cpu_core_count                       = Integer
-  cpu_threads_per_core                 = Integer
   ebs_optimized                        = Boolean
   disable_api_termination              = Boolean
   instance_initiated_shutdown_behavior = ShutdownBehavior
@@ -324,8 +321,6 @@ mapping "aws_launch_template" {
   credit_specification                 = CreditSpecificationRequest
   disable_api_termination              = Boolean
   ebs_optimized                        = Boolean
-  elastic_gpu_specifications           = ElasticGpuSpecificationList
-  elastic_inference_accelerator        = LaunchTemplateElasticInferenceAcceleratorList
   iam_instance_profile                 = LaunchTemplateIamInstanceProfileSpecificationRequest
   image_id                             = String
   instance_initiated_shutdown_behavior = ShutdownBehavior
@@ -382,7 +377,6 @@ mapping "aws_spot_instance_request" {
   wait_for_fulfillment            = Boolean
   spot_type                       = String
   launch_group                    = String
-  block_duration_minutes          = Integer
   instance_interruption_behavior  = InstanceInterruptionBehavior
   valid_until                     = DateTime
   valid_from                      = DateTime

@@ -13,7 +13,6 @@ mapping "aws_ssm_association" {
   name                = DocumentARN
   association_name    = AssociationName
   document_version    = DocumentVersion
-  instance_id         = InstanceId
   output_location     = InstanceAssociationOutputLocation
   parameters          = Parameters
   schedule_expression = ScheduleExpression

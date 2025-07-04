@@ -22,7 +22,17 @@ mapping "aws_dms_endpoint" {
   username                    = String
   service_access_role         = String
   mongodb_settings            = MongoDbSettings
-  s3_settings                 = S3Settings
+}
+
+mapping "aws_dms_s3_endpoint" {
+  compression_type                        = CompressionTypeValue
+  encryption_mode                         = EncryptionModeValue
+  data_format                             = DataFormatValue
+  encoding_type                           = EncodingTypeValue
+  parquet_version                         = ParquetVersionValue
+  date_partition_sequence                 = DatePartitionSequenceValue
+  date_partition_delimiter                = DatePartitionDelimiterValue
+  canned_acl_for_objects                  = CannedAclForObjectsValue
 }
 
 mapping "aws_dms_event_subscription" {
