@@ -2,7 +2,6 @@ import = "aws-sdk-ruby/apis/eks/2017-11-01/api-2.json"
 
 mapping "aws_eks_addon" {
   cluster_name = ClusterName
-  resolve_conflicts = ResolveConflicts
   tags = TagMap
   service_account_role_arn = RoleArn
 }

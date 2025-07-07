@@ -56,7 +56,6 @@ mapping "aws_flow_log" {
   iam_role_arn         = String
   log_destination_type = LogDestinationType
   log_destination      = String
-  log_group_name       = String
   subnet_id            = String
   vpc_id               = String
 }

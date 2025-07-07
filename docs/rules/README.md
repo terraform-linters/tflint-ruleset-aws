@@ -517,6 +517,14 @@ These rules enforce best practices and naming conventions:
 |aws_dms_endpoint_invalid_endpoint_type|✔|
 |aws_dms_endpoint_invalid_ssl_mode|✔|
 |aws_dms_replication_task_invalid_migration_type|✔|
+|aws_dms_s3_endpoint_invalid_canned_acl_for_objects|✔|
+|aws_dms_s3_endpoint_invalid_compression_type|✔|
+|aws_dms_s3_endpoint_invalid_data_format|✔|
+|aws_dms_s3_endpoint_invalid_date_partition_delimiter|✔|
+|aws_dms_s3_endpoint_invalid_date_partition_sequence|✔|
+|aws_dms_s3_endpoint_invalid_encoding_type|✔|
+|aws_dms_s3_endpoint_invalid_encryption_mode|✔|
+|aws_dms_s3_endpoint_invalid_parquet_version|✔|
 |aws_docdb_global_cluster_invalid_global_cluster_identifier|✔|
 |aws_dx_bgp_peer_invalid_address_family|✔|
 |aws_dx_hosted_private_virtual_interface_invalid_address_family|✔|
@@ -586,7 +594,6 @@ These rules enforce best practices and naming conventions:
 |aws_efs_mount_target_invalid_ip_address|✔|
 |aws_efs_mount_target_invalid_subnet_id|✔|
 |aws_eks_addon_invalid_cluster_name|✔|
-|aws_eks_addon_invalid_resolve_conflicts|✔|
 |aws_eks_addon_invalid_service_account_role_arn|✔|
 |aws_eks_cluster_invalid_name|✔|
 |aws_eks_node_group_invalid_ami_type|✔|
@@ -930,11 +937,6 @@ These rules enforce best practices and naming conventions:
 |aws_networkfirewall_rule_group_invalid_name|✔|
 |aws_networkfirewall_rule_group_invalid_rules|✔|
 |aws_networkfirewall_rule_group_invalid_type|✔|
-|aws_opsworks_application_invalid_type|✔|
-|aws_opsworks_instance_invalid_architecture|✔|
-|aws_opsworks_instance_invalid_auto_scaling_type|✔|
-|aws_opsworks_instance_invalid_root_device_type|✔|
-|aws_opsworks_stack_invalid_default_root_device_type|✔|
 |aws_organizations_account_invalid_email|✔|
 |aws_organizations_account_invalid_iam_user_access_to_billing|✔|
 |aws_organizations_account_invalid_name|✔|
@@ -1260,7 +1262,6 @@ These rules enforce best practices and naming conventions:
 |aws_ssm_association_invalid_association_name|✔|
 |aws_ssm_association_invalid_compliance_severity|✔|
 |aws_ssm_association_invalid_document_version|✔|
-|aws_ssm_association_invalid_instance_id|✔|
 |aws_ssm_association_invalid_max_concurrency|✔|
 |aws_ssm_association_invalid_max_errors|✔|
 |aws_ssm_association_invalid_name|✔|
