@@ -27,6 +27,7 @@ func NewAwsIAMUserSSHKeyInvalidStatusRule() *AwsIAMUserSSHKeyInvalidStatusRule {
 		enum: []string{
 			"Active",
 			"Inactive",
+			"Expired",
 		},
 	}
 }

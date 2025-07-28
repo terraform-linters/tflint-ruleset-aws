@@ -71,6 +71,7 @@ func NewAwsRoute53ZoneAssociationInvalidVpcRegionRule() *AwsRoute53ZoneAssociati
 			"us-isof-east-1",
 			"ap-southeast-7",
 			"ap-east-2",
+			"eu-isoe-west-1",
 		},
 	}
 }

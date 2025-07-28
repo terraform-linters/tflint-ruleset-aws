@@ -32,6 +32,7 @@ func NewAwsOrganizationsPolicyInvalidTypeRule() *AwsOrganizationsPolicyInvalidTy
 			"AISERVICES_OPT_OUT_POLICY",
 			"CHATBOT_POLICY",
 			"DECLARATIVE_POLICY_EC2",
+			"SECURITYHUB_POLICY",
 		},
 	}
 }

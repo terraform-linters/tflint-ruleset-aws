@@ -71,6 +71,7 @@ func NewAwsRoute53HealthCheckInvalidCloudwatchAlarmRegionRule() *AwsRoute53Healt
 			"us-isof-east-1",
 			"ap-southeast-7",
 			"ap-east-2",
+			"eu-isoe-west-1",
 		},
 	}
 }
