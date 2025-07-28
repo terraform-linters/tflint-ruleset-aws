@@ -1315,7 +1315,6 @@ These rules enforce best practices and naming conventions:
 |aws_storagegateway_cache_invalid_disk_id|✔|
 |aws_storagegateway_cache_invalid_gateway_arn|✔|
 |aws_storagegateway_cached_iscsi_volume_invalid_gateway_arn|✔|
-|aws_storagegateway_cached_iscsi_volume_invalid_network_interface_id|✔|
 |aws_storagegateway_cached_iscsi_volume_invalid_snapshot_id|✔|
 |aws_storagegateway_cached_iscsi_volume_invalid_source_volume_arn|✔|
 |aws_storagegateway_cached_iscsi_volume_invalid_target_name|✔|
@@ -1348,7 +1347,6 @@ These rules enforce best practices and naming conventions:
 |aws_storagegateway_stored_iscsi_volume_invalid_disk_id|✔|
 |aws_storagegateway_stored_iscsi_volume_invalid_gateway_arn|✔|
 |aws_storagegateway_stored_iscsi_volume_invalid_kms_key|✔|
-|aws_storagegateway_stored_iscsi_volume_invalid_network_interface_id|✔|
 |aws_storagegateway_stored_iscsi_volume_invalid_snapshot_id|✔|
 |aws_storagegateway_stored_iscsi_volume_invalid_target_name|✔|
 |aws_storagegateway_tape_pool_invalid_pool_name|✔|

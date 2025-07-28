@@ -28,6 +28,7 @@ func NewAwsRoute53ResolverRuleInvalidRuleTypeRule() *AwsRoute53ResolverRuleInval
 			"FORWARD",
 			"SYSTEM",
 			"RECURSIVE",
+			"DELEGATE",
 		},
 	}
 }
