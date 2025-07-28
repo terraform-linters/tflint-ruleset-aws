@@ -47,7 +47,7 @@ By running TFLint with this ruleset in advance, you can fix the problem before t
 
 ## Rules
 
-700+ rules are available. See [Rules](docs/rules/README.md).
+There are 700+ rules available, see the [Rules documentation page](docs/rules/README.md) for a complete list. Note that not all of them are enabled by default and need to be configured manually (especially rules involving [Best Practices](docs/rules/README.md#best-practicesnaming-conventions)).
 
 ## Building the plugin
 
