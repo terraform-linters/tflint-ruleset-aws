@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 	"sort"
 
@@ -80,7 +81,11 @@ func main() {
 					continue
 				}
 				model := shapes[shapeName].(map[string]interface{})
-				schema := fetchSchema(mapping.Resource, attribute, model, awsProvider)
+				schema, err := fetchSchema(mapping.Resource, attribute, model, awsProvider)
+				if err != nil {
+					fmt.Fprintf(os.Stderr, "Error processing `%s.%s`: %v\n", mapping.Resource, attribute, err)
+					os.Exit(1)
+				}
 				if validMapping(model) {
 					fmt.Printf("Generating rule for `%s.%s`\n", mapping.Resource, attribute)
 					generateRuleFile(mapping.Resource, attribute, model, schema)
@@ -100,29 +105,31 @@ func main() {
 	generateDocFile(generatedRules)
 }
 
-func fetchSchema(resource, attribute string, model map[string]interface{}, provider *tfjson.ProviderSchema) *tfjson.SchemaAttribute {
+func fetchSchema(resource, attribute string, model map[string]interface{}, provider *tfjson.ProviderSchema) (*tfjson.SchemaAttribute, error) {
 	resourceSchema, ok := provider.ResourceSchemas[resource]
 	if !ok {
-		panic(fmt.Sprintf("resource `%s` not found in the Terraform schema", resource))
+		return nil, fmt.Errorf("resource `%s` not found in the Terraform schema", resource)
 	}
 	attrSchema, ok := resourceSchema.Block.Attributes[attribute]
 	if !ok {
 		if _, ok := resourceSchema.Block.NestedBlocks[attribute]; !ok {
-			panic(fmt.Sprintf("`%s.%s` not found in the Terraform schema", resource, attribute))
+			return nil, fmt.Errorf("`%s.%s` not found in the Terraform schema", resource, attribute)
 		}
 	}
 
 	switch model["type"].(string) {
 	case "string":
-		ty := attrSchema.AttributeType.FriendlyName()
-		if ty != "string" && ty != "number" {
-			panic(fmt.Sprintf("`%s.%s` is expected as string, but not (%s)", resource, attribute, ty))
+		if attrSchema != nil {
+			ty := attrSchema.AttributeType.FriendlyName()
+			if ty != "string" && ty != "number" {
+				return nil, fmt.Errorf("`%s.%s` is expected as string, but not (%s)", resource, attribute, ty)
+			}
 		}
 	default:
 		// noop
 	}
 
-	return attrSchema
+	return attrSchema, nil
 }
 
 func validMapping(model map[string]interface{}) bool {
