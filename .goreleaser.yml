@@ -41,8 +41,6 @@ signs:
       - --yes
 release:
   github:
-    owner: terraform-linters
-    name: tflint-ruleset-aws
   draft: true
 snapshot:
   version_template: "{{ .Tag }}-dev"
