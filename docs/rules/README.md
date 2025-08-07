@@ -714,7 +714,6 @@ These rules enforce best practices and naming conventions:
 |aws_guardduty_ipset_invalid_location|✔|
 |aws_guardduty_ipset_invalid_name|✔|
 |aws_guardduty_member_invalid_detector_id|✔|
-|aws_guardduty_member_invalid_email|✔|
 |aws_guardduty_organization_configuration_invalid_detector_id|✔|
 |aws_guardduty_publishing_destination_invalid_destination_type|✔|
 |aws_guardduty_publishing_destination_invalid_detector_id|✔|

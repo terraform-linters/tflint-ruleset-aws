@@ -31,7 +31,7 @@ mapping "aws_guardduty_ipset" {
 mapping "aws_guardduty_member" {
   account_id                 = String
   detector_id                = DetectorId
-  email                      = Email
+  email                      = any //Email
   invite                     = Boolean
   invitation_message         = String
   disable_email_notification = Boolean
