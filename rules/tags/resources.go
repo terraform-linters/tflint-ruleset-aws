@@ -575,6 +575,7 @@ var Resources = []string{
 	"aws_route53recoveryreadiness_resource_set",
 	"aws_route_table",
 	"aws_rum_app_monitor",
+	"aws_s3_access_point",
 	"aws_s3_bucket",
 	"aws_s3_bucket_object",
 	"aws_s3_directory_bucket",
