@@ -632,7 +632,6 @@ var Rules = []tflint.Rule{
 	NewAwsGuarddutyIpsetInvalidLocationRule(),
 	NewAwsGuarddutyIpsetInvalidNameRule(),
 	NewAwsGuarddutyMemberInvalidDetectorIDRule(),
-	NewAwsGuarddutyMemberInvalidEmailRule(),
 	NewAwsGuarddutyOrganizationConfigurationInvalidDetectorIDRule(),
 	NewAwsGuarddutyPublishingDestinationInvalidDestinationTypeRule(),
 	NewAwsGuarddutyPublishingDestinationInvalidDetectorIDRule(),
