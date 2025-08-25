@@ -108,6 +108,7 @@ func NewAwsSagemakerNotebookInstanceInvalidInstanceTypeRule() *AwsSagemakerNoteb
 			"ml.p4d.24xlarge",
 			"ml.p4de.24xlarge",
 			"ml.p5.48xlarge",
+			"ml.p6-b200.48xlarge",
 			"ml.m6i.large",
 			"ml.m6i.xlarge",
 			"ml.m6i.2xlarge",
