@@ -29,7 +29,7 @@ func NewAwsPrometheusRuleGroupNamespaceInvalidWorkspaceIDRule() *AwsPrometheusRu
 		attributeName: "workspace_id",
 		max:           64,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[0-9A-Za-z][-.0-9A-Z_a-z]*$`),
+		pattern:       regexp.MustCompile(`^.*[0-9A-Za-z][-.0-9A-Z_a-z]*.*$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsPrometheusRuleGroupNamespaceInvalidWorkspaceIDRule) Check(runner tfl
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[0-9A-Za-z][-.0-9A-Z_a-z]*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^.*[0-9A-Za-z][-.0-9A-Z_a-z]*.*$`),
 					attribute.Expr.Range(),
 				)
 			}

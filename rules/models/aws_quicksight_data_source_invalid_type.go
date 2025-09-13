@@ -54,6 +54,7 @@ func NewAwsQuicksightDataSourceInvalidTypeRule() *AwsQuicksightDataSourceInvalid
 			"STARBURST",
 			"TRINO",
 			"BIGQUERY",
+			"GOOGLESHEETS",
 		},
 	}
 }
