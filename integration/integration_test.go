@@ -20,6 +20,23 @@ type meta struct {
 	Version string
 }
 
+type result struct {
+	Issues []issue `json:"issues"`
+	Errors []any   `json:"errors"`
+}
+
+type issue struct {
+	Rule    any `json:"rule"`
+	Message any `json:"message"`
+	Range   any `json:"range"`
+	Callers any `json:"callers"`
+
+	// The following fields are ignored because they are added in TFLint v0.59.1.
+	// We can uncomment this once the minimum supported version is v0.59.1+.
+	// Fixed   any `json:"fixed"`
+	// Fixable any `json:"fixable"`
+}
+
 func TestIntegration(t *testing.T) {
 	cases := []struct {
 		Name    string
@@ -109,12 +126,12 @@ func TestIntegration(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			var want interface{}
+			var want result
 			if err := json.Unmarshal(rawWant, &want); err != nil {
 				t.Fatal(err)
 			}
 
-			var got interface{}
+			var got result
 			if err := json.Unmarshal(stdout.Bytes(), &got); err != nil {
 				t.Fatal(err)
 			}
