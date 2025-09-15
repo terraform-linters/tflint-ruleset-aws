@@ -27,9 +27,9 @@ func NewAwsPrometheusRuleGroupNamespaceInvalidNameRule() *AwsPrometheusRuleGroup
 	return &AwsPrometheusRuleGroupNamespaceInvalidNameRule{
 		resourceType:  "aws_prometheus_rule_group_namespace",
 		attributeName: "name",
-		max:           64,
+		max:           128,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[0-9A-Za-z][-.0-9A-Z_a-z]*$`),
+		pattern:       regexp.MustCompile(`^.*[0-9A-Za-z][-.0-9A-Z_a-z]*.*$`),
 	}
 }
 
@@ -76,7 +76,7 @@ func (r *AwsPrometheusRuleGroupNamespaceInvalidNameRule) Check(runner tflint.Run
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					"name must be 64 characters or less",
+					"name must be 128 characters or less",
 					attribute.Expr.Range(),
 				)
 			}
@@ -90,7 +90,7 @@ func (r *AwsPrometheusRuleGroupNamespaceInvalidNameRule) Check(runner tflint.Run
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[0-9A-Za-z][-.0-9A-Z_a-z]*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^.*[0-9A-Za-z][-.0-9A-Z_a-z]*.*$`),
 					attribute.Expr.Range(),
 				)
 			}
