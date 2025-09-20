@@ -29,6 +29,7 @@ func NewAwsBudgetsBudgetInvalidTimeUnitRule() *AwsBudgetsBudgetInvalidTimeUnitRu
 			"MONTHLY",
 			"QUARTERLY",
 			"ANNUALLY",
+			"CUSTOM",
 		},
 	}
 }

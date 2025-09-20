@@ -1041,6 +1041,8 @@ func NewAwsInstanceInvalidTypeRule() *AwsInstanceInvalidTypeRule {
 			"i8ge.48xlarge",
 			"i8ge.metal-24xl",
 			"i8ge.metal-48xl",
+			"mac-m4.metal",
+			"mac-m4pro.metal",
 		},
 	}
 }
