@@ -1,7 +1,7 @@
 import = "aws-sdk-ruby/apis/ecs/2014-11-13/api-2.json"
 
 mapping "aws_ecs_account_setting_default" {
-  name = SettingName
+  name = any//SettingName
 }
 
 mapping "aws_ecs_capacity_provider" {

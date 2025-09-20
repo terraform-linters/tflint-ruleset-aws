@@ -492,7 +492,6 @@ var Rules = []tflint.Rule{
 	NewAwsEcrpublicRepositoryInvalidRepositoryNameRule(),
 	NewAwsEcrpublicRepositoryPolicyInvalidPolicyRule(),
 	NewAwsEcrpublicRepositoryPolicyInvalidRepositoryNameRule(),
-	NewAwsEcsAccountSettingDefaultInvalidNameRule(),
 	NewAwsEcsServiceInvalidLaunchTypeRule(),
 	NewAwsEcsServiceInvalidPropagateTagsRule(),
 	NewAwsEcsServiceInvalidSchedulingStrategyRule(),
