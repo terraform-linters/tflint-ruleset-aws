@@ -21,12 +21,12 @@ require (
 
 require (
 	github.com/aws/aws-sdk-go-v2/service/ec2 v1.254.1
-	github.com/aws/aws-sdk-go-v2/service/ecs v1.64.2
+	github.com/aws/aws-sdk-go-v2/service/ecs v1.65.1
 	github.com/aws/aws-sdk-go-v2/service/elasticache v1.50.5
 	github.com/aws/aws-sdk-go-v2/service/elasticloadbalancing v1.33.6
 	github.com/aws/aws-sdk-go-v2/service/elasticloadbalancingv2 v1.50.6
 	github.com/aws/aws-sdk-go-v2/service/iam v1.47.7
-	github.com/aws/aws-sdk-go-v2/service/rds v1.107.2
+	github.com/aws/aws-sdk-go-v2/service/rds v1.108.0
 	github.com/aws/smithy-go v1.23.0
 	github.com/hashicorp/aws-sdk-go-base/v2 v2.0.0-beta.66
 	github.com/hashicorp/terraform-json v0.27.2
