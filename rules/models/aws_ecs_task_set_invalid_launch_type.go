@@ -28,6 +28,7 @@ func NewAwsEcsTaskSetInvalidLaunchTypeRule() *AwsEcsTaskSetInvalidLaunchTypeRule
 			"EC2",
 			"FARGATE",
 			"EXTERNAL",
+			"MANAGED_INSTANCES",
 		},
 	}
 }

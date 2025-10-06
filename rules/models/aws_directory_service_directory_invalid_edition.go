@@ -27,6 +27,7 @@ func NewAwsDirectoryServiceDirectoryInvalidEditionRule() *AwsDirectoryServiceDir
 		enum: []string{
 			"Enterprise",
 			"Standard",
+			"Hybrid",
 		},
 	}
 }
