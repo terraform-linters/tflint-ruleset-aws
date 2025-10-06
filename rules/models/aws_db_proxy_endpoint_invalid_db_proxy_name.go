@@ -29,7 +29,7 @@ func NewAwsDBProxyEndpointInvalidDBProxyNameRule() *AwsDBProxyEndpointInvalidDBP
 		attributeName: "db_proxy_name",
 		max:           63,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[a-zA-Z][a-zA-Z0-9]*(-[a-zA-Z0-9]+)*$`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z](?:-?[a-zA-Z0-9]+)*$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsDBProxyEndpointInvalidDBProxyNameRule) Check(runner tflint.Runner) e
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z][a-zA-Z0-9]*(-[a-zA-Z0-9]+)*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z](?:-?[a-zA-Z0-9]+)*$`),
 					attribute.Expr.Range(),
 				)
 			}

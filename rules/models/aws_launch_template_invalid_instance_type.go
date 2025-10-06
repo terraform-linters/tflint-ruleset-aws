@@ -1043,6 +1043,18 @@ func NewAwsLaunchTemplateInvalidInstanceTypeRule() *AwsLaunchTemplateInvalidInst
 			"i8ge.metal-48xl",
 			"mac-m4.metal",
 			"mac-m4pro.metal",
+			"r8gn.medium",
+			"r8gn.large",
+			"r8gn.xlarge",
+			"r8gn.2xlarge",
+			"r8gn.4xlarge",
+			"r8gn.8xlarge",
+			"r8gn.12xlarge",
+			"r8gn.16xlarge",
+			"r8gn.24xlarge",
+			"r8gn.48xlarge",
+			"r8gn.metal-24xl",
+			"r8gn.metal-48xl",
 		},
 	}
 }
