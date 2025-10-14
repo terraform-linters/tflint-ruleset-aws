@@ -52,4 +52,5 @@ var writeOnlyArguments = map[string][]writeOnlyArgument{
 			writeOnlyVersionAttribute: "value_wo_version",
 		},
 	},
+	"aws_transfer_host_key": {
 }
