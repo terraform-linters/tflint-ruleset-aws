@@ -50,12 +50,15 @@ func findReplaceableAttribute(arguments []string, resource *tfjson.Schema) []wri
 		// Check if the argument ends with "_wo" and if the original attribute without "_wo" suffix exists in the resource schema
 		attribute := strings.TrimSuffix(argument, "_wo")
 		versionAttribute := attribute + "_wo_version"
-		if strings.HasSuffix(argument, "_wo") && resource.Block.Attributes[attribute] != nil && resource.Block.Attributes[versionAttribute] != nil {
-			writeOnlyArguments = append(writeOnlyArguments, writeOnlyArgument{
-				OriginalAttribute:         attribute,
-				WriteOnlyAlternative:      argument,
-				WriteOnlyVersionAttribute: versionAttribute,
-			})
+		if strings.HasSuffix(argument, "_wo") && resource.Block.Attributes[attribute] != nil {
+			writeOnlyArgument := writeOnlyArgument{
+				OriginalAttribute:    attribute,
+				WriteOnlyAlternative: argument,
+			}
+			if resource.Block.Attributes[versionAttribute] != nil {
+				writeOnlyArgument.WriteOnlyVersionAttribute = versionAttribute
+			}
+			writeOnlyArguments = append(writeOnlyArguments, writeOnlyArgument)
 		}
 	}
 

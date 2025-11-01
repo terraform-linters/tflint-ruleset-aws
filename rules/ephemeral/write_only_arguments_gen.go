@@ -3,6 +3,13 @@
 package ephemeral
 
 var writeOnlyArguments = map[string][]writeOnlyArgument{
+	"aws_bedrockagentcore_api_key_credential_provider": {
+		{
+			originalAttribute:         "api_key",
+			writeOnlyAlternative:      "api_key_wo",
+			writeOnlyVersionAttribute: "api_key_wo_version",
+		},
+	},
 	"aws_db_instance": {
 		{
 			originalAttribute:         "password",
@@ -50,6 +57,13 @@ var writeOnlyArguments = map[string][]writeOnlyArgument{
 			originalAttribute:         "value",
 			writeOnlyAlternative:      "value_wo",
 			writeOnlyVersionAttribute: "value_wo_version",
+		},
+	},
+	"aws_transfer_host_key": {
+		{
+			originalAttribute:         "host_key_body",
+			writeOnlyAlternative:      "host_key_body_wo",
+			writeOnlyVersionAttribute: "",
 		},
 	},
 }
