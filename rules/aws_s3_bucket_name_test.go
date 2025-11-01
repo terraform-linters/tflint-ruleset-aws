@@ -267,7 +267,7 @@ resource "aws_s3_bucket" "invalid_prefix_sthree" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsS3BucketNameRule(),
-					Message: `Bucket names must not start with the prefix 'sthree-' and the prefix 'sthree-configurator'. (name: "sthree-domain.com", regex: "^(sthree-|sthree-configurator)")`,
+					Message: `Bucket names must not start with the prefix 'sthree-', 'sthree-configurator', or 'amzn-s3-demo-'. (name: "sthree-domain.com", regex: "^(sthree-|sthree-configurator|amzn-s3-demo-)")`,
 					Range: hcl.Range{
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 3, Column: 12},
@@ -310,6 +310,82 @@ resource "aws_s3_bucket" "invalid_suffix_ols3" {
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 3, Column: 12},
 						End:      hcl.Pos{Line: 3, Column: 27},
+					},
+				},
+			},
+		},
+		{
+			Name: "invalid_prefix_amzn_s3_demo",
+			Content: `
+resource "aws_s3_bucket" "invalid_prefix_amzn_s3_demo" {
+  bucket = "amzn-s3-demo-bucket"
+}
+`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsS3BucketNameRule(),
+					Message: `Bucket names must not start with the prefix 'sthree-', 'sthree-configurator', or 'amzn-s3-demo-'. (name: "amzn-s3-demo-bucket", regex: "^(sthree-|sthree-configurator|amzn-s3-demo-)")`,
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 3, Column: 12},
+						End:      hcl.Pos{Line: 3, Column: 33},
+					},
+				},
+			},
+		},
+		{
+			Name: "invalid_suffix_mrap",
+			Content: `
+resource "aws_s3_bucket" "invalid_suffix_mrap" {
+  bucket = "my-bucket.mrap"
+}
+`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsS3BucketNameRule(),
+					Message: `Bucket names must not end with the suffix '.mrap'. (name: "my-bucket.mrap", regex: "\\.mrap$")`,
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 3, Column: 12},
+						End:      hcl.Pos{Line: 3, Column: 28},
+					},
+				},
+			},
+		},
+		{
+			Name: "invalid_suffix_x_s3",
+			Content: `
+resource "aws_s3_bucket" "invalid_suffix_x_s3" {
+  bucket = "my-bucket--x-s3"
+}
+`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsS3BucketNameRule(),
+					Message: `Bucket names must not end with the suffix '--x-s3'. (name: "my-bucket--x-s3", regex: "--x-s3$")`,
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 3, Column: 12},
+						End:      hcl.Pos{Line: 3, Column: 29},
+					},
+				},
+			},
+		},
+		{
+			Name: "invalid_suffix_table_s3",
+			Content: `
+resource "aws_s3_bucket" "invalid_suffix_table_s3" {
+  bucket = "my-bucket--table-s3"
+}
+`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsS3BucketNameRule(),
+					Message: `Bucket names must not end with the suffix '--table-s3'. (name: "my-bucket--table-s3", regex: "--table-s3$")`,
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 3, Column: 12},
+						End:      hcl.Pos{Line: 3, Column: 33},
 					},
 				},
 			},
