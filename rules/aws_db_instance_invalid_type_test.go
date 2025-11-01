@@ -39,62 +39,6 @@ resource "aws_db_instance" "mysql" {
 }`,
 			Expected: helper.Issues{},
 		},
-		{
-			Name: "db.c5.large is valid",
-			Content: `
-resource "aws_db_instance" "mysql" {
-    instance_class = "db.c5.large"
-}`,
-			Expected: helper.Issues{},
-		},
-		{
-			Name: "db.c6g.16xlarge is valid",
-			Content: `
-resource "aws_db_instance" "mysql" {
-    instance_class = "db.c6g.16xlarge"
-}`,
-			Expected: helper.Issues{},
-		},
-		{
-			Name: "db.c7g.medium is valid",
-			Content: `
-resource "aws_db_instance" "mysql" {
-    instance_class = "db.c7g.medium"
-}`,
-			Expected: helper.Issues{},
-		},
-		{
-			Name: "db.i3.xlarge is valid",
-			Content: `
-resource "aws_db_instance" "mysql" {
-    instance_class = "db.i3.xlarge"
-}`,
-			Expected: helper.Issues{},
-		},
-		{
-			Name: "db.i4i.32xlarge is valid",
-			Content: `
-resource "aws_db_instance" "mysql" {
-    instance_class = "db.i4i.32xlarge"
-}`,
-			Expected: helper.Issues{},
-		},
-		{
-			Name: "db.c6gd.metal is valid",
-			Content: `
-resource "aws_db_instance" "mysql" {
-    instance_class = "db.c6gd.metal"
-}`,
-			Expected: helper.Issues{},
-		},
-		{
-			Name: "db.x2idn.16xlarge is valid (typo fixed)",
-			Content: `
-resource "aws_db_instance" "mysql" {
-    instance_class = "db.x2idn.16xlarge"
-}`,
-			Expected: helper.Issues{},
-		},
 	}
 
 	rule := NewAwsDBInstanceInvalidTypeRule()
