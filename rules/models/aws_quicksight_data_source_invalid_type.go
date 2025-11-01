@@ -55,6 +55,13 @@ func NewAwsQuicksightDataSourceInvalidTypeRule() *AwsQuicksightDataSourceInvalid
 			"TRINO",
 			"BIGQUERY",
 			"GOOGLESHEETS",
+			"GOOGLE_DRIVE",
+			"CONFLUENCE",
+			"SHAREPOINT",
+			"ONE_DRIVE",
+			"WEB_CRAWLER",
+			"S3_KNOWLEDGE_BASE",
+			"QBUSINESS",
 		},
 	}
 }

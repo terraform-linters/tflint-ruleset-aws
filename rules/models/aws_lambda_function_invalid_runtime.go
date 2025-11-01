@@ -66,6 +66,9 @@ func NewAwsLambdaFunctionInvalidRuntimeRule() *AwsLambdaFunctionInvalidRuntimeRu
 			"java21",
 			"python3.13",
 			"nodejs22.x",
+			"java25",
+			"nodejs24.x",
+			"python3.14",
 		},
 	}
 }
