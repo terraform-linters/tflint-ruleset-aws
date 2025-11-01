@@ -19,6 +19,8 @@ func NewAwsMqConfigurationInvalidEngineTypeRule() *AwsMqConfigurationInvalidEngi
 	return &AwsMqConfigurationInvalidEngineTypeRule{
 		resourceType:  "aws_mq_configuration",
 		attributeName: "engine_type",
+		// https://docs.aws.amazon.com/amazon-mq/latest/api-reference/broker-engine-types.html
+		// Terraform uses mixed case: ActiveMQ, RabbitMQ (AWS API uses uppercase: ACTIVEMQ, RABBITMQ)
 		enum: []string{
 			"ActiveMQ",
 			"RabbitMQ",
