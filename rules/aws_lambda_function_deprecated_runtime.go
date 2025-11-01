@@ -34,7 +34,7 @@ func NewAwsLambdaFunctionDeprecatedRuntimeRule() *AwsLambdaFunctionDeprecatedRun
 			"python3.12":      time.Date(2028, time.October, 31, 0, 0, 0, 0, time.UTC),
 			"python3.11":      time.Date(2026, time.June, 30, 0, 0, 0, 0, time.UTC),
 			"python3.10":      time.Date(2026, time.June, 30, 0, 0, 0, 0, time.UTC),
-			"python3.9":       time.Date(2025, time.October, 31, 0, 0, 0, 0, time.UTC),
+			"python3.9":       time.Date(2025, time.December, 15, 0, 0, 0, 0, time.UTC),
 			"java21":          time.Date(2029, time.June, 30, 0, 0, 0, 0, time.UTC),
 			"java17":          time.Date(2026, time.June, 30, 0, 0, 0, 0, time.UTC),
 			"java11":          time.Date(2026, time.June, 30, 0, 0, 0, 0, time.UTC),
