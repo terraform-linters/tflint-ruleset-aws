@@ -8,7 +8,7 @@ import (
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
 
-// AwsDBInstanceInvalidTypeRule checks whether "aws_db_instance" has invalid intance type.
+// AwsDBInstanceInvalidTypeRule checks whether "aws_db_instance" has invalid instance type.
 type AwsDBInstanceInvalidTypeRule struct {
 	tflint.DefaultRule
 
