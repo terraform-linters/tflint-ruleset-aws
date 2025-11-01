@@ -108,8 +108,8 @@ func (r *AwsS3BucketNameRule) Check(runner tflint.Runner) error {
 			Description: "Bucket names must not start with the prefix 'xn--'.",
 		},
 		{
-			Regexp:      *regexp.MustCompile("^(sthree-|sthree-configurator)"),
-			Description: "Bucket names must not start with the prefix 'sthree-' and the prefix 'sthree-configurator'.",
+			Regexp:      *regexp.MustCompile("^(sthree-|sthree-configurator|amzn-s3-demo-)"),
+			Description: "Bucket names must not start with the prefix 'sthree-', 'sthree-configurator', or 'amzn-s3-demo-'.",
 		},
 		{
 			Regexp:      *regexp.MustCompile("-s3alias$"),
@@ -118,6 +118,18 @@ func (r *AwsS3BucketNameRule) Check(runner tflint.Runner) error {
 		{
 			Regexp:      *regexp.MustCompile("--ol-s3$"),
 			Description: "Bucket names must not end with the suffix '--ol-s3'.",
+		},
+		{
+			Regexp:      *regexp.MustCompile("\\.mrap$"),
+			Description: "Bucket names must not end with the suffix '.mrap'.",
+		},
+		{
+			Regexp:      *regexp.MustCompile("--x-s3$"),
+			Description: "Bucket names must not end with the suffix '--x-s3'.",
+		},
+		{
+			Regexp:      *regexp.MustCompile("--table-s3$"),
+			Description: "Bucket names must not end with the suffix '--table-s3'.",
 		},
 	}
 
