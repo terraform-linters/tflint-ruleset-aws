@@ -1023,7 +1023,6 @@ These rules enforce best practices and naming conventions:
 |aws_route53_record_invalid_name|✔|
 |aws_route53_record_invalid_set_identifier|✔|
 |aws_route53_record_invalid_type|✔|
-|aws_route53_record_invalid_zone_id|✔|
 |aws_route53_resolver_dnssec_config_invalid_resource_id|✔|
 |aws_route53_resolver_endpoint_invalid_direction|✔|
 |aws_route53_resolver_firewall_config_invalid_firewall_fail_open|✔|
