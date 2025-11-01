@@ -22,11 +22,10 @@ func NewAwsDynamoDBTableInvalidStreamViewTypeRule() *AwsDynamoDBTableInvalidStre
 		resourceType:  "aws_dynamodb_table",
 		attributeName: "stream_view_type",
 		enum: []string{
-			"",
+			"KEYS_ONLY",
 			"NEW_IMAGE",
 			"OLD_IMAGE",
 			"NEW_AND_OLD_IMAGES",
-			"KEYS_ONLY",
 		},
 	}
 }

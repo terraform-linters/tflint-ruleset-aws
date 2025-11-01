@@ -34,12 +34,41 @@ resource "aws_dynamodb_table" "foo" {
 			Expected: helper.Issues{},
 		},
 		{
+			Name: "KEYS_ONLY is valid",
+			Content: `
+resource "aws_dynamodb_table" "foo" {
+	stream_view_type = "KEYS_ONLY"
+}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Name: "OLD_IMAGE is valid",
+			Content: `
+resource "aws_dynamodb_table" "foo" {
+	stream_view_type = "OLD_IMAGE"
+}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Name: "NEW_AND_OLD_IMAGES is valid",
+			Content: `
+resource "aws_dynamodb_table" "foo" {
+	stream_view_type = "NEW_AND_OLD_IMAGES"
+}`,
+			Expected: helper.Issues{},
+		},
+		{
 			Name: "empty string",
 			Content: `
 resource "aws_dynamodb_table" "foo" {
 	stream_view_type = ""
 }`,
-			Expected: helper.Issues{},
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsDynamoDBTableInvalidStreamViewTypeRule(),
+					Message: `"" is an invalid value as stream_view_type`,
+				},
+			},
 		},
 	}
 
