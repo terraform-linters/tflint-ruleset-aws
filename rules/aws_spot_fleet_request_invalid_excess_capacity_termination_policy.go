@@ -22,8 +22,8 @@ func NewAwsSpotFleetRequestInvalidExcessCapacityTerminationPolicyRule() *AwsSpot
 		resourceType:  "aws_spot_fleet_request",
 		attributeName: "excess_capacity_termination_policy",
 		enum: []string{
-			"Default",
-			"NoTermination",
+			"default",
+			"noTermination",
 		},
 	}
 }
