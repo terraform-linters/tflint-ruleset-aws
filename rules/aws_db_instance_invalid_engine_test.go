@@ -39,6 +39,68 @@ resource "aws_db_instance" "aurora_postgresql" {
 }`,
 			Expected: helper.Issues{},
 		},
+		{
+			Name: "aurora (standalone) is invalid",
+			Content: `
+resource "aws_db_instance" "aurora" {
+    engine = "aurora"
+}`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsDBInstanceInvalidEngineRule(),
+					Message: "\"aurora\" is invalid engine.",
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 3, Column: 14},
+						End:      hcl.Pos{Line: 3, Column: 22},
+					},
+				},
+			},
+		},
+		{
+			Name: "oracle-se1 is invalid (deprecated)",
+			Content: `
+resource "aws_db_instance" "oracle" {
+    engine = "oracle-se1"
+}`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsDBInstanceInvalidEngineRule(),
+					Message: "\"oracle-se1\" is invalid engine.",
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 3, Column: 14},
+						End:      hcl.Pos{Line: 3, Column: 26},
+					},
+				},
+			},
+		},
+		{
+			Name: "oracle-se is invalid (deprecated)",
+			Content: `
+resource "aws_db_instance" "oracle" {
+    engine = "oracle-se"
+}`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsDBInstanceInvalidEngineRule(),
+					Message: "\"oracle-se\" is invalid engine.",
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 3, Column: 14},
+						End:      hcl.Pos{Line: 3, Column: 25},
+					},
+				},
+			},
+		},
+		{
+			Name: "oracle-se2 is valid",
+			Content: `
+resource "aws_db_instance" "oracle" {
+    engine = "oracle-se2"
+}`,
+			Expected: helper.Issues{},
+		},
 	}
 
 	rule := NewAwsDBInstanceInvalidEngineRule()

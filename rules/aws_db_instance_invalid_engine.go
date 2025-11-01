@@ -24,7 +24,6 @@ func NewAwsDBInstanceInvalidEngineRule() *AwsDBInstanceInvalidEngineRule {
 		attributeName: "engine",
 		engines: map[string]bool{
 			// https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBInstance.html#API_CreateDBInstance_RequestParameters
-			"aurora":                true,
 			"aurora-mysql":          true,
 			"aurora-postgresql":     true,
 			"mariadb":               true,
@@ -37,8 +36,6 @@ func NewAwsDBInstanceInvalidEngineRule() *AwsDBInstanceInvalidEngineRule {
 			"oracle-se2-cdb":        true,
 			"custom-oracle-se2":     true,
 			"custom-oracle-se2-cdb": true,
-			"oracle-se1":            true,
-			"oracle-se":             true,
 			"postgres":              true,
 			"sqlserver-ee":          true,
 			"sqlserver-se":          true,
