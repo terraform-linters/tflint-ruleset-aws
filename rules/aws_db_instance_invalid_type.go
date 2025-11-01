@@ -23,7 +23,6 @@ func NewAwsDBInstanceInvalidTypeRule() *AwsDBInstanceInvalidTypeRule {
 		resourceType:  "aws_db_instance",
 		attributeName: "instance_class",
 		instanceTypes: map[string]bool{
-			"db.c6gd.metal":             true,
 			"db.c6gd.16xlarge":          true,
 			"db.c6gd.12xlarge":          true,
 			"db.c6gd.8xlarge":           true,
