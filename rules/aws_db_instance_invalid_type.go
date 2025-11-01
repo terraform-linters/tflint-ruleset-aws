@@ -8,7 +8,7 @@ import (
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
 
-// AwsDBInstanceInvalidTypeRule checks whether "aws_db_instance" has invalid intance type.
+// AwsDBInstanceInvalidTypeRule checks whether "aws_db_instance" has invalid instance type.
 type AwsDBInstanceInvalidTypeRule struct {
 	tflint.DefaultRule
 
@@ -346,7 +346,7 @@ func NewAwsDBInstanceInvalidTypeRule() *AwsDBInstanceInvalidTypeRule {
 			"db.z1d.2xlarge":            true,
 			"db.z1d.xlarge":             true,
 			"db.z1d.large":              true,
-			"db.x2idn.16xlarg":          true,
+			"db.x2idn.16xlarge":         true,
 			"db.x2idn.24xlarge":         true,
 			"db.x2idn.32xlarge":         true,
 			"db.x2iedn.xlarge":          true,
