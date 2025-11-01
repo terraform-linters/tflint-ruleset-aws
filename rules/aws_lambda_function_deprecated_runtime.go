@@ -29,12 +29,11 @@ func NewAwsLambdaFunctionDeprecatedRuntimeRule() *AwsLambdaFunctionDeprecatedRun
 		deprecatedRuntimes: map[string]time.Time{
 			"nodejs22.x":      time.Date(2027, time.April, 30, 0, 0, 0, 0, time.UTC),
 			"nodejs20.x":      time.Date(2026, time.April, 30, 0, 0, 0, 0, time.UTC),
-			"nodejs18.x":      time.Date(2025, time.September, 1, 0, 0, 0, 0, time.UTC),
 			"python3.13":      time.Date(2029, time.June, 30, 0, 0, 0, 0, time.UTC),
 			"python3.12":      time.Date(2028, time.October, 31, 0, 0, 0, 0, time.UTC),
 			"python3.11":      time.Date(2026, time.June, 30, 0, 0, 0, 0, time.UTC),
 			"python3.10":      time.Date(2026, time.June, 30, 0, 0, 0, 0, time.UTC),
-			"python3.9":       time.Date(2025, time.October, 31, 0, 0, 0, 0, time.UTC),
+			"python3.9":       time.Date(2025, time.December, 15, 0, 0, 0, 0, time.UTC),
 			"java21":          time.Date(2029, time.June, 30, 0, 0, 0, 0, time.UTC),
 			"java17":          time.Date(2026, time.June, 30, 0, 0, 0, 0, time.UTC),
 			"java11":          time.Date(2026, time.June, 30, 0, 0, 0, 0, time.UTC),
@@ -45,6 +44,7 @@ func NewAwsLambdaFunctionDeprecatedRuntimeRule() *AwsLambdaFunctionDeprecatedRun
 			"provided.al2023": time.Date(2029, time.June, 30, 0, 0, 0, 0, time.UTC),
 			"provided.al2":    time.Date(2026, time.June, 30, 0, 0, 0, 0, time.UTC),
 			// Already reached end of support
+			"nodejs18.x":     time.Date(2025, time.September, 1, 0, 0, 0, 0, time.UTC),
 			"nodejs16.x":     time.Date(2024, time.June, 12, 0, 0, 0, 0, time.UTC),
 			"python3.8":      time.Date(2024, time.October, 14, 0, 0, 0, 0, time.UTC),
 			"java8":          time.Date(2024, time.January, 8, 0, 0, 0, 0, time.UTC),
