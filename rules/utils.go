@@ -64,6 +64,7 @@ var validElastiCacheNodeTypes = map[string]bool{
 	"cache.r6g.8xlarge":   true,
 	"cache.r6g.12xlarge":  true,
 	"cache.r6g.16xlarge":  true,
+	"cache.r6gd.large":    true,
 	"cache.r6gd.xlarge":   true,
 	"cache.r6gd.2xlarge":  true,
 	"cache.r6gd.4xlarge":  true,
