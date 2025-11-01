@@ -941,7 +941,6 @@ var Rules = []tflint.Rule{
 	NewAwsRoute53RecordInvalidNameRule(),
 	NewAwsRoute53RecordInvalidSetIdentifierRule(),
 	NewAwsRoute53RecordInvalidTypeRule(),
-	NewAwsRoute53RecordInvalidZoneIDRule(),
 	NewAwsRoute53ResolverDnssecConfigInvalidResourceIDRule(),
 	NewAwsRoute53ResolverEndpointInvalidDirectionRule(),
 	NewAwsRoute53ResolverFirewallConfigInvalidFirewallFailOpenRule(),

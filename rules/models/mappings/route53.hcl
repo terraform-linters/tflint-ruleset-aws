@@ -32,7 +32,7 @@ mapping "aws_route53_query_log" {
 }
 
 mapping "aws_route53_record" {
-  zone_id                          = ResourceId
+  zone_id                          = any //ResourceId
   name                             = DNSName
   type                             = RRType
   ttl                              = TTL
