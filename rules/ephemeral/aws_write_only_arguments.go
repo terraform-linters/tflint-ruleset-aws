@@ -79,7 +79,10 @@ func (r *AwsWriteOnlyArgumentsRule) Check(runner tflint.Runner) error {
 								if err != nil {
 									return err
 								}
-								return f.InsertTextAfter(attribute.Range, fmt.Sprintf("\n  %s = 1", resourceAttribute.writeOnlyVersionAttribute))
+								if resourceAttribute.writeOnlyVersionAttribute != "" {
+									err = f.InsertTextAfter(attribute.Range, fmt.Sprintf("\n  %s = 1", resourceAttribute.writeOnlyVersionAttribute))
+								}
+								return err
 							},
 						); err != nil {
 							return fmt.Errorf("failed to call EmitIssueWithFix(): %w", err)

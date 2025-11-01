@@ -60,4 +60,10 @@ var writeOnlyArguments = map[string][]writeOnlyArgument{
 		},
 	},
 	"aws_transfer_host_key": {
+		{
+			originalAttribute:         "host_key_body",
+			writeOnlyAlternative:      "host_key_body_wo",
+			writeOnlyVersionAttribute: "",
+		},
+	},
 }

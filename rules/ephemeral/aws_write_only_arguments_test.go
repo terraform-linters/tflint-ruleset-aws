@@ -49,6 +49,30 @@ resource "aws_secretsmanager_secret_version" "test" {
 `,
 			Expected: helper.Issues{},
 		},
+		{
+			Name: "without version attribute",
+			Content: `
+resource "aws_transfer_host_key" "test" {
+  host_key_body = "test"
+}
+`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsWriteOnlyArgumentsRule(),
+					Message: `"host_key_body" is a non-ephemeral attribute, which means this secret is stored in state. Please use write-only argument "host_key_body_wo".`,
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 3, Column: 19},
+						End:      hcl.Pos{Line: 3, Column: 25},
+					},
+				},
+			},
+			Fixed: `
+resource "aws_transfer_host_key" "test" {
+  host_key_body_wo = "test"
+}
+`,
+		},
 	}
 
 	rule := NewAwsWriteOnlyArgumentsRule()
