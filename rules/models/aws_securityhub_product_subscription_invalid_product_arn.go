@@ -25,7 +25,7 @@ func NewAwsSecurityhubProductSubscriptionInvalidProductArnRule() *AwsSecurityhub
 	return &AwsSecurityhubProductSubscriptionInvalidProductArnRule{
 		resourceType:  "aws_securityhub_product_subscription",
 		attributeName: "product_arn",
-		pattern:       regexp.MustCompile(`^.*\S.*$`),
+		pattern:       regexp.MustCompile(`^\S$`),
 	}
 }
 
@@ -72,7 +72,7 @@ func (r *AwsSecurityhubProductSubscriptionInvalidProductArnRule) Check(runner tf
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^.*\S.*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^\S$`),
 					attribute.Expr.Range(),
 				)
 			}

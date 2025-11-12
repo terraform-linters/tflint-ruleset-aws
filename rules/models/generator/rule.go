@@ -115,25 +115,12 @@ func replacePattern(pattern string) string {
 		return pattern
 	}
 
-	// Handle placeholder patterns (documentation text, not validation patterns)
-	if pattern == "^See rules in parameter description$" {
-		return ""
-	}
-
 	// Convert Unicode escapes from \uXXXX to \x{XXXX} format
 	unicodeEscapeRegex := regexp.MustCompile(`\\u([0-9A-F]{4})`)
 	replaced := unicodeEscapeRegex.ReplaceAllString(pattern, `\x{$1}`)
 
-	// Fix incomplete patterns
-	if replaced == "^(?s)" {
-		return "^(?s).*$"
-	}
-
 	// Handle patterns missing anchors
 	if !strings.HasPrefix(replaced, "^") && !strings.HasSuffix(replaced, "$") {
-		if replaced == "\\S" {
-			return "^.*\\S.*$"
-		}
 		replaced = fmt.Sprintf("^%s$", replaced)
 	}
 

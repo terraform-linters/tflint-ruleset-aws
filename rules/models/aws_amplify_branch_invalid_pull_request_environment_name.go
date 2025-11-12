@@ -27,7 +27,7 @@ func NewAwsAmplifyBranchInvalidPullRequestEnvironmentNameRule() *AwsAmplifyBranc
 		resourceType:  "aws_amplify_branch",
 		attributeName: "pull_request_environment_name",
 		max:           20,
-		pattern:       regexp.MustCompile(`^(?s).*$`),
+		pattern:       regexp.MustCompile(`^(?s)`),
 	}
 }
 
@@ -81,7 +81,7 @@ func (r *AwsAmplifyBranchInvalidPullRequestEnvironmentNameRule) Check(runner tfl
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(?s).*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(?s)`),
 					attribute.Expr.Range(),
 				)
 			}

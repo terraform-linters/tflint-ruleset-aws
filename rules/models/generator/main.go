@@ -36,6 +36,31 @@ type test struct {
 	NG        string `hcl:"ng"`
 }
 
+// smithyShape represents a Smithy model shape definition.
+type smithyShape struct {
+	Type    string                 `json:"type"`
+	Traits  map[string]interface{} `json:"traits,omitempty"`
+	Members map[string]smithyMember `json:"members,omitempty"`
+}
+
+// smithyMember represents a member of a Smithy shape.
+type smithyMember struct {
+	Target string                 `json:"target,omitempty"`
+	Traits map[string]interface{} `json:"traits,omitempty"`
+}
+
+// smithyLengthTrait represents the smithy.api#length trait.
+type smithyLengthTrait struct {
+	Min *float64 `json:"min,omitempty"`
+	Max *float64 `json:"max,omitempty"`
+}
+
+// smithyEnumItem represents an enum value in smithy.api#enum trait.
+type smithyEnumItem struct {
+	Value string `json:"value"`
+	Name  string `json:"name,omitempty"`
+}
+
 func main() {
 	files, err := filepath.Glob("./mappings/*.hcl")
 	if err != nil {
@@ -197,81 +222,81 @@ func extractServiceNamespace(shapes map[string]interface{}) string {
 	return ""
 }
 
-// convertSmithyShape converts Smithy model format to internal format
-// Smithy uses traits for metadata while our internal format uses direct fields
-func convertSmithyShape(smithyShape map[string]interface{}) map[string]interface{} {
+// convertSmithyShape converts Smithy model format to internal format.
+// Smithy uses traits for metadata while our internal format uses direct fields.
+func convertSmithyShape(rawShape map[string]interface{}) map[string]interface{} {
 	result := make(map[string]interface{})
 
-	// Copy type
-	if shapeType, ok := smithyShape["type"]; ok {
-		result["type"] = shapeType
+	// Parse the raw shape into typed struct
+	shapeBytes, err := json.Marshal(rawShape)
+	if err != nil {
+		return result
 	}
 
-	// Extract constraints and patterns from Smithy traits
-	if traits, ok := smithyShape["traits"].(map[string]interface{}); ok {
-		// Length constraints
-		if lengthTrait, ok := traits["smithy.api#length"].(map[string]interface{}); ok {
-			if min, ok := lengthTrait["min"]; ok {
-				result["min"] = min
-			}
-			if max, ok := lengthTrait["max"]; ok {
-				result["max"] = max
-			}
-		}
+	var shape smithyShape
+	if err := json.Unmarshal(shapeBytes, &shape); err != nil {
+		return result
+	}
 
-		// Pattern constraint
-		if pattern, ok := traits["smithy.api#pattern"].(string); ok {
-			result["pattern"] = pattern
-		}
+	result["type"] = shape.Type
 
-		// Enum as trait (older Smithy style)
-		if enumTrait, ok := traits["smithy.api#enum"]; ok {
-			if enumList, ok := enumTrait.([]interface{}); ok {
-				enumValues := make([]string, 0, len(enumList))
-				for _, enumItem := range enumList {
-					if enumMap, ok := enumItem.(map[string]interface{}); ok {
-						if value, ok := enumMap["value"].(string); ok {
-							enumValues = append(enumValues, value)
-						}
-					}
-				}
-				sort.Strings(enumValues)
-				result["enum"] = enumValues
+	// Extract length constraints from traits
+	if lengthData, ok := shape.Traits["smithy.api#length"]; ok {
+		lengthBytes, _ := json.Marshal(lengthData)
+		var length smithyLengthTrait
+		if json.Unmarshal(lengthBytes, &length) == nil {
+			if length.Min != nil {
+				result["min"] = *length.Min
+			}
+			if length.Max != nil {
+				result["max"] = *length.Max
 			}
 		}
 	}
 
-	// Enum as type (newer Smithy style: type="enum" with members)
-	if shapeType, ok := smithyShape["type"].(string); ok && shapeType == "enum" {
-		if members, ok := smithyShape["members"].(map[string]interface{}); ok {
-			enumValues := make([]string, 0, len(members))
+	// Extract pattern constraint
+	if pattern, ok := shape.Traits["smithy.api#pattern"].(string); ok {
+		result["pattern"] = pattern
+	}
 
-			// Sort member names for deterministic ordering
-			memberNames := make([]string, 0, len(members))
-			for memberName := range members {
-				memberNames = append(memberNames, memberName)
+	// Extract enum as trait (older Smithy style)
+	if enumData, ok := shape.Traits["smithy.api#enum"]; ok {
+		enumBytes, _ := json.Marshal(enumData)
+		var enumItems []smithyEnumItem
+		if json.Unmarshal(enumBytes, &enumItems) == nil {
+			enumValues := make([]string, 0, len(enumItems))
+			for _, item := range enumItems {
+				enumValues = append(enumValues, item.Value)
 			}
-			sort.Strings(memberNames)
-
-			// Extract enum values
-			for _, memberName := range memberNames {
-				memberData := members[memberName]
-				enumValue := memberName
-
-				// Check for explicit enumValue in traits
-				if memberMap, ok := memberData.(map[string]interface{}); ok {
-					if traits, ok := memberMap["traits"].(map[string]interface{}); ok {
-						if enumValueTrait, ok := traits["smithy.api#enumValue"].(string); ok {
-							enumValue = enumValueTrait
-						}
-					}
-				}
-				enumValues = append(enumValues, enumValue)
-			}
-
+			sort.Strings(enumValues)
 			result["enum"] = enumValues
-			result["type"] = "string" // Normalize enum type to string
 		}
+	}
+
+	// Handle enum as type (newer Smithy style: type="enum" with members)
+	if shape.Type == "enum" && len(shape.Members) > 0 {
+		memberNames := make([]string, 0, len(shape.Members))
+		for memberName := range shape.Members {
+			memberNames = append(memberNames, memberName)
+		}
+		sort.Strings(memberNames)
+
+		enumValues := make([]string, 0, len(memberNames))
+		for _, memberName := range memberNames {
+			member := shape.Members[memberName]
+			enumValue := memberName
+
+			// Check for explicit enumValue in member traits
+			if enumValueData, ok := member.Traits["smithy.api#enumValue"]; ok {
+				if enumValueStr, ok := enumValueData.(string); ok {
+					enumValue = enumValueStr
+				}
+			}
+			enumValues = append(enumValues, enumValue)
+		}
+
+		result["enum"] = enumValues
+		result["type"] = "string" // Normalize enum type to string
 	}
 
 	return result
