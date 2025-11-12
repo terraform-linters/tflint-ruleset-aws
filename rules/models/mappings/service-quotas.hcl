@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/service-quotas/2019-06-24/api-2.json"
+import = "api-models-aws/models/service-quotas/service/2019-06-24/service-quotas-2019-06-24.json"
 
 mapping "aws_servicequotas_service_quota" {
   quota_code   = QuotaCode

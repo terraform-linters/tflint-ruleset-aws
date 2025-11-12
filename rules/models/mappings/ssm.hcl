@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/ssm/2014-11-06/api-2.json"
+import = "api-models-aws/models/ssm/service/2014-11-06/ssm-2014-11-06.json"
 
 mapping "aws_ssm_activation" {
   name               = DefaultInstanceName
@@ -13,6 +13,7 @@ mapping "aws_ssm_association" {
   name                = DocumentARN
   association_name    = AssociationName
   document_version    = DocumentVersion
+  instance_id         = InstanceId
   output_location     = InstanceAssociationOutputLocation
   parameters          = Parameters
   schedule_expression = ScheduleExpression

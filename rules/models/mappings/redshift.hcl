@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/redshift/2012-12-01/api-2.json"
+import = "api-models-aws/models/redshift/service/2012-12-01/redshift-2012-12-01.json"
 
 mapping "aws_redshift_cluster" {
   cluster_identifier                  = String
@@ -28,6 +28,8 @@ mapping "aws_redshift_cluster" {
   snapshot_cluster_identifier         = String
   owner_account                       = String
   iam_roles                           = IamRoleArnList
+  logging                             = LoggingStatus
+  snapshot_copy                       = EnableSnapshotCopyMessage
   tags                                = TagList
 }
 

@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"strings"
 
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/gohcl"
@@ -80,7 +81,13 @@ func main() {
 				if shapeName == "any" {
 					continue
 				}
-				model := shapes[shapeName].(map[string]interface{})
+
+				model := findShape(shapes, shapeName)
+				if model == nil {
+					fmt.Printf("Shape `%s` not found, skipping\n", shapeName)
+					continue
+				}
+
 				schema, err := fetchSchema(mapping.Resource, attribute, model, awsProvider)
 				if err != nil {
 					fmt.Fprintf(os.Stderr, "Error processing `%s.%s`: %v\n", mapping.Resource, attribute, err)
@@ -152,4 +159,120 @@ func validMapping(model map[string]interface{}) bool {
 		// Unsupported types
 		return false
 	}
+}
+
+// findShape locates a shape in Smithy format with namespace-qualified lookup
+func findShape(shapes map[string]interface{}, shapeName string) map[string]interface{} {
+	// Try with service namespace qualification (Smithy format)
+	serviceNamespace := extractServiceNamespace(shapes)
+	if serviceNamespace != "" {
+		qualifiedName := fmt.Sprintf("%s#%s", serviceNamespace, shapeName)
+		if shape, ok := shapes[qualifiedName]; ok {
+			return convertSmithyShape(shape.(map[string]interface{}))
+		}
+	}
+
+	// Fallback to direct lookup (legacy format or unqualified shapes)
+	if shape, ok := shapes[shapeName]; ok {
+		if shapeMap, ok := shape.(map[string]interface{}); ok {
+			return shapeMap
+		}
+	}
+
+	return nil
+}
+
+// extractServiceNamespace extracts the namespace from the Smithy service definition
+func extractServiceNamespace(shapes map[string]interface{}) string {
+	for shapeName, shape := range shapes {
+		if shapeMap, ok := shape.(map[string]interface{}); ok {
+			if shapeType, ok := shapeMap["type"].(string); ok && shapeType == "service" {
+				// Extract namespace from shape name (e.g., "com.amazonaws.acmpca#ACMPrivateCA")
+				if parts := strings.Split(shapeName, "#"); len(parts) == 2 {
+					return parts[0]
+				}
+			}
+		}
+	}
+	return ""
+}
+
+// convertSmithyShape converts Smithy model format to internal format
+// Smithy uses traits for metadata while our internal format uses direct fields
+func convertSmithyShape(smithyShape map[string]interface{}) map[string]interface{} {
+	result := make(map[string]interface{})
+
+	// Copy type
+	if shapeType, ok := smithyShape["type"]; ok {
+		result["type"] = shapeType
+	}
+
+	// Extract constraints and patterns from Smithy traits
+	if traits, ok := smithyShape["traits"].(map[string]interface{}); ok {
+		// Length constraints
+		if lengthTrait, ok := traits["smithy.api#length"].(map[string]interface{}); ok {
+			if min, ok := lengthTrait["min"]; ok {
+				result["min"] = min
+			}
+			if max, ok := lengthTrait["max"]; ok {
+				result["max"] = max
+			}
+		}
+
+		// Pattern constraint
+		if pattern, ok := traits["smithy.api#pattern"].(string); ok {
+			result["pattern"] = pattern
+		}
+
+		// Enum as trait (older Smithy style)
+		if enumTrait, ok := traits["smithy.api#enum"]; ok {
+			if enumList, ok := enumTrait.([]interface{}); ok {
+				enumValues := make([]string, 0, len(enumList))
+				for _, enumItem := range enumList {
+					if enumMap, ok := enumItem.(map[string]interface{}); ok {
+						if value, ok := enumMap["value"].(string); ok {
+							enumValues = append(enumValues, value)
+						}
+					}
+				}
+				sort.Strings(enumValues)
+				result["enum"] = enumValues
+			}
+		}
+	}
+
+	// Enum as type (newer Smithy style: type="enum" with members)
+	if shapeType, ok := smithyShape["type"].(string); ok && shapeType == "enum" {
+		if members, ok := smithyShape["members"].(map[string]interface{}); ok {
+			enumValues := make([]string, 0, len(members))
+
+			// Sort member names for deterministic ordering
+			memberNames := make([]string, 0, len(members))
+			for memberName := range members {
+				memberNames = append(memberNames, memberName)
+			}
+			sort.Strings(memberNames)
+
+			// Extract enum values
+			for _, memberName := range memberNames {
+				memberData := members[memberName]
+				enumValue := memberName
+
+				// Check for explicit enumValue in traits
+				if memberMap, ok := memberData.(map[string]interface{}); ok {
+					if traits, ok := memberMap["traits"].(map[string]interface{}); ok {
+						if enumValueTrait, ok := traits["smithy.api#enumValue"].(string); ok {
+							enumValue = enumValueTrait
+						}
+					}
+				}
+				enumValues = append(enumValues, enumValue)
+			}
+
+			result["enum"] = enumValues
+			result["type"] = "string" // Normalize enum type to string
+		}
+	}
+
+	return result
 }

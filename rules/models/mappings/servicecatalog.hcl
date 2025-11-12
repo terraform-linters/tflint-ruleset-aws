@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/servicecatalog/2015-12-10/api-2.json"
+import = "api-models-aws/models/service-catalog/service/2015-12-10/service-catalog-2015-12-10.json"
 
 mapping "aws_servicecatalog_budget_resource_association" {
   budget_name = BudgetName

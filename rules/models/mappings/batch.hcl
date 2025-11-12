@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/batch/2016-08-10/api-2.json"
+import = "api-models-aws/models/batch/service/2016-08-10/batch-2016-08-10.json"
 
 mapping "aws_batch_compute_environment" {
   state = CEState

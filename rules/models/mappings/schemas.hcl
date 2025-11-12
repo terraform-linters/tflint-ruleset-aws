@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/schemas/2019-12-02/api-2.json"
+import = "api-models-aws/models/schemas/service/2019-12-02/schemas-2019-12-02.json"
 
 mapping "aws_schemas_discoverer" {
   source_arn = __stringMin20Max1600

@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/sns/2010-03-31/api-2.json"
+import = "api-models-aws/models/sns/service/2010-03-31/sns-2010-03-31.json"
 
 mapping "aws_sns_platform_application" {
   name                             = String

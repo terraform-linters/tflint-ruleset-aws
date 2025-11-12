@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/elasticache/2015-02-02/api-2.json"
+import = "api-models-aws/models/elasticache/service/2015-02-02/elasticache-2015-02-02.json"
 
 mapping "aws_elasticache_cluster" {
   cluster_id                   = String

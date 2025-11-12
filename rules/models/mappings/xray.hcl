@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/xray/2016-04-12/api-2.json"
+import = "api-models-aws/models/xray/service/2016-04-12/xray-2016-04-12.json"
 
 mapping "aws_xray_encryption_config" {
   type = EncryptionType

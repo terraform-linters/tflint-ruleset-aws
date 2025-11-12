@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/dms/2016-01-01/api-2.json"
+import = "api-models-aws/models/database-migration-service/service/2016-01-01/database-migration-service-2016-01-01.json"
 
 mapping "aws_dms_certificate" {
   certificate_id = String
@@ -22,17 +22,7 @@ mapping "aws_dms_endpoint" {
   username                    = String
   service_access_role         = String
   mongodb_settings            = MongoDbSettings
-}
-
-mapping "aws_dms_s3_endpoint" {
-  compression_type                        = CompressionTypeValue
-  encryption_mode                         = EncryptionModeValue
-  data_format                             = DataFormatValue
-  encoding_type                           = EncodingTypeValue
-  parquet_version                         = ParquetVersionValue
-  date_partition_sequence                 = DatePartitionSequenceValue
-  date_partition_delimiter                = DatePartitionDelimiterValue
-  canned_acl_for_objects                  = CannedAclForObjectsValue
+  s3_settings                 = S3Settings
 }
 
 mapping "aws_dms_event_subscription" {

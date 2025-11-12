@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/ecr/2015-09-21/api-2.json"
+import = "api-models-aws/models/ecr/service/2015-09-21/ecr-2015-09-21.json"
 
 mapping "aws_ecr_lifecycle_policy" {
   repository = RepositoryName

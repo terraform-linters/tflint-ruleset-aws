@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/account/2021-02-01/api-2.json"
+import = "api-models-aws/models/account/service/2021-02-01/account-2021-02-01.json"
 
 mapping "aws_account_alternate_contact" {
   account_id = AccountId

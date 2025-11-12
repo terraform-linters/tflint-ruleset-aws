@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/route53resolver/2018-04-01/api-2.json"
+import = "api-models-aws/models/route53resolver/service/2018-04-01/route53resolver-2018-04-01.json"
 
 mapping "aws_route53_resolver_dnssec_config" {
   resource_id = ResourceId

@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/elasticloadbalancingv2/2015-12-01/api-2.json"
+import = "api-models-aws/models/elastic-load-balancing-v2/service/2015-12-01/elastic-load-balancing-v2-2015-12-01.json"
 
 mapping "aws_lb" {
   name                             = LoadBalancerName

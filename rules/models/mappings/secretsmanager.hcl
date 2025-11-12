@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/secretsmanager/2017-10-17/api-2.json"
+import = "api-models-aws/models/secrets-manager/service/2017-10-17/secrets-manager-2017-10-17.json"
 
 mapping "aws_secretsmanager_secret" {
   name                    = NameType

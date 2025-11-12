@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/connect/2017-08-08/api-2.json"
+import = "api-models-aws/models/connect/service/2017-08-08/connect-2017-08-08.json"
 
 mapping "aws_connect_bot_association" {
   instance_id = InstanceId

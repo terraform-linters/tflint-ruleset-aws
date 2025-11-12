@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/dlm/2018-01-12/api-2.json"
+import = "api-models-aws/models/dlm/service/2018-01-12/dlm-2018-01-12.json"
 
 mapping "aws_dlm_lifecycle_policy" {
   description        = PolicyDescription

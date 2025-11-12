@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/kms/2014-11-01/api-2.json"
+import = "api-models-aws/models/kms/service/2014-11-01/kms-2014-11-01.json"
 
 mapping "aws_kms_alias" {
   name          = AliasNameType

@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/amplify/2017-07-25/api-2.json"
+import = "api-models-aws/models/amplify/service/2017-07-25/amplify-2017-07-25.json"
 
 mapping "aws_amplify_app" {
   name = Name
