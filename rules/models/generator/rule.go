@@ -121,6 +121,14 @@ func replacePattern(pattern string) string {
 
 	// Handle patterns missing anchors
 	if !strings.HasPrefix(replaced, "^") && !strings.HasSuffix(replaced, "$") {
+		// The Smithy models contain pattern "\S" (single non-whitespace character)
+		// for many string fields (ResourceName, ResourceArn, etc). This is clearly
+		// incorrect for fields that can be 1-128 characters. The Ruby SDK generator
+		// produced "^.*\S.*$" (contains non-whitespace) for these same fields.
+		// We maintain this transformation for backward compatibility.
+		if replaced == "\\S" {
+			return "^.*\\S.*$"
+		}
 		replaced = fmt.Sprintf("^%s$", replaced)
 	}
 

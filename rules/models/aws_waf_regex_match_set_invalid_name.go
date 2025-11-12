@@ -29,7 +29,7 @@ func NewAwsWafRegexMatchSetInvalidNameRule() *AwsWafRegexMatchSetInvalidNameRule
 		attributeName: "name",
 		max:           128,
 		min:           1,
-		pattern:       regexp.MustCompile(`^\S$`),
+		pattern:       regexp.MustCompile(`^.*\S.*$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsWafRegexMatchSetInvalidNameRule) Check(runner tflint.Runner) error {
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^\S$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^.*\S.*$`),
 					attribute.Expr.Range(),
 				)
 			}

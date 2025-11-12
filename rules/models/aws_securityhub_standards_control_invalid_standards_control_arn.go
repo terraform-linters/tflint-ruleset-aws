@@ -25,7 +25,7 @@ func NewAwsSecurityhubStandardsControlInvalidStandardsControlArnRule() *AwsSecur
 	return &AwsSecurityhubStandardsControlInvalidStandardsControlArnRule{
 		resourceType:  "aws_securityhub_standards_control",
 		attributeName: "standards_control_arn",
-		pattern:       regexp.MustCompile(`^\S$`),
+		pattern:       regexp.MustCompile(`^.*\S.*$`),
 	}
 }
 
@@ -72,7 +72,7 @@ func (r *AwsSecurityhubStandardsControlInvalidStandardsControlArnRule) Check(run
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^\S$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^.*\S.*$`),
 					attribute.Expr.Range(),
 				)
 			}

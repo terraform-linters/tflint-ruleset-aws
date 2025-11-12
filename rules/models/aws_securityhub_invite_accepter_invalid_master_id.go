@@ -25,7 +25,7 @@ func NewAwsSecurityhubInviteAccepterInvalidMasterIDRule() *AwsSecurityhubInviteA
 	return &AwsSecurityhubInviteAccepterInvalidMasterIDRule{
 		resourceType:  "aws_securityhub_invite_accepter",
 		attributeName: "master_id",
-		pattern:       regexp.MustCompile(`^\S$`),
+		pattern:       regexp.MustCompile(`^.*\S.*$`),
 	}
 }
 
@@ -72,7 +72,7 @@ func (r *AwsSecurityhubInviteAccepterInvalidMasterIDRule) Check(runner tflint.Ru
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^\S$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^.*\S.*$`),
 					attribute.Expr.Range(),
 				)
 			}

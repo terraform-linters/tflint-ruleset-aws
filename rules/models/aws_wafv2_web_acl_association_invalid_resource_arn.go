@@ -29,7 +29,7 @@ func NewAwsWafv2WebACLAssociationInvalidResourceArnRule() *AwsWafv2WebACLAssocia
 		attributeName: "resource_arn",
 		max:           2048,
 		min:           20,
-		pattern:       regexp.MustCompile(`^\S$`),
+		pattern:       regexp.MustCompile(`^.*\S.*$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsWafv2WebACLAssociationInvalidResourceArnRule) Check(runner tflint.Ru
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^\S$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^.*\S.*$`),
 					attribute.Expr.Range(),
 				)
 			}

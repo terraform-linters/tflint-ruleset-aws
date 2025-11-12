@@ -25,7 +25,7 @@ func NewAwsSecurityhubStandardsControlInvalidDisabledReasonRule() *AwsSecurityhu
 	return &AwsSecurityhubStandardsControlInvalidDisabledReasonRule{
 		resourceType:  "aws_securityhub_standards_control",
 		attributeName: "disabled_reason",
-		pattern:       regexp.MustCompile(`^\S$`),
+		pattern:       regexp.MustCompile(`^.*\S.*$`),
 	}
 }
 
@@ -72,7 +72,7 @@ func (r *AwsSecurityhubStandardsControlInvalidDisabledReasonRule) Check(runner t
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^\S$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^.*\S.*$`),
 					attribute.Expr.Range(),
 				)
 			}

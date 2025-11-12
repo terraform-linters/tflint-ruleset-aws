@@ -25,7 +25,7 @@ func NewAwsSecurityhubOrganizationAdminAccountInvalidAdminAccountIDRule() *AwsSe
 	return &AwsSecurityhubOrganizationAdminAccountInvalidAdminAccountIDRule{
 		resourceType:  "aws_securityhub_organization_admin_account",
 		attributeName: "admin_account_id",
-		pattern:       regexp.MustCompile(`^\S$`),
+		pattern:       regexp.MustCompile(`^.*\S.*$`),
 	}
 }
 
@@ -72,7 +72,7 @@ func (r *AwsSecurityhubOrganizationAdminAccountInvalidAdminAccountIDRule) Check(
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^\S$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^.*\S.*$`),
 					attribute.Expr.Range(),
 				)
 			}

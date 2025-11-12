@@ -25,7 +25,7 @@ func NewAwsSecurityhubInsightInvalidGroupByAttributeRule() *AwsSecurityhubInsigh
 	return &AwsSecurityhubInsightInvalidGroupByAttributeRule{
 		resourceType:  "aws_securityhub_insight",
 		attributeName: "group_by_attribute",
-		pattern:       regexp.MustCompile(`^\S$`),
+		pattern:       regexp.MustCompile(`^.*\S.*$`),
 	}
 }
 
@@ -72,7 +72,7 @@ func (r *AwsSecurityhubInsightInvalidGroupByAttributeRule) Check(runner tflint.R
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^\S$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^.*\S.*$`),
 					attribute.Expr.Range(),
 				)
 			}
