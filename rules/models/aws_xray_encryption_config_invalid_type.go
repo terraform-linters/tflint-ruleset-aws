@@ -25,8 +25,8 @@ func NewAwsXrayEncryptionConfigInvalidTypeRule() *AwsXrayEncryptionConfigInvalid
 		resourceType:  "aws_xray_encryption_config",
 		attributeName: "type",
 		enum: []string{
-			"NONE",
 			"KMS",
+			"NONE",
 		},
 	}
 }

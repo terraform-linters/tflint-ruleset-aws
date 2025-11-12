@@ -25,8 +25,8 @@ func NewAwsSsoadminAccountAssignmentInvalidPrincipalTypeRule() *AwsSsoadminAccou
 		resourceType:  "aws_ssoadmin_account_assignment",
 		attributeName: "principal_type",
 		enum: []string{
-			"USER",
 			"GROUP",
+			"USER",
 		},
 	}
 }

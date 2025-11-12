@@ -25,8 +25,8 @@ func NewAwsDmsReplicationTaskInvalidMigrationTypeRule() *AwsDmsReplicationTaskIn
 		resourceType:  "aws_dms_replication_task",
 		attributeName: "migration_type",
 		enum: []string{
-			"full-load",
 			"cdc",
+			"full-load",
 			"full-load-and-cdc",
 		},
 	}

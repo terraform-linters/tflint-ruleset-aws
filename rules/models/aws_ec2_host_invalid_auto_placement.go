@@ -25,8 +25,8 @@ func NewAwsEc2HostInvalidAutoPlacementRule() *AwsEc2HostInvalidAutoPlacementRule
 		resourceType:  "aws_ec2_host",
 		attributeName: "auto_placement",
 		enum: []string{
-			"on",
 			"off",
+			"on",
 		},
 	}
 }

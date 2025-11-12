@@ -25,10 +25,10 @@ func NewAwsSsmMaintenanceWindowTaskInvalidTaskTypeRule() *AwsSsmMaintenanceWindo
 		resourceType:  "aws_ssm_maintenance_window_task",
 		attributeName: "task_type",
 		enum: []string{
-			"RUN_COMMAND",
 			"AUTOMATION",
-			"STEP_FUNCTIONS",
 			"LAMBDA",
+			"RUN_COMMAND",
+			"STEP_FUNCTIONS",
 		},
 	}
 }

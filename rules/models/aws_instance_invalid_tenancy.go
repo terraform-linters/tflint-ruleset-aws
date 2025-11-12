@@ -25,8 +25,8 @@ func NewAwsInstanceInvalidTenancyRule() *AwsInstanceInvalidTenancyRule {
 		resourceType:  "aws_instance",
 		attributeName: "tenancy",
 		enum: []string{
-			"default",
 			"dedicated",
+			"default",
 			"host",
 		},
 	}

@@ -26,8 +26,8 @@ func NewAwsAppstreamFleetInvalidFleetTypeRule() *AwsAppstreamFleetInvalidFleetTy
 		attributeName: "fleet_type",
 		enum: []string{
 			"ALWAYS_ON",
-			"ON_DEMAND",
 			"ELASTIC",
+			"ON_DEMAND",
 		},
 	}
 }

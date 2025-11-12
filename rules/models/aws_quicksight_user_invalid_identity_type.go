@@ -26,8 +26,8 @@ func NewAwsQuicksightUserInvalidIdentityTypeRule() *AwsQuicksightUserInvalidIden
 		attributeName: "identity_type",
 		enum: []string{
 			"IAM",
-			"QUICKSIGHT",
 			"IAM_IDENTITY_CENTER",
+			"QUICKSIGHT",
 		},
 	}
 }

@@ -25,8 +25,8 @@ func NewAwsMacie2AccountInvalidStatusRule() *AwsMacie2AccountInvalidStatusRule {
 		resourceType:  "aws_macie2_account",
 		attributeName: "status",
 		enum: []string{
-			"PAUSED",
 			"ENABLED",
+			"PAUSED",
 		},
 	}
 }

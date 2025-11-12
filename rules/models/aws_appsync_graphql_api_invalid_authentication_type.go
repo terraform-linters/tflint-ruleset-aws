@@ -25,11 +25,11 @@ func NewAwsAppsyncGraphqlAPIInvalidAuthenticationTypeRule() *AwsAppsyncGraphqlAP
 		resourceType:  "aws_appsync_graphql_api",
 		attributeName: "authentication_type",
 		enum: []string{
+			"AMAZON_COGNITO_USER_POOLS",
 			"API_KEY",
 			"AWS_IAM",
-			"AMAZON_COGNITO_USER_POOLS",
-			"OPENID_CONNECT",
 			"AWS_LAMBDA",
+			"OPENID_CONNECT",
 		},
 	}
 }

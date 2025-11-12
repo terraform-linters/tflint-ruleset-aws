@@ -25,12 +25,12 @@ func NewAwsCognitoIdentityProviderInvalidProviderTypeRule() *AwsCognitoIdentityP
 		resourceType:  "aws_cognito_identity_provider",
 		attributeName: "provider_type",
 		enum: []string{
-			"SAML",
 			"Facebook",
 			"Google",
 			"LoginWithAmazon",
-			"SignInWithApple",
 			"OIDC",
+			"SAML",
+			"SignInWithApple",
 		},
 	}
 }

@@ -25,9 +25,9 @@ func NewAwsCloudformationStackInvalidOnFailureRule() *AwsCloudformationStackInva
 		resourceType:  "aws_cloudformation_stack",
 		attributeName: "on_failure",
 		enum: []string{
+			"DELETE",
 			"DO_NOTHING",
 			"ROLLBACK",
-			"DELETE",
 		},
 	}
 }

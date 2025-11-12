@@ -25,8 +25,8 @@ func NewAwsBatchJobQueueInvalidStateRule() *AwsBatchJobQueueInvalidStateRule {
 		resourceType:  "aws_batch_job_queue",
 		attributeName: "state",
 		enum: []string{
-			"ENABLED",
 			"DISABLED",
+			"ENABLED",
 		},
 	}
 }

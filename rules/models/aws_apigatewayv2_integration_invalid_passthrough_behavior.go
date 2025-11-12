@@ -25,8 +25,8 @@ func NewAwsApigatewayv2IntegrationInvalidPassthroughBehaviorRule() *AwsApigatewa
 		resourceType:  "aws_apigatewayv2_integration",
 		attributeName: "passthrough_behavior",
 		enum: []string{
-			"WHEN_NO_MATCH",
 			"NEVER",
+			"WHEN_NO_MATCH",
 			"WHEN_NO_TEMPLATES",
 		},
 	}

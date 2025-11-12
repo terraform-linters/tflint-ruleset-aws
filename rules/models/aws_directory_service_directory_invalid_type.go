@@ -25,10 +25,10 @@ func NewAwsDirectoryServiceDirectoryInvalidTypeRule() *AwsDirectoryServiceDirect
 		resourceType:  "aws_directory_service_directory",
 		attributeName: "type",
 		enum: []string{
-			"SimpleAD",
 			"ADConnector",
 			"MicrosoftAD",
 			"SharedMicrosoftAD",
+			"SimpleAD",
 		},
 	}
 }

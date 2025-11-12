@@ -25,9 +25,9 @@ func NewAwsCloudwatchEventConnectionInvalidAuthorizationTypeRule() *AwsCloudwatc
 		resourceType:  "aws_cloudwatch_event_connection",
 		attributeName: "authorization_type",
 		enum: []string{
+			"API_KEY",
 			"BASIC",
 			"OAUTH_CLIENT_CREDENTIALS",
-			"API_KEY",
 		},
 	}
 }

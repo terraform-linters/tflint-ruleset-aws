@@ -25,9 +25,9 @@ func NewAwsAppautoscalingPolicyInvalidPolicyTypeRule() *AwsAppautoscalingPolicyI
 		resourceType:  "aws_appautoscaling_policy",
 		attributeName: "policy_type",
 		enum: []string{
+			"PredictiveScaling",
 			"StepScaling",
 			"TargetTrackingScaling",
-			"PredictiveScaling",
 		},
 	}
 }

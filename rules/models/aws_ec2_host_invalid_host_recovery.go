@@ -25,8 +25,8 @@ func NewAwsEc2HostInvalidHostRecoveryRule() *AwsEc2HostInvalidHostRecoveryRule {
 		resourceType:  "aws_ec2_host",
 		attributeName: "host_recovery",
 		enum: []string{
-			"on",
 			"off",
+			"on",
 		},
 	}
 }

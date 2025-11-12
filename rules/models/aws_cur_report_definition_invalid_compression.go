@@ -25,9 +25,9 @@ func NewAwsCurReportDefinitionInvalidCompressionRule() *AwsCurReportDefinitionIn
 		resourceType:  "aws_cur_report_definition",
 		attributeName: "compression",
 		enum: []string{
-			"ZIP",
 			"GZIP",
 			"Parquet",
+			"ZIP",
 		},
 	}
 }

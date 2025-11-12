@@ -29,7 +29,7 @@ func NewAwsWorkspacesWorkspaceInvalidDirectoryIDRule() *AwsWorkspacesWorkspaceIn
 		attributeName: "directory_id",
 		max:           65,
 		min:           10,
-		pattern:       regexp.MustCompile(`^(d-[0-9a-f]{8,63}$)|(wsd-[0-9a-z]{8,63}$)`),
+		pattern:       regexp.MustCompile(`(d-[0-9a-f]{8,63}$)|(wsd-[0-9a-z]{8,63}$)`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsWorkspacesWorkspaceInvalidDirectoryIDRule) Check(runner tflint.Runne
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(d-[0-9a-f]{8,63}$)|(wsd-[0-9a-z]{8,63}$)`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `(d-[0-9a-f]{8,63}$)|(wsd-[0-9a-z]{8,63}$)`),
 					attribute.Expr.Range(),
 				)
 			}

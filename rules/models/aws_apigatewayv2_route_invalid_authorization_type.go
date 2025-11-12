@@ -25,10 +25,10 @@ func NewAwsApigatewayv2RouteInvalidAuthorizationTypeRule() *AwsApigatewayv2Route
 		resourceType:  "aws_apigatewayv2_route",
 		attributeName: "authorization_type",
 		enum: []string{
-			"NONE",
 			"AWS_IAM",
 			"CUSTOM",
 			"JWT",
+			"NONE",
 		},
 	}
 }

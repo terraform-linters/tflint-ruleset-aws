@@ -25,8 +25,8 @@ func NewAwsDlmLifecyclePolicyInvalidStateRule() *AwsDlmLifecyclePolicyInvalidSta
 		resourceType:  "aws_dlm_lifecycle_policy",
 		attributeName: "state",
 		enum: []string{
-			"ENABLED",
 			"DISABLED",
+			"ENABLED",
 		},
 	}
 }

@@ -26,9 +26,9 @@ func NewAwsAppstreamUserInvalidAuthenticationTypeRule() *AwsAppstreamUserInvalid
 		attributeName: "authentication_type",
 		enum: []string{
 			"API",
+			"AWS_AD",
 			"SAML",
 			"USERPOOL",
-			"AWS_AD",
 		},
 	}
 }

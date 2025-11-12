@@ -25,9 +25,9 @@ func NewAwsGlueUserDefinedFunctionInvalidOwnerTypeRule() *AwsGlueUserDefinedFunc
 		resourceType:  "aws_glue_user_defined_function",
 		attributeName: "owner_type",
 		enum: []string{
-			"USER",
-			"ROLE",
 			"GROUP",
+			"ROLE",
+			"USER",
 		},
 	}
 }

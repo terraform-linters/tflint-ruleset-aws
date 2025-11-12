@@ -25,10 +25,10 @@ func NewAwsSagemakerStudioLifecycleConfigInvalidStudioLifecycleConfigAppTypeRule
 		resourceType:  "aws_sagemaker_studio_lifecycle_config",
 		attributeName: "studio_lifecycle_config_app_type",
 		enum: []string{
-			"JupyterServer",
-			"KernelGateway",
 			"CodeEditor",
 			"JupyterLab",
+			"JupyterServer",
+			"KernelGateway",
 		},
 	}
 }

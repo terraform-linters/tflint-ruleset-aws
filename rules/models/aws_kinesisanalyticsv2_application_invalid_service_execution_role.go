@@ -29,7 +29,7 @@ func NewAwsKinesisanalyticsv2ApplicationInvalidServiceExecutionRoleRule() *AwsKi
 		attributeName: "service_execution_role",
 		max:           2048,
 		min:           1,
-		pattern:       regexp.MustCompile(`^arn:.*$`),
+		pattern:       regexp.MustCompile(`^arn:`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsKinesisanalyticsv2ApplicationInvalidServiceExecutionRoleRule) Check(
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:.*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:`),
 					attribute.Expr.Range(),
 				)
 			}

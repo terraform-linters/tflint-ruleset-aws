@@ -25,8 +25,8 @@ func NewAwsEc2TransitGatewayVpcAttachmentInvalidIpv6SupportRule() *AwsEc2Transit
 		resourceType:  "aws_ec2_transit_gateway_vpc_attachment",
 		attributeName: "ipv6_support",
 		enum: []string{
-			"enable",
 			"disable",
+			"enable",
 		},
 	}
 }

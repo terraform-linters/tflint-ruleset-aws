@@ -25,8 +25,8 @@ func NewAwsElastiCacheClusterInvalidAzModeRule() *AwsElastiCacheClusterInvalidAz
 		resourceType:  "aws_elasticache_cluster",
 		attributeName: "az_mode",
 		enum: []string{
-			"single-az",
 			"cross-az",
+			"single-az",
 		},
 	}
 }

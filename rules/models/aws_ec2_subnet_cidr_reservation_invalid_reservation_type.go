@@ -25,8 +25,8 @@ func NewAwsEc2SubnetCidrReservationInvalidReservationTypeRule() *AwsEc2SubnetCid
 		resourceType:  "aws_ec2_subnet_cidr_reservation",
 		attributeName: "reservation_type",
 		enum: []string{
-			"prefix",
 			"explicit",
+			"prefix",
 		},
 	}
 }

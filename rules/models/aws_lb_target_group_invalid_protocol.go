@@ -25,13 +25,13 @@ func NewAwsLbTargetGroupInvalidProtocolRule() *AwsLbTargetGroupInvalidProtocolRu
 		resourceType:  "aws_lb_target_group",
 		attributeName: "protocol",
 		enum: []string{
+			"GENEVE",
 			"HTTP",
 			"HTTPS",
 			"TCP",
+			"TCP_UDP",
 			"TLS",
 			"UDP",
-			"TCP_UDP",
-			"GENEVE",
 		},
 	}
 }

@@ -25,8 +25,8 @@ func NewAwsAppconfigDeploymentStrategyInvalidGrowthTypeRule() *AwsAppconfigDeplo
 		resourceType:  "aws_appconfig_deployment_strategy",
 		attributeName: "growth_type",
 		enum: []string{
-			"LINEAR",
 			"EXPONENTIAL",
+			"LINEAR",
 		},
 	}
 }

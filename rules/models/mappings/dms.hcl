@@ -22,7 +22,6 @@ mapping "aws_dms_endpoint" {
   username                    = String
   service_access_role         = String
   mongodb_settings            = MongoDbSettings
-  s3_settings                 = S3Settings
 }
 
 mapping "aws_dms_event_subscription" {

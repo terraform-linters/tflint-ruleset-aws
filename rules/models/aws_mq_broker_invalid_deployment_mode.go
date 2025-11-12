@@ -25,9 +25,9 @@ func NewAwsMqBrokerInvalidDeploymentModeRule() *AwsMqBrokerInvalidDeploymentMode
 		resourceType:  "aws_mq_broker",
 		attributeName: "deployment_mode",
 		enum: []string{
-			"SINGLE_INSTANCE",
 			"ACTIVE_STANDBY_MULTI_AZ",
 			"CLUSTER_MULTI_AZ",
+			"SINGLE_INSTANCE",
 		},
 	}
 }

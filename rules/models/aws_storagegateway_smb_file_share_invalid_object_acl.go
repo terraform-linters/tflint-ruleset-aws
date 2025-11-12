@@ -25,13 +25,13 @@ func NewAwsStoragegatewaySmbFileShareInvalidObjectACLRule() *AwsStoragegatewaySm
 		resourceType:  "aws_storagegateway_smb_file_share",
 		attributeName: "object_acl",
 		enum: []string{
+			"authenticated-read",
+			"aws-exec-read",
+			"bucket-owner-full-control",
+			"bucket-owner-read",
 			"private",
 			"public-read",
 			"public-read-write",
-			"authenticated-read",
-			"bucket-owner-read",
-			"bucket-owner-full-control",
-			"aws-exec-read",
 		},
 	}
 }
