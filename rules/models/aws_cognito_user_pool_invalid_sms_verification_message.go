@@ -29,7 +29,7 @@ func NewAwsCognitoUserPoolInvalidSmsVerificationMessageRule() *AwsCognitoUserPoo
 		attributeName: "sms_verification_message",
 		max:           140,
 		min:           6,
-		pattern:       regexp.MustCompile(`^\{####\}$`),
+		pattern:       regexp.MustCompile(`^.*\{####\}.*$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsCognitoUserPoolInvalidSmsVerificationMessageRule) Check(runner tflin
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^\{####\}$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^.*\{####\}.*$`),
 					attribute.Expr.Range(),
 				)
 			}

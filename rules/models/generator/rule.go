@@ -134,7 +134,7 @@ func replacePattern(pattern string) string {
 		if replaced == "\\S" {
 			return "^.*\\S.*$"
 		}
-		return fmt.Sprintf("^%s$", replaced)
+		replaced = fmt.Sprintf("^%s$", replaced)
 	}
 
 	// Apply compatibility transforms to maintain backward compatibility with Ruby SDK
