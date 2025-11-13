@@ -29,7 +29,7 @@ func NewAwsConfigConformancePackInvalidTemplateS3URIRule() *AwsConfigConformance
 		attributeName: "template_s3_uri",
 		max:           1024,
 		min:           1,
-		pattern:       regexp.MustCompile(`^s3://`),
+		pattern:       regexp.MustCompile(`^s3://.*$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsConfigConformancePackInvalidTemplateS3URIRule) Check(runner tflint.R
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^s3://`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^s3://.*$`),
 					attribute.Expr.Range(),
 				)
 			}

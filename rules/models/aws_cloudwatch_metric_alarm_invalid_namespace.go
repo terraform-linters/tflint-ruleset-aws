@@ -29,7 +29,7 @@ func NewAwsCloudwatchMetricAlarmInvalidNamespaceRule() *AwsCloudwatchMetricAlarm
 		attributeName: "namespace",
 		max:           255,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[^:]`),
+		pattern:       regexp.MustCompile(`^[^:].*$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsCloudwatchMetricAlarmInvalidNamespaceRule) Check(runner tflint.Runne
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[^:]`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[^:].*$`),
 					attribute.Expr.Range(),
 				)
 			}

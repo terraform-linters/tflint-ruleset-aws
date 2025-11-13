@@ -26,7 +26,7 @@ func NewAwsAmplifyAppInvalidBasicAuthCredentialsRule() *AwsAmplifyAppInvalidBasi
 		resourceType:  "aws_amplify_app",
 		attributeName: "basic_auth_credentials",
 		max:           2000,
-		pattern:       regexp.MustCompile(`^(?s)`),
+		pattern:       regexp.MustCompile(`^(?s).*$`),
 	}
 }
 
@@ -80,7 +80,7 @@ func (r *AwsAmplifyAppInvalidBasicAuthCredentialsRule) Check(runner tflint.Runne
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					`basic_auth_credentials does not match valid pattern ^(?s)`,
+					`basic_auth_credentials does not match valid pattern ^(?s).*$`,
 					attribute.Expr.Range(),
 				)
 			}

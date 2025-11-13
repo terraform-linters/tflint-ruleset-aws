@@ -120,16 +120,74 @@ func replacePattern(pattern string) string {
 	replaced := unicodeEscapeRegex.ReplaceAllString(pattern, `\x{$1}`)
 
 	// Handle patterns missing anchors
-	if !strings.HasPrefix(replaced, "^") && !strings.HasSuffix(replaced, "$") {
-		// The Smithy models contain pattern "\S" (single non-whitespace character)
-		// for many string fields (ResourceName, ResourceArn, etc). This is clearly
-		// incorrect for fields that can be 1-128 characters. The Ruby SDK generator
-		// produced "^.*\S.*$" (contains non-whitespace) for these same fields.
-		// We maintain this transformation for backward compatibility.
+	// The Ruby SDK generator ensured all patterns had both ^ and $ anchors.
+	// Smithy models often have incomplete patterns (e.g., "^(?s)" or "[a-z]*").
+	// We add missing anchors to maintain backward compatibility.
+	hasPrefix := strings.HasPrefix(replaced, "^")
+	hasSuffix := strings.HasSuffix(replaced, "$")
+
+	if !hasPrefix && !hasSuffix {
+		// No anchors at all
+		// Special case: \S in Smithy means "contains non-whitespace", not "is single non-whitespace char"
 		if replaced == "\\S" {
 			return "^.*\\S.*$"
 		}
 		replaced = fmt.Sprintf("^%s$", replaced)
+	} else if !hasPrefix {
+		// Has $ but missing ^
+		replaced = "^" + replaced
+	} else if !hasSuffix {
+		// Has ^ but missing $
+		// Check if pattern is just a modifier with no actual content
+		// e.g., "^(?s)" or "^(?i)" - these need .*$ to be useful
+		bareModifiers := []string{"^(?s)", "^(?i)", "^(?m)", "^(?s)(?i)", "^(?i)(?s)"}
+		isBareModifier := false
+		for _, mod := range bareModifiers {
+			if replaced == mod {
+				isBareModifier = true
+				break
+			}
+		}
+
+		if isBareModifier {
+			// Bare modifier - add .*$ to match any content
+			// e.g., "^(?s)" becomes "^(?s).*$"
+			replaced = replaced + ".*$"
+		} else {
+			// Check if pattern looks like a prefix pattern (ends with delimiter or literal)
+			// These should match "starts with X" not "equals exactly X"
+			isPrefixPattern := false
+			lastChar := replaced[len(replaced)-1]
+
+			// Common delimiters in ARNs, URIs, paths that indicate "starts with"
+			if lastChar == ':' || lastChar == '/' {
+				isPrefixPattern = true
+			}
+			// Patterns ending with quantifiers already match variable length
+			// e.g., "^[a-z]*" matches zero or more, just needs $
+			// But patterns without quantifiers need .*$ for variable length
+			// e.g., "^arn" should be "^arn.*$" not "^arn$"
+			if lastChar == '*' || lastChar == '+' || lastChar == '?' || lastChar == '}' {
+				isPrefixPattern = false // Has quantifier, just add $
+			} else if lastChar == ']' || lastChar == ')' || lastChar >= 'a' && lastChar <= 'z' || lastChar >= 'A' && lastChar <= 'Z' {
+				// Ends with literal character, character class, or group without quantifier
+				// Check if this is a pattern that should match exact length or variable length
+				// For now, treat patterns without quantifiers as needing .*$ for safety
+				// This matches Ruby SDK behavior
+				isPrefixPattern = true
+			}
+
+			if isPrefixPattern {
+				// Prefix pattern - add .*$ to match remainder
+				// e.g., "^arn:" becomes "^arn:.*$", "^s3://" becomes "^s3://.*$"
+				// e.g., "^[a-z]" becomes "^[a-z].*$"
+				replaced = replaced + ".*$"
+			} else {
+				// Pattern with quantifier - just add $
+				// e.g., "^[a-z]*" becomes "^[a-z]*$"
+				replaced = replaced + "$"
+			}
+		}
 	}
 
 	// Apply compatibility transforms to maintain backward compatibility with Ruby SDK
