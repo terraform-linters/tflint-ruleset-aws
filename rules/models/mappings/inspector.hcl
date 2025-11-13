@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/inspector/2016-02-16/api-2.json"
+import = "api-models-aws/models/inspector/service/2016-02-16/inspector-2016-02-16.json"
 
 mapping "aws_inspector_assessment_target" {
   name               = AssessmentTargetName

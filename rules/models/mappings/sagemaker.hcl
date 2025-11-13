@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/sagemaker/2017-07-24/api-2.json"
+import = "api-models-aws/models/sagemaker/service/2017-07-24/sagemaker-2017-07-24.json"
 
 mapping "aws_sagemaker_app" {
   app_name = AppName

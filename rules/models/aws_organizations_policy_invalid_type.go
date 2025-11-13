@@ -25,14 +25,14 @@ func NewAwsOrganizationsPolicyInvalidTypeRule() *AwsOrganizationsPolicyInvalidTy
 		resourceType:  "aws_organizations_policy",
 		attributeName: "type",
 		enum: []string{
-			"SERVICE_CONTROL_POLICY",
-			"RESOURCE_CONTROL_POLICY",
-			"TAG_POLICY",
-			"BACKUP_POLICY",
 			"AISERVICES_OPT_OUT_POLICY",
+			"BACKUP_POLICY",
 			"CHATBOT_POLICY",
 			"DECLARATIVE_POLICY_EC2",
+			"RESOURCE_CONTROL_POLICY",
 			"SECURITYHUB_POLICY",
+			"SERVICE_CONTROL_POLICY",
+			"TAG_POLICY",
 		},
 	}
 }

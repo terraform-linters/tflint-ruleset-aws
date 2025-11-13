@@ -25,8 +25,8 @@ func NewAwsEc2CapacityReservationInvalidTenancyRule() *AwsEc2CapacityReservation
 		resourceType:  "aws_ec2_capacity_reservation",
 		attributeName: "tenancy",
 		enum: []string{
-			"default",
 			"dedicated",
+			"default",
 		},
 	}
 }

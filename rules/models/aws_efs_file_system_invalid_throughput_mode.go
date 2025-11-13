@@ -26,8 +26,8 @@ func NewAwsEfsFileSystemInvalidThroughputModeRule() *AwsEfsFileSystemInvalidThro
 		attributeName: "throughput_mode",
 		enum: []string{
 			"bursting",
-			"provisioned",
 			"elastic",
+			"provisioned",
 		},
 	}
 }

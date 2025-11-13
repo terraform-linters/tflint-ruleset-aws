@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/dax/2017-04-19/api-2.json"
+import = "api-models-aws/models/dax/service/2017-04-19/dax-2017-04-19.json"
 
 mapping "aws_dax_cluster" {
   cluster_name           = String

@@ -25,9 +25,9 @@ func NewAwsALBInvalidIPAddressTypeRule() *AwsALBInvalidIPAddressTypeRule {
 		resourceType:  "aws_alb",
 		attributeName: "ip_address_type",
 		enum: []string{
-			"ipv4",
 			"dualstack",
 			"dualstack-without-public-ipv4",
+			"ipv4",
 		},
 	}
 }

@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/kinesis/2013-12-02/api-2.json"
+import = "api-models-aws/models/kinesis/service/2013-12-02/kinesis-2013-12-02.json"
 
 mapping "aws_kinesis_stream" {
   name                      = StreamName

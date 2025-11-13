@@ -25,10 +25,10 @@ func NewAwsAmplifyBranchInvalidStageRule() *AwsAmplifyBranchInvalidStageRule {
 		resourceType:  "aws_amplify_branch",
 		attributeName: "stage",
 		enum: []string{
-			"PRODUCTION",
 			"BETA",
 			"DEVELOPMENT",
 			"EXPERIMENTAL",
+			"PRODUCTION",
 			"PULL_REQUEST",
 		},
 	}

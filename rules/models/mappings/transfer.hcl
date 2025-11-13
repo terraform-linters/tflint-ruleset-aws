@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/transfer/2018-11-05/api-2.json"
+import = "api-models-aws/models/transfer/service/2018-11-05/transfer-2018-11-05.json"
 
 mapping "aws_transfer_access" {
   external_id = ExternalId

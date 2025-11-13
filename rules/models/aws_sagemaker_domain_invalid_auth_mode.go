@@ -25,8 +25,8 @@ func NewAwsSagemakerDomainInvalidAuthModeRule() *AwsSagemakerDomainInvalidAuthMo
 		resourceType:  "aws_sagemaker_domain",
 		attributeName: "auth_mode",
 		enum: []string{
-			"SSO",
 			"IAM",
+			"SSO",
 		},
 	}
 }

@@ -25,9 +25,9 @@ func NewAwsSpotFleetRequestInvalidFleetTypeRule() *AwsSpotFleetRequestInvalidFle
 		resourceType:  "aws_spot_fleet_request",
 		attributeName: "fleet_type",
 		enum: []string{
-			"request",
-			"maintain",
 			"instant",
+			"maintain",
+			"request",
 		},
 	}
 }

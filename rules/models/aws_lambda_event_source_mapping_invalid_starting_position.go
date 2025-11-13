@@ -25,9 +25,9 @@ func NewAwsLambdaEventSourceMappingInvalidStartingPositionRule() *AwsLambdaEvent
 		resourceType:  "aws_lambda_event_source_mapping",
 		attributeName: "starting_position",
 		enum: []string{
-			"TRIM_HORIZON",
-			"LATEST",
 			"AT_TIMESTAMP",
+			"LATEST",
+			"TRIM_HORIZON",
 		},
 	}
 }

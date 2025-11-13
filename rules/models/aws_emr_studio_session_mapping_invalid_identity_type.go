@@ -25,8 +25,8 @@ func NewAwsEmrStudioSessionMappingInvalidIdentityTypeRule() *AwsEmrStudioSession
 		resourceType:  "aws_emr_studio_session_mapping",
 		attributeName: "identity_type",
 		enum: []string{
-			"USER",
 			"GROUP",
+			"USER",
 		},
 	}
 }

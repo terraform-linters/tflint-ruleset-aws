@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/apprunner/2020-05-15/api-2.json"
+import = "api-models-aws/models/apprunner/service/2020-05-15/apprunner-2020-05-15.json"
 
 mapping "aws_apprunner_auto_scaling_configuration_version" {
   auto_scaling_configuration_name = AutoScalingConfigurationName

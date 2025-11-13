@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/ram/2018-01-04/api-2.json"
+import = "api-models-aws/models/ram/service/2018-01-04/ram-2018-01-04.json"
 
 mapping "aws_ram_principal_association" {
   principal          = String

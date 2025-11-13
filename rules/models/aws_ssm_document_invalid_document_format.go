@@ -25,9 +25,9 @@ func NewAwsSsmDocumentInvalidDocumentFormatRule() *AwsSsmDocumentInvalidDocument
 		resourceType:  "aws_ssm_document",
 		attributeName: "document_format",
 		enum: []string{
-			"YAML",
 			"JSON",
 			"TEXT",
+			"YAML",
 		},
 	}
 }

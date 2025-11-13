@@ -25,8 +25,8 @@ func NewAwsAthenaWorkgroupInvalidStateRule() *AwsAthenaWorkgroupInvalidStateRule
 		resourceType:  "aws_athena_workgroup",
 		attributeName: "state",
 		enum: []string{
-			"ENABLED",
 			"DISABLED",
+			"ENABLED",
 		},
 	}
 }

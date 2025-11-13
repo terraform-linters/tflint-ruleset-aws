@@ -25,10 +25,10 @@ func NewAwsSpotFleetRequestInvalidAllocationStrategyRule() *AwsSpotFleetRequestI
 		resourceType:  "aws_spot_fleet_request",
 		attributeName: "allocation_strategy",
 		enum: []string{
-			"lowestPrice",
-			"diversified",
 			"capacityOptimized",
 			"capacityOptimizedPrioritized",
+			"diversified",
+			"lowestPrice",
 			"priceCapacityOptimized",
 		},
 	}

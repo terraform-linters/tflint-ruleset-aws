@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/route53-recovery-readiness/2019-12-02/api-2.json"
+import = "api-models-aws/models/route53-recovery-readiness/service/2019-12-02/route53-recovery-readiness-2019-12-02.json"
 
 mapping "aws_route53recoveryreadiness_cell" {
   tags = Tags

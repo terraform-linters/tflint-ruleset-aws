@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/appmesh/2019-01-25/api-2.json"
+import = "api-models-aws/models/app-mesh/service/2019-01-25/app-mesh-2019-01-25.json"
 
 mapping "aws_appmesh_gateway_route" {
   name = ResourceName

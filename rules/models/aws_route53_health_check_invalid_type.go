@@ -25,14 +25,14 @@ func NewAwsRoute53HealthCheckInvalidTypeRule() *AwsRoute53HealthCheckInvalidType
 		resourceType:  "aws_route53_health_check",
 		attributeName: "type",
 		enum: []string{
-			"HTTP",
-			"HTTPS",
-			"HTTP_STR_MATCH",
-			"HTTPS_STR_MATCH",
-			"TCP",
 			"CALCULATED",
 			"CLOUDWATCH_METRIC",
+			"HTTP",
+			"HTTPS",
+			"HTTPS_STR_MATCH",
+			"HTTP_STR_MATCH",
 			"RECOVERY_CONTROL",
+			"TCP",
 		},
 	}
 }

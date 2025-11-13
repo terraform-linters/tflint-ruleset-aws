@@ -25,9 +25,9 @@ func NewAwsImagebuilderComponentInvalidPlatformRule() *AwsImagebuilderComponentI
 		resourceType:  "aws_imagebuilder_component",
 		attributeName: "platform",
 		enum: []string{
-			"Windows",
 			"Linux",
 			"macOS",
+			"Windows",
 		},
 	}
 }

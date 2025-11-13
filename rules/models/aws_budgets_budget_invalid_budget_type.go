@@ -25,12 +25,12 @@ func NewAwsBudgetsBudgetInvalidBudgetTypeRule() *AwsBudgetsBudgetInvalidBudgetTy
 		resourceType:  "aws_budgets_budget",
 		attributeName: "budget_type",
 		enum: []string{
-			"USAGE",
 			"COST",
-			"RI_UTILIZATION",
 			"RI_COVERAGE",
-			"SAVINGS_PLANS_UTILIZATION",
+			"RI_UTILIZATION",
 			"SAVINGS_PLANS_COVERAGE",
+			"SAVINGS_PLANS_UTILIZATION",
+			"USAGE",
 		},
 	}
 }

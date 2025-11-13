@@ -25,8 +25,8 @@ func NewAwsBatchComputeEnvironmentInvalidStateRule() *AwsBatchComputeEnvironment
 		resourceType:  "aws_batch_compute_environment",
 		attributeName: "state",
 		enum: []string{
-			"ENABLED",
 			"DISABLED",
+			"ENABLED",
 		},
 	}
 }

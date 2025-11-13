@@ -26,8 +26,8 @@ func NewAwsFlowLogInvalidLogDestinationTypeRule() *AwsFlowLogInvalidLogDestinati
 		attributeName: "log_destination_type",
 		enum: []string{
 			"cloud-watch-logs",
-			"s3",
 			"kinesis-data-firehose",
+			"s3",
 		},
 	}
 }

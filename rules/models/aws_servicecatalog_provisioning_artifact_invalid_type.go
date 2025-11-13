@@ -26,11 +26,11 @@ func NewAwsServicecatalogProvisioningArtifactInvalidTypeRule() *AwsServicecatalo
 		attributeName: "type",
 		enum: []string{
 			"CLOUD_FORMATION_TEMPLATE",
+			"EXTERNAL",
 			"MARKETPLACE_AMI",
 			"MARKETPLACE_CAR",
-			"TERRAFORM_OPEN_SOURCE",
 			"TERRAFORM_CLOUD",
-			"EXTERNAL",
+			"TERRAFORM_OPEN_SOURCE",
 		},
 	}
 }

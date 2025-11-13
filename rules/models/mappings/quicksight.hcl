@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/quicksight/2018-04-01/api-2.json"
+import = "api-models-aws/models/quicksight/service/2018-04-01/quicksight-2018-04-01.json"
 
 mapping "aws_quicksight_data_source" {
   data_source_id = ResourceId

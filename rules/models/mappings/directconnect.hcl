@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/directconnect/2012-10-25/api-2.json"
+import = "api-models-aws/models/direct-connect/service/2012-10-25/direct-connect-2012-10-25.json"
 
 mapping "aws_dx_bgp_peer" {
   address_family       = AddressFamily

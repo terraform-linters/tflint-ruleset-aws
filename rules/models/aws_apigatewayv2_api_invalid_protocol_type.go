@@ -25,8 +25,8 @@ func NewAwsApigatewayv2APIInvalidProtocolTypeRule() *AwsApigatewayv2APIInvalidPr
 		resourceType:  "aws_apigatewayv2_api",
 		attributeName: "protocol_type",
 		enum: []string{
-			"WEBSOCKET",
 			"HTTP",
+			"WEBSOCKET",
 		},
 	}
 }

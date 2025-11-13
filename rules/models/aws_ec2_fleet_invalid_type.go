@@ -25,9 +25,9 @@ func NewAwsEc2FleetInvalidTypeRule() *AwsEc2FleetInvalidTypeRule {
 		resourceType:  "aws_ec2_fleet",
 		attributeName: "type",
 		enum: []string{
-			"request",
-			"maintain",
 			"instant",
+			"maintain",
+			"request",
 		},
 	}
 }

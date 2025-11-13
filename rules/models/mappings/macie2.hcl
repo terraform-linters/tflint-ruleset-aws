@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/macie2/2020-01-01/api-2.json"
+import = "api-models-aws/models/macie2/service/2020-01-01/macie2-2020-01-01.json"
 
 mapping "aws_macie2_account" {
   finding_publishing_frequency = FindingPublishingFrequency

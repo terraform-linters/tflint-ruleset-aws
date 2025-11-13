@@ -25,8 +25,8 @@ func NewAwsSesReceiptFilterInvalidPolicyRule() *AwsSesReceiptFilterInvalidPolicy
 		resourceType:  "aws_ses_receipt_filter",
 		attributeName: "policy",
 		enum: []string{
-			"Block",
 			"Allow",
+			"Block",
 		},
 	}
 }

@@ -25,13 +25,13 @@ func NewAwsS3ObjectCopyInvalidACLRule() *AwsS3ObjectCopyInvalidACLRule {
 		resourceType:  "aws_s3_object_copy",
 		attributeName: "acl",
 		enum: []string{
+			"authenticated-read",
+			"aws-exec-read",
+			"bucket-owner-full-control",
+			"bucket-owner-read",
 			"private",
 			"public-read",
 			"public-read-write",
-			"authenticated-read",
-			"aws-exec-read",
-			"bucket-owner-read",
-			"bucket-owner-full-control",
 		},
 	}
 }

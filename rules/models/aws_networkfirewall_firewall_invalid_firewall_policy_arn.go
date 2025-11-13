@@ -29,7 +29,7 @@ func NewAwsNetworkfirewallFirewallInvalidFirewallPolicyArnRule() *AwsNetworkfire
 		attributeName: "firewall_policy_arn",
 		max:           256,
 		min:           1,
-		pattern:       regexp.MustCompile(`^arn:aws.*`),
+		pattern:       regexp.MustCompile(`^arn:aws.*$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsNetworkfirewallFirewallInvalidFirewallPolicyArnRule) Check(runner tf
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:aws.*`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:aws.*$`),
 					attribute.Expr.Range(),
 				)
 			}

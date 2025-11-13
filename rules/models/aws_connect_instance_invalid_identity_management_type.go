@@ -25,9 +25,9 @@ func NewAwsConnectInstanceInvalidIdentityManagementTypeRule() *AwsConnectInstanc
 		resourceType:  "aws_connect_instance",
 		attributeName: "identity_management_type",
 		enum: []string{
-			"SAML",
 			"CONNECT_MANAGED",
 			"EXISTING_DIRECTORY",
+			"SAML",
 		},
 	}
 }

@@ -517,14 +517,6 @@ These rules enforce best practices and naming conventions:
 |aws_dms_endpoint_invalid_endpoint_type|✔|
 |aws_dms_endpoint_invalid_ssl_mode|✔|
 |aws_dms_replication_task_invalid_migration_type|✔|
-|aws_dms_s3_endpoint_invalid_canned_acl_for_objects|✔|
-|aws_dms_s3_endpoint_invalid_compression_type|✔|
-|aws_dms_s3_endpoint_invalid_data_format|✔|
-|aws_dms_s3_endpoint_invalid_date_partition_delimiter|✔|
-|aws_dms_s3_endpoint_invalid_date_partition_sequence|✔|
-|aws_dms_s3_endpoint_invalid_encoding_type|✔|
-|aws_dms_s3_endpoint_invalid_encryption_mode|✔|
-|aws_dms_s3_endpoint_invalid_parquet_version|✔|
 |aws_docdb_global_cluster_invalid_global_cluster_identifier|✔|
 |aws_dx_bgp_peer_invalid_address_family|✔|
 |aws_dx_hosted_private_virtual_interface_invalid_address_family|✔|
@@ -574,6 +566,7 @@ These rules enforce best practices and naming conventions:
 |aws_ecrpublic_repository_invalid_repository_name|✔|
 |aws_ecrpublic_repository_policy_invalid_policy|✔|
 |aws_ecrpublic_repository_policy_invalid_repository_name|✔|
+|aws_ecs_account_setting_default_invalid_name|✔|
 |aws_ecs_service_invalid_launch_type|✔|
 |aws_ecs_service_invalid_propagate_tags|✔|
 |aws_ecs_service_invalid_scheduling_strategy|✔|
@@ -713,6 +706,7 @@ These rules enforce best practices and naming conventions:
 |aws_guardduty_ipset_invalid_location|✔|
 |aws_guardduty_ipset_invalid_name|✔|
 |aws_guardduty_member_invalid_detector_id|✔|
+|aws_guardduty_member_invalid_email|✔|
 |aws_guardduty_organization_configuration_invalid_detector_id|✔|
 |aws_guardduty_publishing_destination_invalid_destination_type|✔|
 |aws_guardduty_publishing_destination_invalid_detector_id|✔|
@@ -1023,6 +1017,7 @@ These rules enforce best practices and naming conventions:
 |aws_route53_record_invalid_name|✔|
 |aws_route53_record_invalid_set_identifier|✔|
 |aws_route53_record_invalid_type|✔|
+|aws_route53_record_invalid_zone_id|✔|
 |aws_route53_resolver_dnssec_config_invalid_resource_id|✔|
 |aws_route53_resolver_endpoint_invalid_direction|✔|
 |aws_route53_resolver_firewall_config_invalid_firewall_fail_open|✔|

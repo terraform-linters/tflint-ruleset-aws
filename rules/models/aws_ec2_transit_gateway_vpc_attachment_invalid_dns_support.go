@@ -25,8 +25,8 @@ func NewAwsEc2TransitGatewayVpcAttachmentInvalidDNSSupportRule() *AwsEc2TransitG
 		resourceType:  "aws_ec2_transit_gateway_vpc_attachment",
 		attributeName: "dns_support",
 		enum: []string{
-			"enable",
 			"disable",
+			"enable",
 		},
 	}
 }

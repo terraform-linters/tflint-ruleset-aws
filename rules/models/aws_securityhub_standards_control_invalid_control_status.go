@@ -25,8 +25,8 @@ func NewAwsSecurityhubStandardsControlInvalidControlStatusRule() *AwsSecurityhub
 		resourceType:  "aws_securityhub_standards_control",
 		attributeName: "control_status",
 		enum: []string{
-			"ENABLED",
 			"DISABLED",
+			"ENABLED",
 		},
 	}
 }

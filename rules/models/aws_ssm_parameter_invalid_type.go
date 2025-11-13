@@ -25,9 +25,9 @@ func NewAwsSsmParameterInvalidTypeRule() *AwsSsmParameterInvalidTypeRule {
 		resourceType:  "aws_ssm_parameter",
 		attributeName: "type",
 		enum: []string{
+			"SecureString",
 			"String",
 			"StringList",
-			"SecureString",
 		},
 	}
 }

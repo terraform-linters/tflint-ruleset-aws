@@ -25,9 +25,9 @@ func NewAwsEcsServiceInvalidPropagateTagsRule() *AwsEcsServiceInvalidPropagateTa
 		resourceType:  "aws_ecs_service",
 		attributeName: "propagate_tags",
 		enum: []string{
-			"TASK_DEFINITION",
-			"SERVICE",
 			"NONE",
+			"SERVICE",
+			"TASK_DEFINITION",
 		},
 	}
 }

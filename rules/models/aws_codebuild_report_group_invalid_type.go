@@ -25,8 +25,8 @@ func NewAwsCodebuildReportGroupInvalidTypeRule() *AwsCodebuildReportGroupInvalid
 		resourceType:  "aws_codebuild_report_group",
 		attributeName: "type",
 		enum: []string{
-			"TEST",
 			"CODE_COVERAGE",
+			"TEST",
 		},
 	}
 }

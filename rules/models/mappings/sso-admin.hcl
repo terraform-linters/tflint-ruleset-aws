@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/sso-admin/2020-07-20/api-2.json"
+import = "api-models-aws/models/sso-admin/service/2020-07-20/sso-admin-2020-07-20.json"
 
 mapping "aws_ssoadmin_account_assignment" {
   instance_arn = InstanceArn

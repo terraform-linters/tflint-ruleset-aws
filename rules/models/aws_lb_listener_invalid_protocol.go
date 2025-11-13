@@ -25,13 +25,13 @@ func NewAwsLbListenerInvalidProtocolRule() *AwsLbListenerInvalidProtocolRule {
 		resourceType:  "aws_lb_listener",
 		attributeName: "protocol",
 		enum: []string{
+			"GENEVE",
 			"HTTP",
 			"HTTPS",
 			"TCP",
+			"TCP_UDP",
 			"TLS",
 			"UDP",
-			"TCP_UDP",
-			"GENEVE",
 		},
 	}
 }

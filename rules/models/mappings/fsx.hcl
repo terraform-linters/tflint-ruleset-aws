@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/fsx/2018-03-01/api-2.json"
+import = "api-models-aws/models/fsx/service/2018-03-01/fsx-2018-03-01.json"
 
 mapping "aws_fsx_backup" {
   file_system_id = FileSystemId

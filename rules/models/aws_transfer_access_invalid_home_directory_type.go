@@ -25,8 +25,8 @@ func NewAwsTransferAccessInvalidHomeDirectoryTypeRule() *AwsTransferAccessInvali
 		resourceType:  "aws_transfer_access",
 		attributeName: "home_directory_type",
 		enum: []string{
-			"PATH",
 			"LOGICAL",
+			"PATH",
 		},
 	}
 }

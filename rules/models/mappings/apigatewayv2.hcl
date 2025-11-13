@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/apigatewayv2/2018-11-29/api-2.json"
+import = "api-models-aws/models/apigatewayv2/service/2018-11-29/apigatewayv2-2018-11-29.json"
 
 mapping "aws_apigatewayv2_api" {
   name = StringWithLengthBetween1And128

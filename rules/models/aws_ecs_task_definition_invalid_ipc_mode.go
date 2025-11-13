@@ -26,8 +26,8 @@ func NewAwsEcsTaskDefinitionInvalidIpcModeRule() *AwsEcsTaskDefinitionInvalidIpc
 		attributeName: "ipc_mode",
 		enum: []string{
 			"host",
-			"task",
 			"none",
+			"task",
 		},
 	}
 }

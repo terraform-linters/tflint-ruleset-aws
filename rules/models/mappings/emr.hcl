@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/elasticmapreduce/2009-03-31/api-2.json"
+import = "api-models-aws/models/emr/service/2009-03-31/emr-2009-03-31.json"
 
 mapping "aws_emr_cluster" {
   name                              = String

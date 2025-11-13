@@ -25,10 +25,10 @@ func NewAwsRoute53ResolverRuleInvalidRuleTypeRule() *AwsRoute53ResolverRuleInval
 		resourceType:  "aws_route53_resolver_rule",
 		attributeName: "rule_type",
 		enum: []string{
-			"FORWARD",
-			"SYSTEM",
-			"RECURSIVE",
 			"DELEGATE",
+			"FORWARD",
+			"RECURSIVE",
+			"SYSTEM",
 		},
 	}
 }

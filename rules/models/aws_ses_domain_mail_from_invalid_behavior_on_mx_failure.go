@@ -25,8 +25,8 @@ func NewAwsSesDomainMailFromInvalidBehaviorOnMxFailureRule() *AwsSesDomainMailFr
 		resourceType:  "aws_ses_domain_mail_from",
 		attributeName: "behavior_on_mx_failure",
 		enum: []string{
-			"UseDefaultValue",
 			"RejectMessage",
+			"UseDefaultValue",
 		},
 	}
 }

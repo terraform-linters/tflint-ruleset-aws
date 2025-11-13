@@ -25,13 +25,13 @@ func NewAwsS3BucketObjectInvalidACLRule() *AwsS3BucketObjectInvalidACLRule {
 		resourceType:  "aws_s3_bucket_object",
 		attributeName: "acl",
 		enum: []string{
+			"authenticated-read",
+			"aws-exec-read",
+			"bucket-owner-full-control",
+			"bucket-owner-read",
 			"private",
 			"public-read",
 			"public-read-write",
-			"authenticated-read",
-			"aws-exec-read",
-			"bucket-owner-read",
-			"bucket-owner-full-control",
 		},
 	}
 }

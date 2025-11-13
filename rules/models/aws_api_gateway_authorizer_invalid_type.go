@@ -25,9 +25,9 @@ func NewAwsAPIGatewayAuthorizerInvalidTypeRule() *AwsAPIGatewayAuthorizerInvalid
 		resourceType:  "aws_api_gateway_authorizer",
 		attributeName: "type",
 		enum: []string{
-			"TOKEN",
-			"REQUEST",
 			"COGNITO_USER_POOLS",
+			"REQUEST",
+			"TOKEN",
 		},
 	}
 }

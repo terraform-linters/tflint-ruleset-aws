@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/cognito-identity/2014-06-30/api-2.json"
+import = "api-models-aws/models/cognito-identity/service/2014-06-30/cognito-identity-2014-06-30.json"
 
 mapping "aws_cognito_identity_pool" {
   identity_pool_name      = IdentityPoolName

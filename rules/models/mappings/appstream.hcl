@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/appstream/2016-12-01/api-2.json"
+import = "api-models-aws/models/appstream/service/2016-12-01/appstream-2016-12-01.json"
 
 mapping "aws_appstream_directory_config" {
   directory_name = DirectoryName

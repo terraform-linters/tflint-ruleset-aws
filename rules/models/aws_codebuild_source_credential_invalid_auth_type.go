@@ -25,10 +25,10 @@ func NewAwsCodebuildSourceCredentialInvalidAuthTypeRule() *AwsCodebuildSourceCre
 		resourceType:  "aws_codebuild_source_credential",
 		attributeName: "auth_type",
 		enum: []string{
-			"OAUTH",
 			"BASIC_AUTH",
-			"PERSONAL_ACCESS_TOKEN",
 			"CODECONNECTIONS",
+			"OAUTH",
+			"PERSONAL_ACCESS_TOKEN",
 			"SECRETS_MANAGER",
 		},
 	}

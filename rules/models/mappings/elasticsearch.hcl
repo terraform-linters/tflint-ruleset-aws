@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/es/2015-01-01/api-2.json"
+import = "api-models-aws/models/elasticsearch-service/service/2015-01-01/elasticsearch-service-2015-01-01.json"
 
 mapping "aws_elasticsearch_domain" {
   domain_name             = DomainName

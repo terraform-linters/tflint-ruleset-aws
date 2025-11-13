@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/guardduty/2017-11-28/api-2.json"
+import = "api-models-aws/models/guardduty/service/2017-11-28/guardduty-2017-11-28.json"
 
 mapping "aws_guardduty_detector" {
   enable                       = Boolean
@@ -31,7 +31,7 @@ mapping "aws_guardduty_ipset" {
 mapping "aws_guardduty_member" {
   account_id                 = String
   detector_id                = DetectorId
-  email                      = any //Email
+  email                      = Email
   invite                     = Boolean
   invitation_message         = String
   disable_email_notification = Boolean
