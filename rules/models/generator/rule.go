@@ -93,7 +93,11 @@ func fetchStrings(model map[string]interface{}, key string) []string {
 		case []interface{}:
 			ret := make([]string, len(v))
 			for i, item := range v {
-				ret[i] = item.(string)
+				str, ok := item.(string)
+				if !ok {
+					return []string{}
+				}
+				ret[i] = str
 			}
 			return ret
 		case []string:

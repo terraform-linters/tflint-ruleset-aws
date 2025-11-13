@@ -109,7 +109,7 @@ func main() {
 
 				model := findShape(shapes, shapeName)
 				if model == nil {
-					fmt.Printf("Shape `%s` not found, skipping\n", shapeName)
+					fmt.Printf("Shape %q not found, skipping\n", shapeName)
 					continue
 				}
 
