@@ -217,15 +217,7 @@ func applyCompatibilityTransforms(pattern string) string {
 		"^\\{####\\}$": "^.*\\{####\\}.*$",
 	}
 
-	// WorkSpaces directory IDs: Smithy pattern has redundant end anchors ($)
-	// inside each alternation branch AND at the end of the pattern.
-	// Pattern "(foo$)|(bar$)$" is equivalent to "(foo)|(bar)" when the outer
-	// anchors are present. Remove inner anchors for cleaner regex.
-	workspacesDirectoryPatterns := map[string]string{
-		"^(d-[0-9a-f]{8,63}$)|(wsd-[0-9a-z]{8,63}$)$": "(d-[0-9a-f]{8,63}$)|(wsd-[0-9a-z]{8,63}$)",
-	}
-
-	for _, transforms := range []map[string]string{arnRolePatterns, cognitoMessagePatterns, workspacesDirectoryPatterns} {
+	for _, transforms := range []map[string]string{arnRolePatterns, cognitoMessagePatterns} {
 		if transformed, exists := transforms[pattern]; exists {
 			return transformed
 		}
