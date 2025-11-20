@@ -24,6 +24,17 @@ mapping "aws_dms_endpoint" {
   mongodb_settings            = MongoDbSettings
 }
 
+mapping "aws_dms_s3_endpoint" {
+  compression_type                        = CompressionTypeValue
+  encryption_mode                         = EncryptionModeValue
+  data_format                             = DataFormatValue
+  encoding_type                           = EncodingTypeValue
+  parquet_version                         = ParquetVersionValue
+  date_partition_sequence                 = DatePartitionSequenceValue
+  date_partition_delimiter                = DatePartitionDelimiterValue
+  canned_acl_for_objects                  = CannedAclForObjectsValue
+}
+
 mapping "aws_dms_event_subscription" {
   event_categories = EventCategoriesList
   source_ids = SourceIdsList
