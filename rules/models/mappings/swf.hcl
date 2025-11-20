@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/swf/2012-01-25/api-2.json"
+import = "api-models-aws/models/swf/service/2012-01-25/swf-2012-01-25.json"
 
 mapping "aws_swf_domain" {
   name                                        = DomainName

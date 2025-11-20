@@ -25,9 +25,9 @@ func NewAwsSsmParameterInvalidTierRule() *AwsSsmParameterInvalidTierRule {
 		resourceType:  "aws_ssm_parameter",
 		attributeName: "tier",
 		enum: []string{
-			"Standard",
 			"Advanced",
 			"Intelligent-Tiering",
+			"Standard",
 		},
 	}
 }

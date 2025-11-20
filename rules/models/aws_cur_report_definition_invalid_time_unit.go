@@ -25,8 +25,8 @@ func NewAwsCurReportDefinitionInvalidTimeUnitRule() *AwsCurReportDefinitionInval
 		resourceType:  "aws_cur_report_definition",
 		attributeName: "time_unit",
 		enum: []string{
-			"HOURLY",
 			"DAILY",
+			"HOURLY",
 			"MONTHLY",
 		},
 	}

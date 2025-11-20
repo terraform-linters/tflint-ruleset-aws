@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/dynamodb/2012-08-10/api-2.json"
+import = "api-models-aws/models/dynamodb/service/2012-08-10/dynamodb-2012-08-10.json"
 
 mapping "aws_dynamodb_global_table" {
   name    = TableName

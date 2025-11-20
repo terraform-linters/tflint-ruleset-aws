@@ -25,10 +25,10 @@ func NewAwsALBTargetGroupInvalidTargetTypeRule() *AwsALBTargetGroupInvalidTarget
 		resourceType:  "aws_alb_target_group",
 		attributeName: "target_type",
 		enum: []string{
+			"alb",
 			"instance",
 			"ip",
 			"lambda",
-			"alb",
 		},
 	}
 }

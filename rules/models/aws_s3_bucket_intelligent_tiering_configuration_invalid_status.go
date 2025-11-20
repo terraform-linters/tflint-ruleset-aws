@@ -25,8 +25,8 @@ func NewAwsS3BucketIntelligentTieringConfigurationInvalidStatusRule() *AwsS3Buck
 		resourceType:  "aws_s3_bucket_intelligent_tiering_configuration",
 		attributeName: "status",
 		enum: []string{
-			"Enabled",
 			"Disabled",
+			"Enabled",
 		},
 	}
 }

@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/application-autoscaling/2016-02-06/api-2.json"
+import = "api-models-aws/models/application-auto-scaling/service/2016-02-06/application-auto-scaling-2016-02-06.json"
 
 mapping "aws_appautoscaling_policy" {
   policy_type        = PolicyType

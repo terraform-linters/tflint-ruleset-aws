@@ -25,8 +25,8 @@ func NewAwsApigatewayv2AuthorizerInvalidAuthorizerTypeRule() *AwsApigatewayv2Aut
 		resourceType:  "aws_apigatewayv2_authorizer",
 		attributeName: "authorizer_type",
 		enum: []string{
-			"REQUEST",
 			"JWT",
+			"REQUEST",
 		},
 	}
 }

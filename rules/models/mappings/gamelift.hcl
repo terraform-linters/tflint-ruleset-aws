@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/gamelift/2015-10-01/api-2.json"
+import = "api-models-aws/models/gamelift/service/2015-10-01/gamelift-2015-10-01.json"
 
 mapping "aws_gamelift_alias" {
   name             = NonBlankAndLengthConstraintString

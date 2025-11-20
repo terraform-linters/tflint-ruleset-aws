@@ -26,13 +26,13 @@ func NewAwsAPIGatewayStageInvalidCacheClusterSizeRule() *AwsAPIGatewayStageInval
 		attributeName: "cache_cluster_size",
 		enum: []string{
 			"0.5",
-			"1.6",
-			"6.1",
+			"118",
 			"13.5",
+			"1.6",
+			"237",
 			"28.4",
 			"58.2",
-			"118",
-			"237",
+			"6.1",
 		},
 	}
 }

@@ -25,9 +25,9 @@ func NewAwsShieldProtectionGroupInvalidAggregationRule() *AwsShieldProtectionGro
 		resourceType:  "aws_shield_protection_group",
 		attributeName: "aggregation",
 		enum: []string{
-			"SUM",
-			"MEAN",
 			"MAX",
+			"MEAN",
+			"SUM",
 		},
 	}
 }

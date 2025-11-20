@@ -29,7 +29,7 @@ func NewAwsDevicefarmNetworkProfileInvalidProjectArnRule() *AwsDevicefarmNetwork
 		attributeName: "project_arn",
 		max:           1011,
 		min:           32,
-		pattern:       regexp.MustCompile(`^arn:aws:devicefarm:.+`),
+		pattern:       regexp.MustCompile(`^arn:aws:devicefarm:.+$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsDevicefarmNetworkProfileInvalidProjectArnRule) Check(runner tflint.R
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:aws:devicefarm:.+`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:aws:devicefarm:.+$`),
 					attribute.Expr.Range(),
 				)
 			}

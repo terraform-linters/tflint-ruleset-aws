@@ -25,8 +25,8 @@ func NewAwsSesReceiptRuleInvalidTLSPolicyRule() *AwsSesReceiptRuleInvalidTLSPoli
 		resourceType:  "aws_ses_receipt_rule",
 		attributeName: "tls_policy",
 		enum: []string{
-			"Require",
 			"Optional",
+			"Require",
 		},
 	}
 }

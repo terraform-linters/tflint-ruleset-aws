@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/ds/2015-04-16/api-2.json"
+import = "api-models-aws/models/directory-service/service/2015-04-16/directory-service-2015-04-16.json"
 
 mapping "aws_directory_service_directory" {
   name             = DirectoryName

@@ -25,9 +25,9 @@ func NewAwsEksNodeGroupInvalidCapacityTypeRule() *AwsEksNodeGroupInvalidCapacity
 		resourceType:  "aws_eks_node_group",
 		attributeName: "capacity_type",
 		enum: []string{
+			"CAPACITY_BLOCK",
 			"ON_DEMAND",
 			"SPOT",
-			"CAPACITY_BLOCK",
 		},
 	}
 }

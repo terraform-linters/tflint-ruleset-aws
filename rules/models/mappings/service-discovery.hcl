@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/servicediscovery/2017-03-14/api-2.json"
+import = "api-models-aws/models/servicediscovery/service/2017-03-14/servicediscovery-2017-03-14.json"
 
 mapping "aws_service_discovery_http_namespace" {
   name        = any //NamespaceName

@@ -25,8 +25,8 @@ func NewAwsCloudwatchLogSubscriptionFilterInvalidDistributionRule() *AwsCloudwat
 		resourceType:  "aws_cloudwatch_log_subscription_filter",
 		attributeName: "distribution",
 		enum: []string{
-			"Random",
 			"ByLogStream",
+			"Random",
 		},
 	}
 }

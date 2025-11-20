@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/rds/2014-10-31/api-2.json"
+import = "api-models-aws/models/rds/service/2014-10-31/rds-2014-10-31.json"
 
 mapping "aws_db_cluster_snapshot" {
   db_cluster_identifier          = String

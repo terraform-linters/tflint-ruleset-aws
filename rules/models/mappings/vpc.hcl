@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/ec2/2016-11-15/api-2.json"
+import = "api-models-aws/models/ec2/service/2016-11-15/ec2-2016-11-15.json"
 
 mapping "aws_customer_gateway" {
   bgp_asn    = Integer

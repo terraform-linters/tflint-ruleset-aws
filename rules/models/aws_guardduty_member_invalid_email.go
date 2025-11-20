@@ -3,56 +3,53 @@
 package models
 
 import (
-	"fmt"
-
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsOpsworksInstanceInvalidArchitectureRule checks the pattern is valid
-type AwsOpsworksInstanceInvalidArchitectureRule struct {
+// AwsGuarddutyMemberInvalidEmailRule checks the pattern is valid
+type AwsGuarddutyMemberInvalidEmailRule struct {
 	tflint.DefaultRule
 
 	resourceType  string
 	attributeName string
-	enum          []string
+	max           int
+	min           int
 }
 
-// NewAwsOpsworksInstanceInvalidArchitectureRule returns new rule with default attributes
-func NewAwsOpsworksInstanceInvalidArchitectureRule() *AwsOpsworksInstanceInvalidArchitectureRule {
-	return &AwsOpsworksInstanceInvalidArchitectureRule{
-		resourceType:  "aws_opsworks_instance",
-		attributeName: "architecture",
-		enum: []string{
-			"x86_64",
-			"i386",
-		},
+// NewAwsGuarddutyMemberInvalidEmailRule returns new rule with default attributes
+func NewAwsGuarddutyMemberInvalidEmailRule() *AwsGuarddutyMemberInvalidEmailRule {
+	return &AwsGuarddutyMemberInvalidEmailRule{
+		resourceType:  "aws_guardduty_member",
+		attributeName: "email",
+		max:           64,
+		min:           6,
 	}
 }
 
 // Name returns the rule name
-func (r *AwsOpsworksInstanceInvalidArchitectureRule) Name() string {
-	return "aws_opsworks_instance_invalid_architecture"
+func (r *AwsGuarddutyMemberInvalidEmailRule) Name() string {
+	return "aws_guardduty_member_invalid_email"
 }
 
 // Enabled returns whether the rule is enabled by default
-func (r *AwsOpsworksInstanceInvalidArchitectureRule) Enabled() bool {
+func (r *AwsGuarddutyMemberInvalidEmailRule) Enabled() bool {
 	return true
 }
 
 // Severity returns the rule severity
-func (r *AwsOpsworksInstanceInvalidArchitectureRule) Severity() tflint.Severity {
+func (r *AwsGuarddutyMemberInvalidEmailRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
 // Link returns the rule reference link
-func (r *AwsOpsworksInstanceInvalidArchitectureRule) Link() string {
+func (r *AwsGuarddutyMemberInvalidEmailRule) Link() string {
 	return ""
 }
 
 // Check checks the pattern is valid
-func (r *AwsOpsworksInstanceInvalidArchitectureRule) Check(runner tflint.Runner) error {
+func (r *AwsGuarddutyMemberInvalidEmailRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
@@ -71,16 +68,17 @@ func (r *AwsOpsworksInstanceInvalidArchitectureRule) Check(runner tflint.Runner)
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
-			found := false
-			for _, item := range r.enum {
-				if item == val {
-					found = true
-				}
-			}
-			if !found {
+			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" is an invalid value as architecture`, truncateLongMessage(val)),
+					"email must be 64 characters or less",
+					attribute.Expr.Range(),
+				)
+			}
+			if len(val) < r.min {
+				runner.EmitIssue(
+					r,
+					"email must be 6 characters or higher",
 					attribute.Expr.Range(),
 				)
 			}

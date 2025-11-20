@@ -26,8 +26,8 @@ func NewAwsConfigOrganizationCustomRuleInvalidMaximumExecutionFrequencyRule() *A
 		attributeName: "maximum_execution_frequency",
 		enum: []string{
 			"One_Hour",
-			"Three_Hours",
 			"Six_Hours",
+			"Three_Hours",
 			"Twelve_Hours",
 			"TwentyFour_Hours",
 		},

@@ -27,8 +27,8 @@ func NewAwsSsmAssociationInvalidComplianceSeverityRule() *AwsSsmAssociationInval
 		enum: []string{
 			"CRITICAL",
 			"HIGH",
-			"MEDIUM",
 			"LOW",
+			"MEDIUM",
 			"UNSPECIFIED",
 		},
 	}

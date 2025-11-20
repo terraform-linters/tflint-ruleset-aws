@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/amp/2020-08-01/api-2.json"
+import = "api-models-aws/models/amp/service/2020-08-01/amp-2020-08-01.json"
 
 mapping "aws_prometheus_alert_manager_definition" {
   workspace_id = WorkspaceId

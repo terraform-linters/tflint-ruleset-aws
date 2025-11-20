@@ -25,8 +25,8 @@ func NewAwsAPIGatewayRestAPIInvalidAPIKeySourceRule() *AwsAPIGatewayRestAPIInval
 		resourceType:  "aws_api_gateway_rest_api",
 		attributeName: "api_key_source",
 		enum: []string{
-			"HEADER",
 			"AUTHORIZER",
+			"HEADER",
 		},
 	}
 }

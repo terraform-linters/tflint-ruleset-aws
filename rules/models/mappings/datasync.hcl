@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/datasync/2018-11-09/api-2.json"
+import = "api-models-aws/models/datasync/service/2018-11-09/datasync-2018-11-09.json"
 
 mapping "aws_datasync_agent" {
   name           = TagValue

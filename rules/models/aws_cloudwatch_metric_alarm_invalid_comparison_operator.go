@@ -27,11 +27,11 @@ func NewAwsCloudwatchMetricAlarmInvalidComparisonOperatorRule() *AwsCloudwatchMe
 		enum: []string{
 			"GreaterThanOrEqualToThreshold",
 			"GreaterThanThreshold",
-			"LessThanThreshold",
-			"LessThanOrEqualToThreshold",
+			"GreaterThanUpperThreshold",
 			"LessThanLowerOrGreaterThanUpperThreshold",
 			"LessThanLowerThreshold",
-			"GreaterThanUpperThreshold",
+			"LessThanOrEqualToThreshold",
+			"LessThanThreshold",
 		},
 	}
 }

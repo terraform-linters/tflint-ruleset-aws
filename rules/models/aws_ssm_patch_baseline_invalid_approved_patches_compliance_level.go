@@ -27,9 +27,9 @@ func NewAwsSsmPatchBaselineInvalidApprovedPatchesComplianceLevelRule() *AwsSsmPa
 		enum: []string{
 			"CRITICAL",
 			"HIGH",
-			"MEDIUM",
-			"LOW",
 			"INFORMATIONAL",
+			"LOW",
+			"MEDIUM",
 			"UNSPECIFIED",
 		},
 	}

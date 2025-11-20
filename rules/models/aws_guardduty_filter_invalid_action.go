@@ -29,8 +29,8 @@ func NewAwsGuarddutyFilterInvalidActionRule() *AwsGuarddutyFilterInvalidActionRu
 		max:           300,
 		min:           1,
 		enum: []string{
-			"NOOP",
 			"ARCHIVE",
+			"NOOP",
 		},
 	}
 }

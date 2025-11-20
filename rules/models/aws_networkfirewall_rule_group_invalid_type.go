@@ -25,8 +25,8 @@ func NewAwsNetworkfirewallRuleGroupInvalidTypeRule() *AwsNetworkfirewallRuleGrou
 		resourceType:  "aws_networkfirewall_rule_group",
 		attributeName: "type",
 		enum: []string{
-			"STATELESS",
 			"STATEFUL",
+			"STATELESS",
 		},
 	}
 }

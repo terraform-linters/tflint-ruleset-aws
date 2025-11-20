@@ -25,8 +25,8 @@ func NewAwsEc2TransitGatewayInvalidDefaultRouteTableAssociationRule() *AwsEc2Tra
 		resourceType:  "aws_ec2_transit_gateway",
 		attributeName: "default_route_table_association",
 		enum: []string{
-			"enable",
 			"disable",
+			"enable",
 		},
 	}
 }

@@ -29,7 +29,7 @@ func NewAwsServicecatalogProvisionedProductInvalidProvisioningArtifactIDRule() *
 		attributeName: "provisioning_artifact_id",
 		max:           100,
 		min:           1,
-		pattern:       regexp.MustCompile(`^[a-zA-Z0-9_\-]*`),
+		pattern:       regexp.MustCompile(`^[a-zA-Z0-9_\-]*$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsServicecatalogProvisionedProductInvalidProvisioningArtifactIDRule) C
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9_\-]*`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9_\-]*$`),
 					attribute.Expr.Range(),
 				)
 			}

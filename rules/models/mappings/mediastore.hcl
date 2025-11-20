@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/mediastore/2017-09-01/api-2.json"
+import = "api-models-aws/models/mediastore/service/2017-09-01/mediastore-2017-09-01.json"
 
 mapping "aws_media_store_container" {
   name = ContainerName

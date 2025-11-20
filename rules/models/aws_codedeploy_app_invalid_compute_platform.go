@@ -25,9 +25,9 @@ func NewAwsCodedeployAppInvalidComputePlatformRule() *AwsCodedeployAppInvalidCom
 		resourceType:  "aws_codedeploy_app",
 		attributeName: "compute_platform",
 		enum: []string{
-			"Server",
-			"Lambda",
 			"ECS",
+			"Lambda",
+			"Server",
 		},
 	}
 }

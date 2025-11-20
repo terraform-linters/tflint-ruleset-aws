@@ -25,8 +25,8 @@ func NewAwsEmrStudioInvalidAuthModeRule() *AwsEmrStudioInvalidAuthModeRule {
 		resourceType:  "aws_emr_studio",
 		attributeName: "auth_mode",
 		enum: []string{
-			"SSO",
 			"IAM",
+			"SSO",
 		},
 	}
 }

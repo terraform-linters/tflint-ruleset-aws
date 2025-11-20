@@ -25,13 +25,13 @@ func NewAwsCloudwatchEventAPIDestinationInvalidHTTPMethodRule() *AwsCloudwatchEv
 		resourceType:  "aws_cloudwatch_event_api_destination",
 		attributeName: "http_method",
 		enum: []string{
-			"POST",
+			"DELETE",
 			"GET",
 			"HEAD",
 			"OPTIONS",
-			"PUT",
 			"PATCH",
-			"DELETE",
+			"POST",
+			"PUT",
 		},
 	}
 }

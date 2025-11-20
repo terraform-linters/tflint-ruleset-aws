@@ -25,8 +25,8 @@ func NewAwsGlueResourcePolicyInvalidEnableHybridRule() *AwsGlueResourcePolicyInv
 		resourceType:  "aws_glue_resource_policy",
 		attributeName: "enable_hybrid",
 		enum: []string{
-			"TRUE",
 			"FALSE",
+			"TRUE",
 		},
 	}
 }

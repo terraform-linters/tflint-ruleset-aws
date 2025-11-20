@@ -26,8 +26,8 @@ func NewAwsFlowLogInvalidTrafficTypeRule() *AwsFlowLogInvalidTrafficTypeRule {
 		attributeName: "traffic_type",
 		enum: []string{
 			"ACCEPT",
-			"REJECT",
 			"ALL",
+			"REJECT",
 		},
 	}
 }

@@ -1,4 +1,4 @@
-import = "aws-sdk-ruby/apis/resource-groups/2017-11-27/api-2.json"
+import = "api-models-aws/models/resource-groups/service/2017-11-27/resource-groups-2017-11-27.json"
 
 mapping "aws_resourcegroups_group" {
   name           = GroupName

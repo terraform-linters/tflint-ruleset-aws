@@ -25,8 +25,8 @@ func NewAwsDynamoDBTableInvalidBillingModeRule() *AwsDynamoDBTableInvalidBilling
 		resourceType:  "aws_dynamodb_table",
 		attributeName: "billing_mode",
 		enum: []string{
-			"PROVISIONED",
 			"PAY_PER_REQUEST",
+			"PROVISIONED",
 		},
 	}
 }

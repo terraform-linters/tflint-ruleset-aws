@@ -25,9 +25,9 @@ func NewAwsFsxOpenzfsFileSystemInvalidStorageTypeRule() *AwsFsxOpenzfsFileSystem
 		resourceType:  "aws_fsx_openzfs_file_system",
 		attributeName: "storage_type",
 		enum: []string{
-			"SSD",
 			"HDD",
 			"INTELLIGENT_TIERING",
+			"SSD",
 		},
 	}
 }
