@@ -24,6 +24,17 @@ mapping "aws_dms_endpoint" {
   mongodb_settings            = MongoDbSettings
 }
 
+mapping "aws_dms_s3_endpoint" {
+  compression_type                        = CompressionTypeValue
+  encryption_mode                         = EncryptionModeValue
+  data_format                             = DataFormatValue
+  encoding_type                           = EncodingTypeValue
+  parquet_version                         = ParquetVersionValue
+  date_partition_sequence                 = DatePartitionSequenceValue
+  date_partition_delimiter                = DatePartitionDelimiterValue
+  canned_acl_for_objects                  = CannedAclForObjectsValue
+}
+
 mapping "aws_dms_event_subscription" {
   event_categories = EventCategoriesList
   source_ids = SourceIdsList
@@ -74,6 +85,16 @@ test "aws_dms_endpoint" "endpoint_type" {
 test "aws_dms_endpoint" "ssl_mode" {
   ok = "require"
   ng = "verify-require"
+}
+
+test "aws_dms_s3_endpoint" "compression_type" {
+  ok = "NONE"
+  ng = "invalid"
+}
+
+test "aws_dms_s3_endpoint" "encryption_mode" {
+  ok = "SSE_KMS"
+  ng = "invalid"
 }
 
 test "aws_dms_replication_task" "migration_type" {
