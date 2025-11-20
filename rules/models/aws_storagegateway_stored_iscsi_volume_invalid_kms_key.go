@@ -29,7 +29,7 @@ func NewAwsStoragegatewayStoredIscsiVolumeInvalidKmsKeyRule() *AwsStoragegateway
 		attributeName: "kms_key",
 		max:           2048,
 		min:           7,
-		pattern:       regexp.MustCompile(`^(^arn:(aws(|-cn|-us-gov|-iso[A-Za-z0-9_-]*)):kms:([a-zA-Z0-9-]+):([0-9]+):(key|alias)/(\S+)$)|(^alias/(\S+)$)$`),
+		pattern:       regexp.MustCompile(`^(^arn:(aws(|-cn|-us-gov|-iso[A-Za-z0-9_-]*|-eusc)):kms:([a-zA-Z0-9-]+):([0-9]+):(key|alias)/(\S+)$)|(^alias/(\S+)$)$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsStoragegatewayStoredIscsiVolumeInvalidKmsKeyRule) Check(runner tflin
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(^arn:(aws(|-cn|-us-gov|-iso[A-Za-z0-9_-]*)):kms:([a-zA-Z0-9-]+):([0-9]+):(key|alias)/(\S+)$)|(^alias/(\S+)$)$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(^arn:(aws(|-cn|-us-gov|-iso[A-Za-z0-9_-]*|-eusc)):kms:([a-zA-Z0-9-]+):([0-9]+):(key|alias)/(\S+)$)|(^alias/(\S+)$)$`),
 					attribute.Expr.Range(),
 				)
 			}
