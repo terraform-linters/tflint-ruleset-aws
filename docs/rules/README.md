@@ -517,6 +517,14 @@ These rules enforce best practices and naming conventions:
 |aws_dms_endpoint_invalid_endpoint_type|✔|
 |aws_dms_endpoint_invalid_ssl_mode|✔|
 |aws_dms_replication_task_invalid_migration_type|✔|
+|aws_dms_s3_endpoint_invalid_canned_acl_for_objects|✔|
+|aws_dms_s3_endpoint_invalid_compression_type|✔|
+|aws_dms_s3_endpoint_invalid_data_format|✔|
+|aws_dms_s3_endpoint_invalid_date_partition_delimiter|✔|
+|aws_dms_s3_endpoint_invalid_date_partition_sequence|✔|
+|aws_dms_s3_endpoint_invalid_encoding_type|✔|
+|aws_dms_s3_endpoint_invalid_encryption_mode|✔|
+|aws_dms_s3_endpoint_invalid_parquet_version|✔|
 |aws_docdb_global_cluster_invalid_global_cluster_identifier|✔|
 |aws_dx_bgp_peer_invalid_address_family|✔|
 |aws_dx_hosted_private_virtual_interface_invalid_address_family|✔|
