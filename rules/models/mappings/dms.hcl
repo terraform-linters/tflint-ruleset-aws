@@ -66,6 +66,17 @@ mapping "aws_dms_replication_task" {
   target_endpoint_arn       = String
 }
 
+mapping "aws_dms_s3_endpoint" {
+  compression_type                        = uppercase(CompressionTypeValue)
+  encryption_mode                         = uppercase(replace(EncryptionModeValue, "-", "_"))
+  data_format                             = DataFormatValue
+  encoding_type                           = EncodingTypeValue
+  parquet_version                         = ParquetVersionValue
+  date_partition_sequence                 = uppercase(DatePartitionSequenceValue)
+  date_partition_delimiter                = uppercase(DatePartitionDelimiterValue)
+  canned_acl_for_objects                  = uppercase(CannedAclForObjectsValue)
+}
+
 test "aws_dms_endpoint" "endpoint_type" {
   ok = "source"
   ng = "resource"

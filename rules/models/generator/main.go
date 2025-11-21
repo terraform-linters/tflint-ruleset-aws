@@ -5,7 +5,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"sort"
@@ -15,6 +14,9 @@ import (
 	"github.com/hashicorp/hcl/v2/gohcl"
 	"github.com/hashicorp/hcl/v2/hclparse"
 	tfjson "github.com/hashicorp/terraform-json"
+	"github.com/zclconf/go-cty/cty"
+	"github.com/zclconf/go-cty/cty/function"
+	"github.com/zclconf/go-cty/cty/function/stdlib"
 	utils "github.com/terraform-linters/tflint-ruleset-aws/rules/generator-utils"
 )
 
@@ -67,7 +69,7 @@ func main() {
 		panic(err)
 	}
 
-	mappingFiles := []mappingFile{}
+	var mappingFiles []mappingFile
 	for _, file := range files {
 		parser := hclparse.NewParser()
 		f, diags := parser.ParseHCLFile(file)
@@ -85,9 +87,9 @@ func main() {
 
 	awsProvider := utils.LoadProviderSchema("../../tools/provider-schema/schema.json")
 
-	generatedRules := []string{}
+	var generatedRules []string
 	for _, mappingFile := range mappingFiles {
-		raw, err := ioutil.ReadFile(mappingFile.Import)
+		raw, err := os.ReadFile(mappingFile.Import)
 		if err != nil {
 			panic(err)
 		}
@@ -99,10 +101,27 @@ func main() {
 		}
 		shapes := api["shapes"].(map[string]interface{})
 
+		evalCtx := buildEvalContext()
+
 		for _, mapping := range mappingFile.Mappings {
 			for attribute, value := range mapping.Attrs {
 				fmt.Printf("Checking `%s.%s`\n", mapping.Resource, attribute)
-				shapeName := value.Expr.Variables()[0].RootName()
+
+				// Extract shape name from the expression
+				vars := value.Expr.Variables()
+				if len(vars) == 0 {
+					continue
+				}
+				if len(vars) > 1 {
+					varNames := make([]string, len(vars))
+					for i, v := range vars {
+						varNames[i] = v.RootName()
+					}
+					fmt.Fprintf(os.Stderr, "Error: `%s.%s` expression references %d variables (%v), expected exactly 1\n",
+						mapping.Resource, attribute, len(vars), varNames)
+					os.Exit(1)
+				}
+				shapeName := vars[0].RootName()
 				if shapeName == "any" {
 					continue
 				}
@@ -111,6 +130,32 @@ func main() {
 				if model == nil {
 					fmt.Printf("Shape %q not found, skipping\n", shapeName)
 					continue
+				}
+
+				// Populate the eval context with this shape's enum values
+				if enumValues, ok := model["enum"].([]string); ok {
+					// Use fresh Variables map for each evaluation to avoid pollution
+					evalCtx.Variables = map[string]cty.Value{
+						shapeName: stringsToCtyList(enumValues),
+					}
+
+					// Evaluate the expression to get transformed enum values
+					result, diags := value.Expr.Value(evalCtx)
+					if !diags.HasErrors() && result.Type().IsListType() {
+						transformedEnums := make([]string, 0, result.LengthInt())
+						for it := result.ElementIterator(); it.Next(); {
+							_, val := it.Element()
+							transformedEnums = append(transformedEnums, val.AsString())
+						}
+
+						// Create a new model with transformed enums
+						transformedModel := make(map[string]interface{}, len(model))
+						for k, v := range model {
+							transformedModel[k] = v
+						}
+						transformedModel["enum"] = transformedEnums
+						model = transformedModel
+					}
 				}
 
 				schema, err := fetchSchema(mapping.Resource, attribute, model, awsProvider)
@@ -300,4 +345,99 @@ func convertSmithyShape(rawShape map[string]interface{}) map[string]interface{} 
 	}
 
 	return result
+}
+
+// stringsToCtyList converts a slice of strings to a cty list value
+func stringsToCtyList(values []string) cty.Value {
+	if len(values) == 0 {
+		return cty.ListValEmpty(cty.String)
+	}
+	ctyValues := make([]cty.Value, 0, len(values))
+	for _, v := range values {
+		ctyValues = append(ctyValues, cty.StringVal(v))
+	}
+	return cty.ListVal(ctyValues)
+}
+
+// HCL Transform System
+// ====================
+//
+// The generator supports HCL function-based transforms for enum values in mapping files.
+// This allows enum values from Smithy models to be transformed to match Terraform provider
+// expectations without hardcoding transformation logic in Go.
+//
+// Available Functions:
+//   - uppercase(list) - Converts all strings in list to uppercase
+//   - replace(list, old, new) - Replaces substring in all strings
+//
+// Usage Examples in mappings/*.hcl:
+//   compression_type = uppercase(CompressionTypeValue)
+//     -> ["gzip", "none"] becomes ["GZIP", "NONE"]
+//
+//   encryption_mode = uppercase(replace(EncryptionModeValue, "-", "_"))
+//     -> ["sse-kms", "sse-s3"] becomes ["SSE_KMS", "SSE_S3"]
+//
+// Adding New Transform Functions:
+//   1. Add function to buildEvalContext() Functions map
+//   2. Wrap stdlib function with makeListTransformFunction()
+//   3. Example: "lowercase": makeListTransformFunction(stdlib.LowerFunc)
+//
+// Technical Details:
+//   - Transform functions operate on lists of strings (enum values)
+//   - Each expression must reference exactly one shape variable
+//   - Functions can be composed: uppercase(replace(x, "-", "_"))
+//   - HCL's native expression evaluation handles all transforms
+
+// buildEvalContext creates an HCL evaluation context with transform functions
+func buildEvalContext() *hcl.EvalContext {
+	return &hcl.EvalContext{
+		Functions: map[string]function.Function{
+			"uppercase": makeListTransformFunction(stdlib.UpperFunc),
+			"replace":   makeListTransformFunction(stdlib.ReplaceFunc),
+		},
+		Variables: make(map[string]cty.Value),
+	}
+}
+
+// makeListTransformFunction wraps a string transform function to work on lists of strings
+func makeListTransformFunction(strFunc function.Function) function.Function {
+	return function.New(&function.Spec{
+		VarParam: &function.Parameter{
+			Name: "args",
+			Type: cty.DynamicPseudoType,
+		},
+		Type: func(args []cty.Value) (cty.Type, error) {
+			return cty.List(cty.String), nil
+		},
+		Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
+			if len(args) == 0 {
+				return cty.NilVal, fmt.Errorf("expected at least one argument")
+			}
+			if !args[0].Type().IsListType() {
+				return cty.NilVal, fmt.Errorf("first argument must be a list")
+			}
+
+			// Handle empty list
+			if args[0].LengthInt() == 0 {
+				return cty.ListValEmpty(cty.String), nil
+			}
+
+			var results []cty.Value
+			for it := args[0].ElementIterator(); it.Next(); {
+				_, val := it.Element()
+
+				// Build args for the string function: [element, ...other args]
+				elementArgs := make([]cty.Value, len(args))
+				elementArgs[0] = val
+				copy(elementArgs[1:], args[1:])
+
+				result, err := strFunc.Call(elementArgs)
+				if err != nil {
+					return cty.NilVal, err
+				}
+				results = append(results, result)
+			}
+			return cty.ListVal(results), nil
+		},
+	})
 }
