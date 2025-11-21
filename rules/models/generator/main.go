@@ -113,7 +113,12 @@ func main() {
 					continue
 				}
 				if len(vars) > 1 {
-					fmt.Fprintf(os.Stderr, "Error: `%s.%s` expression references multiple variables, only one shape allowed\n", mapping.Resource, attribute)
+					varNames := make([]string, len(vars))
+					for i, v := range vars {
+						varNames[i] = v.RootName()
+					}
+					fmt.Fprintf(os.Stderr, "Error: `%s.%s` expression references %d variables (%v), expected exactly 1\n",
+						mapping.Resource, attribute, len(vars), varNames)
 					os.Exit(1)
 				}
 				shapeName := vars[0].RootName()
@@ -129,12 +134,15 @@ func main() {
 
 				// Populate the eval context with this shape's enum values
 				if enumValues, ok := model["enum"].([]string); ok {
-					evalCtx.Variables[shapeName] = stringsToCtyList(enumValues)
+					// Use fresh Variables map for each evaluation to avoid pollution
+					evalCtx.Variables = map[string]cty.Value{
+						shapeName: stringsToCtyList(enumValues),
+					}
 
 					// Evaluate the expression to get transformed enum values
 					result, diags := value.Expr.Value(evalCtx)
 					if !diags.HasErrors() && result.Type().IsListType() {
-						var transformedEnums []string
+						transformedEnums := make([]string, 0, result.LengthInt())
 						for it := result.ElementIterator(); it.Next(); {
 							_, val := it.Element()
 							transformedEnums = append(transformedEnums, val.AsString())
@@ -341,12 +349,44 @@ func convertSmithyShape(rawShape map[string]interface{}) map[string]interface{} 
 
 // stringsToCtyList converts a slice of strings to a cty list value
 func stringsToCtyList(values []string) cty.Value {
+	if len(values) == 0 {
+		return cty.ListValEmpty(cty.String)
+	}
 	ctyValues := make([]cty.Value, 0, len(values))
 	for _, v := range values {
 		ctyValues = append(ctyValues, cty.StringVal(v))
 	}
 	return cty.ListVal(ctyValues)
 }
+
+// HCL Transform System
+// ====================
+//
+// The generator supports HCL function-based transforms for enum values in mapping files.
+// This allows enum values from Smithy models to be transformed to match Terraform provider
+// expectations without hardcoding transformation logic in Go.
+//
+// Available Functions:
+//   - uppercase(list) - Converts all strings in list to uppercase
+//   - replace(list, old, new) - Replaces substring in all strings
+//
+// Usage Examples in mappings/*.hcl:
+//   compression_type = uppercase(CompressionTypeValue)
+//     -> ["gzip", "none"] becomes ["GZIP", "NONE"]
+//
+//   encryption_mode = uppercase(replace(EncryptionModeValue, "-", "_"))
+//     -> ["sse-kms", "sse-s3"] becomes ["SSE_KMS", "SSE_S3"]
+//
+// Adding New Transform Functions:
+//   1. Add function to buildEvalContext() Functions map
+//   2. Wrap stdlib function with makeListTransformFunction()
+//   3. Example: "lowercase": makeListTransformFunction(stdlib.LowerFunc)
+//
+// Technical Details:
+//   - Transform functions operate on lists of strings (enum values)
+//   - Each expression must reference exactly one shape variable
+//   - Functions can be composed: uppercase(replace(x, "-", "_"))
+//   - HCL's native expression evaluation handles all transforms
 
 // buildEvalContext creates an HCL evaluation context with transform functions
 func buildEvalContext() *hcl.EvalContext {
@@ -375,6 +415,11 @@ func makeListTransformFunction(strFunc function.Function) function.Function {
 			}
 			if !args[0].Type().IsListType() {
 				return cty.NilVal, fmt.Errorf("first argument must be a list")
+			}
+
+			// Handle empty list
+			if args[0].LengthInt() == 0 {
+				return cty.ListValEmpty(cty.String), nil
 			}
 
 			var results []cty.Value
