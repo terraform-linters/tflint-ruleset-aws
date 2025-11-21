@@ -26,6 +26,7 @@ func NewAwsVpcIpamPoolInvalidAwsServiceRule() *AwsVpcIpamPoolInvalidAwsServiceRu
 		attributeName: "aws_service",
 		enum: []string{
 			"ec2",
+			"global-services",
 		},
 	}
 }

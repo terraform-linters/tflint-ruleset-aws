@@ -3,6 +3,7 @@
 package ephemeral
 
 var replacingEphemeralResources = []string{
+		"aws_ecr_authorization_token",
 		"aws_eks_cluster_auth",
 		"aws_kms_secrets",
 		"aws_lambda_invocation",
