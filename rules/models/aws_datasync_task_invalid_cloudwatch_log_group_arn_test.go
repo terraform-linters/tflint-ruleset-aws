@@ -24,7 +24,7 @@ resource "aws_datasync_task" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsDatasyncTaskInvalidCloudwatchLogGroupArnRule(),
-					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("arn:aws:s3:::my_corporate_bucket"), `^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):logs:[a-z\-0-9]+:[0-9]{12}:log-group:([^:\*]*)(:\*)?$`),
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage("arn:aws:s3:::my_corporate_bucket"), `^arn:(aws|aws-cn|aws-us-gov|aws-eusc|aws-iso|aws-iso-b):logs:[a-z\-0-9]+:[0-9]{12}:log-group:([^:\*]*)(:\*)?$`),
 				},
 			},
 		},
