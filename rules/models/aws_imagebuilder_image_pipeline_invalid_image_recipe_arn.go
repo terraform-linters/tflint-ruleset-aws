@@ -25,7 +25,7 @@ func NewAwsImagebuilderImagePipelineInvalidImageRecipeArnRule() *AwsImagebuilder
 	return &AwsImagebuilderImagePipelineInvalidImageRecipeArnRule{
 		resourceType:  "aws_imagebuilder_image_pipeline",
 		attributeName: "image_recipe_arn",
-		pattern:       regexp.MustCompile(`^arn:aws[^:]*:imagebuilder:[^:]+:(?:[0-9]{12}|aws):image-recipe/[a-z0-9-_]+/[0-9]+\.[0-9]+\.[0-9]+$`),
+		pattern:       regexp.MustCompile(`^arn:aws[^:]*:imagebuilder:[^:]+:(?:[0-9]{12}|aws):image-recipe/[a-z0-9-_]+/(?:[0-9]+|x)\.(?:[0-9]+|x)\.(?:[0-9]+|x)$`),
 	}
 }
 
@@ -72,7 +72,7 @@ func (r *AwsImagebuilderImagePipelineInvalidImageRecipeArnRule) Check(runner tfl
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:aws[^:]*:imagebuilder:[^:]+:(?:[0-9]{12}|aws):image-recipe/[a-z0-9-_]+/[0-9]+\.[0-9]+\.[0-9]+$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:aws[^:]*:imagebuilder:[^:]+:(?:[0-9]{12}|aws):image-recipe/[a-z0-9-_]+/(?:[0-9]+|x)\.(?:[0-9]+|x)\.(?:[0-9]+|x)$`),
 					attribute.Expr.Range(),
 				)
 			}

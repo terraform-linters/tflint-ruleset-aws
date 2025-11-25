@@ -27,7 +27,7 @@ func NewAwsDatasyncLocationFsxWindowsFileSystemInvalidFsxFilesystemArnRule() *Aw
 		resourceType:  "aws_datasync_location_fsx_windows_file_system",
 		attributeName: "fsx_filesystem_arn",
 		max:           128,
-		pattern:       regexp.MustCompile(`^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):fsx:[a-z\-0-9]*:[0-9]{12}:file-system/fs-.*$`),
+		pattern:       regexp.MustCompile(`^arn:(aws|aws-cn|aws-us-gov|aws-eusc|aws-iso|aws-iso-b):fsx:[a-z\-0-9]+:[0-9]{12}:file-system/fs-[0-9a-f]+$`),
 	}
 }
 
@@ -81,7 +81,7 @@ func (r *AwsDatasyncLocationFsxWindowsFileSystemInvalidFsxFilesystemArnRule) Che
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):fsx:[a-z\-0-9]*:[0-9]{12}:file-system/fs-.*$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:(aws|aws-cn|aws-us-gov|aws-eusc|aws-iso|aws-iso-b):fsx:[a-z\-0-9]+:[0-9]{12}:file-system/fs-[0-9a-f]+$`),
 					attribute.Expr.Range(),
 				)
 			}

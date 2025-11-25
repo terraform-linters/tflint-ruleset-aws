@@ -29,10 +29,12 @@ func NewAwsOrganizationsPolicyInvalidTypeRule() *AwsOrganizationsPolicyInvalidTy
 			"BACKUP_POLICY",
 			"CHATBOT_POLICY",
 			"DECLARATIVE_POLICY_EC2",
+			"INSPECTOR_POLICY",
 			"RESOURCE_CONTROL_POLICY",
 			"SECURITYHUB_POLICY",
 			"SERVICE_CONTROL_POLICY",
 			"TAG_POLICY",
+			"UPGRADE_ROLLOUT_POLICY",
 		},
 	}
 }
