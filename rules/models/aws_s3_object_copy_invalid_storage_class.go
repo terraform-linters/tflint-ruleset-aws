@@ -27,6 +27,7 @@ func NewAwsS3ObjectCopyInvalidStorageClassRule() *AwsS3ObjectCopyInvalidStorageC
 		enum: []string{
 			"DEEP_ARCHIVE",
 			"EXPRESS_ONEZONE",
+			"FSX_ONTAP",
 			"FSX_OPENZFS",
 			"GLACIER",
 			"GLACIER_IR",
