@@ -525,6 +525,30 @@ rule "aws_resource_missing_tags" {
 				},
 			},
 		},
+		{
+			Name: "Provider reference without alias (issue #1002)",
+			Content: `
+provider "aws" {
+  region = "eu-west-1"
+  default_tags {
+    tags = {
+      "layer": "app"
+      "type": "service"
+    }
+  }
+}
+
+resource "aws_iam_user" "bedrock" {
+  provider = aws
+  name = "test"
+}`,
+			Config: `
+rule "aws_resource_missing_tags" {
+  enabled = true
+  tags = ["layer", "type"]
+}`,
+			Expected: helper.Issues{},
+		},
 	}
 
 	rule := NewAwsResourceMissingTagsRule()

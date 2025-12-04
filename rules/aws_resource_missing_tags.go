@@ -81,13 +81,10 @@ func (r *AwsResourceMissingTagsRule) getProviderLevelTags(runner tflint.Runner) 
 
 	// Get provider default tags
 	allProviderTags := make(map[string][]string)
-	var providerAlias string
 	for _, provider := range providerBody.Blocks.OfType(providerAttributeName) {
-		// Get the alias attribute, in terraform when there is a single aws provider its called "default"
-		providerAttr, ok := provider.Body.Attributes["alias"]
-		if !ok {
-			providerAlias = "default"
-		} else {
+		// Get the alias attribute. Empty string represents the default provider.
+		var providerAlias string
+		if providerAttr, ok := provider.Body.Attributes["alias"]; ok {
 			err := runner.EvaluateExpr(providerAttr.Expr, func(alias string) error {
 				logger.Debug("Walk `%s` provider", providerAlias)
 				providerAlias = alias
@@ -164,7 +161,7 @@ func (r *AwsResourceMissingTagsRule) Check(runner tflint.Runner) error {
 		}
 
 		for _, resource := range resources.Blocks {
-			providerAlias := "default"
+			var providerAlias string
 			// Override the provider alias if defined
 			if val, ok := resource.Body.Attributes[providerAttributeName]; ok {
 				provider, diagnostics := aws.DecodeProviderConfigRef(val.Expr, "provider")
