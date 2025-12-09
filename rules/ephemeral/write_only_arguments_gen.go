@@ -24,6 +24,13 @@ var writeOnlyArguments = map[string][]writeOnlyArgument{
 			writeOnlyVersionAttribute: "master_password_wo_version",
 		},
 	},
+	"aws_kms_ciphertext": {
+		{
+			originalAttribute:         "plaintext",
+			writeOnlyAlternative:      "plaintext_wo",
+			writeOnlyVersionAttribute: "plaintext_wo_version",
+		},
+	},
 	"aws_rds_cluster": {
 		{
 			originalAttribute:         "master_password",
