@@ -25,6 +25,7 @@ func NewAwsLambdaFunctionInvalidRuntimeRule() *AwsLambdaFunctionInvalidRuntimeRu
 		resourceType:  "aws_lambda_function",
 		attributeName: "runtime",
 		enum: []string{
+			"dotnet10",
 			"dotnet6",
 			"dotnet8",
 			"dotnetcore1.0",

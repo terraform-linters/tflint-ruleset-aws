@@ -57,6 +57,7 @@ func NewAwsRoute53ZoneAssociationInvalidVpcRegionRule() *AwsRoute53ZoneAssociati
 			"eu-west-1",
 			"eu-west-2",
 			"eu-west-3",
+			"eusc-de-east-1",
 			"il-central-1",
 			"me-central-1",
 			"me-south-1",

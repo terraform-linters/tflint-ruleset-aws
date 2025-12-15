@@ -31,6 +31,7 @@ func NewAwsOrganizationsPolicyInvalidTypeRule() *AwsOrganizationsPolicyInvalidTy
 			"CHATBOT_POLICY",
 			"DECLARATIVE_POLICY_EC2",
 			"INSPECTOR_POLICY",
+			"NETWORK_SECURITY_DIRECTOR_POLICY",
 			"RESOURCE_CONTROL_POLICY",
 			"S3_POLICY",
 			"SECURITYHUB_POLICY",
