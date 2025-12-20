@@ -13,7 +13,6 @@ import (
 	hcl "github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/gohcl"
 	"github.com/hashicorp/hcl/v2/hclparse"
-	"github.com/hashicorp/hcl/v2/hclsyntax"
 	tfjson "github.com/hashicorp/terraform-json"
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/function"
@@ -226,7 +225,11 @@ func fetchSchemaForMap(resource, attribute string, provider *tfjson.ProviderSche
 }
 
 func validMapping(model map[string]interface{}) bool {
-	switch model["type"].(string) {
+	modelType, ok := model["type"].(string)
+	if !ok {
+		return false
+	}
+	switch modelType {
 	case "string":
 		if _, ok := model["max"]; ok {
 			return true
@@ -247,19 +250,6 @@ func validMapping(model map[string]interface{}) bool {
 	}
 }
 
-func validListMapping(model map[string]interface{}) bool {
-	if model["type"].(string) != "list" {
-		return false
-	}
-	if _, ok := model["max"]; ok {
-		return true
-	}
-	if min, ok := model["min"]; ok && int(min.(float64)) > 0 {
-		return true
-	}
-	return false
-}
-
 // findShape locates a shape in Smithy format with namespace-qualified lookup
 func findShape(shapes map[string]interface{}, shapeName string) map[string]interface{} {
 	raw := findRawShape(shapes, shapeName)
@@ -276,7 +266,9 @@ func findRawShape(shapes map[string]interface{}, shapeName string) map[string]in
 	if serviceNamespace != "" {
 		qualifiedName := fmt.Sprintf("%s#%s", serviceNamespace, shapeName)
 		if shape, ok := shapes[qualifiedName]; ok {
-			return shape.(map[string]interface{})
+			if shapeMap, ok := shape.(map[string]interface{}); ok {
+				return shapeMap
+			}
 		}
 	}
 
@@ -337,35 +329,6 @@ func traverseToMapConstraints(shapes map[string]interface{}, shapeName string) (
 	return nil, nil
 }
 
-// resolveStructureMembers returns string models keyed by member name.
-func resolveStructureMembers(shapes map[string]interface{}, members map[string]interface{}) map[string]map[string]interface{} {
-	if members == nil {
-		return nil
-	}
-
-	result := make(map[string]map[string]interface{})
-	for name, member := range members {
-		m, ok := member.(map[string]interface{})
-		if !ok {
-			continue
-		}
-		target := getTarget(m)
-		if target == "" {
-			continue
-		}
-		model := findShape(shapes, target)
-		if model == nil || model["type"] != "string" {
-			continue
-		}
-		result[name] = model
-	}
-
-	if len(result) == 0 {
-		return nil
-	}
-	return result
-}
-
 // resolveStringPair resolves two shape names to their models,
 // returning nil if either is missing or not a string type.
 func resolveStringPair(shapes map[string]interface{}, firstName, secondName string) (map[string]interface{}, map[string]interface{}) {
@@ -381,66 +344,6 @@ func resolveStringPair(shapes map[string]interface{}, firstName, secondName stri
 		return nil, nil
 	}
 	return first, second
-}
-
-// parseListMapExpr parses an HCL expression like listmap(Tags, TagKey, TagValue).
-// Returns the list shape, key constraint shape, and value constraint shape.
-// Returns empty strings if the expression is not in this format.
-// Accepts either a string (for testing) or an hcl.Expression (for production use).
-func parseListMapExpr(input interface{}) (listShape, keyShape, valueShape string) {
-	var expr hcl.Expression
-
-	switch v := input.(type) {
-	case string:
-		parsed, diags := hclsyntax.ParseExpression([]byte(v), "", hcl.Pos{Line: 1, Column: 1})
-		if diags.HasErrors() {
-			return "", "", ""
-		}
-		expr = parsed
-	case hcl.Expression:
-		expr = v
-	default:
-		return "", "", ""
-	}
-
-	// Check if it's a function call expression
-	funcCall, ok := expr.(*hclsyntax.FunctionCallExpr)
-	if !ok {
-		return "", "", ""
-	}
-
-	// Must be the listmap function
-	if funcCall.Name != "listmap" {
-		return "", "", ""
-	}
-
-	// Must have exactly 3 arguments
-	if len(funcCall.Args) != 3 {
-		return "", "", ""
-	}
-
-	// First argument: list shape
-	listTraversal, ok := funcCall.Args[0].(*hclsyntax.ScopeTraversalExpr)
-	if !ok || len(listTraversal.Traversal) != 1 {
-		return "", "", ""
-	}
-	listShape = listTraversal.Traversal.RootName()
-
-	// Second argument: key constraint shape
-	keyTraversal, ok := funcCall.Args[1].(*hclsyntax.ScopeTraversalExpr)
-	if !ok || len(keyTraversal.Traversal) != 1 {
-		return "", "", ""
-	}
-	keyShape = keyTraversal.Traversal.RootName()
-
-	// Third argument: value constraint shape
-	valueTraversal, ok := funcCall.Args[2].(*hclsyntax.ScopeTraversalExpr)
-	if !ok || len(valueTraversal.Traversal) != 1 {
-		return "", "", ""
-	}
-	valueShape = valueTraversal.Traversal.RootName()
-
-	return listShape, keyShape, valueShape
 }
 
 // extractServiceNamespace extracts the namespace from the Smithy service definition
@@ -553,31 +456,31 @@ func stringsToCtyList(values []string) cty.Value {
 // HCL Transform System
 // ====================
 //
-// The generator supports HCL function-based transforms for enum values in mapping files.
-// This allows enum values from Smithy models to be transformed to match Terraform provider
-// expectations without hardcoding transformation logic in Go.
+// The generator uses HCL expression evaluation with shape objects as variables.
+// Each Smithy shape becomes a rich cty object containing all constraint info.
+//
+// Shape Object Fields:
+//   - name: string - The shape name
+//   - type: string - The shape type (e.g., "string", "list")
+//   - pattern: string - Regex pattern constraint
+//   - min: number - Minimum length constraint
+//   - max: number - Maximum length constraint
+//   - enum: list(string) - Allowed enum values
 //
 // Available Functions:
-//   - uppercase(list) - Converts all strings in list to uppercase
-//   - replace(list, old, new) - Replaces substring in all strings
+//   - uppercase(shape) - Transforms enum values to uppercase
+//   - replace(shape, old, new) - Replaces substrings in enum values
+//   - listmap(list, key, value) - Combines three shapes for map validation
 //
 // Usage Examples in mappings/*.hcl:
 //   compression_type = uppercase(CompressionTypeValue)
-//     -> ["gzip", "none"] becomes ["GZIP", "NONE"]
+//     -> Transforms shape's enum values to uppercase
 //
 //   encryption_mode = uppercase(replace(EncryptionModeValue, "-", "_"))
-//     -> ["sse-kms", "sse-s3"] becomes ["SSE_KMS", "SSE_S3"]
+//     -> Chains transforms on shape's enum values
 //
-// Adding New Transform Functions:
-//   1. Add function to buildEvalContext() Functions map
-//   2. Wrap stdlib function with makeListTransformFunction()
-//   3. Example: "lowercase": makeListTransformFunction(stdlib.LowerFunc)
-//
-// Technical Details:
-//   - Transform functions operate on lists of strings (enum values)
-//   - Each expression must reference exactly one shape variable
-//   - Functions can be composed: uppercase(replace(x, "-", "_"))
-//   - HCL's native expression evaluation handles all transforms
+//   tags = listmap(TagList, TagKey, TagValue)
+//     -> Combines constraints from three shapes for tag validation
 
 // shapeType is the cty object type for shape variables.
 // Shapes are rich objects containing all their constraint information.
@@ -635,7 +538,7 @@ func buildEvalContext(shapes map[string]interface{}) *hcl.EvalContext {
 
 // makeShapeValue creates a cty shape object from a model
 func makeShapeValue(name string, model map[string]interface{}) cty.Value {
-	shapeType := ""
+	typeStr := ""
 	pattern := ""
 	min := int64(0)
 	max := int64(0)
@@ -643,7 +546,7 @@ func makeShapeValue(name string, model map[string]interface{}) cty.Value {
 
 	if model != nil {
 		if t, ok := model["type"].(string); ok {
-			shapeType = t
+			typeStr = t
 		}
 		pattern = fetchString(model, "pattern")
 		min = int64(fetchNumber(model, "min"))
@@ -664,7 +567,7 @@ func makeShapeValue(name string, model map[string]interface{}) cty.Value {
 
 	return cty.ObjectVal(map[string]cty.Value{
 		"name":    cty.StringVal(name),
-		"type":    cty.StringVal(shapeType),
+		"type":    cty.StringVal(typeStr),
 		"pattern": cty.StringVal(pattern),
 		"min":     cty.NumberIntVal(min),
 		"max":     cty.NumberIntVal(max),
@@ -826,45 +729,3 @@ func makeListmapFunction() function.Function {
 	})
 }
 
-// makeListTransformFunction wraps a string transform function to work on lists of strings
-func makeListTransformFunction(strFunc function.Function) function.Function {
-	return function.New(&function.Spec{
-		VarParam: &function.Parameter{
-			Name: "args",
-			Type: cty.DynamicPseudoType,
-		},
-		Type: func(args []cty.Value) (cty.Type, error) {
-			return cty.List(cty.String), nil
-		},
-		Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
-			if len(args) == 0 {
-				return cty.NilVal, fmt.Errorf("expected at least one argument")
-			}
-			if !args[0].Type().IsListType() {
-				return cty.NilVal, fmt.Errorf("first argument must be a list")
-			}
-
-			// Handle empty list
-			if args[0].LengthInt() == 0 {
-				return cty.ListValEmpty(cty.String), nil
-			}
-
-			var results []cty.Value
-			for it := args[0].ElementIterator(); it.Next(); {
-				_, val := it.Element()
-
-				// Build args for the string function: [element, ...other args]
-				elementArgs := make([]cty.Value, len(args))
-				elementArgs[0] = val
-				copy(elementArgs[1:], args[1:])
-
-				result, err := strFunc.Call(elementArgs)
-				if err != nil {
-					return cty.NilVal, err
-				}
-				results = append(results, result)
-			}
-			return cty.ListVal(results), nil
-		},
-	})
-}

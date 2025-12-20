@@ -53,14 +53,14 @@ func generateRuleFile(resource, attribute string, model map[string]interface{}, 
 		RuleNameCC:    utils.ToCamel(ruleName),
 		ResourceType:  resource,
 		AttributeName: attribute,
-		Sensitive:     schema.Sensitive,
+		Sensitive:     schema != nil && schema.Sensitive,
 		Max:           fetchNumber(model, "max"),
 		Min:           fetchNumber(model, "min"),
 		Pattern:       replacePattern(fetchString(model, "pattern")),
 		Enum:          fetchStrings(model, "enum"),
 	}
 
-	// Testing generated regexp
+	// Validate generated regexp
 	regexp.MustCompile(meta.Pattern)
 
 	utils.GenerateFile(fmt.Sprintf("%s.go", ruleName), "pattern_rule.go.tmpl", meta)
@@ -82,7 +82,7 @@ func generateRuleTestFile(resource, attribute string, model map[string]interface
 		TestNG:        formatTest(test.NG),
 	}
 
-	// Testing generated regexp
+	// Validate generated regexp
 	regexp.MustCompile(meta.Pattern)
 
 	utils.GenerateFile(fmt.Sprintf("%s_test.go", ruleName), "pattern_rule_test.go.tmpl", meta)
@@ -236,7 +236,14 @@ func makeRuleName(resource, attribute string) string {
 
 func fetchNumber(model map[string]interface{}, key string) int {
 	if v, ok := model[key]; ok {
-		return int(v.(float64))
+		switch n := v.(type) {
+		case float64:
+			return int(n)
+		case int:
+			return n
+		case int64:
+			return int(n)
+		}
 	}
 	return 0
 }
@@ -264,7 +271,9 @@ func fetchStrings(model map[string]interface{}, key string) []string {
 
 func fetchString(model map[string]interface{}, key string) string {
 	if v, ok := model[key]; ok {
-		return v.(string)
+		if s, ok := v.(string); ok {
+			return s
+		}
 	}
 	return ""
 }
