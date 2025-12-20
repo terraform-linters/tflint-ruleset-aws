@@ -272,116 +272,103 @@ func findRawShape(shapes map[string]interface{}, shapeName string) map[string]in
 	return nil
 }
 
-// extractShapeName extracts the simple name from a fully qualified shape reference
+// extractShapeName extracts the simple name from a fully qualified shape reference.
 // e.g., "com.amazonaws.ecs#TagKey" -> "TagKey"
 func extractShapeName(qualifiedName string) string {
-	if parts := strings.Split(qualifiedName, "#"); len(parts) == 2 {
-		return parts[1]
+	if idx := strings.LastIndex(qualifiedName, "#"); idx >= 0 {
+		return qualifiedName[idx+1:]
 	}
 	return qualifiedName
 }
 
-// traverseToTagConstraints traverses list/map/structure shapes to find tag key/value constraints.
-// Returns nil, nil if the shape is not a tag-like structure or has no constraints.
+// tagStructureMembers defines the member names used to identify tag-like structures
+// in Smithy models. AWS services use varying capitalization for these members
+// (e.g., "key"/"Key", "value"/"Value"), so lookups are case-insensitive.
+var tagStructureMembers = struct {
+	Key   string
+	Value string
+}{
+	Key:   "key",
+	Value: "value",
+}
+
+// getMemberCaseInsensitive looks up a member in a Smithy members map using
+// case-insensitive matching. Returns nil if not found.
+func getMemberCaseInsensitive(members map[string]interface{}, name string) map[string]interface{} {
+	for k, v := range members {
+		if strings.EqualFold(k, name) {
+			if m, ok := v.(map[string]interface{}); ok {
+				return m
+			}
+		}
+	}
+	return nil
+}
+
+// getTarget extracts the target shape name from a Smithy reference.
+func getTarget(ref map[string]interface{}) string {
+	if ref == nil {
+		return ""
+	}
+	target, _ := ref["target"].(string)
+	return extractShapeName(target)
+}
+
+// traverseToTagConstraints traverses Smithy shapes to find key/value string constraints.
+// It handles three shape types:
+//   - map: directly has key/value targets (e.g., TagMap)
+//   - list: recurses into the member element (e.g., TagList -> Tag)
+//   - structure: looks for key/value members (e.g., Tag with Key/Value fields)
+//
+// Returns nil, nil if the shape doesn't resolve to a string key/value pair.
 func traverseToTagConstraints(shapes map[string]interface{}, shapeName string) (keyModel, valueModel map[string]interface{}) {
 	raw := findRawShape(shapes, shapeName)
 	if raw == nil {
 		return nil, nil
 	}
 
-	shapeType, ok := raw["type"].(string)
-	if !ok {
-		return nil, nil
-	}
+	shapeType, _ := raw["type"].(string)
 
 	switch shapeType {
 	case "map":
-		// TagMap: directly has key/value targets
-		keyRef, ok := raw["key"].(map[string]interface{})
-		if !ok {
-			return nil, nil
-		}
-		valueRef, ok := raw["value"].(map[string]interface{})
-		if !ok {
-			return nil, nil
-		}
-		keyTarget, ok := keyRef["target"].(string)
-		if !ok {
-			return nil, nil
-		}
-		valueTarget, ok := valueRef["target"].(string)
-		if !ok {
-			return nil, nil
-		}
-		keyModel := findShape(shapes, extractShapeName(keyTarget))
-		valueModel := findShape(shapes, extractShapeName(valueTarget))
-		// Only return if both resolve to string types (not lists, maps, etc.)
-		if keyModel == nil || valueModel == nil {
-			return nil, nil
-		}
-		if keyModel["type"] != "string" || valueModel["type"] != "string" {
-			return nil, nil
-		}
-		return keyModel, valueModel
+		keyRef, _ := raw["key"].(map[string]interface{})
+		valueRef, _ := raw["value"].(map[string]interface{})
+		return resolveKeyValuePair(shapes, getTarget(keyRef), getTarget(valueRef))
 
 	case "list":
-		// TagList: traverse to element type
-		memberRef, ok := raw["member"].(map[string]interface{})
-		if !ok {
-			return nil, nil
+		memberRef, _ := raw["member"].(map[string]interface{})
+		if target := getTarget(memberRef); target != "" {
+			return traverseToTagConstraints(shapes, target)
 		}
-		memberTarget, ok := memberRef["target"].(string)
-		if !ok {
-			return nil, nil
-		}
-		return traverseToTagConstraints(shapes, extractShapeName(memberTarget))
 
 	case "structure":
-		// Tag: has key/value members (case varies: key/Key, value/Value)
-		members, ok := raw["members"].(map[string]interface{})
-		if !ok {
+		members, _ := raw["members"].(map[string]interface{})
+		if members == nil {
 			return nil, nil
 		}
-		keyMember := members["key"]
-		if keyMember == nil {
-			keyMember = members["Key"]
-		}
-		valueMember := members["value"]
-		if valueMember == nil {
-			valueMember = members["Value"]
-		}
-		if keyMember == nil || valueMember == nil {
-			return nil, nil
-		}
-		keyMemberMap, ok := keyMember.(map[string]interface{})
-		if !ok {
-			return nil, nil
-		}
-		valueMemberMap, ok := valueMember.(map[string]interface{})
-		if !ok {
-			return nil, nil
-		}
-		keyTarget, ok := keyMemberMap["target"].(string)
-		if !ok {
-			return nil, nil
-		}
-		valueTarget, ok := valueMemberMap["target"].(string)
-		if !ok {
-			return nil, nil
-		}
-		keyModel := findShape(shapes, extractShapeName(keyTarget))
-		valueModel := findShape(shapes, extractShapeName(valueTarget))
-		// Only return if both resolve to string types (not lists, maps, etc.)
-		if keyModel == nil || valueModel == nil {
-			return nil, nil
-		}
-		if keyModel["type"] != "string" || valueModel["type"] != "string" {
-			return nil, nil
-		}
-		return keyModel, valueModel
+		keyMember := getMemberCaseInsensitive(members, tagStructureMembers.Key)
+		valueMember := getMemberCaseInsensitive(members, tagStructureMembers.Value)
+		return resolveKeyValuePair(shapes, getTarget(keyMember), getTarget(valueMember))
 	}
 
 	return nil, nil
+}
+
+// resolveKeyValuePair resolves key and value shape names to their models,
+// returning nil if either is missing or not a string type.
+func resolveKeyValuePair(shapes map[string]interface{}, keyName, valueName string) (map[string]interface{}, map[string]interface{}) {
+	if keyName == "" || valueName == "" {
+		return nil, nil
+	}
+	keyModel := findShape(shapes, keyName)
+	valueModel := findShape(shapes, valueName)
+	if keyModel == nil || valueModel == nil {
+		return nil, nil
+	}
+	if keyModel["type"] != "string" || valueModel["type"] != "string" {
+		return nil, nil
+	}
+	return keyModel, valueModel
 }
 
 // extractServiceNamespace extracts the namespace from the Smithy service definition
