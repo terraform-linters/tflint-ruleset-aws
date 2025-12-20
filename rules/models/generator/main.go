@@ -174,7 +174,7 @@ func main() {
 					generatedRules = append(generatedRules, makeRuleName(mapping.Resource, attribute))
 				} else {
 					// Try traversing to find tag-like constraints
-					keyModel, valueModel := traverseToTagConstraints(shapes, shapeName)
+					keyModel, valueModel := traverseToMapConstraints(shapes, shapeName)
 					if keyModel != nil && valueModel != nil {
 						if validMapping(keyModel) || validMapping(valueModel) {
 							fmt.Printf("Generating map rule for `%s.%s`\n", mapping.Resource, attribute)
@@ -281,31 +281,7 @@ func extractShapeName(qualifiedName string) string {
 	return qualifiedName
 }
 
-// tagStructureMembers defines the member names used to identify tag-like structures
-// in Smithy models. AWS services use varying capitalization for these members
-// (e.g., "key"/"Key", "value"/"Value"), so lookups are case-insensitive.
-var tagStructureMembers = struct {
-	Key   string
-	Value string
-}{
-	Key:   "key",
-	Value: "value",
-}
-
-// getMemberCaseInsensitive looks up a member in a Smithy members map using
-// case-insensitive matching. Returns nil if not found.
-func getMemberCaseInsensitive(members map[string]interface{}, name string) map[string]interface{} {
-	for k, v := range members {
-		if strings.EqualFold(k, name) {
-			if m, ok := v.(map[string]interface{}); ok {
-				return m
-			}
-		}
-	}
-	return nil
-}
-
-// getTarget extracts the target shape name from a Smithy reference.
+// getTarget extracts the target shape name from a Smithy member reference.
 func getTarget(ref map[string]interface{}) string {
 	if ref == nil {
 		return ""
@@ -314,14 +290,14 @@ func getTarget(ref map[string]interface{}) string {
 	return extractShapeName(target)
 }
 
-// traverseToTagConstraints traverses Smithy shapes to find key/value string constraints.
-// It handles three shape types:
-//   - map: directly has key/value targets (e.g., TagMap)
-//   - list: recurses into the member element (e.g., TagList -> Tag)
-//   - structure: looks for key/value members (e.g., Tag with Key/Value fields)
+// traverseToMapConstraints traverses Smithy shapes to find string constraints
+// for map-like attributes. It handles:
+//   - map: uses key/value targets directly
+//   - list: recurses into the member element
+//   - structure: collects all members that resolve to constrained strings
 //
-// Returns nil, nil if the shape doesn't resolve to a string key/value pair.
-func traverseToTagConstraints(shapes map[string]interface{}, shapeName string) (keyModel, valueModel map[string]interface{}) {
+// Returns nil, nil if the shape doesn't resolve to exactly 2 constrained strings.
+func traverseToMapConstraints(shapes map[string]interface{}, shapeName string) (keyModel, valueModel map[string]interface{}) {
 	raw := findRawShape(shapes, shapeName)
 	if raw == nil {
 		return nil, nil
@@ -333,42 +309,68 @@ func traverseToTagConstraints(shapes map[string]interface{}, shapeName string) (
 	case "map":
 		keyRef, _ := raw["key"].(map[string]interface{})
 		valueRef, _ := raw["value"].(map[string]interface{})
-		return resolveKeyValuePair(shapes, getTarget(keyRef), getTarget(valueRef))
+		return resolveStringPair(shapes, getTarget(keyRef), getTarget(valueRef))
 
 	case "list":
 		memberRef, _ := raw["member"].(map[string]interface{})
 		if target := getTarget(memberRef); target != "" {
-			return traverseToTagConstraints(shapes, target)
+			return traverseToMapConstraints(shapes, target)
 		}
 
 	case "structure":
 		members, _ := raw["members"].(map[string]interface{})
-		if members == nil {
-			return nil, nil
-		}
-		keyMember := getMemberCaseInsensitive(members, tagStructureMembers.Key)
-		valueMember := getMemberCaseInsensitive(members, tagStructureMembers.Value)
-		return resolveKeyValuePair(shapes, getTarget(keyMember), getTarget(valueMember))
+		return resolveStructureMembers(shapes, members)
 	}
 
 	return nil, nil
 }
 
-// resolveKeyValuePair resolves key and value shape names to their models,
+// resolveStructureMembers finds all structure members that resolve to string types.
+// Returns the first two (alphabetically by member name) if exactly 2 exist.
+func resolveStructureMembers(shapes map[string]interface{}, members map[string]interface{}) (map[string]interface{}, map[string]interface{}) {
+	if members == nil {
+		return nil, nil
+	}
+
+	// Collect member names sorted alphabetically
+	names := make([]string, 0, len(members))
+	for name := range members {
+		names = append(names, name)
+	}
+	sort.Strings(names)
+
+	// Find members that resolve to string types
+	var stringModels []map[string]interface{}
+	for _, name := range names {
+		member, _ := members[name].(map[string]interface{})
+		if target := getTarget(member); target != "" {
+			if model := findShape(shapes, target); model != nil && model["type"] == "string" {
+				stringModels = append(stringModels, model)
+			}
+		}
+	}
+
+	if len(stringModels) == 2 {
+		return stringModels[0], stringModels[1]
+	}
+	return nil, nil
+}
+
+// resolveStringPair resolves two shape names to their models,
 // returning nil if either is missing or not a string type.
-func resolveKeyValuePair(shapes map[string]interface{}, keyName, valueName string) (map[string]interface{}, map[string]interface{}) {
-	if keyName == "" || valueName == "" {
+func resolveStringPair(shapes map[string]interface{}, firstName, secondName string) (map[string]interface{}, map[string]interface{}) {
+	if firstName == "" || secondName == "" {
 		return nil, nil
 	}
-	keyModel := findShape(shapes, keyName)
-	valueModel := findShape(shapes, valueName)
-	if keyModel == nil || valueModel == nil {
+	first := findShape(shapes, firstName)
+	second := findShape(shapes, secondName)
+	if first == nil || second == nil {
 		return nil, nil
 	}
-	if keyModel["type"] != "string" || valueModel["type"] != "string" {
+	if first["type"] != "string" || second["type"] != "string" {
 		return nil, nil
 	}
-	return keyModel, valueModel
+	return first, second
 }
 
 // extractServiceNamespace extracts the namespace from the Smithy service definition
