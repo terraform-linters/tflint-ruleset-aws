@@ -2,7 +2,7 @@ import = "api-models-aws/models/fsx/service/2018-03-01/fsx-2018-03-01.json"
 
 mapping "aws_fsx_backup" {
   file_system_id = FileSystemId
-  tags = Tags
+  tags = listmap(Tags, TagKey, TagValue)
   volume_id = VolumeId
 }
 
@@ -13,7 +13,7 @@ mapping "aws_fsx_lustre_file_system" {
   import_path                   = any // ArchivePath
   imported_file_chunk_size      = Megabytes
   security_group_ids            = SecurityGroupIds
-  tags                          = Tags
+  tags                          = listmap(Tags, TagKey, TagValue)
   weekly_maintenance_start_time = WeeklyTime
 }
 
@@ -35,7 +35,7 @@ mapping "aws_fsx_ontap_storage_virtual_machine" {
   file_system_id = FileSystemId
   name = StorageVirtualMachineName
   root_volume_security_style = StorageVirtualMachineRootVolumeSecurityStyle
-  tags = Tags
+  tags = listmap(Tags, TagKey, TagValue)
 }
 
 mapping "aws_fsx_ontap_volume" {
@@ -44,7 +44,7 @@ mapping "aws_fsx_ontap_volume" {
   security_style = SecurityStyle
   size_in_megabytes = VolumeCapacity
   storage_virtual_machine_id = StorageVirtualMachineId
-  tags = Tags
+  tags = listmap(Tags, TagKey, TagValue)
 }
 
 mapping "aws_fsx_openzfs_file_system" {
@@ -67,7 +67,7 @@ mapping "aws_fsx_openzfs_file_system" {
 
 mapping "aws_fsx_openzfs_snapshot" {
   name = SnapshotName
-  tags = Tags
+  tags = listmap(Tags, TagKey, TagValue)
   volume_id = VolumeId
 }
 
@@ -95,6 +95,6 @@ mapping "aws_fsx_windows_file_system" {
   security_group_ids                = SecurityGroupIds
   self_managed_active_directory     = SelfManagedActiveDirectoryConfiguration
   skip_final_backup                 = Flag
-  tags                              = Tags
+  tags                              = listmap(Tags, TagKey, TagValue)
   weekly_maintenance_start_time     = WeeklyTime
 }

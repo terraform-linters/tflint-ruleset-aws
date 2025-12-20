@@ -11,5 +11,5 @@ mapping "aws_shield_protection_group" {
   pattern = ProtectionGroupPattern
   protection_group_id = ProtectionGroupId
   resource_type = ProtectedResourceType
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }

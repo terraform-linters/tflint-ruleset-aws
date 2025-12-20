@@ -6,7 +6,7 @@ mapping "aws_ssm_activation" {
   expiration_date    = ExpirationDate
   iam_role           = IamRole
   registration_limit = RegistrationLimit
-  tags               = TagList
+  tags               = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_ssm_association" {
@@ -28,7 +28,7 @@ mapping "aws_ssm_document" {
   document_format = DocumentFormat
   document_type   = DocumentType
   permissions     = any
-  tags            = TagList
+  tags            = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_ssm_maintenance_window" {
@@ -41,7 +41,7 @@ mapping "aws_ssm_maintenance_window" {
   end_date                   = MaintenanceWindowStringDateTime
   schedule_timezone          = MaintenanceWindowTimezone
   start_date                 = MaintenanceWindowStringDateTime
-  tags                       = TagList
+  tags                       = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_ssm_maintenance_window_target" {
@@ -91,7 +91,7 @@ mapping "aws_ssm_parameter" {
   key_id          = ParameterKeyId
   overwrite       = Boolean
   allowed_pattern = AllowedPattern
-  tags            = TagList
+  tags            = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_ssm_resource_data_sync" {

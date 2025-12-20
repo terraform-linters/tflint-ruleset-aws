@@ -42,7 +42,7 @@ mapping "aws_sns_topic" {
   sqs_success_feedback_role_arn            = any
   sqs_success_feedback_sample_rate         = any
   sqs_failure_feedback_role_arn            = any
-  tags                                     = TagList
+  tags                                     = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_sns_topic_policy" {
@@ -53,7 +53,7 @@ mapping "aws_sns_topic_policy" {
 mapping "aws_sns_topic_subscription" {
   topic_arn                       = topicARN
   protocol                        = protocol
-  endpoint                        = endpoint
+  endpoint                        = Endpoint
   endpoint_auto_confirms          = any
   confirmation_timeout_in_minutes = any
   raw_message_delivery            = any

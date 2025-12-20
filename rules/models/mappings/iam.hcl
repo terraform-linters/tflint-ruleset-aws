@@ -83,7 +83,7 @@ mapping "aws_iam_role" {
   description           = roleDescriptionType
   max_session_duration  = roleMaxSessionDurationType
   permissions_boundary  = arnType
-  tags                  = tagListType
+  tags                  = listmap(tagListType, tagKeyType, tagValueType)
 }
 
 mapping "aws_iam_role_policy" {
@@ -123,7 +123,7 @@ mapping "aws_iam_user" {
   path                 = pathType
   permissions_boundary = arnType
   force_destroy        = any
-  tags                 = tagListType
+  tags                 = listmap(tagListType, tagKeyType, tagValueType)
 }
 
 mapping "aws_iam_user_group_membership" {

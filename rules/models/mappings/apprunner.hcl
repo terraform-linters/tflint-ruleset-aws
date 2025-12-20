@@ -5,13 +5,13 @@ mapping "aws_apprunner_auto_scaling_configuration_version" {
   max_concurrency = ASConfigMaxConcurrency
   max_size = ASConfigMaxSize
   min_size = ASConfigMinSize
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_apprunner_connection" {
   connection_name = ConnectionName
   provider_type = ProviderType
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_apprunner_custom_domain_association" {
@@ -26,5 +26,5 @@ mapping "aws_apprunner_service" {
   encryption_configuration = EncryptionConfiguration
   health_check_configuration = HealthCheckConfiguration
   instance_configuration = InstanceConfiguration
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }

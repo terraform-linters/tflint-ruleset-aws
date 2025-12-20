@@ -3,12 +3,12 @@ import = "api-models-aws/models/timestream-write/service/2018-11-01/timestream-w
 mapping "aws_timestreamwrite_database" {
   database_name = ResourceCreateAPIName
   kms_key_id = StringValue2048
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_timestreamwrite_table" {
   database_name = ResourceCreateAPIName
   retention_properties = RetentionProperties
   table_name = ResourceCreateAPIName
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }

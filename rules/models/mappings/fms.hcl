@@ -8,7 +8,7 @@ mapping "aws_fms_policy" {
   name = ResourceName
   exclude_map = CustomerPolicyScopeMap
   include_map = CustomerPolicyScopeMap
-  resource_tags = ResourceTags
+  resource_tags = listmap(ResourceTags, ResourceTagKey, ResourceTagValue)
   resource_type = ResourceType
   resource_type_list = ResourceTypeList
   security_service_policy_data = SecurityServicePolicyData

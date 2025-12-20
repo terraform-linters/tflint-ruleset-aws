@@ -6,7 +6,7 @@ mapping "aws_appmesh_gateway_route" {
   virtual_gateway_name = ResourceName
   mesh_owner = AccountId
   spec = GatewayRouteSpec
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_appmesh_mesh" {
@@ -24,7 +24,7 @@ mapping "aws_appmesh_virtual_gateway" {
   mesh_name = ResourceName
   mesh_owner = AccountId
   spec = VirtualGatewaySpec
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_appmesh_virtual_node" {

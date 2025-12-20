@@ -14,7 +14,7 @@ mapping "aws_lb" {
   enable_cross_zone_load_balancing = any
   enable_http2                     = any
   ip_address_type                  = IpAddressType
-  tags                             = TagList
+  tags                             = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_alb" {
@@ -31,7 +31,7 @@ mapping "aws_alb" {
   enable_cross_zone_load_balancing = any
   enable_http2                     = any
   ip_address_type                  = IpAddressType
-  tags                             = TagList
+  tags                             = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_lb_listener" {
@@ -89,7 +89,7 @@ mapping "aws_lb_target_group" {
   stickiness                         = any
   health_check                       = any
   target_type                        = TargetTypeEnum
-  tags                               = TagList
+  tags                               = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_alb_target_group" {
@@ -105,7 +105,7 @@ mapping "aws_alb_target_group" {
   stickiness                         = any
   health_check                       = any
   target_type                        = TargetTypeEnum
-  tags                               = TagList
+  tags                               = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_lb_target_group_attachment" {

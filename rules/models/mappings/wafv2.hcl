@@ -6,7 +6,7 @@ mapping "aws_wafv2_ip_set" {
   scope = Scope
   ip_address_version = IPAddressVersion
   addresses = IPAddresses
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_wafv2_regex_pattern_set" {
@@ -14,7 +14,7 @@ mapping "aws_wafv2_regex_pattern_set" {
   description = EntityDescription
   scope = Scope
   regular_expression = RegularExpressionList
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_wafv2_rule_group" {
@@ -24,7 +24,7 @@ mapping "aws_wafv2_rule_group" {
   name = EntityName
   rule = Rules
   scope = Scope
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
   visibility_config = VisibilityConfig
 }
 
@@ -35,7 +35,7 @@ mapping "aws_wafv2_web_acl" {
   name = EntityName
   rule = Rules
   scope = Scope
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
   visibility_config = VisibilityConfig
 }
 

@@ -3,5 +3,5 @@ import = "api-models-aws/models/data-pipeline/service/2012-10-29/data-pipeline-2
 mapping "aws_datapipeline_pipeline" {
   name        = any // id
   description = any // string
-  tags        = tagList
+  tags        = listmap(tagList, tagKey, tagValue)
 }

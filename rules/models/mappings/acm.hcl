@@ -8,7 +8,7 @@ mapping "aws_acm_certificate" {
   certificate_body          = CertificateBody
   certificate_chain         = CertificateChain
   certificate_authority_arn = PcaArn
-  tags                      = TagList
+  tags                      = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_acm_certificate_validation" {

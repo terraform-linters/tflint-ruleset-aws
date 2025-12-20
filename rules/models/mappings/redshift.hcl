@@ -28,7 +28,7 @@ mapping "aws_redshift_cluster" {
   snapshot_cluster_identifier         = String
   owner_account                       = String
   iam_roles                           = IamRoleArnList
-  tags                                = TagList
+  tags                                = listmap(TagList, String, String)
 }
 
 mapping "aws_redshift_event_subscription" {
@@ -39,7 +39,7 @@ mapping "aws_redshift_event_subscription" {
   severity         = String
   event_categories = EventCategoriesList
   enabled          = Boolean
-  tags             = TagList
+  tags             = listmap(TagList, String, String)
 }
 
 mapping "aws_redshift_parameter_group" {
@@ -47,7 +47,7 @@ mapping "aws_redshift_parameter_group" {
   family      = String
   description = String
   parameter   = ParametersList
-  tags        = TagList
+  tags        = listmap(TagList, String, String)
 }
 
 mapping "aws_redshift_scheduled_action" {
@@ -59,7 +59,7 @@ mapping "aws_redshift_scheduled_action" {
 mapping "aws_redshift_snapshot_copy_grant" {
   snapshot_copy_grant_name = String
   kms_key_id               = String
-  tags                     = TagList
+  tags                     = listmap(TagList, String, String)
 }
 
 mapping "aws_redshift_snapshot_schedule" {
@@ -68,7 +68,7 @@ mapping "aws_redshift_snapshot_schedule" {
   description       = String
   definitions       = ScheduleDefinitionList
   force_destroy     = any
-  tags              = TagList
+  tags              = listmap(TagList, String, String)
 }
 
 mapping "aws_redshift_snapshot_schedule_association" {
@@ -80,5 +80,5 @@ mapping "aws_redshift_subnet_group" {
   name        = String
   description = String
   subnet_ids  = SubnetIdentifierList
-  tags        = TagList
+  tags        = listmap(TagList, String, String)
 }

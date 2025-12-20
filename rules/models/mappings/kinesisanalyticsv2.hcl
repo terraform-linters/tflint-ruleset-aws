@@ -7,7 +7,7 @@ mapping "aws_kinesisanalyticsv2_application" {
   application_configuration = ApplicationConfiguration
   cloudwatch_logging_options = CloudWatchLoggingOptions
   description = ApplicationDescription
-  tags = Tags
+  tags = listmap(Tags, TagKey, TagValue)
 }
 
 mapping "aws_kinesisanalyticsv2_application_snapshot" {

@@ -3,7 +3,7 @@ import = "api-models-aws/models/codeartifact/service/2018-09-22/codeartifact-201
 mapping "aws_codeartifact_domain" {
   domain = DomainName
   encryption_key = Arn
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_codeartifact_domain_permissions_policy" {
@@ -19,7 +19,7 @@ mapping "aws_codeartifact_repository" {
   domain_owner = AccountId
   description = Description
   upstream = UpstreamRepositoryList
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_codeartifact_repository_permissions_policy" {

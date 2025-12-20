@@ -13,7 +13,7 @@ mapping "aws_s3_bucket" {
   bucket_prefix                        = any
   acl                                  = any // TODO: BucketCannedACL
   policy                               = Policy
-  tags                                 = TagSet
+  tags                                 = listmap(TagSet, ObjectKey, Value)
   force_destroy                        = any
   website                              = WebsiteConfiguration
   cors_rule                            = CORSRules
@@ -82,7 +82,7 @@ mapping "aws_s3_bucket_object" {
   etag                   = ETag
   server_side_encryption = ServerSideEncryption
   kms_key_id             = SSEKMSKeyId
-  tags                   = TagSet
+  tags                   = listmap(TagSet, ObjectKey, Value)
 }
 
 mapping "aws_s3_bucket_ownership_controls" {

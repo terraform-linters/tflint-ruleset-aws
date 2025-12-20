@@ -13,5 +13,5 @@ mapping "aws_inspector_assessment_template" {
 }
 
 mapping "aws_inspector_resource_group" {
-  tags = ResourceGroupTags
+  tags = listmap(ResourceGroupTags, TagKey, TagValue)
 }

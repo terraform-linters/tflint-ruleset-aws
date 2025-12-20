@@ -13,7 +13,7 @@ mapping "aws_elasticsearch_domain" {
   log_publishing_options  = LogPublishingOptions
   cognito_options         = CognitoOptions
   elasticsearch_version   = ElasticsearchVersionString
-  tags                    = TagList
+  tags                    = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_elasticsearch_domain_policy" {
