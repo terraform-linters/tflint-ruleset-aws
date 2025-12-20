@@ -9,7 +9,7 @@ mapping "aws_codebuild_report_group" {
   name = ReportGroupName
   type = ReportType
   export_config = ReportExportConfig
-  tags = TagList
+  tags = listmap(TagList, KeyInput, ValueInput)
 }
 
 mapping "aws_codebuild_source_credential" {

@@ -21,7 +21,7 @@ mapping "aws_storagegateway_file_system_association" {
   password = DomainUserPassword
   audit_destination_arn = AuditDestinationARN
   cache_attributes = CacheAttributes
-  tags = Tags
+  tags = listmap(Tags, TagKey, TagValue)
 }
 
 mapping "aws_storagegateway_gateway" {
@@ -76,7 +76,7 @@ mapping "aws_storagegateway_stored_iscsi_volume" {
   disk_id = DiskId
   snapshot_id = SnapshotId
   kms_key = KMSKey
-  tags = Tags
+  tags = listmap(Tags, TagKey, TagValue)
 }
 
 mapping "aws_storagegateway_tape_pool" {
@@ -84,7 +84,7 @@ mapping "aws_storagegateway_tape_pool" {
   storage_class = TapeStorageClass
   retention_lock_type = RetentionLockType
   retention_lock_time_in_days = RetentionLockTimeInDays
-  tags = Tags
+  tags = listmap(Tags, TagKey, TagValue)
 }
 
 mapping "aws_storagegateway_upload_buffer" {

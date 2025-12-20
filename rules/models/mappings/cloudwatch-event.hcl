@@ -20,7 +20,7 @@ mapping "aws_cloudwatch_event_archive" {
 mapping "aws_cloudwatch_event_bus" {
   name = EventBusName
   event_source_name = EventSourceName
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_cloudwatch_event_bus_policy" {

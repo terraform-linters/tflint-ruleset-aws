@@ -3,14 +3,14 @@ import = "api-models-aws/models/datasync/service/2018-11-09/datasync-2018-11-09.
 mapping "aws_datasync_agent" {
   name           = TagValue
   activation_key = ActivationKey
-  tags           = InputTagList
+  tags           = listmap(InputTagList, TagKey, TagValue)
 }
 
 mapping "aws_datasync_location_efs" {
   ec2_config          = Ec2Config
   efs_file_system_arn = EfsFilesystemArn
   subdirectory        = EfsSubdirectory
-  tags                = InputTagList
+  tags                = listmap(InputTagList, TagKey, TagValue)
 }
 
 mapping "aws_datasync_location_fsx_windows_file_system" {
@@ -20,21 +20,21 @@ mapping "aws_datasync_location_fsx_windows_file_system" {
   domain = SmbDomain
   security_group_arns = Ec2SecurityGroupArnList
   subdirectory = FsxWindowsSubdirectory
-  tags = InputTagList
+  tags = listmap(InputTagList, TagKey, TagValue)
 }
 
 mapping "aws_datasync_location_nfs" {
   on_prem_config  = OnPremConfig
   server_hostname = ServerHostname
   subdirectory    = EfsSubdirectory
-  tags            = InputTagList
+  tags            = listmap(InputTagList, TagKey, TagValue)
 }
 
 mapping "aws_datasync_location_s3" {
   s3_bucket_arn = S3BucketArn
   s3_config     = S3Config
   subdirectory  = EfsSubdirectory
-  tags          = InputTagList
+  tags          = listmap(InputTagList, TagKey, TagValue)
 }
 
 mapping "aws_datasync_location_smb" {
@@ -44,7 +44,7 @@ mapping "aws_datasync_location_smb" {
   password = SmbPassword
   server_hostname = ServerHostname
   subdirectory = SmbSubdirectory
-  tags = InputTagList
+  tags = listmap(InputTagList, TagKey, TagValue)
   user = SmbUser
 }
 
@@ -54,7 +54,7 @@ mapping "aws_datasync_task" {
   cloudwatch_log_group_arn = LogGroupArn
   name                     = TagValue
   options                  = Options
-  tags                     = InputTagList
+  tags                     = listmap(InputTagList, TagKey, TagValue)
 }
 
 test "aws_datasync_agent" "name" {

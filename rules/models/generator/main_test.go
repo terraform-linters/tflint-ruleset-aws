@@ -245,7 +245,11 @@ func TestMakeListTransformFunction_ErrorCases(t *testing.T) {
 }
 
 func TestBuildEvalContext(t *testing.T) {
-	ctx := buildEvalContext()
+	shapes := map[string]interface{}{
+		"com.example#TagKey":   map[string]interface{}{"type": "string"},
+		"com.example#TagValue": map[string]interface{}{"type": "string"},
+	}
+	ctx := buildEvalContext(shapes)
 
 	if ctx == nil {
 		t.Fatal("buildEvalContext() returned nil")
@@ -260,22 +264,36 @@ func TestBuildEvalContext(t *testing.T) {
 	}
 
 	// Check that expected functions are registered
-	expectedFuncs := []string{"uppercase", "replace"}
+	expectedFuncs := []string{"uppercase", "replace", "listmap"}
 	for _, name := range expectedFuncs {
 		if _, ok := ctx.Functions[name]; !ok {
 			t.Errorf("buildEvalContext() missing function %q", name)
+		}
+	}
+
+	// Check that shape names are populated as shape objects
+	for _, shapeName := range []string{"TagKey", "TagValue"} {
+		val, ok := ctx.Variables[shapeName]
+		if !ok {
+			t.Errorf("buildEvalContext() missing variable %q", shapeName)
+			continue
+		}
+		if !val.Type().Equals(shapeType) {
+			t.Errorf("variable %q has type %s, want shape object", shapeName, val.Type().FriendlyName())
+			continue
+		}
+		if val.GetAttr("name").AsString() != shapeName {
+			t.Errorf("variable %q name = %q, want %q", shapeName, val.GetAttr("name").AsString(), shapeName)
 		}
 	}
 }
 
 func TestTransformComposition(t *testing.T) {
 	// Test that transforms can be composed: uppercase(replace(x, "-", "_"))
-	ctx := buildEvalContext()
+	ctx := buildEvalContext(nil)
 
 	input := []string{"sse-kms", "sse-s3"}
-	ctx.Variables = map[string]cty.Value{
-		"EncryptionModeValue": stringsToCtyList(input),
-	}
+	ctx.Variables["EncryptionModeValue"] = stringsToCtyList(input)
 
 	// This simulates the HCL expression: uppercase(replace(EncryptionModeValue, "-", "_"))
 	replaceFunc := ctx.Functions["replace"]

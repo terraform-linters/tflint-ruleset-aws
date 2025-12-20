@@ -3,7 +3,7 @@ import = "api-models-aws/models/elastic-beanstalk/service/2010-12-01/elastic-bea
 mapping "aws_elastic_beanstalk_application" {
   name        = ApplicationName
   description = Description
-  tags        = Tags
+  tags        = listmap(Tags, TagKey, TagValue)
 }
 
 mapping "aws_elastic_beanstalk_application_version" {
@@ -13,7 +13,7 @@ mapping "aws_elastic_beanstalk_application_version" {
   bucket       = S3Bucket
   key          = S3Key
   force_delete = ForceTerminate
-  tags         = Tags
+  tags         = listmap(Tags, TagKey, TagValue)
 }
 
 mapping "aws_elastic_beanstalk_configuration_template" {
@@ -36,5 +36,5 @@ mapping "aws_elastic_beanstalk_environment" {
   template_name          = ConfigurationTemplateName
   platform_arn           = PlatformArn
   version_label          = VersionLabel
-  tags                   = Tags
+  tags                   = listmap(Tags, TagKey, TagValue)
 }

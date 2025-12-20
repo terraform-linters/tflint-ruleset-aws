@@ -19,7 +19,7 @@ mapping "aws_transfer_server" {
   identity_provider_type = IdentityProviderType
   logging_role           = Role
   force_destroy          = any
-  tags                   = Tags
+  tags                   = listmap(Tags, TagKey, TagValue)
 }
 
 mapping "aws_transfer_ssh_key" {
@@ -34,5 +34,5 @@ mapping "aws_transfer_user" {
   home_directory = HomeDirectory
   policy         = Policy
   role           = Role
-  tags           = Tags
+  tags           = listmap(Tags, TagKey, TagValue)
 }
