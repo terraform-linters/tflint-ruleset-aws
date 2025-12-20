@@ -173,7 +173,7 @@ func main() {
 					}
 					generatedRules = append(generatedRules, makeRuleName(mapping.Resource, attribute))
 				} else {
-					// Try traversing to find tag-like constraints
+					// Try traversing to find map constraints (only works for Smithy map types)
 					keyModel, valueModel := traverseToMapConstraints(shapes, shapeName)
 					if keyModel != nil && valueModel != nil {
 						if validMapping(keyModel) || validMapping(valueModel) {
@@ -290,13 +290,8 @@ func getTarget(ref map[string]interface{}) string {
 	return extractShapeName(target)
 }
 
-// traverseToMapConstraints traverses Smithy shapes to find string constraints
-// for map-like attributes. It handles:
-//   - map: uses key/value targets directly
-//   - list: recurses into the member element
-//   - structure: collects all members that resolve to constrained strings
-//
-// Returns nil, nil if the shape doesn't resolve to exactly 2 constrained strings.
+// traverseToMapConstraints traverses Smithy shapes to find key/value constraints.
+// Only Smithy map types have explicit key/value - structures require configuration.
 func traverseToMapConstraints(shapes map[string]interface{}, shapeName string) (keyModel, valueModel map[string]interface{}) {
 	raw := findRawShape(shapes, shapeName)
 	if raw == nil {
@@ -307,53 +302,50 @@ func traverseToMapConstraints(shapes map[string]interface{}, shapeName string) (
 
 	switch shapeType {
 	case "map":
+		// Smithy map types have explicit "key" and "value" fields per the spec
 		keyRef, _ := raw["key"].(map[string]interface{})
 		valueRef, _ := raw["value"].(map[string]interface{})
 		return resolveStringPair(shapes, getTarget(keyRef), getTarget(valueRef))
 
 	case "list":
+		// Recurse into list member
 		memberRef, _ := raw["member"].(map[string]interface{})
 		if target := getTarget(memberRef); target != "" {
 			return traverseToMapConstraints(shapes, target)
 		}
-
-	case "structure":
-		members, _ := raw["members"].(map[string]interface{})
-		return resolveStructureMembers(shapes, members)
 	}
 
+	// Structures and other types: no automatic key/value inference
 	return nil, nil
 }
 
-// resolveStructureMembers finds all structure members that resolve to string types.
-// Returns the first two (alphabetically by member name) if exactly 2 exist.
-func resolveStructureMembers(shapes map[string]interface{}, members map[string]interface{}) (map[string]interface{}, map[string]interface{}) {
+// resolveStructureMembers returns string models keyed by member name.
+func resolveStructureMembers(shapes map[string]interface{}, members map[string]interface{}) map[string]map[string]interface{} {
 	if members == nil {
-		return nil, nil
+		return nil
 	}
 
-	// Collect member names sorted alphabetically
-	names := make([]string, 0, len(members))
-	for name := range members {
-		names = append(names, name)
-	}
-	sort.Strings(names)
-
-	// Find members that resolve to string types
-	var stringModels []map[string]interface{}
-	for _, name := range names {
-		member, _ := members[name].(map[string]interface{})
-		if target := getTarget(member); target != "" {
-			if model := findShape(shapes, target); model != nil && model["type"] == "string" {
-				stringModels = append(stringModels, model)
-			}
+	result := make(map[string]map[string]interface{})
+	for name, member := range members {
+		m, ok := member.(map[string]interface{})
+		if !ok {
+			continue
 		}
+		target := getTarget(m)
+		if target == "" {
+			continue
+		}
+		model := findShape(shapes, target)
+		if model == nil || model["type"] != "string" {
+			continue
+		}
+		result[name] = model
 	}
 
-	if len(stringModels) == 2 {
-		return stringModels[0], stringModels[1]
+	if len(result) == 0 {
+		return nil
 	}
-	return nil, nil
+	return result
 }
 
 // resolveStringPair resolves two shape names to their models,

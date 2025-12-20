@@ -111,7 +111,26 @@ func TestTraverseToMapConstraints(t *testing.T) {
 			wantValue: true,
 		},
 		{
-			name: "list type recursing to structure",
+			name: "list type recursing to map",
+			shapes: makeShapes(map[string]interface{}{
+				"TagMapList": map[string]interface{}{
+					"type":   "list",
+					"member": map[string]interface{}{"target": "com.example.test#TagMap"},
+				},
+				"TagMap": map[string]interface{}{
+					"type":  "map",
+					"key":   map[string]interface{}{"target": "com.example.test#TagKey"},
+					"value": map[string]interface{}{"target": "com.example.test#TagValue"},
+				},
+				"TagKey":   makeStringShape("", 1, 128),
+				"TagValue": makeStringShape("", 0, 256),
+			}),
+			shapeName: "TagMapList",
+			wantKey:   true,
+			wantValue: true,
+		},
+		{
+			name: "list type recursing to structure (not supported)",
 			shapes: makeShapes(map[string]interface{}{
 				"TagList": map[string]interface{}{
 					"type":   "list",
@@ -128,11 +147,11 @@ func TestTraverseToMapConstraints(t *testing.T) {
 				"TagValue": makeStringShape("", 0, 256),
 			}),
 			shapeName: "TagList",
-			wantKey:   true,
-			wantValue: true,
+			wantKey:   false,
+			wantValue: false,
 		},
 		{
-			name: "structure with Key/Value members",
+			name: "structure (not supported without configuration)",
 			shapes: makeShapes(map[string]interface{}{
 				"Tag": map[string]interface{}{
 					"type": "structure",
@@ -145,78 +164,8 @@ func TestTraverseToMapConstraints(t *testing.T) {
 				"TagValue": makeStringShape("", 0, 256),
 			}),
 			shapeName: "Tag",
-			wantKey:   true,
-			wantValue: true,
-		},
-		{
-			name: "structure with lowercase key/value members",
-			shapes: makeShapes(map[string]interface{}{
-				"Tag": map[string]interface{}{
-					"type": "structure",
-					"members": map[string]interface{}{
-						"key":   map[string]interface{}{"target": "com.example.test#TagKey"},
-						"value": map[string]interface{}{"target": "com.example.test#TagValue"},
-					},
-				},
-				"TagKey":   makeStringShape("", 1, 128),
-				"TagValue": makeStringShape("", 0, 256),
-			}),
-			shapeName: "Tag",
-			wantKey:   true,
-			wantValue: true,
-		},
-		{
-			name: "structure with Name/Value members",
-			shapes: makeShapes(map[string]interface{}{
-				"EnvironmentVariable": map[string]interface{}{
-					"type": "structure",
-					"members": map[string]interface{}{
-						"Name":  map[string]interface{}{"target": "com.example.test#EnvName"},
-						"Value": map[string]interface{}{"target": "com.example.test#EnvValue"},
-					},
-				},
-				"EnvName":  makeStringShape("", 1, 128),
-				"EnvValue": makeStringShape("", 0, 256),
-			}),
-			shapeName: "EnvironmentVariable",
-			wantKey:   true,
-			wantValue: true,
-		},
-		{
-			name: "structure with non-string members only",
-			shapes: makeShapes(map[string]interface{}{
-				"NotATag": map[string]interface{}{
-					"type": "structure",
-					"members": map[string]interface{}{
-						"Count":   map[string]interface{}{"target": "com.example.test#Integer"},
-						"Enabled": map[string]interface{}{"target": "com.example.test#Boolean"},
-					},
-				},
-				"Integer": map[string]interface{}{"type": "integer"},
-				"Boolean": map[string]interface{}{"type": "boolean"},
-			}),
-			shapeName: "NotATag",
 			wantKey:   false,
 			wantValue: false,
-		},
-		{
-			name: "structure with mixed members (2 string + 1 non-string)",
-			shapes: makeShapes(map[string]interface{}{
-				"TagWithMetadata": map[string]interface{}{
-					"type": "structure",
-					"members": map[string]interface{}{
-						"Key":       map[string]interface{}{"target": "com.example.test#TagKey"},
-						"Value":     map[string]interface{}{"target": "com.example.test#TagValue"},
-						"Timestamp": map[string]interface{}{"target": "com.example.test#Timestamp"},
-					},
-				},
-				"TagKey":    makeStringShape("", 1, 128),
-				"TagValue":  makeStringShape("", 0, 256),
-				"Timestamp": map[string]interface{}{"type": "timestamp"},
-			}),
-			shapeName: "TagWithMetadata",
-			wantKey:   true,
-			wantValue: true,
 		},
 		{
 			name:      "unknown shape",
