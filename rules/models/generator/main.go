@@ -172,6 +172,17 @@ func main() {
 						}
 					}
 					generatedRules = append(generatedRules, makeRuleName(mapping.Resource, attribute))
+				} else {
+					// Try traversing to find tag-like constraints
+					keyModel, valueModel := traverseToTagConstraints(shapes, shapeName)
+					if keyModel != nil && valueModel != nil {
+						if validMapping(keyModel) || validMapping(valueModel) {
+							fmt.Printf("Generating map rule for `%s.%s`\n", mapping.Resource, attribute)
+							if generateMapRuleFile(mapping.Resource, attribute, keyModel, valueModel, schema) {
+								generatedRules = append(generatedRules, makeRuleName(mapping.Resource, attribute))
+							}
+						}
+					}
 				}
 			}
 		}
@@ -233,12 +244,21 @@ func validMapping(model map[string]interface{}) bool {
 
 // findShape locates a shape in Smithy format with namespace-qualified lookup
 func findShape(shapes map[string]interface{}, shapeName string) map[string]interface{} {
+	raw := findRawShape(shapes, shapeName)
+	if raw == nil {
+		return nil
+	}
+	return convertSmithyShape(raw)
+}
+
+// findRawShape locates a shape without converting it (needed for traversal)
+func findRawShape(shapes map[string]interface{}, shapeName string) map[string]interface{} {
 	// Try with service namespace qualification (Smithy format)
 	serviceNamespace := extractServiceNamespace(shapes)
 	if serviceNamespace != "" {
 		qualifiedName := fmt.Sprintf("%s#%s", serviceNamespace, shapeName)
 		if shape, ok := shapes[qualifiedName]; ok {
-			return convertSmithyShape(shape.(map[string]interface{}))
+			return shape.(map[string]interface{})
 		}
 	}
 
@@ -250,6 +270,118 @@ func findShape(shapes map[string]interface{}, shapeName string) map[string]inter
 	}
 
 	return nil
+}
+
+// extractShapeName extracts the simple name from a fully qualified shape reference
+// e.g., "com.amazonaws.ecs#TagKey" -> "TagKey"
+func extractShapeName(qualifiedName string) string {
+	if parts := strings.Split(qualifiedName, "#"); len(parts) == 2 {
+		return parts[1]
+	}
+	return qualifiedName
+}
+
+// traverseToTagConstraints traverses list/map/structure shapes to find tag key/value constraints.
+// Returns nil, nil if the shape is not a tag-like structure or has no constraints.
+func traverseToTagConstraints(shapes map[string]interface{}, shapeName string) (keyModel, valueModel map[string]interface{}) {
+	raw := findRawShape(shapes, shapeName)
+	if raw == nil {
+		return nil, nil
+	}
+
+	shapeType, ok := raw["type"].(string)
+	if !ok {
+		return nil, nil
+	}
+
+	switch shapeType {
+	case "map":
+		// TagMap: directly has key/value targets
+		keyRef, ok := raw["key"].(map[string]interface{})
+		if !ok {
+			return nil, nil
+		}
+		valueRef, ok := raw["value"].(map[string]interface{})
+		if !ok {
+			return nil, nil
+		}
+		keyTarget, ok := keyRef["target"].(string)
+		if !ok {
+			return nil, nil
+		}
+		valueTarget, ok := valueRef["target"].(string)
+		if !ok {
+			return nil, nil
+		}
+		keyModel := findShape(shapes, extractShapeName(keyTarget))
+		valueModel := findShape(shapes, extractShapeName(valueTarget))
+		// Only return if both resolve to string types (not lists, maps, etc.)
+		if keyModel == nil || valueModel == nil {
+			return nil, nil
+		}
+		if keyModel["type"] != "string" || valueModel["type"] != "string" {
+			return nil, nil
+		}
+		return keyModel, valueModel
+
+	case "list":
+		// TagList: traverse to element type
+		memberRef, ok := raw["member"].(map[string]interface{})
+		if !ok {
+			return nil, nil
+		}
+		memberTarget, ok := memberRef["target"].(string)
+		if !ok {
+			return nil, nil
+		}
+		return traverseToTagConstraints(shapes, extractShapeName(memberTarget))
+
+	case "structure":
+		// Tag: has key/value members (case varies: key/Key, value/Value)
+		members, ok := raw["members"].(map[string]interface{})
+		if !ok {
+			return nil, nil
+		}
+		keyMember := members["key"]
+		if keyMember == nil {
+			keyMember = members["Key"]
+		}
+		valueMember := members["value"]
+		if valueMember == nil {
+			valueMember = members["Value"]
+		}
+		if keyMember == nil || valueMember == nil {
+			return nil, nil
+		}
+		keyMemberMap, ok := keyMember.(map[string]interface{})
+		if !ok {
+			return nil, nil
+		}
+		valueMemberMap, ok := valueMember.(map[string]interface{})
+		if !ok {
+			return nil, nil
+		}
+		keyTarget, ok := keyMemberMap["target"].(string)
+		if !ok {
+			return nil, nil
+		}
+		valueTarget, ok := valueMemberMap["target"].(string)
+		if !ok {
+			return nil, nil
+		}
+		keyModel := findShape(shapes, extractShapeName(keyTarget))
+		valueModel := findShape(shapes, extractShapeName(valueTarget))
+		// Only return if both resolve to string types (not lists, maps, etc.)
+		if keyModel == nil || valueModel == nil {
+			return nil, nil
+		}
+		if keyModel["type"] != "string" || valueModel["type"] != "string" {
+			return nil, nil
+		}
+		return keyModel, valueModel
+	}
+
+	return nil, nil
 }
 
 // extractServiceNamespace extracts the namespace from the Smithy service definition
