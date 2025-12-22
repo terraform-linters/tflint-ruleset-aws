@@ -29,6 +29,7 @@ func NewAwsEcsAccountSettingDefaultInvalidNameRule() *AwsEcsAccountSettingDefaul
 			"containerInsights",
 			"containerInstanceLongArnFormat",
 			"defaultLogDriverMode",
+			"fargateEventWindows",
 			"fargateFIPSMode",
 			"fargateTaskRetirementWaitPeriod",
 			"guardDutyActivate",
