@@ -111,6 +111,7 @@ var Resources = []string{
 	"aws_cloudformation_stack",
 	"aws_cloudformation_stack_set",
 	"aws_cloudfront_distribution",
+	"aws_cloudfront_trust_store",
 	"aws_cloudfront_vpc_origin",
 	"aws_cloudhsm_v2_cluster",
 	"aws_cloudtrail",
