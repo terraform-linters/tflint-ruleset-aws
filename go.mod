@@ -20,7 +20,7 @@ require (
 )
 
 require (
-	github.com/aws/aws-sdk-go-v2/service/ec2 v1.278.0
+	github.com/aws/aws-sdk-go-v2/service/ec2 v1.279.0
 	github.com/aws/aws-sdk-go-v2/service/ecs v1.70.0
 	github.com/aws/aws-sdk-go-v2/service/elasticache v1.51.8
 	github.com/aws/aws-sdk-go-v2/service/elasticloadbalancing v1.33.18
