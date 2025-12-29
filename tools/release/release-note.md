@@ -1,36 +1,45 @@
 ## What's Changed
 
-Support for Cosign signatures has been removed from this release. The `checksums.txt.keyless.sig` and `checksums.txt.pem` will not be included in the release.
-These files are not used in normal use cases, so in most cases this will not affect you, but if you are affected, you can use Artifact Attestations instead.
-
 ### Breaking Changes
-* Bump github.com/terraform-linters/tflint-plugin-sdk from 0.22.0 to 0.23.1 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/966
-  * Requires TFLint v0.46+
+* Remove aws_route53_record_invalid_zone_id rule by @wata727 in https://github.com/terraform-linters/tflint-ruleset-aws/pull/979
 
 ### Enhancements
-* Update AWS provider/module and generated content by @github-actions[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/954
-* Update AWS provider/module and generated content by @github-actions[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/959
-* Update Lambda runtime deprecation dates by @Copilot in https://github.com/terraform-linters/tflint-ruleset-aws/pull/969
-* Add missing ElastiCache node type: cache.r6gd.large by @Copilot in https://github.com/terraform-linters/tflint-ruleset-aws/pull/971
-* Fix typos in AWS RDS DB instance types by @Copilot in https://github.com/terraform-linters/tflint-ruleset-aws/pull/972
-* Add missing AWS S3 bucket naming restrictions by @Copilot in https://github.com/terraform-linters/tflint-ruleset-aws/pull/976
+* Update AWS provider/module and generated content by @github-actions[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/981
+* dms_s3_endpoint: fix enum validations by @bendrucker in https://github.com/terraform-linters/tflint-ruleset-aws/pull/991
+* Update AWS provider/module and generated content by @github-actions[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/990
+* Update AWS provider/module and generated content by @github-actions[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/999
+* Update AWS provider/module and generated content by @github-actions[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1000
+* Update AWS provider/module and generated content by @github-actions[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1005
+* Update AWS provider/module and generated content by @github-actions[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1011
 
 ### Chores
-* Bump github.com/aws/aws-sdk-go-v2/service/ec2 from 1.251.2 to 1.253.0 in the aws-sdk group by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/952
-* Bump github.com/hashicorp/terraform-json from 0.26.0 to 0.27.2 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/953
-* Bump the aws-sdk group with 7 updates by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/956
-* Bump the aws-sdk group with 2 updates by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/957
-* Bump github.com/hashicorp/aws-sdk-go-base/v2 from 2.0.0-beta.66 to 2.0.0-beta.67 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/958
-* Bump github.com/aws/aws-sdk-go-v2/service/rds from 1.108.0 to 1.108.2 in the aws-sdk group by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/960
-* Bump golang.org/x/net from 0.44.0 to 0.46.0 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/961
-* Bump sigstore/cosign-installer from 3.10.0 to 4.0.0 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/962
-* Bump the aws-sdk group with 7 updates by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/963
-* Bump the aws-sdk group with 7 updates by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/965
-* Drop support for Cosign signatures by @wata727 in https://github.com/terraform-linters/tflint-ruleset-aws/pull/968
-* Add documentation to AWS MQ engine type validation rules by @Copilot in https://github.com/terraform-linters/tflint-ruleset-aws/pull/974
-* Reorder S3 bucket ACL enum values for consistency by @Copilot in https://github.com/terraform-linters/tflint-ruleset-aws/pull/975
+* Bump the aws-sdk group with 7 updates by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/980
+* Bump the aws-sdk group with 7 updates by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/982
+* Bump github.com/hashicorp/aws-sdk-go-base/v2 from 2.0.0-beta.67 to 2.0.0-beta.68 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/983
+* Bump the aws-sdk group with 7 updates by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/987
+* Bump golang.org/x/net from 0.46.0 to 0.47.0 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/988
+* Replace Ruby SDK models with official Smithy repository by @bendrucker in https://github.com/terraform-linters/tflint-ruleset-aws/pull/901
+* generator: add tests and improve error handling by @bendrucker in https://github.com/terraform-linters/tflint-ruleset-aws/pull/992
+* Bump actions/setup-go from 6.0.0 to 6.1.0 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/996
+* Bump actions/checkout from 5.0.0 to 6.0.0 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/995
+* Bump the aws-sdk group with 7 updates by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/997
+* Bump peter-evans/create-pull-request from 7.0.8 to 7.0.9 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/994
+* Bump the aws-sdk group with 7 updates by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1001
+* `resource_missing_tags`: handle explicit refs to default provider by @bendrucker in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1003
+* Update AWS provider/module and generated content by @github-actions[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1004
+* Bump actions/checkout from 6.0.0 to 6.0.1 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1006
+* Bump github.com/aws/smithy-go from 1.23.2 to 1.24.0 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1009
+* Bump the aws-sdk group with 7 updates by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1008
+* Bump peter-evans/create-pull-request from 7.0.9 to 7.0.11 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1007
+* Bump peter-evans/create-pull-request from 7.0.11 to 8.0.0 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1012
+* Bump github.com/hashicorp/aws-sdk-go-base/v2 from 2.0.0-beta.68 to 2.0.0-beta.69 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1014
+* Bump golang.org/x/net from 0.47.0 to 0.48.0 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1015
+* Bump the aws-sdk group with 7 updates by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1013
+* Update AWS provider/module and generated content by @github-actions[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1021
+* Bump actions/attest-build-provenance from 3.0.0 to 3.1.0 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1022
+* Bump the aws-sdk group with 2 updates by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1023
+* Bump github.com/aws/aws-sdk-go-v2/service/ec2 from 1.278.0 to 1.279.0 in the aws-sdk group by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1024
+* Bump github.com/hashicorp/aws-sdk-go-base/v2 from 2.0.0-beta.69 to 2.0.0-beta.70 by @dependabot[bot] in https://github.com/terraform-linters/tflint-ruleset-aws/pull/1025
 
-## New Contributors
-* @Copilot made their first contribution in https://github.com/terraform-linters/tflint-ruleset-aws/pull/969
 
-**Full Changelog**: https://github.com/terraform-linters/tflint-ruleset-aws/compare/v0.43.0...v0.44.0
+**Full Changelog**: https://github.com/terraform-linters/tflint-ruleset-aws/compare/v0.44.0...v0.45.0
