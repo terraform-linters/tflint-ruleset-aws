@@ -623,14 +623,6 @@ These rules enforce best practices and naming conventions:
 |aws_elasticsearch_domain_invalid_elasticsearch_version|✔|
 |aws_elasticsearch_domain_policy_invalid_domain_name|✔|
 |aws_elasticsearch_domain_saml_options_invalid_domain_name|✔|
-|aws_elastictranscoder_pipeline_invalid_aws_kms_key_arn|✔|
-|aws_elastictranscoder_pipeline_invalid_input_bucket|✔|
-|aws_elastictranscoder_pipeline_invalid_name|✔|
-|aws_elastictranscoder_pipeline_invalid_output_bucket|✔|
-|aws_elastictranscoder_pipeline_invalid_role|✔|
-|aws_elastictranscoder_preset_invalid_container|✔|
-|aws_elastictranscoder_preset_invalid_description|✔|
-|aws_elastictranscoder_preset_invalid_name|✔|
 |aws_emr_cluster_invalid_scale_down_behavior|✔|
 |aws_emr_studio_invalid_auth_mode|✔|
 |aws_emr_studio_session_mapping_invalid_identity_type|✔|
