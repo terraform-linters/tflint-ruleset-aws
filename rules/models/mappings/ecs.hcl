@@ -6,12 +6,12 @@ mapping "aws_ecs_account_setting_default" {
 
 mapping "aws_ecs_capacity_provider" {
   auto_scaling_group_provider = AutoScalingGroupProvider
-  tags = Tags
+  tags = listmap(Tags, TagKey, TagValue)
 }
 
 mapping "aws_ecs_cluster" {
   name = String
-  tags = Tags
+  tags = listmap(Tags, TagKey, TagValue)
 }
 
 mapping "aws_ecs_service" {
@@ -34,7 +34,7 @@ mapping "aws_ecs_service" {
   placement_constraints              = PlacementConstraints
   network_configuration              = NetworkConfiguration
   service_registries                 = ServiceRegistries
-  tags                               = Tags
+  tags                               = listmap(Tags, TagKey, TagValue)
 }
 
 mapping "aws_ecs_task_definition" {
@@ -50,7 +50,7 @@ mapping "aws_ecs_task_definition" {
   cpu                      = String
   memory                   = String
   requires_compatibilities = CompatibilityList
-  tags                     = Tags
+  tags                     = listmap(Tags, TagKey, TagValue)
 }
 
 mapping "aws_ecs_task_set" {
@@ -60,7 +60,7 @@ mapping "aws_ecs_task_set" {
   network_configuration = NetworkConfiguration
   scale = Scale
   service_registries = ServiceRegistries
-  tags = Tags
+  tags = listmap(Tags, TagKey, TagValue)
 }
 
 test "aws_ecs_service" "launch_type" {

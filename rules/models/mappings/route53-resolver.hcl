@@ -9,7 +9,7 @@ mapping "aws_route53_resolver_endpoint" {
   ip_address         = IpAddressesRequest
   security_group_ids = SecurityGroupIds
   name               = any // Name
-  tags               = TagList
+  tags               = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_route53_resolver_firewall_config" {
@@ -19,7 +19,7 @@ mapping "aws_route53_resolver_firewall_config" {
 
 mapping "aws_route53_resolver_firewall_domain_list" {
   # name = Name
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_route53_resolver_firewall_rule" {
@@ -36,7 +36,7 @@ mapping "aws_route53_resolver_firewall_rule" {
 
 mapping "aws_route53_resolver_firewall_rule_group" {
   # name = Name
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_route53_resolver_firewall_rule_group_association" {
@@ -45,7 +45,7 @@ mapping "aws_route53_resolver_firewall_rule_group_association" {
   mutation_protection = MutationProtectionStatus
   priority = Priority
   vpc_id = ResourceId
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_route53_resolver_rule" {
@@ -54,7 +54,7 @@ mapping "aws_route53_resolver_rule" {
   name                 = any // Name
   resolver_endpoint_id = ResourceId
   target_ip            = TargetList
-  tags                 = TagList
+  tags                 = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_route53_resolver_rule_association" {
@@ -66,7 +66,7 @@ mapping "aws_route53_resolver_rule_association" {
 mapping "aws_route53_resolver_query_log_config" {
   destination_arn = DestinationArn
   # name = ResolverQueryLogConfigName
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_route53_resolver_query_log_config_association" {

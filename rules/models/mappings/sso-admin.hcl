@@ -21,7 +21,7 @@ mapping "aws_ssoadmin_permission_set" {
   name = PermissionSetName
   relay_state = RelayState
   # session_duration = Duration
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_ssoadmin_permission_set_inline_policy" {

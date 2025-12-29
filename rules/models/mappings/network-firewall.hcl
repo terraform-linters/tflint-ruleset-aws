@@ -5,7 +5,7 @@ mapping "aws_networkfirewall_firewall" {
   firewall_policy_arn = ResourceArn
   name = ResourceName
   subnet_mapping = SubnetMappings
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
   vpc_id = VpcId
 }
 
@@ -13,7 +13,7 @@ mapping "aws_networkfirewall_firewall_policy" {
   description = Description
   firewall_policy = FirewallPolicy
   name = ResourceName
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_networkfirewall_logging_configuration" {
@@ -32,6 +32,6 @@ mapping "aws_networkfirewall_rule_group" {
   name = ResourceName
   rule_group = RuleGroup
   rules = RulesString
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
   type = RuleGroupType
 }

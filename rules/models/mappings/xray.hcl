@@ -8,7 +8,7 @@ mapping "aws_xray_encryption_config" {
 mapping "aws_xray_group" {
   group_name = GroupName
   filter_expression = FilterExpression
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_xray_sampling_rule" {

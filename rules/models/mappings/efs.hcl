@@ -4,7 +4,7 @@ mapping "aws_efs_access_point" {
   file_system_id = FileSystemId
   posix_user = PosixUser
   root_directory = RootDirectory
-  tags = Tags
+  tags = listmap(Tags, TagKey, TagValue)
 }
 
 mapping "aws_efs_backup_policy" {
@@ -18,7 +18,7 @@ mapping "aws_efs_file_system" {
   kms_key_id                      = KmsKeyId
   performance_mode                = PerformanceMode
   provisioned_throughput_in_mibps = ProvisionedThroughputInMibps
-  tags                            = Tags
+  tags                            = listmap(Tags, TagKey, TagValue)
   throughput_mode                 = ThroughputMode
 }
 

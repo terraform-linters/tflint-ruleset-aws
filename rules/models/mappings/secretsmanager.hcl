@@ -7,7 +7,7 @@ mapping "aws_secretsmanager_secret" {
   kms_key_id              = KmsKeyIdType
   policy                  = NonEmptyResourcePolicyType
   recovery_window_in_days = RecoveryWindowInDaysType
-  tags                    = TagListType
+  tags                    = listmap(TagListType, TagKeyType, TagValueType)
 }
 
 mapping "aws_secretsmanager_secret_policy" {

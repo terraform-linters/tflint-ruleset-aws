@@ -18,7 +18,7 @@ mapping "aws_servicecatalog_portfolio" {
   name          = PortfolioDisplayName
   description   = PortfolioDescription
   provider_name = ProviderName
-  tags          = AddTags
+  tags          = listmap(AddTags, TagKey, TagValue)
 }
 
 mapping "aws_servicecatalog_portfolio_share" {
@@ -46,7 +46,7 @@ mapping "aws_servicecatalog_product" {
   support_description = SupportDescription
   support_email = SupportEmail
   support_url = SupportUrl
-  tags = AddTags
+  tags = listmap(AddTags, TagKey, TagValue)
 }
 
 mapping "aws_servicecatalog_product_portfolio_association" {

@@ -6,19 +6,19 @@ mapping "aws_sagemaker_app" {
   domain_id = DomainId
   user_profile_name = UserProfileName
   resource_spec = ResourceSpec
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_sagemaker_app_image_config" {
   app_image_config_name = CreateAppImageConfigRequest
   kernel_gateway_image_config = KernelGatewayImageConfig
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_sagemaker_code_repository" {
   code_repository_name = EntityName
   git_config = GitConfig
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_sagemaker_device_fleet" {
@@ -27,7 +27,7 @@ mapping "aws_sagemaker_device_fleet" {
   output_config = EdgeOutputConfig
   description = DeviceFleetDescription
   enable_iot_role_alias = EnableIotRoleAlias
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_sagemaker_domain" {
@@ -39,20 +39,20 @@ mapping "aws_sagemaker_domain" {
   retention_policy = RetentionPolicy
   kms_key_id = KmsKeyId
   app_network_access_type = AppNetworkAccessType
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_sagemaker_endpoint" {
   endpoint_config_name = EndpointConfigName
   name                 = EndpointName
-  tags                 = TagList
+  tags                 = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_sagemaker_endpoint_configuration" {
   production_variants = ProductionVariantList
   kms_key_arn         = KmsKeyId
   name                = EndpointConfigName
-  tags                = TagList
+  tags                = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_sagemaker_feature_group" {
@@ -64,7 +64,7 @@ mapping "aws_sagemaker_feature_group" {
   feature_definition = FeatureDefinitions
   offline_store_config = OfflineStoreConfig
   online_store_config = OnlineStoreConfig
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_sagemaker_flow_definition" {
@@ -74,12 +74,12 @@ mapping "aws_sagemaker_flow_definition" {
   output_config = FlowDefinitionOutputConfig
   human_loop_activation_config = HumanLoopActivationConfig
   human_loop_request_source = HumanLoopRequestSource
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_sagemaker_human_task_ui" {
   human_task_ui_name = HumanTaskUiName
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
   ui_template = UiTemplate
 }
 
@@ -88,7 +88,7 @@ mapping "aws_sagemaker_image" {
   role_arn = RoleArn
   display_name = ImageDisplayName
   description = ImageDescription
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_sagemaker_image_version" {
@@ -103,13 +103,13 @@ mapping "aws_sagemaker_model" {
   container                = ContainerDefinitionList
   enable_network_isolation = Boolean
   vpc_config               = VpcConfig
-  tags                     = TagList
+  tags                     = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_sagemaker_model_package_group" {
   model_package_group_name = EntityName
   model_package_group_description = EntityDescription
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_sagemaker_model_package_group_policy" {
@@ -124,7 +124,7 @@ mapping "aws_sagemaker_notebook_instance" {
   security_groups       = SecurityGroupIds 
   kms_key_id            = KmsKeyId
   lifecycle_config_name = NotebookInstanceLifecycleConfigName
-  tags                  = TagList
+  tags                  = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_sagemaker_notebook_instance_lifecycle_configuration" {
@@ -137,7 +137,7 @@ mapping "aws_sagemaker_studio_lifecycle_config" {
   studio_lifecycle_config_name = StudioLifecycleConfigName
   studio_lifecycle_config_app_type = StudioLifecycleConfigAppType
   studio_lifecycle_config_content = StudioLifecycleConfigContent
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_sagemaker_user_profile" {
@@ -146,7 +146,7 @@ mapping "aws_sagemaker_user_profile" {
   single_sign_on_user_identifier = SingleSignOnUserIdentifier
   single_sign_on_user_value = String256
   user_settings = UserSettings
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_sagemaker_workforce" {
@@ -162,5 +162,5 @@ mapping "aws_sagemaker_workteam" {
   workteam_name = WorkteamName
   member_definition = MemberDefinitions
   notification_configuration = NotificationConfiguration
-  tags = TagList
+  tags = listmap(TagList, TagKey, TagValue)
 }

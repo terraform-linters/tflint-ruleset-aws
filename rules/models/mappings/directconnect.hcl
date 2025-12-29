@@ -13,7 +13,7 @@ mapping "aws_dx_connection" {
   name      = ConnectionName
   bandwidth = Bandwidth
   location  = LocationCode
-  tags      = TagList
+  tags      = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_dx_connection_association" {
@@ -69,7 +69,7 @@ mapping "aws_dx_hosted_private_virtual_interface" {
 mapping "aws_dx_hosted_private_virtual_interface_accepter" {
   virtual_interface_id = VirtualInterfaceId
   dx_gateway_id        = DirectConnectGatewayId
-  tags                 = TagList
+  tags                 = listmap(TagList, TagKey, TagValue)
   vpn_gateway_id       = AssociatedGatewayId
 }
 
@@ -88,7 +88,7 @@ mapping "aws_dx_hosted_public_virtual_interface" {
 
 mapping "aws_dx_hosted_public_virtual_interface_accepter" {
   virtual_interface_id = VirtualInterfaceId
-  tags                 = TagList
+  tags                 = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_dx_hosted_transit_virtual_interface" {
@@ -110,7 +110,7 @@ mapping "aws_dx_lag" {
   name                  = LagName
   connections_bandwidth = Bandwidth
   location              = LocationCode
-  tags                  = TagList
+  tags                  = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_dx_private_virtual_interface" {
@@ -124,7 +124,7 @@ mapping "aws_dx_private_virtual_interface" {
   bgp_auth_key     = BGPAuthKey
   customer_address = CustomerAddress
   dx_gateway_id    = DirectConnectGatewayId
-  tags             = TagList
+  tags             = listmap(TagList, TagKey, TagValue)
   vpn_gateway_id   = AssociatedGatewayId
 }
 
@@ -138,7 +138,7 @@ mapping "aws_dx_public_virtual_interface" {
   bgp_auth_key          = BGPAuthKey
   customer_address      = CustomerAddress
   route_filter_prefixes = RouteFilterPrefixList
-  tags                  = TagList
+  tags                  = listmap(TagList, TagKey, TagValue)
 }
 
 mapping "aws_dx_transit_virtual_interface" {

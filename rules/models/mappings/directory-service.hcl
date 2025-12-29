@@ -11,7 +11,7 @@ mapping "aws_directory_service_directory" {
   short_name       = DirectoryShortName
   type             = DirectoryType
   edition          = DirectoryEdition
-  tags             = Tags
+  tags             = listmap(Tags, TagKey, TagValue)
 }
 
 mapping "aws_directory_service_conditional_forwarder" {
