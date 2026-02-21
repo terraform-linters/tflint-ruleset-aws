@@ -262,6 +262,8 @@ var Resources = []string{
 	"aws_ec2_managed_prefix_list",
 	"aws_ec2_network_insights_analysis",
 	"aws_ec2_network_insights_path",
+	"aws_ec2_secondary_network",
+	"aws_ec2_secondary_subnet",
 	"aws_ec2_traffic_mirror_filter",
 	"aws_ec2_traffic_mirror_session",
 	"aws_ec2_traffic_mirror_target",
