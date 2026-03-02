@@ -32,7 +32,7 @@ require (
 	github.com/hashicorp/terraform-json v0.27.2
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/exp v0.0.0-20230425010034-47ecfdc1ba53
-	golang.org/x/net v0.50.0
+	golang.org/x/net v0.51.0
 )
 
 require (
