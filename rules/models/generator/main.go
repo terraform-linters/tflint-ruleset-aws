@@ -17,7 +17,7 @@ import (
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/function"
 	"github.com/zclconf/go-cty/cty/function/stdlib"
-	utils "github.com/terraform-linters/tflint-ruleset-aws/rules/generator-utils"
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/genutils"
 )
 
 type mappingFile struct {
@@ -85,7 +85,7 @@ func main() {
 		mappingFiles = append(mappingFiles, mf)
 	}
 
-	awsProvider := utils.LoadProviderSchema("../../tools/provider-schema/schema.json")
+	awsProvider := genutils.LoadProviderSchema("../../tools/provider-schema/schema.json")
 
 	var generatedFiles []string
 	var generatedRules []string
@@ -185,7 +185,7 @@ func main() {
 	generateProviderFile(generatedRules)
 	generatedFiles = append(generatedFiles, "provider.go")
 	generateDocFile(generatedRules)
-	utils.CleanDir(".", generatedFiles)
+	genutils.CleanDir(".", generatedFiles)
 }
 
 func fetchSchema(resource, attribute string, model map[string]interface{}, provider *tfjson.ProviderSchema) (*tfjson.SchemaAttribute, error) {

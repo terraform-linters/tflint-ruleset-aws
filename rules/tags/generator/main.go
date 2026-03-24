@@ -10,7 +10,7 @@ import (
 	"sort"
 	"text/template"
 
-	utils "github.com/terraform-linters/tflint-ruleset-aws/rules/generator-utils"
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/genutils"
 )
 
 const filename = "resources.go"
@@ -20,7 +20,7 @@ type TemplateData struct {
 }
 
 func main() {
-	provider := utils.LoadProviderSchema("../../tools/provider-schema/schema.json")
+	provider := genutils.LoadProviderSchema("../../tools/provider-schema/schema.json")
 	resources := make([]string, 0)
 
 	for name, resource := range provider.ResourceSchemas {
@@ -60,7 +60,7 @@ func main() {
 		log.Fatalf("error writing to file (%s): %v", filename, err)
 	}
 
-	utils.CleanDir(".", []string{filename})
+	genutils.CleanDir(".", []string{filename})
 }
 
 const templateBody = `

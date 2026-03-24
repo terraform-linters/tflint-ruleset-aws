@@ -2,7 +2,7 @@
 
 package main
 
-import utils "github.com/terraform-linters/tflint-ruleset-aws/rules/generator-utils"
+import "github.com/terraform-linters/tflint-ruleset-aws/rules/genutils"
 
 type docMeta struct {
 	RuleNames []string
@@ -11,5 +11,5 @@ type docMeta struct {
 func generateDocFile(ruleNames []string) {
 	meta := &docMeta{RuleNames: ruleNames}
 
-	utils.GenerateFile("../../docs/rules/README.md", "../../docs/rules/README.md.tmpl", meta)
+	genutils.GenerateFile("../../docs/rules/README.md", "../../docs/rules/README.md.tmpl", meta)
 }
