@@ -9,7 +9,7 @@ import (
 
 	"github.com/hashicorp/hcl/v2/gohcl"
 	"github.com/hashicorp/hcl/v2/hclparse"
-	utils "github.com/terraform-linters/tflint-ruleset-aws/rules/generator-utils"
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/genutils"
 )
 
 type definition struct {
@@ -38,7 +38,7 @@ type providerMeta struct {
 	RuleNameCCList []string
 }
 
-var awsProvider = utils.LoadProviderSchema("../../tools/provider-schema/schema.json")
+var awsProvider = genutils.LoadProviderSchema("../../tools/provider-schema/schema.json")
 
 func main() {
 	files, err := filepath.Glob("./definitions/*.hcl")
@@ -47,6 +47,7 @@ func main() {
 	}
 
 	providerMeta := &providerMeta{}
+	var generatedFiles []string
 	for _, file := range files {
 		parser := hclparse.NewParser()
 		f, diags := parser.ParseHCLFile(file)
@@ -63,7 +64,7 @@ func main() {
 		for _, rule := range def.Rules {
 			meta := &ruleMeta{
 				RuleName:      rule.Name,
-				RuleNameCC:    utils.ToCamel(rule.Name),
+				RuleNameCC:    genutils.ToCamel(rule.Name),
 				ResourceType:  rule.Resource,
 				AttributeName: rule.Attribute,
 				DataType:      dataType(rule.Resource, rule.Attribute),
@@ -71,22 +72,25 @@ func main() {
 				Template:      rule.Template,
 			}
 
-			utils.GenerateFile(
+			genutils.GenerateFile(
 				fmt.Sprintf("%s.go", rule.Name),
 				"rule.go.tmpl",
 				meta,
 			)
+			generatedFiles = append(generatedFiles, fmt.Sprintf("%s.go", rule.Name))
 
 			providerMeta.RuleNameCCList = append(providerMeta.RuleNameCCList, meta.RuleNameCC)
 		}
 	}
 
 	sort.Strings(providerMeta.RuleNameCCList)
-	utils.GenerateFile(
+	genutils.GenerateFile(
 		"provider.go",
 		"provider.go.tmpl",
 		providerMeta,
 	)
+	generatedFiles = append(generatedFiles, "provider.go")
+	genutils.CleanDir(".", generatedFiles)
 }
 
 func dataType(resource, attribute string) string {

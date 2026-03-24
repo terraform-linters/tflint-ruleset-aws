@@ -10,7 +10,7 @@ import (
 
 	"github.com/dave/dst"
 	"github.com/dave/dst/decorator"
-	utils "github.com/terraform-linters/tflint-ruleset-aws/rules/generator-utils"
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/genutils"
 )
 
 type metadata struct {
@@ -27,11 +27,11 @@ func main() {
 	}
 	ruleName = strings.Trim(ruleName, "\n")
 
-	meta := &metadata{RuleNameCC: utils.ToCamel(ruleName), RuleName: ruleName}
+	meta := &metadata{RuleNameCC: genutils.ToCamel(ruleName), RuleName: ruleName}
 
-	utils.GenerateFileWithLogs(fmt.Sprintf("rules/%s.go", ruleName), "rules/rule.go.tmpl", meta)
-	utils.GenerateFileWithLogs(fmt.Sprintf("rules/%s_test.go", ruleName), "rules/rule_test.go.tmpl", meta)
-	utils.GenerateFileWithLogs(fmt.Sprintf("docs/rules/%s.md", ruleName), "docs/rules/rule.md.tmpl", meta)
+	genutils.GenerateFileWithLogs(fmt.Sprintf("rules/%s.go", ruleName), "rules/rule.go.tmpl", meta)
+	genutils.GenerateFileWithLogs(fmt.Sprintf("rules/%s_test.go", ruleName), "rules/rule_test.go.tmpl", meta)
+	genutils.GenerateFileWithLogs(fmt.Sprintf("docs/rules/%s.md", ruleName), "docs/rules/rule.md.tmpl", meta)
 
 	src, err := ioutil.ReadFile("rules/provider.go")
 	if err != nil {

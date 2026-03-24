@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	tfjson "github.com/hashicorp/terraform-json"
-	utils "github.com/terraform-linters/tflint-ruleset-aws/rules/generator-utils"
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/genutils"
 )
 
 type ruleMeta struct {
@@ -30,7 +30,7 @@ func generateRuleFile(resource, attribute string, model map[string]interface{}, 
 
 	meta := &ruleMeta{
 		RuleName:      ruleName,
-		RuleNameCC:    utils.ToCamel(ruleName),
+		RuleNameCC:    genutils.ToCamel(ruleName),
 		ResourceType:  resource,
 		AttributeName: attribute,
 		Sensitive:     schema.Sensitive,
@@ -43,7 +43,7 @@ func generateRuleFile(resource, attribute string, model map[string]interface{}, 
 	// Testing generated regexp
 	regexp.MustCompile(meta.Pattern)
 
-	utils.GenerateFile(fmt.Sprintf("%s.go", ruleName), "pattern_rule.go.tmpl", meta)
+	genutils.GenerateFile(fmt.Sprintf("%s.go", ruleName), "pattern_rule.go.tmpl", meta)
 }
 
 func generateRuleTestFile(resource, attribute string, model map[string]interface{}, test test) {
@@ -51,7 +51,7 @@ func generateRuleTestFile(resource, attribute string, model map[string]interface
 
 	meta := &ruleMeta{
 		RuleName:      ruleName,
-		RuleNameCC:    utils.ToCamel(ruleName),
+		RuleNameCC:    genutils.ToCamel(ruleName),
 		ResourceType:  resource,
 		AttributeName: attribute,
 		Max:           fetchNumber(model, "max"),
@@ -65,7 +65,7 @@ func generateRuleTestFile(resource, attribute string, model map[string]interface
 	// Testing generated regexp
 	regexp.MustCompile(meta.Pattern)
 
-	utils.GenerateFile(fmt.Sprintf("%s_test.go", ruleName), "pattern_rule_test.go.tmpl", meta)
+	genutils.GenerateFile(fmt.Sprintf("%s_test.go", ruleName), "pattern_rule_test.go.tmpl", meta)
 }
 
 func makeRuleName(resource, attribute string) string {
