@@ -47,6 +47,7 @@ func main() {
 	}
 
 	providerMeta := &providerMeta{}
+	var generatedFiles []string
 	for _, file := range files {
 		parser := hclparse.NewParser()
 		f, diags := parser.ParseHCLFile(file)
@@ -76,6 +77,7 @@ func main() {
 				"rule.go.tmpl",
 				meta,
 			)
+			generatedFiles = append(generatedFiles, fmt.Sprintf("%s.go", rule.Name))
 
 			providerMeta.RuleNameCCList = append(providerMeta.RuleNameCCList, meta.RuleNameCC)
 		}
@@ -87,6 +89,8 @@ func main() {
 		"provider.go.tmpl",
 		providerMeta,
 	)
+	generatedFiles = append(generatedFiles, "provider.go")
+	utils.CleanDir(".", generatedFiles)
 }
 
 func dataType(resource, attribute string) string {

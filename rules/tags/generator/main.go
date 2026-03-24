@@ -60,6 +60,7 @@ func main() {
 		log.Fatalf("error writing to file (%s): %v", filename, err)
 	}
 
+	utils.CleanDir(".", []string{filename})
 }
 
 const templateBody = `
