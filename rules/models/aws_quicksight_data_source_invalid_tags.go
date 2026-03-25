@@ -16,6 +16,7 @@ type AwsQuicksightDataSourceInvalidTagsRule struct {
 
 	resourceType  string
 	attributeName string
+	itemsMax      int
 	keyMax        int
 	keyMin        int
 	valueMax      int
@@ -27,6 +28,7 @@ func NewAwsQuicksightDataSourceInvalidTagsRule() *AwsQuicksightDataSourceInvalid
 	return &AwsQuicksightDataSourceInvalidTagsRule{
 		resourceType:  "aws_quicksight_data_source",
 		attributeName: "tags",
+		itemsMax:      200,
 		keyMax:        128,
 		keyMin:        1,
 		valueMax:      256,
@@ -74,6 +76,13 @@ func (r *AwsQuicksightDataSourceInvalidTagsRule) Check(runner tflint.Runner) err
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
+			if len(val) > r.itemsMax {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf("too many tags: %d exceeds the maximum of 200", len(val)),
+					attribute.Expr.Range(),
+				)
+			}
 			for k, v := range val {
 				if len(k) > r.keyMax {
 					runner.EmitIssue(

@@ -2,7 +2,7 @@ import = "api-models-aws/models/firehose/service/2015-08-04/firehose-2015-08-04.
 
 mapping "aws_kinesis_firehose_delivery_stream" {
   name                         = DeliveryStreamName
-  tags                         = listmap(TagDeliveryStreamInputTagList, TagKey, TagValue)
+  tags                         = map(TagDeliveryStreamInputTagList, TagKey, TagValue)
   kinesis_source_configuration = KinesisStreamSourceConfiguration
   destination                  = any
   extended_s3_configuration    = ExtendedS3DestinationConfiguration

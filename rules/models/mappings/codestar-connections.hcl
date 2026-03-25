@@ -4,7 +4,7 @@ mapping "aws_codestarconnections_connection" {
   name = ConnectionName
   provider_type = ProviderType
   host_arn = HostArn
-  tags = listmap(TagList, TagKey, TagValue)
+  tags = map(TagList, TagKey, TagValue)
 }
 
 mapping "aws_codestarconnections_host" {

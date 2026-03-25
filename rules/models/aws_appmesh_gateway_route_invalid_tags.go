@@ -16,6 +16,7 @@ type AwsAppmeshGatewayRouteInvalidTagsRule struct {
 
 	resourceType  string
 	attributeName string
+	itemsMax      int
 	keyMax        int
 	keyMin        int
 	valueMax      int
@@ -26,6 +27,7 @@ func NewAwsAppmeshGatewayRouteInvalidTagsRule() *AwsAppmeshGatewayRouteInvalidTa
 	return &AwsAppmeshGatewayRouteInvalidTagsRule{
 		resourceType:  "aws_appmesh_gateway_route",
 		attributeName: "tags",
+		itemsMax:      50,
 		keyMax:        128,
 		keyMin:        1,
 		valueMax:      256,
@@ -72,6 +74,13 @@ func (r *AwsAppmeshGatewayRouteInvalidTagsRule) Check(runner tflint.Runner) erro
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
+			if len(val) > r.itemsMax {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf("too many tags: %d exceeds the maximum of 50", len(val)),
+					attribute.Expr.Range(),
+				)
+			}
 			for k, v := range val {
 				if len(k) > r.keyMax {
 					runner.EmitIssue(

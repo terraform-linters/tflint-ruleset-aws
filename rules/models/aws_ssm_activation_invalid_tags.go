@@ -17,6 +17,7 @@ type AwsSsmActivationInvalidTagsRule struct {
 
 	resourceType  string
 	attributeName string
+	itemsMax      int
 	keyMax        int
 	keyMin        int
 	keyPattern    *regexp.Regexp
@@ -29,6 +30,7 @@ func NewAwsSsmActivationInvalidTagsRule() *AwsSsmActivationInvalidTagsRule {
 	return &AwsSsmActivationInvalidTagsRule{
 		resourceType:  "aws_ssm_activation",
 		attributeName: "tags",
+		itemsMax:      1000,
 		keyMax:        128,
 		keyMin:        1,
 		keyPattern:    regexp.MustCompile(`^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$`),
@@ -77,6 +79,13 @@ func (r *AwsSsmActivationInvalidTagsRule) Check(runner tflint.Runner) error {
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
+			if len(val) > r.itemsMax {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf("too many tags: %d exceeds the maximum of 1000", len(val)),
+					attribute.Expr.Range(),
+				)
+			}
 			for k, v := range val {
 				if len(k) > r.keyMax {
 					runner.EmitIssue(

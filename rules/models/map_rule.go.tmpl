@@ -19,6 +19,9 @@ type {{ .RuleNameCC }}Rule struct {
 
 	resourceType  string
 	attributeName string
+{{- if ne .ItemsMax 0 }}
+	itemsMax      int
+{{- end }}
 {{- if ne .KeyMax 0 }}
 	keyMax        int
 {{- end }}
@@ -44,6 +47,9 @@ func New{{ .RuleNameCC }}Rule() *{{ .RuleNameCC }}Rule {
 	return &{{ .RuleNameCC }}Rule{
 		resourceType:  "{{ .ResourceType }}",
 		attributeName: "{{ .AttributeName }}",
+{{- if ne .ItemsMax 0 }}
+		itemsMax:      {{ .ItemsMax }},
+{{- end }}
 {{- if ne .KeyMax 0 }}
 		keyMax:        {{ .KeyMax }},
 {{- end }}
@@ -105,6 +111,16 @@ func (r *{{ .RuleNameCC }}Rule) Check(runner tflint.Runner) error {
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
+{{- if ne .ItemsMax 0 }}
+			if len(val) > r.itemsMax {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf("too many tags: %d exceeds the maximum of {{ .ItemsMax }}", len(val)),
+					attribute.Expr.Range(),
+				)
+			}
+{{- end }}
+
 {{- $hasValueConstraints := or (ne .ValueMax 0) (ne .ValueMin 0) (ne .ValuePattern "") }}
 			for k, {{ if $hasValueConstraints }}v{{ else }}_{{ end }} := range val {
 {{- if ne .KeyMax 0 }}

@@ -4,7 +4,7 @@ package main
 
 import (
 	"fmt"
-	"math/big"
+	"os"
 	"regexp"
 	"strings"
 
@@ -34,7 +34,6 @@ type mapRuleMeta struct {
 	AttributeName string
 	Sensitive     bool
 	ItemsMax      int
-	ItemsMin      int
 	KeyMax        int
 	KeyMin        int
 	KeyPattern    string
@@ -44,6 +43,11 @@ type mapRuleMeta struct {
 	ValuePattern  string
 	ValueEnum     []string
 }
+
+var (
+	unicodeEscapeRegex     = regexp.MustCompile(`\\u([0-9A-F]{4})`)
+	negativeLookaheadRegex = regexp.MustCompile(`\(\?![^)]+\)`)
+)
 
 func generateRuleFile(resource, attribute string, model map[string]interface{}, schema *tfjson.SchemaAttribute) {
 	ruleName := makeRuleName(resource, attribute)
@@ -60,8 +64,12 @@ func generateRuleFile(resource, attribute string, model map[string]interface{}, 
 		Enum:          fetchStrings(model, "enum"),
 	}
 
-	// Validate generated regexp
-	regexp.MustCompile(meta.Pattern)
+	if meta.Pattern != "" {
+		if _, err := regexp.Compile(meta.Pattern); err != nil {
+			fmt.Fprintf(os.Stderr, "Error: %s.%s has malformed pattern %q: %v\n", resource, attribute, meta.Pattern, err)
+			os.Exit(1)
+		}
+	}
 
 	utils.GenerateFile(fmt.Sprintf("%s.go", ruleName), "pattern_rule.go.tmpl", meta)
 }
@@ -82,8 +90,12 @@ func generateRuleTestFile(resource, attribute string, model map[string]interface
 		TestNG:        formatTest(test.NG),
 	}
 
-	// Validate generated regexp
-	regexp.MustCompile(meta.Pattern)
+	if meta.Pattern != "" {
+		if _, err := regexp.Compile(meta.Pattern); err != nil {
+			fmt.Fprintf(os.Stderr, "Error: %s.%s has malformed pattern %q: %v\n", resource, attribute, meta.Pattern, err)
+			os.Exit(1)
+		}
+	}
 
 	utils.GenerateFile(fmt.Sprintf("%s_test.go", ruleName), "pattern_rule_test.go.tmpl", meta)
 }
@@ -91,10 +103,9 @@ func generateRuleTestFile(resource, attribute string, model map[string]interface
 func generateMapRuleFile(resource, attribute string, listModel, keyModel, valueModel map[string]interface{}, schema *tfjson.SchemaAttribute) bool {
 	ruleName := makeRuleName(resource, attribute)
 
-	var itemsMax, itemsMin int
+	var itemsMax int
 	if listModel != nil {
 		itemsMax = fetchNumber(listModel, "max")
-		itemsMin = fetchNumber(listModel, "min")
 	}
 	keyPattern := replacePattern(fetchString(keyModel, "pattern"))
 	valuePattern := replacePattern(fetchString(valueModel, "pattern"))
@@ -104,7 +115,7 @@ func generateMapRuleFile(resource, attribute string, listModel, keyModel, valueM
 	valueMin := fetchNumber(valueModel, "min")
 
 	// Skip if no constraints exist
-	hasItemsConstraints := itemsMax != 0 || itemsMin != 0
+	hasItemsConstraints := itemsMax != 0
 	hasKeyConstraints := keyPattern != "" || keyMax != 0 || keyMin != 0
 	hasValueConstraints := valuePattern != "" || valueMax != 0 || valueMin != 0
 	if !hasItemsConstraints && !hasKeyConstraints && !hasValueConstraints {
@@ -114,13 +125,13 @@ func generateMapRuleFile(resource, attribute string, listModel, keyModel, valueM
 	// Test generated regexps - skip if malformed
 	if keyPattern != "" {
 		if _, err := regexp.Compile(keyPattern); err != nil {
-			fmt.Printf("Skipping %s.%s: malformed key pattern %q: %v\n", resource, attribute, keyPattern, err)
+			fmt.Fprintf(os.Stderr, "Skipping %s.%s: malformed key pattern %q: %v\n", resource, attribute, keyPattern, err)
 			return false
 		}
 	}
 	if valuePattern != "" {
 		if _, err := regexp.Compile(valuePattern); err != nil {
-			fmt.Printf("Skipping %s.%s: malformed value pattern %q: %v\n", resource, attribute, valuePattern, err)
+			fmt.Fprintf(os.Stderr, "Skipping %s.%s: malformed value pattern %q: %v\n", resource, attribute, valuePattern, err)
 			return false
 		}
 	}
@@ -132,7 +143,6 @@ func generateMapRuleFile(resource, attribute string, listModel, keyModel, valueM
 		AttributeName: attribute,
 		Sensitive:     schema != nil && schema.Sensitive,
 		ItemsMax:      itemsMax,
-		ItemsMin:      itemsMin,
 		KeyMax:        keyMax,
 		KeyMin:        keyMin,
 		KeyPattern:    keyPattern,
@@ -145,83 +155,17 @@ func generateMapRuleFile(resource, attribute string, listModel, keyModel, valueM
 	return true
 }
 
-// generateListmapRuleFile generates a map validation rule from a resolved listmap result.
-// The result contains fully resolved constraints from list, key, and value shapes.
-func generateListmapRuleFile(resource, attribute string, result cty.Value, schema *tfjson.SchemaAttribute) bool {
-	ruleName := makeRuleName(resource, attribute)
-
-	itemsMin := ctyToInt(result.GetAttr("itemsMin"))
-	itemsMax := ctyToInt(result.GetAttr("itemsMax"))
-	keyPattern := replacePattern(result.GetAttr("keyPattern").AsString())
-	keyMin := ctyToInt(result.GetAttr("keyMin"))
-	keyMax := ctyToInt(result.GetAttr("keyMax"))
-	keyEnum := ctyToStringSlice(result.GetAttr("keyEnum"))
-	valuePattern := replacePattern(result.GetAttr("valuePattern").AsString())
-	valueMin := ctyToInt(result.GetAttr("valueMin"))
-	valueMax := ctyToInt(result.GetAttr("valueMax"))
-	valueEnum := ctyToStringSlice(result.GetAttr("valueEnum"))
-
-	// Skip if no constraints exist
-	hasItemsConstraints := itemsMax != 0 || itemsMin != 0
-	hasKeyConstraints := keyPattern != "" || keyMax != 0 || keyMin != 0 || len(keyEnum) > 0
-	hasValueConstraints := valuePattern != "" || valueMax != 0 || valueMin != 0 || len(valueEnum) > 0
-	if !hasItemsConstraints && !hasKeyConstraints && !hasValueConstraints {
-		return false
-	}
-
-	// Test generated regexps - skip if malformed
-	if keyPattern != "" {
-		if _, err := regexp.Compile(keyPattern); err != nil {
-			fmt.Printf("Skipping %s.%s: malformed key pattern %q: %v\n", resource, attribute, keyPattern, err)
-			return false
-		}
-	}
-	if valuePattern != "" {
-		if _, err := regexp.Compile(valuePattern); err != nil {
-			fmt.Printf("Skipping %s.%s: malformed value pattern %q: %v\n", resource, attribute, valuePattern, err)
-			return false
-		}
-	}
-
-	meta := &mapRuleMeta{
-		RuleName:      ruleName,
-		RuleNameCC:    utils.ToCamel(ruleName),
-		ResourceType:  resource,
-		AttributeName: attribute,
-		Sensitive:     schema != nil && schema.Sensitive,
-		ItemsMax:      itemsMax,
-		ItemsMin:      itemsMin,
-		KeyMax:        keyMax,
-		KeyMin:        keyMin,
-		KeyPattern:    keyPattern,
-		KeyEnum:       keyEnum,
-		ValueMax:      valueMax,
-		ValueMin:      valueMin,
-		ValuePattern:  valuePattern,
-		ValueEnum:     valueEnum,
-	}
-
-	utils.GenerateFile(fmt.Sprintf("%s.go", ruleName), "map_rule.go.tmpl", meta)
-	return true
+// generateMapRuleFromShapes generates a map validation rule from a resolved map result.
+// The result contains three nested shape objects: items, key, and value.
+func generateMapRuleFromShapes(resource, attribute string, result cty.Value, schema *tfjson.SchemaAttribute) bool {
+	return generateMapRuleFile(resource, attribute,
+		shapeToModel(result.GetAttr("items")),
+		shapeToModel(result.GetAttr("key")),
+		shapeToModel(result.GetAttr("value")),
+		schema,
+	)
 }
 
-func ctyToStringSlice(val cty.Value) []string {
-	if val.IsNull() || val.LengthInt() == 0 {
-		return nil
-	}
-	result := make([]string, 0, val.LengthInt())
-	for it := val.ElementIterator(); it.Next(); {
-		_, v := it.Element()
-		result = append(result, v.AsString())
-	}
-	return result
-}
-
-func ctyToInt(val cty.Value) int {
-	bf := val.AsBigFloat()
-	i, _ := bf.Int(new(big.Int))
-	return int(i.Int64())
-}
 
 func makeRuleName(resource, attribute string) string {
 	// XXX: Change the naming convention for the backward compatibility.
@@ -284,13 +228,11 @@ func replacePattern(pattern string) string {
 	}
 
 	// Convert Unicode escapes from \uXXXX to \x{XXXX} format
-	unicodeEscapeRegex := regexp.MustCompile(`\\u([0-9A-F]{4})`)
 	replaced := unicodeEscapeRegex.ReplaceAllString(pattern, `\x{$1}`)
 
 	// Remove negative lookahead patterns that Go's regexp doesn't support
 	// Common patterns like (?!aws:) are used to prevent aws: prefix in tag keys
 	// We strip these and still validate the character set constraint
-	negativeLookaheadRegex := regexp.MustCompile(`\(\?![^)]+\)`)
 	replaced = negativeLookaheadRegex.ReplaceAllString(replaced, "")
 
 	// Handle patterns missing anchors

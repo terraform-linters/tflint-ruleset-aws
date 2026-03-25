@@ -17,6 +17,7 @@ type AwsDatasyncTaskInvalidTagsRule struct {
 
 	resourceType  string
 	attributeName string
+	itemsMax      int
 	keyMax        int
 	keyMin        int
 	keyPattern    *regexp.Regexp
@@ -29,6 +30,7 @@ func NewAwsDatasyncTaskInvalidTagsRule() *AwsDatasyncTaskInvalidTagsRule {
 	return &AwsDatasyncTaskInvalidTagsRule{
 		resourceType:  "aws_datasync_task",
 		attributeName: "tags",
+		itemsMax:      50,
 		keyMax:        256,
 		keyMin:        1,
 		keyPattern:    regexp.MustCompile(`^[a-zA-Z0-9\s+=._:/-]+$`),
@@ -77,6 +79,13 @@ func (r *AwsDatasyncTaskInvalidTagsRule) Check(runner tflint.Runner) error {
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
+			if len(val) > r.itemsMax {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf("too many tags: %d exceeds the maximum of 50", len(val)),
+					attribute.Expr.Range(),
+				)
+			}
 			for k, v := range val {
 				if len(k) > r.keyMax {
 					runner.EmitIssue(

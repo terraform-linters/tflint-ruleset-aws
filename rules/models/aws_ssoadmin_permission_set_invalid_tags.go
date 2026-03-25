@@ -17,6 +17,7 @@ type AwsSsoadminPermissionSetInvalidTagsRule struct {
 
 	resourceType  string
 	attributeName string
+	itemsMax      int
 	keyMax        int
 	keyMin        int
 	keyPattern    *regexp.Regexp
@@ -29,6 +30,7 @@ func NewAwsSsoadminPermissionSetInvalidTagsRule() *AwsSsoadminPermissionSetInval
 	return &AwsSsoadminPermissionSetInvalidTagsRule{
 		resourceType:  "aws_ssoadmin_permission_set",
 		attributeName: "tags",
+		itemsMax:      75,
 		keyMax:        128,
 		keyMin:        1,
 		keyPattern:    regexp.MustCompile(`^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$`),
@@ -77,6 +79,13 @@ func (r *AwsSsoadminPermissionSetInvalidTagsRule) Check(runner tflint.Runner) er
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
+			if len(val) > r.itemsMax {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf("too many tags: %d exceeds the maximum of 75", len(val)),
+					attribute.Expr.Range(),
+				)
+			}
 			for k, v := range val {
 				if len(k) > r.keyMax {
 					runner.EmitIssue(

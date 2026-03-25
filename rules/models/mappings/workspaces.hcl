@@ -4,14 +4,14 @@ mapping "aws_workspaces_directory" {
   directory_id = DirectoryId
   subnet_ids = SubnetIds
   ip_group_ids = IpGroupIdList
-  tags = listmap(TagList, TagKey, TagValue)
+  tags = map(TagList, TagKey, TagValue)
 }
 
 mapping "aws_workspaces_ip_group" {
   name = IpGroupName
   description = IpGroupDesc
   rules = IpRuleList
-  tags = listmap(TagList, TagKey, TagValue)
+  tags = map(TagList, TagKey, TagValue)
 }
 
 mapping "aws_workspaces_workspace" {
@@ -19,6 +19,6 @@ mapping "aws_workspaces_workspace" {
   bundle_id = BundleId
   user_name = UserName
   volume_encryption_key = VolumeEncryptionKey
-  tags = listmap(TagList, TagKey, TagValue)
+  tags = map(TagList, TagKey, TagValue)
   workspace_properties = WorkspaceProperties
 }

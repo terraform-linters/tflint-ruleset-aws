@@ -16,6 +16,7 @@ type AwsTransferUserInvalidTagsRule struct {
 
 	resourceType  string
 	attributeName string
+	itemsMax      int
 	keyMax        int
 	valueMax      int
 }
@@ -25,6 +26,7 @@ func NewAwsTransferUserInvalidTagsRule() *AwsTransferUserInvalidTagsRule {
 	return &AwsTransferUserInvalidTagsRule{
 		resourceType:  "aws_transfer_user",
 		attributeName: "tags",
+		itemsMax:      50,
 		keyMax:        128,
 		valueMax:      256,
 	}
@@ -70,6 +72,13 @@ func (r *AwsTransferUserInvalidTagsRule) Check(runner tflint.Runner) error {
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
+			if len(val) > r.itemsMax {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf("too many tags: %d exceeds the maximum of 50", len(val)),
+					attribute.Expr.Range(),
+				)
+			}
 			for k, v := range val {
 				if len(k) > r.keyMax {
 					runner.EmitIssue(

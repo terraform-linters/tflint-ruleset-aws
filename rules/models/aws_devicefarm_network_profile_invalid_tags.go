@@ -16,6 +16,7 @@ type AwsDevicefarmNetworkProfileInvalidTagsRule struct {
 
 	resourceType  string
 	attributeName string
+	itemsMax      int
 	keyMax        int
 	keyMin        int
 	valueMax      int
@@ -26,6 +27,7 @@ func NewAwsDevicefarmNetworkProfileInvalidTagsRule() *AwsDevicefarmNetworkProfil
 	return &AwsDevicefarmNetworkProfileInvalidTagsRule{
 		resourceType:  "aws_devicefarm_network_profile",
 		attributeName: "tags",
+		itemsMax:      150,
 		keyMax:        128,
 		keyMin:        1,
 		valueMax:      256,
@@ -72,6 +74,13 @@ func (r *AwsDevicefarmNetworkProfileInvalidTagsRule) Check(runner tflint.Runner)
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
+			if len(val) > r.itemsMax {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf("too many tags: %d exceeds the maximum of 150", len(val)),
+					attribute.Expr.Range(),
+				)
+			}
 			for k, v := range val {
 				if len(k) > r.keyMax {
 					runner.EmitIssue(

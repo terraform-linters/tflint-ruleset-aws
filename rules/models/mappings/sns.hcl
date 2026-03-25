@@ -42,7 +42,7 @@ mapping "aws_sns_topic" {
   sqs_success_feedback_role_arn            = any
   sqs_success_feedback_sample_rate         = any
   sqs_failure_feedback_role_arn            = any
-  tags                                     = listmap(TagList, TagKey, TagValue)
+  tags                                     = map(TagList, TagKey, TagValue)
 }
 
 mapping "aws_sns_topic_policy" {

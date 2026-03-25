@@ -8,5 +8,5 @@ mapping "aws_kinesis_analytics_application" {
   inputs                     = Inputs
   outputs                    = Outputs
   reference_data_sources     = ReferenceDataSource
-  tags                       = listmap(Tags, TagKey, TagValue)
+  tags                       = map(Tags, TagKey, TagValue)
 }

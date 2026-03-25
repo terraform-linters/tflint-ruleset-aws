@@ -9,7 +9,7 @@ mapping "aws_quicksight_data_source" {
   credentials = DataSourceCredentials
   permission = ResourcePermissionList
   ssl_properties = SslProperties
-  tags = listmap(TagList, TagKey, TagValue)
+  tags = map(TagList, TagKey, TagValue)
   vpc_connection_properties = VpcConnectionProperties
 }
 

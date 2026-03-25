@@ -85,7 +85,7 @@ func TestBuildEvalContext(t *testing.T) {
 	}
 
 	// Check that expected functions are registered
-	expectedFuncs := []string{"uppercase", "replace", "listmap"}
+	expectedFuncs := []string{"uppercase", "replace", "map"}
 	for _, name := range expectedFuncs {
 		if _, ok := ctx.Functions[name]; !ok {
 			t.Errorf("buildEvalContext() missing function %q", name)

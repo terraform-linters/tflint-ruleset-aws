@@ -17,6 +17,7 @@ type AwsCodestarconnectionsConnectionInvalidTagsRule struct {
 
 	resourceType  string
 	attributeName string
+	itemsMax      int
 	keyMax        int
 	keyMin        int
 	keyPattern    *regexp.Regexp
@@ -29,6 +30,7 @@ func NewAwsCodestarconnectionsConnectionInvalidTagsRule() *AwsCodestarconnection
 	return &AwsCodestarconnectionsConnectionInvalidTagsRule{
 		resourceType:  "aws_codestarconnections_connection",
 		attributeName: "tags",
+		itemsMax:      200,
 		keyMax:        128,
 		keyMin:        1,
 		keyPattern:    regexp.MustCompile(`^.*$`),
@@ -77,6 +79,13 @@ func (r *AwsCodestarconnectionsConnectionInvalidTagsRule) Check(runner tflint.Ru
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
+			if len(val) > r.itemsMax {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf("too many tags: %d exceeds the maximum of 200", len(val)),
+					attribute.Expr.Range(),
+				)
+			}
 			for k, v := range val {
 				if len(k) > r.keyMax {
 					runner.EmitIssue(

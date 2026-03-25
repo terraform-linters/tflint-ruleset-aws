@@ -16,6 +16,7 @@ type AwsKinesisanalyticsv2ApplicationInvalidTagsRule struct {
 
 	resourceType  string
 	attributeName string
+	itemsMax      int
 	keyMax        int
 	keyMin        int
 	valueMax      int
@@ -26,6 +27,7 @@ func NewAwsKinesisanalyticsv2ApplicationInvalidTagsRule() *AwsKinesisanalyticsv2
 	return &AwsKinesisanalyticsv2ApplicationInvalidTagsRule{
 		resourceType:  "aws_kinesisanalyticsv2_application",
 		attributeName: "tags",
+		itemsMax:      200,
 		keyMax:        128,
 		keyMin:        1,
 		valueMax:      256,
@@ -72,6 +74,13 @@ func (r *AwsKinesisanalyticsv2ApplicationInvalidTagsRule) Check(runner tflint.Ru
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
+			if len(val) > r.itemsMax {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf("too many tags: %d exceeds the maximum of 200", len(val)),
+					attribute.Expr.Range(),
+				)
+			}
 			for k, v := range val {
 				if len(k) > r.keyMax {
 					runner.EmitIssue(

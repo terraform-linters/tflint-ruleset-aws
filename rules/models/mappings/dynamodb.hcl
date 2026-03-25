@@ -23,7 +23,7 @@ mapping "aws_dynamodb_table" {
   stream_enabled         = StreamEnabled
   stream_view_type       = any # StreamViewType
   server_side_encryption = SSESpecification
-  tags                   = listmap(TagList, TagKeyString, TagValueString)
+  tags                   = map(TagList, TagKeyString, TagValueString)
   point_in_time_recovery = PointInTimeRecoverySpecification
 }
 

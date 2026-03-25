@@ -5,7 +5,7 @@ mapping "aws_devicefarm_device_pool" {
   project_arn = AmazonResourceName
   rule = Rules
   description = Message
-  tags = listmap(TagList, TagKey, TagValue)
+  tags = map(TagList, TagKey, TagValue)
 }
     
 mapping "aws_devicefarm_network_profile" {
@@ -15,7 +15,7 @@ mapping "aws_devicefarm_network_profile" {
   uplink_loss_percent = PercentInteger
   project_arn = AmazonResourceName
   type = NetworkProfileType
-  tags = listmap(TagList, TagKey, TagValue)
+  tags = map(TagList, TagKey, TagValue)
 }
 
 mapping "aws_devicefarm_project" {

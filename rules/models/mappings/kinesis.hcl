@@ -8,5 +8,5 @@ mapping "aws_kinesis_stream" {
   enforce_consumer_deletion = BooleanObject
   encryption_type           = EncryptionType
   kms_key_id                = KeyId
-  tags                      = listmap(TagList, TagKey, TagValue)
+  tags                      = map(TagList, TagKey, TagValue)
 }

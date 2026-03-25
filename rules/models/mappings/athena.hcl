@@ -16,5 +16,5 @@ mapping "aws_athena_workgroup" {
   configuration = WorkGroupConfiguration
   description   = WorkGroupDescriptionString
   state         = WorkGroupState
-  tags          = listmap(TagList, TagKey, TagValue)
+  tags          = map(TagList, TagKey, TagValue)
 }

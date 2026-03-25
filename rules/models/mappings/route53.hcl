@@ -23,7 +23,7 @@ mapping "aws_route53_health_check" {
   cloudwatch_alarm_region         = CloudWatchRegion
   insufficient_data_health_status = InsufficientDataHealthStatus
   regions                         = HealthCheckRegionList
-  tags                            = listmap(TagList, TagKey, TagValue)
+  tags                            = map(TagList, TagKey, TagValue)
 }
 
 mapping "aws_route53_query_log" {
@@ -53,7 +53,7 @@ mapping "aws_route53_zone" {
   comment           = ResourceDescription
   delegation_set_id = ResourceId
   force_destroy     = any
-  tags              = listmap(TagList, TagKey, TagValue)
+  tags              = map(TagList, TagKey, TagValue)
   vpc               = VPC
 }
 

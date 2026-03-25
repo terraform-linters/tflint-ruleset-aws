@@ -17,6 +17,7 @@ type AwsFsxLustreFileSystemInvalidTagsRule struct {
 
 	resourceType  string
 	attributeName string
+	itemsMax      int
 	keyMax        int
 	keyMin        int
 	keyPattern    *regexp.Regexp
@@ -29,6 +30,7 @@ func NewAwsFsxLustreFileSystemInvalidTagsRule() *AwsFsxLustreFileSystemInvalidTa
 	return &AwsFsxLustreFileSystemInvalidTagsRule{
 		resourceType:  "aws_fsx_lustre_file_system",
 		attributeName: "tags",
+		itemsMax:      50,
 		keyMax:        128,
 		keyMin:        1,
 		keyPattern:    regexp.MustCompile(`^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$`),
@@ -77,6 +79,13 @@ func (r *AwsFsxLustreFileSystemInvalidTagsRule) Check(runner tflint.Runner) erro
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
+			if len(val) > r.itemsMax {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf("too many tags: %d exceeds the maximum of 50", len(val)),
+					attribute.Expr.Range(),
+				)
+			}
 			for k, v := range val {
 				if len(k) > r.keyMax {
 					runner.EmitIssue(

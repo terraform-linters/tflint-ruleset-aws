@@ -99,7 +99,11 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		shapes := api["shapes"].(map[string]interface{})
+		shapes, ok := api["shapes"].(map[string]interface{})
+		if !ok {
+			fmt.Fprintf(os.Stderr, "Error: %s has no valid \"shapes\" key\n", mappingFile.Import)
+			os.Exit(1)
+		}
 
 		evalCtx := buildEvalContext(shapes)
 
@@ -114,16 +118,16 @@ func main() {
 					os.Exit(1)
 				}
 
-				// Check if result is a listmap (fully resolved constraints)
-				if result.Type().Equals(listmapResultType) {
+				// Check if result is a map (fully resolved constraints)
+				if result.Type().Equals(mapResultType) {
 					schema, err := fetchSchemaForMap(mapping.Resource, attribute, awsProvider)
 					if err != nil {
 						fmt.Fprintf(os.Stderr, "Error processing `%s.%s`: %v\n", mapping.Resource, attribute, err)
 						os.Exit(1)
 					}
 
-					fmt.Printf("Generating listmap rule for `%s.%s`\n", mapping.Resource, attribute)
-					if generateListmapRuleFile(mapping.Resource, attribute, result, schema) {
+					fmt.Printf("Generating map rule for `%s.%s`\n", mapping.Resource, attribute)
+					if generateMapRuleFromShapes(mapping.Resource, attribute, result, schema) {
 						generatedRules = append(generatedRules, makeRuleName(mapping.Resource, attribute))
 					}
 					continue
@@ -141,12 +145,7 @@ func main() {
 					continue
 				}
 
-				// Convert shape object back to model format for existing code paths
 				model := shapeToModel(result)
-				if model == nil {
-					fmt.Printf("Shape %q has no constraints, skipping\n", shapeName)
-					continue
-				}
 
 				schema, err := fetchSchema(mapping.Resource, attribute, model, awsProvider)
 				if err != nil {
@@ -195,7 +194,11 @@ func fetchSchema(resource, attribute string, model map[string]interface{}, provi
 		}
 	}
 
-	switch model["type"].(string) {
+	modelType, ok := model["type"].(string)
+	if !ok {
+		return nil, fmt.Errorf("`%s.%s` model has no type field", resource, attribute)
+	}
+	switch modelType {
 	case "string":
 		if attrSchema != nil {
 			ty := attrSchema.AttributeType.FriendlyName()
@@ -234,7 +237,7 @@ func validMapping(model map[string]interface{}) bool {
 		if _, ok := model["max"]; ok {
 			return true
 		}
-		if min, ok := model["min"]; ok && int(min.(float64)) > 2 {
+		if fetchNumber(model, "min") > 2 {
 			return true
 		}
 		if _, ok := model["pattern"]; ok {
@@ -358,6 +361,7 @@ func extractServiceNamespace(shapes map[string]interface{}) string {
 			}
 		}
 	}
+	fmt.Fprintf(os.Stderr, "Warning: no service shape found, namespace-qualified lookups will not work\n")
 	return ""
 }
 
@@ -369,11 +373,13 @@ func convertSmithyShape(rawShape map[string]interface{}) map[string]interface{} 
 	// Parse the raw shape into typed struct
 	shapeBytes, err := json.Marshal(rawShape)
 	if err != nil {
+		fmt.Fprintf(os.Stderr, "Warning: failed to marshal shape: %v\n", err)
 		return result
 	}
 
 	var shape smithyShape
 	if err := json.Unmarshal(shapeBytes, &shape); err != nil {
+		fmt.Fprintf(os.Stderr, "Warning: failed to unmarshal shape: %v\n", err)
 		return result
 	}
 
@@ -381,15 +387,20 @@ func convertSmithyShape(rawShape map[string]interface{}) map[string]interface{} 
 
 	// Extract length constraints from traits
 	if lengthData, ok := shape.Traits["smithy.api#length"]; ok {
-		lengthBytes, _ := json.Marshal(lengthData)
+		lengthBytes, err := json.Marshal(lengthData)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Warning: failed to marshal length trait: %v\n", err)
+		}
 		var length smithyLengthTrait
-		if json.Unmarshal(lengthBytes, &length) == nil {
+		if err := json.Unmarshal(lengthBytes, &length); err == nil {
 			if length.Min != nil {
 				result["min"] = *length.Min
 			}
 			if length.Max != nil {
 				result["max"] = *length.Max
 			}
+		} else {
+			fmt.Fprintf(os.Stderr, "Warning: failed to parse length trait: %v\n", err)
 		}
 	}
 
@@ -400,15 +411,20 @@ func convertSmithyShape(rawShape map[string]interface{}) map[string]interface{} 
 
 	// Extract enum as trait (older Smithy style)
 	if enumData, ok := shape.Traits["smithy.api#enum"]; ok {
-		enumBytes, _ := json.Marshal(enumData)
+		enumBytes, err := json.Marshal(enumData)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Warning: failed to marshal enum trait: %v\n", err)
+		}
 		var enumItems []smithyEnumItem
-		if json.Unmarshal(enumBytes, &enumItems) == nil {
+		if err := json.Unmarshal(enumBytes, &enumItems); err == nil {
 			enumValues := make([]string, 0, len(enumItems))
 			for _, item := range enumItems {
 				enumValues = append(enumValues, item.Value)
 			}
 			sort.Strings(enumValues)
 			result["enum"] = enumValues
+		} else {
+			fmt.Fprintf(os.Stderr, "Warning: failed to parse enum trait: %v\n", err)
 		}
 	}
 
@@ -470,7 +486,7 @@ func stringsToCtyList(values []string) cty.Value {
 // Available Functions:
 //   - uppercase(shape) - Transforms enum values to uppercase
 //   - replace(shape, old, new) - Replaces substrings in enum values
-//   - listmap(list, key, value) - Combines three shapes for map validation
+//   - map(items, key, value) - Combines three shapes for map validation
 //
 // Usage Examples in mappings/*.hcl:
 //   compression_type = uppercase(CompressionTypeValue)
@@ -479,7 +495,7 @@ func stringsToCtyList(values []string) cty.Value {
 //   encryption_mode = uppercase(replace(EncryptionModeValue, "-", "_"))
 //     -> Chains transforms on shape's enum values
 //
-//   tags = listmap(TagList, TagKey, TagValue)
+//   tags = map(TagList, TagKey, TagValue)
 //     -> Combines constraints from three shapes for tag validation
 
 // shapeType is the cty object type for shape variables.
@@ -493,20 +509,12 @@ var shapeType = cty.Object(map[string]cty.Type{
 	"enum":    cty.List(cty.String),
 })
 
-// listmapResultType is the cty object type returned by the listmap function.
-// Contains fully resolved constraints from list, key, and value shapes.
-var listmapResultType = cty.Object(map[string]cty.Type{
-	"type":         cty.String, // "listmap" marker
-	"itemsMin":     cty.Number,
-	"itemsMax":     cty.Number,
-	"keyPattern":   cty.String,
-	"keyMin":       cty.Number,
-	"keyMax":       cty.Number,
-	"keyEnum":      cty.List(cty.String),
-	"valuePattern": cty.String,
-	"valueMin":     cty.Number,
-	"valueMax":     cty.Number,
-	"valueEnum":    cty.List(cty.String),
+// mapResultType is the cty object type returned by the map function.
+// Composes three shape objects for items, key, and value constraints.
+var mapResultType = cty.Object(map[string]cty.Type{
+	"items": shapeType,
+	"key":   shapeType,
+	"value": shapeType,
 })
 
 // buildEvalContext creates an HCL evaluation context with transform functions
@@ -530,7 +538,7 @@ func buildEvalContext(shapes map[string]interface{}) *hcl.EvalContext {
 		Functions: map[string]function.Function{
 			"uppercase": makeShapeTransformFunction(stdlib.UpperFunc),
 			"replace":   makeShapeTransformFunction(stdlib.ReplaceFunc),
-			"listmap":   makeListmapFunction(),
+			"map":       makeMapFunction(),
 		},
 		Variables: variables,
 	}
@@ -697,33 +705,21 @@ func makeShapeTransformFunction(strFunc function.Function) function.Function {
 	})
 }
 
-// makeListmapFunction creates the listmap(list, key, value) function.
-// It takes three shape objects and combines their constraints into a resolved result.
-func makeListmapFunction() function.Function {
+// makeMapFunction creates the map(items, key, value) function.
+// It takes three shape objects and wraps them into a map result.
+func makeMapFunction() function.Function {
 	return function.New(&function.Spec{
 		Params: []function.Parameter{
-			{Name: "list", Type: shapeType},
+			{Name: "items", Type: shapeType},
 			{Name: "key", Type: shapeType},
 			{Name: "value", Type: shapeType},
 		},
-		Type: function.StaticReturnType(listmapResultType),
+		Type: function.StaticReturnType(mapResultType),
 		Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
-			listShape := args[0]
-			keyShape := args[1]
-			valueShape := args[2]
-
 			return cty.ObjectVal(map[string]cty.Value{
-				"type":         cty.StringVal("listmap"),
-				"itemsMin":     listShape.GetAttr("min"),
-				"itemsMax":     listShape.GetAttr("max"),
-				"keyPattern":   keyShape.GetAttr("pattern"),
-				"keyMin":       keyShape.GetAttr("min"),
-				"keyMax":       keyShape.GetAttr("max"),
-				"keyEnum":      keyShape.GetAttr("enum"),
-				"valuePattern": valueShape.GetAttr("pattern"),
-				"valueMin":     valueShape.GetAttr("min"),
-				"valueMax":     valueShape.GetAttr("max"),
-				"valueEnum":    valueShape.GetAttr("enum"),
+				"items": args[0],
+				"key":   args[1],
+				"value": args[2],
 			}), nil
 		},
 	})
