@@ -1,4 +1,4 @@
-package utils
+package genutils
 
 import (
 	"encoding/json"

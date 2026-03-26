@@ -49,7 +49,6 @@ These rules warn of possible errors that can occur at `terraform apply`. Rules m
 |[aws_route_not_specified_target](aws_route_not_specified_target.md)|Disallow routes that have no targets||✔|
 |[aws_route_specified_multiple_targets](aws_route_specified_multiple_targets.md)|Disallow routes that have multiple targets||✔|
 |aws_s3_bucket_invalid_acl|Disallow invalid ACL rule for S3 bucket||✔|
-|aws_s3_bucket_invalid_region|Disallow invalid region for S3 bucket||✔|
 |aws_spot_fleet_request_invalid_excess_capacity_termination_policy|Disallow invalid excess capacity termination policy||✔|
 |[aws_security_group_invalid_protocol](aws_security_group_invalid_protocol.md)|Disallow using invalid protocol||✔|
 |[aws_security_group_rule_invalid_protocol](aws_security_group_rule_invalid_protocol.md)|Disallow using invalid protocol||✔|

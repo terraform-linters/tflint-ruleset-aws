@@ -17,7 +17,7 @@ import (
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/function"
 	"github.com/zclconf/go-cty/cty/function/stdlib"
-	utils "github.com/terraform-linters/tflint-ruleset-aws/rules/generator-utils"
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/genutils"
 )
 
 type mappingFile struct {
@@ -85,8 +85,9 @@ func main() {
 		mappingFiles = append(mappingFiles, mf)
 	}
 
-	awsProvider := utils.LoadProviderSchema("../../tools/provider-schema/schema.json")
+	awsProvider := genutils.LoadProviderSchema("../../tools/provider-schema/schema.json")
 
+	var generatedFiles []string
 	var generatedRules []string
 	for _, mappingFile := range mappingFiles {
 		raw, err := os.ReadFile(mappingFile.Import)
@@ -126,9 +127,11 @@ func main() {
 						os.Exit(1)
 					}
 
+					mapRuleName := makeRuleName(mapping.Resource, attribute)
 					fmt.Printf("Generating map rule for `%s.%s`\n", mapping.Resource, attribute)
 					if generateMapRuleFromShapes(mapping.Resource, attribute, result, schema) {
-						generatedRules = append(generatedRules, makeRuleName(mapping.Resource, attribute))
+						generatedFiles = append(generatedFiles, fmt.Sprintf("%s.go", mapRuleName))
+						generatedRules = append(generatedRules, mapRuleName)
 					}
 					continue
 				}
@@ -153,22 +156,27 @@ func main() {
 					os.Exit(1)
 				}
 				if validMapping(model) {
+					ruleName := makeRuleName(mapping.Resource, attribute)
 					fmt.Printf("Generating rule for `%s.%s`\n", mapping.Resource, attribute)
 					generateRuleFile(mapping.Resource, attribute, model, schema)
+					generatedFiles = append(generatedFiles, fmt.Sprintf("%s.go", ruleName))
 					for _, test := range mappingFile.Tests {
 						if mapping.Resource == test.Resource && attribute == test.Attribute {
 							generateRuleTestFile(mapping.Resource, attribute, model, test)
+							generatedFiles = append(generatedFiles, fmt.Sprintf("%s_test.go", ruleName))
 						}
 					}
-					generatedRules = append(generatedRules, makeRuleName(mapping.Resource, attribute))
+					generatedRules = append(generatedRules, ruleName)
 				} else {
 					// Try traversing to find map constraints (only works for Smithy map types)
 					keyModel, valueModel := traverseToMapConstraints(shapes, shapeName)
 					if keyModel != nil && valueModel != nil {
 						if validMapping(keyModel) || validMapping(valueModel) {
+							mapRuleName := makeRuleName(mapping.Resource, attribute)
 							fmt.Printf("Generating map rule for `%s.%s`\n", mapping.Resource, attribute)
 							if generateMapRuleFile(mapping.Resource, attribute, nil, keyModel, valueModel, schema) {
-								generatedRules = append(generatedRules, makeRuleName(mapping.Resource, attribute))
+								generatedFiles = append(generatedFiles, fmt.Sprintf("%s.go", mapRuleName))
+								generatedRules = append(generatedRules, mapRuleName)
 							}
 						}
 					}
@@ -179,7 +187,9 @@ func main() {
 
 	sort.Strings(generatedRules)
 	generateProviderFile(generatedRules)
+	generatedFiles = append(generatedFiles, "provider.go")
 	generateDocFile(generatedRules)
+	genutils.CleanDir(".", generatedFiles)
 }
 
 func fetchSchema(resource, attribute string, model map[string]interface{}, provider *tfjson.ProviderSchema) (*tfjson.SchemaAttribute, error) {

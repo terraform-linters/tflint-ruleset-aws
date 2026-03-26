@@ -1,9 +1,14 @@
-package utils
+package genutils
 
 import (
 	"fmt"
+	"go/ast"
+	"go/parser"
+	"go/token"
 	"os"
+	"path/filepath"
 	"regexp"
+	"slices"
 	"strings"
 	"text/template"
 )
@@ -76,4 +81,33 @@ func GenerateFile(fileName string, tmplName string, meta interface{}) {
 func GenerateFileWithLogs(fileName string, tmplName string, meta interface{}) {
 	GenerateFile(fileName, tmplName, meta)
 	fmt.Printf("Created: %s\n", fileName)
+}
+
+// CleanDir removes generated .go files from dir that are no longer in the
+// generated list. Only files containing "DO NOT EDIT" are considered generated.
+func CleanDir(dir string, generated []string) {
+	entries, err := filepath.Glob(filepath.Join(dir, "*.go"))
+	if err != nil {
+		panic(err)
+	}
+	for _, path := range entries {
+		if slices.Contains(generated, filepath.Base(path)) {
+			continue
+		}
+		if !isGenerated(path) {
+			continue
+		}
+		fmt.Printf("Removing stale file: %s\n", path)
+		if err := os.Remove(path); err != nil {
+			panic(err)
+		}
+	}
+}
+
+func isGenerated(path string) bool {
+	f, err := parser.ParseFile(token.NewFileSet(), path, nil, parser.ParseComments|parser.PackageClauseOnly)
+	if err != nil {
+		panic(err)
+	}
+	return ast.IsGenerated(f)
 }

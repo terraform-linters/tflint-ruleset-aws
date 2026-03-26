@@ -49,7 +49,6 @@ These rules warn of possible errors that can occur at `terraform apply`. Rules m
 |[aws_route_not_specified_target](aws_route_not_specified_target.md)|Disallow routes that have no targets||✔|
 |[aws_route_specified_multiple_targets](aws_route_specified_multiple_targets.md)|Disallow routes that have multiple targets||✔|
 |aws_s3_bucket_invalid_acl|Disallow invalid ACL rule for S3 bucket||✔|
-|aws_s3_bucket_invalid_region|Disallow invalid region for S3 bucket||✔|
 |aws_spot_fleet_request_invalid_excess_capacity_termination_policy|Disallow invalid excess capacity termination policy||✔|
 |[aws_security_group_invalid_protocol](aws_security_group_invalid_protocol.md)|Disallow using invalid protocol||✔|
 |[aws_security_group_rule_invalid_protocol](aws_security_group_rule_invalid_protocol.md)|Disallow using invalid protocol||✔|
@@ -684,14 +683,6 @@ These rules enforce best practices and naming conventions:
 |aws_elasticsearch_domain_invalid_tags|✔|
 |aws_elasticsearch_domain_policy_invalid_domain_name|✔|
 |aws_elasticsearch_domain_saml_options_invalid_domain_name|✔|
-|aws_elastictranscoder_pipeline_invalid_aws_kms_key_arn|✔|
-|aws_elastictranscoder_pipeline_invalid_input_bucket|✔|
-|aws_elastictranscoder_pipeline_invalid_name|✔|
-|aws_elastictranscoder_pipeline_invalid_output_bucket|✔|
-|aws_elastictranscoder_pipeline_invalid_role|✔|
-|aws_elastictranscoder_preset_invalid_container|✔|
-|aws_elastictranscoder_preset_invalid_description|✔|
-|aws_elastictranscoder_preset_invalid_name|✔|
 |aws_elb_invalid_tags|✔|
 |aws_emr_cluster_invalid_scale_down_behavior|✔|
 |aws_emr_studio_invalid_auth_mode|✔|

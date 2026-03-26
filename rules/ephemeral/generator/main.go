@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	tfjson "github.com/hashicorp/terraform-json"
-	utils "github.com/terraform-linters/tflint-ruleset-aws/rules/generator-utils"
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/genutils"
 )
 
 type writeOnlyArgument struct {
@@ -15,7 +15,9 @@ type writeOnlyArgument struct {
 }
 
 func main() {
-	awsProvider := utils.LoadProviderSchema("../../tools/provider-schema/schema.json")
+	awsProvider := genutils.LoadProviderSchema("../../tools/provider-schema/schema.json")
+
+	var generatedFiles []string
 
 	resourcesWithWriteOnly := map[string][]writeOnlyArgument{}
 	// Iterate over all resources in the AWS provider schema
@@ -27,7 +29,8 @@ func main() {
 	}
 
 	// Generate the write-only arguments variable
-	utils.GenerateFile("../../rules/ephemeral/write_only_arguments_gen.go", "../../rules/ephemeral/write_only_arguments_gen.go.tmpl", resourcesWithWriteOnly)
+	genutils.GenerateFile("../../rules/ephemeral/write_only_arguments_gen.go", "../../rules/ephemeral/write_only_arguments_gen.go.tmpl", resourcesWithWriteOnly)
+	generatedFiles = append(generatedFiles, "write_only_arguments_gen.go")
 
 	ephemeralResourcesAsDataAlternative := []string{}
 	// Iterate over all ephemeral resources in the AWS provider schema
@@ -40,7 +43,10 @@ func main() {
 	slices.Sort(ephemeralResourcesAsDataAlternative)
 
 	// Generate the ephemeral resources variable
-	utils.GenerateFile("../../rules/ephemeral/ephemeral_resources_gen.go", "../../rules/ephemeral/ephemeral_resources_gen.go.tmpl", ephemeralResourcesAsDataAlternative)
+	genutils.GenerateFile("../../rules/ephemeral/ephemeral_resources_gen.go", "../../rules/ephemeral/ephemeral_resources_gen.go.tmpl", ephemeralResourcesAsDataAlternative)
+	generatedFiles = append(generatedFiles, "ephemeral_resources_gen.go")
+
+	genutils.CleanDir("../../rules/ephemeral", generatedFiles)
 }
 
 func findReplaceableAttribute(arguments []string, resource *tfjson.Schema) []writeOnlyArgument {

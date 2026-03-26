@@ -10,7 +10,7 @@ This ruleset focus on possible errors and best practices about AWS resources. In
 ## Requirements
 
 - TFLint v0.46+
-- Go v1.25
+- Go v1.26
 
 ## Installation
 
@@ -19,7 +19,7 @@ After configuring [TFLint](https://github.com/terraform-linters/tflint/blob/mast
 ```hcl
 plugin "aws" {
     enabled = true
-    version = "0.44.0"
+    version = "0.46.0"
     source  = "github.com/terraform-linters/tflint-ruleset-aws"
 }
 ```
