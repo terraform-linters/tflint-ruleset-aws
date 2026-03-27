@@ -36,7 +36,7 @@ var manualRules = []tflint.Rule{
 	NewAwsIAMPolicyAttachmentExclusiveAttachmentRule(),
 	NewAwsIAMPolicySidInvalidCharactersRule(),
 	NewAwsIAMPolicyTooLongPolicyRule(),
-	lambda_deprecated_runtime.NewAwsLambdaFunctionDeprecatedRuntimeRule(),
+	lambda_deprecated_runtime.NewRule(),
 	NewAwsIAMGroupPolicyTooLongRule(),
 	NewAwsAcmCertificateLifecycleRule(),
 	NewAwsElasticBeanstalkEnvironmentInvalidNameFormatRule(),

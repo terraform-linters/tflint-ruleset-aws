@@ -19,8 +19,8 @@ type AwsLambdaFunctionDeprecatedRuntimeRule struct {
 	Now time.Time
 }
 
-// NewAwsLambdaFunctionDeprecatedRuntimeRule returns new rule with default attributes
-func NewAwsLambdaFunctionDeprecatedRuntimeRule() *AwsLambdaFunctionDeprecatedRuntimeRule {
+// NewRule returns new rule with default attributes
+func NewRule() *AwsLambdaFunctionDeprecatedRuntimeRule {
 	return &AwsLambdaFunctionDeprecatedRuntimeRule{
 		resourceType:  "aws_lambda_function",
 		attributeName: "runtime",

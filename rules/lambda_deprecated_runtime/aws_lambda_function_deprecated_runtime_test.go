@@ -41,7 +41,7 @@ resource "aws_lambda_function" "function" {
 			now:  time.Date(2026, time.January, 1, 0, 0, 0, 0, time.UTC),
 			expected: helper.Issues{
 				{
-					Rule:    NewAwsLambdaFunctionDeprecatedRuntimeRule(),
+					Rule:    NewRule(),
 					Message: `The "python3.9" runtime has reached end of support`,
 					Range:   issueRange,
 				},
@@ -52,7 +52,7 @@ resource "aws_lambda_function" "function" {
 			now:  time.Date(2026, time.September, 1, 0, 0, 0, 0, time.UTC),
 			expected: helper.Issues{
 				{
-					Rule:    NewAwsLambdaFunctionDeprecatedRuntimeRule(),
+					Rule:    NewRule(),
 					Message: `The "python3.9" runtime has reached end of support and new function creation is blocked`,
 					Range:   issueRange,
 				},
@@ -63,7 +63,7 @@ resource "aws_lambda_function" "function" {
 			now:  time.Date(2026, time.October, 1, 0, 0, 0, 0, time.UTC),
 			expected: helper.Issues{
 				{
-					Rule:    NewAwsLambdaFunctionDeprecatedRuntimeRule(),
+					Rule:    NewRule(),
 					Message: `The "python3.9" runtime has reached end of support and function updates are blocked`,
 					Range:   issueRange,
 				},
@@ -71,7 +71,7 @@ resource "aws_lambda_function" "function" {
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			rule := NewAwsLambdaFunctionDeprecatedRuntimeRule()
+			rule := NewRule()
 			rule.Now = tc.now
 
 			runner := helper.TestRunner(t, map[string]string{"resource.tf": tf})
