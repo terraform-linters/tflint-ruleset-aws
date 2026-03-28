@@ -1,6 +1,8 @@
 package rules
 
 import (
+	"slices"
+
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
@@ -65,6 +67,14 @@ func (r *AwsIAMPolicyUsePolicyReference) Check(runner tflint.Runner) error {
 		// Check if the value is a reference and if so permit it.
 		if _, ok := attribute.Expr.(*hclsyntax.ScopeTraversalExpr); ok {
 			continue
+		}
+
+		// Check if the value is a call to file or templatefile and if so permit it.
+		permittedFunctions := []string{"file", "templatefile"}
+		if functionCall, ok := attribute.Expr.(*hclsyntax.FunctionCallExpr); ok {
+			if slices.Contains(permittedFunctions, functionCall.Name) {
+				continue
+			}
 		}
 
 		if err := runner.EmitIssue(r, issueMessage, attribute.Range); err != nil {

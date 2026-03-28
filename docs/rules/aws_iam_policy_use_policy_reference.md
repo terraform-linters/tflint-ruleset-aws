@@ -1,6 +1,6 @@
 # aws_iam_policy_use_policy_reference
 
-Check the source of the value for `policy` in an `aws_iam_policy` to catch values not generated from resources or data sources such as `data.aws_iam_policy_document`.
+Check the source of the value for `policy` in an `aws_iam_policy` to catch values not generated from resources or data sources such as `data.aws_iam_policy_document`. This includes function calls, except those that read from files (`file` and `templatefile`).
 
 ## Configuration
 

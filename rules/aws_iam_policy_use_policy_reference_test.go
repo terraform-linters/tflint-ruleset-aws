@@ -73,6 +73,27 @@ resource "aws_iam_policy" "policy" {
 `,
 			Expected: helper.Issues{},
 		},
+		{
+			Name: "policy uses file call",
+			Content: `
+resource "aws_iam_policy" "policy" {
+	name   = "test_policy"
+	policy = file("path/to/policy.json")
+}
+`,
+			Expected: helper.Issues{},
+		},
+
+		{
+			Name: "policy uses templatefile call",
+			Content: `
+resource "aws_iam_policy" "policy" {
+	name   = "test_policy"
+	policy = templatefile("path/to/policy.json.tmpl")
+}
+`,
+			Expected: helper.Issues{},
+		},
 	}
 
 	rule := NewAwsIAMPolicyUsePolicyReferenceRule()
