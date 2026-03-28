@@ -10,7 +10,12 @@ updates:
       patterns:
         - "github.com/aws/aws-sdk-go-v2"
         - "github.com/aws/aws-sdk-go-v2/*"
+  cooldown:
+    default-days: 5
+
 - package-ecosystem: "github-actions"
   directory: "/"
   schedule:
     interval: weekly
+  cooldown:
+    default-days: 5
