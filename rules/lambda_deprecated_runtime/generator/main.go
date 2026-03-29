@@ -7,12 +7,16 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"sort"
 	"strings"
 	"time"
 
 	"golang.org/x/net/html"
 )
+
+type output struct {
+	UpdatedAt time.Time                `json:"updated_at"`
+	Runtimes  map[string]runtimeEntry  `json:"runtimes"`
+}
 
 type runtimeEntry struct {
 	EndOfSupportDate time.Time  `json:"end_of_support_date"`
@@ -36,18 +40,10 @@ func main() {
 		panic("no runtimes found on page")
 	}
 
-	identifiers := make([]string, 0, len(entries))
-	for id := range entries {
-		identifiers = append(identifiers, id)
-	}
-	sort.Strings(identifiers)
-
-	ordered := make(map[string]runtimeEntry, len(entries))
-	for _, id := range identifiers {
-		ordered[id] = entries[id]
-	}
-
-	data, err := json.MarshalIndent(ordered, "", "  ")
+	data, err := json.MarshalIndent(output{
+		UpdatedAt: time.Now().UTC().Truncate(24 * time.Hour),
+		Runtimes:  entries,
+	}, "", "  ")
 	if err != nil {
 		panic(fmt.Sprintf("marshaling JSON: %s", err))
 	}
@@ -63,11 +59,9 @@ func parseRuntimes(z *html.Tokenizer) map[string]runtimeEntry {
 	entries := map[string]runtimeEntry{}
 	var buf strings.Builder
 	var cells []string
-	inDeprecated := false
 	isHeader := false
 	const (
 		scanning = iota
-		inHeading
 		inTable
 		inCell
 	)
@@ -80,9 +74,6 @@ func parseRuntimes(z *html.Tokenizer) map[string]runtimeEntry {
 		case html.StartTagToken:
 			tn, _ := z.TagName()
 			switch string(tn) {
-			case "h2", "h3":
-				state = inHeading
-				buf.Reset()
 			case "table":
 				state = inTable
 			case "tr":
@@ -97,14 +88,11 @@ func parseRuntimes(z *html.Tokenizer) map[string]runtimeEntry {
 		case html.EndTagToken:
 			tn, _ := z.TagName()
 			switch string(tn) {
-			case "h2", "h3":
-				inDeprecated = strings.Contains(strings.ToLower(buf.String()), "deprecated")
-				state = scanning
 			case "th", "td":
 				cells = append(cells, strings.TrimSpace(buf.String()))
 				state = inTable
 			case "tr":
-				if inDeprecated && !isHeader {
+				if !isHeader {
 					if id, entry, ok := parseRow(cells); ok {
 						entries[id] = entry
 					}
@@ -113,7 +101,7 @@ func parseRuntimes(z *html.Tokenizer) map[string]runtimeEntry {
 				state = scanning
 			}
 		case html.TextToken:
-			if state == inCell || state == inHeading {
+			if state == inCell {
 				buf.Write(z.Text())
 			}
 		}
