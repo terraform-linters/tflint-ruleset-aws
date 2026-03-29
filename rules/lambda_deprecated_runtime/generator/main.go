@@ -41,7 +41,7 @@ func main() {
 	}
 
 	data, err := json.MarshalIndent(output{
-		UpdatedAt: time.Now().UTC().Truncate(24 * time.Hour),
+		UpdatedAt: time.Now().UTC(),
 		Runtimes:  entries,
 	}, "", "  ")
 	if err != nil {
