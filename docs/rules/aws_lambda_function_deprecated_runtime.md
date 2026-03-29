@@ -1,8 +1,6 @@
 # aws_lambda_function_deprecated_runtime
 
-Checks to see if a lambda function has been set with a runtime that has reached end of support or is approaching a deprecation milestone (function creation blocked, function updates blocked).
-
-Runtime lifecycle data is generated from the [AWS Lambda runtimes documentation](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html). Dates that were in the future at generation time are speculative and noted as such in the warning message.
+Checks to see if a lambda function uses a runtime that has reached end of support. Runtime lifecycle data is generated from the [AWS Lambda runtimes documentation](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html).
 
 ## Example
 
@@ -25,29 +23,15 @@ Warning: The "python2.7" runtime has reached end of support and function updates
 
 ```
 
+The message reflects which deprecation phase the runtime is in. When a date had not yet passed at the time the rule data was last generated, the message notes the scheduled date and when the data was last updated:
+
+```
+Warning: The "nodejs22.x" runtime was scheduled to reach end of support on Apr 30, 2027 (as of Mar 29, 2026) (aws_lambda_function_deprecated_runtime)
+```
+
 ## Why
 
-AWS deprecates Lambda runtimes in phases:
-
-1. **End of support** — the runtime no longer receives security patches
-2. **Block function create** — new functions cannot be created with this runtime
-3. **Block function update** — existing functions cannot be updated
-
-The warning message reflects which phase the runtime is in:
-
-**Confirmed** (date had already passed when data was last generated):
-
-- `The "python2.7" runtime has reached end of support`
-- `The "python2.7" runtime has reached end of support and new function creation is blocked`
-- `The "python2.7" runtime has reached end of support and function updates are blocked`
-
-**Speculative** (date was still in the future when data was last generated):
-
-- `The "nodejs22.x" runtime was scheduled to reach end of support on Apr 30, 2027 (as of Mar 29, 2026)`
-- `The "python3.9" runtime has reached end of support and new function creation was scheduled to be blocked on Aug 31, 2026 (as of Mar 29, 2026)`
-- `The "python3.9" runtime has reached end of support and function updates were scheduled to be blocked on Sep 30, 2026 (as of Mar 29, 2026)`
-
-Speculative messages include the scheduled date and when the data was last updated so you can judge whether to act on them or add a `tflint-ignore` comment.
+AWS deprecates Lambda runtimes in phases: end of support (no more security patches), then blocking new function creation, then blocking function updates.
 
 ## How To Fix
 
