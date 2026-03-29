@@ -20,8 +20,8 @@ type runtimeLifecycle struct {
 }
 
 type runtimesData struct {
-	UpdatedAt time.Time                    `json:"updated_at"`
-	Runtimes  map[string]runtimeLifecycle  `json:"runtimes"`
+	UpdatedAt time.Time                   `json:"updated_at"`
+	Runtimes  map[string]runtimeLifecycle `json:"runtimes"`
 }
 
 var runtimes runtimesData
