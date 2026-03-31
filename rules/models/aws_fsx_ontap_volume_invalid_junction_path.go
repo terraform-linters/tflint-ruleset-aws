@@ -72,7 +72,7 @@ func (r *AwsFsxOntapVolumeInvalidJunctionPathRule) Check(runner tflint.Runner) e
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,

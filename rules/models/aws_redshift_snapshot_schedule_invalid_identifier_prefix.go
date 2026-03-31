@@ -14,7 +14,6 @@ type AwsRedshiftSnapshotScheduleInvalidIdentifierPrefixRule struct {
 
 	resourceType  string
 	attributeName string
-	max           int
 }
 
 // NewAwsRedshiftSnapshotScheduleInvalidIdentifierPrefixRule returns new rule with default attributes
@@ -22,7 +21,6 @@ func NewAwsRedshiftSnapshotScheduleInvalidIdentifierPrefixRule() *AwsRedshiftSna
 	return &AwsRedshiftSnapshotScheduleInvalidIdentifierPrefixRule{
 		resourceType:  "aws_redshift_snapshot_schedule",
 		attributeName: "identifier_prefix",
-		max:           2147483647,
 	}
 }
 
@@ -65,14 +63,7 @@ func (r *AwsRedshiftSnapshotScheduleInvalidIdentifierPrefixRule) Check(runner tf
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
-			if len(val) > r.max {
-				runner.EmitIssue(
-					r,
-					"identifier_prefix must be 2147483647 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			return nil
 		}, nil)
 		if err != nil {

@@ -29,7 +29,7 @@ func NewAwsEcrPullThroughCacheRuleInvalidEcrRepositoryPrefixRule() *AwsEcrPullTh
 		attributeName: "ecr_repository_prefix",
 		max:           30,
 		min:           2,
-		pattern:       regexp.MustCompile(`^([a-z0-9]+((\.|_|__|-+)[a-z0-9]+)*(\/[a-z0-9]+((\.|_|__|-+)[a-z0-9]+)*)*\/?|ROOT)$`),
+		pattern:       regexp.MustCompile(`^((?:[a-z0-9]+(?:[._-][a-z0-9]+)*/)*[a-z0-9]+(?:[._-][a-z0-9]+)*/?|ROOT)$`),
 	}
 }
 
@@ -72,7 +72,7 @@ func (r *AwsEcrPullThroughCacheRuleInvalidEcrRepositoryPrefixRule) Check(runner 
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
@@ -90,7 +90,7 @@ func (r *AwsEcrPullThroughCacheRuleInvalidEcrRepositoryPrefixRule) Check(runner 
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^([a-z0-9]+((\.|_|__|-+)[a-z0-9]+)*(\/[a-z0-9]+((\.|_|__|-+)[a-z0-9]+)*)*\/?|ROOT)$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^((?:[a-z0-9]+(?:[._-][a-z0-9]+)*/)*[a-z0-9]+(?:[._-][a-z0-9]+)*/?|ROOT)$`),
 					attribute.Expr.Range(),
 				)
 			}

@@ -3,9 +3,6 @@
 package models
 
 import (
-	"fmt"
-	"regexp"
-
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -19,7 +16,6 @@ type AwsSagemakerImageInvalidDescriptionRule struct {
 	attributeName string
 	max           int
 	min           int
-	pattern       *regexp.Regexp
 }
 
 // NewAwsSagemakerImageInvalidDescriptionRule returns new rule with default attributes
@@ -29,7 +25,6 @@ func NewAwsSagemakerImageInvalidDescriptionRule() *AwsSagemakerImageInvalidDescr
 		attributeName: "description",
 		max:           512,
 		min:           1,
-		pattern:       regexp.MustCompile(`^.*$`),
 	}
 }
 
@@ -72,7 +67,7 @@ func (r *AwsSagemakerImageInvalidDescriptionRule) Check(runner tflint.Runner) er
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
@@ -84,13 +79,6 @@ func (r *AwsSagemakerImageInvalidDescriptionRule) Check(runner tflint.Runner) er
 				runner.EmitIssue(
 					r,
 					"description must be 1 characters or higher",
-					attribute.Expr.Range(),
-				)
-			}
-			if !r.pattern.MatchString(val) {
-				runner.EmitIssue(
-					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^.*$`),
 					attribute.Expr.Range(),
 				)
 			}

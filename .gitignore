@@ -1,2 +1,3 @@
 tools/provider-schema/.terraform/
 tflint-ruleset-aws
+/generator

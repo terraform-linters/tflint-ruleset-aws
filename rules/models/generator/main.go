@@ -14,10 +14,10 @@ import (
 	"github.com/hashicorp/hcl/v2/gohcl"
 	"github.com/hashicorp/hcl/v2/hclparse"
 	tfjson "github.com/hashicorp/terraform-json"
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/genutils"
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/function"
 	"github.com/zclconf/go-cty/cty/function/stdlib"
-	"github.com/terraform-linters/tflint-ruleset-aws/rules/genutils"
 )
 
 type mappingFile struct {
@@ -40,8 +40,8 @@ type test struct {
 
 // smithyShape represents a Smithy model shape definition.
 type smithyShape struct {
-	Type    string                 `json:"type"`
-	Traits  map[string]interface{} `json:"traits,omitempty"`
+	Type    string                  `json:"type"`
+	Traits  map[string]interface{}  `json:"traits,omitempty"`
 	Members map[string]smithyMember `json:"members,omitempty"`
 }
 
@@ -100,64 +100,55 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		shapes := api["shapes"].(map[string]interface{})
+		shapes, ok := api["shapes"].(map[string]interface{})
+		if !ok {
+			fmt.Fprintf(os.Stderr, "Error: %s has no valid \"shapes\" key\n", mappingFile.Import)
+			os.Exit(1)
+		}
 
-		evalCtx := buildEvalContext()
+		evalCtx := buildEvalContext(shapes)
 
 		for _, mapping := range mappingFile.Mappings {
 			for attribute, value := range mapping.Attrs {
 				fmt.Printf("Checking `%s.%s`\n", mapping.Resource, attribute)
 
-				// Extract shape name from the expression
-				vars := value.Expr.Variables()
-				if len(vars) == 0 {
-					continue
-				}
-				if len(vars) > 1 {
-					varNames := make([]string, len(vars))
-					for i, v := range vars {
-						varNames[i] = v.RootName()
-					}
-					fmt.Fprintf(os.Stderr, "Error: `%s.%s` expression references %d variables (%v), expected exactly 1\n",
-						mapping.Resource, attribute, len(vars), varNames)
+				// Evaluate the expression to see what type of mapping it is
+				result, diags := value.Expr.Value(evalCtx)
+				if diags.HasErrors() {
+					fmt.Fprintf(os.Stderr, "Error evaluating `%s.%s`: %v\n", mapping.Resource, attribute, diags)
 					os.Exit(1)
 				}
-				shapeName := vars[0].RootName()
+
+				// Check if result is a map (fully resolved constraints)
+				if result.Type().Equals(mapResultType) {
+					schema, err := lookupSchemaAttribute(mapping.Resource, attribute, awsProvider)
+					if err != nil {
+						fmt.Fprintf(os.Stderr, "Error processing `%s.%s`: %v\n", mapping.Resource, attribute, err)
+						os.Exit(1)
+					}
+
+					mapRuleName := makeRuleName(mapping.Resource, attribute)
+					fmt.Printf("Generating map rule for `%s.%s`\n", mapping.Resource, attribute)
+					if generateMapRuleFromShapes(mapping.Resource, attribute, result, schema) {
+						generatedFiles = append(generatedFiles, fmt.Sprintf("%s.go", mapRuleName))
+						generatedRules = append(generatedRules, mapRuleName)
+					}
+					continue
+				}
+
+				// Result should be a shape object for simple mappings
+				if !result.Type().Equals(shapeType) {
+					fmt.Fprintf(os.Stderr, "Error: `%s.%s` evaluated to unexpected type %s\n",
+						mapping.Resource, attribute, result.Type().FriendlyName())
+					os.Exit(1)
+				}
+
+				shapeName := result.GetAttr("name").AsString()
 				if shapeName == "any" {
 					continue
 				}
 
-				model := findShape(shapes, shapeName)
-				if model == nil {
-					fmt.Printf("Shape %q not found, skipping\n", shapeName)
-					continue
-				}
-
-				// Populate the eval context with this shape's enum values
-				if enumValues, ok := model["enum"].([]string); ok {
-					// Use fresh Variables map for each evaluation to avoid pollution
-					evalCtx.Variables = map[string]cty.Value{
-						shapeName: stringsToCtyList(enumValues),
-					}
-
-					// Evaluate the expression to get transformed enum values
-					result, diags := value.Expr.Value(evalCtx)
-					if !diags.HasErrors() && result.Type().IsListType() {
-						transformedEnums := make([]string, 0, result.LengthInt())
-						for it := result.ElementIterator(); it.Next(); {
-							_, val := it.Element()
-							transformedEnums = append(transformedEnums, val.AsString())
-						}
-
-						// Create a new model with transformed enums
-						transformedModel := make(map[string]interface{}, len(model))
-						for k, v := range model {
-							transformedModel[k] = v
-						}
-						transformedModel["enum"] = transformedEnums
-						model = transformedModel
-					}
-				}
+				model := shapeToModel(result)
 
 				schema, err := fetchSchema(mapping.Resource, attribute, model, awsProvider)
 				if err != nil {
@@ -176,6 +167,19 @@ func main() {
 						}
 					}
 					generatedRules = append(generatedRules, ruleName)
+				} else {
+					// Try traversing to find map constraints (only works for Smithy map types)
+					keyModel, valueModel := traverseToMapConstraints(shapes, shapeName)
+					if keyModel != nil && valueModel != nil {
+						if validMapping(keyModel) || validMapping(valueModel) {
+							mapRuleName := makeRuleName(mapping.Resource, attribute)
+							fmt.Printf("Generating map rule for `%s.%s`\n", mapping.Resource, attribute)
+							if generateMapRuleFile(mapping.Resource, attribute, nil, keyModel, valueModel, schema) {
+								generatedFiles = append(generatedFiles, fmt.Sprintf("%s.go", mapRuleName))
+								generatedRules = append(generatedRules, mapRuleName)
+							}
+						}
+					}
 				}
 			}
 		}
@@ -188,7 +192,7 @@ func main() {
 	genutils.CleanDir(".", generatedFiles)
 }
 
-func fetchSchema(resource, attribute string, model map[string]interface{}, provider *tfjson.ProviderSchema) (*tfjson.SchemaAttribute, error) {
+func lookupSchemaAttribute(resource, attribute string, provider *tfjson.ProviderSchema) (*tfjson.SchemaAttribute, error) {
 	resourceSchema, ok := provider.ResourceSchemas[resource]
 	if !ok {
 		return nil, fmt.Errorf("resource `%s` not found in the Terraform schema", resource)
@@ -199,29 +203,40 @@ func fetchSchema(resource, attribute string, model map[string]interface{}, provi
 			return nil, fmt.Errorf("`%s.%s` not found in the Terraform schema", resource, attribute)
 		}
 	}
+	return attrSchema, nil
+}
 
-	switch model["type"].(string) {
-	case "string":
-		if attrSchema != nil {
-			ty := attrSchema.AttributeType.FriendlyName()
-			if ty != "string" && ty != "number" {
-				return nil, fmt.Errorf("`%s.%s` is expected as string, but not (%s)", resource, attribute, ty)
-			}
+func fetchSchema(resource, attribute string, model map[string]interface{}, provider *tfjson.ProviderSchema) (*tfjson.SchemaAttribute, error) {
+	attrSchema, err := lookupSchemaAttribute(resource, attribute, provider)
+	if err != nil {
+		return nil, err
+	}
+
+	modelType, ok := model["type"].(string)
+	if !ok {
+		return nil, fmt.Errorf("`%s.%s` model has no type field", resource, attribute)
+	}
+	if modelType == "string" && attrSchema != nil {
+		ty := attrSchema.AttributeType.FriendlyName()
+		if ty != "string" && ty != "number" {
+			return nil, fmt.Errorf("`%s.%s` is expected as string, but not (%s)", resource, attribute, ty)
 		}
-	default:
-		// noop
 	}
 
 	return attrSchema, nil
 }
 
 func validMapping(model map[string]interface{}) bool {
-	switch model["type"].(string) {
+	modelType, ok := model["type"].(string)
+	if !ok {
+		return false
+	}
+	switch modelType {
 	case "string":
 		if _, ok := model["max"]; ok {
 			return true
 		}
-		if min, ok := model["min"]; ok && int(min.(float64)) > 2 {
+		if fetchNumber(model, "min") > 2 {
 			return true
 		}
 		if _, ok := model["pattern"]; ok {
@@ -239,12 +254,23 @@ func validMapping(model map[string]interface{}) bool {
 
 // findShape locates a shape in Smithy format with namespace-qualified lookup
 func findShape(shapes map[string]interface{}, shapeName string) map[string]interface{} {
+	raw := findRawShape(shapes, shapeName)
+	if raw == nil {
+		return nil
+	}
+	return convertSmithyShape(raw)
+}
+
+// findRawShape locates a shape without converting it (needed for traversal)
+func findRawShape(shapes map[string]interface{}, shapeName string) map[string]interface{} {
 	// Try with service namespace qualification (Smithy format)
 	serviceNamespace := extractServiceNamespace(shapes)
 	if serviceNamespace != "" {
 		qualifiedName := fmt.Sprintf("%s#%s", serviceNamespace, shapeName)
 		if shape, ok := shapes[qualifiedName]; ok {
-			return convertSmithyShape(shape.(map[string]interface{}))
+			if shapeMap, ok := shape.(map[string]interface{}); ok {
+				return shapeMap
+			}
 		}
 	}
 
@@ -258,17 +284,86 @@ func findShape(shapes map[string]interface{}, shapeName string) map[string]inter
 	return nil
 }
 
-// extractServiceNamespace extracts the namespace from the Smithy service definition
+// extractShapeName extracts the simple name from a fully qualified shape reference.
+// e.g., "com.amazonaws.ecs#TagKey" -> "TagKey"
+func extractShapeName(qualifiedName string) string {
+	if idx := strings.LastIndex(qualifiedName, "#"); idx >= 0 {
+		return qualifiedName[idx+1:]
+	}
+	return qualifiedName
+}
+
+// getTarget extracts the target shape name from a Smithy member reference.
+func getTarget(ref map[string]interface{}) string {
+	if ref == nil {
+		return ""
+	}
+	target, _ := ref["target"].(string)
+	return extractShapeName(target)
+}
+
+// traverseToMapConstraints traverses Smithy shapes to find key/value constraints.
+// Only Smithy map types have explicit key/value - structures require configuration.
+func traverseToMapConstraints(shapes map[string]interface{}, shapeName string) (keyModel, valueModel map[string]interface{}) {
+	raw := findRawShape(shapes, shapeName)
+	if raw == nil {
+		return nil, nil
+	}
+
+	shapeType, _ := raw["type"].(string)
+
+	switch shapeType {
+	case "map":
+		// Smithy map types have explicit "key" and "value" fields per the spec
+		keyRef, _ := raw["key"].(map[string]interface{})
+		valueRef, _ := raw["value"].(map[string]interface{})
+		return resolveStringPair(shapes, getTarget(keyRef), getTarget(valueRef))
+
+	case "list":
+		// Recurse into list member
+		memberRef, _ := raw["member"].(map[string]interface{})
+		if target := getTarget(memberRef); target != "" {
+			return traverseToMapConstraints(shapes, target)
+		}
+	}
+
+	// Structures and other types: no automatic key/value inference
+	return nil, nil
+}
+
+// resolveStringPair resolves two shape names to their models,
+// returning nil if either is missing or not a string type.
+func resolveStringPair(shapes map[string]interface{}, firstName, secondName string) (map[string]interface{}, map[string]interface{}) {
+	if firstName == "" || secondName == "" {
+		return nil, nil
+	}
+	first := findShape(shapes, firstName)
+	second := findShape(shapes, secondName)
+	if first == nil || second == nil {
+		return nil, nil
+	}
+	if first["type"] != "string" || second["type"] != "string" {
+		return nil, nil
+	}
+	return first, second
+}
+
+var namespaceWarned bool
+
+// extractServiceNamespace extracts the namespace from the Smithy service definition.
 func extractServiceNamespace(shapes map[string]interface{}) string {
 	for shapeName, shape := range shapes {
 		if shapeMap, ok := shape.(map[string]interface{}); ok {
 			if shapeType, ok := shapeMap["type"].(string); ok && shapeType == "service" {
-				// Extract namespace from shape name (e.g., "com.amazonaws.acmpca#ACMPrivateCA")
 				if parts := strings.Split(shapeName, "#"); len(parts) == 2 {
 					return parts[0]
 				}
 			}
 		}
+	}
+	if !namespaceWarned {
+		fmt.Fprintf(os.Stderr, "Warning: no service shape found, namespace-qualified lookups will not work\n")
+		namespaceWarned = true
 	}
 	return ""
 }
@@ -281,27 +376,34 @@ func convertSmithyShape(rawShape map[string]interface{}) map[string]interface{} 
 	// Parse the raw shape into typed struct
 	shapeBytes, err := json.Marshal(rawShape)
 	if err != nil {
-		return result
+		fmt.Fprintf(os.Stderr, "Warning: failed to marshal shape: %v\n", err)
+		return nil
 	}
 
 	var shape smithyShape
 	if err := json.Unmarshal(shapeBytes, &shape); err != nil {
-		return result
+		fmt.Fprintf(os.Stderr, "Warning: failed to unmarshal shape: %v\n", err)
+		return nil
 	}
 
 	result["type"] = shape.Type
 
 	// Extract length constraints from traits
 	if lengthData, ok := shape.Traits["smithy.api#length"]; ok {
-		lengthBytes, _ := json.Marshal(lengthData)
+		lengthBytes, err := json.Marshal(lengthData)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Warning: failed to marshal length trait: %v\n", err)
+		}
 		var length smithyLengthTrait
-		if json.Unmarshal(lengthBytes, &length) == nil {
+		if err := json.Unmarshal(lengthBytes, &length); err == nil {
 			if length.Min != nil {
 				result["min"] = *length.Min
 			}
 			if length.Max != nil {
 				result["max"] = *length.Max
 			}
+		} else {
+			fmt.Fprintf(os.Stderr, "Warning: failed to parse length trait: %v\n", err)
 		}
 	}
 
@@ -312,15 +414,20 @@ func convertSmithyShape(rawShape map[string]interface{}) map[string]interface{} 
 
 	// Extract enum as trait (older Smithy style)
 	if enumData, ok := shape.Traits["smithy.api#enum"]; ok {
-		enumBytes, _ := json.Marshal(enumData)
+		enumBytes, err := json.Marshal(enumData)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Warning: failed to marshal enum trait: %v\n", err)
+		}
 		var enumItems []smithyEnumItem
-		if json.Unmarshal(enumBytes, &enumItems) == nil {
+		if err := json.Unmarshal(enumBytes, &enumItems); err == nil {
 			enumValues := make([]string, 0, len(enumItems))
 			for _, item := range enumItems {
 				enumValues = append(enumValues, item.Value)
 			}
 			sort.Strings(enumValues)
 			result["enum"] = enumValues
+		} else {
+			fmt.Fprintf(os.Stderr, "Warning: failed to parse enum trait: %v\n", err)
 		}
 	}
 
@@ -368,62 +475,213 @@ func stringsToCtyList(values []string) cty.Value {
 // HCL Transform System
 // ====================
 //
-// The generator supports HCL function-based transforms for enum values in mapping files.
-// This allows enum values from Smithy models to be transformed to match Terraform provider
-// expectations without hardcoding transformation logic in Go.
+// The generator uses HCL expression evaluation with shape objects as variables.
+// Each Smithy shape becomes a rich cty object containing all constraint info.
+//
+// Shape Object Fields:
+//   - name: string - The shape name
+//   - type: string - The shape type (e.g., "string", "list")
+//   - pattern: string - Regex pattern constraint
+//   - min: number - Minimum length constraint
+//   - max: number - Maximum length constraint
+//   - enum: list(string) - Allowed enum values
 //
 // Available Functions:
-//   - uppercase(list) - Converts all strings in list to uppercase
-//   - replace(list, old, new) - Replaces substring in all strings
+//   - uppercase(shape) - Transforms enum values to uppercase
+//   - replace(shape, old, new) - Replaces substrings in enum values
+//   - map(items, key, value) - Combines three shapes for map validation
 //
 // Usage Examples in mappings/*.hcl:
 //   compression_type = uppercase(CompressionTypeValue)
-//     -> ["gzip", "none"] becomes ["GZIP", "NONE"]
+//     -> Transforms shape's enum values to uppercase
 //
 //   encryption_mode = uppercase(replace(EncryptionModeValue, "-", "_"))
-//     -> ["sse-kms", "sse-s3"] becomes ["SSE_KMS", "SSE_S3"]
+//     -> Chains transforms on shape's enum values
 //
-// Adding New Transform Functions:
-//   1. Add function to buildEvalContext() Functions map
-//   2. Wrap stdlib function with makeListTransformFunction()
-//   3. Example: "lowercase": makeListTransformFunction(stdlib.LowerFunc)
-//
-// Technical Details:
-//   - Transform functions operate on lists of strings (enum values)
-//   - Each expression must reference exactly one shape variable
-//   - Functions can be composed: uppercase(replace(x, "-", "_"))
-//   - HCL's native expression evaluation handles all transforms
+//   tags = map(TagList, TagKey, TagValue)
+//     -> Combines constraints from three shapes for tag validation
+
+// shapeType is the cty object type for shape variables.
+// Shapes are rich objects containing all their constraint information.
+var shapeType = cty.Object(map[string]cty.Type{
+	"name":    cty.String,
+	"type":    cty.String,
+	"pattern": cty.String,
+	"min":     cty.Number,
+	"max":     cty.Number,
+	"enum":    cty.List(cty.String),
+})
+
+// mapResultType is the cty object type returned by the map function.
+// Composes three shape objects for items, key, and value constraints.
+var mapResultType = cty.Object(map[string]cty.Type{
+	"items": shapeType,
+	"key":   shapeType,
+	"value": shapeType,
+})
 
 // buildEvalContext creates an HCL evaluation context with transform functions
-func buildEvalContext() *hcl.EvalContext {
+// and shape variables. Each shape becomes a rich object with all its constraints.
+func buildEvalContext(shapes map[string]interface{}) *hcl.EvalContext {
+	variables := make(map[string]cty.Value)
+
+	// Special value to skip validation
+	variables["any"] = makeShapeValue("any", nil)
+
+	// Populate shapes as rich objects
+	for qualifiedName := range shapes {
+		name := extractShapeName(qualifiedName)
+		if name != "" {
+			model := findShape(shapes, name)
+			variables[name] = makeShapeValue(name, model)
+		}
+	}
+
 	return &hcl.EvalContext{
 		Functions: map[string]function.Function{
-			"uppercase": makeListTransformFunction(stdlib.UpperFunc),
-			"replace":   makeListTransformFunction(stdlib.ReplaceFunc),
+			"uppercase": makeShapeTransformFunction(stdlib.UpperFunc),
+			"replace":   makeShapeTransformFunction(stdlib.ReplaceFunc),
+			"map":       makeMapFunction(),
 		},
-		Variables: make(map[string]cty.Value),
+		Variables: variables,
 	}
 }
 
-// makeListTransformFunction wraps a string transform function to work on lists of strings
-func makeListTransformFunction(strFunc function.Function) function.Function {
+// makeShapeValue creates a cty shape object from a model
+func makeShapeValue(name string, model map[string]interface{}) cty.Value {
+	typeStr := ""
+	pattern := ""
+	min := int64(0)
+	max := int64(0)
+	enumList := cty.ListValEmpty(cty.String)
+
+	if model != nil {
+		if t, ok := model["type"].(string); ok {
+			typeStr = t
+		}
+		pattern = fetchString(model, "pattern")
+		min = int64(fetchNumber(model, "min"))
+		max = int64(fetchNumber(model, "max"))
+
+		if enums := fetchStrings(model, "enum"); len(enums) > 0 {
+			vals := make([]cty.Value, len(enums))
+			for i, e := range enums {
+				vals[i] = cty.StringVal(e)
+			}
+			enumList = cty.ListVal(vals)
+		}
+	}
+
+	return cty.ObjectVal(map[string]cty.Value{
+		"name":    cty.StringVal(name),
+		"type":    cty.StringVal(typeStr),
+		"pattern": cty.StringVal(pattern),
+		"min":     cty.NumberIntVal(min),
+		"max":     cty.NumberIntVal(max),
+		"enum":    enumList,
+	})
+}
+
+// shapeToModel converts a cty shape object back to a model map for existing code paths
+func shapeToModel(shape cty.Value) map[string]interface{} {
+	model := make(map[string]interface{})
+
+	model["type"] = shape.GetAttr("type").AsString()
+
+	if pattern := shape.GetAttr("pattern").AsString(); pattern != "" {
+		model["pattern"] = pattern
+	}
+
+	minVal := shape.GetAttr("min")
+	if bf := minVal.AsBigFloat(); bf.Sign() > 0 {
+		f, _ := bf.Float64()
+		model["min"] = f
+	}
+
+	maxVal := shape.GetAttr("max")
+	if bf := maxVal.AsBigFloat(); bf.Sign() > 0 {
+		f, _ := bf.Float64()
+		model["max"] = f
+	}
+
+	enumVal := shape.GetAttr("enum")
+	if enumVal.LengthInt() > 0 {
+		enums := make([]string, 0, enumVal.LengthInt())
+		for it := enumVal.ElementIterator(); it.Next(); {
+			_, v := it.Element()
+			enums = append(enums, v.AsString())
+		}
+		model["enum"] = enums
+	}
+
+	return model
+}
+
+// makeShapeTransformFunction wraps a string transform to work on shape objects.
+// It transforms the enum values and returns a new shape with transformed enums.
+func makeShapeTransformFunction(strFunc function.Function) function.Function {
 	return function.New(&function.Spec{
 		VarParam: &function.Parameter{
 			Name: "args",
 			Type: cty.DynamicPseudoType,
 		},
 		Type: func(args []cty.Value) (cty.Type, error) {
+			if len(args) == 0 {
+				return cty.NilType, fmt.Errorf("expected at least one argument")
+			}
+			// If first arg is a shape, return a shape
+			if args[0].Type().Equals(shapeType) {
+				return shapeType, nil
+			}
+			// Otherwise return list of strings (for backwards compatibility)
 			return cty.List(cty.String), nil
 		},
 		Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
 			if len(args) == 0 {
 				return cty.NilVal, fmt.Errorf("expected at least one argument")
 			}
-			if !args[0].Type().IsListType() {
-				return cty.NilVal, fmt.Errorf("first argument must be a list")
+
+			// If first arg is a shape object, transform its enum values
+			if args[0].Type().Equals(shapeType) {
+				shape := args[0]
+				enumVal := shape.GetAttr("enum")
+
+				// If no enum values, return shape unchanged
+				if enumVal.LengthInt() == 0 {
+					return shape, nil
+				}
+
+				// Transform each enum value
+				var results []cty.Value
+				for it := enumVal.ElementIterator(); it.Next(); {
+					_, val := it.Element()
+					transformArgs := make([]cty.Value, len(args))
+					transformArgs[0] = val
+					copy(transformArgs[1:], args[1:])
+
+					result, err := strFunc.Call(transformArgs)
+					if err != nil {
+						return cty.NilVal, err
+					}
+					results = append(results, result)
+				}
+
+				// Return new shape with transformed enums
+				return cty.ObjectVal(map[string]cty.Value{
+					"name":    shape.GetAttr("name"),
+					"type":    shape.GetAttr("type"),
+					"pattern": shape.GetAttr("pattern"),
+					"min":     shape.GetAttr("min"),
+					"max":     shape.GetAttr("max"),
+					"enum":    cty.ListVal(results),
+				}), nil
 			}
 
-			// Handle empty list
+			// Legacy path: first arg is a list of strings
+			if !args[0].Type().IsListType() {
+				return cty.NilVal, fmt.Errorf("first argument must be a shape or list")
+			}
+
 			if args[0].LengthInt() == 0 {
 				return cty.ListValEmpty(cty.String), nil
 			}
@@ -431,8 +689,6 @@ func makeListTransformFunction(strFunc function.Function) function.Function {
 			var results []cty.Value
 			for it := args[0].ElementIterator(); it.Next(); {
 				_, val := it.Element()
-
-				// Build args for the string function: [element, ...other args]
 				elementArgs := make([]cty.Value, len(args))
 				elementArgs[0] = val
 				copy(elementArgs[1:], args[1:])
@@ -444,6 +700,26 @@ func makeListTransformFunction(strFunc function.Function) function.Function {
 				results = append(results, result)
 			}
 			return cty.ListVal(results), nil
+		},
+	})
+}
+
+// makeMapFunction creates the map(items, key, value) function.
+// It takes three shape objects and wraps them into a map result.
+func makeMapFunction() function.Function {
+	return function.New(&function.Spec{
+		Params: []function.Parameter{
+			{Name: "items", Type: shapeType},
+			{Name: "key", Type: shapeType},
+			{Name: "value", Type: shapeType},
+		},
+		Type: function.StaticReturnType(mapResultType),
+		Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
+			return cty.ObjectVal(map[string]cty.Value{
+				"items": args[0],
+				"key":   args[1],
+				"value": args[2],
+			}), nil
 		},
 	})
 }

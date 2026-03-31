@@ -36,18 +36,14 @@ func NewAwsEksNodeGroupInvalidAMITypeRule() *AwsEksNodeGroupInvalidAMITypeRule {
 			"BOTTLEROCKET_ARM_64",
 			"BOTTLEROCKET_ARM_64_FIPS",
 			"BOTTLEROCKET_ARM_64_NVIDIA",
-			"BOTTLEROCKET_ARM_64_NVIDIA_FIPS",
 			"BOTTLEROCKET_x86_64",
 			"BOTTLEROCKET_x86_64_FIPS",
 			"BOTTLEROCKET_x86_64_NVIDIA",
-			"BOTTLEROCKET_x86_64_NVIDIA_FIPS",
 			"CUSTOM",
 			"WINDOWS_CORE_2019_x86_64",
 			"WINDOWS_CORE_2022_x86_64",
-			"WINDOWS_CORE_2025_x86_64",
 			"WINDOWS_FULL_2019_x86_64",
 			"WINDOWS_FULL_2022_x86_64",
-			"WINDOWS_FULL_2025_x86_64",
 		},
 	}
 }
@@ -91,7 +87,7 @@ func (r *AwsEksNodeGroupInvalidAMITypeRule) Check(runner tflint.Runner) error {
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			found := false
 			for _, item := range r.enum {
 				if item == val {

@@ -14,7 +14,6 @@ type AwsRedshiftParameterGroupInvalidDescriptionRule struct {
 
 	resourceType  string
 	attributeName string
-	max           int
 }
 
 // NewAwsRedshiftParameterGroupInvalidDescriptionRule returns new rule with default attributes
@@ -22,7 +21,6 @@ func NewAwsRedshiftParameterGroupInvalidDescriptionRule() *AwsRedshiftParameterG
 	return &AwsRedshiftParameterGroupInvalidDescriptionRule{
 		resourceType:  "aws_redshift_parameter_group",
 		attributeName: "description",
-		max:           2147483647,
 	}
 }
 
@@ -65,14 +63,7 @@ func (r *AwsRedshiftParameterGroupInvalidDescriptionRule) Check(runner tflint.Ru
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
-			if len(val) > r.max {
-				runner.EmitIssue(
-					r,
-					"description must be 2147483647 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			return nil
 		}, nil)
 		if err != nil {

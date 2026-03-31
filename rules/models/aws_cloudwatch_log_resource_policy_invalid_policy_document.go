@@ -23,7 +23,7 @@ func NewAwsCloudwatchLogResourcePolicyInvalidPolicyDocumentRule() *AwsCloudwatch
 	return &AwsCloudwatchLogResourcePolicyInvalidPolicyDocumentRule{
 		resourceType:  "aws_cloudwatch_log_resource_policy",
 		attributeName: "policy_document",
-		max:           51200,
+		max:           5120,
 		min:           1,
 	}
 }
@@ -67,11 +67,11 @@ func (r *AwsCloudwatchLogResourcePolicyInvalidPolicyDocumentRule) Check(runner t
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					"policy_document must be 51200 characters or less",
+					"policy_document must be 5120 characters or less",
 					attribute.Expr.Range(),
 				)
 			}

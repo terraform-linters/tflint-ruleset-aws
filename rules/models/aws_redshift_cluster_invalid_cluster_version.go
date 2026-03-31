@@ -14,7 +14,6 @@ type AwsRedshiftClusterInvalidClusterVersionRule struct {
 
 	resourceType  string
 	attributeName string
-	max           int
 }
 
 // NewAwsRedshiftClusterInvalidClusterVersionRule returns new rule with default attributes
@@ -22,7 +21,6 @@ func NewAwsRedshiftClusterInvalidClusterVersionRule() *AwsRedshiftClusterInvalid
 	return &AwsRedshiftClusterInvalidClusterVersionRule{
 		resourceType:  "aws_redshift_cluster",
 		attributeName: "cluster_version",
-		max:           2147483647,
 	}
 }
 
@@ -65,14 +63,7 @@ func (r *AwsRedshiftClusterInvalidClusterVersionRule) Check(runner tflint.Runner
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
-			if len(val) > r.max {
-				runner.EmitIssue(
-					r,
-					"cluster_version must be 2147483647 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			return nil
 		}, nil)
 		if err != nil {
