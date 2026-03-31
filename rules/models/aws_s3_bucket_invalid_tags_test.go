@@ -35,7 +35,7 @@ resource "aws_s3_bucket" "foo" {
 			expected: helper.Issues{
 				{
 					Rule:    rule,
-					Message: `tag key "" must be at least 1 characters`,
+					Message: `tags key "" must be at least 1 character`,
 				},
 			},
 		},

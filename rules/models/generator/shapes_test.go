@@ -99,8 +99,8 @@ func TestTraverseToMapConstraints(t *testing.T) {
 			name: "map type with key/value",
 			shapes: makeShapes(map[string]interface{}{
 				"TagMap": map[string]interface{}{
-					"type": "map",
-					"key":  map[string]interface{}{"target": "com.example.test#TagKey"},
+					"type":  "map",
+					"key":   map[string]interface{}{"target": "com.example.test#TagKey"},
 					"value": map[string]interface{}{"target": "com.example.test#TagValue"},
 				},
 				"TagKey":   makeStringShape("^[\\w]+$", 1, 128),

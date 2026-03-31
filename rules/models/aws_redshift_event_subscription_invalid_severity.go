@@ -14,7 +14,6 @@ type AwsRedshiftEventSubscriptionInvalidSeverityRule struct {
 
 	resourceType  string
 	attributeName string
-	max           int
 }
 
 // NewAwsRedshiftEventSubscriptionInvalidSeverityRule returns new rule with default attributes
@@ -22,7 +21,6 @@ func NewAwsRedshiftEventSubscriptionInvalidSeverityRule() *AwsRedshiftEventSubsc
 	return &AwsRedshiftEventSubscriptionInvalidSeverityRule{
 		resourceType:  "aws_redshift_event_subscription",
 		attributeName: "severity",
-		max:           2147483647,
 	}
 }
 
@@ -65,14 +63,7 @@ func (r *AwsRedshiftEventSubscriptionInvalidSeverityRule) Check(runner tflint.Ru
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
-			if len(val) > r.max {
-				runner.EmitIssue(
-					r,
-					"severity must be 2147483647 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			return nil
 		}, nil)
 		if err != nil {

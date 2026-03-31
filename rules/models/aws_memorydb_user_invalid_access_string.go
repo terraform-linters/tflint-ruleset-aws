@@ -68,7 +68,7 @@ func (r *AwsMemoryDBUserInvalidAccessStringRule) Check(runner tflint.Runner) err
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,

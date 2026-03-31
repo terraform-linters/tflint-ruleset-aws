@@ -241,7 +241,7 @@ func (r *AwsSagemakerNotebookInstanceInvalidInstanceTypeRule) Check(runner tflin
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			found := false
 			for _, item := range r.enum {
 				if item == val {

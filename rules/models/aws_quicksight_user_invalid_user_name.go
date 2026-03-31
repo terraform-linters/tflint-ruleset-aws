@@ -70,7 +70,7 @@ func (r *AwsQuicksightUserInvalidUserNameRule) Check(runner tflint.Runner) error
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			if len(val) < r.min {
 				runner.EmitIssue(
 					r,

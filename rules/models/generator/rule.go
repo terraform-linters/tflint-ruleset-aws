@@ -44,10 +44,15 @@ type mapRuleMeta struct {
 	ValuePrefixDeny []string
 }
 
+// sentinelMax is the Smithy unbounded length sentinel (math.MaxInt32).
+// Constraints using this value are effectively "no limit" and should be omitted.
+const sentinelMax = 2147483647
+
 var (
 	unicodeEscapeRegex     = regexp.MustCompile(`\\u([0-9A-F]{4})`)
 	negativeLookaheadRegex = regexp.MustCompile(`\(\?![^)]+\)`)
 	literalPrefixRegex     = regexp.MustCompile(`^[a-zA-Z0-9_:/.+\-]+$`)
+	matchAllRegex          = regexp.MustCompile(`^\^(\(\?[simU]+\))?\.\*\$$`)
 )
 
 func buildRuleMeta(resource, attribute string, model map[string]interface{}, schema *tfjson.SchemaAttribute) *ruleMeta {
@@ -58,9 +63,9 @@ func buildRuleMeta(resource, attribute string, model map[string]interface{}, sch
 		ResourceType:  resource,
 		AttributeName: attribute,
 		Sensitive:     schema != nil && schema.Sensitive,
-		Max:           fetchNumber(model, "max"),
+		Max:           clampSentinel(fetchNumber(model, "max")),
 		Min:           fetchNumber(model, "min"),
-		Pattern:       replacePattern(fetchString(model, "pattern")),
+		Pattern:       stripMatchAll(replacePattern(fetchString(model, "pattern"))),
 		Enum:          fetchStrings(model, "enum"),
 	}
 
@@ -95,11 +100,11 @@ func generateMapRuleFile(resource, attribute string, listModel, keyModel, valueM
 	}
 	keyPrefixDeny, rawKeyPattern := extractPrefixDenies(fetchString(keyModel, "pattern"))
 	valuePrefixDeny, rawValuePattern := extractPrefixDenies(fetchString(valueModel, "pattern"))
-	keyPattern := replacePattern(rawKeyPattern)
-	valuePattern := replacePattern(rawValuePattern)
-	keyMax := fetchNumber(keyModel, "max")
+	keyPattern := stripMatchAll(replacePattern(rawKeyPattern))
+	valuePattern := stripMatchAll(replacePattern(rawValuePattern))
+	keyMax := clampSentinel(fetchNumber(keyModel, "max"))
 	keyMin := fetchNumber(keyModel, "min")
-	valueMax := fetchNumber(valueModel, "max")
+	valueMax := clampSentinel(fetchNumber(valueModel, "max"))
 	valueMin := fetchNumber(valueModel, "min")
 
 	// Skip if no constraints exist
@@ -325,9 +330,9 @@ func replacePattern(pattern string) string {
 var compatibilityTransforms = map[string]string{
 	// IAM role ARN patterns: Smithy models end at the role prefix (e.g., "role/")
 	// but Terraform configurations include role paths (e.g., "role/my-app/my-role").
-	"^arn:aws:iam::[0-9]*:role/":                  "^arn:aws:iam::[0-9]*:role/.*$",
-	"^arn:aws:iam::\\d{12}:role/":                 "^arn:aws:iam::\\d{12}:role/.*$",
-	"^arn:aws(-[\\w]+)*:iam::[0-9]{12}:role/":     "^arn:aws(-[\\w]+)*:iam::[0-9]{12}:role/.*$",
+	"^arn:aws:iam::[0-9]*:role/":                 "^arn:aws:iam::[0-9]*:role/.*$",
+	"^arn:aws:iam::\\d{12}:role/":                "^arn:aws:iam::\\d{12}:role/.*$",
+	"^arn:aws(-[\\w]+)*:iam::[0-9]{12}:role/":    "^arn:aws(-[\\w]+)*:iam::[0-9]{12}:role/.*$",
 	"^arn:aws(-[a-z]{1,3}){0,2}:iam::\\d+:role/": "^arn:aws(-[a-z]{1,3}){0,2}:iam::\\d+:role/.*$",
 	// Cognito SMS authentication messages: The {####} placeholder must appear
 	// within a message, not be the entire message.
@@ -339,6 +344,22 @@ func applyCompatibilityTransforms(pattern string) string {
 		return transformed
 	}
 	return ""
+}
+
+// stripMatchAll returns "" for patterns that match all strings (e.g., ^.*$, ^(?s).*$).
+func stripMatchAll(pattern string) string {
+	if matchAllRegex.MatchString(pattern) {
+		return ""
+	}
+	return pattern
+}
+
+// clampSentinel returns 0 for the Smithy unbounded sentinel value.
+func clampSentinel(n int) int {
+	if n == sentinelMax {
+		return 0
+	}
+	return n
 }
 
 func formatTest(body string) string {

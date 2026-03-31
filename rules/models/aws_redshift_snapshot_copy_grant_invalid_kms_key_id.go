@@ -14,7 +14,6 @@ type AwsRedshiftSnapshotCopyGrantInvalidKmsKeyIDRule struct {
 
 	resourceType  string
 	attributeName string
-	max           int
 }
 
 // NewAwsRedshiftSnapshotCopyGrantInvalidKmsKeyIDRule returns new rule with default attributes
@@ -22,7 +21,6 @@ func NewAwsRedshiftSnapshotCopyGrantInvalidKmsKeyIDRule() *AwsRedshiftSnapshotCo
 	return &AwsRedshiftSnapshotCopyGrantInvalidKmsKeyIDRule{
 		resourceType:  "aws_redshift_snapshot_copy_grant",
 		attributeName: "kms_key_id",
-		max:           2147483647,
 	}
 }
 
@@ -65,14 +63,7 @@ func (r *AwsRedshiftSnapshotCopyGrantInvalidKmsKeyIDRule) Check(runner tflint.Ru
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
-			if len(val) > r.max {
-				runner.EmitIssue(
-					r,
-					"kms_key_id must be 2147483647 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			return nil
 		}, nil)
 		if err != nil {

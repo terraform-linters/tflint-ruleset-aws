@@ -14,10 +14,10 @@ import (
 	"github.com/hashicorp/hcl/v2/gohcl"
 	"github.com/hashicorp/hcl/v2/hclparse"
 	tfjson "github.com/hashicorp/terraform-json"
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/genutils"
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/function"
 	"github.com/zclconf/go-cty/cty/function/stdlib"
-	"github.com/terraform-linters/tflint-ruleset-aws/rules/genutils"
 )
 
 type mappingFile struct {
@@ -40,8 +40,8 @@ type test struct {
 
 // smithyShape represents a Smithy model shape definition.
 type smithyShape struct {
-	Type    string                 `json:"type"`
-	Traits  map[string]interface{} `json:"traits,omitempty"`
+	Type    string                  `json:"type"`
+	Traits  map[string]interface{}  `json:"traits,omitempty"`
 	Members map[string]smithyMember `json:"members,omitempty"`
 }
 
@@ -723,4 +723,3 @@ func makeMapFunction() function.Function {
 		},
 	})
 }
-

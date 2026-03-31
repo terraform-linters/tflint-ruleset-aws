@@ -36,7 +36,7 @@ resource "aws_signer_signing_profile" "foo" {
 			expected: helper.Issues{
 				{
 					Rule:    rule,
-					Message: fmt.Sprintf(`tag key %q must not start with %q`, "aws:reserved", "aws:"),
+					Message: fmt.Sprintf(`tags key %q must not start with %q`, "aws:reserved", "aws:"),
 				},
 			},
 		},
@@ -51,7 +51,7 @@ resource "aws_signer_signing_profile" "foo" {
 			expected: helper.Issues{
 				{
 					Rule:    rule,
-					Message: fmt.Sprintf(`tag key %q does not match valid pattern %s`, "bad key!", `^[a-zA-Z+-=._:/]+$`),
+					Message: fmt.Sprintf(`tags key %q does not match valid pattern %s`, "bad key!", `^[a-zA-Z+-=._:/]+$`),
 				},
 			},
 		},

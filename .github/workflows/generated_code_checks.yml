@@ -19,4 +19,4 @@ jobs:
         go-version-file: 'go.mod'
         cache: true
     - name: go generate and diff checks
-      run: go generate ./... && git diff --exit-code
+      run: go generate ./... && gofmt -w rules/models/ && git diff --exit-code

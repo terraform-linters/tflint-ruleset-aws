@@ -37,7 +37,7 @@ resource "aws_ecs_service" "foo" {
 			expected: helper.Issues{
 				{
 					Rule:    rule,
-					Message: fmt.Sprintf("tag key %q must be 128 characters or less", truncateLongMessage(strings.Repeat("a", 129))),
+					Message: fmt.Sprintf("tags key %q must be 128 characters or less", truncateLongMessage(strings.Repeat("a", 129))),
 				},
 			},
 		},
@@ -52,7 +52,7 @@ resource "aws_ecs_service" "foo" {
 			expected: helper.Issues{
 				{
 					Rule:    rule,
-					Message: `tag key "" must be at least 1 characters`,
+					Message: `tags key "" must be at least 1 character`,
 				},
 			},
 		},
@@ -67,7 +67,7 @@ resource "aws_ecs_service" "foo" {
 			expected: helper.Issues{
 				{
 					Rule:    rule,
-					Message: fmt.Sprintf(`tag key %q does not match valid pattern %s`, "invalid!key", `^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$`),
+					Message: fmt.Sprintf(`tags key %q does not match valid pattern %s`, "invalid!key", `^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$`),
 				},
 			},
 		},
@@ -82,7 +82,7 @@ resource "aws_ecs_service" "foo" {
 			expected: helper.Issues{
 				{
 					Rule:    rule,
-					Message: `tag value for key "Name" must be 256 characters or less`,
+					Message: `tags value for key "Name" must be 256 characters or less`,
 				},
 			},
 		},
@@ -97,7 +97,7 @@ resource "aws_ecs_service" "foo" {
 			expected: helper.Issues{
 				{
 					Rule:    rule,
-					Message: fmt.Sprintf(`tag value %q for key %q does not match valid pattern %s`, "bad<value>", "Name", `^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$`),
+					Message: fmt.Sprintf(`tags value %q for key %q does not match valid pattern %s`, "bad<value>", "Name", `^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$`),
 				},
 			},
 		},

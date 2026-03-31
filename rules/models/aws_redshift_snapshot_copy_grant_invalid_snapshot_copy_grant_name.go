@@ -14,7 +14,6 @@ type AwsRedshiftSnapshotCopyGrantInvalidSnapshotCopyGrantNameRule struct {
 
 	resourceType  string
 	attributeName string
-	max           int
 }
 
 // NewAwsRedshiftSnapshotCopyGrantInvalidSnapshotCopyGrantNameRule returns new rule with default attributes
@@ -22,7 +21,6 @@ func NewAwsRedshiftSnapshotCopyGrantInvalidSnapshotCopyGrantNameRule() *AwsRedsh
 	return &AwsRedshiftSnapshotCopyGrantInvalidSnapshotCopyGrantNameRule{
 		resourceType:  "aws_redshift_snapshot_copy_grant",
 		attributeName: "snapshot_copy_grant_name",
-		max:           2147483647,
 	}
 }
 
@@ -65,14 +63,7 @@ func (r *AwsRedshiftSnapshotCopyGrantInvalidSnapshotCopyGrantNameRule) Check(run
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
-			if len(val) > r.max {
-				runner.EmitIssue(
-					r,
-					"snapshot_copy_grant_name must be 2147483647 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			return nil
 		}, nil)
 		if err != nil {

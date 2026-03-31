@@ -14,7 +14,6 @@ type AwsRedshiftParameterGroupInvalidFamilyRule struct {
 
 	resourceType  string
 	attributeName string
-	max           int
 }
 
 // NewAwsRedshiftParameterGroupInvalidFamilyRule returns new rule with default attributes
@@ -22,7 +21,6 @@ func NewAwsRedshiftParameterGroupInvalidFamilyRule() *AwsRedshiftParameterGroupI
 	return &AwsRedshiftParameterGroupInvalidFamilyRule{
 		resourceType:  "aws_redshift_parameter_group",
 		attributeName: "family",
-		max:           2147483647,
 	}
 }
 
@@ -65,14 +63,7 @@ func (r *AwsRedshiftParameterGroupInvalidFamilyRule) Check(runner tflint.Runner)
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
-			if len(val) > r.max {
-				runner.EmitIssue(
-					r,
-					"family must be 2147483647 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			return nil
 		}, nil)
 		if err != nil {

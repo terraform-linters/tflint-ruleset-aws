@@ -3,9 +3,6 @@
 package models
 
 import (
-	"fmt"
-	"regexp"
-
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -18,7 +15,6 @@ type AwsAmplifyBranchInvalidPullRequestEnvironmentNameRule struct {
 	resourceType  string
 	attributeName string
 	max           int
-	pattern       *regexp.Regexp
 }
 
 // NewAwsAmplifyBranchInvalidPullRequestEnvironmentNameRule returns new rule with default attributes
@@ -27,7 +23,6 @@ func NewAwsAmplifyBranchInvalidPullRequestEnvironmentNameRule() *AwsAmplifyBranc
 		resourceType:  "aws_amplify_branch",
 		attributeName: "pull_request_environment_name",
 		max:           20,
-		pattern:       regexp.MustCompile(`^(?s).*$`),
 	}
 }
 
@@ -70,18 +65,11 @@ func (r *AwsAmplifyBranchInvalidPullRequestEnvironmentNameRule) Check(runner tfl
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
 					"pull_request_environment_name must be 20 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
-			if !r.pattern.MatchString(val) {
-				runner.EmitIssue(
-					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(?s).*$`),
 					attribute.Expr.Range(),
 				)
 			}
