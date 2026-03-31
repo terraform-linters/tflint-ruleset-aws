@@ -11,7 +11,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsServicecatalogProductInvalidTagsRule checks the pattern is valid
+// AwsServicecatalogProductInvalidTagsRule validates map keys and values
 type AwsServicecatalogProductInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -61,7 +61,7 @@ func (r *AwsServicecatalogProductInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsServicecatalogProductInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

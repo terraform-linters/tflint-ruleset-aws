@@ -11,7 +11,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsSagemakerDomainInvalidTagsRule checks the pattern is valid
+// AwsSagemakerDomainInvalidTagsRule validates map keys and values
 type AwsSagemakerDomainInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -59,7 +59,7 @@ func (r *AwsSagemakerDomainInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsSagemakerDomainInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

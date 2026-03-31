@@ -11,7 +11,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsSagemakerNotebookInstanceInvalidTagsRule checks the pattern is valid
+// AwsSagemakerNotebookInstanceInvalidTagsRule validates map keys and values
 type AwsSagemakerNotebookInstanceInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -59,7 +59,7 @@ func (r *AwsSagemakerNotebookInstanceInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsSagemakerNotebookInstanceInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

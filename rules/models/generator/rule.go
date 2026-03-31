@@ -250,8 +250,8 @@ func replacePattern(pattern string) string {
 	// The Ruby SDK generator ensured all patterns had both ^ and $ anchors.
 	// Smithy models often have incomplete patterns (e.g., "^(?s)" or "[a-z]*").
 	// We add missing anchors to maintain backward compatibility.
-	hasPrefix := strings.HasPrefix(replaced, "^")
-	hasSuffix := strings.HasSuffix(replaced, "$")
+	hasPrefix := strings.HasPrefix(replaced, "^") || strings.HasPrefix(replaced, "(^")
+	hasSuffix := strings.HasSuffix(replaced, "$") || strings.HasSuffix(replaced, "$)")
 
 	if !hasPrefix && !hasSuffix {
 		// No anchors at all
@@ -317,12 +317,44 @@ func replacePattern(pattern string) string {
 		}
 	}
 
+	// Strip redundant nested anchors: ^(^...$)$ → ^...$, ^(^...$|^...$)$ → ^...$|^...$
+	replaced = stripRedundantAnchors(replaced)
+
 	// Apply compatibility transforms to maintain backward compatibility with Ruby SDK
 	if transformed := applyCompatibilityTransforms(replaced); transformed != "" {
 		return transformed
 	}
 
 	return replaced
+}
+
+// stripRedundantAnchors removes outer ^(...)$ wrapping when the opening paren
+// matches the closing paren (i.e., the entire pattern is one group) and the
+// inner content is already anchored.
+func stripRedundantAnchors(pattern string) string {
+	if !strings.HasPrefix(pattern, "^(") || !strings.HasSuffix(pattern, ")$") {
+		return pattern
+	}
+	// Check if the ( at position 1 matches the ) at the end
+	depth := 0
+	for i := 1; i < len(pattern)-1; i++ {
+		switch pattern[i] {
+		case '(':
+			depth++
+		case ')':
+			depth--
+			if depth == 0 && i < len(pattern)-2 {
+				// The opening ( closed before the final ), so the outer
+				// parens are not a single wrapping group (e.g., (a)|(b))
+				return pattern
+			}
+		}
+	}
+	inner := pattern[2 : len(pattern)-2]
+	if strings.HasPrefix(inner, "^") {
+		return inner
+	}
+	return pattern
 }
 
 // compatibilityTransforms maps patterns that need special handling for backward

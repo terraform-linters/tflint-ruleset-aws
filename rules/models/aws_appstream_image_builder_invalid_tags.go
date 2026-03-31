@@ -12,7 +12,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsAppstreamImageBuilderInvalidTagsRule checks the pattern is valid
+// AwsAppstreamImageBuilderInvalidTagsRule validates map keys and values
 type AwsAppstreamImageBuilderInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -32,7 +32,7 @@ func NewAwsAppstreamImageBuilderInvalidTagsRule() *AwsAppstreamImageBuilderInval
 		attributeName: "tags",
 		keyMax:        128,
 		keyMin:        1,
-		keyPattern:    regexp.MustCompile(`^(^.[\p{L}\p{Z}\p{N}_.:/=+\-@]*)$`),
+		keyPattern:    regexp.MustCompile(`^.[\p{L}\p{Z}\p{N}_.:/=+\-@]*`),
 		valueMax:      256,
 		valuePattern:  regexp.MustCompile(`^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$`),
 	}
@@ -58,7 +58,7 @@ func (r *AwsAppstreamImageBuilderInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsAppstreamImageBuilderInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 
@@ -103,7 +103,7 @@ func (r *AwsAppstreamImageBuilderInvalidTagsRule) Check(runner tflint.Runner) er
 				if !r.keyPattern.MatchString(k) {
 					runner.EmitIssue(
 						r,
-						fmt.Sprintf(`tags key %q does not match valid pattern %s`, truncateLongMessage(k), `^(^.[\p{L}\p{Z}\p{N}_.:/=+\-@]*)$`),
+						fmt.Sprintf(`tags key %q does not match valid pattern %s`, truncateLongMessage(k), `^.[\p{L}\p{Z}\p{N}_.:/=+\-@]*`),
 						attribute.Expr.Range(),
 					)
 				}

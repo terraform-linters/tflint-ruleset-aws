@@ -10,7 +10,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsGlueWorkflowInvalidTagsRule checks the pattern is valid
+// AwsGlueWorkflowInvalidTagsRule validates map keys and values
 type AwsGlueWorkflowInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -52,7 +52,7 @@ func (r *AwsGlueWorkflowInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsGlueWorkflowInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

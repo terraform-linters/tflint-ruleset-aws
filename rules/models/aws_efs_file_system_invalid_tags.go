@@ -11,7 +11,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsEfsFileSystemInvalidTagsRule checks the pattern is valid
+// AwsEfsFileSystemInvalidTagsRule validates map keys and values
 type AwsEfsFileSystemInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -57,7 +57,7 @@ func (r *AwsEfsFileSystemInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsEfsFileSystemInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

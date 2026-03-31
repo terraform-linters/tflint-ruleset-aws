@@ -10,7 +10,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsAthenaWorkgroupInvalidTagsRule checks the pattern is valid
+// AwsAthenaWorkgroupInvalidTagsRule validates map keys and values
 type AwsAthenaWorkgroupInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -52,7 +52,7 @@ func (r *AwsAthenaWorkgroupInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsAthenaWorkgroupInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

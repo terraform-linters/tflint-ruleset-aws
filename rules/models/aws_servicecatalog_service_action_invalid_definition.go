@@ -10,7 +10,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsServicecatalogServiceActionInvalidDefinitionRule checks the pattern is valid
+// AwsServicecatalogServiceActionInvalidDefinitionRule validates map keys and values
 type AwsServicecatalogServiceActionInvalidDefinitionRule struct {
 	tflint.DefaultRule
 
@@ -50,7 +50,7 @@ func (r *AwsServicecatalogServiceActionInvalidDefinitionRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsServicecatalogServiceActionInvalidDefinitionRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

@@ -11,7 +11,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsStoragegatewayTapePoolInvalidTagsRule checks the pattern is valid
+// AwsStoragegatewayTapePoolInvalidTagsRule validates map keys and values
 type AwsStoragegatewayTapePoolInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -55,7 +55,7 @@ func (r *AwsStoragegatewayTapePoolInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsStoragegatewayTapePoolInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

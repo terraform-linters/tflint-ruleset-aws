@@ -11,7 +11,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsWafv2RegexPatternSetInvalidTagsRule checks the pattern is valid
+// AwsWafv2RegexPatternSetInvalidTagsRule validates map keys and values
 type AwsWafv2RegexPatternSetInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -57,7 +57,7 @@ func (r *AwsWafv2RegexPatternSetInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsWafv2RegexPatternSetInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

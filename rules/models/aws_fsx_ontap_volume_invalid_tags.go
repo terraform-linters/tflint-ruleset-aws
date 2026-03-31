@@ -11,7 +11,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsFsxOntapVolumeInvalidTagsRule checks the pattern is valid
+// AwsFsxOntapVolumeInvalidTagsRule validates map keys and values
 type AwsFsxOntapVolumeInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -59,7 +59,7 @@ func (r *AwsFsxOntapVolumeInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsFsxOntapVolumeInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

@@ -16,7 +16,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// {{ .RuleNameCC }}Rule checks the pattern is valid
+// {{ .RuleNameCC }}Rule validates map keys and values
 type {{ .RuleNameCC }}Rule struct {
 	tflint.DefaultRule
 
@@ -94,7 +94,7 @@ func (r *{{ .RuleNameCC }}Rule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *{{ .RuleNameCC }}Rule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

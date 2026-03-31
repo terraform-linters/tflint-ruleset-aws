@@ -10,7 +10,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsGlueCatalogDatabaseInvalidParametersRule checks the pattern is valid
+// AwsGlueCatalogDatabaseInvalidParametersRule validates map keys and values
 type AwsGlueCatalogDatabaseInvalidParametersRule struct {
 	tflint.DefaultRule
 
@@ -52,7 +52,7 @@ func (r *AwsGlueCatalogDatabaseInvalidParametersRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsGlueCatalogDatabaseInvalidParametersRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

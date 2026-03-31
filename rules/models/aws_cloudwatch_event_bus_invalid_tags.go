@@ -10,7 +10,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsCloudwatchEventBusInvalidTagsRule checks the pattern is valid
+// AwsCloudwatchEventBusInvalidTagsRule validates map keys and values
 type AwsCloudwatchEventBusInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -52,7 +52,7 @@ func (r *AwsCloudwatchEventBusInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsCloudwatchEventBusInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

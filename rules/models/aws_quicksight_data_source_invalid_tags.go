@@ -10,7 +10,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsQuicksightDataSourceInvalidTagsRule checks the pattern is valid
+// AwsQuicksightDataSourceInvalidTagsRule validates map keys and values
 type AwsQuicksightDataSourceInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -56,7 +56,7 @@ func (r *AwsQuicksightDataSourceInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsQuicksightDataSourceInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

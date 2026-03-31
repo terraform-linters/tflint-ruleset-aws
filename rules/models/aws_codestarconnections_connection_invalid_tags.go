@@ -10,7 +10,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsCodestarconnectionsConnectionInvalidTagsRule checks the pattern is valid
+// AwsCodestarconnectionsConnectionInvalidTagsRule validates map keys and values
 type AwsCodestarconnectionsConnectionInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -54,7 +54,7 @@ func (r *AwsCodestarconnectionsConnectionInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsCodestarconnectionsConnectionInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

@@ -11,7 +11,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsDxHostedPrivateVirtualInterfaceAccepterInvalidTagsRule checks the pattern is valid
+// AwsDxHostedPrivateVirtualInterfaceAccepterInvalidTagsRule validates map keys and values
 type AwsDxHostedPrivateVirtualInterfaceAccepterInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -57,7 +57,7 @@ func (r *AwsDxHostedPrivateVirtualInterfaceAccepterInvalidTagsRule) Link() strin
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsDxHostedPrivateVirtualInterfaceAccepterInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

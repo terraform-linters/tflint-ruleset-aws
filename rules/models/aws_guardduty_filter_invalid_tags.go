@@ -12,7 +12,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsGuarddutyFilterInvalidTagsRule checks the pattern is valid
+// AwsGuarddutyFilterInvalidTagsRule validates map keys and values
 type AwsGuarddutyFilterInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -56,7 +56,7 @@ func (r *AwsGuarddutyFilterInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsGuarddutyFilterInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

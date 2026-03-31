@@ -10,7 +10,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsEksNodeGroupInvalidLabelsRule checks the pattern is valid
+// AwsEksNodeGroupInvalidLabelsRule validates map keys and values
 type AwsEksNodeGroupInvalidLabelsRule struct {
 	tflint.DefaultRule
 
@@ -54,7 +54,7 @@ func (r *AwsEksNodeGroupInvalidLabelsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsEksNodeGroupInvalidLabelsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

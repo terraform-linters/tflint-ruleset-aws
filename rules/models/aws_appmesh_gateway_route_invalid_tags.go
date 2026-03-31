@@ -10,7 +10,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsAppmeshGatewayRouteInvalidTagsRule checks the pattern is valid
+// AwsAppmeshGatewayRouteInvalidTagsRule validates map keys and values
 type AwsAppmeshGatewayRouteInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -54,7 +54,7 @@ func (r *AwsAppmeshGatewayRouteInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsAppmeshGatewayRouteInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

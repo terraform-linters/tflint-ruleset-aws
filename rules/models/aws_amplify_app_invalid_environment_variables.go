@@ -10,7 +10,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsAmplifyAppInvalidEnvironmentVariablesRule checks the pattern is valid
+// AwsAmplifyAppInvalidEnvironmentVariablesRule validates map keys and values
 type AwsAmplifyAppInvalidEnvironmentVariablesRule struct {
 	tflint.DefaultRule
 
@@ -50,7 +50,7 @@ func (r *AwsAmplifyAppInvalidEnvironmentVariablesRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsAmplifyAppInvalidEnvironmentVariablesRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

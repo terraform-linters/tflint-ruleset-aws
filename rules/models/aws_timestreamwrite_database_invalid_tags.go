@@ -10,7 +10,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsTimestreamwriteDatabaseInvalidTagsRule checks the pattern is valid
+// AwsTimestreamwriteDatabaseInvalidTagsRule validates map keys and values
 type AwsTimestreamwriteDatabaseInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -54,7 +54,7 @@ func (r *AwsTimestreamwriteDatabaseInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsTimestreamwriteDatabaseInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

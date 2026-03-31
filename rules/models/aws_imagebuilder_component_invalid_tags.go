@@ -12,7 +12,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsImagebuilderComponentInvalidTagsRule checks the pattern is valid
+// AwsImagebuilderComponentInvalidTagsRule validates map keys and values
 type AwsImagebuilderComponentInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -56,7 +56,7 @@ func (r *AwsImagebuilderComponentInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsImagebuilderComponentInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

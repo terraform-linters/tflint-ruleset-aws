@@ -25,7 +25,7 @@ func NewAwsAppconfigDeploymentInvalidDeploymentStrategyIDRule() *AwsAppconfigDep
 	return &AwsAppconfigDeploymentInvalidDeploymentStrategyIDRule{
 		resourceType:  "aws_appconfig_deployment",
 		attributeName: "deployment_strategy_id",
-		pattern:       regexp.MustCompile(`^(^[a-z0-9]{4,7}$|^AppConfig\.[A-Za-z0-9]{9,40}$)$`),
+		pattern:       regexp.MustCompile(`^[a-z0-9]{4,7}$|^AppConfig\.[A-Za-z0-9]{9,40}$`),
 	}
 }
 
@@ -72,7 +72,7 @@ func (r *AwsAppconfigDeploymentInvalidDeploymentStrategyIDRule) Check(runner tfl
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(^[a-z0-9]{4,7}$|^AppConfig\.[A-Za-z0-9]{9,40}$)$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-z0-9]{4,7}$|^AppConfig\.[A-Za-z0-9]{9,40}$`),
 					attribute.Expr.Range(),
 				)
 			}

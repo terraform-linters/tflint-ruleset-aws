@@ -10,7 +10,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsElasticBeanstalkApplicationVersionInvalidTagsRule checks the pattern is valid
+// AwsElasticBeanstalkApplicationVersionInvalidTagsRule validates map keys and values
 type AwsElasticBeanstalkApplicationVersionInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -54,7 +54,7 @@ func (r *AwsElasticBeanstalkApplicationVersionInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsElasticBeanstalkApplicationVersionInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

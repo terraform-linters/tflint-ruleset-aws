@@ -11,7 +11,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsFsxOpenzfsSnapshotInvalidTagsRule checks the pattern is valid
+// AwsFsxOpenzfsSnapshotInvalidTagsRule validates map keys and values
 type AwsFsxOpenzfsSnapshotInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -59,7 +59,7 @@ func (r *AwsFsxOpenzfsSnapshotInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsFsxOpenzfsSnapshotInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

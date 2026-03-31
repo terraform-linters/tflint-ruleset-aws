@@ -11,7 +11,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsDatasyncLocationNfsInvalidTagsRule checks the pattern is valid
+// AwsDatasyncLocationNfsInvalidTagsRule validates map keys and values
 type AwsDatasyncLocationNfsInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -59,7 +59,7 @@ func (r *AwsDatasyncLocationNfsInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsDatasyncLocationNfsInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

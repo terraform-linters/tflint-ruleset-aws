@@ -10,7 +10,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsSecretsmanagerSecretInvalidTagsRule checks the pattern is valid
+// AwsSecretsmanagerSecretInvalidTagsRule validates map keys and values
 type AwsSecretsmanagerSecretInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -52,7 +52,7 @@ func (r *AwsSecretsmanagerSecretInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsSecretsmanagerSecretInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

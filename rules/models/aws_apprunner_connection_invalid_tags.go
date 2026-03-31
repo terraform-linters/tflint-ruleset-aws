@@ -12,7 +12,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsApprunnerConnectionInvalidTagsRule checks the pattern is valid
+// AwsApprunnerConnectionInvalidTagsRule validates map keys and values
 type AwsApprunnerConnectionInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -56,7 +56,7 @@ func (r *AwsApprunnerConnectionInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsApprunnerConnectionInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

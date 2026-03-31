@@ -10,7 +10,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsKinesisAnalyticsApplicationInvalidTagsRule checks the pattern is valid
+// AwsKinesisAnalyticsApplicationInvalidTagsRule validates map keys and values
 type AwsKinesisAnalyticsApplicationInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -54,7 +54,7 @@ func (r *AwsKinesisAnalyticsApplicationInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsKinesisAnalyticsApplicationInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

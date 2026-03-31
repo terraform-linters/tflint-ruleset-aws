@@ -12,7 +12,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsApprunnerAutoScalingConfigurationVersionInvalidTagsRule checks the pattern is valid
+// AwsApprunnerAutoScalingConfigurationVersionInvalidTagsRule validates map keys and values
 type AwsApprunnerAutoScalingConfigurationVersionInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -56,7 +56,7 @@ func (r *AwsApprunnerAutoScalingConfigurationVersionInvalidTagsRule) Link() stri
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsApprunnerAutoScalingConfigurationVersionInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

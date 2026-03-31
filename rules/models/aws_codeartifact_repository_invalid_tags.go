@@ -11,7 +11,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsCodeartifactRepositoryInvalidTagsRule checks the pattern is valid
+// AwsCodeartifactRepositoryInvalidTagsRule validates map keys and values
 type AwsCodeartifactRepositoryInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -59,7 +59,7 @@ func (r *AwsCodeartifactRepositoryInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsCodeartifactRepositoryInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

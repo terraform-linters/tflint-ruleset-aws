@@ -11,7 +11,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsStoragegatewayFileSystemAssociationInvalidTagsRule checks the pattern is valid
+// AwsStoragegatewayFileSystemAssociationInvalidTagsRule validates map keys and values
 type AwsStoragegatewayFileSystemAssociationInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -55,7 +55,7 @@ func (r *AwsStoragegatewayFileSystemAssociationInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsStoragegatewayFileSystemAssociationInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

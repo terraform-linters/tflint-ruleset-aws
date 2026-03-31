@@ -10,7 +10,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsGlueWorkflowInvalidDefaultRunPropertiesRule checks the pattern is valid
+// AwsGlueWorkflowInvalidDefaultRunPropertiesRule validates map keys and values
 type AwsGlueWorkflowInvalidDefaultRunPropertiesRule struct {
 	tflint.DefaultRule
 
@@ -50,7 +50,7 @@ func (r *AwsGlueWorkflowInvalidDefaultRunPropertiesRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsGlueWorkflowInvalidDefaultRunPropertiesRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

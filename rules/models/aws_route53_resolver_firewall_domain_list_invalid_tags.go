@@ -10,7 +10,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsRoute53ResolverFirewallDomainListInvalidTagsRule checks the pattern is valid
+// AwsRoute53ResolverFirewallDomainListInvalidTagsRule validates map keys and values
 type AwsRoute53ResolverFirewallDomainListInvalidTagsRule struct {
 	tflint.DefaultRule
 
@@ -54,7 +54,7 @@ func (r *AwsRoute53ResolverFirewallDomainListInvalidTagsRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsRoute53ResolverFirewallDomainListInvalidTagsRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 

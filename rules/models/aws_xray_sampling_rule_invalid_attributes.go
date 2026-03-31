@@ -10,7 +10,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsXraySamplingRuleInvalidAttributesRule checks the pattern is valid
+// AwsXraySamplingRuleInvalidAttributesRule validates map keys and values
 type AwsXraySamplingRuleInvalidAttributesRule struct {
 	tflint.DefaultRule
 
@@ -54,7 +54,7 @@ func (r *AwsXraySamplingRuleInvalidAttributesRule) Link() string {
 	return ""
 }
 
-// Check checks the pattern is valid
+// Check validates map keys and values
 func (r *AwsXraySamplingRuleInvalidAttributesRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 
