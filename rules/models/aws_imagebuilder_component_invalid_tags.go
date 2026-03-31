@@ -5,6 +5,7 @@ package models
 import (
 	"fmt"
 	"regexp"
+	"strings"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
@@ -86,7 +87,14 @@ func (r *AwsImagebuilderComponentInvalidTagsRule) Check(runner tflint.Runner) er
 				if len(k) < r.keyMin {
 					runner.EmitIssue(
 						r,
-						fmt.Sprintf("tag key %q must be 1 characters or higher", truncateLongMessage(k)),
+						fmt.Sprintf("tag key %q must be at least 1 characters", truncateLongMessage(k)),
+						attribute.Expr.Range(),
+					)
+				}
+				if strings.HasPrefix(k, "aws:") {
+					runner.EmitIssue(
+						r,
+						fmt.Sprintf("tag key %q must not start with %q", truncateLongMessage(k), "aws:"),
 						attribute.Expr.Range(),
 					)
 				}

@@ -81,7 +81,7 @@ func (r *AwsServicecatalogServiceActionInvalidDefinitionRule) Check(runner tflin
 				if len(v) < r.valueMin {
 					runner.EmitIssue(
 						r,
-						fmt.Sprintf("tag value for key %q must be 1 characters or higher", truncateLongMessage(k)),
+						fmt.Sprintf("tag value for key %q must be at least 1 characters", truncateLongMessage(k)),
 						attribute.Expr.Range(),
 					)
 				}

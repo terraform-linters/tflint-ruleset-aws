@@ -97,7 +97,7 @@ func (r *AwsSagemakerAppInvalidTagsRule) Check(runner tflint.Runner) error {
 				if len(k) < r.keyMin {
 					runner.EmitIssue(
 						r,
-						fmt.Sprintf("tag key %q must be 1 characters or higher", truncateLongMessage(k)),
+						fmt.Sprintf("tag key %q must be at least 1 characters", truncateLongMessage(k)),
 						attribute.Expr.Range(),
 					)
 				}

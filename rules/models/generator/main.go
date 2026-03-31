@@ -121,7 +121,7 @@ func main() {
 
 				// Check if result is a map (fully resolved constraints)
 				if result.Type().Equals(mapResultType) {
-					schema, err := fetchSchemaForMap(mapping.Resource, attribute, awsProvider)
+					schema, err := lookupSchemaAttribute(mapping.Resource, attribute, awsProvider)
 					if err != nil {
 						fmt.Fprintf(os.Stderr, "Error processing `%s.%s`: %v\n", mapping.Resource, attribute, err)
 						os.Exit(1)
@@ -192,7 +192,7 @@ func main() {
 	genutils.CleanDir(".", generatedFiles)
 }
 
-func fetchSchema(resource, attribute string, model map[string]interface{}, provider *tfjson.ProviderSchema) (*tfjson.SchemaAttribute, error) {
+func lookupSchemaAttribute(resource, attribute string, provider *tfjson.ProviderSchema) (*tfjson.SchemaAttribute, error) {
 	resourceSchema, ok := provider.ResourceSchemas[resource]
 	if !ok {
 		return nil, fmt.Errorf("resource `%s` not found in the Terraform schema", resource)
@@ -202,38 +202,27 @@ func fetchSchema(resource, attribute string, model map[string]interface{}, provi
 		if _, ok := resourceSchema.Block.NestedBlocks[attribute]; !ok {
 			return nil, fmt.Errorf("`%s.%s` not found in the Terraform schema", resource, attribute)
 		}
+	}
+	return attrSchema, nil
+}
+
+func fetchSchema(resource, attribute string, model map[string]interface{}, provider *tfjson.ProviderSchema) (*tfjson.SchemaAttribute, error) {
+	attrSchema, err := lookupSchemaAttribute(resource, attribute, provider)
+	if err != nil {
+		return nil, err
 	}
 
 	modelType, ok := model["type"].(string)
 	if !ok {
 		return nil, fmt.Errorf("`%s.%s` model has no type field", resource, attribute)
 	}
-	switch modelType {
-	case "string":
-		if attrSchema != nil {
-			ty := attrSchema.AttributeType.FriendlyName()
-			if ty != "string" && ty != "number" {
-				return nil, fmt.Errorf("`%s.%s` is expected as string, but not (%s)", resource, attribute, ty)
-			}
-		}
-	default:
-		// noop
-	}
-
-	return attrSchema, nil
-}
-
-func fetchSchemaForMap(resource, attribute string, provider *tfjson.ProviderSchema) (*tfjson.SchemaAttribute, error) {
-	resourceSchema, ok := provider.ResourceSchemas[resource]
-	if !ok {
-		return nil, fmt.Errorf("resource `%s` not found in the Terraform schema", resource)
-	}
-	attrSchema, ok := resourceSchema.Block.Attributes[attribute]
-	if !ok {
-		if _, ok := resourceSchema.Block.NestedBlocks[attribute]; !ok {
-			return nil, fmt.Errorf("`%s.%s` not found in the Terraform schema", resource, attribute)
+	if modelType == "string" && attrSchema != nil {
+		ty := attrSchema.AttributeType.FriendlyName()
+		if ty != "string" && ty != "number" {
+			return nil, fmt.Errorf("`%s.%s` is expected as string, but not (%s)", resource, attribute, ty)
 		}
 	}
+
 	return attrSchema, nil
 }
 
@@ -359,19 +348,23 @@ func resolveStringPair(shapes map[string]interface{}, firstName, secondName stri
 	return first, second
 }
 
-// extractServiceNamespace extracts the namespace from the Smithy service definition
+var namespaceWarned bool
+
+// extractServiceNamespace extracts the namespace from the Smithy service definition.
 func extractServiceNamespace(shapes map[string]interface{}) string {
 	for shapeName, shape := range shapes {
 		if shapeMap, ok := shape.(map[string]interface{}); ok {
 			if shapeType, ok := shapeMap["type"].(string); ok && shapeType == "service" {
-				// Extract namespace from shape name (e.g., "com.amazonaws.acmpca#ACMPrivateCA")
 				if parts := strings.Split(shapeName, "#"); len(parts) == 2 {
 					return parts[0]
 				}
 			}
 		}
 	}
-	fmt.Fprintf(os.Stderr, "Warning: no service shape found, namespace-qualified lookups will not work\n")
+	if !namespaceWarned {
+		fmt.Fprintf(os.Stderr, "Warning: no service shape found, namespace-qualified lookups will not work\n")
+		namespaceWarned = true
+	}
 	return ""
 }
 
@@ -384,13 +377,13 @@ func convertSmithyShape(rawShape map[string]interface{}) map[string]interface{} 
 	shapeBytes, err := json.Marshal(rawShape)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Warning: failed to marshal shape: %v\n", err)
-		return result
+		return nil
 	}
 
 	var shape smithyShape
 	if err := json.Unmarshal(shapeBytes, &shape); err != nil {
 		fmt.Fprintf(os.Stderr, "Warning: failed to unmarshal shape: %v\n", err)
-		return result
+		return nil
 	}
 
 	result["type"] = shape.Type
@@ -560,7 +553,7 @@ func makeShapeValue(name string, model map[string]interface{}) cty.Value {
 	pattern := ""
 	min := int64(0)
 	max := int64(0)
-	var enumList cty.Value
+	enumList := cty.ListValEmpty(cty.String)
 
 	if model != nil {
 		if t, ok := model["type"].(string); ok {
@@ -576,11 +569,7 @@ func makeShapeValue(name string, model map[string]interface{}) cty.Value {
 				vals[i] = cty.StringVal(e)
 			}
 			enumList = cty.ListVal(vals)
-		} else {
-			enumList = cty.ListValEmpty(cty.String)
 		}
-	} else {
-		enumList = cty.ListValEmpty(cty.String)
 	}
 
 	return cty.ObjectVal(map[string]cty.Value{

@@ -114,7 +114,10 @@ func TestTransformComposition(t *testing.T) {
 	ctx := buildEvalContext(nil)
 
 	input := []string{"sse-kms", "sse-s3"}
-	ctx.Variables["EncryptionModeValue"] = stringsToCtyList(input)
+	ctx.Variables["EncryptionModeValue"] = makeShapeValue("EncryptionModeValue", map[string]interface{}{
+		"type": "string",
+		"enum": input,
+	})
 
 	// This simulates the HCL expression: uppercase(replace(EncryptionModeValue, "-", "_"))
 	replaceFunc := ctx.Functions["replace"]
@@ -130,15 +133,27 @@ func TestTransformComposition(t *testing.T) {
 		t.Fatalf("replace() failed: %v", err)
 	}
 
+	// Verify intermediate result is a shape
+	if !replaceResult.Type().Equals(shapeType) {
+		t.Fatalf("replace() returned %s, want shape object", replaceResult.Type().FriendlyName())
+	}
+
 	// Then apply uppercase
 	finalResult, err := upperFunc.Call([]cty.Value{replaceResult})
 	if err != nil {
 		t.Fatalf("uppercase() failed: %v", err)
 	}
 
+	// Verify final result is a shape
+	if !finalResult.Type().Equals(shapeType) {
+		t.Fatalf("uppercase() returned %s, want shape object", finalResult.Type().FriendlyName())
+	}
+
+	// Extract enum values from shape
+	enumVal := finalResult.GetAttr("enum")
 	want := []string{"SSE_KMS", "SSE_S3"}
-	got := make([]string, 0, finalResult.LengthInt())
-	for it := finalResult.ElementIterator(); it.Next(); {
+	got := make([]string, 0, enumVal.LengthInt())
+	for it := enumVal.ElementIterator(); it.Next(); {
 		_, val := it.Element()
 		got = append(got, val.AsString())
 	}

@@ -746,6 +746,8 @@ These rules enforce best practices and naming conventions:
 |aws_globalaccelerator_listener_invalid_accelerator_arn|✔|
 |aws_globalaccelerator_listener_invalid_client_affinity|✔|
 |aws_globalaccelerator_listener_invalid_protocol|✔|
+|aws_glue_catalog_database_invalid_parameters|✔|
+|aws_glue_catalog_table_invalid_parameters|✔|
 |aws_glue_catalog_table_invalid_table_type|✔|
 |aws_glue_catalog_table_invalid_view_expanded_text|✔|
 |aws_glue_catalog_table_invalid_view_original_text|✔|
@@ -757,6 +759,7 @@ These rules enforce best practices and naming conventions:
 |aws_glue_ml_transform_invalid_glue_version|✔|
 |aws_glue_ml_transform_invalid_tags|✔|
 |aws_glue_ml_transform_invalid_worker_type|✔|
+|aws_glue_partition_invalid_parameters|✔|
 |aws_glue_registry_invalid_registry_name|✔|
 |aws_glue_registry_invalid_tags|✔|
 |aws_glue_resource_policy_invalid_enable_hybrid|✔|
@@ -767,6 +770,7 @@ These rules enforce best practices and naming conventions:
 |aws_glue_schema_invalid_tags|✔|
 |aws_glue_trigger_invalid_type|✔|
 |aws_glue_user_defined_function_invalid_owner_type|✔|
+|aws_glue_workflow_invalid_default_run_properties|✔|
 |aws_glue_workflow_invalid_tags|✔|
 |aws_guardduty_detector_invalid_finding_publishing_frequency|✔|
 |aws_guardduty_filter_invalid_action|✔|

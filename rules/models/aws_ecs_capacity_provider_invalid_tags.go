@@ -97,7 +97,7 @@ func (r *AwsEcsCapacityProviderInvalidTagsRule) Check(runner tflint.Runner) erro
 				if len(k) < r.keyMin {
 					runner.EmitIssue(
 						r,
-						fmt.Sprintf("tag key %q must be 1 characters or higher", truncateLongMessage(k)),
+						fmt.Sprintf("tag key %q must be at least 1 characters", truncateLongMessage(k)),
 						attribute.Expr.Range(),
 					)
 				}

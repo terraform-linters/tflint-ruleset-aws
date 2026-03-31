@@ -3,8 +3,71 @@
 package main
 
 import (
+	"slices"
 	"testing"
 )
+
+func TestExtractPrefixDenies(t *testing.T) {
+	for _, tc := range []struct {
+		name         string
+		input        string
+		wantPrefixes []string
+		wantCleaned  string
+	}{
+		{
+			name:         "no lookahead",
+			input:        `^[\p{L}]+$`,
+			wantPrefixes: nil,
+			wantCleaned:  `^[\p{L}]+$`,
+		},
+		{
+			name:         "literal prefix aws:",
+			input:        `^(?!aws:)[\p{L}]+$`,
+			wantPrefixes: []string{"aws:"},
+			wantCleaned:  `^[\p{L}]+$`,
+		},
+		{
+			name:         "case insensitive aws variant",
+			input:        `^(?!aws:).{1,128}$`,
+			wantPrefixes: []string{"aws:"},
+			wantCleaned:  `^.{1,128}$`,
+		},
+		{
+			name:         "non-literal lookahead preserved",
+			input:        `^(?!\s+$)[\p{L}]*$`,
+			wantPrefixes: nil,
+			wantCleaned:  `^(?!\s+$)[\p{L}]*$`,
+		},
+		{
+			name:         "mixed literal and non-literal",
+			input:        `^(?!aws:)(?!\s+$)[\p{L}]+$`,
+			wantPrefixes: []string{"aws:"},
+			wantCleaned:  `^(?!\s+$)[\p{L}]+$`,
+		},
+		{
+			name:         "empty string",
+			input:        "",
+			wantPrefixes: nil,
+			wantCleaned:  "",
+		},
+		{
+			name:         "multiple literal prefixes",
+			input:        `^(?!aws:)(?!pcs_)[a-zA-Z]+$`,
+			wantPrefixes: []string{"aws:", "pcs_"},
+			wantCleaned:  `^[a-zA-Z]+$`,
+		},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			gotPrefixes, gotCleaned := extractPrefixDenies(tc.input)
+			if !slices.Equal(gotPrefixes, tc.wantPrefixes) {
+				t.Errorf("prefixes = %v, want %v", gotPrefixes, tc.wantPrefixes)
+			}
+			if gotCleaned != tc.wantCleaned {
+				t.Errorf("cleaned = %q, want %q", gotCleaned, tc.wantCleaned)
+			}
+		})
+	}
+}
 
 func TestReplacePattern(t *testing.T) {
 	for _, tc := range []struct {

@@ -94,7 +94,7 @@ func (r *AwsInspectorResourceGroupInvalidTagsRule) Check(runner tflint.Runner) e
 				if len(k) < r.keyMin {
 					runner.EmitIssue(
 						r,
-						fmt.Sprintf("tag key %q must be 1 characters or higher", truncateLongMessage(k)),
+						fmt.Sprintf("tag key %q must be at least 1 characters", truncateLongMessage(k)),
 						attribute.Expr.Range(),
 					)
 				}
@@ -108,7 +108,7 @@ func (r *AwsInspectorResourceGroupInvalidTagsRule) Check(runner tflint.Runner) e
 				if len(v) < r.valueMin {
 					runner.EmitIssue(
 						r,
-						fmt.Sprintf("tag value for key %q must be 1 characters or higher", truncateLongMessage(k)),
+						fmt.Sprintf("tag value for key %q must be at least 1 characters", truncateLongMessage(k)),
 						attribute.Expr.Range(),
 					)
 				}

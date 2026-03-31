@@ -7,6 +7,9 @@ import (
 {{- if or (ne .KeyPattern "") (ne .ValuePattern "") }}
 	"regexp"
 {{- end }}
+{{- if or .KeyPrefixDeny .ValuePrefixDeny }}
+	"strings"
+{{- end }}
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
@@ -121,7 +124,7 @@ func (r *{{ .RuleNameCC }}Rule) Check(runner tflint.Runner) error {
 			}
 {{- end }}
 
-{{- $hasValueConstraints := or (ne .ValueMax 0) (ne .ValueMin 0) (ne .ValuePattern "") }}
+{{- $hasValueConstraints := or (ne .ValueMax 0) (ne .ValueMin 0) (ne .ValuePattern "") .ValuePrefixDeny }}
 			for k, {{ if $hasValueConstraints }}v{{ else }}_{{ end }} := range val {
 {{- if ne .KeyMax 0 }}
 				if len(k) > r.keyMax {
@@ -137,7 +140,17 @@ func (r *{{ .RuleNameCC }}Rule) Check(runner tflint.Runner) error {
 				if len(k) < r.keyMin {
 					runner.EmitIssue(
 						r,
-						fmt.Sprintf("tag key %q must be {{ .KeyMin }} characters or higher", truncateLongMessage(k)),
+						fmt.Sprintf("tag key %q must be at least {{ .KeyMin }} characters", truncateLongMessage(k)),
+						attribute.Expr.Range(),
+					)
+				}
+{{- end }}
+
+{{- range .KeyPrefixDeny }}
+				if strings.HasPrefix(k, "{{ . }}") {
+					runner.EmitIssue(
+						r,
+						fmt.Sprintf("tag key %q must not start with %q", truncateLongMessage(k), "{{ . }}"),
 						attribute.Expr.Range(),
 					)
 				}
@@ -171,7 +184,17 @@ func (r *{{ .RuleNameCC }}Rule) Check(runner tflint.Runner) error {
 				if len(v) < r.valueMin {
 					runner.EmitIssue(
 						r,
-						fmt.Sprintf("tag value for key %q must be {{ .ValueMin }} characters or higher", truncateLongMessage(k)),
+						fmt.Sprintf("tag value for key %q must be at least {{ .ValueMin }} characters", truncateLongMessage(k)),
+						attribute.Expr.Range(),
+					)
+				}
+{{- end }}
+
+{{- range .ValuePrefixDeny }}
+				if strings.HasPrefix(v, "{{ . }}") {
+					runner.EmitIssue(
+						r,
+						fmt.Sprintf("tag value for key %q must not start with %q", truncateLongMessage(k), "{{ . }}"),
 						attribute.Expr.Range(),
 					)
 				}

@@ -28,30 +28,30 @@ type ruleMeta struct {
 }
 
 type mapRuleMeta struct {
-	RuleName      string
-	RuleNameCC    string
-	ResourceType  string
-	AttributeName string
-	Sensitive     bool
-	ItemsMax      int
-	KeyMax        int
-	KeyMin        int
-	KeyPattern    string
-	KeyEnum       []string
-	ValueMax      int
-	ValueMin      int
-	ValuePattern  string
-	ValueEnum     []string
+	RuleName        string
+	RuleNameCC      string
+	ResourceType    string
+	AttributeName   string
+	Sensitive       bool
+	ItemsMax        int
+	KeyMax          int
+	KeyMin          int
+	KeyPattern      string
+	KeyPrefixDeny   []string
+	ValueMax        int
+	ValueMin        int
+	ValuePattern    string
+	ValuePrefixDeny []string
 }
 
 var (
 	unicodeEscapeRegex     = regexp.MustCompile(`\\u([0-9A-F]{4})`)
 	negativeLookaheadRegex = regexp.MustCompile(`\(\?![^)]+\)`)
+	literalPrefixRegex     = regexp.MustCompile(`^[a-zA-Z0-9_:/.+\-]+$`)
 )
 
-func generateRuleFile(resource, attribute string, model map[string]interface{}, schema *tfjson.SchemaAttribute) {
+func buildRuleMeta(resource, attribute string, model map[string]interface{}, schema *tfjson.SchemaAttribute) *ruleMeta {
 	ruleName := makeRuleName(resource, attribute)
-
 	meta := &ruleMeta{
 		RuleName:      ruleName,
 		RuleNameCC:    genutils.ToCamel(ruleName),
@@ -71,33 +71,19 @@ func generateRuleFile(resource, attribute string, model map[string]interface{}, 
 		}
 	}
 
-	genutils.GenerateFile(fmt.Sprintf("%s.go", ruleName), "pattern_rule.go.tmpl", meta)
+	return meta
+}
+
+func generateRuleFile(resource, attribute string, model map[string]interface{}, schema *tfjson.SchemaAttribute) {
+	meta := buildRuleMeta(resource, attribute, model, schema)
+	genutils.GenerateFile(fmt.Sprintf("%s.go", meta.RuleName), "pattern_rule.go.tmpl", meta)
 }
 
 func generateRuleTestFile(resource, attribute string, model map[string]interface{}, test test) {
-	ruleName := makeRuleName(resource, attribute)
-
-	meta := &ruleMeta{
-		RuleName:      ruleName,
-		RuleNameCC:    genutils.ToCamel(ruleName),
-		ResourceType:  resource,
-		AttributeName: attribute,
-		Max:           fetchNumber(model, "max"),
-		Min:           fetchNumber(model, "min"),
-		Pattern:       replacePattern(fetchString(model, "pattern")),
-		Enum:          fetchStrings(model, "enum"),
-		TestOK:        formatTest(test.OK),
-		TestNG:        formatTest(test.NG),
-	}
-
-	if meta.Pattern != "" {
-		if _, err := regexp.Compile(meta.Pattern); err != nil {
-			fmt.Fprintf(os.Stderr, "Error: %s.%s has malformed pattern %q: %v\n", resource, attribute, meta.Pattern, err)
-			os.Exit(1)
-		}
-	}
-
-	genutils.GenerateFile(fmt.Sprintf("%s_test.go", ruleName), "pattern_rule_test.go.tmpl", meta)
+	meta := buildRuleMeta(resource, attribute, model, nil)
+	meta.TestOK = formatTest(test.OK)
+	meta.TestNG = formatTest(test.NG)
+	genutils.GenerateFile(fmt.Sprintf("%s_test.go", meta.RuleName), "pattern_rule_test.go.tmpl", meta)
 }
 
 func generateMapRuleFile(resource, attribute string, listModel, keyModel, valueModel map[string]interface{}, schema *tfjson.SchemaAttribute) bool {
@@ -107,8 +93,10 @@ func generateMapRuleFile(resource, attribute string, listModel, keyModel, valueM
 	if listModel != nil {
 		itemsMax = fetchNumber(listModel, "max")
 	}
-	keyPattern := replacePattern(fetchString(keyModel, "pattern"))
-	valuePattern := replacePattern(fetchString(valueModel, "pattern"))
+	keyPrefixDeny, rawKeyPattern := extractPrefixDenies(fetchString(keyModel, "pattern"))
+	valuePrefixDeny, rawValuePattern := extractPrefixDenies(fetchString(valueModel, "pattern"))
+	keyPattern := replacePattern(rawKeyPattern)
+	valuePattern := replacePattern(rawValuePattern)
 	keyMax := fetchNumber(keyModel, "max")
 	keyMin := fetchNumber(keyModel, "min")
 	valueMax := fetchNumber(valueModel, "max")
@@ -116,39 +104,42 @@ func generateMapRuleFile(resource, attribute string, listModel, keyModel, valueM
 
 	// Skip if no constraints exist
 	hasItemsConstraints := itemsMax != 0
-	hasKeyConstraints := keyPattern != "" || keyMax != 0 || keyMin != 0
-	hasValueConstraints := valuePattern != "" || valueMax != 0 || valueMin != 0
+	hasKeyConstraints := keyPattern != "" || keyMax != 0 || keyMin != 0 || len(keyPrefixDeny) > 0
+	hasValueConstraints := valuePattern != "" || valueMax != 0 || valueMin != 0 || len(valuePrefixDeny) > 0
 	if !hasItemsConstraints && !hasKeyConstraints && !hasValueConstraints {
 		return false
 	}
 
-	// Test generated regexps - skip if malformed
+	// Smithy models may use regex features incompatible with Go's regexp (e.g.,
+	// surrogate pair ranges). Warn and skip rather than failing fatally.
 	if keyPattern != "" {
 		if _, err := regexp.Compile(keyPattern); err != nil {
-			fmt.Fprintf(os.Stderr, "Skipping %s.%s: malformed key pattern %q: %v\n", resource, attribute, keyPattern, err)
-			return false
+			fmt.Fprintf(os.Stderr, "Warning: skipping %s.%s: incompatible key pattern %q: %v\n", resource, attribute, keyPattern, err)
+			keyPattern = ""
 		}
 	}
 	if valuePattern != "" {
 		if _, err := regexp.Compile(valuePattern); err != nil {
-			fmt.Fprintf(os.Stderr, "Skipping %s.%s: malformed value pattern %q: %v\n", resource, attribute, valuePattern, err)
-			return false
+			fmt.Fprintf(os.Stderr, "Warning: skipping %s.%s: incompatible value pattern %q: %v\n", resource, attribute, valuePattern, err)
+			valuePattern = ""
 		}
 	}
 
 	meta := &mapRuleMeta{
-		RuleName:      ruleName,
-		RuleNameCC:    genutils.ToCamel(ruleName),
-		ResourceType:  resource,
-		AttributeName: attribute,
-		Sensitive:     schema != nil && schema.Sensitive,
-		ItemsMax:      itemsMax,
-		KeyMax:        keyMax,
-		KeyMin:        keyMin,
-		KeyPattern:    keyPattern,
-		ValueMax:      valueMax,
-		ValueMin:      valueMin,
-		ValuePattern:  valuePattern,
+		RuleName:        ruleName,
+		RuleNameCC:      genutils.ToCamel(ruleName),
+		ResourceType:    resource,
+		AttributeName:   attribute,
+		Sensitive:       schema != nil && schema.Sensitive,
+		ItemsMax:        itemsMax,
+		KeyMax:          keyMax,
+		KeyMin:          keyMin,
+		KeyPattern:      keyPattern,
+		KeyPrefixDeny:   keyPrefixDeny,
+		ValueMax:        valueMax,
+		ValueMin:        valueMin,
+		ValuePattern:    valuePattern,
+		ValuePrefixDeny: valuePrefixDeny,
 	}
 
 	genutils.GenerateFile(fmt.Sprintf("%s.go", ruleName), "map_rule.go.tmpl", meta)
@@ -165,7 +156,6 @@ func generateMapRuleFromShapes(resource, attribute string, result cty.Value, sch
 		schema,
 	)
 }
-
 
 func makeRuleName(resource, attribute string) string {
 	// XXX: Change the naming convention for the backward compatibility.
@@ -222,6 +212,22 @@ func fetchString(model map[string]interface{}, key string) string {
 	return ""
 }
 
+// extractPrefixDenies finds negative lookahead patterns containing literal strings
+// (e.g., (?!aws:)) and returns them as prefix deny values. Non-literal lookaheads
+// (containing regex metacharacters) are left in the pattern for replacePattern to strip.
+func extractPrefixDenies(pattern string) (prefixes []string, cleaned string) {
+	cleaned = negativeLookaheadRegex.ReplaceAllStringFunc(pattern, func(match string) string {
+		// Extract the content between (?! and )
+		inner := match[3 : len(match)-1]
+		if literalPrefixRegex.MatchString(inner) {
+			prefixes = append(prefixes, inner)
+			return ""
+		}
+		return match
+	})
+	return prefixes, cleaned
+}
+
 func replacePattern(pattern string) string {
 	if pattern == "" {
 		return pattern
@@ -230,9 +236,9 @@ func replacePattern(pattern string) string {
 	// Convert Unicode escapes from \uXXXX to \x{XXXX} format
 	replaced := unicodeEscapeRegex.ReplaceAllString(pattern, `\x{$1}`)
 
-	// Remove negative lookahead patterns that Go's regexp doesn't support
-	// Common patterns like (?!aws:) are used to prevent aws: prefix in tag keys
-	// We strip these and still validate the character set constraint
+	// Remove remaining negative lookahead patterns that Go's regexp doesn't support.
+	// Literal prefix lookaheads (e.g., (?!aws:)) should be extracted by
+	// extractPrefixDenies before calling replacePattern.
 	replaced = negativeLookaheadRegex.ReplaceAllString(replaced, "")
 
 	// Handle patterns missing anchors
@@ -314,31 +320,24 @@ func replacePattern(pattern string) string {
 	return replaced
 }
 
-func applyCompatibilityTransforms(pattern string) string {
+// compatibilityTransforms maps patterns that need special handling for backward
+// compatibility with the Ruby SDK or Terraform provider expectations.
+var compatibilityTransforms = map[string]string{
 	// IAM role ARN patterns: Smithy models end at the role prefix (e.g., "role/")
 	// but Terraform configurations include role paths (e.g., "role/my-app/my-role").
-	// Add .* suffix to match the role name/path after the prefix.
-	arnRolePatterns := map[string]string{
-		"^arn:aws:iam::[0-9]*:role/":                  "^arn:aws:iam::[0-9]*:role/.*$",
-		"^arn:aws:iam::\\d{12}:role/":                 "^arn:aws:iam::\\d{12}:role/.*$",
-		"^arn:aws(-[\\w]+)*:iam::[0-9]{12}:role/":     "^arn:aws(-[\\w]+)*:iam::[0-9]{12}:role/.*$",
-		"^arn:aws(-[a-z]{1,3}){0,2}:iam::\\d+:role/": "^arn:aws(-[a-z]{1,3}){0,2}:iam::\\d+:role/.*$",
-	}
-
+	"^arn:aws:iam::[0-9]*:role/":                  "^arn:aws:iam::[0-9]*:role/.*$",
+	"^arn:aws:iam::\\d{12}:role/":                 "^arn:aws:iam::\\d{12}:role/.*$",
+	"^arn:aws(-[\\w]+)*:iam::[0-9]{12}:role/":     "^arn:aws(-[\\w]+)*:iam::[0-9]{12}:role/.*$",
+	"^arn:aws(-[a-z]{1,3}){0,2}:iam::\\d+:role/": "^arn:aws(-[a-z]{1,3}){0,2}:iam::\\d+:role/.*$",
 	// Cognito SMS authentication messages: The {####} placeholder must appear
-	// within a message, not be the entire message. Transform from matching
-	// literal "{####}" to matching any message containing "{####}".
-	// Example valid message: "Your code is {####}. Do not share it."
-	cognitoMessagePatterns := map[string]string{
-		"^\\{####\\}$": "^.*\\{####\\}.*$",
-	}
+	// within a message, not be the entire message.
+	"^\\{####\\}$": "^.*\\{####\\}.*$",
+}
 
-	for _, transforms := range []map[string]string{arnRolePatterns, cognitoMessagePatterns} {
-		if transformed, exists := transforms[pattern]; exists {
-			return transformed
-		}
+func applyCompatibilityTransforms(pattern string) string {
+	if transformed, ok := compatibilityTransforms[pattern]; ok {
+		return transformed
 	}
-
 	return ""
 }
 
