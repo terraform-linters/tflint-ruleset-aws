@@ -19,4 +19,9 @@ jobs:
         go-version-file: 'go.mod'
         cache: true
     - name: go generate and diff checks
-      run: go generate ./... && git diff --exit-code
+      # lambda_deprecated_runtime is excluded because its generator fetches
+      # remote data from AWS docs, making it non-deterministic and dependent
+      # on network access.
+      run: |
+        go generate $(go list ./... | grep -v lambda_deprecated_runtime)
+        git diff --exit-code

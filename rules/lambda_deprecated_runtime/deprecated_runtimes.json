@@ -1,0 +1,239 @@
+{
+  "updated_at": "2026-03-29T20:59:46.200265Z",
+  "runtimes": {
+    "dotnet10": {
+      "end_of_support_date": "2028-11-14T00:00:00Z",
+      "block_create_date": "2028-12-14T00:00:00Z",
+      "block_update_date": "2029-01-15T00:00:00Z"
+    },
+    "dotnet5.0": {
+      "end_of_support_date": "2022-05-10T00:00:00Z"
+    },
+    "dotnet6": {
+      "end_of_support_date": "2024-12-20T00:00:00Z",
+      "block_create_date": "2026-08-31T00:00:00Z",
+      "block_update_date": "2026-09-30T00:00:00Z"
+    },
+    "dotnet7": {
+      "end_of_support_date": "2024-05-14T00:00:00Z"
+    },
+    "dotnet8": {
+      "end_of_support_date": "2026-11-10T00:00:00Z",
+      "block_create_date": "2026-12-10T00:00:00Z",
+      "block_update_date": "2027-01-11T00:00:00Z"
+    },
+    "dotnet9": {
+      "end_of_support_date": "2026-11-10T00:00:00Z"
+    },
+    "dotnetcore1.0": {
+      "end_of_support_date": "2019-06-27T00:00:00Z",
+      "block_create_date": "2019-06-30T00:00:00Z",
+      "block_update_date": "2019-07-30T00:00:00Z"
+    },
+    "dotnetcore2.0": {
+      "end_of_support_date": "2019-05-30T00:00:00Z",
+      "block_create_date": "2019-04-30T00:00:00Z",
+      "block_update_date": "2019-05-30T00:00:00Z"
+    },
+    "dotnetcore2.1": {
+      "end_of_support_date": "2022-01-05T00:00:00Z",
+      "block_create_date": "2022-01-05T00:00:00Z",
+      "block_update_date": "2022-04-13T00:00:00Z"
+    },
+    "dotnetcore3.1": {
+      "end_of_support_date": "2023-04-03T00:00:00Z",
+      "block_create_date": "2023-04-03T00:00:00Z",
+      "block_update_date": "2023-05-03T00:00:00Z"
+    },
+    "go1.x": {
+      "end_of_support_date": "2024-01-08T00:00:00Z",
+      "block_create_date": "2024-02-08T00:00:00Z",
+      "block_update_date": "2026-09-30T00:00:00Z"
+    },
+    "java11": {
+      "end_of_support_date": "2027-06-30T00:00:00Z",
+      "block_create_date": "2027-07-31T00:00:00Z",
+      "block_update_date": "2027-08-31T00:00:00Z"
+    },
+    "java17": {
+      "end_of_support_date": "2027-06-30T00:00:00Z",
+      "block_create_date": "2027-07-31T00:00:00Z",
+      "block_update_date": "2027-08-31T00:00:00Z"
+    },
+    "java21": {
+      "end_of_support_date": "2029-06-30T00:00:00Z",
+      "block_create_date": "2029-07-31T00:00:00Z",
+      "block_update_date": "2029-08-31T00:00:00Z"
+    },
+    "java25": {
+      "end_of_support_date": "2029-06-30T00:00:00Z",
+      "block_create_date": "2029-07-31T00:00:00Z",
+      "block_update_date": "2029-08-31T00:00:00Z"
+    },
+    "java8": {
+      "end_of_support_date": "2024-01-08T00:00:00Z",
+      "block_create_date": "2024-02-08T00:00:00Z",
+      "block_update_date": "2026-09-30T00:00:00Z"
+    },
+    "java8.al2": {
+      "end_of_support_date": "2027-06-30T00:00:00Z",
+      "block_create_date": "2027-07-31T00:00:00Z",
+      "block_update_date": "2027-08-31T00:00:00Z"
+    },
+    "nodejs": {
+      "end_of_support_date": "2016-08-30T00:00:00Z",
+      "block_create_date": "2016-09-30T00:00:00Z",
+      "block_update_date": "2016-10-31T00:00:00Z"
+    },
+    "nodejs10.x": {
+      "end_of_support_date": "2021-07-30T00:00:00Z",
+      "block_create_date": "2021-07-30T00:00:00Z",
+      "block_update_date": "2022-02-14T00:00:00Z"
+    },
+    "nodejs12.x": {
+      "end_of_support_date": "2023-03-31T00:00:00Z",
+      "block_create_date": "2023-03-31T00:00:00Z",
+      "block_update_date": "2023-04-30T00:00:00Z"
+    },
+    "nodejs14.x": {
+      "end_of_support_date": "2023-12-04T00:00:00Z",
+      "block_create_date": "2024-01-09T00:00:00Z",
+      "block_update_date": "2026-09-30T00:00:00Z"
+    },
+    "nodejs16.x": {
+      "end_of_support_date": "2024-06-12T00:00:00Z",
+      "block_create_date": "2026-08-31T00:00:00Z",
+      "block_update_date": "2026-09-30T00:00:00Z"
+    },
+    "nodejs18.x": {
+      "end_of_support_date": "2025-09-01T00:00:00Z",
+      "block_create_date": "2026-08-31T00:00:00Z",
+      "block_update_date": "2026-09-30T00:00:00Z"
+    },
+    "nodejs20.x": {
+      "end_of_support_date": "2026-04-30T00:00:00Z",
+      "block_create_date": "2026-08-31T00:00:00Z",
+      "block_update_date": "2026-09-30T00:00:00Z"
+    },
+    "nodejs22.x": {
+      "end_of_support_date": "2027-04-30T00:00:00Z",
+      "block_create_date": "2027-06-01T00:00:00Z",
+      "block_update_date": "2027-07-01T00:00:00Z"
+    },
+    "nodejs24.x": {
+      "end_of_support_date": "2028-04-30T00:00:00Z",
+      "block_create_date": "2028-06-01T00:00:00Z",
+      "block_update_date": "2028-07-01T00:00:00Z"
+    },
+    "nodejs4.3": {
+      "end_of_support_date": "2020-03-05T00:00:00Z",
+      "block_create_date": "2020-02-03T00:00:00Z",
+      "block_update_date": "2020-03-05T00:00:00Z"
+    },
+    "nodejs4.3-edge": {
+      "end_of_support_date": "2020-03-05T00:00:00Z",
+      "block_create_date": "2019-03-31T00:00:00Z",
+      "block_update_date": "2019-04-30T00:00:00Z"
+    },
+    "nodejs6.10": {
+      "end_of_support_date": "2019-08-12T00:00:00Z",
+      "block_create_date": "2019-07-12T00:00:00Z",
+      "block_update_date": "2019-08-12T00:00:00Z"
+    },
+    "nodejs8.10": {
+      "end_of_support_date": "2020-03-06T00:00:00Z",
+      "block_create_date": "2020-02-04T00:00:00Z",
+      "block_update_date": "2020-03-06T00:00:00Z"
+    },
+    "provided": {
+      "end_of_support_date": "2024-01-08T00:00:00Z",
+      "block_create_date": "2024-02-08T00:00:00Z",
+      "block_update_date": "2026-09-30T00:00:00Z"
+    },
+    "provided.al2": {
+      "end_of_support_date": "2026-07-31T00:00:00Z",
+      "block_create_date": "2026-08-31T00:00:00Z",
+      "block_update_date": "2026-09-30T00:00:00Z"
+    },
+    "provided.al2023": {
+      "end_of_support_date": "2029-06-30T00:00:00Z",
+      "block_create_date": "2029-07-31T00:00:00Z",
+      "block_update_date": "2029-08-31T00:00:00Z"
+    },
+    "python2.7": {
+      "end_of_support_date": "2021-07-15T00:00:00Z",
+      "block_create_date": "2021-07-15T00:00:00Z",
+      "block_update_date": "2022-05-30T00:00:00Z"
+    },
+    "python3.10": {
+      "end_of_support_date": "2026-10-31T00:00:00Z",
+      "block_create_date": "2026-11-30T00:00:00Z",
+      "block_update_date": "2027-01-15T00:00:00Z"
+    },
+    "python3.11": {
+      "end_of_support_date": "2027-06-30T00:00:00Z",
+      "block_create_date": "2027-07-31T00:00:00Z",
+      "block_update_date": "2027-08-31T00:00:00Z"
+    },
+    "python3.12": {
+      "end_of_support_date": "2028-10-31T00:00:00Z",
+      "block_create_date": "2028-11-30T00:00:00Z",
+      "block_update_date": "2029-01-10T00:00:00Z"
+    },
+    "python3.13": {
+      "end_of_support_date": "2029-06-30T00:00:00Z",
+      "block_create_date": "2029-07-31T00:00:00Z",
+      "block_update_date": "2029-08-31T00:00:00Z"
+    },
+    "python3.14": {
+      "end_of_support_date": "2029-06-30T00:00:00Z",
+      "block_create_date": "2029-07-31T00:00:00Z",
+      "block_update_date": "2029-08-31T00:00:00Z"
+    },
+    "python3.6": {
+      "end_of_support_date": "2022-07-18T00:00:00Z",
+      "block_create_date": "2022-07-18T00:00:00Z",
+      "block_update_date": "2022-08-29T00:00:00Z"
+    },
+    "python3.7": {
+      "end_of_support_date": "2023-12-04T00:00:00Z",
+      "block_create_date": "2024-01-09T00:00:00Z",
+      "block_update_date": "2026-09-30T00:00:00Z"
+    },
+    "python3.8": {
+      "end_of_support_date": "2024-10-14T00:00:00Z",
+      "block_create_date": "2026-08-31T00:00:00Z",
+      "block_update_date": "2026-09-30T00:00:00Z"
+    },
+    "python3.9": {
+      "end_of_support_date": "2025-12-15T00:00:00Z",
+      "block_create_date": "2026-08-31T00:00:00Z",
+      "block_update_date": "2026-09-30T00:00:00Z"
+    },
+    "ruby2.5": {
+      "end_of_support_date": "2021-07-30T00:00:00Z",
+      "block_create_date": "2021-07-30T00:00:00Z",
+      "block_update_date": "2022-03-31T00:00:00Z"
+    },
+    "ruby2.7": {
+      "end_of_support_date": "2023-12-07T00:00:00Z",
+      "block_create_date": "2024-01-09T00:00:00Z",
+      "block_update_date": "2026-09-30T00:00:00Z"
+    },
+    "ruby3.2": {
+      "end_of_support_date": "2026-03-31T00:00:00Z",
+      "block_create_date": "2026-08-31T00:00:00Z",
+      "block_update_date": "2026-09-30T00:00:00Z"
+    },
+    "ruby3.3": {
+      "end_of_support_date": "2027-03-31T00:00:00Z",
+      "block_create_date": "2027-04-30T00:00:00Z",
+      "block_update_date": "2027-05-31T00:00:00Z"
+    },
+    "ruby3.4": {
+      "end_of_support_date": "2028-03-31T00:00:00Z",
+      "block_create_date": "2028-04-30T00:00:00Z",
+      "block_update_date": "2028-05-31T00:00:00Z"
+    }
+  }
+}
