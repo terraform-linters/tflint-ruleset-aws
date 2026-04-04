@@ -19,6 +19,8 @@ import (
 //	Block create: 2027-06-01
 //	Block update: 2027-07-01
 func Test_AwsLambdaFunctionDeprecatedRuntime(t *testing.T) {
+	stale := runtimes.UpdatedAt.Format("Jan 2, 2006")
+
 	for _, tc := range []struct {
 		name     string
 		runtime  string
@@ -49,7 +51,7 @@ func Test_AwsLambdaFunctionDeprecatedRuntime(t *testing.T) {
 			expected: helper.Issues{
 				{
 					Rule:    NewRule(),
-					Message: `The "python3.9" runtime has reached end of support and new function creation was scheduled to be blocked on Aug 31, 2026 (as of Mar 29, 2026)`,
+					Message: `The "python3.9" runtime has reached end of support and new function creation was scheduled to be blocked on Aug 31, 2026 (as of ` + stale + `)`,
 				},
 			},
 		},
@@ -60,7 +62,7 @@ func Test_AwsLambdaFunctionDeprecatedRuntime(t *testing.T) {
 			expected: helper.Issues{
 				{
 					Rule:    NewRule(),
-					Message: `The "python3.9" runtime has reached end of support and function updates were scheduled to be blocked on Sep 30, 2026 (as of Mar 29, 2026)`,
+					Message: `The "python3.9" runtime has reached end of support and function updates were scheduled to be blocked on Sep 30, 2026 (as of ` + stale + `)`,
 				},
 			},
 		},
@@ -71,7 +73,7 @@ func Test_AwsLambdaFunctionDeprecatedRuntime(t *testing.T) {
 			expected: helper.Issues{
 				{
 					Rule:    NewRule(),
-					Message: `The "nodejs22.x" runtime was scheduled to reach end of support on Apr 30, 2027 (as of Mar 29, 2026)`,
+					Message: `The "nodejs22.x" runtime was scheduled to reach end of support on Apr 30, 2027 (as of ` + stale + `)`,
 				},
 			},
 		},
@@ -106,7 +108,8 @@ resource "aws_lambda_function" "function" {
 }
 
 func Test_RuntimeMessage(t *testing.T) {
-	updatedAt := time.Date(2026, time.March, 29, 0, 0, 0, 0, time.UTC)
+	updatedAt := runtimes.UpdatedAt
+	stale := updatedAt.Format("Jan 2, 2006")
 	blockCreate := time.Date(2026, time.August, 31, 0, 0, 0, 0, time.UTC)
 	blockUpdate := time.Date(2026, time.September, 30, 0, 0, 0, 0, time.UTC)
 
@@ -129,12 +132,12 @@ func Test_RuntimeMessage(t *testing.T) {
 		{
 			name:     "speculative block create",
 			now:      time.Date(2026, time.September, 1, 0, 0, 0, 0, time.UTC),
-			expected: `The "test" runtime has reached end of support and new function creation was scheduled to be blocked on Aug 31, 2026 (as of Mar 29, 2026)`,
+			expected: `The "test" runtime has reached end of support and new function creation was scheduled to be blocked on Aug 31, 2026 (as of ` + stale + `)`,
 		},
 		{
 			name:     "speculative block update",
 			now:      time.Date(2026, time.October, 1, 0, 0, 0, 0, time.UTC),
-			expected: `The "test" runtime has reached end of support and function updates were scheduled to be blocked on Sep 30, 2026 (as of Mar 29, 2026)`,
+			expected: `The "test" runtime has reached end of support and function updates were scheduled to be blocked on Sep 30, 2026 (as of ` + stale + `)`,
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
