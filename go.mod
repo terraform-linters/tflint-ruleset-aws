@@ -20,13 +20,13 @@ require (
 )
 
 require (
-	github.com/aws/aws-sdk-go-v2/service/ec2 v1.296.0
-	github.com/aws/aws-sdk-go-v2/service/ecs v1.74.0
-	github.com/aws/aws-sdk-go-v2/service/elasticache v1.51.12
-	github.com/aws/aws-sdk-go-v2/service/elasticloadbalancing v1.33.22
-	github.com/aws/aws-sdk-go-v2/service/elasticloadbalancingv2 v1.54.9
-	github.com/aws/aws-sdk-go-v2/service/iam v1.53.6
-	github.com/aws/aws-sdk-go-v2/service/rds v1.116.3
+	github.com/aws/aws-sdk-go-v2/service/ec2 v1.296.1
+	github.com/aws/aws-sdk-go-v2/service/ecs v1.75.0
+	github.com/aws/aws-sdk-go-v2/service/elasticache v1.51.13
+	github.com/aws/aws-sdk-go-v2/service/elasticloadbalancing v1.33.23
+	github.com/aws/aws-sdk-go-v2/service/elasticloadbalancingv2 v1.54.10
+	github.com/aws/aws-sdk-go-v2/service/iam v1.53.7
+	github.com/aws/aws-sdk-go-v2/service/rds v1.117.1
 	github.com/aws/smithy-go v1.24.2
 	github.com/hashicorp/aws-sdk-go-base/v2 v2.0.0-beta.72
 	github.com/hashicorp/terraform-json v0.27.2
@@ -37,20 +37,20 @@ require (
 
 require (
 	github.com/apparentlymart/go-textseg/v15 v15.0.0 // indirect
-	github.com/aws/aws-sdk-go-v2 v1.41.4 // indirect
+	github.com/aws/aws-sdk-go-v2 v1.41.5 // indirect
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.7.7 // indirect
 	github.com/aws/aws-sdk-go-v2/config v1.32.12 // indirect
 	github.com/aws/aws-sdk-go-v2/credentials v1.19.12 // indirect
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.18.20 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/configsources v1.4.20 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.7.20 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/configsources v1.4.21 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.7.21 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/ini v1.8.6 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/v4a v1.4.21 // indirect
 	github.com/aws/aws-sdk-go-v2/service/dynamodb v1.56.2 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.13.7 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.9.12 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/endpoint-discovery v1.11.20 // indirect
-	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.13.20 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.13.21 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.19.20 // indirect
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.97.1 // indirect
 	github.com/aws/aws-sdk-go-v2/service/signin v1.0.8 // indirect
