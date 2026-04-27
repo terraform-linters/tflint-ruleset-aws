@@ -26,6 +26,7 @@ func NewAwsNetworkfirewallRuleGroupInvalidTypeRule() *AwsNetworkfirewallRuleGrou
 		attributeName: "type",
 		enum: []string{
 			"STATEFUL",
+			"STATEFUL_DOMAIN",
 			"STATELESS",
 		},
 	}
