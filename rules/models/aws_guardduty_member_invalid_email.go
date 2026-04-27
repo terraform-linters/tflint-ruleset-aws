@@ -24,7 +24,7 @@ func NewAwsGuarddutyMemberInvalidEmailRule() *AwsGuarddutyMemberInvalidEmailRule
 		resourceType:  "aws_guardduty_member",
 		attributeName: "email",
 		max:           64,
-		min:           6,
+		min:           1,
 	}
 }
 
@@ -78,7 +78,7 @@ func (r *AwsGuarddutyMemberInvalidEmailRule) Check(runner tflint.Runner) error {
 			if len(val) < r.min {
 				runner.EmitIssue(
 					r,
-					"email must be 6 characters or higher",
+					"email must be 1 characters or higher",
 					attribute.Expr.Range(),
 				)
 			}
