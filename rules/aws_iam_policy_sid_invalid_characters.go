@@ -62,7 +62,9 @@ func (r *AwsIAMPolicySidInvalidCharactersRule) Link() string {
 func (r *AwsIAMPolicySidInvalidCharactersRule) Check(runner tflint.Runner) error {
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
 		Attributes: []hclext.AttributeSchema{{Name: r.attributeName}},
-	}, nil)
+	}, &tflint.GetModuleContentOption{
+		ExpandMode: tflint.ExpandModeNone,
+	})
 	if err != nil {
 		return err
 	}

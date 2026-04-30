@@ -95,6 +95,12 @@ func TestIntegration(t *testing.T) {
 			Command: exec.Command("tflint", "--only", "aws_s3_bucket_name", "--format", "json", "--force"),
 			Dir:     "rule-config",
 		},
+		{
+			// Regression: https://github.com/terraform-linters/tflint-ruleset-aws/issues/1085
+			Name:    "unrelated expansion failure with --only aws_iam_policy_sid_invalid_characters",
+			Command: exec.Command("tflint", "--only", "aws_iam_policy_sid_invalid_characters", "--format", "json", "--force"),
+			Dir:     "issue-1085",
+		},
 	}
 
 	dir, _ := os.Getwd()
