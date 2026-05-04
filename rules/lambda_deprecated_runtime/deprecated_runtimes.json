@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-04T13:38:46.251018798Z",
+  "updated_at": "2026-05-04T02:58:12.617555964Z",
   "runtimes": {
     "dotnet10": {
       "end_of_support_date": "2028-11-14T00:00:00Z",
@@ -234,6 +234,11 @@
       "end_of_support_date": "2028-03-31T00:00:00Z",
       "block_create_date": "2028-04-30T00:00:00Z",
       "block_update_date": "2028-05-31T00:00:00Z"
+    },
+    "ruby4.0": {
+      "end_of_support_date": "2029-03-31T00:00:00Z",
+      "block_create_date": "2029-04-30T00:00:00Z",
+      "block_update_date": "2029-05-31T00:00:00Z"
     }
   }
 }

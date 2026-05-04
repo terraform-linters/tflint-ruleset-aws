@@ -24,6 +24,13 @@ var writeOnlyArguments = map[string][]writeOnlyArgument{
 			writeOnlyVersionAttribute: "master_password_wo_version",
 		},
 	},
+	"aws_elasticache_user": {
+		{
+			originalAttribute:         "passwords",
+			writeOnlyAlternative:      "passwords_wo",
+			writeOnlyVersionAttribute: "passwords_wo_version",
+		},
+	},
 	"aws_kms_ciphertext": {
 		{
 			originalAttribute:         "plaintext",
