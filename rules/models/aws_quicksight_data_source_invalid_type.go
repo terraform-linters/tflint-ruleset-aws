@@ -50,6 +50,7 @@ func NewAwsQuicksightDataSourceInvalidTypeRule() *AwsQuicksightDataSourceInvalid
 			"REDSHIFT",
 			"S3",
 			"S3_KNOWLEDGE_BASE",
+			"S3_TABLES",
 			"SALESFORCE",
 			"SERVICENOW",
 			"SHAREPOINT",
