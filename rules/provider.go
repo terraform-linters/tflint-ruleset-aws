@@ -48,6 +48,7 @@ var manualRules = []tflint.Rule{
 	NewAwsIAMRoleDeprecatedPolicyAttributesRule(),
 	ephemeral.NewAwsWriteOnlyArgumentsRule(),
 	ephemeral.NewAwsEphemeralResourcesRule(),
+	NewAwsCloudwatchLogGroupRetentionRule(),
 }
 
 // Rules is a list of all rules
