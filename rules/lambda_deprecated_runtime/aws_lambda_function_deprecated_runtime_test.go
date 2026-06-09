@@ -7,19 +7,29 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )
 
-// python3.9 dates (deprecated, all confirmed as of 2026-03-29):
-//
-//	EOS:          2025-12-15
-//	Block create: 2026-08-31
-//	Block update: 2026-09-30
-//
-// nodejs22.x dates (supported, all speculative as of 2026-03-29):
-//
-//	EOS:          2027-04-30
-//	Block create: 2027-06-01
-//	Block update: 2027-07-01
 func Test_AwsLambdaFunctionDeprecatedRuntime(t *testing.T) {
-	stale := runtimes.UpdatedAt.Format("Jan 2, 2006")
+	// Synthetic data so the test does not depend on the generated
+	// deprecated_runtimes.json, whose dates shift whenever AWS updates
+	// its documentation.
+	updatedAt := time.Date(2026, time.March, 29, 0, 0, 0, 0, time.UTC)
+	blockCreate := time.Date(2026, time.August, 31, 0, 0, 0, 0, time.UTC)
+	blockUpdate := time.Date(2026, time.September, 30, 0, 0, 0, 0, time.UTC)
+
+	testRuntimes := runtimesData{
+		UpdatedAt: updatedAt,
+		Runtimes: map[string]runtimeLifecycle{
+			"python3.9": {
+				EndOfSupportDate: time.Date(2025, time.December, 15, 0, 0, 0, 0, time.UTC),
+				BlockCreateDate:  &blockCreate,
+				BlockUpdateDate:  &blockUpdate,
+			},
+			"nodejs22.x": {
+				EndOfSupportDate: time.Date(2027, time.April, 30, 0, 0, 0, 0, time.UTC),
+			},
+		},
+	}
+
+	stale := updatedAt.Format("Jan 2, 2006")
 
 	for _, tc := range []struct {
 		name     string
@@ -45,7 +55,7 @@ func Test_AwsLambdaFunctionDeprecatedRuntime(t *testing.T) {
 			},
 		},
 		{
-			name:    "confirmed block create",
+			name:    "speculative block create",
 			runtime: "python3.9",
 			now:     time.Date(2026, time.September, 1, 0, 0, 0, 0, time.UTC),
 			expected: helper.Issues{
@@ -56,7 +66,7 @@ func Test_AwsLambdaFunctionDeprecatedRuntime(t *testing.T) {
 			},
 		},
 		{
-			name:    "confirmed block update",
+			name:    "speculative block update",
 			runtime: "python3.9",
 			now:     time.Date(2026, time.October, 1, 0, 0, 0, 0, time.UTC),
 			expected: helper.Issues{
@@ -81,6 +91,7 @@ func Test_AwsLambdaFunctionDeprecatedRuntime(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			rule := NewRule()
 			rule.Now = tc.now
+			rule.runtimes = testRuntimes
 
 			tf := `
 resource "aws_lambda_function" "function" {
@@ -104,6 +115,27 @@ resource "aws_lambda_function" "function" {
 				}
 			}
 		})
+	}
+}
+
+// Exercises the rule against the embedded generated data. Asserts only that
+// a long-deprecated runtime is flagged, since the generated dates shift
+// whenever AWS updates its documentation.
+func Test_AwsLambdaFunctionDeprecatedRuntime_EmbeddedData(t *testing.T) {
+	tf := `
+resource "aws_lambda_function" "function" {
+	function_name = "test_function"
+	role = "test_role"
+	runtime = "python2.7"
+}
+`
+	runner := helper.TestRunner(t, map[string]string{"resource.tf": tf})
+	rule := NewRule()
+	if err := rule.Check(runner); err != nil {
+		t.Fatalf("Unexpected error occurred: %s", err)
+	}
+	if len(runner.Issues) != 1 {
+		t.Fatalf("expected 1 issue, got %d", len(runner.Issues))
 	}
 }
 

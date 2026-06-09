@@ -16,7 +16,8 @@ type AwsLambdaFunctionDeprecatedRuntimeRule struct {
 	resourceType  string
 	attributeName string
 
-	Now time.Time
+	Now      time.Time
+	runtimes runtimesData
 }
 
 // NewRule returns new rule with default attributes
@@ -25,6 +26,7 @@ func NewRule() *AwsLambdaFunctionDeprecatedRuntimeRule {
 		resourceType:  "aws_lambda_function",
 		attributeName: "runtime",
 		Now:           time.Now().UTC(),
+		runtimes:      runtimes,
 	}
 }
 
@@ -64,12 +66,12 @@ func (r *AwsLambdaFunctionDeprecatedRuntimeRule) Check(runner tflint.Runner) err
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
-			rt, ok := runtimes.Runtimes[val]
+			rt, ok := r.runtimes.Runtimes[val]
 			if !ok || !r.Now.After(rt.EndOfSupportDate) {
 				return nil
 			}
 
-			message := runtimeMessage(val, rt, runtimes.UpdatedAt, r.Now)
+			message := runtimeMessage(val, rt, r.runtimes.UpdatedAt, r.Now)
 			runner.EmitIssue(r, message, attribute.Expr.Range())
 			return nil
 		}, nil)
