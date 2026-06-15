@@ -540,6 +540,7 @@ var Rules = []tflint.Rule{
 	NewAwsElasticsearchDomainPolicyInvalidDomainNameRule(),
 	NewAwsElasticsearchDomainSamlOptionsInvalidDomainNameRule(),
 	NewAwsEmrClusterInvalidScaleDownBehaviorRule(),
+	NewAwsEmrInstanceGroupInvalidClusterIDRule(),
 	NewAwsEmrStudioInvalidAuthModeRule(),
 	NewAwsEmrStudioSessionMappingInvalidIdentityTypeRule(),
 	NewAwsFlowLogInvalidLogDestinationTypeRule(),

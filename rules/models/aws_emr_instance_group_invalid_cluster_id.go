@@ -3,57 +3,51 @@
 package models
 
 import (
-	"fmt"
-
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsNetworkfirewallRuleGroupInvalidTypeRule checks the pattern is valid
-type AwsNetworkfirewallRuleGroupInvalidTypeRule struct {
+// AwsEmrInstanceGroupInvalidClusterIDRule checks the pattern is valid
+type AwsEmrInstanceGroupInvalidClusterIDRule struct {
 	tflint.DefaultRule
 
 	resourceType  string
 	attributeName string
-	enum          []string
+	max           int
 }
 
-// NewAwsNetworkfirewallRuleGroupInvalidTypeRule returns new rule with default attributes
-func NewAwsNetworkfirewallRuleGroupInvalidTypeRule() *AwsNetworkfirewallRuleGroupInvalidTypeRule {
-	return &AwsNetworkfirewallRuleGroupInvalidTypeRule{
-		resourceType:  "aws_networkfirewall_rule_group",
-		attributeName: "type",
-		enum: []string{
-			"STATEFUL",
-			"STATEFUL_DOMAIN",
-			"STATELESS",
-		},
+// NewAwsEmrInstanceGroupInvalidClusterIDRule returns new rule with default attributes
+func NewAwsEmrInstanceGroupInvalidClusterIDRule() *AwsEmrInstanceGroupInvalidClusterIDRule {
+	return &AwsEmrInstanceGroupInvalidClusterIDRule{
+		resourceType:  "aws_emr_instance_group",
+		attributeName: "cluster_id",
+		max:           256,
 	}
 }
 
 // Name returns the rule name
-func (r *AwsNetworkfirewallRuleGroupInvalidTypeRule) Name() string {
-	return "aws_networkfirewall_rule_group_invalid_type"
+func (r *AwsEmrInstanceGroupInvalidClusterIDRule) Name() string {
+	return "aws_emr_instance_group_invalid_cluster_id"
 }
 
 // Enabled returns whether the rule is enabled by default
-func (r *AwsNetworkfirewallRuleGroupInvalidTypeRule) Enabled() bool {
+func (r *AwsEmrInstanceGroupInvalidClusterIDRule) Enabled() bool {
 	return true
 }
 
 // Severity returns the rule severity
-func (r *AwsNetworkfirewallRuleGroupInvalidTypeRule) Severity() tflint.Severity {
+func (r *AwsEmrInstanceGroupInvalidClusterIDRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
 // Link returns the rule reference link
-func (r *AwsNetworkfirewallRuleGroupInvalidTypeRule) Link() string {
+func (r *AwsEmrInstanceGroupInvalidClusterIDRule) Link() string {
 	return ""
 }
 
 // Check checks the pattern is valid
-func (r *AwsNetworkfirewallRuleGroupInvalidTypeRule) Check(runner tflint.Runner) error {
+func (r *AwsEmrInstanceGroupInvalidClusterIDRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
@@ -72,16 +66,10 @@ func (r *AwsNetworkfirewallRuleGroupInvalidTypeRule) Check(runner tflint.Runner)
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
-			found := false
-			for _, item := range r.enum {
-				if item == val {
-					found = true
-				}
-			}
-			if !found {
+			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" is an invalid value as type`, truncateLongMessage(val)),
+					"cluster_id must be 256 characters or less",
 					attribute.Expr.Range(),
 				)
 			}
