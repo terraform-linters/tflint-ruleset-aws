@@ -14,7 +14,6 @@ type RuleSet struct {
 
 func (r *RuleSet) ConfigSchema() *hclext.BodySchema {
 	r.config = &Config{}
-	r.clients = newClientCache(NewClient)
 	return hclext.ImpliedBodySchema(r.config)
 }
 
@@ -24,6 +23,8 @@ func (r *RuleSet) ApplyConfig(body *hclext.BodyContent) error {
 	if diags.HasErrors() {
 		return diags
 	}
+
+	r.clients = newClientCache(NewClient)
 
 	if r.config.DeepCheck {
 		return nil
