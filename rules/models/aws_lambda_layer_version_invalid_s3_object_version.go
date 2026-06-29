@@ -3,6 +3,9 @@
 package models
 
 import (
+	"fmt"
+	"regexp"
+
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -16,6 +19,7 @@ type AwsLambdaLayerVersionInvalidS3ObjectVersionRule struct {
 	attributeName string
 	max           int
 	min           int
+	pattern       *regexp.Regexp
 }
 
 // NewAwsLambdaLayerVersionInvalidS3ObjectVersionRule returns new rule with default attributes
@@ -25,6 +29,7 @@ func NewAwsLambdaLayerVersionInvalidS3ObjectVersionRule() *AwsLambdaLayerVersion
 		attributeName: "s3_object_version",
 		max:           1024,
 		min:           1,
+		pattern:       regexp.MustCompile(`^.*$`),
 	}
 }
 
@@ -79,6 +84,13 @@ func (r *AwsLambdaLayerVersionInvalidS3ObjectVersionRule) Check(runner tflint.Ru
 				runner.EmitIssue(
 					r,
 					"s3_object_version must be 1 characters or higher",
+					attribute.Expr.Range(),
+				)
+			}
+			if !r.pattern.MatchString(val) {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^.*$`),
 					attribute.Expr.Range(),
 				)
 			}

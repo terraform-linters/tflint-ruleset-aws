@@ -29,7 +29,7 @@ func NewAwsLambdaLayerVersionPermissionInvalidLayerNameRule() *AwsLambdaLayerVer
 		attributeName: "layer_name",
 		max:           140,
 		min:           1,
-		pattern:       regexp.MustCompile(`^(arn:[a-zA-Z0-9-]+:lambda:[a-zA-Z0-9-]+:\d{12}:layer:[a-zA-Z0-9-_]+)|[a-zA-Z0-9-_]+$`),
+		pattern:       regexp.MustCompile(`^(arn:(aws[a-zA-Z-]*)?:lambda:(eusc-)?[a-z]{2}((-gov)|(-iso([a-z]?)))?-[a-z]+-\d{1}:\d{12}:layer:[a-zA-Z0-9-_]+)|[a-zA-Z0-9-_]+$`),
 	}
 }
 
@@ -90,7 +90,7 @@ func (r *AwsLambdaLayerVersionPermissionInvalidLayerNameRule) Check(runner tflin
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(arn:[a-zA-Z0-9-]+:lambda:[a-zA-Z0-9-]+:\d{12}:layer:[a-zA-Z0-9-_]+)|[a-zA-Z0-9-_]+$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^(arn:(aws[a-zA-Z-]*)?:lambda:(eusc-)?[a-z]{2}((-gov)|(-iso([a-z]?)))?-[a-z]+-\d{1}:\d{12}:layer:[a-zA-Z0-9-_]+)|[a-zA-Z0-9-_]+$`),
 					attribute.Expr.Range(),
 				)
 			}

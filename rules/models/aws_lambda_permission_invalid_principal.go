@@ -17,6 +17,7 @@ type AwsLambdaPermissionInvalidPrincipalRule struct {
 
 	resourceType  string
 	attributeName string
+	max           int
 	pattern       *regexp.Regexp
 }
 
@@ -25,6 +26,7 @@ func NewAwsLambdaPermissionInvalidPrincipalRule() *AwsLambdaPermissionInvalidPri
 	return &AwsLambdaPermissionInvalidPrincipalRule{
 		resourceType:  "aws_lambda_permission",
 		attributeName: "principal",
+		max:           2048,
 		pattern:       regexp.MustCompile(`^[^\s]+$`),
 	}
 }
@@ -69,6 +71,13 @@ func (r *AwsLambdaPermissionInvalidPrincipalRule) Check(runner tflint.Runner) er
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+			if len(val) > r.max {
+				runner.EmitIssue(
+					r,
+					"principal must be 2048 characters or less",
+					attribute.Expr.Range(),
+				)
+			}
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
