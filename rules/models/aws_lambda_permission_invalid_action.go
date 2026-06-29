@@ -17,6 +17,7 @@ type AwsLambdaPermissionInvalidActionRule struct {
 
 	resourceType  string
 	attributeName string
+	max           int
 	pattern       *regexp.Regexp
 }
 
@@ -25,6 +26,7 @@ func NewAwsLambdaPermissionInvalidActionRule() *AwsLambdaPermissionInvalidAction
 	return &AwsLambdaPermissionInvalidActionRule{
 		resourceType:  "aws_lambda_permission",
 		attributeName: "action",
+		max:           10000,
 		pattern:       regexp.MustCompile(`^(lambda:[*]|lambda:[a-zA-Z]+|[*])$`),
 	}
 }
@@ -69,6 +71,13 @@ func (r *AwsLambdaPermissionInvalidActionRule) Check(runner tflint.Runner) error
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+			if len(val) > r.max {
+				runner.EmitIssue(
+					r,
+					"action must be 10000 characters or less",
+					attribute.Expr.Range(),
+				)
+			}
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,

@@ -17,6 +17,7 @@ type AwsLambdaLayerVersionPermissionInvalidPrincipalRule struct {
 
 	resourceType  string
 	attributeName string
+	max           int
 	pattern       *regexp.Regexp
 }
 
@@ -25,6 +26,7 @@ func NewAwsLambdaLayerVersionPermissionInvalidPrincipalRule() *AwsLambdaLayerVer
 	return &AwsLambdaLayerVersionPermissionInvalidPrincipalRule{
 		resourceType:  "aws_lambda_layer_version_permission",
 		attributeName: "principal",
+		max:           10000,
 		pattern:       regexp.MustCompile(`^\d{12}|\*|arn:(aws[a-zA-Z-]*):iam::\d{12}:root$`),
 	}
 }
@@ -69,6 +71,13 @@ func (r *AwsLambdaLayerVersionPermissionInvalidPrincipalRule) Check(runner tflin
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+			if len(val) > r.max {
+				runner.EmitIssue(
+					r,
+					"principal must be 10000 characters or less",
+					attribute.Expr.Range(),
+				)
+			}
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,

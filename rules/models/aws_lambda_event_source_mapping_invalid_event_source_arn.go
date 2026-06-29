@@ -17,6 +17,7 @@ type AwsLambdaEventSourceMappingInvalidEventSourceArnRule struct {
 
 	resourceType  string
 	attributeName string
+	max           int
 	pattern       *regexp.Regexp
 }
 
@@ -25,7 +26,8 @@ func NewAwsLambdaEventSourceMappingInvalidEventSourceArnRule() *AwsLambdaEventSo
 	return &AwsLambdaEventSourceMappingInvalidEventSourceArnRule{
 		resourceType:  "aws_lambda_event_source_mapping",
 		attributeName: "event_source_arn",
-		pattern:       regexp.MustCompile(`^arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:([a-z]{2}(-gov)?-[a-z]+-\d{1})?:(\d{12})?:(.*)$`),
+		max:           10000,
+		pattern:       regexp.MustCompile(`^arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:((eusc-)?[a-z]{2}((-gov)|(-iso([a-z]?)))?-[a-z]+-\d{1})?:(\d{12})?:(.*)$`),
 	}
 }
 
@@ -69,10 +71,17 @@ func (r *AwsLambdaEventSourceMappingInvalidEventSourceArnRule) Check(runner tfli
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+			if len(val) > r.max {
+				runner.EmitIssue(
+					r,
+					"event_source_arn must be 10000 characters or less",
+					attribute.Expr.Range(),
+				)
+			}
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:([a-z]{2}(-gov)?-[a-z]+-\d{1})?:(\d{12})?:(.*)$`),
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:((eusc-)?[a-z]{2}((-gov)|(-iso([a-z]?)))?-[a-z]+-\d{1})?:(\d{12})?:(.*)$`),
 					attribute.Expr.Range(),
 				)
 			}

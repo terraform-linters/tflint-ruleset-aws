@@ -17,6 +17,7 @@ type AwsLambdaFunctionInvalidKmsKeyArnRule struct {
 
 	resourceType  string
 	attributeName string
+	max           int
 	pattern       *regexp.Regexp
 }
 
@@ -25,6 +26,7 @@ func NewAwsLambdaFunctionInvalidKmsKeyArnRule() *AwsLambdaFunctionInvalidKmsKeyA
 	return &AwsLambdaFunctionInvalidKmsKeyArnRule{
 		resourceType:  "aws_lambda_function",
 		attributeName: "kms_key_arn",
+		max:           10000,
 		pattern:       regexp.MustCompile(`^(arn:(aws[a-zA-Z-]*)?:[a-z0-9-.]+:.*)|()$`),
 	}
 }
@@ -69,6 +71,13 @@ func (r *AwsLambdaFunctionInvalidKmsKeyArnRule) Check(runner tflint.Runner) erro
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+			if len(val) > r.max {
+				runner.EmitIssue(
+					r,
+					"kms_key_arn must be 10000 characters or less",
+					attribute.Expr.Range(),
+				)
+			}
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,

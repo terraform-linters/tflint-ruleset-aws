@@ -3,56 +3,51 @@
 package models
 
 import (
-	"fmt"
-	"regexp"
-
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 )
 
-// AwsLambdaFunctionInvalidRoleRule checks the pattern is valid
-type AwsLambdaFunctionInvalidRoleRule struct {
+// AwsEmrInstanceGroupInvalidClusterIDRule checks the pattern is valid
+type AwsEmrInstanceGroupInvalidClusterIDRule struct {
 	tflint.DefaultRule
 
 	resourceType  string
 	attributeName string
 	max           int
-	pattern       *regexp.Regexp
 }
 
-// NewAwsLambdaFunctionInvalidRoleRule returns new rule with default attributes
-func NewAwsLambdaFunctionInvalidRoleRule() *AwsLambdaFunctionInvalidRoleRule {
-	return &AwsLambdaFunctionInvalidRoleRule{
-		resourceType:  "aws_lambda_function",
-		attributeName: "role",
-		max:           10000,
-		pattern:       regexp.MustCompile(`^arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$`),
+// NewAwsEmrInstanceGroupInvalidClusterIDRule returns new rule with default attributes
+func NewAwsEmrInstanceGroupInvalidClusterIDRule() *AwsEmrInstanceGroupInvalidClusterIDRule {
+	return &AwsEmrInstanceGroupInvalidClusterIDRule{
+		resourceType:  "aws_emr_instance_group",
+		attributeName: "cluster_id",
+		max:           256,
 	}
 }
 
 // Name returns the rule name
-func (r *AwsLambdaFunctionInvalidRoleRule) Name() string {
-	return "aws_lambda_function_invalid_role"
+func (r *AwsEmrInstanceGroupInvalidClusterIDRule) Name() string {
+	return "aws_emr_instance_group_invalid_cluster_id"
 }
 
 // Enabled returns whether the rule is enabled by default
-func (r *AwsLambdaFunctionInvalidRoleRule) Enabled() bool {
+func (r *AwsEmrInstanceGroupInvalidClusterIDRule) Enabled() bool {
 	return true
 }
 
 // Severity returns the rule severity
-func (r *AwsLambdaFunctionInvalidRoleRule) Severity() tflint.Severity {
+func (r *AwsEmrInstanceGroupInvalidClusterIDRule) Severity() tflint.Severity {
 	return tflint.ERROR
 }
 
 // Link returns the rule reference link
-func (r *AwsLambdaFunctionInvalidRoleRule) Link() string {
+func (r *AwsEmrInstanceGroupInvalidClusterIDRule) Link() string {
 	return ""
 }
 
 // Check checks the pattern is valid
-func (r *AwsLambdaFunctionInvalidRoleRule) Check(runner tflint.Runner) error {
+func (r *AwsEmrInstanceGroupInvalidClusterIDRule) Check(runner tflint.Runner) error {
 	logger.Trace("Check `%s` rule", r.Name())
 
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
@@ -74,14 +69,7 @@ func (r *AwsLambdaFunctionInvalidRoleRule) Check(runner tflint.Runner) error {
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					"role must be 10000 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
-			if !r.pattern.MatchString(val) {
-				runner.EmitIssue(
-					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$`),
+					"cluster_id must be 256 characters or less",
 					attribute.Expr.Range(),
 				)
 			}
