@@ -20,6 +20,7 @@ var manualRules = []tflint.Rule{
 	NewAwsIAMPolicyDocumentGovFriendlyArnsRule(),
 	NewAwsIAMPolicyGovFriendlyArnsRule(),
 	NewAwsIAMRolePolicyGovFriendlyArnsRule(),
+	NewAwsIAMPolicyUsePolicyReferenceRule(),
 	NewAwsInstancePreviousTypeRule(),
 	NewAwsMqBrokerInvalidEngineTypeRule(),
 	NewAwsMqConfigurationInvalidEngineTypeRule(),
