@@ -562,6 +562,7 @@ var Resources = []string{
 	"aws_pinpointsmsvoicev2_configuration_set",
 	"aws_pinpointsmsvoicev2_opt_out_list",
 	"aws_pinpointsmsvoicev2_phone_number",
+	"aws_pinpointsmsvoicev2_pool",
 	"aws_pipes_pipe",
 	"aws_placement_group",
 	"aws_prometheus_rule_group_namespace",
