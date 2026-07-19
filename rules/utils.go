@@ -1,5 +1,30 @@
 package rules
 
+import "github.com/terraform-linters/tflint-plugin-sdk/hclext"
+
+// routeTargetAttributes is the set of mutually-exclusive routing target
+// arguments of an aws_route resource. AWS requires exactly one of these to be
+// set. It is shared by
+//
+// 1. aws_route_not_specified_target (errors when none is set)
+// 2. aws_route_specified_multiple_targets (errors when more than one is set)
+//
+// The two rules validate against an identical set so they cannot drift apart.
+var routeTargetAttributes = []hclext.AttributeSchema{
+	{Name: "gateway_id"},
+	{Name: "egress_only_gateway_id"},
+	{Name: "nat_gateway_id"},
+	{Name: "instance_id"},
+	{Name: "vpc_peering_connection_id"},
+	{Name: "network_interface_id"},
+	{Name: "transit_gateway_id"},
+	{Name: "vpc_endpoint_id"},
+	{Name: "carrier_gateway_id"},
+	{Name: "local_gateway_id"},
+	{Name: "core_network_arn"},
+	{Name: "odb_network_arn"},
+}
+
 var validElastiCacheNodeTypes = map[string]bool{
 	// https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html
 	"cache.t2.micro":      true,

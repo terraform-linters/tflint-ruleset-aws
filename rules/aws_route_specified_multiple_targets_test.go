@@ -43,6 +43,46 @@ resource "aws_route" "foo" {
 			Expected: helper.Issues{},
 		},
 		{
+			Name: "gateway_id and core_network_arn are both specified",
+			Content: `
+resource "aws_route" "foo" {
+    route_table_id = "rtb-1234abcd"
+    gateway_id = "igw-1234abcd"
+    core_network_arn = "arn:aws:networkmanager::230703758040:core-network/core-network-0ce39423cf52b4c76"
+}`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsRouteSpecifiedMultipleTargetsRule(),
+					Message: "More than one routing target specified. It must be one.",
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 2, Column: 1},
+						End:      hcl.Pos{Line: 2, Column: 27},
+					},
+				},
+			},
+		},
+		{
+			Name: "gateway_id and odb_network_arn are both specified",
+			Content: `
+resource "aws_route" "foo" {
+    route_table_id = "rtb-1234abcd"
+    gateway_id = "igw-1234abcd"
+    odb_network_arn = "arn:aws:odb:us-east-1:230703758040:odb-network/odbnet-abcd1234"
+}`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsRouteSpecifiedMultipleTargetsRule(),
+					Message: "More than one routing target specified. It must be one.",
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 2, Column: 1},
+						End:      hcl.Pos{Line: 2, Column: 27},
+					},
+				},
+			},
+		},
+		{
 			Name: "multiple targes found, but the second one is null",
 			Content: `
 resource "aws_route" "foo" {
