@@ -29,7 +29,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/rds v1.120.1
 	github.com/aws/smithy-go v1.27.3
 	github.com/hashicorp/aws-sdk-go-base/v2 v2.0.0-beta.73
-	github.com/hashicorp/terraform-json v0.27.2
+	github.com/hashicorp/terraform-json v0.28.0
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/exp v0.0.0-20230425010034-47ecfdc1ba53
 	golang.org/x/net v0.57.0
