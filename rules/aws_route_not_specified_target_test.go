@@ -22,7 +22,7 @@ resource "aws_route" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsRouteNotSpecifiedTargetRule(),
-					Message: "The routing target is not specified, each aws_route must contain either egress_only_gateway_id, gateway_id, instance_id, nat_gateway_id, network_interface_id, transit_gateway_id, vpc_peering_connection_id, core_network_arn or vpc_endpoint_id.",
+					Message: "The routing target is not specified, each aws_route must contain either carrier_gateway_id, core_network_arn, egress_only_gateway_id, gateway_id, instance_id, local_gateway_id, nat_gateway_id, network_interface_id, odb_network_arn, transit_gateway_id, vpc_endpoint_id or vpc_peering_connection_id.",
 					Range: hcl.Range{
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 2, Column: 1},
@@ -104,7 +104,7 @@ resource "aws_route" "foo" {
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsRouteNotSpecifiedTargetRule(),
-					Message: "The routing target is not specified, each aws_route must contain either egress_only_gateway_id, gateway_id, instance_id, nat_gateway_id, network_interface_id, transit_gateway_id, vpc_peering_connection_id, core_network_arn or vpc_endpoint_id.",
+					Message: "The routing target is not specified, each aws_route must contain either carrier_gateway_id, core_network_arn, egress_only_gateway_id, gateway_id, instance_id, local_gateway_id, nat_gateway_id, network_interface_id, odb_network_arn, transit_gateway_id, vpc_endpoint_id or vpc_peering_connection_id.",
 					Range: hcl.Range{
 						Filename: "resource.tf",
 						Start:    hcl.Pos{Line: 2, Column: 1},
@@ -128,6 +128,15 @@ resource "aws_route" "foo" {
 resource "aws_route" "foo" {
 	route_table_id = "rtb-1234abcd"
 	core_network_arn = "arn:aws:networkmanager::230703758040:core-network/core-network-0ce39423cf52b4c76"
+}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Name: "odb_network_arn is specified",
+			Content: `
+resource "aws_route" "foo" {
+	route_table_id = "rtb-1234abcd"
+	odb_network_arn = "arn:aws:odb:us-east-1:230703758040:odb-network/odbnet-abcd1234"
 }`,
 			Expected: helper.Issues{},
 		},
