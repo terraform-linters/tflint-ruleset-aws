@@ -67,7 +67,7 @@ func (r *AwsRouteNotSpecifiedTargetRule) Check(runner tflint.Runner) error {
 		if len(resource.Body.Attributes)-nullAttributes == 0 {
 			runner.EmitIssue(
 				r,
-				"The routing target is not specified, each aws_route must contain either carrier_gateway_id, core_network_arn, egress_only_gateway_id, gateway_id, instance_id, local_gateway_id, nat_gateway_id, network_interface_id, odb_network_arn, transit_gateway_id, vpc_endpoint_id or vpc_peering_connection_id.",
+				routeTargetNotSpecifiedMessage,
 				resource.DefRange,
 			)
 		}
