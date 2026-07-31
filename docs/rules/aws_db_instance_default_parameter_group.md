@@ -11,7 +11,7 @@ resource "aws_db_instance" "mysql" {
   storage_type           = "gp2"
   engine                 = "mysql"
   engine_version         = "5.7.11"
-  instance_class         = "db.m4.large"
+  instance_class         = "db.m6g.large"
   name                   = "app_db"
   port                   = 3306
   publicly_accessible    = false

@@ -1,5 +1,10 @@
 package rules
 
+// These lists stay hand-maintained, unlike the generated RDS ones in
+// rules/db_instance_types. The AmazonElastiCache price list drops retired node
+// types rather than marking them, so generating from it would reject the
+// previous generation types below and leave previousElastiCacheNodeTypes with
+// nothing to warn about.
 var validElastiCacheNodeTypes = map[string]bool{
 	// https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html
 	"cache.t2.micro":      true,

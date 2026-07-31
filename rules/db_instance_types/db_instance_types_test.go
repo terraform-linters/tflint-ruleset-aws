@@ -49,34 +49,77 @@ func TestValid(t *testing.T) {
 
 func TestPreviousGeneration(t *testing.T) {
 	for _, tc := range []struct {
-		name     string
-		family   string
-		expected bool
+		name          string
+		instanceClass string
+		expected      bool
 	}{
 		{
-			name:     "previous generation family",
-			family:   "m1",
-			expected: true,
+			name:          "previous generation class",
+			instanceClass: "db.m1.small",
+			expected:      true,
 		},
 		{
-			name:     "current generation family",
-			family:   "m6g",
-			expected: false,
+			name:          "burstable previous generation class",
+			instanceClass: "db.t2.micro",
+			expected:      true,
 		},
 		{
-			name:     "instance class rather than a family",
-			family:   "db.m1.small",
-			expected: false,
+			name:          "current generation class",
+			instanceClass: "db.t4g.micro",
+			expected:      false,
 		},
 		{
-			name:     "empty",
-			family:   "",
-			expected: false,
+			name:          "unknown size in a previous generation family",
+			instanceClass: "db.m1.unknownsize",
+			expected:      false,
+		},
+		{
+			name:          "previous generation family under another prefix",
+			instanceClass: "foo.m1.large",
+			expected:      false,
+		},
+		{
+			name:          "family rather than an instance class",
+			instanceClass: "m1",
+			expected:      false,
+		},
+		{
+			name:          "empty",
+			instanceClass: "",
+			expected:      false,
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			if result := PreviousGeneration(tc.family); result != tc.expected {
+			if result := PreviousGeneration(tc.instanceClass); result != tc.expected {
 				t.Errorf("expected %t, got %t", tc.expected, result)
+			}
+		})
+	}
+}
+
+// TestEmbeddedInstanceClasses guards the read path. The generator's floors only
+// run when someone regenerates, so a truncated or partially written JSON file
+// would otherwise ship a plugin that rejects every instance class.
+func TestEmbeddedInstanceClasses(t *testing.T) {
+	for _, tc := range []struct {
+		name    string
+		classes set
+		minimum int
+	}{
+		{
+			name:    "instance classes",
+			classes: instanceClasses.All,
+			minimum: 400,
+		},
+		{
+			name:    "previous generation classes",
+			classes: instanceClasses.PreviousGeneration,
+			minimum: 30,
+		},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			if len(tc.classes) < tc.minimum {
+				t.Errorf("expected at least %d, got %d", tc.minimum, len(tc.classes))
 			}
 		})
 	}

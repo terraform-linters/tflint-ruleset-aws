@@ -15,6 +15,7 @@ import (
 	"slices"
 	"strings"
 	"sync"
+	"time"
 )
 
 // Offer identifies a service's price list.
@@ -36,6 +37,16 @@ const valueSeparator = "\x00"
 
 var baseURL = "https://pricing.us-east-1.amazonaws.com"
 
+// client bounds the wait for a response to fail a stalled connection rather
+// than hang the weekly generation, while leaving the body itself untimed
+// because the larger offers stream for a while.
+var client = &http.Client{
+	Transport: &http.Transport{
+		ResponseHeaderTimeout: 30 * time.Second,
+		MaxIdleConnsPerHost:   fetchConcurrency,
+	},
+}
+
 // Product is a distinct combination of column values, such as an instance type
 // paired with the generation it belongs to.
 type Product struct {
@@ -47,7 +58,7 @@ type Product struct {
 // product was not read with that column.
 func (p Product) Get(column string) string {
 	index, ok := p.columns[column]
-	if !ok || index >= len(p.values) {
+	if !ok {
 		return ""
 	}
 
@@ -69,17 +80,14 @@ func Distinct(offer Offer, columns ...string) ([]Product, error) {
 
 	var (
 		mutex  sync.Mutex
-		all    = map[string]bool{}
+		all    = map[string][]string{}
 		failed []error
 	)
 
 	queue := make(chan string)
 	var workers sync.WaitGroup
 	for range fetchConcurrency {
-		workers.Add(1)
-		go func() {
-			defer workers.Done()
-
+		workers.Go(func() {
 			for url := range queue {
 				products, err := offerProducts(url, columns)
 
@@ -91,7 +99,7 @@ func Distinct(offer Offer, columns ...string) ([]Product, error) {
 				}
 				mutex.Unlock()
 			}
-		}()
+		})
 	}
 
 	for _, url := range urls {
@@ -107,7 +115,7 @@ func Distinct(offer Offer, columns ...string) ([]Product, error) {
 	index := columnIndex(columns)
 	products := make([]Product, 0, len(all))
 	for _, key := range slices.Sorted(maps.Keys(all)) {
-		products = append(products, Product{columns: index, values: strings.Split(key, valueSeparator)})
+		products = append(products, Product{columns: index, values: all[key]})
 	}
 
 	return products, nil
@@ -140,7 +148,7 @@ func offerURLs(offer Offer) ([]string, error) {
 	return urls, nil
 }
 
-func offerProducts(url string, columns []string) (map[string]bool, error) {
+func offerProducts(url string, columns []string) (map[string][]string, error) {
 	body, err := get(url)
 	if err != nil {
 		return nil, err
@@ -153,18 +161,18 @@ func offerProducts(url string, columns []string) (map[string]bool, error) {
 // parseProducts reads an offer file, which opens with metadata rows before the
 // header row of the price list itself. Products are keyed by their joined
 // values so that a region's rows, which repeat per price, collapse to a set.
-func parseProducts(offer io.Reader, columns []string) (map[string]bool, error) {
+func parseProducts(offer io.Reader, columns []string) (map[string][]string, error) {
 	reader := csv.NewReader(offer)
 	reader.FieldsPerRecord = -1
 	reader.ReuseRecord = true
 
 	var indexes []int
-	products := map[string]bool{}
+	products := map[string][]string{}
 	values := make([]string, len(columns))
 
 	for {
 		record, err := reader.Read()
-		if err == io.EOF {
+		if errors.Is(err, io.EOF) {
 			break
 		}
 		if err != nil {
@@ -193,7 +201,10 @@ func parseProducts(offer io.Reader, columns []string) (map[string]bool, error) {
 		}
 
 		if !empty {
-			products[strings.Join(values, valueSeparator)] = true
+			// values is reused across rows, so a newly seen product keeps a copy.
+			if key := strings.Join(values, valueSeparator); products[key] == nil {
+				products[key] = slices.Clone(values)
+			}
 		}
 	}
 
@@ -227,7 +238,7 @@ func columnIndex(columns []string) map[string]int {
 }
 
 func get(url string) (io.ReadCloser, error) {
-	resp, err := http.Get(url)
+	resp, err := client.Get(url)
 	if err != nil {
 		return nil, err
 	}

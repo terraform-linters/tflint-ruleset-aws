@@ -23,13 +23,14 @@ const (
 	instanceClassPrefix = "db."
 
 	// Every region prices hundreds of classes, so a result below this floor
-	// indicates the offer file layout changed.
-	minInstanceClasses = 300
+	// indicates the offer file layout changed. RDS has only ever added classes,
+	// so the floor sits just under the count at the time of writing.
+	minInstanceClasses = 400
 )
 
 type instanceClasses struct {
-	InstanceClasses            []string `json:"instance_classes"`
-	PreviousGenerationFamilies []string `json:"previous_generation_families"`
+	InstanceClasses           []string `json:"instance_classes"`
+	PreviousGenerationClasses []string `json:"previous_generation_classes"`
 }
 
 func main() {
@@ -43,8 +44,8 @@ func main() {
 			len(classes.InstanceClasses), minInstanceClasses,
 		))
 	}
-	if len(classes.PreviousGenerationFamilies) == 0 {
-		panic("found no previous generation families")
+	if len(classes.PreviousGenerationClasses) == 0 {
+		panic("found no previous generation classes")
 	}
 
 	data, err := json.MarshalIndent(classes, "", "  ")
@@ -56,8 +57,8 @@ func main() {
 	}
 
 	fmt.Printf(
-		"Wrote %d instance classes and %d previous generation families to instance_classes.json\n",
-		len(classes.InstanceClasses), len(classes.PreviousGenerationFamilies),
+		"Wrote %d instance classes, %d of them previous generation, to instance_classes.json\n",
+		len(classes.InstanceClasses), len(classes.PreviousGenerationClasses),
 	)
 }
 
@@ -68,7 +69,7 @@ func readInstanceClasses() (instanceClasses, error) {
 	}
 
 	classes := map[string]bool{}
-	families := map[string]bool{}
+	previous := map[string]bool{}
 	for _, product := range products {
 		instanceClass := product.Get(instanceTypeColumn)
 		if !strings.HasPrefix(instanceClass, instanceClassPrefix) {
@@ -76,23 +77,13 @@ func readInstanceClasses() (instanceClasses, error) {
 		}
 
 		classes[instanceClass] = true
-		if family, ok := family(instanceClass); ok && product.Get(generationColumn) == previousGeneration {
-			families[family] = true
+		if product.Get(generationColumn) == previousGeneration {
+			previous[instanceClass] = true
 		}
 	}
 
 	return instanceClasses{
-		InstanceClasses:            slices.Sorted(maps.Keys(classes)),
-		PreviousGenerationFamilies: slices.Sorted(maps.Keys(families)),
+		InstanceClasses:           slices.Sorted(maps.Keys(classes)),
+		PreviousGenerationClasses: slices.Sorted(maps.Keys(previous)),
 	}, nil
-}
-
-// family returns the family of an instance class, the m6g of db.m6g.large.
-func family(instanceClass string) (string, bool) {
-	parts := strings.Split(instanceClass, ".")
-	if len(parts) < 3 {
-		return "", false
-	}
-
-	return parts[1], true
 }

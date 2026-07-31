@@ -2,7 +2,6 @@ package rules
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -62,12 +61,7 @@ func (r *AwsDBInstancePreviousTypeRule) Check(runner tflint.Runner) error {
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(instanceType string) error {
-			parts := strings.Split(instanceType, ".")
-			if len(parts) < 3 {
-				return nil
-			}
-
-			if db_instance_types.PreviousGeneration(parts[1]) {
+			if db_instance_types.PreviousGeneration(instanceType) {
 				runner.EmitIssue(
 					r,
 					fmt.Sprintf("\"%s\" is previous generation instance type.", instanceType),

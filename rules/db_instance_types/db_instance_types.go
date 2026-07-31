@@ -13,39 +13,40 @@ import (
 var instanceClassesJSON []byte
 
 var instanceClasses struct {
-	classes            map[string]bool
-	previousGeneration map[string]bool
+	All                set `json:"instance_classes"`
+	PreviousGeneration set `json:"previous_generation_classes"`
 }
 
 func init() {
-	var file struct {
-		InstanceClasses            []string `json:"instance_classes"`
-		PreviousGenerationFamilies []string `json:"previous_generation_families"`
-	}
-	if err := json.Unmarshal(instanceClassesJSON, &file); err != nil {
+	if err := json.Unmarshal(instanceClassesJSON, &instanceClasses); err != nil {
 		panic(err)
 	}
-
-	instanceClasses.classes = set(file.InstanceClasses)
-	instanceClasses.previousGeneration = set(file.PreviousGenerationFamilies)
 }
 
 // Valid returns whether RDS offers the given DB instance class.
 func Valid(instanceClass string) bool {
-	return instanceClasses.classes[instanceClass]
+	return instanceClasses.All[instanceClass]
 }
 
-// PreviousGeneration returns whether the given instance family, such as m1, is
-// a previous generation.
-func PreviousGeneration(family string) bool {
-	return instanceClasses.previousGeneration[family]
+// PreviousGeneration returns whether the given DB instance class belongs to a
+// previous generation, such as db.m1.small.
+func PreviousGeneration(instanceClass string) bool {
+	return instanceClasses.PreviousGeneration[instanceClass]
 }
 
-func set(values []string) map[string]bool {
-	members := make(map[string]bool, len(values))
-	for _, value := range values {
-		members[value] = true
+// set is a membership test over a JSON array of strings.
+type set map[string]bool
+
+func (s *set) UnmarshalJSON(data []byte) error {
+	var values []string
+	if err := json.Unmarshal(data, &values); err != nil {
+		return err
 	}
 
-	return members
+	*s = make(set, len(values))
+	for _, value := range values {
+		(*s)[value] = true
+	}
+
+	return nil
 }
