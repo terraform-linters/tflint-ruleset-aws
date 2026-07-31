@@ -36,3 +36,5 @@ Current generation instance types have better performance and lower cost than pr
 ## How To Fix
 
 Select a current generation instance type according to the [upgrade paths](https://aws.amazon.com/rds/previous-generation/).
+
+The families this rule warns on are generated from the [AWS Price List](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/price-changes.html) for Amazon RDS, which marks each instance class with the generation it belongs to.
