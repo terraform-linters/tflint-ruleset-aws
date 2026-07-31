@@ -1,7 +1,7 @@
 //go:generate go run -tags generators ./generator
 
 // Package db_instance_types provides the DB instance classes that Amazon RDS
-// offers, such as db.t4g.micro.
+// offers, such as db.t4g.micro, generated from the AWS Price List.
 package db_instance_types
 
 import (
@@ -9,27 +9,43 @@ import (
 	"encoding/json"
 )
 
-// instanceClassesJSON contains every DB instance class that appears in the AWS
-// Price List for Amazon RDS, across all regions of the aws partition.
-//
 //go:embed instance_classes.json
 var instanceClassesJSON []byte
 
-var instanceClasses map[string]bool
+var instanceClasses struct {
+	classes            map[string]bool
+	previousGeneration map[string]bool
+}
 
 func init() {
-	var classes []string
-	if err := json.Unmarshal(instanceClassesJSON, &classes); err != nil {
+	var file struct {
+		InstanceClasses            []string `json:"instance_classes"`
+		PreviousGenerationFamilies []string `json:"previous_generation_families"`
+	}
+	if err := json.Unmarshal(instanceClassesJSON, &file); err != nil {
 		panic(err)
 	}
 
-	instanceClasses = make(map[string]bool, len(classes))
-	for _, class := range classes {
-		instanceClasses[class] = true
-	}
+	instanceClasses.classes = set(file.InstanceClasses)
+	instanceClasses.previousGeneration = set(file.PreviousGenerationFamilies)
 }
 
-// Valid returns whether the given DB instance class is offered by RDS.
+// Valid returns whether RDS offers the given DB instance class.
 func Valid(instanceClass string) bool {
-	return instanceClasses[instanceClass]
+	return instanceClasses.classes[instanceClass]
+}
+
+// PreviousGeneration returns whether the given instance family, such as m1, is
+// a previous generation.
+func PreviousGeneration(family string) bool {
+	return instanceClasses.previousGeneration[family]
+}
+
+func set(values []string) map[string]bool {
+	members := make(map[string]bool, len(values))
+	for _, value := range values {
+		members[value] = true
+	}
+
+	return members
 }

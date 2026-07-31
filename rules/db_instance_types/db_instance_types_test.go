@@ -46,3 +46,38 @@ func TestValid(t *testing.T) {
 		})
 	}
 }
+
+func TestPreviousGeneration(t *testing.T) {
+	for _, tc := range []struct {
+		name     string
+		family   string
+		expected bool
+	}{
+		{
+			name:     "previous generation family",
+			family:   "m1",
+			expected: true,
+		},
+		{
+			name:     "current generation family",
+			family:   "m6g",
+			expected: false,
+		},
+		{
+			name:     "instance class rather than a family",
+			family:   "db.m1.small",
+			expected: false,
+		},
+		{
+			name:     "empty",
+			family:   "",
+			expected: false,
+		},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			if result := PreviousGeneration(tc.family); result != tc.expected {
+				t.Errorf("expected %t, got %t", tc.expected, result)
+			}
+		})
+	}
+}

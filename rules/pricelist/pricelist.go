@@ -20,10 +20,7 @@ import (
 // Offer identifies a service's price list.
 type Offer string
 
-const (
-	ElastiCache Offer = "AmazonElastiCache"
-	RDS         Offer = "AmazonRDS"
-)
+const RDS Offer = "AmazonRDS"
 
 // Each region offer file is tens of megabytes, so they are fetched concurrently
 // and parsed as a stream rather than buffered.
@@ -33,33 +30,38 @@ const fetchConcurrency = 8
 // metadata rows at the top of an offer file from the products below it.
 const priceListHeader = "SKU"
 
+// valueSeparator joins a product's values into a key that identifies it. It
+// cannot appear in an offer file, which holds only printable text.
+const valueSeparator = "\x00"
+
 var baseURL = "https://pricing.us-east-1.amazonaws.com"
 
-// Product is a single product of an offer file, such as an RDS DB instance
-// running a particular engine in a particular region.
+// Product is a distinct combination of column values, such as an instance type
+// paired with the generation it belongs to.
 type Product struct {
 	columns map[string]int
-	record  []string
+	values  []string
 }
 
-// Get returns the value of the named column, or an empty string when the offer
-// file has no such column.
+// Get returns the value of the named column, or an empty string when the
+// product was not read with that column.
 func (p Product) Get(column string) string {
 	index, ok := p.columns[column]
-	if !ok || index >= len(p.record) {
+	if !ok || index >= len(p.values) {
 		return ""
 	}
 
-	return p.record[index]
+	return p.values[index]
 }
 
-// Values returns the distinct values of the given column, sorted, across every
-// region of the aws partition. Products whose value is empty are skipped, as
-// are those rejected by keep. A nil keep accepts every product.
-//
-// keep is called from multiple goroutines, so it must be safe for concurrent
-// use.
-func Values(offer Offer, column string, keep func(Product) bool) ([]string, error) {
+// Distinct returns the distinct combinations of the named columns across every
+// region of the aws partition, sorted. Products whose values are all empty are
+// skipped.
+func Distinct(offer Offer, columns ...string) ([]Product, error) {
+	if len(columns) == 0 {
+		return nil, errors.New("no columns requested")
+	}
+
 	urls, err := offerURLs(offer)
 	if err != nil {
 		return nil, err
@@ -79,13 +81,13 @@ func Values(offer Offer, column string, keep func(Product) bool) ([]string, erro
 			defer workers.Done()
 
 			for url := range queue {
-				values, err := offerValues(url, column, keep)
+				products, err := offerProducts(url, columns)
 
 				mutex.Lock()
 				if err != nil {
 					failed = append(failed, fmt.Errorf("reading %s: %w", url, err))
 				} else {
-					maps.Copy(all, values)
+					maps.Copy(all, products)
 				}
 				mutex.Unlock()
 			}
@@ -102,7 +104,13 @@ func Values(offer Offer, column string, keep func(Product) bool) ([]string, erro
 		return nil, errors.Join(failed...)
 	}
 
-	return slices.Sorted(maps.Keys(all)), nil
+	index := columnIndex(columns)
+	products := make([]Product, 0, len(all))
+	for _, key := range slices.Sorted(maps.Keys(all)) {
+		products = append(products, Product{columns: index, values: strings.Split(key, valueSeparator)})
+	}
+
+	return products, nil
 }
 
 func offerURLs(offer Offer) ([]string, error) {
@@ -132,25 +140,27 @@ func offerURLs(offer Offer) ([]string, error) {
 	return urls, nil
 }
 
-func offerValues(url, column string, keep func(Product) bool) (map[string]bool, error) {
+func offerProducts(url string, columns []string) (map[string]bool, error) {
 	body, err := get(url)
 	if err != nil {
 		return nil, err
 	}
 	defer body.Close()
 
-	return parseValues(body, column, keep)
+	return parseProducts(body, columns)
 }
 
-// parseValues reads an offer file, which opens with metadata rows before the
-// header row of the price list itself.
-func parseValues(offer io.Reader, column string, keep func(Product) bool) (map[string]bool, error) {
+// parseProducts reads an offer file, which opens with metadata rows before the
+// header row of the price list itself. Products are keyed by their joined
+// values so that a region's rows, which repeat per price, collapse to a set.
+func parseProducts(offer io.Reader, columns []string) (map[string]bool, error) {
 	reader := csv.NewReader(offer)
 	reader.FieldsPerRecord = -1
 	reader.ReuseRecord = true
 
-	var columns map[string]int
-	values := map[string]bool{}
+	var indexes []int
+	products := map[string]bool{}
+	values := make([]string, len(columns))
 
 	for {
 		record, err := reader.Read()
@@ -161,32 +171,59 @@ func parseValues(offer io.Reader, column string, keep func(Product) bool) (map[s
 			return nil, err
 		}
 
-		if columns == nil {
+		if indexes == nil {
 			if len(record) == 0 || record[0] != priceListHeader {
 				continue
 			}
 
-			columns = make(map[string]int, len(record))
-			for index, name := range record {
-				columns[name] = index
-			}
-			if _, ok := columns[column]; !ok {
-				return nil, fmt.Errorf("no %q column in price list", column)
+			if indexes, err = headerIndexes(record, columns); err != nil {
+				return nil, err
 			}
 			continue
 		}
 
-		product := Product{columns: columns, record: record}
-		if value := product.Get(column); value != "" && (keep == nil || keep(product)) {
-			values[value] = true
+		empty := true
+		for position, index := range indexes {
+			if index < len(record) {
+				values[position] = record[index]
+			} else {
+				values[position] = ""
+			}
+			empty = empty && values[position] == ""
+		}
+
+		if !empty {
+			products[strings.Join(values, valueSeparator)] = true
 		}
 	}
 
-	if columns == nil {
+	if indexes == nil {
 		return nil, errors.New("no price list header found")
 	}
 
-	return values, nil
+	return products, nil
+}
+
+func headerIndexes(header []string, columns []string) ([]int, error) {
+	indexes := make([]int, len(columns))
+	for position, column := range columns {
+		index := slices.Index(header, column)
+		if index < 0 {
+			return nil, fmt.Errorf("no %q column in price list", column)
+		}
+		indexes[position] = index
+	}
+
+	return indexes, nil
+}
+
+func columnIndex(columns []string) map[string]int {
+	index := make(map[string]int, len(columns))
+	for position, column := range columns {
+		index[column] = position
+	}
+
+	return index
 }
 
 func get(url string) (io.ReadCloser, error) {

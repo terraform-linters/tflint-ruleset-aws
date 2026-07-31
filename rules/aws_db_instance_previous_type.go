@@ -7,15 +7,15 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/db_instance_types"
 )
 
 // AwsDBInstancePreviousTypeRule checks whether the resource uses previous generation instance type
 type AwsDBInstancePreviousTypeRule struct {
 	tflint.DefaultRule
 
-	resourceType          string
-	attributeName         string
-	previousInstanceTypes map[string]bool
+	resourceType  string
+	attributeName string
 }
 
 // NewAwsDBInstancePreviousTypeRule returns new rule with default attributes
@@ -23,14 +23,6 @@ func NewAwsDBInstancePreviousTypeRule() *AwsDBInstancePreviousTypeRule {
 	return &AwsDBInstancePreviousTypeRule{
 		resourceType:  "aws_db_instance",
 		attributeName: "instance_class",
-		previousInstanceTypes: map[string]bool{
-			"cr1": true,
-			"m1":  true,
-			"m2":  true,
-			"m3":  true,
-			"r3":  true,
-			"t1":  true,
-		},
 	}
 }
 
@@ -75,7 +67,7 @@ func (r *AwsDBInstancePreviousTypeRule) Check(runner tflint.Runner) error {
 				return nil
 			}
 
-			if r.previousInstanceTypes[parts[1]] {
+			if db_instance_types.PreviousGeneration(parts[1]) {
 				runner.EmitIssue(
 					r,
 					fmt.Sprintf("\"%s\" is previous generation instance type.", instanceType),
