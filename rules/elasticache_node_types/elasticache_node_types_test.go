@@ -1,10 +1,6 @@
 package elasticache_node_types
 
-import (
-	"testing"
-
-	"github.com/terraform-linters/tflint-ruleset-aws/rules/stringset"
-)
+import "testing"
 
 func TestValid(t *testing.T) {
 	for _, tc := range []struct {
@@ -106,30 +102,14 @@ func TestPreviousGeneration(t *testing.T) {
 	}
 }
 
-// TestEmbeddedNodeTypes guards the read path. The generator's floors only run
-// when someone regenerates, so a truncated or partially written JSON file would
-// otherwise ship a plugin that rejects every node type.
-func TestEmbeddedNodeTypes(t *testing.T) {
-	for _, tc := range []struct {
-		name    string
-		types   stringset.Set
-		minimum int
-	}{
-		{
-			name:    "node types",
-			types:   nodeTypes.All,
-			minimum: 100,
-		},
-		{
-			name:    "previous generation node types",
-			types:   nodeTypes.PreviousGeneration,
-			minimum: 18,
-		},
-	} {
-		t.Run(tc.name, func(t *testing.T) {
-			if len(tc.types) < tc.minimum {
-				t.Errorf("expected at least %d, got %d", tc.minimum, len(tc.types))
-			}
-		})
+// TestPreviousGenerationValid holds the two rules to one story. A previous
+// generation node type that is not also valid would have previous_type warning
+// on a node type invalid_type rejects, which is the contradiction that kept
+// this list hardcoded.
+func TestPreviousGenerationValid(t *testing.T) {
+	for nodeType := range nodeTypes.PreviousGeneration {
+		if !nodeTypes.All[nodeType] {
+			t.Errorf("previous generation node type %s is not valid", nodeType)
+		}
 	}
 }

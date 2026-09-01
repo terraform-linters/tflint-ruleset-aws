@@ -4,7 +4,9 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io/fs"
 	"maps"
 	"os"
 	"slices"
@@ -21,10 +23,7 @@ const (
 	// prices, such as serverless capacity and backup storage.
 	nodeTypePrefix = "cache."
 
-	// Every current generation node type is priced in at least one region, so a
-	// result below this floor indicates the offer file layout changed. The floor
-	// sits just under the count at the time of writing.
-	minNodeTypes = 90
+	output = "node_types.json"
 
 	// apiModel holds the ElastiCache API model. The api-models-aws submodule
 	// sits under rules/models, which generates the pattern rules from it.
@@ -39,10 +38,6 @@ const (
 	// previousGenerationHeading opens the list item holding a category's retired
 	// node types. The model marks them no other way.
 	previousGenerationHeading = "Previous generation"
-
-	// AWS retired six families and has added none since, so anything short of
-	// the count at the time of writing means the prose was restructured.
-	minPreviousGenerationNodeTypes = 18
 )
 
 type nodeTypes struct {
@@ -60,6 +55,11 @@ func main() {
 		panic(fmt.Sprintf("reading the API model: %s", err))
 	}
 
+	// mustRetain compares against the last run and so passes vacuously on the
+	// first one, which is the only run these guard.
+	mustFind(current, "the price list", "node types")
+	mustFind(previous, "the API model", "previous generation node types")
+
 	// Each source answers only what it knows. The price list carries every node
 	// type AWS currently sells but drops retired ones outright rather than
 	// labeling them, and the API model names the retired ones but trails the
@@ -70,26 +70,67 @@ func main() {
 		NodeTypes:                   slices.Sorted(maps.Keys(current)),
 		PreviousGenerationNodeTypes: slices.Sorted(maps.Keys(previous)),
 	}
-	atLeast(len(types.NodeTypes), minNodeTypes, "node types")
-	atLeast(len(types.PreviousGenerationNodeTypes), minPreviousGenerationNodeTypes, "previous generation node types")
+
+	committed, err := committedNodeTypes()
+	if err != nil {
+		panic(fmt.Sprintf("reading %s: %s", output, err))
+	}
+	mustRetain(committed.NodeTypes, current, "node types")
+	mustRetain(committed.PreviousGenerationNodeTypes, previous, "previous generation node types")
 
 	data, err := json.MarshalIndent(types, "", "  ")
 	if err != nil {
 		panic(fmt.Sprintf("marshaling JSON: %s", err))
 	}
-	if err := os.WriteFile("node_types.json", append(data, '\n'), 0644); err != nil {
+	if err := os.WriteFile(output, append(data, '\n'), 0644); err != nil {
 		panic(fmt.Sprintf("writing JSON: %s", err))
 	}
 
 	fmt.Printf(
-		"Wrote %d node types, %d of them previous generation, to node_types.json\n",
-		len(types.NodeTypes), len(types.PreviousGenerationNodeTypes),
+		"Wrote %d node types, %d of them previous generation, to %s\n",
+		len(types.NodeTypes), len(types.PreviousGenerationNodeTypes), output,
 	)
 }
 
-func atLeast(count, minimum int, name string) {
-	if count < minimum {
-		panic(fmt.Sprintf("found only %d %s, expected at least %d", count, name, minimum))
+func mustFind(types map[string]bool, source, name string) {
+	if len(types) == 0 {
+		panic(fmt.Sprintf("%s listed no %s", source, name))
+	}
+}
+
+// committedNodeTypes reads the previous run's output, or nothing on the first
+// run and whenever someone deletes the file to regenerate from scratch.
+func committedNodeTypes() (nodeTypes, error) {
+	raw, err := os.ReadFile(output)
+	if errors.Is(err, fs.ErrNotExist) {
+		return nodeTypes{}, nil
+	}
+	if err != nil {
+		return nodeTypes{}, err
+	}
+
+	var committed nodeTypes
+	err = json.Unmarshal(raw, &committed)
+
+	return committed, err
+}
+
+// mustRetain fails on a node type an earlier run wrote that this one did not
+// find. Both sources only grow: AWS deletes a retired node type from the offer
+// rather than unpublishing it, and it names the retired ones in prose forever.
+// So a set that shrinks means a source changed shape, and the generator stops
+// rather than narrowing what the rules accept. Delete the file to rebuild from
+// nothing after AWS genuinely withdraws a node type.
+func mustRetain(committed []string, generated map[string]bool, name string) {
+	var missing []string
+	for _, nodeType := range committed {
+		if !generated[nodeType] {
+			missing = append(missing, nodeType)
+		}
+	}
+
+	if len(missing) > 0 {
+		panic(fmt.Sprintf("%s in %s that the sources no longer list: %s", name, output, strings.Join(missing, ", ")))
 	}
 }
 
