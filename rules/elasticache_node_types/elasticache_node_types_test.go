@@ -107,6 +107,10 @@ func TestPreviousGeneration(t *testing.T) {
 // on a node type invalid_type rejects, which is the contradiction that kept
 // this list hardcoded.
 func TestPreviousGenerationValid(t *testing.T) {
+	if len(nodeTypes.PreviousGeneration) == 0 {
+		t.Fatal("no previous generation node types")
+	}
+
 	for nodeType := range nodeTypes.PreviousGeneration {
 		if !nodeTypes.All[nodeType] {
 			t.Errorf("previous generation node type %s is not valid", nodeType)
