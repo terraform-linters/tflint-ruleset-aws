@@ -67,7 +67,10 @@ func (r *AwsLambdaFunctionDeprecatedRuntimeRule) Check(runner tflint.Runner) err
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			rt, ok := r.runtimes.Runtimes[val]
-			if !ok || !r.Now.After(rt.EndOfSupportDate) {
+			// A zero end of support date means the data records no deprecation
+			// schedule for the runtime, not that it expired at the zero time,
+			// which is in the past for every possible value of Now.
+			if !ok || rt.EndOfSupportDate.IsZero() || !r.Now.After(rt.EndOfSupportDate) {
 				return nil
 			}
 
