@@ -21,7 +21,10 @@ import (
 // Offer identifies a service's price list.
 type Offer string
 
-const RDS Offer = "AmazonRDS"
+const (
+	RDS         Offer = "AmazonRDS"
+	ElastiCache Offer = "AmazonElastiCache"
+)
 
 // Each region offer file is tens of megabytes, so they are fetched concurrently
 // and parsed as a stream rather than buffered.
@@ -42,6 +45,8 @@ var baseURL = "https://pricing.us-east-1.amazonaws.com"
 // because the larger offers stream for a while.
 var client = &http.Client{
 	Transport: &http.Transport{
+		// A custom transport starts with no proxy at all, unlike the default one.
+		Proxy:                 http.ProxyFromEnvironment,
 		ResponseHeaderTimeout: 30 * time.Second,
 		MaxIdleConnsPerHost:   fetchConcurrency,
 	},

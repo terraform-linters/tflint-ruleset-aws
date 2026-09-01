@@ -7,14 +7,16 @@ package db_instance_types
 import (
 	_ "embed"
 	"encoding/json"
+
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/stringset"
 )
 
 //go:embed instance_classes.json
 var instanceClassesJSON []byte
 
 var instanceClasses struct {
-	All                set `json:"instance_classes"`
-	PreviousGeneration set `json:"previous_generation_classes"`
+	All                stringset.Set `json:"instance_classes"`
+	PreviousGeneration stringset.Set `json:"previous_generation_classes"`
 }
 
 func init() {
@@ -32,21 +34,4 @@ func Valid(instanceClass string) bool {
 // previous generation, such as db.m1.small.
 func PreviousGeneration(instanceClass string) bool {
 	return instanceClasses.PreviousGeneration[instanceClass]
-}
-
-// set is a membership test over a JSON array of strings.
-type set map[string]bool
-
-func (s *set) UnmarshalJSON(data []byte) error {
-	var values []string
-	if err := json.Unmarshal(data, &values); err != nil {
-		return err
-	}
-
-	*s = make(set, len(values))
-	for _, value := range values {
-		(*s)[value] = true
-	}
-
-	return nil
 }

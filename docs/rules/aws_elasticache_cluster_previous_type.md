@@ -36,4 +36,6 @@ Previous node types are inferior to current generation in terms of performance a
 
 ## How To Fix
 
-Select a current generation node type according to the [upgrade paths](https://aws.amazon.com/elasticache/previous-generation/).
+Select a current generation node type according to the [supported node types](https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/CacheNodes.SupportedTypes.html).
+
+The node types this rule warns on are the previous generation ones named in the [ElastiCache API reference](https://docs.aws.amazon.com/AmazonElastiCache/latest/APIReference/API_CacheNode.html). AWS drops retired node types from the price list rather than labeling them, so the API reference is the only place it still names them.

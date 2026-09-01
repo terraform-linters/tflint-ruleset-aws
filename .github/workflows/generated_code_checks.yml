@@ -23,5 +23,5 @@ jobs:
       # their generators fetch remote data from AWS, making them
       # non-deterministic and dependent on network access.
       run: |
-        go generate $(go list ./... | grep -vE 'lambda_deprecated_runtime|db_instance_types')
+        go generate $(go list ./... | grep -vE 'lambda_deprecated_runtime|db_instance_types|elasticache_node_types')
         git diff --exit-code

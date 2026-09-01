@@ -45,3 +45,5 @@ Apply will fail. (Plan will succeed with the invalid value though)
 ## How To Fix
 
 Select valid type according to the [document](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion)
+
+The node types this rule accepts are generated from the [AWS Price List](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/price-changes.html) for Amazon ElastiCache, which covers every region of the `aws` partition, plus the previous generation types named in the [ElastiCache API reference](https://docs.aws.amazon.com/AmazonElastiCache/latest/APIReference/API_CacheNode.html).

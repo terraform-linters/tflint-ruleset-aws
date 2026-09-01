@@ -2,11 +2,11 @@ package rules
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/elasticache_node_types"
 )
 
 // AwsElastiCacheReplicationGroupPreviousTypeRule checks whether the resource uses previous generation node type
@@ -61,12 +61,7 @@ func (r *AwsElastiCacheReplicationGroupPreviousTypeRule) Check(runner tflint.Run
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(nodeType string) error {
-			parts := strings.Split(nodeType, ".")
-			if len(parts) != 3 {
-				return nil
-			}
-
-			if previousElastiCacheNodeTypes[parts[1]] {
+			if elasticache_node_types.PreviousGeneration(nodeType) {
 				runner.EmitIssue(
 					r,
 					fmt.Sprintf("\"%s\" is previous generation node type.", nodeType),
