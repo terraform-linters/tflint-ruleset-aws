@@ -151,7 +151,10 @@ resource "aws_lambda_function" "function" {
 }
 
 func Test_RuntimeMessage(t *testing.T) {
-	updatedAt := runtimes.UpdatedAt
+	// Fixed rather than taken from the generated data, whose UpdatedAt
+	// advances past the block dates below and turns the speculative cases
+	// into confirmed ones.
+	updatedAt := time.Date(2026, time.March, 29, 0, 0, 0, 0, time.UTC)
 	stale := updatedAt.Format("Jan 2, 2006")
 	blockCreate := time.Date(2026, time.August, 31, 0, 0, 0, 0, time.UTC)
 	blockUpdate := time.Date(2026, time.September, 30, 0, 0, 0, 0, time.UTC)
