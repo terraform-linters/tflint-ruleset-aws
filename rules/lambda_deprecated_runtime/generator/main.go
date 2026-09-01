@@ -14,8 +14,8 @@ import (
 )
 
 type output struct {
-	UpdatedAt time.Time                `json:"updated_at"`
-	Runtimes  map[string]runtimeEntry  `json:"runtimes"`
+	UpdatedAt time.Time               `json:"updated_at"`
+	Runtimes  map[string]runtimeEntry `json:"runtimes"`
 }
 
 type runtimeEntry struct {
@@ -118,10 +118,18 @@ func parseRow(cells []string) (string, runtimeEntry, bool) {
 		return "", runtimeEntry{}, false
 	}
 
+	// A runtime AWS has not scheduled for deprecation has no lifecycle to
+	// record. Emitting it with a zero end of support date would report every
+	// function using the runtime as having reached end of support.
+	endOfSupport, scheduled := parseDeprecationDate(cells[3])
+	if !scheduled {
+		return "", runtimeEntry{}, false
+	}
+
 	return identifier, runtimeEntry{
-		EndOfSupportDate: parseDate(cells[3]),
-		BlockCreateDate:  parseDatePtr(cells[4]),
-		BlockUpdateDate:  parseDatePtr(cells[5]),
+		EndOfSupportDate: endOfSupport,
+		BlockCreateDate:  parseBlockDate(cells[4]),
+		BlockUpdateDate:  parseBlockDate(cells[5]),
 	}, true
 }
 
@@ -135,27 +143,40 @@ func isRuntimeIdentifier(s string) bool {
 	return false
 }
 
-func parseDate(s string) time.Time {
-	t, _ := parseDateOpt(s)
-	return t
-}
-
-func parseDatePtr(s string) *time.Time {
-	t, ok := parseDateOpt(s)
-	if !ok {
-		return nil
-	}
-	return &t
-}
-
-func parseDateOpt(s string) (time.Time, bool) {
+// parseDateCell parses a date cell from the runtimes table. The values AWS
+// uses to mean "no date announced" report scheduled=false. An unrecognized
+// value means the table format changed and returns an error, leaving each
+// column to decide what a parse failure there costs.
+func parseDateCell(s string) (time.Time, bool, error) {
 	s = strings.TrimSpace(s)
 	if s == "" || s == "N/A" || s == "–" || strings.Contains(s, "Not scheduled") {
-		return time.Time{}, false
+		return time.Time{}, false, nil
 	}
 	t, err := time.Parse("Jan 2, 2006", s)
 	if err != nil {
-		return time.Time{}, false
+		return time.Time{}, false, err
 	}
-	return t, true
+	return t, true, nil
+}
+
+// parseDeprecationDate parses the column the whole schedule is keyed on, so an
+// unrecognized value panics rather than silently dropping the runtime.
+func parseDeprecationDate(s string) (time.Time, bool) {
+	date, scheduled, err := parseDateCell(s)
+	if err != nil {
+		panic(fmt.Sprintf("parsing deprecation date %q: %s", s, err))
+	}
+	return date, scheduled
+}
+
+// parseBlockDate parses one of the optional block columns. An unrecognized
+// value is absent rather than fatal, costing the reported message some
+// specificity where the same failure in the deprecation column would drop the
+// runtime entirely.
+func parseBlockDate(s string) *time.Time {
+	date, scheduled, _ := parseDateCell(s)
+	if !scheduled {
+		return nil
+	}
+	return &date
 }

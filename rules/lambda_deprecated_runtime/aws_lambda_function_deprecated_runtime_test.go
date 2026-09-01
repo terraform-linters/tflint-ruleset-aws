@@ -26,6 +26,8 @@ func Test_AwsLambdaFunctionDeprecatedRuntime(t *testing.T) {
 			"nodejs22.x": {
 				EndOfSupportDate: time.Date(2027, time.April, 30, 0, 0, 0, 0, time.UTC),
 			},
+			// A runtime the generated data records no deprecation schedule for.
+			"python3.15": {},
 		},
 	}
 
@@ -75,6 +77,15 @@ func Test_AwsLambdaFunctionDeprecatedRuntime(t *testing.T) {
 					Message: `The "python3.9" runtime has reached end of support and function updates were scheduled to be blocked on Sep 30, 2026 (as of ` + stale + `)`,
 				},
 			},
+		},
+		{
+			// The zero end of support date is in the past for every possible
+			// value of Now, so an unguarded comparison reports every function
+			// using a runtime AWS has not scheduled for deprecation.
+			name:     "no scheduled end of support",
+			runtime:  "python3.15",
+			now:      time.Date(2030, time.January, 1, 0, 0, 0, 0, time.UTC),
+			expected: helper.Issues{},
 		},
 		{
 			name:    "speculative end of support",
@@ -186,5 +197,26 @@ func Test_RuntimeMessage(t *testing.T) {
 	expected := `The "test" runtime has reached end of support and function updates are blocked`
 	if got != expected {
 		t.Errorf("confirmed block update: expected %q, got %q", expected, got)
+	}
+}
+
+// Guards the generated data against runtimes AWS has not scheduled for
+// deprecation. Such a runtime has no lifecycle to record and belongs out of
+// the data entirely, since a zero date reads as a date in the past.
+func Test_EmbeddedData_ScheduledDates(t *testing.T) {
+	if len(runtimes.Runtimes) == 0 {
+		t.Fatal("expected embedded data to contain runtimes")
+	}
+
+	for name, rt := range runtimes.Runtimes {
+		if rt.EndOfSupportDate.IsZero() {
+			t.Errorf("runtime %q has a zero end of support date", name)
+		}
+		if rt.BlockCreateDate != nil && rt.BlockCreateDate.IsZero() {
+			t.Errorf("runtime %q has a zero block create date", name)
+		}
+		if rt.BlockUpdateDate != nil && rt.BlockUpdateDate.IsZero() {
+			t.Errorf("runtime %q has a zero block update date", name)
+		}
 	}
 }
