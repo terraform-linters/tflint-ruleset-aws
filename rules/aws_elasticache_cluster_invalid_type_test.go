@@ -57,6 +57,22 @@ resource "aws_elasticache_cluster" "redis" {
 }`,
 			Expected: helper.Issues{},
 		},
+		{
+			Name: "cache.r8g.large is valid",
+			Content: `
+resource "aws_elasticache_cluster" "redis" {
+    node_type = "cache.r8g.large"
+}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Name: "cache.m1.small is valid",
+			Content: `
+resource "aws_elasticache_cluster" "redis" {
+    node_type = "cache.m1.small"
+}`,
+			Expected: helper.Issues{},
+		},
 	}
 
 	rule := NewAwsElastiCacheClusterInvalidTypeRule()

@@ -1,6 +1,10 @@
 package db_instance_types
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/stringset"
+)
 
 func TestValid(t *testing.T) {
 	for _, tc := range []struct {
@@ -103,7 +107,7 @@ func TestPreviousGeneration(t *testing.T) {
 func TestEmbeddedInstanceClasses(t *testing.T) {
 	for _, tc := range []struct {
 		name    string
-		classes set
+		classes stringset.Set
 		minimum int
 	}{
 		{
