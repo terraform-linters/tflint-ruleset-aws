@@ -26,6 +26,7 @@ func NewAwsS3BucketObjectInvalidServerSideEncryptionRule() *AwsS3BucketObjectInv
 		attributeName: "server_side_encryption",
 		enum: []string{
 			"AES256",
+			"aws:backup",
 			"aws:fsx",
 			"aws:kms",
 			"aws:kms:dsse",

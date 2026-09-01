@@ -25,7 +25,7 @@ func NewAwsAmplifyAppInvalidOAuthTokenRule() *AwsAmplifyAppInvalidOAuthTokenRule
 	return &AwsAmplifyAppInvalidOAuthTokenRule{
 		resourceType:  "aws_amplify_app",
 		attributeName: "oauth_token",
-		max:           1000,
+		max:           4096,
 		pattern:       regexp.MustCompile(`^(?s).*$`),
 	}
 }
@@ -73,7 +73,7 @@ func (r *AwsAmplifyAppInvalidOAuthTokenRule) Check(runner tflint.Runner) error {
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					"oauth_token must be 1000 characters or less",
+					"oauth_token must be 4096 characters or less",
 					attribute.Expr.Range(),
 				)
 			}

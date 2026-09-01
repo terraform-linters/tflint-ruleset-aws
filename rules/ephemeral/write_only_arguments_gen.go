@@ -31,6 +31,13 @@ var writeOnlyArguments = map[string][]writeOnlyArgument{
 			writeOnlyVersionAttribute: "master_password_wo_version",
 		},
 	},
+	"aws_elasticache_replication_group": {
+		{
+			originalAttribute:         "auth_token",
+			writeOnlyAlternative:      "auth_token_wo",
+			writeOnlyVersionAttribute: "auth_token_wo_version",
+		},
+	},
 	"aws_elasticache_user": {
 		{
 			originalAttribute:         "passwords",

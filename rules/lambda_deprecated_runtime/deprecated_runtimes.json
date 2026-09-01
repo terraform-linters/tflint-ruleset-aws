@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-31T15:23:50.495632823Z",
+  "updated_at": "2026-09-01T02:07:59.927114865Z",
   "runtimes": {
     "dotnet10": {
       "end_of_support_date": "2028-11-14T00:00:00Z",
@@ -55,10 +55,20 @@
       "block_create_date": "2027-07-31T00:00:00Z",
       "block_update_date": "2027-08-31T00:00:00Z"
     },
+    "java11.al2023": {
+      "end_of_support_date": "2029-06-30T00:00:00Z",
+      "block_create_date": "2029-07-31T00:00:00Z",
+      "block_update_date": "2029-08-31T00:00:00Z"
+    },
     "java17": {
       "end_of_support_date": "2027-06-30T00:00:00Z",
       "block_create_date": "2027-07-31T00:00:00Z",
       "block_update_date": "2027-08-31T00:00:00Z"
+    },
+    "java17.al2023": {
+      "end_of_support_date": "2029-06-30T00:00:00Z",
+      "block_create_date": "2029-07-31T00:00:00Z",
+      "block_update_date": "2029-08-31T00:00:00Z"
     },
     "java21": {
       "end_of_support_date": "2029-06-30T00:00:00Z",
@@ -79,6 +89,11 @@
       "end_of_support_date": "2027-06-30T00:00:00Z",
       "block_create_date": "2027-07-31T00:00:00Z",
       "block_update_date": "2027-08-31T00:00:00Z"
+    },
+    "java8.al2023": {
+      "end_of_support_date": "2029-06-30T00:00:00Z",
+      "block_create_date": "2029-07-31T00:00:00Z",
+      "block_update_date": "2029-08-31T00:00:00Z"
     },
     "nodejs": {
       "end_of_support_date": "2016-08-30T00:00:00Z",
