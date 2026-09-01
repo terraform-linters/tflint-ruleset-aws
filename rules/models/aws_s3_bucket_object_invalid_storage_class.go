@@ -25,6 +25,8 @@ func NewAwsS3BucketObjectInvalidStorageClassRule() *AwsS3BucketObjectInvalidStor
 		resourceType:  "aws_s3_bucket_object",
 		attributeName: "storage_class",
 		enum: []string{
+			"AWS_BACKUP_LOW_COST_WARM",
+			"AWS_BACKUP_WARM",
 			"DEEP_ARCHIVE",
 			"EXPRESS_ONEZONE",
 			"FSX_ONTAP",

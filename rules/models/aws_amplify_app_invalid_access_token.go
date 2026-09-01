@@ -26,7 +26,7 @@ func NewAwsAmplifyAppInvalidAccessTokenRule() *AwsAmplifyAppInvalidAccessTokenRu
 	return &AwsAmplifyAppInvalidAccessTokenRule{
 		resourceType:  "aws_amplify_app",
 		attributeName: "access_token",
-		max:           255,
+		max:           4096,
 		min:           1,
 		pattern:       regexp.MustCompile(`^(?s).+$`),
 	}
@@ -75,7 +75,7 @@ func (r *AwsAmplifyAppInvalidAccessTokenRule) Check(runner tflint.Runner) error 
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					"access_token must be 255 characters or less",
+					"access_token must be 4096 characters or less",
 					attribute.Expr.Range(),
 				)
 			}
