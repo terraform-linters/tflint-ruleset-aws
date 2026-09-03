@@ -3,9 +3,6 @@
 package models
 
 import (
-	"fmt"
-	"regexp"
-
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -19,7 +16,6 @@ type AwsDynamoDBTableItemInvalidTableNameRule struct {
 	attributeName string
 	max           int
 	min           int
-	pattern       *regexp.Regexp
 }
 
 // NewAwsDynamoDBTableItemInvalidTableNameRule returns new rule with default attributes
@@ -27,9 +23,8 @@ func NewAwsDynamoDBTableItemInvalidTableNameRule() *AwsDynamoDBTableItemInvalidT
 	return &AwsDynamoDBTableItemInvalidTableNameRule{
 		resourceType:  "aws_dynamodb_table_item",
 		attributeName: "table_name",
-		max:           255,
-		min:           3,
-		pattern:       regexp.MustCompile(`^[a-zA-Z0-9_.-]+$`),
+		max:           1024,
+		min:           1,
 	}
 }
 
@@ -76,21 +71,14 @@ func (r *AwsDynamoDBTableItemInvalidTableNameRule) Check(runner tflint.Runner) e
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					"table_name must be 255 characters or less",
+					"table_name must be 1024 characters or less",
 					attribute.Expr.Range(),
 				)
 			}
 			if len(val) < r.min {
 				runner.EmitIssue(
 					r,
-					"table_name must be 3 characters or higher",
-					attribute.Expr.Range(),
-				)
-			}
-			if !r.pattern.MatchString(val) {
-				runner.EmitIssue(
-					r,
-					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[a-zA-Z0-9_.-]+$`),
+					"table_name must be 1 characters or higher",
 					attribute.Expr.Range(),
 				)
 			}
