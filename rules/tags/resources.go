@@ -3,6 +3,7 @@ package tags
 
 var Resources = []string{
 	"aws_accessanalyzer_analyzer",
+	"aws_accountaccess_application",
 	"aws_acm_certificate",
 	"aws_acmpca_certificate_authority",
 	"aws_alb",
@@ -479,6 +480,7 @@ var Resources = []string{
 	"aws_macie2_custom_data_identifier",
 	"aws_macie2_findings_filter",
 	"aws_macie2_member",
+	"aws_mailmanager_archive",
 	"aws_mailmanager_ingress_point",
 	"aws_mailmanager_relay",
 	"aws_mailmanager_rule_set",
