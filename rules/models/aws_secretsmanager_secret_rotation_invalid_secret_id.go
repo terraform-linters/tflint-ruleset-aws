@@ -67,7 +67,7 @@ func (r *AwsSecretsmanagerSecretRotationInvalidSecretIDRule) Check(runner tflint
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,

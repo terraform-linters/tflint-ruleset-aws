@@ -68,7 +68,7 @@ func (r *AwsCloudformationStackSetInstanceInvalidAccountIDRule) Check(runner tfl
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,

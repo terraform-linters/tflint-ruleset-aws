@@ -3,12 +3,12 @@
 package ephemeral
 
 var replacingEphemeralResources = []string{
-		"aws_ecr_authorization_token",
-		"aws_ecrpublic_authorization_token",
-		"aws_eks_cluster_auth",
-		"aws_kms_secrets",
-		"aws_lambda_invocation",
-		"aws_secretsmanager_random_password",
-		"aws_secretsmanager_secret_version",
-		"aws_ssm_parameter",
+	"aws_ecr_authorization_token",
+	"aws_ecrpublic_authorization_token",
+	"aws_eks_cluster_auth",
+	"aws_kms_secrets",
+	"aws_lambda_invocation",
+	"aws_secretsmanager_random_password",
+	"aws_secretsmanager_secret_version",
+	"aws_ssm_parameter",
 }

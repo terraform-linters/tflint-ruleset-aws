@@ -1,8 +1,10 @@
 package genutils
 
 import (
+	"bytes"
 	"fmt"
 	"go/ast"
+	"go/format"
 	"go/parser"
 	"go/token"
 	"os"
@@ -64,14 +66,22 @@ func ToCamel(str string) string {
 
 // GenerateFile generates a new file from the passed template and metadata
 func GenerateFile(fileName string, tmplName string, meta interface{}) {
-	file, err := os.Create(fileName)
-	if err != nil {
+	tmpl := template.Must(template.ParseFiles(tmplName))
+	var buf bytes.Buffer
+	if err := tmpl.Execute(&buf, meta); err != nil {
 		panic(err)
 	}
 
-	tmpl := template.Must(template.ParseFiles(tmplName))
-	err = tmpl.Execute(file, meta)
-	if err != nil {
+	src := buf.Bytes()
+	if strings.HasSuffix(fileName, ".go") {
+		formatted, err := format.Source(src)
+		if err != nil {
+			panic(fmt.Errorf("%s: %w", fileName, err))
+		}
+		src = formatted
+	}
+
+	if err := os.WriteFile(fileName, src, 0644); err != nil {
 		panic(err)
 	}
 }

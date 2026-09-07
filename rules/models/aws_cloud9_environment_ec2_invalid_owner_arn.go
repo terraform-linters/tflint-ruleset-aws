@@ -68,7 +68,7 @@ func (r *AwsCloud9EnvironmentEc2InvalidOwnerArnRule) Check(runner tflint.Runner)
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,
