@@ -71,7 +71,7 @@ func (r *AwsIAMServerCertificateInvalidPrivateKeyRule) Check(runner tflint.Runne
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,

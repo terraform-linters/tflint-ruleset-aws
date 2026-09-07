@@ -3,8 +3,8 @@
 package models
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/helper"
 )

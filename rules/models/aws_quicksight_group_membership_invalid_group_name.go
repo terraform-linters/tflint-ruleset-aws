@@ -70,7 +70,7 @@ func (r *AwsQuicksightGroupMembershipInvalidGroupNameRule) Check(runner tflint.R
 			continue
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			if len(val) < r.min {
 				runner.EmitIssue(
 					r,

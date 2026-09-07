@@ -91,7 +91,7 @@ func (r *AwsElastiCacheReplicationGroupInvalidParameterGroupRule) Check(rr tflin
 			r.dataPrepared = true
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			if !r.data[val] {
 				runner.EmitIssue(
 					r,
