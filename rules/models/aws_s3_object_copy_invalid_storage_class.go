@@ -25,6 +25,8 @@ func NewAwsS3ObjectCopyInvalidStorageClassRule() *AwsS3ObjectCopyInvalidStorageC
 		resourceType:  "aws_s3_object_copy",
 		attributeName: "storage_class",
 		enum: []string{
+			"AWS_BACKUP_LOW_COST_WARM",
+			"AWS_BACKUP_WARM",
 			"DEEP_ARCHIVE",
 			"EXPRESS_ONEZONE",
 			"FSX_ONTAP",

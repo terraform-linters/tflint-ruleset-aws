@@ -1,7 +1,9 @@
 default: build
 
+# The generators tag is set so the generator packages and their tests, which
+# an untagged build excludes, are covered.
 test:
-	go test $$(go list ./... | grep -v integration)
+	go test -tags generators $$(go list -tags generators ./... | grep -v integration)
 
 e2e: 
 	cd integration && go test && cd ../

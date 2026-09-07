@@ -9,7 +9,7 @@ resource "aws_db_instance" "default" {
   allocated_storage    = 20
   engine               = "mysql57" // invalid engine name!
   engine_version       = "5.7"
-  instance_class       = "db.t2.micro"
+  instance_class       = "db.t4g.micro"
   name                 = "mydb"
   username             = "foo"
   password             = "bar"

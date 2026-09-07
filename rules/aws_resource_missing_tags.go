@@ -283,7 +283,7 @@ func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTag(runner tflint.
 	}
 
 	for _, resource := range resources.Blocks {
-		if resource.Labels[0] != resourceBlock.Labels[0] {
+		if resource.Labels[1] != resourceBlock.Labels[1] {
 			continue
 		}
 
@@ -320,7 +320,7 @@ func (r *AwsResourceMissingTagsRule) checkAwsAutoScalingGroupsTags(runner tflint
 	}
 
 	for _, resource := range resources.Blocks {
-		if resource.Labels[0] != resourceBlock.Labels[0] {
+		if resource.Labels[1] != resourceBlock.Labels[1] {
 			continue
 		}
 

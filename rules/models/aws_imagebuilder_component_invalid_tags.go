@@ -31,7 +31,7 @@ func NewAwsImagebuilderComponentInvalidTagsRule() *AwsImagebuilderComponentInval
 		attributeName: "tags",
 		keyMax:        128,
 		keyMin:        1,
-		keyPattern:    regexp.MustCompile(`^[a-zA-Z+-=._:/]+$`),
+		keyPattern:    regexp.MustCompile(`^[a-zA-Z0-9\s_.:/=+\-@]*$`),
 		valueMax:      256,
 	}
 }
@@ -101,7 +101,7 @@ func (r *AwsImagebuilderComponentInvalidTagsRule) Check(runner tflint.Runner) er
 				if !r.keyPattern.MatchString(k) {
 					runner.EmitIssue(
 						r,
-						fmt.Sprintf(`tags key %q does not match valid pattern %s`, truncateLongMessage(k), `^[a-zA-Z+-=._:/]+$`),
+						fmt.Sprintf(`tags key %q does not match valid pattern %s`, truncateLongMessage(k), `^[a-zA-Z0-9\s_.:/=+\-@]*$`),
 						attribute.Expr.Range(),
 					)
 				}

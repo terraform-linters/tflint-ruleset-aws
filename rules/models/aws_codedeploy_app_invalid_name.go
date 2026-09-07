@@ -3,6 +3,9 @@
 package models
 
 import (
+	"fmt"
+	"regexp"
+
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
@@ -16,6 +19,7 @@ type AwsCodedeployAppInvalidNameRule struct {
 	attributeName string
 	max           int
 	min           int
+	pattern       *regexp.Regexp
 }
 
 // NewAwsCodedeployAppInvalidNameRule returns new rule with default attributes
@@ -25,6 +29,7 @@ func NewAwsCodedeployAppInvalidNameRule() *AwsCodedeployAppInvalidNameRule {
 		attributeName: "name",
 		max:           100,
 		min:           1,
+		pattern:       regexp.MustCompile(`^[A-Za-z0-9+=,.@_-]*$`),
 	}
 }
 
@@ -79,6 +84,13 @@ func (r *AwsCodedeployAppInvalidNameRule) Check(runner tflint.Runner) error {
 				runner.EmitIssue(
 					r,
 					"name must be 1 characters or higher",
+					attribute.Expr.Range(),
+				)
+			}
+			if !r.pattern.MatchString(val) {
+				runner.EmitIssue(
+					r,
+					fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage(val), `^[A-Za-z0-9+=,.@_-]*$`),
 					attribute.Expr.Range(),
 				)
 			}

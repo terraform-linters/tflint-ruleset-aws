@@ -23,7 +23,7 @@ func NewAwsConfigOrganizationCustomRuleInvalidInputParametersRule() *AwsConfigOr
 	return &AwsConfigOrganizationCustomRuleInvalidInputParametersRule{
 		resourceType:  "aws_config_organization_custom_rule",
 		attributeName: "input_parameters",
-		max:           2048,
+		max:           1024,
 		min:           1,
 	}
 }
@@ -71,7 +71,7 @@ func (r *AwsConfigOrganizationCustomRuleInvalidInputParametersRule) Check(runner
 			if len(val) > r.max {
 				runner.EmitIssue(
 					r,
-					"input_parameters must be 2048 characters or less",
+					"input_parameters must be 1024 characters or less",
 					attribute.Expr.Range(),
 				)
 			}

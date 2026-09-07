@@ -7,7 +7,7 @@ mapping "aws_dynamodb_global_table" {
 
 mapping "aws_dynamodb_kinesis_streaming_destination" {
   stream_arn = StreamArn
-  table_name = TableName
+  table_name = TableArn
 }
 
 mapping "aws_dynamodb_table" {
@@ -28,7 +28,7 @@ mapping "aws_dynamodb_table" {
 }
 
 mapping "aws_dynamodb_table_item" {
-  table_name = TableName
+  table_name = TableArn
   hash_key   = KeySchemaAttributeName
   range_key  = KeySchemaAttributeName
   item       = AttributeMap
@@ -47,4 +47,3 @@ test "aws_dynamodb_table" "billing_mode" {
   ok = "PROVISIONED"
   ng = "FLEXIBLE"
 }
-

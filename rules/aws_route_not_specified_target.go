@@ -44,19 +44,7 @@ func (r *AwsRouteNotSpecifiedTargetRule) Link() string {
 // Check checks whether a target is defined in a resource
 func (r *AwsRouteNotSpecifiedTargetRule) Check(runner tflint.Runner) error {
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
-		Attributes: []hclext.AttributeSchema{
-			{Name: "gateway_id"},
-			{Name: "egress_only_gateway_id"},
-			{Name: "nat_gateway_id"},
-			{Name: "instance_id"},
-			{Name: "vpc_peering_connection_id"},
-			{Name: "network_interface_id"},
-			{Name: "transit_gateway_id"},
-			{Name: "vpc_endpoint_id"},
-			{Name: "carrier_gateway_id"},
-			{Name: "local_gateway_id"},
-			{Name: "core_network_arn"},
-		},
+		Attributes: routeTargetAttributes,
 	}, nil)
 	if err != nil {
 		return err
@@ -79,7 +67,7 @@ func (r *AwsRouteNotSpecifiedTargetRule) Check(runner tflint.Runner) error {
 		if len(resource.Body.Attributes)-nullAttributes == 0 {
 			runner.EmitIssue(
 				r,
-				"The routing target is not specified, each aws_route must contain either egress_only_gateway_id, gateway_id, instance_id, nat_gateway_id, network_interface_id, transit_gateway_id, vpc_peering_connection_id, core_network_arn or vpc_endpoint_id.",
+				routeTargetNotSpecifiedMessage,
 				resource.DefRange,
 			)
 		}

@@ -8,7 +8,8 @@ import (
 // RuleSet is the custom ruleset for the AWS provider plugin.
 type RuleSet struct {
 	tflint.BuiltinRuleSet
-	config *Config
+	config  *Config
+	clients *clientCache
 }
 
 func (r *RuleSet) ConfigSchema() *hclext.BodySchema {
@@ -22,6 +23,8 @@ func (r *RuleSet) ApplyConfig(body *hclext.BodyContent) error {
 	if diags.HasErrors() {
 		return diags
 	}
+
+	r.clients = newClientCache(NewClient)
 
 	if r.config.DeepCheck {
 		return nil
@@ -43,5 +46,5 @@ func (r *RuleSet) ApplyConfig(body *hclext.BodyContent) error {
 
 // NewRunner injects a custom AWS runner
 func (r *RuleSet) NewRunner(runner tflint.Runner) (tflint.Runner, error) {
-	return NewRunner(runner, r.config)
+	return NewRunner(runner, r.config, r.clients)
 }

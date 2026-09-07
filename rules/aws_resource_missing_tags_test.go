@@ -240,6 +240,91 @@ rule "aws_resource_missing_tags" {
 			},
 		},
 		{
+			Name: "AutoScaling Group each instance uses different required tags and each is reported missing one",
+			Content: `
+resource "aws_autoscaling_group" "asg_one" {
+  name = "repro-one"
+  tag {
+    key                 = "Foo"
+    value               = "one"
+    propagate_at_launch = true
+  }
+}
+
+resource "aws_autoscaling_group" "asg_two" {
+  name = "repro-two"
+  tag {
+    key                 = "Bar"
+    value               = "two"
+    propagate_at_launch = true
+  }
+}`,
+			Config: `
+rule "aws_resource_missing_tags" {
+  enabled = true
+  tags = ["Foo", "Bar"]
+}`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsResourceMissingTagsRule(),
+					Message: "The resource is missing the following tags: \"Bar\".",
+					Range: hcl.Range{
+						Filename: "module.tf",
+						Start:    hcl.Pos{Line: 2, Column: 1},
+						End:      hcl.Pos{Line: 2, Column: 43},
+					},
+				},
+				{
+					Rule:    NewAwsResourceMissingTagsRule(),
+					Message: "The resource is missing the following tags: \"Foo\".",
+					Range: hcl.Range{
+						Filename: "module.tf",
+						Start:    hcl.Pos{Line: 11, Column: 1},
+						End:      hcl.Pos{Line: 11, Column: 43},
+					},
+				},
+			},
+		},
+		{
+			Name: "AutoScaling Group instances with only tag blocks or only tags attributes do not cross-report mixed-format errors",
+			Content: `
+resource "aws_autoscaling_group" "asg_tag_block" {
+  name = "repro-block"
+  tag {
+    key                 = "Foo"
+    value               = "one"
+    propagate_at_launch = true
+  }
+  tag {
+    key                 = "Bar"
+    value               = "two"
+    propagate_at_launch = true
+  }
+}
+
+resource "aws_autoscaling_group" "asg_tags_attr" {
+  name = "repro-attr"
+  tags = [
+    {
+      key                 = "Foo"
+      value               = "one"
+      propagate_at_launch = true
+    },
+    {
+      key                 = "Bar"
+      value               = "two"
+      propagate_at_launch = true
+    }
+  ]
+}`,
+			Config: `
+rule "aws_resource_missing_tags" {
+  enabled = true
+  tags = ["Foo", "Bar"]
+}`,
+			Expected: helper.Issues{},
+		},
+		{
 			Name: "AutoScaling Group with no tags",
 			Content: `
 resource "aws_autoscaling_group" "asg" {

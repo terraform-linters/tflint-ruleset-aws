@@ -33,9 +33,9 @@ func NewAwsAcmCertificateInvalidTagsRule() *AwsAcmCertificateInvalidTagsRule {
 		itemsMax:      50,
 		keyMax:        128,
 		keyMin:        1,
-		keyPattern:    regexp.MustCompile(`^[\p{L}\p{Z}\p{N}_.:\/=+\-@]*$`),
+		keyPattern:    regexp.MustCompile(`^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$`),
 		valueMax:      256,
-		valuePattern:  regexp.MustCompile(`^[\p{L}\p{Z}\p{N}_.:\/=+\-@]*$`),
+		valuePattern:  regexp.MustCompile(`^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$`),
 	}
 }
 
@@ -104,7 +104,7 @@ func (r *AwsAcmCertificateInvalidTagsRule) Check(runner tflint.Runner) error {
 				if !r.keyPattern.MatchString(k) {
 					runner.EmitIssue(
 						r,
-						fmt.Sprintf(`tags key %q does not match valid pattern %s`, truncateLongMessage(k), `^[\p{L}\p{Z}\p{N}_.:\/=+\-@]*$`),
+						fmt.Sprintf(`tags key %q does not match valid pattern %s`, truncateLongMessage(k), `^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$`),
 						attribute.Expr.Range(),
 					)
 				}
@@ -118,7 +118,7 @@ func (r *AwsAcmCertificateInvalidTagsRule) Check(runner tflint.Runner) error {
 				if !r.valuePattern.MatchString(v) {
 					runner.EmitIssue(
 						r,
-						fmt.Sprintf(`tags value %q for key %q does not match valid pattern %s`, truncateLongMessage(v), truncateLongMessage(k), `^[\p{L}\p{Z}\p{N}_.:\/=+\-@]*$`),
+						fmt.Sprintf(`tags value %q for key %q does not match valid pattern %s`, truncateLongMessage(v), truncateLongMessage(k), `^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$`),
 						attribute.Expr.Range(),
 					)
 				}

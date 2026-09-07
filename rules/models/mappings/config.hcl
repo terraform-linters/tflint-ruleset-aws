@@ -48,7 +48,7 @@ mapping "aws_config_organization_managed_rule" {
   rule_identifier             = StringWithCharLimit256
   description                 = StringWithCharLimit256Min0
   excluded_accounts           = ExcludedAccounts
-  input_parameters            = StringWithCharLimit2048
+  input_parameters            = StringWithCharLimit1024
   maximum_execution_frequency = MaximumExecutionFrequency
   resource_id_scope           = StringWithCharLimit768
   resource_types_scope        = ResourceTypesScope
@@ -62,7 +62,7 @@ mapping "aws_config_organization_custom_rule" {
   trigger_types                = OrganizationConfigRuleTriggerTypes
   description                  = StringWithCharLimit256Min0
   excluded_accounts            = ExcludedAccounts
-  input_parameters             = StringWithCharLimit2048
+  input_parameters             = StringWithCharLimit1024
   maximum_execution_frequency  = MaximumExecutionFrequency
   resource_id_scope            = StringWithCharLimit768
   resource_types_scope         = ResourceTypesScope

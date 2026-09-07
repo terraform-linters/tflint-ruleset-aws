@@ -32,10 +32,28 @@ resource "aws_db_instance" "mysql" {
 			},
 		},
 		{
-			Name: "db.t2.micro is not previous type",
+			Name: "db.t2.micro is previous type",
 			Content: `
 resource "aws_db_instance" "mysql" {
     instance_class = "db.t2.micro"
+}`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsDBInstancePreviousTypeRule(),
+					Message: "\"db.t2.micro\" is previous generation instance type.",
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 3, Column: 22},
+						End:      hcl.Pos{Line: 3, Column: 35},
+					},
+				},
+			},
+		},
+		{
+			Name: "db.t4g.micro is not previous type",
+			Content: `
+resource "aws_db_instance" "mysql" {
+    instance_class = "db.t4g.micro"
 }`,
 			Expected: helper.Issues{},
 		},

@@ -44,18 +44,7 @@ func (r *AwsRouteSpecifiedMultipleTargetsRule) Link() string {
 // Check checks whether a resource defines multiple targets
 func (r *AwsRouteSpecifiedMultipleTargetsRule) Check(runner tflint.Runner) error {
 	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
-		Attributes: []hclext.AttributeSchema{
-			{Name: "gateway_id"},
-			{Name: "egress_only_gateway_id"},
-			{Name: "nat_gateway_id"},
-			{Name: "instance_id"},
-			{Name: "vpc_peering_connection_id"},
-			{Name: "network_interface_id"},
-			{Name: "transit_gateway_id"},
-			{Name: "vpc_endpoint_id"},
-			{Name: "carrier_gateway_id"},
-			{Name: "local_gateway_id"},
-		},
+		Attributes: routeTargetAttributes,
 	}, nil)
 	if err != nil {
 		return err

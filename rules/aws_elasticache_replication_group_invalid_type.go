@@ -6,6 +6,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/elasticache_node_types"
 )
 
 // AwsElastiCacheReplicationGroupInvalidTypeRule checks whether "aws_elasticache_replication_group" has invalid node type.
@@ -60,7 +61,7 @@ func (r *AwsElastiCacheReplicationGroupInvalidTypeRule) Check(runner tflint.Runn
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(nodeType string) error {
-			if !validElastiCacheNodeTypes[nodeType] {
+			if !elasticache_node_types.Valid(nodeType) {
 				runner.EmitIssue(
 					r,
 					fmt.Sprintf("\"%s\" is invalid node type.", nodeType),

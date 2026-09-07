@@ -17,7 +17,7 @@ type Runner struct {
 }
 
 // NewRunner returns a custom AWS runner.
-func NewRunner(runner tflint.Runner, config *Config) (*Runner, error) {
+func NewRunner(runner tflint.Runner, config *Config, cache *clientCache) (*Runner, error) {
 	clients := map[string]Client{
 		"aws": nil,
 	}
@@ -30,7 +30,7 @@ func NewRunner(runner tflint.Runner, config *Config) (*Runner, error) {
 			credentials["aws"] = Credentials{}
 		}
 		for k, cred := range credentials {
-			client, err := NewClient(cred.Merge(config.toCredentials()))
+			client, err := cache.get(cred.Merge(config.toCredentials()))
 			if err != nil {
 				return nil, err
 			}

@@ -27,6 +27,7 @@ func NewAwsPlacementGroupInvalidStrategyRule() *AwsPlacementGroupInvalidStrategy
 		enum: []string{
 			"cluster",
 			"partition",
+			"precision-time",
 			"spread",
 		},
 	}

@@ -9,7 +9,7 @@ resource "aws_db_instance" "default" {
   allocated_storage    = 20
   engine               = "mysql"
   engine_version       = "5.7"
-  instance_class       = "db.t1.micro" // invalid type!
+  instance_class       = "t2.micro" // invalid type!
   name                 = "mydb"
   username             = "foo"
   password             = "bar"
@@ -22,10 +22,10 @@ resource "aws_db_instance" "default" {
 $ tflint
 1 issue(s) found:
 
-Warning: "db.t1.micro" is previous generation instance type. (aws_db_instance_previous_type)
+Error: "t2.micro" is invalid instance type. (aws_db_instance_invalid_type)
 
   on template.tf line 5:
-   5:   instance_class       = "db.t1.micro" // invalid type!
+   5:   instance_class       = "t2.micro" // invalid type!
 
 ```
 
@@ -36,4 +36,6 @@ Apply will fail. (Plan will succeed with the invalid value though)
 ## How To Fix
 
 Select valid type according to the [document](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html#Concepts.DBInstanceClass.Types)
+
+The instance classes this rule accepts are generated from the [AWS Price List](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/price-changes.html) for Amazon RDS, and cover every region of the `aws` partition.
 

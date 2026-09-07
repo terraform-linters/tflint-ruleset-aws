@@ -17,6 +17,7 @@ type AwsLambdaFunctionInvalidRoleRule struct {
 
 	resourceType  string
 	attributeName string
+	max           int
 	pattern       *regexp.Regexp
 }
 
@@ -25,6 +26,7 @@ func NewAwsLambdaFunctionInvalidRoleRule() *AwsLambdaFunctionInvalidRoleRule {
 	return &AwsLambdaFunctionInvalidRoleRule{
 		resourceType:  "aws_lambda_function",
 		attributeName: "role",
+		max:           10000,
 		pattern:       regexp.MustCompile(`^arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$`),
 	}
 }
@@ -69,6 +71,13 @@ func (r *AwsLambdaFunctionInvalidRoleRule) Check(runner tflint.Runner) error {
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
+			if len(val) > r.max {
+				runner.EmitIssue(
+					r,
+					"role must be 10000 characters or less",
+					attribute.Expr.Range(),
+				)
+			}
 			if !r.pattern.MatchString(val) {
 				runner.EmitIssue(
 					r,

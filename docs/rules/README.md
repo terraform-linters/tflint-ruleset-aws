@@ -685,6 +685,7 @@ These rules enforce best practices and naming conventions:
 |aws_elasticsearch_domain_saml_options_invalid_domain_name|✔|
 |aws_elb_invalid_tags|✔|
 |aws_emr_cluster_invalid_scale_down_behavior|✔|
+|aws_emr_instance_group_invalid_cluster_id|✔|
 |aws_emr_studio_invalid_auth_mode|✔|
 |aws_emr_studio_session_mapping_invalid_identity_type|✔|
 |aws_flow_log_invalid_log_destination_type|✔|
@@ -954,6 +955,7 @@ These rules enforce best practices and naming conventions:
 |aws_lambda_function_invalid_runtime|✔|
 |aws_lambda_function_invalid_s3_key|✔|
 |aws_lambda_function_invalid_s3_object_version|✔|
+|aws_lambda_function_invalid_tags|✔|
 |aws_lambda_layer_version_invalid_description|✔|
 |aws_lambda_layer_version_invalid_layer_name|✔|
 |aws_lambda_layer_version_invalid_license_info|✔|

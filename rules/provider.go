@@ -4,6 +4,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/rules/api"
 	"github.com/terraform-linters/tflint-ruleset-aws/rules/ephemeral"
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/lambda_deprecated_runtime"
 	"github.com/terraform-linters/tflint-ruleset-aws/rules/models"
 )
 
@@ -35,7 +36,7 @@ var manualRules = []tflint.Rule{
 	NewAwsIAMPolicyAttachmentExclusiveAttachmentRule(),
 	NewAwsIAMPolicySidInvalidCharactersRule(),
 	NewAwsIAMPolicyTooLongPolicyRule(),
-	NewAwsLambdaFunctionDeprecatedRuntimeRule(),
+	lambda_deprecated_runtime.NewRule(),
 	NewAwsIAMGroupPolicyTooLongRule(),
 	NewAwsAcmCertificateLifecycleRule(),
 	NewAwsElasticBeanstalkEnvironmentInvalidNameFormatRule(),
