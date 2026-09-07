@@ -91,7 +91,7 @@ func (r *AwsInstanceInvalidSubnetRule) Check(rr tflint.Runner) error {
 			r.dataPrepared = true
 		}
 
-		err := runner.EvaluateExpr(attribute.Expr, func (val string) error {
+		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			if !r.data[val] {
 				runner.EmitIssue(
 					r,

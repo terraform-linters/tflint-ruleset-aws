@@ -24,5 +24,4 @@ jobs:
       # non-deterministic and dependent on network access.
       run: |
         go generate $(go list ./... | grep -vE 'lambda_deprecated_runtime|db_instance_types|elasticache_node_types')
-        gofmt -w rules/models/
         git diff --exit-code
