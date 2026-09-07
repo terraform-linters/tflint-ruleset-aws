@@ -27,6 +27,16 @@ resource "aws_ecs_service" "foo" {
 			expected: helper.Issues{},
 		},
 		{
+			name: "multibyte key and value at the character limit",
+			content: fmt.Sprintf(`
+resource "aws_ecs_service" "foo" {
+	tags = {
+		%q = %q
+	}
+}`, strings.Repeat("é", 128), strings.Repeat("é", 256)),
+			expected: helper.Issues{},
+		},
+		{
 			name: "key too long",
 			content: fmt.Sprintf(`
 resource "aws_ecs_service" "foo" {

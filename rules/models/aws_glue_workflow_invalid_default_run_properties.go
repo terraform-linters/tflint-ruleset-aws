@@ -4,6 +4,7 @@ package models
 
 import (
 	"fmt"
+	"unicode/utf8"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
@@ -70,15 +71,15 @@ func (r *AwsGlueWorkflowInvalidDefaultRunPropertiesRule) Check(runner tflint.Run
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
-			for k, _ := range val {
-				if len(k) > r.keyMax {
+			for k := range val {
+				if utf8.RuneCountInString(k) > r.keyMax {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("default_run_properties key %q must be 255 characters or less", truncateLongMessage(k)),
 						attribute.Expr.Range(),
 					)
 				}
-				if len(k) < r.keyMin {
+				if utf8.RuneCountInString(k) < r.keyMin {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("default_run_properties key %q must be at least 1 character", truncateLongMessage(k)),

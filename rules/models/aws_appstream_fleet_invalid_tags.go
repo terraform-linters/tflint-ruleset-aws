@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+	"unicode/utf8"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
@@ -32,7 +33,7 @@ func NewAwsAppstreamFleetInvalidTagsRule() *AwsAppstreamFleetInvalidTagsRule {
 		attributeName: "tags",
 		keyMax:        128,
 		keyMin:        1,
-		keyPattern:    regexp.MustCompile(`^.[\p{L}\p{Z}\p{N}_.:/=+\-@]*`),
+		keyPattern:    regexp.MustCompile(`^.[\p{L}\p{Z}\p{N}_.:/=+\-@]*$`),
 		valueMax:      256,
 		valuePattern:  regexp.MustCompile(`^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$`),
 	}
@@ -79,14 +80,14 @@ func (r *AwsAppstreamFleetInvalidTagsRule) Check(runner tflint.Runner) error {
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
 			for k, v := range val {
-				if len(k) > r.keyMax {
+				if utf8.RuneCountInString(k) > r.keyMax {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("tags key %q must be 128 characters or less", truncateLongMessage(k)),
 						attribute.Expr.Range(),
 					)
 				}
-				if len(k) < r.keyMin {
+				if utf8.RuneCountInString(k) < r.keyMin {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("tags key %q must be at least 1 character", truncateLongMessage(k)),
@@ -103,11 +104,11 @@ func (r *AwsAppstreamFleetInvalidTagsRule) Check(runner tflint.Runner) error {
 				if !r.keyPattern.MatchString(k) {
 					runner.EmitIssue(
 						r,
-						fmt.Sprintf(`tags key %q does not match valid pattern %s`, truncateLongMessage(k), `^.[\p{L}\p{Z}\p{N}_.:/=+\-@]*`),
+						fmt.Sprintf(`tags key %q does not match valid pattern %s`, truncateLongMessage(k), `^.[\p{L}\p{Z}\p{N}_.:/=+\-@]*$`),
 						attribute.Expr.Range(),
 					)
 				}
-				if len(v) > r.valueMax {
+				if utf8.RuneCountInString(v) > r.valueMax {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("tags value for key %q must be 256 characters or less", truncateLongMessage(k)),

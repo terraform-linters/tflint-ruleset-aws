@@ -4,6 +4,7 @@ package models
 
 import (
 	"fmt"
+	"unicode/utf8"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
@@ -80,14 +81,14 @@ func (r *AwsRoute53HealthCheckInvalidTagsRule) Check(runner tflint.Runner) error
 				)
 			}
 			for k, v := range val {
-				if len(k) > r.keyMax {
+				if utf8.RuneCountInString(k) > r.keyMax {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("tags key %q must be 128 characters or less", truncateLongMessage(k)),
 						attribute.Expr.Range(),
 					)
 				}
-				if len(v) > r.valueMax {
+				if utf8.RuneCountInString(v) > r.valueMax {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("tags value for key %q must be 256 characters or less", truncateLongMessage(k)),

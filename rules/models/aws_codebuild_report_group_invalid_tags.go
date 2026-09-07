@@ -5,6 +5,7 @@ package models
 import (
 	"fmt"
 	"regexp"
+	"unicode/utf8"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
@@ -87,14 +88,14 @@ func (r *AwsCodebuildReportGroupInvalidTagsRule) Check(runner tflint.Runner) err
 				)
 			}
 			for k, v := range val {
-				if len(k) > r.keyMax {
+				if utf8.RuneCountInString(k) > r.keyMax {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("tags key %q must be 127 characters or less", truncateLongMessage(k)),
 						attribute.Expr.Range(),
 					)
 				}
-				if len(k) < r.keyMin {
+				if utf8.RuneCountInString(k) < r.keyMin {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("tags key %q must be at least 1 character", truncateLongMessage(k)),
@@ -108,7 +109,7 @@ func (r *AwsCodebuildReportGroupInvalidTagsRule) Check(runner tflint.Runner) err
 						attribute.Expr.Range(),
 					)
 				}
-				if len(v) > r.valueMax {
+				if utf8.RuneCountInString(v) > r.valueMax {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("tags value for key %q must be 255 characters or less", truncateLongMessage(k)),

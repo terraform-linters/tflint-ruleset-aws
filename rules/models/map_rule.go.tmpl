@@ -10,6 +10,9 @@ import (
 {{- if or .KeyPrefixDeny .ValuePrefixDeny }}
 	"strings"
 {{- end }}
+{{- if or (ne .KeyMax 0) (ne .KeyMin 0) (ne .ValueMax 0) (ne .ValueMin 0) }}
+	"unicode/utf8"
+{{- end }}
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
@@ -125,9 +128,9 @@ func (r *{{ .RuleNameCC }}Rule) Check(runner tflint.Runner) error {
 {{- end }}
 
 {{- $hasValueConstraints := or (ne .ValueMax 0) (ne .ValueMin 0) (ne .ValuePattern "") .ValuePrefixDeny }}
-			for k, {{ if $hasValueConstraints }}v{{ else }}_{{ end }} := range val {
+			for k{{ if $hasValueConstraints }}, v{{ end }} := range val {
 {{- if ne .KeyMax 0 }}
-				if len(k) > r.keyMax {
+				if utf8.RuneCountInString(k) > r.keyMax {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("{{ .AttributeName }} key %q must be {{ .KeyMax }} characters or less", truncateLongMessage(k)),
@@ -137,7 +140,7 @@ func (r *{{ .RuleNameCC }}Rule) Check(runner tflint.Runner) error {
 {{- end }}
 
 {{- if ne .KeyMin 0 }}
-				if len(k) < r.keyMin {
+				if utf8.RuneCountInString(k) < r.keyMin {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("{{ .AttributeName }} key %q must be at least {{ .KeyMin }} character{{ if ne .KeyMin 1 }}s{{ end }}", truncateLongMessage(k)),
@@ -171,7 +174,7 @@ func (r *{{ .RuleNameCC }}Rule) Check(runner tflint.Runner) error {
 {{- end }}
 
 {{- if ne .ValueMax 0 }}
-				if len(v) > r.valueMax {
+				if utf8.RuneCountInString(v) > r.valueMax {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("{{ .AttributeName }} value for key %q must be {{ .ValueMax }} characters or less", truncateLongMessage(k)),
@@ -181,7 +184,7 @@ func (r *{{ .RuleNameCC }}Rule) Check(runner tflint.Runner) error {
 {{- end }}
 
 {{- if ne .ValueMin 0 }}
-				if len(v) < r.valueMin {
+				if utf8.RuneCountInString(v) < r.valueMin {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("{{ .AttributeName }} value for key %q must be at least {{ .ValueMin }} character{{ if ne .ValueMin 1 }}s{{ end }}", truncateLongMessage(k)),

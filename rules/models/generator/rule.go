@@ -49,7 +49,7 @@ type mapRuleMeta struct {
 const sentinelMax = 2147483647
 
 var (
-	unicodeEscapeRegex     = regexp.MustCompile(`\\u([0-9A-F]{4})`)
+	unicodeEscapeRegex     = regexp.MustCompile(`\\u([0-9A-Fa-f]{4})`)
 	negativeLookaheadRegex = regexp.MustCompile(`\(\?![^)]+\)`)
 	literalPrefixRegex     = regexp.MustCompile(`^[a-zA-Z0-9_:/.+\-]+$`)
 	matchAllRegex          = regexp.MustCompile(`^\^(\(\?[simU]+\))?\.\*\$$`)
@@ -100,6 +100,8 @@ func generateMapRuleFile(resource, attribute string, listModel, keyModel, valueM
 	}
 	keyPrefixDeny, rawKeyPattern := extractPrefixDenies(fetchString(keyModel, "pattern"))
 	valuePrefixDeny, rawValuePattern := extractPrefixDenies(fetchString(valueModel, "pattern"))
+	warnDroppedLookaheads(resource, attribute, "key", rawKeyPattern)
+	warnDroppedLookaheads(resource, attribute, "value", rawValuePattern)
 	keyPattern := stripMatchAll(replacePattern(rawKeyPattern))
 	valuePattern := stripMatchAll(replacePattern(rawValuePattern))
 	keyMax := clampSentinel(fetchNumber(keyModel, "max"))
@@ -218,19 +220,32 @@ func fetchString(model map[string]interface{}, key string) string {
 }
 
 // extractPrefixDenies finds negative lookahead patterns containing literal strings
-// (e.g., (?!aws:)) and returns them as prefix deny values. Non-literal lookaheads
-// (containing regex metacharacters) are left in the pattern for replacePattern to strip.
+// (e.g., (?!aws:) or (?!aws:|connect:)) and returns them as prefix deny values.
+// Non-literal lookaheads (containing regex metacharacters) are left in the
+// pattern for replacePattern to strip.
 func extractPrefixDenies(pattern string) (prefixes []string, cleaned string) {
 	cleaned = negativeLookaheadRegex.ReplaceAllStringFunc(pattern, func(match string) string {
 		// Extract the content between (?! and )
 		inner := match[3 : len(match)-1]
-		if literalPrefixRegex.MatchString(inner) {
-			prefixes = append(prefixes, inner)
-			return ""
+		alternatives := strings.Split(inner, "|")
+		for _, alt := range alternatives {
+			if !literalPrefixRegex.MatchString(alt) {
+				return match
+			}
 		}
-		return match
+		prefixes = append(prefixes, alternatives...)
+		return ""
 	})
 	return prefixes, cleaned
+}
+
+// warnDroppedLookaheads reports negative lookaheads that extractPrefixDenies
+// could not convert to prefix checks. replacePattern strips them, which silently
+// weakens the generated rule, so the loss is surfaced in generator output.
+func warnDroppedLookaheads(resource, attribute, part, pattern string) {
+	for _, match := range negativeLookaheadRegex.FindAllString(pattern, -1) {
+		fmt.Fprintf(os.Stderr, "Warning: %s.%s: dropping unsupported %s lookahead %s\n", resource, attribute, part, match)
+	}
 }
 
 func replacePattern(pattern string) string {
@@ -351,10 +366,15 @@ func stripRedundantAnchors(pattern string) string {
 		}
 	}
 	inner := pattern[2 : len(pattern)-2]
-	if strings.HasPrefix(inner, "^") {
-		return inner
+	if !strings.HasPrefix(inner, "^") {
+		return pattern
 	}
-	return pattern
+	// The inner anchor may lack a closing $ when a lookahead sat between the
+	// outer and inner anchors, e.g. ^(^(?!aws:).[a-z]*)$ after lookahead removal.
+	if !strings.HasSuffix(inner, "$") {
+		inner += "$"
+	}
+	return inner
 }
 
 // compatibilityTransforms maps patterns that need special handling for backward

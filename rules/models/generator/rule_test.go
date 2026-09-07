@@ -56,6 +56,18 @@ func TestExtractPrefixDenies(t *testing.T) {
 			wantPrefixes: []string{"aws:", "pcs_"},
 			wantCleaned:  `^[a-zA-Z]+$`,
 		},
+		{
+			name:         "alternation of literal prefixes",
+			input:        `^(?!aws:|connect:)[a-zA-Z]+$`,
+			wantPrefixes: []string{"aws:", "connect:"},
+			wantCleaned:  `^[a-zA-Z]+$`,
+		},
+		{
+			name:         "alternation with non-literal branch preserved",
+			input:        `^(?!aws:|\s+$)[a-zA-Z]+$`,
+			wantPrefixes: nil,
+			wantCleaned:  `^(?!aws:|\s+$)[a-zA-Z]+$`,
+		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			gotPrefixes, gotCleaned := extractPrefixDenies(tc.input)
@@ -84,6 +96,16 @@ func TestReplacePattern(t *testing.T) {
 			name:  "unicode escape",
 			input: `[\u000A]`,
 			want:  `^[\x{000A}]$`,
+		},
+		{
+			name:  "lowercase unicode escape",
+			input: `[\u00ff]`,
+			want:  `^[\x{00ff}]$`,
+		},
+		{
+			name:  "nested anchors with inner $ missing",
+			input: `^(^.[\p{L}]*)$`,
+			want:  `^.[\p{L}]*$`,
 		},
 		{
 			name:  "negative lookahead removal",

@@ -4,6 +4,7 @@ package models
 
 import (
 	"fmt"
+	"unicode/utf8"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
@@ -68,8 +69,8 @@ func (r *AwsS3BucketObjectInvalidTagsRule) Check(runner tflint.Runner) error {
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
-			for k, _ := range val {
-				if len(k) < r.keyMin {
+			for k := range val {
+				if utf8.RuneCountInString(k) < r.keyMin {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("tags key %q must be at least 1 character", truncateLongMessage(k)),

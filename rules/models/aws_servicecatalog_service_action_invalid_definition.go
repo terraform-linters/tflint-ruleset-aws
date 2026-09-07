@@ -4,6 +4,7 @@ package models
 
 import (
 	"fmt"
+	"unicode/utf8"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
@@ -71,14 +72,14 @@ func (r *AwsServicecatalogServiceActionInvalidDefinitionRule) Check(runner tflin
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
 			for k, v := range val {
-				if len(v) > r.valueMax {
+				if utf8.RuneCountInString(v) > r.valueMax {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("definition value for key %q must be 1024 characters or less", truncateLongMessage(k)),
 						attribute.Expr.Range(),
 					)
 				}
-				if len(v) < r.valueMin {
+				if utf8.RuneCountInString(v) < r.valueMin {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("definition value for key %q must be at least 1 character", truncateLongMessage(k)),

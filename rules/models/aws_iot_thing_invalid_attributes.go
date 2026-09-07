@@ -5,6 +5,7 @@ package models
 import (
 	"fmt"
 	"regexp"
+	"unicode/utf8"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
@@ -76,7 +77,7 @@ func (r *AwsIotThingInvalidAttributesRule) Check(runner tflint.Runner) error {
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
 			for k, v := range val {
-				if len(k) > r.keyMax {
+				if utf8.RuneCountInString(k) > r.keyMax {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("attributes key %q must be 128 characters or less", truncateLongMessage(k)),
@@ -90,7 +91,7 @@ func (r *AwsIotThingInvalidAttributesRule) Check(runner tflint.Runner) error {
 						attribute.Expr.Range(),
 					)
 				}
-				if len(v) > r.valueMax {
+				if utf8.RuneCountInString(v) > r.valueMax {
 					runner.EmitIssue(
 						r,
 						fmt.Sprintf("attributes value for key %q must be 800 characters or less", truncateLongMessage(k)),
