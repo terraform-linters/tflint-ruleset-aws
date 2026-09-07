@@ -51,8 +51,11 @@ const sentinelMax = 2147483647
 var (
 	unicodeEscapeRegex     = regexp.MustCompile(`\\u([0-9A-Fa-f]{4})`)
 	negativeLookaheadRegex = regexp.MustCompile(`\(\?![^)]+\)`)
-	literalPrefixRegex     = regexp.MustCompile(`^[a-zA-Z0-9_:/.+\-]+$`)
-	matchAllRegex          = regexp.MustCompile(`^\^(\(\?[simU]+\))?\.\*\$$`)
+	// literalPrefixRegex matches lookahead bodies with no regex operators, so the
+	// text can be compared with strings.HasPrefix. Only an escaped dot is allowed
+	// as punctuation that would otherwise be an operator.
+	literalPrefixRegex = regexp.MustCompile(`^(?:[a-zA-Z0-9_:/\-]|\\\.)+$`)
+	matchAllRegex      = regexp.MustCompile(`^\^(\(\?[simU]+\))?\.\*\$$`)
 )
 
 func buildRuleMeta(resource, attribute string, model map[string]interface{}, schema *tfjson.SchemaAttribute) *ruleMeta {
@@ -250,7 +253,9 @@ func extractPrefixDenies(pattern string) (prefixes []string, cleaned string) {
 				return match
 			}
 		}
-		prefixes = append(prefixes, alternatives...)
+		for _, alt := range alternatives {
+			prefixes = append(prefixes, strings.ReplaceAll(alt, `\.`, "."))
+		}
 		return ""
 	})
 	return prefixes, cleaned

@@ -63,6 +63,24 @@ func TestExtractPrefixDenies(t *testing.T) {
 			wantCleaned:  `^[a-zA-Z]+$`,
 		},
 		{
+			name:         "escaped dot is literal",
+			input:        `^(?!\.)[a-z.]+$`,
+			wantPrefixes: []string{"."},
+			wantCleaned:  `^[a-z.]+$`,
+		},
+		{
+			name:         "unescaped dot is an operator, not a prefix",
+			input:        `^(?!prod.+)[a-z.]+$`,
+			wantPrefixes: nil,
+			wantCleaned:  `^(?!prod.+)[a-z.]+$`,
+		},
+		{
+			name:         "contains check is not a prefix",
+			input:        `^(?!.*--)[a-z-]+$`,
+			wantPrefixes: nil,
+			wantCleaned:  `^(?!.*--)[a-z-]+$`,
+		},
+		{
 			name:         "alternation with non-literal branch preserved",
 			input:        `^(?!aws:|\s+$)[a-zA-Z]+$`,
 			wantPrefixes: nil,

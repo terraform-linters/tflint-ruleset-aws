@@ -79,7 +79,9 @@ func (r *mapRule) Check(runner tflint.Runner) error {
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val map[string]string) error {
 			for _, message := range r.violations(val) {
-				runner.EmitIssue(r, message, attribute.Expr.Range())
+				if err := runner.EmitIssue(r, message, attribute.Expr.Range()); err != nil {
+					return err
+				}
 			}
 			return nil
 		}, nil)
