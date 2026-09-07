@@ -9,7 +9,7 @@ import (
 )
 
 func Test_AwsEcsServiceInvalidTagsRule(t *testing.T) {
-	rule := NewAwsEcsServiceInvalidTagsRule()
+	rule := mapRuleByName(t, "aws_ecs_service_invalid_tags")
 
 	for _, tc := range []struct {
 		name     string

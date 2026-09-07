@@ -89,6 +89,8 @@ func main() {
 
 	var generatedFiles []string
 	var generatedRules []string
+	var patternRules []string
+	var mapRules []*mapRuleMeta
 	for _, mappingFile := range mappingFiles {
 		raw, err := os.ReadFile(mappingFile.Import)
 		if err != nil {
@@ -127,11 +129,10 @@ func main() {
 						os.Exit(1)
 					}
 
-					mapRuleName := makeRuleName(mapping.Resource, attribute)
 					fmt.Printf("Generating map rule for `%s.%s`\n", mapping.Resource, attribute)
-					if generateMapRuleFromShapes(mapping.Resource, attribute, result, schema) {
-						generatedFiles = append(generatedFiles, fmt.Sprintf("%s.go", mapRuleName))
-						generatedRules = append(generatedRules, mapRuleName)
+					if meta := buildMapRuleMetaFromShapes(mapping.Resource, attribute, result, schema); meta != nil {
+						mapRules = append(mapRules, meta)
+						generatedRules = append(generatedRules, meta.RuleName)
 					}
 					continue
 				}
@@ -167,16 +168,16 @@ func main() {
 						}
 					}
 					generatedRules = append(generatedRules, ruleName)
+					patternRules = append(patternRules, ruleName)
 				} else {
 					// Try traversing to find map constraints (only works for Smithy map types)
 					keyModel, valueModel := traverseToMapConstraints(shapes, shapeName)
 					if keyModel != nil && valueModel != nil {
 						if validMapping(keyModel) || validMapping(valueModel) {
-							mapRuleName := makeRuleName(mapping.Resource, attribute)
 							fmt.Printf("Generating map rule for `%s.%s`\n", mapping.Resource, attribute)
-							if generateMapRuleFile(mapping.Resource, attribute, nil, keyModel, valueModel, schema) {
-								generatedFiles = append(generatedFiles, fmt.Sprintf("%s.go", mapRuleName))
-								generatedRules = append(generatedRules, mapRuleName)
+							if meta := buildMapRuleMeta(mapping.Resource, attribute, nil, keyModel, valueModel, schema); meta != nil {
+								mapRules = append(mapRules, meta)
+								generatedRules = append(generatedRules, meta.RuleName)
 							}
 						}
 					}
@@ -186,7 +187,10 @@ func main() {
 	}
 
 	sort.Strings(generatedRules)
-	generateProviderFile(generatedRules)
+	sort.Strings(patternRules)
+	generateMapRulesFile(mapRules)
+	generatedFiles = append(generatedFiles, "map_rules.go")
+	generateProviderFile(patternRules)
 	generatedFiles = append(generatedFiles, "provider.go")
 	generateDocFile(generatedRules)
 	genutils.CleanDir(".", generatedFiles)

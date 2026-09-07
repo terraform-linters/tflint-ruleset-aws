@@ -7,7 +7,7 @@ import (
 )
 
 func Test_AwsS3BucketInvalidTagsRule(t *testing.T) {
-	rule := NewAwsS3BucketInvalidTagsRule()
+	rule := mapRuleByName(t, "aws_s3_bucket_invalid_tags")
 
 	for _, tc := range []struct {
 		name     string

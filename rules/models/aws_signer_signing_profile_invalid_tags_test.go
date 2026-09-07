@@ -8,7 +8,7 @@ import (
 )
 
 func Test_AwsSignerSigningProfileInvalidTagsRule(t *testing.T) {
-	rule := NewAwsSignerSigningProfileInvalidTagsRule()
+	rule := mapRuleByName(t, "aws_signer_signing_profile_invalid_tags")
 
 	for _, tc := range []struct {
 		name     string

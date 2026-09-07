@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"slices"
 	"strings"
 
 	tfjson "github.com/hashicorp/terraform-json"
@@ -29,7 +30,6 @@ type ruleMeta struct {
 
 type mapRuleMeta struct {
 	RuleName        string
-	RuleNameCC      string
 	ResourceType    string
 	AttributeName   string
 	Sensitive       bool
@@ -91,7 +91,9 @@ func generateRuleTestFile(resource, attribute string, model map[string]interface
 	genutils.GenerateFile(fmt.Sprintf("%s_test.go", meta.RuleName), "pattern_rule_test.go.tmpl", meta)
 }
 
-func generateMapRuleFile(resource, attribute string, listModel, keyModel, valueModel map[string]interface{}, schema *tfjson.SchemaAttribute) bool {
+// buildMapRuleMeta extracts map constraints from the items, key, and value
+// models. It returns nil when the models carry no constraint worth checking.
+func buildMapRuleMeta(resource, attribute string, listModel, keyModel, valueModel map[string]interface{}, schema *tfjson.SchemaAttribute) *mapRuleMeta {
 	ruleName := makeRuleName(resource, attribute)
 
 	var itemsMax int
@@ -114,7 +116,7 @@ func generateMapRuleFile(resource, attribute string, listModel, keyModel, valueM
 	hasKeyConstraints := keyPattern != "" || keyMax != 0 || keyMin != 0 || len(keyPrefixDeny) > 0
 	hasValueConstraints := valuePattern != "" || valueMax != 0 || valueMin != 0 || len(valuePrefixDeny) > 0
 	if !hasItemsConstraints && !hasKeyConstraints && !hasValueConstraints {
-		return false
+		return nil
 	}
 
 	// Smithy models may use regex features incompatible with Go's regexp (e.g.,
@@ -132,9 +134,8 @@ func generateMapRuleFile(resource, attribute string, listModel, keyModel, valueM
 		}
 	}
 
-	meta := &mapRuleMeta{
+	return &mapRuleMeta{
 		RuleName:        ruleName,
-		RuleNameCC:      genutils.ToCamel(ruleName),
 		ResourceType:    resource,
 		AttributeName:   attribute,
 		Sensitive:       schema != nil && schema.Sensitive,
@@ -148,20 +149,36 @@ func generateMapRuleFile(resource, attribute string, listModel, keyModel, valueM
 		ValuePattern:    valuePattern,
 		ValuePrefixDeny: valuePrefixDeny,
 	}
-
-	genutils.GenerateFile(fmt.Sprintf("%s.go", ruleName), "map_rule.go.tmpl", meta)
-	return true
 }
 
-// generateMapRuleFromShapes generates a map validation rule from a resolved map result.
+// buildMapRuleMetaFromShapes extracts map constraints from a resolved map result.
 // The result contains three nested shape objects: items, key, and value.
-func generateMapRuleFromShapes(resource, attribute string, result cty.Value, schema *tfjson.SchemaAttribute) bool {
-	return generateMapRuleFile(resource, attribute,
+func buildMapRuleMetaFromShapes(resource, attribute string, result cty.Value, schema *tfjson.SchemaAttribute) *mapRuleMeta {
+	return buildMapRuleMeta(resource, attribute,
 		shapeToModel(result.GetAttr("items")),
 		shapeToModel(result.GetAttr("key")),
 		shapeToModel(result.GetAttr("value")),
 		schema,
 	)
+}
+
+type mapRulesMeta struct {
+	Rules       []*mapRuleMeta
+	NeedsRegexp bool
+}
+
+// generateMapRulesFile writes every map rule into one table file, sorted by name.
+func generateMapRulesFile(rules []*mapRuleMeta) {
+	slices.SortFunc(rules, func(a, b *mapRuleMeta) int {
+		return strings.Compare(a.RuleName, b.RuleName)
+	})
+	meta := &mapRulesMeta{Rules: rules}
+	for _, rule := range rules {
+		if rule.KeyPattern != "" || rule.ValuePattern != "" {
+			meta.NeedsRegexp = true
+		}
+	}
+	genutils.GenerateFile("map_rules.go", "map_rules.go.tmpl", meta)
 }
 
 func makeRuleName(resource, attribute string) string {
