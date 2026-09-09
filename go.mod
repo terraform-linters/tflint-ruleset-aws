@@ -15,7 +15,7 @@ require (
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/terraform-linters/tflint-plugin-sdk v0.25.0
 	github.com/zclconf/go-cty v1.19.0
-	google.golang.org/grpc v1.83.1 // indirect
+	google.golang.org/grpc v1.83.2 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 )
 
