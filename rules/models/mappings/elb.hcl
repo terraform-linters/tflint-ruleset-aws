@@ -22,7 +22,7 @@ mapping "aws_elb" {
   idle_timeout                = IdleTimeout
   connection_draining         = ConnectionDrainingEnabled
   connection_draining_timeout = ConnectionDrainingTimeout
-  tags                        = TagList
+  tags                        = map(TagList, TagKey, TagValue)
 }
 
 mapping "aws_elb_attachment" {

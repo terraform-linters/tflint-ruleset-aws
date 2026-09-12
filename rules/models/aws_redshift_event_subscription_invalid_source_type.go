@@ -14,7 +14,6 @@ type AwsRedshiftEventSubscriptionInvalidSourceTypeRule struct {
 
 	resourceType  string
 	attributeName string
-	max           int
 }
 
 // NewAwsRedshiftEventSubscriptionInvalidSourceTypeRule returns new rule with default attributes
@@ -22,7 +21,6 @@ func NewAwsRedshiftEventSubscriptionInvalidSourceTypeRule() *AwsRedshiftEventSub
 	return &AwsRedshiftEventSubscriptionInvalidSourceTypeRule{
 		resourceType:  "aws_redshift_event_subscription",
 		attributeName: "source_type",
-		max:           2147483647,
 	}
 }
 
@@ -66,13 +64,6 @@ func (r *AwsRedshiftEventSubscriptionInvalidSourceTypeRule) Check(runner tflint.
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
-			if len(val) > r.max {
-				runner.EmitIssue(
-					r,
-					"source_type must be 2147483647 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
 			return nil
 		}, nil)
 		if err != nil {

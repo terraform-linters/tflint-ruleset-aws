@@ -2,13 +2,13 @@ package genutils
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"os"
 
 	tfjson "github.com/hashicorp/terraform-json"
 )
 
 func LoadProviderSchema(path string) *tfjson.ProviderSchema {
-	src, err := ioutil.ReadFile(path)
+	src, err := os.ReadFile(path)
 	if err != nil {
 		panic(err)
 	}
