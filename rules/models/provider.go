@@ -5,7 +5,7 @@ package models
 import "github.com/terraform-linters/tflint-plugin-sdk/tflint"
 
 // Rules is a list of rules generated from aws-sdk-go
-var Rules = []tflint.Rule{
+var Rules = append([]tflint.Rule{
 	NewAwsAccessanalyzerAnalyzerInvalidAnalyzerNameRule(),
 	NewAwsAccessanalyzerAnalyzerInvalidTypeRule(),
 	NewAwsAccountAlternateContactInvalidAccountIDRule(),
@@ -345,6 +345,7 @@ var Rules = []tflint.Rule{
 	NewAwsConfigOrganizationConformancePackInvalidTemplateBodyRule(),
 	NewAwsConfigOrganizationConformancePackInvalidTemplateS3URIRule(),
 	NewAwsConfigOrganizationCustomRuleInvalidDescriptionRule(),
+	NewAwsConfigOrganizationCustomRuleInvalidInputParametersRule(),
 	NewAwsConfigOrganizationCustomRuleInvalidLambdaFunctionArnRule(),
 	NewAwsConfigOrganizationCustomRuleInvalidMaximumExecutionFrequencyRule(),
 	NewAwsConfigOrganizationCustomRuleInvalidNameRule(),
@@ -352,6 +353,7 @@ var Rules = []tflint.Rule{
 	NewAwsConfigOrganizationCustomRuleInvalidTagKeyScopeRule(),
 	NewAwsConfigOrganizationCustomRuleInvalidTagValueScopeRule(),
 	NewAwsConfigOrganizationManagedRuleInvalidDescriptionRule(),
+	NewAwsConfigOrganizationManagedRuleInvalidInputParametersRule(),
 	NewAwsConfigOrganizationManagedRuleInvalidMaximumExecutionFrequencyRule(),
 	NewAwsConfigOrganizationManagedRuleInvalidNameRule(),
 	NewAwsConfigOrganizationManagedRuleInvalidResourceIDScopeRule(),
@@ -1361,4 +1363,4 @@ var Rules = []tflint.Rule{
 	NewAwsXraySamplingRuleInvalidServiceNameRule(),
 	NewAwsXraySamplingRuleInvalidServiceTypeRule(),
 	NewAwsXraySamplingRuleInvalidURLPathRule(),
-}
+}, mapRules...)

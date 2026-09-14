@@ -14,7 +14,6 @@ type AwsRedshiftClusterInvalidFinalSnapshotIdentifierRule struct {
 
 	resourceType  string
 	attributeName string
-	max           int
 }
 
 // NewAwsRedshiftClusterInvalidFinalSnapshotIdentifierRule returns new rule with default attributes
@@ -22,7 +21,6 @@ func NewAwsRedshiftClusterInvalidFinalSnapshotIdentifierRule() *AwsRedshiftClust
 	return &AwsRedshiftClusterInvalidFinalSnapshotIdentifierRule{
 		resourceType:  "aws_redshift_cluster",
 		attributeName: "final_snapshot_identifier",
-		max:           2147483647,
 	}
 }
 
@@ -66,13 +64,6 @@ func (r *AwsRedshiftClusterInvalidFinalSnapshotIdentifierRule) Check(runner tfli
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
-			if len(val) > r.max {
-				runner.EmitIssue(
-					r,
-					"final_snapshot_identifier must be 2147483647 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
 			return nil
 		}, nil)
 		if err != nil {

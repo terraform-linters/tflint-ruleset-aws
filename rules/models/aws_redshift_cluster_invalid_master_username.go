@@ -14,7 +14,6 @@ type AwsRedshiftClusterInvalidMasterUsernameRule struct {
 
 	resourceType  string
 	attributeName string
-	max           int
 }
 
 // NewAwsRedshiftClusterInvalidMasterUsernameRule returns new rule with default attributes
@@ -22,7 +21,6 @@ func NewAwsRedshiftClusterInvalidMasterUsernameRule() *AwsRedshiftClusterInvalid
 	return &AwsRedshiftClusterInvalidMasterUsernameRule{
 		resourceType:  "aws_redshift_cluster",
 		attributeName: "master_username",
-		max:           2147483647,
 	}
 }
 
@@ -66,13 +64,6 @@ func (r *AwsRedshiftClusterInvalidMasterUsernameRule) Check(runner tflint.Runner
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
-			if len(val) > r.max {
-				runner.EmitIssue(
-					r,
-					"master_username must be 2147483647 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
 			return nil
 		}, nil)
 		if err != nil {

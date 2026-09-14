@@ -14,7 +14,6 @@ type AwsRedshiftSnapshotScheduleInvalidDescriptionRule struct {
 
 	resourceType  string
 	attributeName string
-	max           int
 }
 
 // NewAwsRedshiftSnapshotScheduleInvalidDescriptionRule returns new rule with default attributes
@@ -22,7 +21,6 @@ func NewAwsRedshiftSnapshotScheduleInvalidDescriptionRule() *AwsRedshiftSnapshot
 	return &AwsRedshiftSnapshotScheduleInvalidDescriptionRule{
 		resourceType:  "aws_redshift_snapshot_schedule",
 		attributeName: "description",
-		max:           2147483647,
 	}
 }
 
@@ -66,13 +64,6 @@ func (r *AwsRedshiftSnapshotScheduleInvalidDescriptionRule) Check(runner tflint.
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
-			if len(val) > r.max {
-				runner.EmitIssue(
-					r,
-					"description must be 2147483647 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
 			return nil
 		}, nil)
 		if err != nil {

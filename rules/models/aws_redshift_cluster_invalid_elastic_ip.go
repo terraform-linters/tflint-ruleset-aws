@@ -14,7 +14,6 @@ type AwsRedshiftClusterInvalidElasticIPRule struct {
 
 	resourceType  string
 	attributeName string
-	max           int
 }
 
 // NewAwsRedshiftClusterInvalidElasticIPRule returns new rule with default attributes
@@ -22,7 +21,6 @@ func NewAwsRedshiftClusterInvalidElasticIPRule() *AwsRedshiftClusterInvalidElast
 	return &AwsRedshiftClusterInvalidElasticIPRule{
 		resourceType:  "aws_redshift_cluster",
 		attributeName: "elastic_ip",
-		max:           2147483647,
 	}
 }
 
@@ -66,13 +64,6 @@ func (r *AwsRedshiftClusterInvalidElasticIPRule) Check(runner tflint.Runner) err
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
-			if len(val) > r.max {
-				runner.EmitIssue(
-					r,
-					"elastic_ip must be 2147483647 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
 			return nil
 		}, nil)
 		if err != nil {
