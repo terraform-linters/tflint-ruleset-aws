@@ -30,6 +30,7 @@ func NewAwsVpcEndpointInvalidVpcEndpointTypeRule() *AwsVpcEndpointInvalidVpcEndp
 			"Interface",
 			"Resource",
 			"ServiceNetwork",
+			"Tunnel",
 		},
 	}
 }
