@@ -238,6 +238,7 @@ var Resources = []string{
 	"aws_dms_endpoint",
 	"aws_dms_event_subscription",
 	"aws_dms_instance_profile",
+	"aws_dms_migration_project",
 	"aws_dms_replication_config",
 	"aws_dms_replication_instance",
 	"aws_dms_replication_subnet_group",
