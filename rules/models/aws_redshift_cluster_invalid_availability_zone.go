@@ -14,7 +14,6 @@ type AwsRedshiftClusterInvalidAvailabilityZoneRule struct {
 
 	resourceType  string
 	attributeName string
-	max           int
 }
 
 // NewAwsRedshiftClusterInvalidAvailabilityZoneRule returns new rule with default attributes
@@ -22,7 +21,6 @@ func NewAwsRedshiftClusterInvalidAvailabilityZoneRule() *AwsRedshiftClusterInval
 	return &AwsRedshiftClusterInvalidAvailabilityZoneRule{
 		resourceType:  "aws_redshift_cluster",
 		attributeName: "availability_zone",
-		max:           2147483647,
 	}
 }
 
@@ -66,13 +64,6 @@ func (r *AwsRedshiftClusterInvalidAvailabilityZoneRule) Check(runner tflint.Runn
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
-			if len(val) > r.max {
-				runner.EmitIssue(
-					r,
-					"availability_zone must be 2147483647 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
 			return nil
 		}, nil)
 		if err != nil {

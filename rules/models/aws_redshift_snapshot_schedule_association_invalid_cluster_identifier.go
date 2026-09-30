@@ -14,7 +14,6 @@ type AwsRedshiftSnapshotScheduleAssociationInvalidClusterIdentifierRule struct {
 
 	resourceType  string
 	attributeName string
-	max           int
 }
 
 // NewAwsRedshiftSnapshotScheduleAssociationInvalidClusterIdentifierRule returns new rule with default attributes
@@ -22,7 +21,6 @@ func NewAwsRedshiftSnapshotScheduleAssociationInvalidClusterIdentifierRule() *Aw
 	return &AwsRedshiftSnapshotScheduleAssociationInvalidClusterIdentifierRule{
 		resourceType:  "aws_redshift_snapshot_schedule_association",
 		attributeName: "cluster_identifier",
-		max:           2147483647,
 	}
 }
 
@@ -66,13 +64,6 @@ func (r *AwsRedshiftSnapshotScheduleAssociationInvalidClusterIdentifierRule) Che
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
-			if len(val) > r.max {
-				runner.EmitIssue(
-					r,
-					"cluster_identifier must be 2147483647 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
 			return nil
 		}, nil)
 		if err != nil {

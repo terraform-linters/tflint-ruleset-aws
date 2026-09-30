@@ -14,7 +14,6 @@ type AwsRedshiftClusterInvalidClusterParameterGroupNameRule struct {
 
 	resourceType  string
 	attributeName string
-	max           int
 }
 
 // NewAwsRedshiftClusterInvalidClusterParameterGroupNameRule returns new rule with default attributes
@@ -22,7 +21,6 @@ func NewAwsRedshiftClusterInvalidClusterParameterGroupNameRule() *AwsRedshiftClu
 	return &AwsRedshiftClusterInvalidClusterParameterGroupNameRule{
 		resourceType:  "aws_redshift_cluster",
 		attributeName: "cluster_parameter_group_name",
-		max:           2147483647,
 	}
 }
 
@@ -66,13 +64,6 @@ func (r *AwsRedshiftClusterInvalidClusterParameterGroupNameRule) Check(runner tf
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
-			if len(val) > r.max {
-				runner.EmitIssue(
-					r,
-					"cluster_parameter_group_name must be 2147483647 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
 			return nil
 		}, nil)
 		if err != nil {

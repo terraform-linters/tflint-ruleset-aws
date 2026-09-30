@@ -14,7 +14,6 @@ type AwsRedshiftClusterInvalidMasterPasswordRule struct {
 
 	resourceType  string
 	attributeName string
-	max           int
 }
 
 // NewAwsRedshiftClusterInvalidMasterPasswordRule returns new rule with default attributes
@@ -22,7 +21,6 @@ func NewAwsRedshiftClusterInvalidMasterPasswordRule() *AwsRedshiftClusterInvalid
 	return &AwsRedshiftClusterInvalidMasterPasswordRule{
 		resourceType:  "aws_redshift_cluster",
 		attributeName: "master_password",
-		max:           2147483647,
 	}
 }
 
@@ -66,13 +64,6 @@ func (r *AwsRedshiftClusterInvalidMasterPasswordRule) Check(runner tflint.Runner
 		}
 
 		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
-			if len(val) > r.max {
-				runner.EmitIssue(
-					r,
-					"master_password must be 2147483647 characters or less",
-					attribute.Expr.Range(),
-				)
-			}
 			return nil
 		}, nil)
 		if err != nil {
