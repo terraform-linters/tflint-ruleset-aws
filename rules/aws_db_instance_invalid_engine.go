@@ -45,6 +45,7 @@ func NewAwsDBInstanceInvalidEngineRule() *AwsDBInstanceInvalidEngineRule {
 			"sqlserver-ex":          true,
 			"sqlserver-web":         true,
 			"sqlserver-dev-ee":		 true,
+			"sqlserver-dev-se":		 true,
 			"custom-sqlserver-ee":   true,
 			"custom-sqlserver-se":   true,
 			"custom-sqlserver-web":  true,
