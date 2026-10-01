@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-19T13:46:18.4254861Z",
+  "updated_at": "2026-10-01T00:41:09.992041755Z",
   "runtimes": {
     "dotnet10": {
       "end_of_support_date": "2028-11-14T00:00:00Z",
@@ -11,16 +11,16 @@
     },
     "dotnet6": {
       "end_of_support_date": "2024-12-20T00:00:00Z",
-      "block_create_date": "2027-02-01T00:00:00Z",
-      "block_update_date": "2027-03-03T00:00:00Z"
+      "block_create_date": "2027-07-29T00:00:00Z",
+      "block_update_date": "2027-08-31T00:00:00Z"
     },
     "dotnet7": {
       "end_of_support_date": "2024-05-14T00:00:00Z"
     },
     "dotnet8": {
       "end_of_support_date": "2026-11-10T00:00:00Z",
-      "block_create_date": "2027-02-01T00:00:00Z",
-      "block_update_date": "2027-03-03T00:00:00Z"
+      "block_create_date": "2027-07-29T00:00:00Z",
+      "block_update_date": "2027-08-31T00:00:00Z"
     },
     "dotnet9": {
       "end_of_support_date": "2026-11-10T00:00:00Z"
@@ -48,11 +48,11 @@
     "go1.x": {
       "end_of_support_date": "2024-01-08T00:00:00Z",
       "block_create_date": "2024-02-08T00:00:00Z",
-      "block_update_date": "2027-03-03T00:00:00Z"
+      "block_update_date": "2027-08-31T00:00:00Z"
     },
     "java11": {
       "end_of_support_date": "2027-06-30T00:00:00Z",
-      "block_create_date": "2027-07-31T00:00:00Z",
+      "block_create_date": "2027-07-29T00:00:00Z",
       "block_update_date": "2027-08-31T00:00:00Z"
     },
     "java11.al2023": {
@@ -62,7 +62,7 @@
     },
     "java17": {
       "end_of_support_date": "2027-06-30T00:00:00Z",
-      "block_create_date": "2027-07-31T00:00:00Z",
+      "block_create_date": "2027-07-29T00:00:00Z",
       "block_update_date": "2027-08-31T00:00:00Z"
     },
     "java17.al2023": {
@@ -83,11 +83,11 @@
     "java8": {
       "end_of_support_date": "2024-01-08T00:00:00Z",
       "block_create_date": "2024-02-08T00:00:00Z",
-      "block_update_date": "2027-03-03T00:00:00Z"
+      "block_update_date": "2027-08-31T00:00:00Z"
     },
     "java8.al2": {
       "end_of_support_date": "2027-06-30T00:00:00Z",
-      "block_create_date": "2027-07-31T00:00:00Z",
+      "block_create_date": "2027-07-29T00:00:00Z",
       "block_update_date": "2027-08-31T00:00:00Z"
     },
     "java8.al2023": {
@@ -113,22 +113,22 @@
     "nodejs14.x": {
       "end_of_support_date": "2023-12-04T00:00:00Z",
       "block_create_date": "2024-01-09T00:00:00Z",
-      "block_update_date": "2027-03-03T00:00:00Z"
+      "block_update_date": "2027-08-31T00:00:00Z"
     },
     "nodejs16.x": {
       "end_of_support_date": "2024-06-12T00:00:00Z",
-      "block_create_date": "2027-02-01T00:00:00Z",
-      "block_update_date": "2027-03-03T00:00:00Z"
+      "block_create_date": "2027-07-29T00:00:00Z",
+      "block_update_date": "2027-08-31T00:00:00Z"
     },
     "nodejs18.x": {
       "end_of_support_date": "2025-09-01T00:00:00Z",
-      "block_create_date": "2027-02-01T00:00:00Z",
-      "block_update_date": "2027-03-03T00:00:00Z"
+      "block_create_date": "2027-07-29T00:00:00Z",
+      "block_update_date": "2027-08-31T00:00:00Z"
     },
     "nodejs20.x": {
       "end_of_support_date": "2026-04-30T00:00:00Z",
-      "block_create_date": "2027-02-01T00:00:00Z",
-      "block_update_date": "2027-03-03T00:00:00Z"
+      "block_create_date": "2027-07-29T00:00:00Z",
+      "block_update_date": "2027-08-31T00:00:00Z"
     },
     "nodejs22.x": {
       "end_of_support_date": "2027-04-30T00:00:00Z",
@@ -163,12 +163,12 @@
     "provided": {
       "end_of_support_date": "2024-01-08T00:00:00Z",
       "block_create_date": "2024-02-08T00:00:00Z",
-      "block_update_date": "2027-03-03T00:00:00Z"
+      "block_update_date": "2027-08-31T00:00:00Z"
     },
     "provided.al2": {
       "end_of_support_date": "2026-07-31T00:00:00Z",
-      "block_create_date": "2027-02-01T00:00:00Z",
-      "block_update_date": "2027-03-03T00:00:00Z"
+      "block_create_date": "2027-07-29T00:00:00Z",
+      "block_update_date": "2027-08-31T00:00:00Z"
     },
     "provided.al2023": {
       "end_of_support_date": "2029-06-30T00:00:00Z",
@@ -182,12 +182,12 @@
     },
     "python3.10": {
       "end_of_support_date": "2026-10-31T00:00:00Z",
-      "block_create_date": "2027-02-01T00:00:00Z",
-      "block_update_date": "2027-03-03T00:00:00Z"
+      "block_create_date": "2027-07-29T00:00:00Z",
+      "block_update_date": "2027-08-31T00:00:00Z"
     },
     "python3.11": {
       "end_of_support_date": "2027-06-30T00:00:00Z",
-      "block_create_date": "2027-07-31T00:00:00Z",
+      "block_create_date": "2027-07-29T00:00:00Z",
       "block_update_date": "2027-08-31T00:00:00Z"
     },
     "python3.12": {
@@ -213,17 +213,17 @@
     "python3.7": {
       "end_of_support_date": "2023-12-04T00:00:00Z",
       "block_create_date": "2024-01-09T00:00:00Z",
-      "block_update_date": "2027-03-03T00:00:00Z"
+      "block_update_date": "2027-08-31T00:00:00Z"
     },
     "python3.8": {
       "end_of_support_date": "2024-10-14T00:00:00Z",
-      "block_create_date": "2027-02-01T00:00:00Z",
-      "block_update_date": "2027-03-03T00:00:00Z"
+      "block_create_date": "2027-07-29T00:00:00Z",
+      "block_update_date": "2027-08-31T00:00:00Z"
     },
     "python3.9": {
       "end_of_support_date": "2025-12-15T00:00:00Z",
-      "block_create_date": "2027-02-01T00:00:00Z",
-      "block_update_date": "2027-03-03T00:00:00Z"
+      "block_create_date": "2027-07-29T00:00:00Z",
+      "block_update_date": "2027-08-31T00:00:00Z"
     },
     "ruby2.5": {
       "end_of_support_date": "2021-07-30T00:00:00Z",
@@ -233,17 +233,17 @@
     "ruby2.7": {
       "end_of_support_date": "2023-12-07T00:00:00Z",
       "block_create_date": "2024-01-09T00:00:00Z",
-      "block_update_date": "2027-03-03T00:00:00Z"
+      "block_update_date": "2027-08-31T00:00:00Z"
     },
     "ruby3.2": {
       "end_of_support_date": "2026-03-31T00:00:00Z",
-      "block_create_date": "2027-02-01T00:00:00Z",
-      "block_update_date": "2027-03-03T00:00:00Z"
+      "block_create_date": "2027-07-29T00:00:00Z",
+      "block_update_date": "2027-08-31T00:00:00Z"
     },
     "ruby3.3": {
       "end_of_support_date": "2027-03-31T00:00:00Z",
-      "block_create_date": "2027-04-30T00:00:00Z",
-      "block_update_date": "2027-05-31T00:00:00Z"
+      "block_create_date": "2027-07-29T00:00:00Z",
+      "block_update_date": "2027-08-31T00:00:00Z"
     },
     "ruby3.4": {
       "end_of_support_date": "2028-03-31T00:00:00Z",
