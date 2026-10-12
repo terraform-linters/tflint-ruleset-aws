@@ -52,6 +52,13 @@ var writeOnlyArguments = map[string][]writeOnlyArgument{
 			writeOnlyVersionAttribute: "plaintext_wo_version",
 		},
 	},
+	"aws_odb_autonomous_database": {
+		{
+			originalAttribute:         "admin_password",
+			writeOnlyAlternative:      "admin_password_wo",
+			writeOnlyVersionAttribute: "admin_password_wo_version",
+		},
+	},
 	"aws_rds_cluster": {
 		{
 			originalAttribute:         "master_password",
