@@ -1,23 +1,6 @@
 module github.com/terraform-linters/tflint-ruleset-aws
 
-go 1.26.4
-
-require (
-	github.com/agext/levenshtein v1.2.2 // indirect
-	github.com/dave/dst v0.28.0
-	github.com/fatih/color v1.19.0 // indirect
-	github.com/google/go-cmp v0.7.0
-	github.com/hashicorp/go-multierror v1.1.1 // indirect
-	github.com/hashicorp/hcl/v2 v2.25.0
-	github.com/hashicorp/yamux v0.1.2 // indirect
-	github.com/mattn/go-colorable v0.1.15 // indirect
-	github.com/mitchellh/go-homedir v1.1.0
-	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
-	github.com/terraform-linters/tflint-plugin-sdk v0.25.0
-	github.com/zclconf/go-cty v1.19.0
-	google.golang.org/grpc v1.83.2 // indirect
-	google.golang.org/protobuf v1.36.11 // indirect
-)
+go 1.27.3
 
 require (
 	github.com/aws/aws-sdk-go-v2/service/ec2 v1.338.4
@@ -28,14 +11,21 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/iam v1.64.4
 	github.com/aws/aws-sdk-go-v2/service/rds v1.130.3
 	github.com/aws/smithy-go v1.28.5
+	github.com/dave/dst v0.28.0
+	github.com/google/go-cmp v0.7.0
 	github.com/hashicorp/aws-sdk-go-base/v2 v2.0.0-beta.75
+	github.com/hashicorp/hcl/v2 v2.25.0
 	github.com/hashicorp/terraform-json v0.29.0
+	github.com/mitchellh/go-homedir v1.1.0
 	github.com/stretchr/testify v1.12.1
+	github.com/terraform-linters/tflint-plugin-sdk v0.25.0
+	github.com/zclconf/go-cty v1.19.0
 	golang.org/x/exp v0.0.0-20230425010034-47ecfdc1ba53
 	golang.org/x/net v0.61.0
 )
 
 require (
+	github.com/agext/levenshtein v1.2.2 // indirect
 	github.com/apparentlymart/go-textseg/v15 v15.0.0 // indirect
 	github.com/apparentlymart/go-textseg/v17 v17.0.1 // indirect
 	github.com/aws/aws-sdk-go-v2 v1.47.3 // indirect
@@ -60,15 +50,20 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.43.1 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sts v1.51.1 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
+	github.com/fatih/color v1.19.0 // indirect
 	github.com/go-logr/logr v1.4.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-hclog v1.6.3 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-plugin v1.8.0 // indirect
 	github.com/hashicorp/go-version v1.9.0 // indirect
 	github.com/hashicorp/terraform-plugin-log v0.11.0 // indirect
+	github.com/hashicorp/yamux v0.1.2 // indirect
+	github.com/mattn/go-colorable v0.1.15 // indirect
 	github.com/mattn/go-isatty v0.0.22 // indirect
+	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/oklog/run v1.1.0 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
@@ -84,4 +79,6 @@ require (
 	golang.org/x/text v0.43.0 // indirect
 	golang.org/x/tools v0.51.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260526163538-3dc84a4a5aaa // indirect
+	google.golang.org/grpc v1.83.2 // indirect
+	google.golang.org/protobuf v1.36.11 // indirect
 )
