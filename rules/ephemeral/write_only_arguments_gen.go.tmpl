@@ -4,12 +4,14 @@ package ephemeral
 
 var writeOnlyArguments = map[string][]writeOnlyArgument{
 	{{- range $name, $value := . }}
-	"{{ $name }}": { {{- range $kk, $writeOnly := $value }}
+	"{{ $name }}": {
+		{{- range $kk, $writeOnly := $value }}
 		{
 			originalAttribute:         "{{ $writeOnly.OriginalAttribute }}",
 			writeOnlyAlternative:      "{{ $writeOnly.WriteOnlyAlternative }}",
 			writeOnlyVersionAttribute: "{{ $writeOnly.WriteOnlyVersionAttribute }}",
 		},
+		{{- end }}
 	},
-	{{- end -}}{{- end }}
+	{{- end }}
 }
