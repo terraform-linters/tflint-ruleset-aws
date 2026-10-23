@@ -33,14 +33,14 @@ var writeOnlyArguments = map[string][]writeOnlyArgument{
 	},
 	"aws_dx_macsec_key_association": {
 		{
-			originalAttribute:         "cak",
-			writeOnlyAlternative:      "cak_wo",
-			writeOnlyVersionAttribute: "cak_wo_version",
-		},
-		{
 			originalAttribute:         "ckn",
 			writeOnlyAlternative:      "ckn_wo",
 			writeOnlyVersionAttribute: "ckn_wo_version",
+		},
+		{
+			originalAttribute:         "cak",
+			writeOnlyAlternative:      "cak_wo",
+			writeOnlyVersionAttribute: "cak_wo_version",
 		},
 	},
 	"aws_elasticache_replication_group": {
