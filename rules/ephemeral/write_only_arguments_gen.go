@@ -31,6 +31,18 @@ var writeOnlyArguments = map[string][]writeOnlyArgument{
 			writeOnlyVersionAttribute: "master_password_wo_version",
 		},
 	},
+	"aws_dx_macsec_key_association": {
+		{
+			originalAttribute:         "cak",
+			writeOnlyAlternative:      "cak_wo",
+			writeOnlyVersionAttribute: "cak_wo_version",
+		},
+		{
+			originalAttribute:         "ckn",
+			writeOnlyAlternative:      "ckn_wo",
+			writeOnlyVersionAttribute: "ckn_wo_version",
+		},
+	},
 	"aws_elasticache_replication_group": {
 		{
 			originalAttribute:         "auth_token",
@@ -50,6 +62,13 @@ var writeOnlyArguments = map[string][]writeOnlyArgument{
 			originalAttribute:         "plaintext",
 			writeOnlyAlternative:      "plaintext_wo",
 			writeOnlyVersionAttribute: "plaintext_wo_version",
+		},
+	},
+	"aws_odb_autonomous_database": {
+		{
+			originalAttribute:         "admin_password",
+			writeOnlyAlternative:      "admin_password_wo",
+			writeOnlyVersionAttribute: "admin_password_wo_version",
 		},
 	},
 	"aws_rds_cluster": {
