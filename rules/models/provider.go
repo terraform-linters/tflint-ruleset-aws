@@ -831,6 +831,8 @@ var Rules = append([]tflint.Rule{
 	NewAwsMemoryDBUserInvalidAccessStringRule(),
 	NewAwsMemoryDBUserInvalidUserNameRule(),
 	NewAwsMqBrokerInvalidDeploymentModeRule(),
+	NewAwsMqBrokerInvalidEngineTypeRule(),
+	NewAwsMqConfigurationInvalidEngineTypeRule(),
 	NewAwsMskClusterInvalidClusterNameRule(),
 	NewAwsMskClusterInvalidEnhancedMonitoringRule(),
 	NewAwsMskClusterInvalidKafkaVersionRule(),

@@ -37,8 +37,6 @@ These rules warn of possible errors that can occur at `terraform apply`. Rules m
 |aws_instance_invalid_vpc_security_group|Disallow using invalid VPC security groups|✔|✔|
 |aws_launch_configuration_invalid_iam_profile|Disallow using invalid IAM profile|✔|✔|
 |aws_launch_configuration_invalid_image_id|Disallow using invalid image ID|✔|✔|
-|aws_mq_broker_invalid_engine_type|Disallow invalid engine type for MQ Broker||✔|
-|aws_mq_configuration_invalid_engine_type|Disallow invalid engine type for MQ Configuration||✔|
 |aws_route_invalid_egress_only_gateway|Disallow using invalid egress only gateway|✔|✔|
 |aws_route_invalid_gateway|Disallow using invalid gateway|✔|✔|
 |aws_route_invalid_instance|Disallow using invalid instance|✔|✔|
@@ -1009,6 +1007,8 @@ These rules enforce best practices and naming conventions:
 |aws_memorydb_user_invalid_access_string|✔|
 |aws_memorydb_user_invalid_user_name|✔|
 |aws_mq_broker_invalid_deployment_mode|✔|
+|aws_mq_broker_invalid_engine_type|✔|
+|aws_mq_configuration_invalid_engine_type|✔|
 |aws_msk_cluster_invalid_cluster_name|✔|
 |aws_msk_cluster_invalid_enhanced_monitoring|✔|
 |aws_msk_cluster_invalid_kafka_version|✔|
