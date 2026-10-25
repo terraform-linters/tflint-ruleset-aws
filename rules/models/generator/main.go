@@ -161,11 +161,15 @@ func main() {
 					fmt.Printf("Generating rule for `%s.%s`\n", mapping.Resource, attribute)
 					generateRuleFile(mapping.Resource, attribute, model, schema)
 					generatedFiles = append(generatedFiles, fmt.Sprintf("%s.go", ruleName))
+					var tests []test
 					for _, test := range mappingFile.Tests {
 						if mapping.Resource == test.Resource && attribute == test.Attribute {
-							generateRuleTestFile(mapping.Resource, attribute, model, test)
-							generatedFiles = append(generatedFiles, fmt.Sprintf("%s_test.go", ruleName))
+							tests = append(tests, test)
 						}
+					}
+					if len(tests) > 0 {
+						generateRuleTestFile(mapping.Resource, attribute, model, tests)
+						generatedFiles = append(generatedFiles, fmt.Sprintf("%s_test.go", ruleName))
 					}
 					generatedRules = append(generatedRules, ruleName)
 					patternRules = append(patternRules, ruleName)

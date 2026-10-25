@@ -24,8 +24,12 @@ type ruleMeta struct {
 	Min           int
 	Pattern       string
 	Enum          []string
-	TestOK        string
-	TestNG        string
+	TestCases     []ruleTestMeta
+}
+
+type ruleTestMeta struct {
+	OK string
+	NG string
 }
 
 type mapRuleMeta struct {
@@ -87,10 +91,14 @@ func generateRuleFile(resource, attribute string, model map[string]interface{}, 
 	genutils.GenerateFile(fmt.Sprintf("%s.go", meta.RuleName), "pattern_rule.go.tmpl", meta)
 }
 
-func generateRuleTestFile(resource, attribute string, model map[string]interface{}, test test) {
+func generateRuleTestFile(resource, attribute string, model map[string]interface{}, tests []test) {
 	meta := buildRuleMeta(resource, attribute, model, nil)
-	meta.TestOK = formatTest(test.OK)
-	meta.TestNG = formatTest(test.NG)
+	for _, test := range tests {
+		meta.TestCases = append(meta.TestCases, ruleTestMeta{
+			OK: formatTest(test.OK),
+			NG: formatTest(test.NG),
+		})
+	}
 	genutils.GenerateFile(fmt.Sprintf("%s_test.go", meta.RuleName), "pattern_rule_test.go.tmpl", meta)
 }
 
