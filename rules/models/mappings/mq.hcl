@@ -6,7 +6,7 @@ mapping "aws_mq_broker" {
   broker_name                   = __string
   configuration                 = ConfigurationId
   deployment_mode               = DeploymentMode
-  engine_type                   = any // EngineType
+  engine_type                   = replace(replace(EngineType, "ACTIVEMQ", "ActiveMQ"), "RABBITMQ", "RabbitMQ")
   engine_version                = __string
   host_instance_type            = __string
   publicly_accessible           = __boolean
@@ -21,8 +21,38 @@ mapping "aws_mq_broker" {
 mapping "aws_mq_configuration" {
   data           = __string
   description    = __string
-  engine_type    = any // EngineType
+  engine_type    = replace(replace(EngineType, "ACTIVEMQ", "ActiveMQ"), "RABBITMQ", "RabbitMQ")
   engine_version = __string
   name           = __string
   tags           = __mapOf__string
+}
+
+test "aws_mq_broker" "engine_type" {
+  ok = "ActiveMQ"
+  ng = "Artemis"
+}
+
+test "aws_mq_broker" "engine_type" {
+  ok = "RabbitMQ"
+  ng = "ACTIVEMQ"
+}
+
+test "aws_mq_broker" "engine_type" {
+  ok = "ActiveMQ"
+  ng = "RABBITMQ"
+}
+
+test "aws_mq_configuration" "engine_type" {
+  ok = "RabbitMQ"
+  ng = "Artemis"
+}
+
+test "aws_mq_configuration" "engine_type" {
+  ok = "ActiveMQ"
+  ng = "ACTIVEMQ"
+}
+
+test "aws_mq_configuration" "engine_type" {
+  ok = "RabbitMQ"
+  ng = "RABBITMQ"
 }
