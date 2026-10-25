@@ -28,7 +28,6 @@ var manualRules = []tflint.Rule{
 	NewAwsRouteSpecifiedMultipleTargetsRule(),
 	NewAwsS3BucketInvalidACLRule(),
 	NewAwsS3BucketNameRule(),
-	NewAwsSpotFleetRequestInvalidExcessCapacityTerminationPolicyRule(),
 	NewAwsAPIGatewayModelInvalidNameRule(),
 	NewAwsElastiCacheReplicationGroupDefaultParameterGroupRule(),
 	NewAwsElastiCacheReplicationGroupInvalidTypeRule(),
