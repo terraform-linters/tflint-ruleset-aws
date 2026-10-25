@@ -59,6 +59,28 @@ resource "aws_acm_certificate" "test" {
   domain_name       = var.domain_name
   validation_method = "DNS"
   lifecycle {
+    create_before_destroy = false
+  }
+}`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsAcmCertificateLifecycleRule(),
+					Message: "resource `aws_acm_certificate` needs to contain `create_before_destroy = true` in `lifecycle` block",
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 2, Column: 1},
+						End:      hcl.Pos{Line: 2, Column: 38},
+					},
+				},
+			},
+		},
+		{
+			Name: "create_before_destroy = true",
+			Content: `
+resource "aws_acm_certificate" "test" {
+  domain_name       = var.domain_name
+  validation_method = "DNS"
+  lifecycle {
     create_before_destroy = true
   }
 }`,
