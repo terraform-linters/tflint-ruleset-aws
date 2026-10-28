@@ -4,6 +4,7 @@ package models
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
@@ -25,8 +26,8 @@ func NewAwsMqConfigurationInvalidEngineTypeRule() *AwsMqConfigurationInvalidEngi
 		resourceType:  "aws_mq_configuration",
 		attributeName: "engine_type",
 		enum: []string{
-			"ActiveMQ",
-			"RabbitMQ",
+			"ACTIVEMQ",
+			"RABBITMQ",
 		},
 	}
 }
@@ -73,7 +74,7 @@ func (r *AwsMqConfigurationInvalidEngineTypeRule) Check(runner tflint.Runner) er
 		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			found := false
 			for _, item := range r.enum {
-				if item == val {
+				if strings.EqualFold(item, val) {
 					found = true
 				}
 			}

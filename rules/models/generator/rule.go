@@ -24,6 +24,7 @@ type ruleMeta struct {
 	Min           int
 	Pattern       string
 	Enum          []string
+	IgnoreCase    bool
 	TestCases     []ruleTestMeta
 }
 
@@ -74,6 +75,7 @@ func buildRuleMeta(resource, attribute string, model map[string]interface{}, sch
 		Min:           fetchNumber(model, "min"),
 		Pattern:       stripMatchAll(replacePattern(fetchString(model, "pattern"))),
 		Enum:          fetchStrings(model, "enum"),
+		IgnoreCase:    model["ignore_case"] == true,
 	}
 
 	if meta.Pattern != "" {

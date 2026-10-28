@@ -40,41 +40,20 @@ resource "aws_mq_broker" "foo" {
 			Name: "It includes invalid characters",
 			Content: `
 resource "aws_mq_broker" "foo" {
-	engine_type = "ACTIVEMQ"
+	engine_type = "Kafka"
 }`,
 			Expected: helper.Issues{
 				{
 					Rule:    NewAwsMqBrokerInvalidEngineTypeRule(),
-					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("ACTIVEMQ"), "engine_type"),
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("Kafka"), "engine_type"),
 				},
 			},
 		},
 		{
 			Name: "It is valid",
-			Content: `
-resource "aws_mq_broker" "foo" {
-	engine_type = "RabbitMQ"
-}`,
-			Expected: helper.Issues{},
-		},
-		{
-			Name: "It includes invalid characters",
 			Content: `
 resource "aws_mq_broker" "foo" {
 	engine_type = "RABBITMQ"
-}`,
-			Expected: helper.Issues{
-				{
-					Rule:    NewAwsMqBrokerInvalidEngineTypeRule(),
-					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("RABBITMQ"), "engine_type"),
-				},
-			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_mq_broker" "foo" {
-	engine_type = "ActiveMQ"
 }`,
 			Expected: helper.Issues{},
 		},
