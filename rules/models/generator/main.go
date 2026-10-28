@@ -31,9 +31,6 @@ type mapping struct {
 	Attrs    hcl.Attributes `hcl:",remain"`
 }
 
-// test holds one ok/ng pair per rule. Covering several values, such as each
-// casing an ignorecase enum accepts, needs a format change across every
-// generated rule test, so it is left for a later redesign.
 type test struct {
 	Resource  string `hcl:"resource,label"`
 	Attribute string `hcl:"attribute,label"`
