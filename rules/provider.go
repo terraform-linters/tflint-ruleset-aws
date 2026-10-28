@@ -21,8 +21,6 @@ var manualRules = []tflint.Rule{
 	NewAwsIAMPolicyGovFriendlyArnsRule(),
 	NewAwsIAMRolePolicyGovFriendlyArnsRule(),
 	NewAwsInstancePreviousTypeRule(),
-	NewAwsMqBrokerInvalidEngineTypeRule(),
-	NewAwsMqConfigurationInvalidEngineTypeRule(),
 	NewAwsResourceMissingTagsRule(),
 	NewAwsRouteNotSpecifiedTargetRule(),
 	NewAwsRouteSpecifiedMultipleTargetsRule(),

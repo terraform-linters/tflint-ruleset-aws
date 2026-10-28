@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/hashicorp/hcl/v2"
+	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/zclconf/go-cty/cty"
 )
 
@@ -85,7 +87,7 @@ func TestBuildEvalContext(t *testing.T) {
 	}
 
 	// Check that expected functions are registered
-	expectedFuncs := []string{"uppercase", "pascalcase", "replace", "map"}
+	expectedFuncs := []string{"uppercase", "pascalcase", "replace", "ignorecase", "map"}
 	for _, name := range expectedFuncs {
 		if _, ok := ctx.Functions[name]; !ok {
 			t.Errorf("buildEvalContext() missing function %q", name)
@@ -217,4 +219,44 @@ func Example_stringsToCtyList() {
 	// Output:
 	// gzip
 	// none
+}
+
+func TestIgnoreCase(t *testing.T) {
+	ctx := buildEvalContext(nil)
+	ctx.Variables["EngineType"] = makeShapeValue("EngineType", map[string]interface{}{
+		"type": "string",
+		"enum": []string{"ACTIVEMQ", "RABBITMQ"},
+	})
+
+	cases := []struct {
+		name       string
+		expr       string
+		ignoreCase bool
+	}{
+		{name: "plain shape", expr: "EngineType", ignoreCase: false},
+		{name: "ignorecase shape", expr: "ignorecase(EngineType)", ignoreCase: true},
+		{name: "transform after ignorecase", expr: `replace(ignorecase(EngineType), "MQ", "mq")`, ignoreCase: true},
+		{name: "ignorecase after transform", expr: `ignorecase(replace(EngineType, "MQ", "mq"))`, ignoreCase: true},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			expr, diags := hclsyntax.ParseExpression([]byte(tc.expr), "test.hcl", hcl.InitialPos)
+			if diags.HasErrors() {
+				t.Fatalf("parse: %v", diags)
+			}
+			result, diags := expr.Value(ctx)
+			if diags.HasErrors() {
+				t.Fatalf("eval: %v", diags)
+			}
+
+			meta := buildRuleMeta("aws_mq_broker", "engine_type", shapeToModel(result), nil)
+			if meta.IgnoreCase != tc.ignoreCase {
+				t.Errorf("IgnoreCase = %v, want %v", meta.IgnoreCase, tc.ignoreCase)
+			}
+			if len(meta.Enum) != 2 {
+				t.Errorf("Enum = %v, want 2 values", meta.Enum)
+			}
+		})
+	}
 }

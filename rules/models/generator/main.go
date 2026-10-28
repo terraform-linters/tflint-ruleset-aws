@@ -489,11 +489,13 @@ func stringsToCtyList(values []string) cty.Value {
 //   - min: number - Minimum length constraint
 //   - max: number - Maximum length constraint
 //   - enum: list(string) - Allowed enum values
+//   - ignore_case: bool - Whether enum values match case-insensitively
 //
 // Available Functions:
 //   - uppercase(shape) - Transforms enum values to uppercase
 //   - pascalcase(shape) - Converts camelCase enum values to PascalCase
 //   - replace(shape, old, new) - Replaces substrings in enum values
+//   - ignorecase(shape) - Matches enum values case-insensitively
 //   - map(items, key, value) - Combines three shapes for map validation
 //
 // Usage Examples in mappings/*.hcl:
@@ -506,18 +508,22 @@ func stringsToCtyList(values []string) cty.Value {
 //   termination_policy = pascalcase(ExcessCapacityTerminationPolicy)
 //     -> Converts "default" and "noTermination" to "Default" and "NoTermination"
 //
+//   engine_type = ignorecase(EngineType)
+//     -> Accepts enum values in any case
+//
 //   tags = map(TagList, TagKey, TagValue)
 //     -> Combines constraints from three shapes for tag validation
 
 // shapeType is the cty object type for shape variables.
 // Shapes are rich objects containing all their constraint information.
 var shapeType = cty.Object(map[string]cty.Type{
-	"name":    cty.String,
-	"type":    cty.String,
-	"pattern": cty.String,
-	"min":     cty.Number,
-	"max":     cty.Number,
-	"enum":    cty.List(cty.String),
+	"name":        cty.String,
+	"type":        cty.String,
+	"pattern":     cty.String,
+	"min":         cty.Number,
+	"max":         cty.Number,
+	"enum":        cty.List(cty.String),
+	"ignore_case": cty.Bool,
 })
 
 // mapResultType is the cty object type returned by the map function.
@@ -550,6 +556,7 @@ func buildEvalContext(shapes map[string]interface{}) *hcl.EvalContext {
 			"uppercase":  makeShapeTransformFunction(stdlib.UpperFunc),
 			"pascalcase": makeShapeTransformFunction(stdlib.TitleFunc),
 			"replace":    makeShapeTransformFunction(stdlib.ReplaceFunc),
+			"ignorecase": makeIgnoreCaseFunction(),
 			"map":        makeMapFunction(),
 		},
 		Variables: variables,
@@ -582,12 +589,13 @@ func makeShapeValue(name string, model map[string]interface{}) cty.Value {
 	}
 
 	return cty.ObjectVal(map[string]cty.Value{
-		"name":    cty.StringVal(name),
-		"type":    cty.StringVal(typeStr),
-		"pattern": cty.StringVal(pattern),
-		"min":     cty.NumberIntVal(min),
-		"max":     cty.NumberIntVal(max),
-		"enum":    enumList,
+		"name":        cty.StringVal(name),
+		"type":        cty.StringVal(typeStr),
+		"pattern":     cty.StringVal(pattern),
+		"min":         cty.NumberIntVal(min),
+		"max":         cty.NumberIntVal(max),
+		"enum":        enumList,
+		"ignore_case": cty.False,
 	})
 }
 
@@ -621,6 +629,10 @@ func shapeToModel(shape cty.Value) map[string]interface{} {
 			enums = append(enums, v.AsString())
 		}
 		model["enum"] = enums
+	}
+
+	if shape.GetAttr("ignore_case").True() {
+		model["ignore_case"] = true
 	}
 
 	return model
@@ -677,12 +689,13 @@ func makeShapeTransformFunction(strFunc function.Function) function.Function {
 
 				// Return new shape with transformed enums
 				return cty.ObjectVal(map[string]cty.Value{
-					"name":    shape.GetAttr("name"),
-					"type":    shape.GetAttr("type"),
-					"pattern": shape.GetAttr("pattern"),
-					"min":     shape.GetAttr("min"),
-					"max":     shape.GetAttr("max"),
-					"enum":    cty.ListVal(results),
+					"name":        shape.GetAttr("name"),
+					"type":        shape.GetAttr("type"),
+					"pattern":     shape.GetAttr("pattern"),
+					"min":         shape.GetAttr("min"),
+					"max":         shape.GetAttr("max"),
+					"enum":        cty.ListVal(results),
+					"ignore_case": shape.GetAttr("ignore_case"),
 				}), nil
 			}
 
@@ -729,6 +742,22 @@ func makeMapFunction() function.Function {
 				"key":   args[1],
 				"value": args[2],
 			}), nil
+		},
+	})
+}
+
+// makeIgnoreCaseFunction creates the ignorecase(shape) function, which marks
+// a shape's enum values as matching case-insensitively.
+func makeIgnoreCaseFunction() function.Function {
+	return function.New(&function.Spec{
+		Params: []function.Parameter{
+			{Name: "shape", Type: shapeType},
+		},
+		Type: function.StaticReturnType(shapeType),
+		Impl: func(args []cty.Value, retType cty.Type) (cty.Value, error) {
+			attrs := args[0].AsValueMap()
+			attrs["ignore_case"] = cty.True
+			return cty.ObjectVal(attrs), nil
 		},
 	})
 }
