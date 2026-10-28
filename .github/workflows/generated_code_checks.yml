@@ -22,6 +22,10 @@ jobs:
       # lambda_deprecated_runtime and db_instance_types are excluded because
       # their generators fetch remote data from AWS, making them
       # non-deterministic and dependent on network access.
+      # Running several times catches generators that leak map iteration order.
       run: |
-        go generate $(go list ./... | grep -vE 'lambda_deprecated_runtime|db_instance_types|elasticache_node_types')
-        git diff --exit-code
+        packages=$(go list ./... | grep -vE 'lambda_deprecated_runtime|db_instance_types|elasticache_node_types')
+        for i in 1 2 3 4 5; do
+          go generate $packages
+          git diff --exit-code
+        done
