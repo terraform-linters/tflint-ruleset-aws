@@ -85,7 +85,7 @@ func TestBuildEvalContext(t *testing.T) {
 	}
 
 	// Check that expected functions are registered
-	expectedFuncs := []string{"uppercase", "titlecase", "replace", "map"}
+	expectedFuncs := []string{"uppercase", "pascalcase", "replace", "map"}
 	for _, name := range expectedFuncs {
 		if _, ok := ctx.Functions[name]; !ok {
 			t.Errorf("buildEvalContext() missing function %q", name)
@@ -109,22 +109,22 @@ func TestBuildEvalContext(t *testing.T) {
 	}
 }
 
-func TestTitlecaseTransform(t *testing.T) {
+func TestPascalcaseTransform(t *testing.T) {
 	ctx := buildEvalContext(nil)
 	ctx.Variables["ExcessCapacityTerminationPolicy"] = makeShapeValue("ExcessCapacityTerminationPolicy", map[string]interface{}{
 		"type": "string",
 		"enum": []string{"default", "noTermination"},
 	})
 
-	result, err := ctx.Functions["titlecase"].Call([]cty.Value{
+	result, err := ctx.Functions["pascalcase"].Call([]cty.Value{
 		ctx.Variables["ExcessCapacityTerminationPolicy"],
 	})
 	if err != nil {
-		t.Fatalf("titlecase() failed: %v", err)
+		t.Fatalf("pascalcase() failed: %v", err)
 	}
 
 	if !result.Type().Equals(shapeType) {
-		t.Fatalf("titlecase() returned %s, want shape object", result.Type().FriendlyName())
+		t.Fatalf("pascalcase() returned %s, want shape object", result.Type().FriendlyName())
 	}
 
 	want := []string{"Default", "NoTermination"}
@@ -136,11 +136,11 @@ func TestTitlecaseTransform(t *testing.T) {
 	}
 
 	if len(got) != len(want) {
-		t.Fatalf("titlecase() returned %d elements, want %d", len(got), len(want))
+		t.Fatalf("pascalcase() returned %d elements, want %d", len(got), len(want))
 	}
 	for i := range got {
 		if got[i] != want[i] {
-			t.Errorf("titlecase() element %d = %q, want %q", i, got[i], want[i])
+			t.Errorf("pascalcase() element %d = %q, want %q", i, got[i], want[i])
 		}
 	}
 }

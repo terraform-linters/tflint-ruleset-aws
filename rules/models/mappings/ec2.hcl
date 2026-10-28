@@ -364,7 +364,7 @@ mapping "aws_spot_fleet_request" {
   target_capacity                     = Integer
   allocation_strategy                 = AllocationStrategy
   instance_pools_to_use_count         = Integer
-  excess_capacity_termination_policy  = titlecase(ExcessCapacityTerminationPolicy)
+  excess_capacity_termination_policy  = pascalcase(ExcessCapacityTerminationPolicy)
   terminate_instances_with_expiration = Boolean
   instance_interruption_behaviour     = InstanceInterruptionBehavior
   fleet_type                          = FleetType
