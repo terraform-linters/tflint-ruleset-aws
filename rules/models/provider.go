@@ -1166,6 +1166,7 @@ var Rules = append([]tflint.Rule{
 	NewAwsSignerSigningProfilePermissionInvalidProfileNameRule(),
 	NewAwsSignerSigningProfilePermissionInvalidProfileVersionRule(),
 	NewAwsSpotFleetRequestInvalidAllocationStrategyRule(),
+	NewAwsSpotFleetRequestInvalidExcessCapacityTerminationPolicyRule(),
 	NewAwsSpotFleetRequestInvalidFleetTypeRule(),
 	NewAwsSpotFleetRequestInvalidInstanceInterruptionBehaviourRule(),
 	NewAwsSpotInstanceRequestInvalidInstanceInterruptionBehaviorRule(),

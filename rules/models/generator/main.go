@@ -497,6 +497,7 @@ func stringsToCtyList(values []string) cty.Value {
 //
 // Available Functions:
 //   - uppercase(shape) - Transforms enum values to uppercase
+//   - pascalcase(shape) - Converts camelCase enum values to PascalCase
 //   - replace(shape, old, new) - Replaces substrings in enum values
 //   - ignorecase(shape) - Matches enum values case-insensitively
 //   - map(items, key, value) - Combines three shapes for map validation
@@ -507,6 +508,9 @@ func stringsToCtyList(values []string) cty.Value {
 //
 //   encryption_mode = uppercase(replace(EncryptionModeValue, "-", "_"))
 //     -> Chains transforms on shape's enum values
+//
+//   termination_policy = pascalcase(ExcessCapacityTerminationPolicy)
+//     -> Converts "default" and "noTermination" to "Default" and "NoTermination"
 //
 //   engine_type = ignorecase(EngineType)
 //     -> Accepts enum values in any case
@@ -554,6 +558,7 @@ func buildEvalContext(shapes map[string]interface{}) *hcl.EvalContext {
 	return &hcl.EvalContext{
 		Functions: map[string]function.Function{
 			"uppercase":  makeShapeTransformFunction(stdlib.UpperFunc),
+			"pascalcase": makeShapeTransformFunction(stdlib.TitleFunc),
 			"replace":    makeShapeTransformFunction(stdlib.ReplaceFunc),
 			"ignorecase": makeIgnoreCaseFunction(),
 			"map":        makeMapFunction(),
