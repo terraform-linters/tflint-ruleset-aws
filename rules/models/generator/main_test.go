@@ -85,7 +85,7 @@ func TestBuildEvalContext(t *testing.T) {
 	}
 
 	// Check that expected functions are registered
-	expectedFuncs := []string{"uppercase", "replace", "map"}
+	expectedFuncs := []string{"uppercase", "pascalcase", "replace", "map"}
 	for _, name := range expectedFuncs {
 		if _, ok := ctx.Functions[name]; !ok {
 			t.Errorf("buildEvalContext() missing function %q", name)
@@ -105,6 +105,42 @@ func TestBuildEvalContext(t *testing.T) {
 		}
 		if val.GetAttr("name").AsString() != shapeName {
 			t.Errorf("variable %q name = %q, want %q", shapeName, val.GetAttr("name").AsString(), shapeName)
+		}
+	}
+}
+
+func TestPascalcaseTransform(t *testing.T) {
+	ctx := buildEvalContext(nil)
+	ctx.Variables["ExcessCapacityTerminationPolicy"] = makeShapeValue("ExcessCapacityTerminationPolicy", map[string]interface{}{
+		"type": "string",
+		"enum": []string{"default", "noTermination"},
+	})
+
+	result, err := ctx.Functions["pascalcase"].Call([]cty.Value{
+		ctx.Variables["ExcessCapacityTerminationPolicy"],
+	})
+	if err != nil {
+		t.Fatalf("pascalcase() failed: %v", err)
+	}
+
+	if !result.Type().Equals(shapeType) {
+		t.Fatalf("pascalcase() returned %s, want shape object", result.Type().FriendlyName())
+	}
+
+	want := []string{"Default", "NoTermination"}
+	enumVal := result.GetAttr("enum")
+	got := make([]string, 0, enumVal.LengthInt())
+	for it := enumVal.ElementIterator(); it.Next(); {
+		_, val := it.Element()
+		got = append(got, val.AsString())
+	}
+
+	if len(got) != len(want) {
+		t.Fatalf("pascalcase() returned %d elements, want %d", len(got), len(want))
+	}
+	for i := range got {
+		if got[i] != want[i] {
+			t.Errorf("pascalcase() element %d = %q, want %q", i, got[i], want[i])
 		}
 	}
 }
