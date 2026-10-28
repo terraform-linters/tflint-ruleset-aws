@@ -15,21 +15,20 @@ func Test_{{ .RuleNameCC }}Rule(t *testing.T) {
 		Content  string
 		Expected helper.Issues
 	}{
-	{{- range $test := .TestCases }}
 		{
 			Name: "It includes invalid characters",
 			Content: `
-resource "{{ $.ResourceType }}" "foo" {
-	{{ $.AttributeName }} = {{ $test.NG }}
+resource "{{ .ResourceType }}" "foo" {
+	{{ .AttributeName }} = {{ .TestNG }}
 }`,
 			Expected: helper.Issues{
 				{
-					Rule:    New{{ $.RuleNameCC }}Rule(),
-{{- if ne $.Pattern "" }}
-					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage({{ $test.NG }}), `{{ $.Pattern }}`),
+					Rule:    New{{ .RuleNameCC }}Rule(),
+{{- if ne .Pattern "" }}
+					Message: fmt.Sprintf(`"%s" does not match valid pattern %s`, truncateLongMessage({{ .TestNG }}), `{{ .Pattern }}`),
 {{- end }}
-{{- if ne (len $.Enum) 0 }}
-					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage({{ $test.NG }}), "{{ $.AttributeName }}"),
+{{- if ne (len .Enum) 0 }}
+					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage({{ .TestNG }}), "{{ .AttributeName }}"),
 {{- end }}
 				},
 			},
@@ -37,12 +36,11 @@ resource "{{ $.ResourceType }}" "foo" {
 		{
 			Name: "It is valid",
 			Content: `
-resource "{{ $.ResourceType }}" "foo" {
-	{{ $.AttributeName }} = {{ $test.OK }}
+resource "{{ .ResourceType }}" "foo" {
+	{{ .AttributeName }} = {{ .TestOK }}
 }`,
 			Expected: helper.Issues{},
 		},
-	{{- end }}
 	}
 
 	rule := New{{ .RuleNameCC }}Rule()

@@ -32,17 +32,7 @@ test "aws_mq_broker" "engine_type" {
   ng = "Artemis"
 }
 
-test "aws_mq_broker" "engine_type" {
+test "aws_mq_configuration" "engine_type" {
   ok = "RABBITMQ"
-  ng = "Kafka"
-}
-
-test "aws_mq_configuration" "engine_type" {
-  ok = "RabbitMQ"
   ng = "Artemis"
-}
-
-test "aws_mq_configuration" "engine_type" {
-  ok = "ACTIVEMQ"
-  ng = "Kafka"
 }

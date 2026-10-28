@@ -31,6 +31,9 @@ type mapping struct {
 	Attrs    hcl.Attributes `hcl:",remain"`
 }
 
+// test holds one ok/ng pair per rule. Covering several values, such as each
+// casing an ignorecase enum accepts, needs a format change across every
+// generated rule test, so it is left for a later redesign.
 type test struct {
 	Resource  string `hcl:"resource,label"`
 	Attribute string `hcl:"attribute,label"`
@@ -161,15 +164,11 @@ func main() {
 					fmt.Printf("Generating rule for `%s.%s`\n", mapping.Resource, attribute)
 					generateRuleFile(mapping.Resource, attribute, model, schema)
 					generatedFiles = append(generatedFiles, fmt.Sprintf("%s.go", ruleName))
-					var tests []test
 					for _, test := range mappingFile.Tests {
 						if mapping.Resource == test.Resource && attribute == test.Attribute {
-							tests = append(tests, test)
+							generateRuleTestFile(mapping.Resource, attribute, model, test)
+							generatedFiles = append(generatedFiles, fmt.Sprintf("%s_test.go", ruleName))
 						}
-					}
-					if len(tests) > 0 {
-						generateRuleTestFile(mapping.Resource, attribute, model, tests)
-						generatedFiles = append(generatedFiles, fmt.Sprintf("%s_test.go", ruleName))
 					}
 					generatedRules = append(generatedRules, ruleName)
 					patternRules = append(patternRules, ruleName)

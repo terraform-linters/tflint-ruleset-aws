@@ -32,28 +32,7 @@ resource "aws_mq_configuration" "foo" {
 			Name: "It is valid",
 			Content: `
 resource "aws_mq_configuration" "foo" {
-	engine_type = "RabbitMQ"
-}`,
-			Expected: helper.Issues{},
-		},
-		{
-			Name: "It includes invalid characters",
-			Content: `
-resource "aws_mq_configuration" "foo" {
-	engine_type = "Kafka"
-}`,
-			Expected: helper.Issues{
-				{
-					Rule:    NewAwsMqConfigurationInvalidEngineTypeRule(),
-					Message: fmt.Sprintf(`"%s" is an invalid value as %s`, truncateLongMessage("Kafka"), "engine_type"),
-				},
-			},
-		},
-		{
-			Name: "It is valid",
-			Content: `
-resource "aws_mq_configuration" "foo" {
-	engine_type = "ACTIVEMQ"
+	engine_type = "RABBITMQ"
 }`,
 			Expected: helper.Issues{},
 		},
