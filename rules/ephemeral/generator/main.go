@@ -85,5 +85,7 @@ func writeOnlyArguments(resource *tfjson.Schema) []string {
 		}
 	}
 
+	slices.Sort(writeOnlyArguments)
+
 	return writeOnlyArguments
 }
