@@ -21,7 +21,7 @@ require (
 	github.com/terraform-linters/tflint-plugin-sdk v0.25.0
 	github.com/zclconf/go-cty v1.19.0
 	golang.org/x/exp v0.0.0-20230425010034-47ecfdc1ba53
-	golang.org/x/net v0.61.0
+	golang.org/x/net v0.62.0
 )
 
 require (
