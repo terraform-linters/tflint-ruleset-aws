@@ -7,6 +7,7 @@ import (
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
+	"github.com/terraform-linters/tflint-ruleset-aws/rules/ephemeral"
 )
 
 const statementBlockName = "statement"
@@ -53,7 +54,7 @@ func (r *AwsIAMPolicyDocumentGovFriendlyArnsRule) Link() string {
 
 // Check checks the pattern is valid
 func (r *AwsIAMPolicyDocumentGovFriendlyArnsRule) Check(runner tflint.Runner) error {
-	resources, err := runner.GetResourceContent(r.resourceType, &hclext.BodySchema{
+	resources, err := ephemeral.GetDataSourceContent(runner, r.resourceType, &hclext.BodySchema{
 		Blocks: []hclext.BlockSchema{
 			{
 				Type: statementBlockName,
