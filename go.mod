@@ -10,7 +10,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/elasticloadbalancingv2 v1.63.9
 	github.com/aws/aws-sdk-go-v2/service/iam v1.64.9
 	github.com/aws/aws-sdk-go-v2/service/rds v1.132.2
-	github.com/aws/smithy-go v1.28.8
+	github.com/aws/smithy-go v1.28.9
 	github.com/dave/dst v0.28.0
 	github.com/google/go-cmp v0.7.0
 	github.com/hashicorp/aws-sdk-go-base/v2 v2.0.0-beta.76
