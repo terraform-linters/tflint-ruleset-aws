@@ -35,6 +35,7 @@ func NewAwsOrganizationsPolicyInvalidTypeRule() *AwsOrganizationsPolicyInvalidTy
 			"NETWORK_SECURITY_DIRECTOR_POLICY",
 			"RESOURCE_CONTROL_POLICY",
 			"S3_POLICY",
+			"SECURITYHUB_CSPM_POLICY",
 			"SECURITYHUB_POLICY",
 			"SERVICE_CONTROL_POLICY",
 			"TAG_POLICY",
