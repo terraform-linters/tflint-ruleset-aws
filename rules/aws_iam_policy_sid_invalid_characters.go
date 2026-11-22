@@ -6,6 +6,7 @@ import (
 	"regexp"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
+	"github.com/terraform-linters/tflint-plugin-sdk/logger"
 	"github.com/terraform-linters/tflint-plugin-sdk/tflint"
 	"github.com/terraform-linters/tflint-ruleset-aws/project"
 )
@@ -82,7 +83,10 @@ func (r *AwsIAMPolicySidInvalidCharactersRule) Check(runner tflint.Runner) error
 				// https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html
 				policy := AwsIAMPolicySidInvalidCharactersPolicyWithSingleStatement{}
 				if err := json.Unmarshal([]byte(val), &policy); err != nil {
-					return err
+					// The policy is not valid JSON, which the AWS provider
+					// reports. Skip it rather than stop every other check.
+					logger.Debug("Skip `%s` policy that is not valid JSON: %s", r.resourceType, err)
+					return nil
 				}
 				statements = []AwsIAMPolicySidInvalidCharactersPolicyStatement{policy.Statement}
 			} else {

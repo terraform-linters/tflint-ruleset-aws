@@ -138,6 +138,41 @@ EOF
 `,
 			Expected: helper.Issues{},
 		},
+		{
+			Name: "policy that is not JSON",
+			Content: `
+resource "aws_iam_policy" "policy" {
+	name   = "test_policy"
+	policy = "{ ... policy JSON ... }"
+}
+`,
+			Expected: helper.Issues{},
+		},
+		{
+			Name: "policy that is not JSON does not hide later policies",
+			Content: `
+resource "aws_iam_policy" "broken" {
+	name   = "broken_policy"
+	policy = "{\"Statement\": [}"
+}
+
+resource "aws_iam_policy" "policy" {
+	name   = "test_policy"
+	policy = "{\"Statement\": {\"Sid\": \"invalid-sid\"}}"
+}
+`,
+			Expected: helper.Issues{
+				{
+					Rule:    NewAwsIAMPolicySidInvalidCharactersRule(),
+					Message: `The policy's sid ("invalid-sid") does not match "^[a-zA-Z0-9]+$".`,
+					Range: hcl.Range{
+						Filename: "resource.tf",
+						Start:    hcl.Pos{Line: 9, Column: 11},
+						End:      hcl.Pos{Line: 9, Column: 56},
+					},
+				},
+			},
+		},
 	}
 
 	rule := NewAwsIAMPolicySidInvalidCharactersRule()
