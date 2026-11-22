@@ -17,7 +17,7 @@ func Test_AwsIamDocumentPolicyGovFriendlyArns(t *testing.T) {
 		{
 			Name: "Wanted arn: arn:aws-us-gov, found arn: arn:aws",
 			Content: `
-resource "aws_iam_policy_document" "example" {
+data "aws_iam_policy_document" "example" {
   statement {
 	sid = "1"
 	actions = [
@@ -46,9 +46,25 @@ rule "aws_iam_policy_document_gov_friendly_arns" {
 			},
 		},
 		{
-			Name: "Wanted arn: arn:aws-us-gov, found arn: arn:aws",
+			Name: "resource blocks are not policy documents",
 			Content: `
 resource "aws_iam_policy_document" "example" {
+  statement {
+	resources = [
+	  "arn:aws:s3:::*",
+	]
+  }
+}`,
+			Config: `
+rule "aws_iam_policy_document_gov_friendly_arns" {
+  enabled = true
+}`,
+			Expected: helper.Issues{},
+		},
+		{
+			Name: "Wanted arn: arn:aws-us-gov, found arn: arn:aws",
+			Content: `
+data "aws_iam_policy_document" "example" {
   statement {
 	sid = "1"
 	actions = [
@@ -69,7 +85,7 @@ rule "aws_iam_policy_document_gov_friendly_arns" {
 		{
 			Name: "Wanted arn: arn:aws-us-gov, found arn: arn:aws",
 			Content: `
-resource "aws_iam_policy_document" "example" {
+data "aws_iam_policy_document" "example" {
   statement {
 	sid = "1"
 	actions = [
@@ -94,7 +110,7 @@ rule "aws_iam_policy_document_gov_friendly_arns" {
 		{
 			Name: "Wanted arn: arn:aws-us-gov, found arn: arn:aws",
 			Content: `
-resource "aws_iam_policy_document" "example" {
+data "aws_iam_policy_document" "example" {
   statement {
 	sid = "1"
 	actions = [
@@ -144,7 +160,7 @@ rule "aws_iam_policy_document_gov_friendly_arns" {
 		{
 			Name: "Wanted arn: arn:aws-us-gov, found arn: arn:aws",
 			Content: `
-resource "aws_iam_policy_document" "example" {
+data "aws_iam_policy_document" "example" {
   statement {
 	sid = "1"
 	actions = [
@@ -175,7 +191,7 @@ rule "aws_iam_policy_document_gov_friendly_arns" {
 		{
 			Name: "Wanted arn: arn:aws-us-gov, found arn: arn:aws",
 			Content: `
-resource "aws_iam_policy_document" "example" {
+data "aws_iam_policy_document" "example" {
   statement {
 	sid = "1"
 	actions = [
