@@ -4,6 +4,7 @@ package models
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
@@ -25,8 +26,8 @@ func NewAwsDmsS3EndpointInvalidCompressionTypeRule() *AwsDmsS3EndpointInvalidCom
 		resourceType:  "aws_dms_s3_endpoint",
 		attributeName: "compression_type",
 		enum: []string{
-			"GZIP",
-			"NONE",
+			"gzip",
+			"none",
 		},
 	}
 }
@@ -73,7 +74,7 @@ func (r *AwsDmsS3EndpointInvalidCompressionTypeRule) Check(runner tflint.Runner)
 		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			found := false
 			for _, item := range r.enum {
-				if item == val {
+				if strings.EqualFold(item, val) {
 					found = true
 				}
 			}
