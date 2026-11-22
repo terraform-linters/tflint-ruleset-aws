@@ -67,14 +67,14 @@ mapping "aws_dms_replication_task" {
 }
 
 mapping "aws_dms_s3_endpoint" {
-  compression_type                        = uppercase(CompressionTypeValue)
+  compression_type                        = ignorecase(CompressionTypeValue)
   encryption_mode                         = uppercase(replace(EncryptionModeValue, "-", "_"))
   data_format                             = DataFormatValue
   encoding_type                           = EncodingTypeValue
   parquet_version                         = ParquetVersionValue
-  date_partition_sequence                 = uppercase(DatePartitionSequenceValue)
-  date_partition_delimiter                = uppercase(DatePartitionDelimiterValue)
-  canned_acl_for_objects                  = uppercase(CannedAclForObjectsValue)
+  date_partition_sequence                 = ignorecase(DatePartitionSequenceValue)
+  date_partition_delimiter                = ignorecase(DatePartitionDelimiterValue)
+  canned_acl_for_objects                  = ignorecase(CannedAclForObjectsValue)
 }
 
 test "aws_dms_endpoint" "endpoint_type" {
@@ -90,4 +90,24 @@ test "aws_dms_endpoint" "ssl_mode" {
 test "aws_dms_replication_task" "migration_type" {
   ok = "full-load"
   ng = "partial-load"
+}
+
+test "aws_dms_s3_endpoint" "compression_type" {
+  ok = "gzip"
+  ng = "zip"
+}
+
+test "aws_dms_s3_endpoint" "date_partition_sequence" {
+  ok = "yyyymmddhh"
+  ng = "yyyy"
+}
+
+test "aws_dms_s3_endpoint" "date_partition_delimiter" {
+  ok = "slash"
+  ng = "colon"
+}
+
+test "aws_dms_s3_endpoint" "canned_acl_for_objects" {
+  ok = "private"
+  ng = "public"
 }

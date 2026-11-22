@@ -4,6 +4,7 @@ package models
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/terraform-linters/tflint-plugin-sdk/hclext"
 	"github.com/terraform-linters/tflint-plugin-sdk/logger"
@@ -25,14 +26,14 @@ func NewAwsDmsS3EndpointInvalidCannedACLForObjectsRule() *AwsDmsS3EndpointInvali
 		resourceType:  "aws_dms_s3_endpoint",
 		attributeName: "canned_acl_for_objects",
 		enum: []string{
-			"AUTHENTICATED-READ",
-			"AWS-EXEC-READ",
-			"BUCKET-OWNER-FULL-CONTROL",
-			"BUCKET-OWNER-READ",
-			"NONE",
-			"PRIVATE",
-			"PUBLIC-READ",
-			"PUBLIC-READ-WRITE",
+			"authenticated-read",
+			"aws-exec-read",
+			"bucket-owner-full-control",
+			"bucket-owner-read",
+			"none",
+			"private",
+			"public-read",
+			"public-read-write",
 		},
 	}
 }
@@ -79,7 +80,7 @@ func (r *AwsDmsS3EndpointInvalidCannedACLForObjectsRule) Check(runner tflint.Run
 		err := runner.EvaluateExpr(attribute.Expr, func(val string) error {
 			found := false
 			for _, item := range r.enum {
-				if item == val {
+				if strings.EqualFold(item, val) {
 					found = true
 				}
 			}
