@@ -78,6 +78,13 @@ var writeOnlyArguments = map[string][]writeOnlyArgument{
 			writeOnlyVersionAttribute: "master_password_wo_version",
 		},
 	},
+	"aws_rds_tenant_database": {
+		{
+			originalAttribute:         "master_user_password",
+			writeOnlyAlternative:      "master_user_password_wo",
+			writeOnlyVersionAttribute: "master_user_password_wo_version",
+		},
+	},
 	"aws_redshift_cluster": {
 		{
 			originalAttribute:         "master_password",

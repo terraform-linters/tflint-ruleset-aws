@@ -25,6 +25,7 @@ func NewAwsKmsKeyInvalidKeyUsageRule() *AwsKmsKeyInvalidKeyUsageRule {
 		resourceType:  "aws_kms_key",
 		attributeName: "key_usage",
 		enum: []string{
+			"ENCAPSULATE_DECAPSULATE",
 			"ENCRYPT_DECRYPT",
 			"GENERATE_VERIFY_MAC",
 			"KEY_AGREEMENT",
